@@ -1,5 +1,0 @@
-package com.what.carezoo.hotel.dao;
-
-public interface PetHotelComment {
-
-}
