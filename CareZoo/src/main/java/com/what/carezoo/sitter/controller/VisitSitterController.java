@@ -11,6 +11,7 @@ public class VisitSitterController {
 	}
 	@RequestMapping("/address")
 	public String address() {
+		System.out.println("addressaddressaddress");
 		return "sitter/visit/Address";
 	}
 }

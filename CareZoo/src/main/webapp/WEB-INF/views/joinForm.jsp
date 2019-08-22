@@ -66,14 +66,36 @@
     }
 </script>
 <meta charset="UTF-8">
-<title>Address</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<input type="hidden" id="sample4_postcode" placeholder="우편번호" >
-	<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-	<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-	<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
-	<span id="guide" style="color:#999"></span>
-
+	<div>
+		<form action="join" method="post">
+<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
+			<fieldset>
+				<legend>
+					회원가입 정보 입력
+				</legend>
+				<input type="email" name="c_email" placeholder="이메일을 입력하세요"><br>
+				<input type="password" name="c_pass" placeholder="비밀번호를 입력하세요"><br>
+				<input type="password" name="c_pass_chk" placeholder="비밀번호 확인 해주세요"><br> 
+				<input type="text" name="c_name" placeholder="이름을 입력하세요"><br>
+				<input type="hidden" id="sample4_postcode" placeholder="우편번호" ><br>
+				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text" id="c_address" name="c_address" placeholder="도로명주소"><br>
+				<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"><br>
+				<input type="text" id="c_d_address" name="c_d_address" placeholder="상세주소 입력해주세요"><br>
+				<input type="radio" name="c_sex" value="1">여자
+				<input type="radio" name="c_sex" value="2">남자<br>
+				<input type="number" name="c_contact" placeholder="숫자만 써주세요">
+				<span id="guide" style="color:#999"></span>
+			
+				
+			</fieldset>
+			<div>
+				<input type="submit" value="입력완료">
+			</div>
+		</form>
+	</div>
 </body>
 </html>
