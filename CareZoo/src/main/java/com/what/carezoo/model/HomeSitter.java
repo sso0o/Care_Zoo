@@ -18,6 +18,10 @@ public class HomeSitter {
 	private String hs_latitude;
 	private String hs_longitude;
 	private int hs_p_count;
+	private String hs_email;
+	private String hs_e_address;
+	private String hs_pass;
+	
 	public int getHs_num() {
 		return hs_num;
 	}
@@ -102,13 +106,32 @@ public class HomeSitter {
 	public void setHs_p_count(int hs_p_count) {
 		this.hs_p_count = hs_p_count;
 	}
+	public String getHs_email() {
+		return hs_email;
+	}
+	public void setHs_email(String hs_email) {
+		this.hs_email = hs_email;
+	}
+	public String getHs_e_address() {
+		return hs_e_address;
+	}
+	public void setHs_e_address(String hs_e_address) {
+		this.hs_e_address = hs_e_address;
+	}
+	public String getHs_pass() {
+		return hs_pass;
+	}
+	public void setHs_pass(String hs_pass) {
+		this.hs_pass = hs_pass;
+	}
 	@Override
 	public String toString() {
 		return "HomeSitter [hs_num=" + hs_num + ", hsr_num=" + hsr_num + ", hs_name=" + hs_name + ", hs_sex=" + hs_sex
 				+ ", hs_birth=" + hs_birth + ", hs_contact=" + hs_contact + ", hs_address=" + hs_address
 				+ ", hs_d_address=" + hs_d_address + ", hs_star=" + hs_star + ", hs_job=" + hs_job + ", hs_img="
 				+ hs_img + ", hs_latitude=" + hs_latitude + ", hs_longitude=" + hs_longitude + ", hs_p_count="
-				+ hs_p_count + "]";
+				+ hs_p_count + ", hs_email=" + hs_email + ", hs_e_address=" + hs_e_address + ", hs_pass=" + hs_pass
+				+ "]";
 	}
 	
 }

@@ -8,8 +8,8 @@ public class HotelReservation {
 	private int h_num;
 	private int hr_child;
 	private int hr_adult;
-	private Date hr_chkin;
-	private Date hr_chkout;
+	private String hr_chkin;
+	private String hr_chkout;
 	private String hr_status;
 	public int getHr_num() {
 		return hr_num;
@@ -41,16 +41,16 @@ public class HotelReservation {
 	public void setHr_adult(int hr_adult) {
 		this.hr_adult = hr_adult;
 	}
-	public Date getHr_chkin() {
+	public String getHr_chkin() {
 		return hr_chkin;
 	}
-	public void setHr_chkin(Date hr_chkin) {
+	public void setHr_chkin(String hr_chkin) {
 		this.hr_chkin = hr_chkin;
 	}
-	public Date getHr_chkout() {
+	public String getHr_chkout() {
 		return hr_chkout;
 	}
-	public void setHr_chkout(Date hr_chkout) {
+	public void setHr_chkout(String hr_chkout) {
 		this.hr_chkout = hr_chkout;
 	}
 	public String getHr_status() {

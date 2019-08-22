@@ -2,10 +2,10 @@ package com.what.carezoo.sitter.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-@RequestMapping("/sitter/visit")
+@RequestMapping("/visit")
 @Controller
 public class VisitSitterController {
-	@RequestMapping("/vMain")
+	@RequestMapping("/main")
 	public String showMain() {
 		return "sitter/visit/Reservation1";
 	}

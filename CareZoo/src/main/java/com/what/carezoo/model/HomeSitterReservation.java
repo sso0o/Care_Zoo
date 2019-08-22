@@ -7,9 +7,9 @@ public class HomeSitterReservation {
 	private int hsr_num;
 	private int c_num;
 	private int hs_num;
-	private Date hsr_chkin;
-	private Date hsr_chkout;
-	private Date hsr_hour;
+	private String hsr_chkin;
+	private String hsr_chkout;
+	private String hsr_hour;
 	private String hsr_status;
 	public int getHsr_num() {
 		return hsr_num;
@@ -29,22 +29,22 @@ public class HomeSitterReservation {
 	public void setHs_num(int hs_num) {
 		this.hs_num = hs_num;
 	}
-	public Date getHsr_chkin() {
+	public String getHsr_chkin() {
 		return hsr_chkin;
 	}
-	public void setHsr_chkin(Date hsr_chkin) {
+	public void setHsr_chkin(String hsr_chkin) {
 		this.hsr_chkin = hsr_chkin;
 	}
-	public Date getHsr_chkout() {
+	public String getHsr_chkout() {
 		return hsr_chkout;
 	}
-	public void setHsr_chkout(Date hsr_chkout) {
+	public void setHsr_chkout(String hsr_chkout) {
 		this.hsr_chkout = hsr_chkout;
 	}
-	public Date getHsr_hour() {
+	public String getHsr_hour() {
 		return hsr_hour;
 	}
-	public void setHsr_hour(Date hsr_hour) {
+	public void setHsr_hour(String hsr_hour) {
 		this.hsr_hour = hsr_hour;
 	}
 	public String getHsr_status() {
