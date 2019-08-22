@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/sitter")
 @Controller
 public class MainController {
-	@RequestMapping("/sMain")
+	@RequestMapping("/main")
 	public String enterSitter() {
 		return "sitter/sitterMain";		
 	}
