@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/hotel")
-public class HotelController {//보호자+펫 호텔
+public class HotelController {
 	
-	@RequestMapping("/hotelList")
-	public String showHotelList() {
-		return "/hotel/hotelList";
+	@RequestMapping("/main")
+	public String showHotelMain() {
+		return "hotel/hotelMain";
 	}
 
 }
