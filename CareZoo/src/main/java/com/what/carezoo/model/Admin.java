@@ -1,7 +1,7 @@
 package com.what.carezoo.model;
 
 public class Admin {
-
+	
 	private String adm_email;
 	private String adm_pass;
 	public String getAdm_email() {
