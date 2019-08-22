@@ -9,6 +9,7 @@ public interface MemberDao {
 	public int insertCustomer(Customer customer);
 	public int updateCustomer(Customer customer);
 	public int deleteCustomer(int num);
-	public Customer selectCustomer(int num);
+	public Customer selectOneByNum(int num);
+	public Customer	selectOneByEmail(String email);
 	public List<Customer> selectAll();
 }

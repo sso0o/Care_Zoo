@@ -12,7 +12,7 @@
 	<div>
 		<table>
 			<tr>
-				<th><a href="vMain">방문시터</a></th>
+				<th><a href="visit/vMain">방문시터</a></th>
 				<td></td>				
 			</tr>
 			<tr>
