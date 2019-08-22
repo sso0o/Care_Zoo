@@ -10,7 +10,7 @@
 	<update id="update" parameterType="HotelComment">
 		update HotelComment
 		set hc_comment = #{hc_comment},
-		hc_img = #{hc_comment}
+		hc_img = #{hc_img}
 		where hc_num = #{hc_num}
 	</update>
 	

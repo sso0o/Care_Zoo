@@ -27,7 +27,7 @@
 		where hr_num = #{hr_num}
 	</select>
 	
-	<select id="selectAll" resultType="hotel">
+	<select id="selectAll" resultType="HotelReservation">
 		select * 
 		from HotelReservation
 	</select>
