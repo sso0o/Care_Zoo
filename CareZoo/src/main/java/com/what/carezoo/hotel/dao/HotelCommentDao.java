@@ -10,7 +10,7 @@ public interface HotelCommentDao {
 	public int update(HotelComment hc);
 	public int delete(HotelComment hc);
 	public HotelComment selectOne(int num);
-	public List<HotelComment> selectAll();
+	public List<HotelComment> selectAllbyH_num(int num);
 	
 
 }

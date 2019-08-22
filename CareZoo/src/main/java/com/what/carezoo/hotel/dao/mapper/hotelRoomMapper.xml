@@ -1,4 +1,33 @@
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.HotelRoomDao">
 
+<insert id="insert" parameterType="HotelRoom">
+		insert
+		into HotelRoom (r_num, h_num, r_p_count, r_adult, r_child, r_count, r_img)
+		values (hotelroom_seq.nextval, #{h_num}, #{r_p_count}, #{r_adult}, #{r_child}, #{r_count}, #{r_img})
+	</insert>
+
+	<update id="update" parameterType="HotelReservation">
+		update HotelRoom
+		set r_p_count = #{r_p_count},
+		r_adult = #{r_adult},
+		r_child = #{r_child},
+		where r_num = #{r_num}
+	</update>
+	
+	<delete id="delete" parameterType="HotelRoom">
+		delete from HotelRoom where r_num = #{r_num}
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="HotelRoom">
+		select * 
+		from HotelRoom
+		where hc_num = #{hc_num}
+	</select>
+	
+	<select id="selectAllbyH_num" parameterType="int" resultType="HotelRoom">
+		select *
+		from HotelRoom
+		where h_num = #{h_num}
+	</select>
 </mapper>
