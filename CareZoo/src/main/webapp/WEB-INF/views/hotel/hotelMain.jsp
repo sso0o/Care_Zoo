@@ -16,7 +16,7 @@
 		<button onclick="location.href='${contextPath}/petHotel/pethotelList'">반려견 동반 호텔</button>
 		<button onclick="location.href='${contextPath}/hotel/hotelList'">보호자 비동반 애견호텔</button>
 		<br>
-		<span> ------contextpath => ${contextPath}</span>
+		<span> ---++++++---contextpath => ${contextPath}</span>
 	</div>
 </body>
 </html>
