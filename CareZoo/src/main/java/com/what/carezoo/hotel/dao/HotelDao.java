@@ -9,7 +9,7 @@ public interface HotelDao {
 	public int insert(Hotel h);
 	public int update(Hotel h);
 	public int delete(Hotel h);
-	public Hotel selectOne(int num);
+	public Hotel selectOnebyH_num(int num);
 	public List<Hotel> selectAll();
 	
 

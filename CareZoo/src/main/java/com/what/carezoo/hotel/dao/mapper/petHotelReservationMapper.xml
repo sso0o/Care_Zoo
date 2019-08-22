@@ -1,4 +1,31 @@
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.PetHotelReservationDao">
+	<insert id="insert" parameterType="PetHotelReservation">
+		insert 
+		into PetHotelReservation (phr_num, c_num, ph_num, phr_chekin, phr_chekout, phr_status)
+		values (pethotelreservation_seq.nextval, #{c_num}, #{ph_num}, #{phr_chekin}, #{phr_chekout}, #{phr_status} )
+	</insert>
 
+	<update id="update" parameterType="PetHotelReservation">
+		update PetHotelReservation
+		set phr_chekin=#{phr_chekin},
+			phr_chekout=#{phr_chekout},
+		where phr_num = #{phr_num}
+	</update>
+
+	<delete id="delete" parameterType="PetHotelReservation">
+		delete from PetHotelReservation 
+		where phr_num = #{phr_num}
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="PetHotelReservation">
+		select *
+		from PetHotelReservation
+		where phr_num = #{phr_num}
+	</select>
+	
+	<select id="selectAll" resultType="PetHotelReservation">
+		select * 
+		from PetHotelReservation
+	</select>
 </mapper>
