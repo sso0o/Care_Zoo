@@ -4,13 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>petHotelList</title>
-<!-- 애견호텔 목록 -->
+<title>hotelList</title>
 </head>
 <body>
-<div>
-	<span>여기는 펫호텔 리스트</span>
-</div>
+<span>여기는 호텔리스트</span>
 
 </body>
 </html>

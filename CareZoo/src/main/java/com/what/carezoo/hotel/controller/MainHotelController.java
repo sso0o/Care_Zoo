@@ -1,0 +1,15 @@
+package com.what.carezoo.hotel.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/hotel")
+public class MainHotelController {
+	
+	@RequestMapping("/main")
+	public String showHotelMain() {
+		return "/hotel/"+"hotelMain";
+	}
+
+}
