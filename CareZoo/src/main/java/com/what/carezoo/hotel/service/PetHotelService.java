@@ -1,5 +1,7 @@
 package com.what.carezoo.hotel.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,12 @@ public class PetHotelService {
 		return false;
 	}
 	
+	public PetHotel getPetHotelbyNum(int num) {
+		return petHotelDao.selectOne(num);
+	}
 	
-	
+	public List<PetHotel> getAllPetHotel() {
+		return petHotelDao.selectAll();
+	}
 
 }
