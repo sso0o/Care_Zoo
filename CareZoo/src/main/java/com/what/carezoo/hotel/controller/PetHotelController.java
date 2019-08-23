@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/petHotel")
 public class PetHotelController {//보호자 비동반 애견호텔 컨트롤러
 	
-	@RequestMapping("/pethotelList")
+	@RequestMapping("/petHotelList")
 	public String showPetHotelList() {
-		return "hotel/"+"petHotelList";
+		return "hotel/petHotelList";
 	}
-
+	
+	
+	@RequestMapping("/petHotelResForm")
+	public String showPetHotelResForm() {
+		return "hotel/petHotelResForm";
+	}
 }
