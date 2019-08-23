@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>mypage</title>
 <!-- 마이페이지 시작 -->
+마이페이지 입니다.
 </head>
 <body>
 
