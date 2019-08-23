@@ -1,38 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:context="http://www.springframework.org/schema/context"
-   xmlns:aop="http://www.springframework.org/schema/aop"
-   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 	<!-- <context:component-scan base-package="security"></context:component-scan> -->
-	
-	<context:component-scan base-package="com.what.carezoo.hotel.service"></context:component-scan>
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	   <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-	   <property name="url" value="jdbc:oracle:thin:@zoodb.cjgrcvffm0xv.ap-northeast-2.rds.amazonaws.com:1521:orcl"></property>
-	   <property name="username" value="YJ"></property>
-	   <property name="password" value="12341234"></property>
+
+	<context:component-scan
+		base-package="com.what.carezoo"></context:component-scan>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url"
+			value="jdbc:oracle:thin:@zoodb.cjgrcvffm0xv.ap-northeast-2.rds.amazonaws.com:1521:orcl"></property>
+		<property name="username" value="YJ"></property>
+		<property name="password" value="12341234"></property>
 	</bean>
+
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations"
-			value="classpath:*/dao/mapper/**/*.xml"></property>
-		<property name="typeAliasesPackage" value="com.what.carezoo.model"></property>
-	</bean>
-	<bean id="sqlSessionFactory2"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="mapperLocations"
-			value="classpath:com/what/carezoo/member/dao/mapper/**/*.xml"></property>
-		<property name="typeAliasesPackage" value="com.what.carezoo.model"></property>
+			value="classpath:dao/mapper/**/*.xml"></property>
+		<property name="typeAliasesPackage" value="model"></property>
 	</bean>
 
+
+	<!-- comment dao -->
+	<bean id="commentDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.CommentDao"></property>
+	</bean>
+
+	<!-- hotel dao -->
+	<bean id="hotelCommentDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.HotelCommentDao"></property>
+	</bean>
+
+	<bean id="hotelDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.HotelDao"></property>
+	</bean>
+
+	<bean id="hotelReservationDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.HotelReservationDao"></property>
+	</bean>
+
+	<bean id="hotelRoomDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.HotelRoomDao"></property>
+	</bean>
+
+	<bean id="petHotelCommentDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.PetHotelCommentDao"></property>
+	</bean>
+
+	<bean id="petHotelDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.PetHotelDao"></property>
+	</bean>
+
+	<bean id="petHotelReservationDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.PetHotelReservationDao"></property>
+	</bean>
+
+
+	<!-- sitter dao -->
+	<bean id="homeSitterCommentDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.HomeSitterCommentDao"></property>
+	</bean>
+
+	<bean id="homeSitterDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.HomeSitterDao"></property>
+	</bean>
+
+	<bean id="homeSitterReservationDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.HomeSitterReservationDao"></property>
+	</bean>
+
+	<bean id="homeSitterSearchingDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.HomeSitterSearchingDao"></property>
+	</bean>
+
+	<bean id="visitSitterCommentDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.VisitSitterCommentDao"></property>
+	</bean>
+
+	<bean id="visitSitterDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.VisitSitterDao"></property>
+	</bean>
+
+	<bean id="visitSitterReservationDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.VisitSitterReservationDao"></property>
+	</bean>
+
+	<!-- member dao -->
 	<bean id="memberDao"
 		class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory2"></property>
-		<property name="mapperInterface" value="com.what.carezoo.member.dao.MemberDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.MemberDao"></property>
 	</bean>
+
+
+	<!-- pet dao -->
+	<bean id="petDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.PetDao"></property>
+	</bean>
+
+
+
+
 </beans>
