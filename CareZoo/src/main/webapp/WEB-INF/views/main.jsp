@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="<%=request.getContextPath() %>"/>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Slick Playground</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="./slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="./slick/slick-theme.css">
-    <link rel="stylesheet" type="text/css" href="./css/indexCss.css"> <script type="text/javascript" src="../assets/js/jquery-latest.js"></script> <script src="../assets/js/admin.js"></script>
+    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+    <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> 
+    <link rel="stylesheet" type="text/css" href="./css/indexCss.css"> 
+    <script type="text/javascript" src="../assets/js/jquery-latest.js"></script> 
+    <script src="../assets/js/admin.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     
        <style type="text/css">
@@ -25,7 +30,7 @@
         
         .menu {
             z-index: 2;
-            width: 100%;
+            width:1100px;
             height: 0px;
             margin: 0px auto;
             text-align: center;
@@ -367,6 +372,7 @@
         .jbFixed {
             position: fixed;
             top: 4px;
+            width:100%;
         }
         
         .liFixed {
@@ -374,7 +380,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-    <script src="./slick/slick.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
         $(document).on('ready', function () {
             $(".lazy").slick({
@@ -391,6 +397,8 @@
                     $('.menu').addClass('jbFixed');
                     $('.menu>ul').addClass('liFixed');
                     /* $('.menu>ul>li:hover>a').css("color","aqua");*/
+
+
                 }
                 else {
                     /*올라갔을때*/
@@ -398,10 +406,18 @@
                     $('.menu>ul').removeClass('liFixed');
                 }
             });
-            if ($(".menu ul ul li").hover) {
-                $('.menu>ul>li>a:hover').css("color", "#B40404");
-            }
-            else {}
+             if($("html").width()<1150){
+                       $('.menu').css("width","1100px");
+                    }else{
+                        $('.menu').css("width","100%");
+                    }
+            $(window).resize(function() {
+                   if($("html").width()<1150){
+                       $('.menu').css("width","1100px");
+                    }else{
+                        $('.menu').css("width","100%");
+                    }
+                });
         });
     </script>
 </head>
@@ -409,7 +425,7 @@
 <body>
     <div class="container">
         <header>
-            <a href="#"><img src="img/logo.jpg" class="anchor_logo"></a>
+            <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
             <br>
             <div class="header_Btn"> <a class="btn_Login" href="#">로그인</a> <a class="btn_Join" href="#">회원가입</a> </div>
         </header>
@@ -452,20 +468,20 @@
         <section class="content">
             <main>
                 <div class="lazy slider">
-                    <div> <img src="img/event_image.jpg" data-sizes="100vw" data-srcset=""> </div>
-                    <div> <img src="img/event_image2.jpg" data-sizes="100vw" data-srcset=""> </div>
-                    <div> <img src="img/event_image3.jpg" data-sizes="100vw" data-srcset=""> </div>
-                    <div> <img src="img/event_image4.jpg" data-sizes="100vw" data-srcset=""> </div>
+                    <div> <img src="${contextPath}/resources/img/event_image.jpg" data-sizes="100vw" data-srcset=""> </div>
+                    <div> <img src="${contextPath}/resources/img/event_image2.jpg" data-sizes="100vw" data-srcset=""> </div>
+                    <div> <img src="${contextPath}/resources/img/event_image3.jpg" data-sizes="100vw" data-srcset=""> </div>
+                    <div> <img src="${contextPath}/resources/img/event_image4.jpg" data-sizes="100vw" data-srcset=""> </div>
                 </div>
                 <div class="review">
                     <fieldset class="fieldview">
                         <legend>시터후기</legend>
                         <fieldset class="subReview">
-                            <a href=""><img src="img/test.jpg" width="100%"></a> <span>
+                            <a href=""><img src="${contextPath}/resources/img/test.jpg" width="100%"></a> <span>
                                 후기웅앵웅
                             </span> </fieldset>
                         <fieldset class="subReview">
-                            <a href=""><img src="img/test2.jpg" width="100%"></a> <span>
+                            <a href=""><img src="${contextPath}/resources/img/test2.jpg" width="100%"></a> <span>
                                 후기웅앵웅
                             </span> </fieldset>
                         <p><a href="">더보기></a></p>
@@ -475,11 +491,11 @@
                     <fieldset class="fieldview">
                         <legend>호텔후기</legend>
                         <fieldset class="subReview">
-                            <a href=""><img src="img/test.jpg" width="100%"></a> <span>
+                            <a href=""><img src="${contextPath}/resources/img/test.jpg" width="100%"></a> <span>
                                 후기웅앵웅
                             </span> </fieldset>
                         <fieldset class="subReview">
-                            <a href=""><img src="img/test2.jpg" width="100%"></a> <span>
+                            <a href=""><img src="${contextPath}/resources/img/test2.jpg" width="100%"></a> <span>
                                 후기웅앵웅
                             </span> </fieldset>
                             <p><a href="">더보기></a></p>

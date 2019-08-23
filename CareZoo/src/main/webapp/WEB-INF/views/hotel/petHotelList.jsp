@@ -8,6 +8,9 @@
 <!-- 애견호텔 목록 -->
 </head>
 <body>
+<div>
+	<span>여기는 펫호텔 리스트</span>
+</div>
 
 </body>
 </html>

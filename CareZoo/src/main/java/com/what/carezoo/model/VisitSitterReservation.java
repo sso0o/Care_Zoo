@@ -7,8 +7,8 @@ public class VisitSitterReservation {
 	private int vsr_num;
 	private int c_num;
 	private int vs_num;
-	private Date vsr_chkin;
-	private Date vsr_hour;
+	private String vsr_chkin;
+	private String vsr_hour;
 	private String vsr_status;
 	public int getVsr_num() {
 		return vsr_num;
@@ -28,16 +28,16 @@ public class VisitSitterReservation {
 	public void setVs_num(int vs_num) {
 		this.vs_num = vs_num;
 	}
-	public Date getVsr_chkin() {
+	public String getVsr_chkin() {
 		return vsr_chkin;
 	}
-	public void setVsr_chkin(Date vsr_chkin) {
+	public void setVsr_chkin(String vsr_chkin) {
 		this.vsr_chkin = vsr_chkin;
 	}
-	public Date getVsr_hour() {
+	public String getVsr_hour() {
 		return vsr_hour;
 	}
-	public void setVsr_hour(Date vsr_hour) {
+	public void setVsr_hour(String vsr_hour) {
 		this.vsr_hour = vsr_hour;
 	}
 	public String getVsr_status() {

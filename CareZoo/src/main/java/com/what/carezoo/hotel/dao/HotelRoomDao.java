@@ -10,6 +10,6 @@ public interface HotelRoomDao {
 	public int update(HotelRoom hr);
 	public int delete(HotelRoom hr);
 	public HotelRoom selectOne(int num);
-	public List<HotelRoom> selectAll();
+	public List<HotelRoom> selectAllbyH_num();
 
 }

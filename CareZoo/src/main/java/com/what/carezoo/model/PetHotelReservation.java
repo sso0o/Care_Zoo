@@ -1,13 +1,11 @@
 package com.what.carezoo.model;
 
-import java.util.Date;
-
 public class PetHotelReservation {
     private int phr_num;
 	private int c_num;
 	private int ph_num;
-	private Date phr_chkin;
-	private Date phr_chkout;
+	private String phr_chkin;
+	private String phr_chkout;
 	private String phr_status;
 	public int getPhr_num() {
 		return phr_num;
@@ -27,16 +25,16 @@ public class PetHotelReservation {
 	public void setPh_num(int ph_num) {
 		this.ph_num = ph_num;
 	}
-	public Date getPhr_chkin() {
+	public String getPhr_chkin() {
 		return phr_chkin;
 	}
-	public void setPhr_chkin(Date phr_chkin) {
+	public void setPhr_chkin(String phr_chkin) {
 		this.phr_chkin = phr_chkin;
 	}
-	public Date getPhr_chkout() {
+	public String getPhr_chkout() {
 		return phr_chkout;
 	}
-	public void setPhr_chkout(Date phr_chkout) {
+	public void setPhr_chkout(String phr_chkout) {
 		this.phr_chkout = phr_chkout;
 	}
 	public String getPhr_status() {
