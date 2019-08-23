@@ -22,7 +22,7 @@
 	<select id="selectOneByNum" parameterType="int" resultType="customer">
 		select * from customer where c_num=#{c_num}
 	</select>
-	<select id="selectOneByEmail" parameterType="String">
+	<select id="selectOneByEmail" parameterType="String" resultType="customer">
 		select * from customer where c_email=#{c_email}
 	</select>
 	<select id="selectAll" resultType="customer">

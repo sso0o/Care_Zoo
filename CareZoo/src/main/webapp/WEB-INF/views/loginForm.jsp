@@ -16,15 +16,16 @@
 			<table>
 				<tr>
 					<td>이메일 :</td>
-					<td><input type="email" name="email"></td>
+					<td><input type="email" name="c_email"></td>
 				</tr>
 				<tr>
 					<td>비밀번호 :</td>
-					<td><input type="password" name="pass"></td>
+					<td><input type="password" name="c_pass"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="submit" value="로그인"> <input
-						type="button" onclick="location.href='join'" value="회원가입">
+					<td colspan="2">
+					<input type="submit" value="로그인"> 
+					<input type="button" onclick="location.href='join'" value="회원가입">
 					</td>
 				</tr>
 			</table>

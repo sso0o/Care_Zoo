@@ -16,8 +16,7 @@ public class MemberService {
 	public boolean login(String c_email,String c_pass) {
 		Customer member = memberDao.selectOneByEmail(c_email);
 		if(member!=null) {
-			String originPass
-			=(String)member.getC_pass();
+			String originPass = member.getC_pass();
 			if(c_pass.equals(originPass)) {
 				//아이디존재, 비밀번호 일치
 				return true;

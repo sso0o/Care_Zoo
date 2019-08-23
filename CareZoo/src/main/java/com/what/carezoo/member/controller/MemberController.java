@@ -25,14 +25,19 @@ public class MemberController {
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
-		String url= request.getContextPath()+"member/login";
-		String msg= "로그인 실패";		
+		String url= request.getContextPath()+"/member/login";
+		String msg= "로그인 실패";	
+		String c_name =" ";
+		System.out.println(c_email);
+		System.out.println(c_pass);
 		if(memberService.login(c_email,c_pass)) {
 			msg="로그인 성공";
-			url= request.getContextPath()+"member/mainForm";
+			url= request.getContextPath()+"/member/main";
+			c_name = memberService.getMemberByEmail(c_email).getC_name();
 		}
-		model.addAttribute(url, url);
-		model.addAttribute(msg, msg);
+		model.addAttribute("url", url);
+		model.addAttribute("msg", msg);
+		model.addAttribute("c_name", c_name);
 		return "result";
 	}
 	
