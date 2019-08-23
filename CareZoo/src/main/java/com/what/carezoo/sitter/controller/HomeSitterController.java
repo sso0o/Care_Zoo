@@ -17,14 +17,18 @@ public class HomeSitterController {
 	public String enterHomeSitterMain() {
 		return "sitter/home/homeSitterList";
 	}
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String showSearchingList() {
-		return "home/homeSitterList";
-	}
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String searchHS(Model model, HomeSitterSearching hss) {
 		System.out.println(hss);
 		model.addAttribute("hssList", hssService.modifyHSS(hss));
-		return "home/homeSitterList";
+		return "sitter/home/homeSitterList";
 	}
 }
+//hss_num
+//hss_address
+//hss_d_address
+//hss_service_type
+//hss_start_date
+//hss_end_date
+//hss_pet_age
+//hss_pet_size

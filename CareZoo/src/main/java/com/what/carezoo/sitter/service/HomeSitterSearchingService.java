@@ -11,7 +11,7 @@ public class HomeSitterSearchingService {
 	@Autowired
 	private HomeSitterSearchingDao hssDao;
 	public boolean modifyHSS(HomeSitterSearching hss) {
-		if(hssDao.insertHSS(hss)>0) {
+		if(hssDao.insertHss(hss)>0) {
 			return true;
 		}
 		return false;
