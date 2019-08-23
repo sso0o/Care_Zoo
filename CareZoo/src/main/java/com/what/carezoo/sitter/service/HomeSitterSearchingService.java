@@ -3,8 +3,8 @@ package com.what.carezoo.sitter.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.what.carezoo.dao.HomeSitterSearchingDao;
 import com.what.carezoo.model.HomeSitterSearching;
-import com.what.carezoo.sitter.dao.HomeSitterSearchingDao;
 
 @Service
 public class HomeSitterSearchingService {

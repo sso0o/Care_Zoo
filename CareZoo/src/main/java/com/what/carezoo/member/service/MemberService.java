@@ -3,7 +3,7 @@ package com.what.carezoo.member.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.what.carezoo.member.dao.MemberDao;
+import com.what.carezoo.dao.MemberDao;
 import com.what.carezoo.model.Customer;
 
 @Service
