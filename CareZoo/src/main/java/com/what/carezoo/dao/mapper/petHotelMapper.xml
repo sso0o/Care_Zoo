@@ -1,0 +1,33 @@
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.PetHotelDao">
+
+	<insert id="insert" parameterType="PetHotel">
+		insert 
+		into hotel (ph_num, ph_p_count, ph_price, ph_name, ph_star, ph_address, ph_d_address, ph_img, ph_latitude, ph_longitude)
+		values (pethotel_seq.nextval, #{ph_p_count}, #{ph_price}, #{ph_name}, #{ph_star}, #{ph_address}, #{ph_d_address}, #{ph_img}, #{ph_latitude}, #{ph_longitude} )
+	</insert>
+
+	<update id="update" parameterType="PetHotel">
+		update PetHotel
+		set ph_name=#{ph_name},
+		ph_star=#{ph_star},
+		where ph_num = #{ph_num}
+	</update>
+
+	<delete id="delete" parameterType="PetHotel">
+		delete from PetHotel 
+		where ph_num = #{ph_num}
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="PetHotel">
+		select *
+		from hotel
+		where ph_num = #{ph_num}
+	</select>
+	
+	<select id="selectAll" resultType="hotel">
+		select * 
+		from pethotel
+	</select>
+
+</mapper>
