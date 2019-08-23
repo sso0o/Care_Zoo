@@ -11,7 +11,7 @@ public class HomeSitterSearching {
 	public String hss_service_type;
 	public String hss_start_date;
 	public String hss_end_date;
-	public int hss_pet_age;
+	public String hss_pet_age;
 	public String hss_pet_size;
 	public int getHss_num() {
 		return hss_num;
@@ -49,10 +49,10 @@ public class HomeSitterSearching {
 	public void setHss_end_date(String hss_end_date) {
 		this.hss_end_date = hss_end_date;
 	}
-	public int getHss_pet_age() {
+	public String getHss_pet_age() {
 		return hss_pet_age;
 	}
-	public void setHss_pet_age(int hss_pet_age) {
+	public void setHss_pet_age(String hss_pet_age) {
 		this.hss_pet_age = hss_pet_age;
 	}
 	public String getHss_pet_size() {
@@ -67,5 +67,6 @@ public class HomeSitterSearching {
 				+ hss_d_address + ", hss_service_type=" + hss_service_type + ", hss_start_date=" + hss_start_date
 				+ ", hss_end_date=" + hss_end_date + ", hss_pet_age=" + hss_pet_age + ", hss_pet_size=" + hss_pet_size
 				+ "]";
-	}	
+	}
+	
 }
