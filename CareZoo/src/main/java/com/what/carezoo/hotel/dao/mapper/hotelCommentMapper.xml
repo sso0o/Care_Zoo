@@ -1,0 +1,33 @@
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.HotelCommentDao">
+
+	<insert id="insert" parameterType="HotelComment">
+		insert
+		into HotelComment (hc_num, hr_num, h_num, c_num, hc_comment, hc_star, hc_write_date, hc_img)
+		values (hotelcomment_seq.nextval, #{hr_num}, #{h_num}, #{c_num}, #{hc_comment}, #{hc_star}, #{hc_write_date}, #{hc_img})
+	</insert>
+
+	<update id="update" parameterType="HotelComment">
+		update HotelComment
+		set hc_comment = #{hc_comment},
+		hc_img = #{hc_img}
+		where hc_num = #{hc_num}
+	</update>
+	
+	<delete id="delete" parameterType="HotelComment">
+		delete from HotelComment where hc_num = #{hc_num}
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="HotelComment">
+		select * 
+		from HotelComment
+		where hc_num = #{hc_num}
+	</select>
+	
+	<select id="selectAllbyH_num" parameterType="int" resultType="HotelComment">
+		select *
+		from HotelComment
+		where h_num=#{h_num}
+	</select>
+
+</mapper>

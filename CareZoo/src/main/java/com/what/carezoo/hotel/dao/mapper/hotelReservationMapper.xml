@@ -1,0 +1,35 @@
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.HotelReservationDao">
+
+	<insert id="insert" parameterType="HotelReservation">
+		insert 
+		into HotelReservation (hr_num, c_num, h_num, hr_child, hr_adult, hr_chekin, hr_chekout, hr_status)
+		values (hotelreservation_seq.nextval, #{c_num}, #{h_num}, #{hr_child}, #{hr_adult}, #{hr_chekin}, #{hr_chekout}, #{hr_status} )
+	</insert>
+
+	<update id="update" parameterType="HotelReservation">
+		update HotelReservation
+		set hr_child=#{hr_child},
+			hr_adult=#{hr_adult},
+			hr_chekin=#{hr_chekin},
+			hr_chekout=#{hr_chekout},
+		where hr_num = #{hr_num}
+	</update>
+
+	<delete id="delete" parameterType="HotelReservation">
+		delete from HotelReservation 
+		where hr_num = #{hr_num}
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="HotelReservation">
+		select *
+		from HotelReservation
+		where hr_num = #{hr_num}
+	</select>
+	
+	<select id="selectAll" resultType="HotelReservation">
+		select * 
+		from HotelReservation
+	</select>
+
+</mapper>
