@@ -1,0 +1,32 @@
+<!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.PetHotelCommentDao">
+	
+	<insert id="insert" parameterType="PetHotelComment">
+		insert
+		into PetHotelComment (phc_num, phr_num, ph_num, c_num, phc_comment, phc_star, phc_write_date, phc_img)
+		values (PetHotelComment_seq.nextval, #{phr_num}, #{ph_num}, #{c_num}, #{phc_comment}, #{phc_star}, #{phc_write_date}, #{phc_img})
+	</insert>
+
+	<update id="update" parameterType="PetHotelComment">
+		update PetHotelComment
+		set phc_comment = #{phc_comment},
+		phc_img = #{phc_img}
+		where phc_num = #{phc_num}
+	</update>
+	
+	<delete id="delete" parameterType="PetHotelComment">
+		delete from PetHotelComment where phc_num = #{phc_num}
+	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="PetHotelComment">
+		select * 
+		from PetHotelComment
+		where phc_num = #{phc_num}
+	</select>
+	
+	<select id="selectAll" parameterType="int" resultType="PetHotelComment">
+		select *
+		from PetHotelComment
+		
+	</select>
+</mapper>
