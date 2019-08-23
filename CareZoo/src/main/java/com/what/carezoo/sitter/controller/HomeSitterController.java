@@ -21,7 +21,7 @@ public class HomeSitterController {
 	public String searchHS(Model model, HomeSitterSearching hss) {
 		System.out.println(hss);
 		model.addAttribute("hssList", hssService.modifyHSS(hss));
-		return "home/homeSitterList";
+		return "sitter/home/homeSitterList";
 	}
 }
 //hss_num
