@@ -31,5 +31,4 @@
 	<select id="selectAllHss" resultType="homesittersearching">
 		select * from homesittersearching
 	</select>
-	
 </mapper>
