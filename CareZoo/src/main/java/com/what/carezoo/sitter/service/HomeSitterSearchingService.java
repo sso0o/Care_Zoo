@@ -3,14 +3,16 @@ package com.what.carezoo.sitter.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.what.carezoo.dao.HomeSitterSearchingDao;
-import com.what.carezoo.model.HomeSitterSearching;
+import com.what.carezoo.dao.HomeSitterListDao;
+import com.what.carezoo.model.HomeSitterList;
+
+
 
 @Service
 public class HomeSitterSearchingService {
 	@Autowired
-	private HomeSitterSearchingDao hssDao;
-	public boolean modifyHSS(HomeSitterSearching hss) {
+	private HomeSitterListDao hssDao;
+	public boolean modifyHSS(HomeSitterList hss) {
 		if(hssDao.insertHss(hss)>0) {
 			return true;
 		}
