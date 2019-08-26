@@ -6,7 +6,7 @@
 <html>
 
 <head>
-    <title>Slick Playground</title>
+    <title>맡겨주~~</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick-theme.css">
