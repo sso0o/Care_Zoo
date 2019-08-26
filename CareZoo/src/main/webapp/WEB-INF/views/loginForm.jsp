@@ -15,6 +15,11 @@
 			<legend>로그인</legend>
 			<table>
 				<tr>
+					<td><input type="radio" value="customer">고객</td>
+					<td><input type="radio" value="visit">방문시터</td>
+					<td><input type="radio" value="home">가정시터</td>
+				</tr>
+				<tr>
 					<td>이메일 :</td>
 					<td><input type="email" name="c_email"></td>
 				</tr>

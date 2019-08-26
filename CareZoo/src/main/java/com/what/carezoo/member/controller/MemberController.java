@@ -42,16 +42,11 @@ public class MemberController {
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(Customer customer,Model model,HttpServletRequest request) {
 		boolean result =memberService.joinMember(customer);
-		String url=request.getContextPath()+"/member/join";
-		String msg="회원가입 실패";
 		//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
 		if(result) {
-			msg="회원가입 성공";
-			url=request.getContextPath()+"/member/mainLoginForm";
+			return "login";
 		}
-		model.addAttribute("url",url);
-		model.addAttribute("msg",msg);
-		return "result";
+		return "join";
 	}
 	//메인
 	@RequestMapping(value="/mainForm", method=RequestMethod.GET)

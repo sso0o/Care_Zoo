@@ -32,10 +32,11 @@ public class VisitSitterController {
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(Customer customer,Model model,HttpServletRequest request) {
+	public String join(Customer customer,Model model) {
 		boolean result =memberService.joinMember(customer);
 		//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
 		if(result) {
+			model.addAttribute("c_num", memberService.getMemberByEmail(customer.getC_email()).getC_num());
 			return "sitter/visit/reservation2";
 		}
 		return "redirect:join";
@@ -51,14 +52,24 @@ public class VisitSitterController {
 		System.out.println(c_email);
 		System.out.println(c_pass);
 		if(memberService.login(c_email,c_pass)) {
+			model.addAttribute("c_num", memberService.getMemberByEmail(c_email).getC_num());
 			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
 			return "sitter/visit/reservation2";
 		}
 		return "redirect:login";
 	}
-	//돌봄신청 폼
+	//돌봄신청 폼(펫조인)
 	@RequestMapping(value="apply",method=RequestMethod.GET)
-	public String reservation3Form() {
+	public String reservation3Form(Model model,int c_num) {
+		model.addAttribute("c_num", c_num);
 		return "sitter/visit/reservation3";
+	}
+	
+	//펫등록
+	@RequestMapping(value="petjoin", method=RequestMethod.POST)
+	public String petjoin(HttpServletRequest request) {
+		
+		
+		return "pet/petList";
 	}
 }
