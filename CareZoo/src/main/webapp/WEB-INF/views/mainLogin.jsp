@@ -92,6 +92,7 @@
         }
 
     </style>
+    
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
@@ -141,8 +142,8 @@
             <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
          
             <div class="header_Btn"> 
-            <a class="btn_Login" href="#">${c_name}</a> 
-            <a class="btn_Join" href="#">회원가입</a> </div>
+            <a class="btn_Login" href="${contextPath}/member/myPage">${c_name}</a>
+            <a class="btn_Join" href="${contextPath}/member/mainForm">로그아웃</a> </div>
         </header>
     </div>
     <nav>
@@ -158,7 +159,7 @@
                      </ul>
                       -->
                         </li>
-                        <li class='last'><a href='#'>방문펫시터</a></li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
                 <li class='active sub'><a href='#'>호텔</a>

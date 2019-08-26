@@ -1,0 +1,103 @@
+/*.main-wrap {
+  width: 950px;
+  margin: 0 auto !important;
+}*/
+.inner {
+  width: 950px;
+}
+
+.main-wrap {
+  margin-bottom: 120px;
+}
+
+.states-tabs .promotion {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  line-height: 16px;
+  font-size: 12px;
+  color: #1db3eb;
+  font-weight: 400;
+  vertical-align: middle;
+}
+.states-tabs .promotion:hover {
+  color: #FAC058;
+}
+.states-tabs .promotion .badge {
+  margin-top: -2px;
+  margin-right: 5px;
+  font-size: 9px;
+  background-color: #70c7dc;
+  color: #fef187;
+  font-weight: 300;
+}
+
+.filters {
+  margin-top: 5px;
+  padding: 0 12px;
+  border: solid 1px #dcdddc;
+}
+.filters select.selectpick{ 
+   list-style:none;
+ } 
+.filters > ul > li {
+  padding: 15px 5px;
+  float: left;
+}
+.filters dt {
+  margin-bottom: 8px;
+  color: #666676;
+  font-weight: normal;
+  line-height: 1;
+  font-size: 13px;
+}
+.filters .filter-option {
+  padding: 10px 12px 9px;
+  color: #696979;
+  line-height: 1;
+}
+
+.filters .dropdown-menu {
+  width: auto;
+}
+.filters .col-dates dd {
+  width: 268px;
+  padding: 0 30px 0 2px;
+  border-radius: 5px;
+	border: solid 1px ;
+  line-height: 30px;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  background-position: right top;
+}
+.filters .col-dates input {
+  width: 110px;
+  height: 33px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  line-height: 33px;
+  text-align: center;
+}
+
+.filters .col-age {
+}
+.filters .col-size {
+}
+.filters .col-level {
+}
+.filters .col-btn .btn {
+  width: 95px;
+  margin-top: 21px !important;
+  padding: 8px 0 7px !important;
+  border: none;
+  background-color: #6bbc80;
+  color: #fff;
+}
+.filters .col-btn .btn:hover, .filters .col-btn .btn:focus, .filters .col-btn .btn:active {
+  background-color: #61a59f;
+}
+
+.status {
+  border-bottom: solid 1px #ccc;
+}

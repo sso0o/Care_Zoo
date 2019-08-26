@@ -34,15 +34,31 @@ public class VisitSitterController {
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(Customer customer,Model model,HttpServletRequest request) {
 		boolean result =memberService.joinMember(customer);
-		String url=request.getContextPath()+"sitter/visit/join";
-		String msg="회원가입 실패";
 		//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
 		if(result) {
-			msg="회원가입 성공";
-			url=request.getContextPath()+"/sitter/visit/reservation2";
+			return "sitter/visit/reservation2";
 		}
-		model.addAttribute("url",url);
-		model.addAttribute("msg",msg);
-		return "result";
+		return "redirect:join";
+	}
+	//로그인
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String loginForm() {
+		return "sitter/visit/loginForm";
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
+		System.out.println(c_email);
+		System.out.println(c_pass);
+		if(memberService.login(c_email,c_pass)) {
+			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
+			return "sitter/visit/reservation2";
+		}
+		return "redirect:login";
+	}
+	//돌봄신청 폼
+	@RequestMapping(value="apply",method=RequestMethod.GET)
+	public String reservation3Form() {
+		return "sitter/visit/reservation3";
 	}
 }
