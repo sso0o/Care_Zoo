@@ -1,6 +1,7 @@
 package com.what.carezoo.hotel.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -11,5 +12,7 @@ public class HotelController {
 	public String showHotelMain() {
 		return "hotel/hotelMain";
 	}
+	
+
 
 }

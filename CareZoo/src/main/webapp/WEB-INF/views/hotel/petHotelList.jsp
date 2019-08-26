@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="<%=request.getContextPath() %>"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,19 @@
 </head>
 <body>
 <div>
-	<span>여기는 펫호텔 리스트</span>
+	<div>
+		<fieldset>
+			<legend>호텔 옵션 선택</legend>
+			<input type="checkbox" name="asdf" value="aaa">bbb
+		</fieldset>
+	</div>
+	<div>
+		<table>
+			<tr>
+			<td></td>
+			</tr>
+		</table>
+	</div>
 </div>
 
 </body>
