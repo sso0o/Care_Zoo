@@ -8,18 +8,30 @@
 <meta charset="UTF-8">
 <title>reservation3</title>
 <script type="text/javascript">
-	function showUploadedFile(uploadResultArr){
-		var str = "";
-		$(uploadResultArr).each(function(i,obj){
-			if(!obj.image){
-				str += "<td><img src='${contextPath}/resources/img/멍멍.jsp'>"+obj.fileName+"</td>";
-			}else{
-				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-				str +="<td><img src='/display?fileName="+fileCallPath+"'></td>";
-			}
-		});
-		uploadResult.append(str);
-	}
+
+var upload = document.getElementsById('c_img')[0],
+    holder = document.getElementById('holder');
+
+upload.onchange = function (e) {
+  e.preventDefault();
+
+  var file = upload.files[0],
+      reader = new FileReader();
+  reader.onload = function (event) {
+    var img = new Image();
+    img.src = event.target.result;
+    // note: no onload required since we've got the dataurl...I think! :)
+    if (img.width > 560) { // holder width
+      img.width = 560;
+    }
+    holder.innerHTML = '';
+    holder.appendChild(img);
+  };
+  reader.readAsDataURL(file);
+
+  return false;
+};
+
 </script>
 </head>
 <body>
@@ -27,14 +39,16 @@
 <h3>반려견에 대해 알려주세요</h3><br>
 	<form action="petjoin" method="post">
 		<table>
+			<tr>
+				<td><input type="hidden" name="c_num" value="${c_num}"></td>
+			</tr>
 			<%-- 파일 선택하기 위한 input --%>
 			<tr>
-				<th>이미지등록(jsp파일형식)</th>
-<%-- 				<td><img src="${contextPath}/resources/img/${c_img}"></td> --%>
-				<td><input type="file" id="c_img" name="c_img"></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="전송"></td>
+				<th>이미지등록</th>
+				<td>
+					<input type="file" name="p_img" id="p_img">
+					<div id="holder"></div>
+				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
@@ -55,7 +69,7 @@
 			</tr>
 			<tr>
 				<th>무게</th>
-				<td><input type="text" name="p_weight"></td>
+				<td><input type="text" name="p_weight">kg</td>
 			</tr>
 			<tr>
 				<th>중성화 유무</th>
