@@ -107,11 +107,11 @@
 			value="com.what.carezoo.dao.HomeSitterReservationDao"></property>
 	</bean>
 
-	<bean id="homeSitterSearchingDao"
+	<bean id="homeSitterListDao"
 		class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 		<property name="mapperInterface"
-			value="com.what.carezoo.dao.HomeSitterSearchingDao"></property>
+			value="com.what.carezoo.dao.HomeSitterListDao"></property>
 	</bean>
 
 	<bean id="visitSitterCommentDao"
