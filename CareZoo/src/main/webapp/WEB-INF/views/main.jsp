@@ -148,9 +148,9 @@
     <nav>
         <div class='menu'>
             <ul style="">
-                <li class='active sub'><a href='#'>시터</a>
+                <li class='active sub'><a href='${contextPath}/sitter/main'>시터</a>
                     <ul>
-                        <li class='last'><a href='#'>가정펫시터</a>
+                        <li class='last'><a href='${contextPath}/sitter/home/main'>가정펫시터</a>
                             <!-- 
                      <ul>
                         <li><a href='#'>HTML Basic</a></li>
@@ -158,7 +158,7 @@
                      </ul>
                       -->
                         </li>
-                        <li class='last'><a href='#'>방문펫시터</a></li>
+                        <li class='last'><a href=''>방문펫시터</a></li>
                     </ul>
                 </li>
                 <li class='active sub'><a href='#'>호텔</a>

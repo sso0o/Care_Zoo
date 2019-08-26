@@ -1,0 +1,87 @@
+/*
+ * jQuery UI CSS Framework 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ */
+
+/* states and images */
+.ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+.ui-datepicker-unselectable .ui-state-default {
+	color: #dbdbdb !important;
+}
+
+/*
+ * jQuery UI Datepicker 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Datepicker#theming
+ */
+.ui-datepicker { width: 17em; padding: .2em .2em 0; display: none; }
+.ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
+.ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
+.ui-datepicker .ui-datepicker-prev { 
+	left:2px;
+	background-image: url(../../img/common/calendar_prev.png);
+	background-image: url(../../img/common/calendar_prev_ie8.png)\9;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.ui-datepicker .ui-datepicker-next {
+	right:2px;
+	background-image: url(../../img/common/calendar_next.png);
+	background-image: url(../../img/common/calendar_next_ie8.png)\9;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.ui-datepicker .ui-datepicker-prev-hover { left:1px; }
+.ui-datepicker .ui-datepicker-next-hover { right:1px; }
+.ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span { display: block; position: absolute; left: 50%; margin-left: -8px; top: 50%; margin-top: -8px;  }
+.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
+.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
+.ui-datepicker select.ui-datepicker-month, 
+.ui-datepicker select.ui-datepicker-year { width: 49%;}
+.ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
+.ui-datepicker th { padding: .7em .3em; text-align: center; font-weight: bold; border: 0; }
+.ui-datepicker td { border: 0; padding: 1px; }
+.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em; text-align: right; text-decoration: none; }
+.ui-state-disabled {
+	opacity: .35; filter: Alpha(Opacity=35);
+}
+
+/*
+ * jQuery UI CSS Framework 1.8.18
+ *
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ *
+ * To view and modify this theme, visit http://jqueryui.com/themeroller/
+ */
+
+
+/* Component containers
+----------------------------------*/
+.ui-widget { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1.1em/*{fsDefault}*/; }
+.ui-widget .ui-widget { font-size: 1em; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1em; }
+.ui-widget-content { border: 1px solid #cccccc/*{borderColorContent}*/; color: #aeaeae/*{fcContent}*/; background-color: #ffffff}
+.ui-widget-header { color: #aeaeae/*{fcHeader}*/; font-weight: bold; }
+
+/* Interaction states
+----------------------------------*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #ffffff/*{borderColorDefault}*/; background: #ffffff/*{bgColorDefault}*/ font-weight: normal/*{fwDefault}*/; color: #aeaeae/*{fcDefault}*/; text-align: center;  font-weight: bold;}
+.ui-state-hover, .ui-widget-content .ui-state-hover { border: 1px solid #ffffff/*{borderColorHover}*/; background-color: #6eb9b5/*{bgColorHover}*/; font-weight: bord/*{fwDefault}*/; color: #ffffff/*{fcHover}*/; }
+.ui-widget-header .ui-state-hover { border: 1px solid #ffffff/*{borderColorHover}*/; opacity: .35; filter: Alpha(Opacity=35); color: #ffffff/*{fcHover}*/; background-color: inherit; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #ffffff/*{borderColorActive}*/; background: #6eb9b5/*{bgColorActive}*/; font-weight: bold/*{fwDefault}*/; color: #ffffff/*{fcActive}*/; }
