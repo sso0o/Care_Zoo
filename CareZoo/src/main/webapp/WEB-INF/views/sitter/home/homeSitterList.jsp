@@ -82,61 +82,59 @@
 <!-- 홈시터 검색필터 설정부분 -->
 <div class="main-wrap no-profile">
 	<form class="filters inner">
-		<ul class="clearfix">
-			<li class="col-type">
-				<dl>
-					<dt>서비스</dt>
-					<dd>
+		<table class="clearfix">
+			<tr class="col-type">
+					<th>서비스</th>
+					<td>
 						<select class="selectpick hidden-xs" name="hsl_service_type" data-width="120px">
 							<option title="24시간 돌봄" value="allday" selected="selected">24시간 돌봄</option>
 							<option title="데이케어" value="daycare">데이케어</option>
 						</select>
-					</dd>
-				</dl>
-			</li>
-			<li class="col-dates">
-				<dl>
-					<dt>예약일</dt>
-					<dd class="clearfix text-center">
+					</td>
+			</tr>
+			<tr class="col-dates">
+					<th>예약일</th>
+					<td class="clearfix text-center">
 						<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" id="hsl_chkin"/>
 						<span>&gt;</span>
 						<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" id="hsl_chkout"/>
-					</dd>
-				</dl>
-			</li>
-			<li class="col-age">
-				<dl>
-					<dt>반려견 나이</dt>
-					<dd>
+					</td>
+			</tr>
+			<tr class="col-age">
+					<th>반려견 나이</th>
+					<td>
 						<select class="selectpick hidden-xs" name="hsl_pet_age" data-width="130px">
 							<option title="강아지" value="puppy">강아지 (1살 이하)</option>
 							<option title="성견" value="dog">성견 (2~6살)</option>
 							<option title="노령견" value="agedDog">노령견 (7살 이상)</option>
 						</select>
-					</dd>
-				</dl>
-			</li>
-			<li class="col-size">
-				<dl>
-					<dt>반려견 크기</dt>
-					<dd>
+					</td>
+			</tr>
+			<tr class="col-size">
+					<th>반려견 크기</th>
+					<td>
 						<select class="selectpick hidden-xs" name="hsl_size" data-width="130px">
 							<option title="소형견" value="S">소형견 (0~4.9kg)</option>
 							<option title="중형견" value="M">중형견 (5~14.9kg)</option>
 							<option title="대형견" value="L">대형견 (15kg 이상)</option>
 						</select>
-					</dd>
-				</dl>
-			</li>
-			<li class="col-btn">
-				<dl>
-					<dd>
+					</td>
+			</tr>
+			<tr class="col-btn">
+					<td>
 						<button class="btn hidden-xs">찾기</button>
-					</dd>
-				</dl>
-			</li>
-		</ul>
+					</td>
+			</tr>
+		</table>
 	</form>
+</div>
+<div>
+	<table>
+		<tr>
+			<th></th>
+			<td></td>
+		<tr>
+	</table>
 </div>
 </body>
 </html>

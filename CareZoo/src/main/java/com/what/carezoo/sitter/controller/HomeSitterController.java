@@ -17,9 +17,8 @@ public class HomeSitterController {
 		return "sitter/home/homeSitterList";
 	}
 	@RequestMapping("/search")
-	public String searchHS(Model model, HomeSitterList hss) {
-		System.out.println(hss);
-		model.addAttribute("hssList", hssService.modifyHSS(hss));
+	public String searchHS(Model model, HomeSitterList hsl) {
+		model.addAttribute("hslList", hssService.getbySearchingHsl(hsl));
 		return "sitter/home/homeSitterList";
 	}
 }	
