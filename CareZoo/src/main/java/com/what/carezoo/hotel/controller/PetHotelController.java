@@ -45,9 +45,9 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	}
 
 	// addForm
-	@RequestMapping("/addForm")
+	@RequestMapping("/addPetHotelForm")
 	public String showAddHotelForm() {
-		return "hotel/addHotelForm";
+		return "hotel/addPetHotelForm";
 	}
 
 	// add pet hotel

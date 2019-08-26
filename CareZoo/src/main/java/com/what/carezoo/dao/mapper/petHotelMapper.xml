@@ -8,20 +8,20 @@
 	</insert>
 
 	<update id="update" parameterType="PetHotel">
-		update PetHotel
-		set ph_name=#{ph_name},
-		ph_star=#{ph_star},
+		update pethotel
+		set ph_name=#{ph_name}
+		
 		where ph_num = #{ph_num}
 	</update>
 
 	<delete id="delete" parameterType="PetHotel">
-		delete from PetHotel 
+		delete from pethotel 
 		where ph_num = #{ph_num}
 	</delete>
 	
 	<select id="selectOne" parameterType="int" resultType="PetHotel">
 		select *
-		from hotel
+		from pethotel
 		where ph_num = #{ph_num}
 	</select>
 	
