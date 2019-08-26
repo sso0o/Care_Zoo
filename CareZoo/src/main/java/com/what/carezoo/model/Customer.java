@@ -13,8 +13,8 @@ public class Customer {
 	private String c_address;
 	private String c_d_address;
 	private String c_sex;
-	@DateTimeFormat(pattern="yyyy-mm-dd")
-	private Date c_birth;
+//	@DateTimeFormat(pattern="yyyy-mm-dd")
+	private String c_birth;
 	private String c_contact;
 	private String c_pass_chk;
 	public int getC_num() {
@@ -59,10 +59,10 @@ public class Customer {
 	public void setC_sex(String c_sex) {
 		this.c_sex = c_sex;
 	}
-	public Date getC_birth() {
+	public String getC_birth() {
 		return c_birth;
 	}
-	public void setC_birth(Date c_birth) {
+	public void setC_birth(String c_birth) {
 		this.c_birth = c_birth;
 	}
 	public String getC_contact() {

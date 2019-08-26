@@ -2,16 +2,14 @@ package com.what.carezoo.hotel.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.what.carezoo.dao.PetHotelDao;
 import com.what.carezoo.model.PetHotel;
 
-@Service
+
 public class PetHotelService {
 	
-	@Autowired
+	
 	private PetHotelDao petHotelDao;
 	
 	public boolean addPetHotel(PetHotel ph) {

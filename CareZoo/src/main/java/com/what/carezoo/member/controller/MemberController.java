@@ -1,5 +1,7 @@
 package com.what.carezoo.member.controller;
 
+
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +17,23 @@ import com.what.carezoo.model.Customer;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
-	
+	//로그인
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginForm() {
 		return "loginForm";
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(String c_email, String c_pass) {
+	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
+		System.out.println(c_email);
+		System.out.println(c_pass);
 		if(memberService.login(c_email,c_pass)) {
-			return "mainForm";
+			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
+			return "mainLogin";
 		}
 		return "login";
 	}
-	
+	//회원가입
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String joinForm() {
 		return "joinForm";
@@ -37,18 +42,30 @@ public class MemberController {
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(Customer customer,Model model,HttpServletRequest request) {
 		boolean result =memberService.joinMember(customer);
-		String url=request.getContextPath()+"/member/mainForm";
+		String url=request.getContextPath()+"/member/join";
 		String msg="회원가입 실패";
 		//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
 		if(result) {
 			msg="회원가입 성공";
+			url=request.getContextPath()+"/member/mainLoginForm";
 		}
 		model.addAttribute("url",url);
 		model.addAttribute("msg",msg);
 		return "result";
 	}
+	//메인
 	@RequestMapping(value="/mainForm", method=RequestMethod.GET)
 	public String mainForm() {
-		return "mainForm";
+		return "main";
+	}
+	//메인_로그인
+	@RequestMapping(value="/mainLoginForm", method=RequestMethod.GET)
+	public String mainLoginForm() {
+		return "mainLogin";
+	}
+	//마이페이지
+	@RequestMapping(value="/myPage",method=RequestMethod.GET)
+	public String myPageForm() {
+		return "my&customer/mypageForm";
 	}
 }
