@@ -38,23 +38,6 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return "hotel/petHotelView";
 	}
 
-	// qna테스트
-	@RequestMapping("/qna")
-	public String showQna() {
-		return "my&customer/qna";
-	}
-
-	// addForm
-	@RequestMapping("/addPetHotelForm")
-	public String showAddHotelForm() {
-		return "hotel/addPetHotelForm";
-	}
-
-	// add pet hotel
-	@RequestMapping("/addPetHotel")
-	public String addPetHotel(PetHotel ph) {
-		hService.addPetHotel(ph);
-		return "main";
-	}
+	
 
 }
