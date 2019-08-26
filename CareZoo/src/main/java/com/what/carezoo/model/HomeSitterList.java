@@ -1,23 +1,24 @@
 package com.what.carezoo.model;
 
-import java.sql.Date;
-
 public class HomeSitterList {
-
-	private int hsl_num;
-	private int hs_num;
-	private String hsl_title;
-	private String comment;
-	private int hsl_weight;
-	private String hsl_size;
-	private Date hsl_chkin;
-	private Date hsl_chkout;
-	private String hsl_care_place;
-	private String hsl_subway;
-	private String hsl_yard;
-	private String hsl_baby;
-	private String hsl_family;
-	private String hsl_img;
+	 private int hsl_num;
+	 private int hs_num;
+	 private String hsl_title;
+	 private String hsl_comment;
+	 private String hsl_size;
+	 private String hsl_chkin;
+	 private String hsl_chkout;
+	 private String hsl_care_place;
+	 private String hsl_subway;
+	 private String hsl_yard;
+	 private String hsl_baby;
+	 private String hsl_family;
+	 private String hsl_img;
+	 private String hsl_address;
+	 private String hsl_d_address;
+	 private String hsl_service_type;
+	 private String hsl_pet_age;
+	 private String hsl_d_d_address;
 	public int getHsl_num() {
 		return hsl_num;
 	}
@@ -36,17 +37,11 @@ public class HomeSitterList {
 	public void setHsl_title(String hsl_title) {
 		this.hsl_title = hsl_title;
 	}
-	public String getComment() {
-		return comment;
+	public String getHsl_comment() {
+		return hsl_comment;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	public int getHsl_weight() {
-		return hsl_weight;
-	}
-	public void setHsl_weight(int hsl_weight) {
-		this.hsl_weight = hsl_weight;
+	public void setHsl_comment(String hsl_comment) {
+		this.hsl_comment = hsl_comment;
 	}
 	public String getHsl_size() {
 		return hsl_size;
@@ -54,16 +49,16 @@ public class HomeSitterList {
 	public void setHsl_size(String hsl_size) {
 		this.hsl_size = hsl_size;
 	}
-	public Date getHsl_chkin() {
+	public String getHsl_chkin() {
 		return hsl_chkin;
 	}
-	public void setHsl_chkin(Date hsl_chkin) {
+	public void setHsl_chkin(String hsl_chkin) {
 		this.hsl_chkin = hsl_chkin;
 	}
-	public Date getHsl_chkout() {
+	public String getHsl_chkout() {
 		return hsl_chkout;
 	}
-	public void setHsl_chkout(Date hsl_chkout) {
+	public void setHsl_chkout(String hsl_chkout) {
 		this.hsl_chkout = hsl_chkout;
 	}
 	public String getHsl_care_place() {
@@ -102,13 +97,44 @@ public class HomeSitterList {
 	public void setHsl_img(String hsl_img) {
 		this.hsl_img = hsl_img;
 	}
+	public String getHsl_address() {
+		return hsl_address;
+	}
+	public void setHsl_address(String hsl_address) {
+		this.hsl_address = hsl_address;
+	}
+	public String getHsl_d_address() {
+		return hsl_d_address;
+	}
+	public void setHsl_d_address(String hsl_d_address) {
+		this.hsl_d_address = hsl_d_address;
+	}
+	public String getHsl_service_type() {
+		return hsl_service_type;
+	}
+	public void setHsl_service_type(String hsl_service_type) {
+		this.hsl_service_type = hsl_service_type;
+	}
+	public String getHsl_pet_age() {
+		return hsl_pet_age;
+	}
+	public void setHsl_pet_age(String hsl_pet_age) {
+		this.hsl_pet_age = hsl_pet_age;
+	}
+	public String getHsl_d_d_address() {
+		return hsl_d_d_address;
+	}
+	public void setHsl_d_d_address(String hsl_d_d_address) {
+		this.hsl_d_d_address = hsl_d_d_address;
+	}
 	@Override
 	public String toString() {
-		return "HomeSitterList [hsl_num=" + hsl_num + ", hs_num=" + hs_num + ", hsl_title=" + hsl_title + ", comment="
-				+ comment + ", hsl_weight=" + hsl_weight + ", hsl_size=" + hsl_size + ", hsl_chkin=" + hsl_chkin
+		return "HomeSitterList [hsl_num=" + hsl_num + ", hs_num=" + hs_num + ", hsl_title=" + hsl_title
+				+ ", hsl_comment=" + hsl_comment + ", hsl_size=" + hsl_size + ", hsl_chkin=" + hsl_chkin
 				+ ", hsl_chkout=" + hsl_chkout + ", hsl_care_place=" + hsl_care_place + ", hsl_subway=" + hsl_subway
 				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family + ", hsl_img="
-				+ hsl_img + "]";
+				+ hsl_img + ", hsl_address=" + hsl_address + ", hsl_d_address=" + hsl_d_address + ", hsl_service_type="
+				+ hsl_service_type + ", hsl_pet_age=" + hsl_pet_age + ", hsl_d_d_address=" + hsl_d_d_address + "]";
 	}
-	
+	 
 }
