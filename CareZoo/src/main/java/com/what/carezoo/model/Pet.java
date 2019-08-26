@@ -9,10 +9,12 @@ public class Pet {
 	private String p_kind;
 	private String p_name;
 	private String p_sex;
-	private Date p_birth;
-	private int p_weight;
+	private String p_birth;
+	private String p_weight;
 	private String p_none_sex;
 	private String p_img;
+	private String p_notify;
+	
 	public int getP_num() {
 		return p_num;
 	}
@@ -43,16 +45,16 @@ public class Pet {
 	public void setP_sex(String p_sex) {
 		this.p_sex = p_sex;
 	}
-	public Date getP_birth() {
+	public String getP_birth() {
 		return p_birth;
 	}
-	public void setP_birth(Date p_birth) {
+	public void setP_birth(String p_birth) {
 		this.p_birth = p_birth;
 	}
-	public int getP_weight() {
+	public String getP_weight() {
 		return p_weight;
 	}
-	public void setP_weight(int p_weight) {
+	public void setP_weight(String p_weight) {
 		this.p_weight = p_weight;
 	}
 	public String getP_none_sex() {
@@ -67,12 +69,18 @@ public class Pet {
 	public void setP_img(String p_img) {
 		this.p_img = p_img;
 	}
-	
+	public String getP_notify() {
+		return p_notify;
+	}
+	public void setP_notify(String p_notify) {
+		this.p_notify = p_notify;
+	}
 	@Override
 	public String toString() {
 		return "Pet [p_num=" + p_num + ", c_num=" + c_num + ", p_kind=" + p_kind + ", p_name=" + p_name + ", p_sex="
 				+ p_sex + ", p_birth=" + p_birth + ", p_weight=" + p_weight + ", p_none_sex=" + p_none_sex + ", p_img="
-				+ p_img + "]";
+				+ p_img + ", p_notify=" + p_notify + "]";
 	}
+	
 	
 }
