@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.what.carezoo.model.HomeSitterList;
 import com.what.carezoo.sitter.service.HomeSitterSearchingService;
-@RequestMapping("/sitter/home")
+@RequestMapping("home")
 @Controller
 public class HomeSitterController {
 	@Autowired

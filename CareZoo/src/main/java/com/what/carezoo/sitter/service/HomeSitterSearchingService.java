@@ -12,8 +12,8 @@ import com.what.carezoo.model.HomeSitterList;
 public class HomeSitterSearchingService {
 	@Autowired
 	private HomeSitterListDao hssDao;
-	public boolean modifyHSS(HomeSitterList hss) {
-		if(hssDao.insertHss(hss)>0) {
+	public boolean modifyHSS(HomeSitterList hsl) {
+		if(hssDao.insertHsl(hsl)>0) {
 			return true;
 		}
 		return false;
