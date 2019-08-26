@@ -50,7 +50,7 @@
 		});
 	
 		$search = function (wholeStates) {
-			var href = '${contextPath}/sitter/home/search';
+			var href = '${contextPath}/home/search';
 			var dateStart = moment(datepickerStart.datepicker('getDate'));
 			var dateEnd = moment(datepickerEnd.datepicker('getDate'));
 	

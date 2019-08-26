@@ -136,5 +136,5 @@ public class HomeSitterList {
 				+ hsl_img + ", hsl_address=" + hsl_address + ", hsl_d_address=" + hsl_d_address + ", hsl_service_type="
 				+ hsl_service_type + ", hsl_pet_age=" + hsl_pet_age + ", hsl_d_d_address=" + hsl_d_d_address + "]";
 	}
-	 
+ 
 }

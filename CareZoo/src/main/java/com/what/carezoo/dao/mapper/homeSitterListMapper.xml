@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterListDao">
-
-	<insert id="insertHss" parameterType="homesitterlist">
-		<selectKey order="BEFORE" keyProperty="hss_num" resultType="int">
+	<insert id="insertHsl" parameterType="HomeSitterList">
+		<selectKey order="BEFORE" keyProperty="hsl_num" resultType="int">
 			select homsitterlist_seq.nextval from dual
 		</selectKey>
-		insert into homesitterlist(hsl_num,hsl_service_type,hsl_chkin,hsl_chkout,hsl_pet_age,hsl_size)
-		values(#{hsl_num},#{hsl_service_type},#{hsl_chkin},#{hsl_chkout},#{hsl_pet_age},#{hsl_size})
+		insert into homesitterlist (hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age)
+		values (#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age})
 	</insert>
-	<insert id="insertHssAdd" parameterType="homesitterlist">
-		<selectKey order="BEFORE" keyProperty="hss_num" resultType="int">
-			select homsitterlist_seq.nextval from dual
-		</selectKey>
-		insert into homesitterlist(hsl_address,hsl_d_address)
-		values(#{hsl_address},#{hsl_d_address})
+	<insert id="insertHslAdd" parameterType="HomeSitterList">
+		
 	</insert>
-	<update id="updateHssAdd" parameterType="homesitterlist">
-		update homesitterlist
-		set hsl_address = #{hsl_address},
-			hsl_d_address = #{hsl_d_address}
-		where hss_num = #{hss_num}
+	<update id="updateHsl" parameterType="HomeSitterList">
+		
 	</update>
-	<delete id="deleteHss" parameterType="homesitterlist">
-		delete from homesitterlist where hss_num = #{hss_num}
-	</delete>	
-	<select id="selectOnebyHss_num" parameterType="int" resultType="homesitterlist">
-		select * from homesitterlist where hss_num = #{hss_num}
-	</select>	
-	<select id="selectAllHss" resultType="homesitterlist">
-		select * from homesitterlist
+	<delete id="deleteHsl" parameterType="int">
+		
+	</delete>
+	<select id="selectOnebyHsl_num" parameterType="int" resultType="HomeSitterList">
+		
+	</select>
+	<select id="searchHsl" parameterType="homesitterlist" resultType="homesitterlist"> 
+		SELECT * FROM homesitterlist WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size}
+	</select>
+	<select id="searchHslbyAddress" parameterType="string" resultType="homesitterlist"> 
+		SELECT * 
+		FROM (SELECT * FROM homesitterlist WHERE hsl_address LIKE '%서울%인천%경기%' OR hsl_address LIKE '%서울%' OR hsl_address LIKE '%인천%' OR hsl_address LIKE '%경기%')  
+		WHERE hsl_d_address LIKE '%강남구%'
+	</select>
+	<select id="selectAllHsl" parameterType="HomeSitterList"> 
+		
 	</select>
 </mapper>
