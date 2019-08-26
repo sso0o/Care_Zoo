@@ -3,8 +3,8 @@
 
 	<insert id="insert" parameterType="PetHotel">
 		insert 
-		into hotel (ph_num, ph_p_count, ph_price, ph_name, ph_star, ph_address, ph_d_address, ph_img, ph_latitude, ph_longitude)
-		values (pethotel_seq.nextval, #{ph_p_count}, #{ph_price}, #{ph_name}, #{ph_star}, #{ph_address}, #{ph_d_address}, #{ph_img}, #{ph_latitude}, #{ph_longitude} )
+		into pethotel (ph_num, ph_p_count, ph_price, ph_name,  ph_address, ph_d_address)
+		values (pethotel_seq.nextval, #{ph_p_count},  0 , #{ph_name}, #{ph_address}, #{ph_d_address} )
 	</insert>
 
 	<update id="update" parameterType="PetHotel">

@@ -79,33 +79,33 @@
 	<div>
 		<fieldset>
 			<legend>호텔 정보 입력</legend>
-			<form action="">
+			<form action="${contextPath}/petHotel/addPetHotel">
 				<table>
-					<tr>
-						<th>호텔타입</th>
-						<td><input type="radio" id="type1" name="type" value="hotel">hotel</td>
-						<td><input type="radio" id="type2" name="type" value="petHotel">pethotel</td>
-					</tr>
+					
 					<tr>
 						<th>호텔이름</th>
-						<td><input type="text" name="name"></td>
+						<td><input type="text" name="ph_name"></td>
 					</tr>
 					<tr>
 						<th>주소 </th>
 						<td>
 							<input type="hidden" id="sample4_postcode" placeholder="우편번호"> 
 							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-							<input type="text" id="sample4_roadAddress" name="address" placeholder="도로명주소">
+							<input type="text" id="sample4_roadAddress" name="ph_address" placeholder="도로명주소">
 							<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
 						</td>
 						<td>
-							<input type="text" id="c_d_address" name="d_address" placeholder="상세주소 입력해주세요">
+							<input type="text" id="c_d_address" name="ph_d_address" placeholder="상세주소 입력해주세요">
 							<span id="guide" style="color: #999"></span>
 						</td>
 					</tr>
 					<tr>
 						<th>가능한 펫 마리수</th>
-						<td><input type="number" name="p_count"></td>
+						<td><input type="number" name="ph_p_count"></td>
+					</tr>
+					
+					<tr>
+						<td><input type="submit" value="제출"></td>
 					</tr>
 
 				</table>
