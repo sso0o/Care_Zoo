@@ -161,10 +161,10 @@
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
-                <li class='active sub'><a href='#'>호텔</a>
+                <li class='active sub'><a href='${contextPath}/hotel/main'>호텔</a>
                     <ul>
-                        <li class='last'><a href='#'>애견동반호텔</a></li>
-                        <li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
+                        <li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
                     </ul>
                 </li>
                 <li class='active sub'><a href='#'>후기</a>
