@@ -10,11 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.Pet;
+import com.what.carezoo.pet.service.PetService;
 @RequestMapping("/visit")
 @Controller
 public class VisitSitterController {
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private PetService petService;
 	//예약 메인(로그인, 회원가입)
 	@RequestMapping("/main")
 	public String showMain() {
@@ -33,13 +37,28 @@ public class VisitSitterController {
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(Customer customer,Model model) {
-		boolean result =memberService.joinMember(customer);
-		//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
-		if(result) {
-			model.addAttribute("c_num", memberService.getMemberByEmail(customer.getC_email()).getC_num());
-			return "sitter/visit/reservation2";
+		if(customer.getC_address() != null & customer.getC_birth() !=null
+				& customer.getC_contact() != null & customer.getC_d_address() != null 
+				& customer.getC_e_address() !=null & customer.getC_email() !=null 
+				& customer.getC_name()!=null & customer.getC_pass() !=null 
+				& customer.getC_pass_chk() !=null	& customer.getC_sex() != null) {
+			boolean result =memberService.joinMember(customer);
+			//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
+			if(result) {
+				model.addAttribute("c_num", memberService.getMemberByEmail(customer.getC_email()).getC_num());
+				return "sitter/visit/reservation2";
+			}
+			String msg ="비밀번호 일치 여부를 확인해 주세요";
+			String url = "join";
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			return "result";
 		}
-		return "redirect:join";
+		String msg ="빈칸이 있는지 확인해 주세요";
+		String url = "join";
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "result";
 	}
 	//로그인
 	@RequestMapping(value="/login", method=RequestMethod.GET)
@@ -56,7 +75,7 @@ public class VisitSitterController {
 			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
 			return "sitter/visit/reservation2";
 		}
-		return "redirect:login";
+		return "login";
 	}
 	//돌봄신청 폼(펫조인)
 	@RequestMapping(value="apply",method=RequestMethod.GET)
@@ -67,9 +86,35 @@ public class VisitSitterController {
 	
 	//펫등록
 	@RequestMapping(value="petjoin", method=RequestMethod.POST)
-	public String petjoin(HttpServletRequest request) {
-		
-		
-		return "pet/petList";
+	public String petjoin(Model model,Pet pet,HttpServletRequest request,int c_num) {
+		String msg="등록 실패";
+		String url="apply?c_num="+c_num;
+		if (pet.getC_num() != 0 & pet.getP_birth() != null & pet.getP_img() != null
+				& pet.getP_kind() != null & pet.getP_name() != null & pet.getP_none_sex() != null
+				& pet.getP_notify() != null & pet.getP_sex() != null & pet.getP_weight() != null) {
+			if (petService.insertPet(pet)) {
+				msg="등록성공";
+				url="petList?c_num="+c_num;
+			}
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		model.addAttribute("c_num", c_num);
+		return "result";
 	}
+	//펫리스트폼
+	@RequestMapping(value="petList",method=RequestMethod.GET)
+	public String petListForm(Model model,int c_num) {
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("petList", petService.selectAllPet());
+		return "sitter/visit/petList4";
+	}
+	//펫리스트에서 강아지 고르기
+	@RequestMapping(value="petList", method=RequestMethod.POST)
+	public String petList(int p_num,Model model) {
+		model.addAttribute("p_num", p_num);
+		return "visit/sitter/reservation5";
+	}
+	
+	
 }

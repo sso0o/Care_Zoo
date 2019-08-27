@@ -1,7 +1,5 @@
 package com.what.carezoo.model;
 
-import java.sql.Date;
-
 public class Pet {
 
 	private int p_num;

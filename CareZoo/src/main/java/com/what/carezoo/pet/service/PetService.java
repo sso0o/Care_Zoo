@@ -1,5 +1,7 @@
 package com.what.carezoo.pet.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,5 +35,12 @@ public class PetService {
 		}return false;
 	}
 	
+	public Pet selectPet(int num) {
+		return petDao.selectPet(num);
+	}
+	
+	public List<Pet> selectAllPet(){
+		return petDao.selectAllPet();
+	}
 	
 }

@@ -12,4 +12,5 @@ public interface MemberDao {
 	public Customer selectOneByNum(int num);
 	public Customer	selectOneByEmail(String email);
 	public List<Customer> selectAll();
+	public int userIdCheck(String c_email);
 }

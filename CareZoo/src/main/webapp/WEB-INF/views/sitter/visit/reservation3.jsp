@@ -7,9 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>reservation3</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-var upload = document.getElementsById('c_img')[0],
+var upload = document.getElementsById('p_name')[0],
     holder = document.getElementById('holder');
 
 upload.onchange = function (e) {
@@ -85,6 +86,6 @@ upload.onchange = function (e) {
 			<input type="submit" value="등록 완료">
 		</div>
 	</form>
-
+		<button onclick="location.href='${contextPath}/visit/petList?c_num=${c_num}'">기존 반려견으로 할래요!</button>
 </body>
 </html>
