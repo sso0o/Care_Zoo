@@ -75,7 +75,7 @@ public class VisitSitterController {
 			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
 			return "sitter/visit/reservation2";
 		}
-		return "redirect:login";
+		return "login";
 	}
 	//돌봄신청 폼(펫조인)
 	@RequestMapping(value="apply",method=RequestMethod.GET)
@@ -87,14 +87,34 @@ public class VisitSitterController {
 	//펫등록
 	@RequestMapping(value="petjoin", method=RequestMethod.POST)
 	public String petjoin(Model model,Pet pet,HttpServletRequest request,int c_num) {
-		if (pet.getC_num() != 0 & pet.getP_num() != 0 & pet.getP_birth() != null & pet.getP_img() != null
+		String msg="등록 실패";
+		String url="apply?c_num="+c_num;
+		if (pet.getC_num() != 0 & pet.getP_birth() != null & pet.getP_img() != null
 				& pet.getP_kind() != null & pet.getP_name() != null & pet.getP_none_sex() != null
 				& pet.getP_notify() != null & pet.getP_sex() != null & pet.getP_weight() != null) {
-			model.addAttribute("c_num", c_num);
 			if (petService.insertPet(pet)) {
-				return "pet/petList";
+				msg="등록성공";
+				url="petList?c_num="+c_num;
 			}
 		}
-		return "sitter/visit/reservation2";
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		model.addAttribute("c_num", c_num);
+		return "result";
 	}
+	//펫리스트폼
+	@RequestMapping(value="petList",method=RequestMethod.GET)
+	public String petListForm(Model model,int c_num) {
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("petList", petService.selectAllPet());
+		return "sitter/visit/petList4";
+	}
+	//펫리스트에서 강아지 고르기
+	@RequestMapping(value="petList", method=RequestMethod.POST)
+	public String petList(int p_num,Model model) {
+		model.addAttribute("p_num", p_num);
+		return "visit/sitter/reservation5";
+	}
+	
+	
 }
