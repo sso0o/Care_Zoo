@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>addHotelForm</title>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 	// 	new daum.Postcode({
@@ -74,43 +75,97 @@
 				}).open();
 	}
 </script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	$(function() {
+		var count = 0;
+		
+		$('#addRoom').click(function() {
+			var tab = $("#mytable");
+			var tr = $("<tr>");
+			
+			var r_name = $("<td><input type=\"text\" placeholder=\"방이름\" name=\"r_name"+count+"\">")
+			var r_adult = $("<td><input type=\"number\" placeholder=\"가능어른수\" name=\"r_adult"+count+"\">")
+			var r_child = $("<td><input type=\"number\" placeholder=\"가능어른수\" name=\"r_child"+count+"\">")
+			var r_p_count = $("<td><input type=\"number\" placeholder=\"동반가능펫수\" name=\"r_p_count"+count+"\">")
+			var r_price = $("<td><input type=\"number\" placeholder=\"가격\" name=\"r_price"+count+"\">")
+			var r_img = $("<td><input type=\"text\" placeholder=\"사진\" name=\"r_img"+count+"\">")
+// 			$('#mytable').append('<tr><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td></tr>');
+			count++;
+			tr.append(r_name);
+			tr.append(r_adult);
+			tr.append(r_child);
+			tr.append(r_p_count);
+			tr.append(r_price);
+			tr.append(r_img);
+			tr.appendTo(tab);
+		});
+		
+		$('#delRoom').click(function() {
+			if(count>0){
+				$('#mytable:last > tr:last').remove();
+				count--;
+			}
+			
+			
+
+		})
+		
+	});
+</script>
+
+
 </head>
 <body>
 	<div>
 		<fieldset>
 			<legend>호텔 정보 입력</legend>
-			<form action="${contextPath}">
-				<table>
-					
+			<form action="${contextPath}/dongbanHotel/addHotel">
+				<table  >
 					<tr>
 						<th>호텔이름</th>
 						<td><input type="text" name="h_name"></td>
 					</tr>
 					<tr>
-						<th>주소 </th>
-						<td>
-							<input type="hidden" id="sample4_postcode" placeholder="우편번호"> 
-							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-							<input type="text" id="sample4_roadAddress" name="h_address" placeholder="도로명주소">
-							<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
-						</td>
-						<td>
-							<input type="text" id="c_d_address" name="h_d_address" placeholder="상세주소 입력해주세요">
-							<span id="guide" style="color: #999"></span>
-						</td>
+						<th>주소</th>
+						<td><input type="hidden" id="sample4_postcode"
+							placeholder="우편번호"> <input type="button"
+							onclick="sample4_execDaumPostcode()" value="우편번호 찾기"> <input
+							type="text" id="sample4_roadAddress" name="h_address"
+							placeholder="도로명주소"> <input type="hidden"
+							id="sample4_jibunAddress" placeholder="지번주소"></td>
+						<td><input type="text" id="h_d_address" name="h_d_address"
+							placeholder="상세주소 입력해주세요"> <span id="guide"
+							style="color: #999"></span></td>
 					</tr>
 					<tr>
-						<th>가능한 펫 마리수</th>
-						<td><input type="number" name="h_p_count"></td>
+						<th>room 추가</th>
+						<td>
+							<input type="button" id="addRoom" value="추가">
+							<input type="button" id="delRoom" value="삭제">
+						</td>
 					</tr>
-					
-					<tr>
-						<td><input type="submit" value="제출"></td>
-					</tr>
-
+					<tbody id="mytable">
+						<tr>
+							<th>방이름</th><th>가능어른수</th><th>가능어린이수</th><th>동반가능펫수</th><th>가격</th><th>사진</th>
+						</tr>
+						<tr>
+							<td><input type="text" placeholder="방이름" name="r_name"></td>
+							<td><input type="number" placeholder="가능어른수" name="r_adult"></td>
+							<td><input type="number" placeholder="가능어린이수" name="r_child"></td>
+							<td><input type="number" placeholder="동반가능펫수" name="r_p_count"></td>
+							<td><input type="number" placeholder="가격" name="r_price"></td>
+							<td><input type="image" placeholder="사진" name="r_img"></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td><input type="submit" value="제출"></td>
+						</tr>
+					</tfoot>
 				</table>
 			</form>
-
 		</fieldset>
 
 	</div>
