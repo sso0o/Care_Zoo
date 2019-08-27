@@ -9,8 +9,10 @@
 
 	<update id="update" parameterType="PetHotel">
 		update pethotel
-		set ph_name=#{ph_name}
-		
+		set ph_name=#{ph_name},
+		ph_address = #{ph_address},
+		ph_d_address=#{ph_d_address},
+		ph_p_count = #{ph_p_count}
 		where ph_num = #{ph_num}
 	</update>
 
@@ -25,9 +27,10 @@
 		where ph_num = #{ph_num}
 	</select>
 	
-	<select id="selectAll" resultType="hotel">
+	<select id="selectAll" resultType="PetHotel">
 		select * 
 		from pethotel
+		order by ph_num
 	</select>
 
 </mapper>

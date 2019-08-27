@@ -74,12 +74,20 @@
 				}).open();
 	}
 </script>
+<script type="text/javascript">
+	if(${msg} != null){
+		alert("${msg}")
+	}
+	
+	
+</script>
 </head>
 <body>
+
 	<div>
 		<fieldset>
 			<legend>호텔 정보 입력</legend>
-			<form action="${contextPath}/petHotel/addPetHotel">
+			<form action="${contextPath}/admin/addPetHotel" method="post">
 				<table>
 					
 					<tr>
