@@ -1,5 +1,8 @@
 package com.what.carezoo.member.service;
 
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,7 @@ public class MemberService {
 	//회원관련 기능 작성
 	@Autowired
 	private MemberDao memberDao;
+	private SqlSessionTemplate userSqlsession;
 	
 	//로그인
 	public boolean login(String c_email,String c_pass) {
@@ -50,5 +54,13 @@ public class MemberService {
 			}
 		}
 		return false;
+	}
+	
+	public List<Customer> selectAll(){
+		return memberDao.selectAll();
+	}
+	//아이디 체크
+	public int userIdCheck(String c_email) {
+		return memberDao.userIdCheck(c_email);
 	}
 }
