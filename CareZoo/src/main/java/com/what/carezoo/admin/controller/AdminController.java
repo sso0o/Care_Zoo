@@ -1,7 +1,10 @@
 package com.what.carezoo.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.what.carezoo.hotel.service.DongbanHotelService;
@@ -28,31 +31,45 @@ public class AdminController {
 	public String showQna() {
 		return "my&customer/qna";
 	}
+	
+	//////////////////////////////////////////////////////////////////////////호텔
+	// add PetHotel Form
+	@RequestMapping("/addHotelForm")
+	public String showAddHotelForm() {
+		return "admin/addHotelForm";
+	}
+
+	// add pet hotel
+	@RequestMapping("/addHotel")
+	public String addHotel(PetHotel ph) {
+		phService.addPetHotel(ph);
+		return "admin/addHotelForm";
+	}
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////펫호텔
 
 	// add PetHotel Form
 	@RequestMapping("/addPetHotelForm")
 	public String showAddPetHotelForm() {
-		return "hotel/addPetHotelForm";
+		return "admin/addPetHotelForm";
 	}
 
 	// add pet hotel
 	@RequestMapping("/addPetHotel")
 	public String addPetHotel(PetHotel ph) {
 		phService.addPetHotel(ph);
-		return "hotel/addPetHotelForm";
+		return "admin/addPetHotelForm";
 	}
 	
-	// add PetHotel Form
-		@RequestMapping("/addHotelForm")
-		public String showAddHotelForm() {
-			return "hotel/addPetHotelForm";
-		}
 
-		// add pet hotel
-		@RequestMapping("/addHotel")
-		public String addHotel(PetHotel ph) {
-			phService.addPetHotel(ph);
-			return "hotel/addPetHotelForm";
+		@RequestMapping("/test")
+		public String test(HttpServletRequest request, Model m, String email, String pass ) {
+			String radio = request.getParameter("user");
+			m.addAttribute("user", radio);
+					
+			return "test";
+			
 		}
 
 }
