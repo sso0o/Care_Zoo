@@ -151,8 +151,4 @@
 		<property name="mapperInterface"
 			value="com.what.carezoo.dao.PetDao"></property>
 	</bean>
-
-
-
-
 </beans>

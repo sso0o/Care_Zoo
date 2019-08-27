@@ -1,17 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextPath" value="<%=request.getContextPath() %>"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-	new daum.Postcode({
-		oncomplete : function(data) {
-			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-			// 예제를 참고하여 다양한 활용법을 확인해 보세요.
-		}
-	}).open();
-</script>
 <script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -70,18 +64,53 @@
 				}).open();
 	}
 </script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+<script type="text/javascript">
+//아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
+$(function() {
+    //idck 버튼을 클릭했을 때 
+    $("#idck").click(function() {
+        
+        var c_email =  $("#str_email01").val(); 
+        var c_e_address = $("#selectEmail").val();
+		var email = c_email + "@" + c_e_address;
+
+        $.ajax({
+            async: true,
+            type : 'POST',
+            data : {c_email : email},
+            url : "${contextPath}/member/idCheck",
+            dataType : "json",
+            success : function(data) {
+                if (data.cnt > 0) {                    
+                    alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
+
+                } else {
+                    alert("사용가능한 아이디입니다.");
+                    
+                }
+            },
+            error : function(error) {
+                
+                alert("error : " + error);
+            }
+        });
+    });
+});
+ 
+</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<div>
-		<form action="join" method="post">
+		<form action="join" method="post" name="userInfo" onsubmit="return checkValue()">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<fieldset>
 				<legend> 회원가입 정보 입력 </legend>
 				이메일 : 
 				<input type="text" name="c_email" id="str_email01" style="width:100px"> @
-				<input type="text" name="c_e_address" id="str_email02" style="width:100px" disabled value="naver.com"> 
+				<input type="text" name="c_e_address" id="str_email02" style="width:100px" disabled value="naver.com">
 				<select style="width: 100px; margin-right: 10px" name="c_e_address"
 					id="selectEmail">
 					<option value="1">직접입력</option>
@@ -98,8 +127,7 @@
 					<option value="gmail.com">gmail.com</option>
 					<option value="hanmir.com">hanmir.com</option>
 					<option value="paran.com">paran.com</option>
-				</select>
-
+				</select>	
 				<script type="text/javascript"
 					src="http://code.jquery.com/jquery-latest.min.js"></script>
 				<script type="text/javascript">
@@ -115,13 +143,15 @@
 						});
 					});
 				</script>
+				<input type="button" id="idck" value="중복확인">
 				<br>
 				 <label>비밀번호: 
-				 	<input type="password" name="c_pass" placeholder="비밀번호를 입력하세요"><br>
+				 	<input type="password" id="c_pass" name="c_pass" placeholder="비밀번호를 입력하세요"><br>
 				</label> 
 				<label>비밀번호 재확인: 
-					<input type="password" name="c_pass_chk" placeholder="비밀번호 확인 해주세요"><br>
+					<input type="password" id="c_pass_chk" name="c_pass_chk" placeholder="비밀번호 확인 해주세요"><br>
 				</label>
+				
 				<label>이름: 
 					<input type="text" name="c_name" placeholder="이름을 입력하세요"><br>
 				</label> 
@@ -145,7 +175,9 @@
 				</label> 
 			</fieldset>
 			<div>
-				<input type="submit" value="입력완료">
+				<input type="submit" value="가입">
+				<input type="button" value="취소" onclick="location.href='${contextPath}'">
+
 			</div>
 		</form>
 	</div>

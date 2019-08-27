@@ -28,4 +28,7 @@
 	<select id="selectAll" resultType="customer">
 		select * from customer
 	</select>
+	<select id="userIdCheck" parameterType="String" resultType="Integer">
+		select count(*) from customer where c_email =#{c_email}
+	</select>
 </mapper>
