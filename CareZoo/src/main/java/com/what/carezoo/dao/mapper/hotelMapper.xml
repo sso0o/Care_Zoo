@@ -30,6 +30,14 @@
 		select * 
 		from hotel
 	</select>
-
+	
+	<insert id="insertFile" parameterType="map">
+		insert into hotel_image
+		  			(h_img_num,h_num,#{fileName} )
+		values (hotel_img_seq,#{h_num},#{fileName}) 
+	</insert>
+	<select id="selectFileName" parameterType="int" resultType="String">
+		select * from hotel_image where h_num = board_num
+	</select>
 
 </mapper>
