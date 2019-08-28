@@ -14,11 +14,11 @@
 	<div>
 		<table>
 			<tr>
-				<th><a href="${contextPath}/visit/main">방문시터</a></th>
+				<th><a href="${contextPath}/home/main">가정시터</a></th>
 				<td></td>				
 			</tr>
 			<tr>
-				<th><a href="home/main">가정시터</a></th>
+				<th><a href="${contextPath}/visit/main">방문시터</a></th>
 				<td></td>				
 			</tr>
 		</table>
