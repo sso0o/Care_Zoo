@@ -8,7 +8,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <script type="text/javascript">
 	function checkAll() {
-		alert("-0-");
 		var chk1 = document.checkForm.needs1.checked;
 		var chk2 = document.checkForm.needs2.checked;
 		var chk3 = document.checkForm.needs3.checked;
@@ -31,21 +30,6 @@
 			return false;
 		}
 		return true;
-// 		//체크박스 체크여부 확인 [동일 이름을 가진 체크박스 여러개일 경우]
-// 		var isSeasonChk = false;
-// 		var arr_Season = document.getElementsByName("needs");
-// 		alert(arr_Season.length);
-// 		for (var i = 0; i < arr_Season.length; i++) {
-// 			if (arr_Season[i].checked) {
-// 				isSeasonChk = true;
-// 				break;
-// 			}
-// 		}
-
-// 		if (!isSeasonChk) {
-// 			alert("선택해주세요.");
-// 			return false;
-// 		}
 	}
 </script>
 <meta charset="UTF-8">
@@ -54,7 +38,9 @@
 <body>
 	<h1>예약 전 안내사항</h1>
 	<form action="complete" method="post" id="checkForm" name="checkForm">
-	<input type="hidden" name="p_num" value="${p_num}">
+	<c:forEach items="${p_num}" var="p">
+		<input type="hidden" name="p_num" value="${p}">
+	</c:forEach>
 	<table border='1'>
 		<tr>
 			<th><input type="checkbox" name="needs" id="needs1">
