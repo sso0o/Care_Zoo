@@ -36,7 +36,8 @@
 					</tr>
 
 					<tr>
-						<td><input type="submit" value="제출"></td>
+						<td><input type="submit" value="수정"></td>
+						<td><input type="button" value="삭제" onclick="${contextPath}/admin/delPetHotel"></td>
 					</tr>
 			</form>
 		</fieldset>
