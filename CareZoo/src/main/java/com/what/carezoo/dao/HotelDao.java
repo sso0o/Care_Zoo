@@ -13,6 +13,6 @@ public interface HotelDao {
 	public Hotel selectOnebyH_num(int num);
 	public List<Hotel> selectAll();
 	public int insertFile(Map<String,Object> param);
-	public String selectFileName(int board_num);
+	public String selectFileName(int h_num);
 
 }

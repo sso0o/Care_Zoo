@@ -1,6 +1,11 @@
 package com.what.carezoo.sitter.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +19,7 @@ import com.what.carezoo.model.Pet;
 import com.what.carezoo.pet.service.PetService;
 @RequestMapping("/visit")
 @Controller
-public class VisitSitterController {
+public class VisitSitterController extends HttpServlet {
 	@Autowired
 	private MemberService memberService;
 	@Autowired
@@ -100,21 +105,55 @@ public class VisitSitterController {
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		model.addAttribute("c_num", c_num);
+
 		return "result";
 	}
 	//펫리스트폼
 	@RequestMapping(value="petList",method=RequestMethod.GET)
-	public String petListForm(Model model,int c_num) {
+	public String petList4Form(Model model,int c_num) {
 		model.addAttribute("c_num", c_num);
-		model.addAttribute("petList", petService.selectAllPet());
+		model.addAttribute("petList", petService.selectByC_Num(c_num));
 		return "sitter/visit/petList4";
 	}
 	//펫리스트에서 강아지 고르기
 	@RequestMapping(value="petList", method=RequestMethod.POST)
-	public String petList(int p_num,Model model) {
-		model.addAttribute("p_num", p_num);
-		return "visit/sitter/reservation5";
+	public String petList(int p_num,Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
+		String[] checks = request.getParameterValues("p_num");
+		model.addAttribute("p_num",checks);
+//		for(int i=0 ;i<checks.length;i++) {
+//			System.out.println(checks[i]);
+//		}		
+		return "redirect:reservation5";
 	}
-	
-	
+	//예약 전 안내사항 폼
+	@RequestMapping(value="reservation5",method=RequestMethod.GET)
+	public String preReservation5Form(int[] p_num,Model model,HttpServletRequest request) {
+//		for(int i : p_num) {
+//			System.out.println(i);
+//		}		
+		model.addAttribute("p_num", p_num);
+		return "sitter/visit/reservation5";
+	}
+	@RequestMapping(value="complete",method=RequestMethod.POST)
+	public String reservation6Form(int[] p_num,Model model,HttpServletRequest request) {
+//		for(int i : p_num) {
+//			System.out.println(i);
+//		}		
+		model.addAttribute("p_num", p_num);
+		return "sitter/visit/reservation6";
+	}
+	@RequestMapping(value="complete1",method=RequestMethod.POST)
+	public String reservation7Form(int[] p_num,Model model,String[] week,String[] hour,String[] hAdd) {
+//		for(int i : p_num) {
+//			System.out.println(i);
+//		}		
+		model.addAttribute("p_num", p_num);
+		System.out.println(week);
+		System.out.println(hour);
+		System.out.println(hAdd);
+		model.addAttribute("week", week);
+		model.addAttribute("hour", hour);
+		model.addAttribute("hAdd", hAdd);		
+		return "sitter/visit/reservation7";
+	}
 }
