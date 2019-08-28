@@ -11,5 +11,6 @@ public interface PetDao {
 	public int deletePet(Pet pet);
 	public Pet selectPet(int num);
 	public List<Pet> selectAllPet();
+	public List<Pet> selectByC_Num(int c_num);
 
 }
