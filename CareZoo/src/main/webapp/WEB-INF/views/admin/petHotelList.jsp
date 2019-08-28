@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>modifyPetHotelList</title>
+<title>petHotelList</title>
 </head>
 <body>
 	<div>
@@ -19,7 +19,7 @@
 			<c:forEach items="${phL }" var="ph" >
 				<tr>
 					<td>${ph.ph_num}</td>
-					<td><a href="viewPetHotel?num=${ph.ph_num}">${ph.ph_name}</a></td>
+					<td><a href="viewPetHotel?ph_num=${ph.ph_num}">${ph.ph_name}</a></td>
 					<td>${ph.ph_address}</td>
 				</tr>
 			</c:forEach>
