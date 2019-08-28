@@ -18,7 +18,6 @@
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
 <script type="text/javascript"> 
-//      검색된 리스트 띄우기
 	$(function () {
 		$('.status .btn').click(function () {
 			location.href = location.pathname;
@@ -49,6 +48,7 @@
 			$('.col-btn .btn').button('loading');
 		});
 	
+//      상세 검색결과 리스트로 띄우기
 		$search = function (wholeStates) {
 			var href = '${contextPath}/home/search';
 			var dateStart = moment(datepickerStart.datepicker('getDate'));
@@ -123,16 +123,47 @@
 			<tr class="col-btn">
 					<td>
 						<button class="btn hidden-xs">찾기</button>
+						<button type="reset" class="btn">초기화</button>
 					</td>
 			</tr>
 		</table>
 	</form>
 </div>
+
+<!-- 지역 검색 -->
 <div>
 	<table>
 		<tr>
-			<th></th>
-			<td></td>
+			<th>전체</th>
+			<td>
+				<select name="">
+					<option title="" value=""></option>
+				</select>
+			</td>
+		<tr>
+		<tr>
+			<th>서울</th>
+			<td>
+				<select name="">
+					<option title="" value=""></option>
+				</select>
+			</td>
+		<tr>
+		<tr>
+			<th>경기</th>
+			<td>
+				<select name="">
+					<option title="" value=""></option>
+				</select>
+			</td>
+		<tr>
+		<tr>
+			<th>인천</th>
+			<td>
+				<select name="">
+					<option title="" value=""></option>
+				</select>
+			</td>
 		<tr>
 	</table>
 </div>
