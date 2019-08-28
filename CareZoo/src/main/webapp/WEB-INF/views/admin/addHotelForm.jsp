@@ -90,7 +90,7 @@
 			var r_child = $("<td><input type=\"number\" placeholder=\"가능어른수\" name=\"r_child"+count+"\">")
 			var r_p_count = $("<td><input type=\"number\" placeholder=\"동반가능펫수\" name=\"r_p_count"+count+"\">")
 			var r_price = $("<td><input type=\"number\" placeholder=\"가격\" name=\"r_price"+count+"\">")
-			var r_img = $("<td><input type=\"text\" placeholder=\"사진\" name=\"r_img"+count+"\">")
+			var r_img = $("<td><input type=\"imgage\" placeholder=\"사진\" name=\"r_img"+count+"\">")
 // 			$('#mytable').append('<tr><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td></tr>');
 			count++;
 			tr.append(r_name);
@@ -121,7 +121,7 @@
 	<div>
 		<fieldset>
 			<legend>호텔 정보 입력</legend>
-			<form action="${contextPath}/dongbanHotel/addHotel">
+			<form action="${contextPath}/dongbanHotel/addHotel" enctype="multipart/form-data">
 				<table  >
 					<tr>
 						<th>호텔이름</th>
@@ -156,7 +156,7 @@
 							<td><input type="number" placeholder="가능어린이수" name="r_child"></td>
 							<td><input type="number" placeholder="동반가능펫수" name="r_p_count"></td>
 							<td><input type="number" placeholder="가격" name="r_price"></td>
-							<td><input type="image" placeholder="사진" name="r_img"></td>
+							<td><input type="file" placeholder="사진" name="file"></td>
 						</tr>
 					</tbody>
 					<tfoot>

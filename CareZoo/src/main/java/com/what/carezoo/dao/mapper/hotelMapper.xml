@@ -4,14 +4,13 @@
 
 	<insert id="insert" parameterType="hotel">
 		insert 
-		into hotel (h_num, h_p_count, h_price, h_name, h_type, h_star, h_address, h_d_address, h_img, h_latitude, h_longitude)
-		values (hotel_seq.nextval, #{h_p_count}, #{h_price}, #{h_name}, #{h_type}, #{h_star}, #{h_address}, #{h_d_address}, #{h_img}, #{h_latitude}, #{h_longitude} )
+		into hotel (h_num, h_p_count, h_price, h_name, h_address, h_d_address, h_latitude, h_longitude)
+		values (hotel_seq.nextval, #{h_p_count}, #{h_price}, #{h_name}, #{h_address}, #{h_d_address}, #{h_latitude}, #{h_longitude} )
 	</insert>
 
 	<update id="update" parameterType="hotel">
 		update hotel
 		set h_name=#{h_name},
-		h_star=#{h_star},
 		where h_num = #{h_num}
 	</update>
 
@@ -20,10 +19,11 @@
 		where h_num = #{h_num}
 	</delete>
 	
-	<select id="selectOnebyH_num" parameterType="int" resultType="hotel">
+	<select id="selectOnebyH_num" parameterType="int" resultType="boardMap">
 		select *
-		from hotel
-		where h_num = #{h_num}
+  		  from hotel h,hotel_image f
+ 	     where h.num = f.h_num(+) 
+           and h.num = #{h_num}
 	</select>
 	
 	<select id="selectAll" resultType="hotel">
@@ -33,11 +33,11 @@
 	
 	<insert id="insertFile" parameterType="map">
 		insert into hotel_image
-		  			(h_img_num,h_num,#{fileName} )
-		values (hotel_img_seq,#{h_num},#{fileName}) 
+		  			(h_img_num,h_num,h_fileName )
+		values (hotel_img_seq,#{h_num},#{h_fileName}) 
 	</insert>
 	<select id="selectFileName" parameterType="int" resultType="String">
-		select * from hotel_image where h_num = board_num
+		select * from hotel_image where H_NUM = h_num
 	</select>
 
 </mapper>

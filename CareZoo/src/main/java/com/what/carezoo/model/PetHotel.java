@@ -8,7 +8,7 @@ public class PetHotel {
 	private double ph_star;		
 	private int ph_price;		
 	private int ph_p_count;		
-	private String ph_img;		
+	private String ph_fileName;		
 	private String ph_latitude;		
 	private String ph_longitude;
 	public int getPh_num() {
@@ -53,11 +53,11 @@ public class PetHotel {
 	public void setPh_p_count(int ph_p_count) {
 		this.ph_p_count = ph_p_count;
 	}
-	public String getPh_img() {
-		return ph_img;
+	public String getPh_fileName() {
+		return ph_fileName;
 	}
-	public void setPh_img(String ph_img) {
-		this.ph_img = ph_img;
+	public void setPh_fileName(String ph_fileName) {
+		this.ph_fileName = ph_fileName;
 	}
 	public String getPh_latitude() {
 		return ph_latitude;

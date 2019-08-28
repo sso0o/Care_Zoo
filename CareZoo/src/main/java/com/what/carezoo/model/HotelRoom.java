@@ -7,7 +7,7 @@ public class HotelRoom {
 	private int r_adult;
 	private int r_child;
 	private int r_count;
-	private String r_img;
+	private String r_fileName;
 	public int getH_num() {
 		return h_num;
 	}
@@ -44,11 +44,11 @@ public class HotelRoom {
 	public void setR_count(int r_count) {
 		this.r_count = r_count;
 	}
-	public String getR_img() {
-		return r_img;
+	public String getR_fileName() {
+		return r_fileName;
 	}
-	public void setR_img(String r_img) {
-		this.r_img = r_img;
+	public void setR_fileName(String r_fileName) {
+		this.r_fileName = r_fileName;
 	}
 
 }

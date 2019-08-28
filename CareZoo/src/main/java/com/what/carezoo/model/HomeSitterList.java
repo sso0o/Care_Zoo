@@ -13,12 +13,19 @@ public class HomeSitterList {
 	 private String hsl_yard;
 	 private String hsl_baby;
 	 private String hsl_family;
-	 private String hsl_img;
+	 private String hsl_fileName;
 	 private String hsl_address;
 	 private String hsl_d_address;
 	 private String hsl_service_type;
 	 private String hsl_pet_age;
 	 private String hsl_d_d_address;
+
+	 public String getFileName() {
+		 return hsl_fileName;
+	 }
+	 public void setFileName(String fileName) {
+		 this.hsl_fileName = fileName;
+	 }
 	public int getHsl_num() {
 		return hsl_num;
 	}
