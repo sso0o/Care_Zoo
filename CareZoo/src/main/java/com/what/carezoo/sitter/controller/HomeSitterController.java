@@ -55,7 +55,7 @@ public class HomeSitterController {
 //	}
 	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST)
 	public void uploadAjaxPost(MultipartFile[] uploadFile) {
-		String uploadFolder = "C:\\";
+		String uploadFolder = "C:\\temp";
 		// make folder
 //		File uploadPath = new File(uploadFolder, getFolder());
 //		if(uploadPath.exists()==false) {
@@ -78,14 +78,13 @@ public class HomeSitterController {
 	@ResponseBody
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getFile(String fileName){
-		File file = new File("c:\\"+fileName);
+		File file = new File("c:\\temp"+fileName);
 		ResponseEntity<byte[]> result = null;
 		try {
 			HttpHeaders header = new HttpHeaders();
 			header.add("Content-Type", Files.probeContentType(file.toPath()));
 			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;

@@ -53,12 +53,12 @@ $(document).ready(function(){
 		var inputFile = $("input[name='uploadFile']");
 		var files = inputFile[0].files;
 		console.log(files);
-		//add fileDate to formdata
+		//add fileData to formdata
 		for(var i =0; i<files.length;i++){
 			formData.append("uploadFile", files[i]);
 		}
 		$.ajax({
-			url:${contextPath}+'/uploadAjaxAction',
+			url:'${contextPath}/home/uploadAjaxAction',
 			processData:false,
 			contentType:false,
 			data:formData,
@@ -91,7 +91,7 @@ function showUploadedFile(uploadResultArr){
 <body>
 	<div class="uploadDiv">
 <!-- 		<img id=image src="http://dy.gnch.or.kr/img/no-image.jpg"> -->
-		<input id="file" type="file" name="uploadFile" multiple="multiple">
+		<input type="file" name="uploadFile" multiple="multiple">
 	</div>
 	<button id="uploadBtn">Upload</button>
 	<div class="uploadResult">
