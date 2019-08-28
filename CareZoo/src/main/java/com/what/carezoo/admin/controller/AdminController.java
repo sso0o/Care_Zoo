@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.what.carezoo.hotel.service.DongbanHotelService;
 import com.what.carezoo.hotel.service.PetHotelService;
+import com.what.carezoo.member.service.MemberService;
+import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.PetHotel;
+import com.what.carezoo.sitter.service.SitterService;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,6 +26,12 @@ public class AdminController {
 
 	@Autowired
 	private DongbanHotelService dhService;
+	
+	@Autowired
+	private MemberService mService;
+	
+
+	
 
 	@RequestMapping("/main")
 	public String showAdminMain() {
@@ -45,6 +54,18 @@ public class AdminController {
 	}
 	
 	// <-----------------------------------------------------------------이거 위치
+	
+	///////////////////////////////////////////////////////////////////////////////// 멤버
+	
+	@RequestMapping("/memberList")
+	public String showMemberList(Model m) {
+		List<Customer> cList = mService.selectAll();
+		
+		m.addAttribute("cList", cList);
+		return "admin/memberList";
+	}
+	
+	
 
 	////////////////////////////////////////////////////////////////////////// 호텔
 	// add PetHotel Form
