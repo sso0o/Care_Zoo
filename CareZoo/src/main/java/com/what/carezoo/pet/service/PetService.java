@@ -42,5 +42,7 @@ public class PetService {
 	public List<Pet> selectAllPet(){
 		return petDao.selectAllPet();
 	}
-	
+	public List<Pet> selectByC_Num(int c_num){
+		return petDao.selectByC_Num(c_num);
+	}
 }
