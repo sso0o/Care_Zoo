@@ -76,7 +76,7 @@
 </script>
 <script type="text/javascript">
 	if(${msg} != null){
-		alert("${msg}")
+		alert("${msg}");
 	}
 	
 	

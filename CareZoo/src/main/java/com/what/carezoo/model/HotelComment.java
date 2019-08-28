@@ -10,7 +10,13 @@ public class HotelComment {
 	private String hc_comment;
 	private double hc_star;
 	private Date hc_write_date;
-	private String hc_img;
+	private String hc_fileName;
+	public String getHc_fileName() {
+		return hc_fileName;
+	}
+	public void setHc_fileName(String hc_fileName) {
+		this.hc_fileName = hc_fileName;
+	}
 	public int getHc_num() {
 		return hc_num;
 	}
@@ -53,12 +59,7 @@ public class HotelComment {
 	public void setHc_write_date(Date hc_write_date) {
 		this.hc_write_date = hc_write_date;
 	}
-	public String getHc_img() {
-		return hc_img;
-	}
-	public void setHc_img(String hc_img) {
-		this.hc_img = hc_img;
-	}
+
 
 	
 }

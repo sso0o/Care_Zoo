@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.what.carezoo.hotel.service.DongbanHotelService;
 import com.what.carezoo.hotel.service.PetHotelService;
@@ -77,7 +78,6 @@ public class AdminController {
 	// add pet hotel
 	@RequestMapping("/addHotel")
 	public String addHotel(PetHotel ph) {
-		phService.addPetHotel(ph);
 		return "admin/addHotelForm";
 	}
 
@@ -91,10 +91,10 @@ public class AdminController {
 
 	// 펫호텔 추가
 	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
-	public String name(PetHotel ph, Model m) {
+	public String name(PetHotel ph, Model m, MultipartFile file) {
 		System.out.println(ph);
 		
-		boolean rst = phService.addPetHotel(ph);
+		boolean rst = phService.addPetHotel(ph,file);
 		if (rst) {
 			return "redirect:/admin/main";
 		} else {

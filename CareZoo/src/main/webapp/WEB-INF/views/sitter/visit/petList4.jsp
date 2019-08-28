@@ -5,6 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+<script type="text/javascript">
+function test_checkbox(){
+	var flag = false;
+	//checkbox 접근 후 체크된 개수 파악
+	var values = document.getElementsByName("p_num");
+	//배열길이
+	//alert(values.length); 
+	for(var i=0;i<values.length;i++){
+		if(values[i].checked){
+			alert(values[i].value);
+			flag= true;
+		}
+	}
+	return flag;
+}
+</script>
 <meta charset="UTF-8">
 <title>petList</title>
 </head>
@@ -19,13 +36,17 @@
 			
 			<li><input type="hidden" name="c_num" value="${c_num}">
 			${pet.p_name}(${pet.p_weight}kg,${pet.p_birth})
-			<input type="checkbox" name="p_chk" value="${pet.p_num}"></li>
+			<input type="checkbox" name="p_num" value="${pet.p_num}"></li>
 		</ul>
 		</c:forEach>
 		<div>
-			<input type="submit" value="다음">
+			<input type="submit" value="다음" onclick="return test_checkbox()">
+			<!-- return: 클릭했을 때 함수호출
+			true: action 수행, false: action수행 안함 -->
 		</div>
 	</form>
-
+		<div>
+			<button onclick="location.href='${contextPath}/visit/apply?c_num=${c_num}'">반려견 등록</button>
+		</div>
 </body>
 </html>

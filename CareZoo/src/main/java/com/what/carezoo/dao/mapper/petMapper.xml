@@ -29,5 +29,7 @@
 	<select id="selectAllPet" resultType="pet">
 		select * from pet
 	</select>
-
+	<select id="selectByC_Num" resultType="pet">
+		select * from pet where c_num=#{c_num}
+	</select>
 </mapper>

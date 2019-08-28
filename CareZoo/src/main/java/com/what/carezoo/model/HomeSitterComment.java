@@ -11,7 +11,7 @@ public class HomeSitterComment {
 	private String hsc_comment;
 	private double hsc_star;
 	private Date hsc_write_date;
-	private String hsc_img;
+	private String hsc_fileName;
 	public int getHsc_num() {
 		return hsc_num;
 	}
@@ -54,17 +54,18 @@ public class HomeSitterComment {
 	public void setHsc_write_date(Date hsc_write_date) {
 		this.hsc_write_date = hsc_write_date;
 	}
-	public String getHsc_img() {
-		return hsc_img;
+
+	public String getHsc_fileName() {
+		return hsc_fileName;
 	}
-	public void setHsc_img(String hsc_img) {
-		this.hsc_img = hsc_img;
+	public void setHsc_fileName(String hsc_fileName) {
+		this.hsc_fileName = hsc_fileName;
 	}
 	@Override
 	public String toString() {
 		return "HomeSitterComment [hsc_num=" + hsc_num + ", hsr_num=" + hsr_num + ", hs_num=" + hs_num + ", c_num="
 				+ c_num + ", hsc_comment=" + hsc_comment + ", hsc_star=" + hsc_star + ", hsc_write_date="
-				+ hsc_write_date + ", hsc_img=" + hsc_img + "]";
+				+ hsc_write_date + "]";
 	}
 	
 }

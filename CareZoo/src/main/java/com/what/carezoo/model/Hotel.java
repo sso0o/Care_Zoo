@@ -5,13 +5,17 @@ public class Hotel {
 	private int h_p_count;
 	private int h_price;
 	private String h_name;
-	private String h_type;
-	private double h_star;
 	private String h_address;
 	private String h_d_address;
-	private String h_img;
 	private String h_latitude;
 	private String h_longitude;
+	private String h_fileName;
+	public String getH_fileName() {
+		return h_fileName;
+	}
+	public void setH_fileName(String h_fileName) {
+		this.h_fileName = h_fileName;
+	}
 	public int getH_num() {
 		return h_num;
 	}
@@ -36,18 +40,6 @@ public class Hotel {
 	public void setH_name(String h_name) {
 		this.h_name = h_name;
 	}
-	public String getH_type() {
-		return h_type;
-	}
-	public void setH_type(String h_type) {
-		this.h_type = h_type;
-	}
-	public double getH_star() {
-		return h_star;
-	}
-	public void setH_star(double h_star) {
-		this.h_star = h_star;
-	}
 	public String getH_address() {
 		return h_address;
 	}
@@ -59,12 +51,6 @@ public class Hotel {
 	}
 	public void setH_d_address(String h_d_address) {
 		this.h_d_address = h_d_address;
-	}
-	public String getH_img() {
-		return h_img;
-	}
-	public void setH_img(String h_img) {
-		this.h_img = h_img;
 	}
 	public String getH_latitude() {
 		return h_latitude;
