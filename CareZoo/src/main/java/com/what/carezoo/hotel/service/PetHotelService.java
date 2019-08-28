@@ -28,15 +28,15 @@ public class PetHotelService {
 		return false;
 	}
 	
-	public boolean removePetHotel(PetHotel ph) {
-		if(petHotelDao.delete(ph)>0) {
+	public boolean removePetHotel(int ph_num) {
+		if(petHotelDao.delete(ph_num)>0) {
 			return true;
 		}
 		return false;
 	}
 	
-	public PetHotel getPetHotelbyNum(int num) {
-		return petHotelDao.selectOne(num);
+	public PetHotel getPetHotelbyNum(int ph_num) {
+		return petHotelDao.selectOne(ph_num);
 	}
 	
 	public List<PetHotel> getAllPetHotel() {
