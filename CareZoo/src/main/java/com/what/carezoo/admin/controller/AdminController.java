@@ -75,30 +75,25 @@ public class AdminController {
 		
 		boolean rst = phService.addPetHotel(ph);
 		if (rst) {
-			String msg = "업로드 성공!";
-			m.addAttribute("msg", msg);
 			return "redirect:/admin/main";
 		} else {
-			String msg = "업로드 실패!";
-			m.addAttribute("msg", msg);
-
 			return "redirect:/admin/addPetHotelForm";
 		}
 
 	}
 	// 펫호텔 수정하기 위해 리스트 보기
-	@RequestMapping("/modifyPetHotelList")
-	public String showModifyPetHotelList(Model m) {
+	@RequestMapping("/petHotelList")
+	public String showPetHotelList(Model m) {
 		List<PetHotel> phL = phService.getAllPetHotel();
 		m.addAttribute("phL", phL);
 		System.out.println(phL);
-		return "admin/modifyPetHotelList";
+		return "admin/petHotelList";
 	}
 
 	// 펫호텔 상세보기
 	@RequestMapping("/viewPetHotel")
-	public String viewPetHotel(int num, Model m) {
-		PetHotel ph = phService.getPetHotelbyNum(num);
+	public String viewPetHotel(int ph_num, Model m) {
+		PetHotel ph = phService.getPetHotelbyNum(ph_num);
 		m.addAttribute("ph", ph);
 		return "admin/viewPetHotel";
 	}
@@ -106,15 +101,22 @@ public class AdminController {
 	// 펫호텔 수정
 	@RequestMapping(value="/modifyPetHotel", method = RequestMethod.POST)
 	public String modifyPetHotel(PetHotel ph, Model m) {
+		int num = ph.getPh_num();
 		boolean rst = phService.modifyPetHotel(ph);
 		if(rst) {
-			String msg = "수정 성공!";
-			m.addAttribute("msg", msg);
-			return "redirect:/admin/main";
+			return "redirect:/admin/petHotelList";
 		} else {
-			String msg = "수정 실패!";
-			m.addAttribute("msg", msg);
-			return "redirect:/admin/modifyPetHotelList";
+			return "admin/viewPetHotel?ph_num="+num;
+		}
+	}
+	
+	@RequestMapping("/delPetHotel")
+	public String delPetHotel(int ph_num) {
+		boolean rst = phService.removePetHotel(ph_num);
+		if(rst) {
+			return "redirect:/admin/petHotelList";
+		} else {
+			return "redirect:/admin/viewPetHotel?ph_num="+ph_num;
 		}
 	}
 

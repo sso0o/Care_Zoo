@@ -16,7 +16,7 @@
 		where ph_num = #{ph_num}
 	</update>
 
-	<delete id="delete" parameterType="PetHotel">
+	<delete id="delete" parameterType="int">
 		delete from pethotel 
 		where ph_num = #{ph_num}
 	</delete>

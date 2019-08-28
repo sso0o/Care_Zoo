@@ -8,8 +8,8 @@ public interface PetHotelDao {
 	
 	public int insert(PetHotel ph);
 	public int update(PetHotel ph);
-	public int delete(PetHotel ph);
-	public PetHotel selectOne(int num);
+	public int delete(int ph_num);
+	public PetHotel selectOne(int ph_num);
 	public List<PetHotel> selectAll();
 
 }

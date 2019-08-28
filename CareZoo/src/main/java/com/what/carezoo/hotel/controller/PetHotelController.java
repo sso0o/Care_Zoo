@@ -42,6 +42,13 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return "hotel/petHotelView";
 	}
 	
+	// 펫호텔 키워드로 선택
+	@RequestMapping("/addressKeyword")
+	public String addressKeyworkSelect(String keywork) {
+		
+		return null;
+	}
+	
 	
 	
 	
