@@ -47,18 +47,6 @@
 		select * from pethotel_image where PH_NUM = ph_num
 	</select>
 
-	<resultMap type="board" id="petHotel">
-		<result column="PH_NUM" property="ph_num" />
-		<result column="PH_NAME" property="ph_name" />
-		<result column="PH_ADDRESS" property="ph_address" />
-		<result column="PH_D_ADDRESS" property="ph_d_address" />
-		<result column="PH_STAR" property="ph_star" />
-		<result column="PH_PRICE" property="ph_price" />
-		<result column="PH_P_COUNT" property="ph_p_count" />
-		<result column="PH_FILENAME" property="ph_fileName" />
-		<result column="PH_LATITUDE" property="ph_latitude" />
-		<result column="PH_LONGITUDE" property="ph_longitude" />
-	</resultMap>
 
 
 
