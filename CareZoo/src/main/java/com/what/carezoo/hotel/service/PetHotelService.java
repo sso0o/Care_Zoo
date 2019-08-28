@@ -36,9 +36,9 @@ public class PetHotelService {
 			}else {
 				String fullName = writeFile(file);
 				Map<String,Object> fileParam = new HashMap<String,Object>();
-				fileParam.put("num",board.getNum());
-				fileParam.put("fileName",fullName);
-				if(dao.insertFile(fileParam)>0) {			
+				fileParam.put("ph_num",ph.getPh_num());
+				fileParam.put("ph_fileName",fullName);
+				if(petHotelDao.insertFile(fileParam)>0) {			
 					//file업로드 안됐는디 게시글이 올려지는 게 이상함. 그래서 트랜잭션 적용 ㄱ_ㄱ
 					//트랜잭션:
 					//insertFile이 실행되지 않았을 때  insertBoard도 실행되지 않게 해라!
