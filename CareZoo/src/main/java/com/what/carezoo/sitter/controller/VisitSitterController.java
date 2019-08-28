@@ -100,21 +100,33 @@ public class VisitSitterController {
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		model.addAttribute("c_num", c_num);
+
 		return "result";
 	}
 	//펫리스트폼
 	@RequestMapping(value="petList",method=RequestMethod.GET)
-	public String petListForm(Model model,int c_num) {
+	public String petList4Form(Model model,int c_num) {
 		model.addAttribute("c_num", c_num);
-		model.addAttribute("petList", petService.selectAllPet());
+		model.addAttribute("petList", petService.selectByC_Num(c_num));
 		return "sitter/visit/petList4";
 	}
 	//펫리스트에서 강아지 고르기
 	@RequestMapping(value="petList", method=RequestMethod.POST)
 	public String petList(int p_num,Model model) {
+		System.out.println(p_num);
 		model.addAttribute("p_num", p_num);
-		return "visit/sitter/reservation5";
+		return "redirect:reservation5";
+		//여러마리일경우에는?....
 	}
-	
-	
+	//예약 전 안내사항 폼
+	@RequestMapping(value="reservation5",method=RequestMethod.GET)
+	public String preReservation5Form(int p_num,Model model) {
+		model.addAttribute("p_num", p_num);
+		System.out.println(p_num);
+		return "sitter/visit/reservation5";
+	}
+	@RequestMapping(value="complete",method=RequestMethod.POST)
+	public String reservation6Form() {
+		return "sitter/visit/reservation6";
+	}
 }
