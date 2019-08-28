@@ -19,7 +19,7 @@
 		where h_num = #{h_num}
 	</delete>
 	
-	<select id="selectOnebyH_num" parameterType="int" resultType="boardMap">
+	<select id="selectOnebyH_num" parameterType="int" resultType="hotel">
 		select *
   		  from hotel h,hotel_image f
  	     where h.num = f.h_num(+) 

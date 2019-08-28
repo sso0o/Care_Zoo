@@ -20,12 +20,12 @@ public class HomeSitterList {
 	 private String hsl_pet_age;
 	 private String hsl_d_d_address;
 
-	 public String getFileName() {
-		 return hsl_fileName;
-	 }
+	public String getFileName() {
+		return hsl_fileName;
+	}
 	 public void setFileName(String fileName) {
 		 this.hsl_fileName = fileName;
-	 }
+	}
 	public int getHsl_num() {
 		return hsl_num;
 	}
@@ -98,12 +98,7 @@ public class HomeSitterList {
 	public void setHsl_family(String hsl_family) {
 		this.hsl_family = hsl_family;
 	}
-	public String getHsl_img() {
-		return hsl_img;
-	}
-	public void setHsl_img(String hsl_img) {
-		this.hsl_img = hsl_img;
-	}
+
 	public String getHsl_address() {
 		return hsl_address;
 	}
@@ -139,8 +134,8 @@ public class HomeSitterList {
 		return "HomeSitterList [hsl_num=" + hsl_num + ", hs_num=" + hs_num + ", hsl_title=" + hsl_title
 				+ ", hsl_comment=" + hsl_comment + ", hsl_size=" + hsl_size + ", hsl_chkin=" + hsl_chkin
 				+ ", hsl_chkout=" + hsl_chkout + ", hsl_care_place=" + hsl_care_place + ", hsl_subway=" + hsl_subway
-				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family + ", hsl_img="
-				+ hsl_img + ", hsl_address=" + hsl_address + ", hsl_d_address=" + hsl_d_address + ", hsl_service_type="
+				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family 
+				+  ", hsl_address=" + hsl_address + ", hsl_d_address=" + hsl_d_address + ", hsl_service_type="
 				+ hsl_service_type + ", hsl_pet_age=" + hsl_pet_age + ", hsl_d_d_address=" + hsl_d_d_address + "]";
 	}
  
