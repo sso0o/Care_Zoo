@@ -101,11 +101,12 @@ public class AdminController {
 	// 펫호텔 수정
 	@RequestMapping(value="/modifyPetHotel", method = RequestMethod.POST)
 	public String modifyPetHotel(PetHotel ph, Model m) {
+		int num = ph.getPh_num();
 		boolean rst = phService.modifyPetHotel(ph);
 		if(rst) {
-			return "redirect:/admin/main";
-		} else {
 			return "redirect:/admin/petHotelList";
+		} else {
+			return "admin/viewPetHotel?ph_num="+num;
 		}
 	}
 	
@@ -113,9 +114,9 @@ public class AdminController {
 	public String delPetHotel(int ph_num) {
 		boolean rst = phService.removePetHotel(ph_num);
 		if(rst) {
-			return "admin/petHotelList";
+			return "redirect:/admin/petHotelList";
 		} else {
-			return "admin/viewPetHotel?ph_num="+ph_num;
+			return "redirect:/admin/viewPetHotel?ph_num="+ph_num;
 		}
 	}
 

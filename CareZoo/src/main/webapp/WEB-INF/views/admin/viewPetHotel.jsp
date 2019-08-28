@@ -7,6 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>viewPetHotel</title>
+<script type="text/javascript">
+	function removeCheck() {
+		if(confirm("정말 삭제할건지?") == true){
+			location.href='${contextPath}/admin/delPetHotel?ph_num=${ph.ph_num}'
+		} else{
+			return false;
+		}
+	}
+</script>
+
 </head>
 <body>
 	<div>
@@ -37,7 +47,7 @@
 
 					<tr>
 						<td><input type="submit" value="수정"></td>
-						<td><input type="button" value="삭제" onclick="${contextPath}/admin/delPetHotel"></td>
+						<td><input type="button" value="삭제" onclick="removeCheck()"></td>
 					</tr>
 			</form>
 		</fieldset>
