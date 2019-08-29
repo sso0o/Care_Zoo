@@ -1,5 +1,7 @@
 package com.what.carezoo.sitter.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
@@ -145,7 +148,7 @@ public class VisitSitterController{
 		return "sitter/visit/reservation6";
 	}
 	@RequestMapping(value="complete1",method=RequestMethod.POST)
-	public String reservation7Form(int[] p_num,Model model,String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd) {
+	public String reservation7Form(@RequestParam() ArrayList<Integer> p_num,Model model,String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd) {
 //		for(int i : p_num) {
 //			System.out.println(i);
 //		}		
@@ -158,18 +161,23 @@ public class VisitSitterController{
 //		for(int i=0;i<hAdd.length;i++) {
 //			System.out.println(hAdd[i]);
 //		}
-		
-		boolean result = pdService.insertPet_Detail(pd);
-		System.out.println(pd);
-		if (result) {
-			model.addAttribute("p_num", p_num);
-			model.addAttribute("week", pd_week);
-			model.addAttribute("hour", pd_hour);
-			model.addAttribute("hAdd", pd_hAdd);
-			
-			return "sitter/visit/reservation7";
+		for(int i :p_num) {
+			System.out.println(i);
+			pd.setP_num(i);
+			boolean result = pdService.insertPet_Detail(pd);
+			System.out.println(pd);
+			if (result) {
+				model.addAttribute("p_num", p_num);
+				model.addAttribute("week", pd_week);
+				model.addAttribute("hour", pd_hour);
+				model.addAttribute("hAdd", pd_hAdd);
+			}
 		}
-			return "complete1";
+			model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
+			model.addAttribute("p_name", petService.selectOnlyNameByP_Num(p_num));
+			System.out.println(pdService.selectByP_Num(p_num));
+			System.out.println(petService.selectOnlyNameByP_Num(p_num));
+			return "sitter/visit/reservation7";
 	}
 	@RequestMapping(value="")
 	public String reservation7Form() {
