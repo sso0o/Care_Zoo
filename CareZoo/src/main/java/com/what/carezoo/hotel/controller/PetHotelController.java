@@ -29,10 +29,10 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 목록보기
 	@RequestMapping("/petHotelList")
-	public String showPetHotelList(Model m) {
+	public String showPetHotelList(Model model) {
 		List<PetHotel> hList = phService.getAllPetHotel();
 
-		m.addAttribute("hList", hList);
+		model.addAttribute("hList", hList);
 		return "hotel/petHotelList";
 	}
 

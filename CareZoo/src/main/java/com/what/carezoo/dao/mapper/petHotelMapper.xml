@@ -47,6 +47,7 @@
 		  			(ph_img_num,ph_num,ph_fileName )
 		values (hotel_image_seq.nextval,#{ph_num},#{ph_fileName}) 
 	</insert>
+	
 	<select id="selectFileName" parameterType="int" resultType="String">
 		select * from pethotel_image where PH_NUM = #{ph_num}
 	</select>
