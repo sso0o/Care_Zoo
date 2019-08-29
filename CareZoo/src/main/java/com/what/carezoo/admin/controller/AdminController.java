@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.hotel.service.DongbanHotelService;
 import com.what.carezoo.hotel.service.PetHotelService;
@@ -71,10 +72,19 @@ public class AdminController {
 
 	// 펫호텔 추가
 	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
-	public String name(PetHotel ph, Model m, MultipartFile file) {
-		System.out.println(ph+"///경계"+file);
-		System.out.println("boardWrite MultipartFile:"+file.getOriginalFilename());
-		boolean rst = phService.addPetHotel(ph,file);
+	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest){
+        List<MultipartFile> files = mtfRequest.getFiles("files");
+//        String src = mtfRequest.getParameter("src");
+//        System.out.println("src value : " + src);
+//        System.out.println(fileList.get(0));
+//        for (MultipartFile mf : fileList) {
+//            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+//            long fileSize = mf.getSize(); // 파일 사이즈
+//
+//            System.out.println("originFileName : " + originFileName);
+//            System.out.println("fileSize : " + fileSize);
+//        }
+		boolean rst = phService.addPetHotel(ph,files);
 		if (rst) {
 			return "redirect:/admin/main";
 		} else {
