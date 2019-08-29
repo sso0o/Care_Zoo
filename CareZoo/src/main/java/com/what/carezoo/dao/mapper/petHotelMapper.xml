@@ -35,6 +35,8 @@
  	     where ph.ph_num = f.ph_num(+) 
            and ph.ph_num = #{ph_num}
 	</select>
+	<select id="selectFileList" parameterType="int" resultType="PetHotel">
+	</select>
 	
 	<select id="selectAll" resultType="PetHotel">
 		select * 
