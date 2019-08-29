@@ -9,8 +9,9 @@ public interface PetDao {
 	public int insertPet(Pet pet);
 	public int updatePet(Pet pet);
 	public int deletePet(Pet pet);
-	public Pet selectPet(int num);
+	public Pet selectPet(int p_num);
 	public List<Pet> selectAllPet();
 	public List<Pet> selectByC_Num(int c_num);
+	public List<Pet> selectChoiceByP_Num(int p_num);
 
 }

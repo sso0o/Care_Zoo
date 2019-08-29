@@ -62,7 +62,7 @@
     <div class='container'>
         
     </div>
-	<div style="margin-top: 150px">
+	<div style=" margin-top: 50px;">
 		<h2>방문펫시터 예약을 위해 고객님 로그인을 부탁 드립니다.</h2>
 		<hr>
 		<button onclick="location.href='${contextPath}/visit/join'">회원가입</button>

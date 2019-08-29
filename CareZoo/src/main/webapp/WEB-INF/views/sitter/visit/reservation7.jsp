@@ -9,5 +9,12 @@
 <body>
 <h1>예약 변경을 원할 경우 추가/변경을 눌러주세요</h1>
 리스트 만들어서 리스트에 버튼 달아주기...
+<form action="">
+	<table>
+		<tr>
+			<th></th>
+		</tr>
+	</table>
+</form>
 </body>
 </html>

@@ -1,11 +1,6 @@
 package com.what.carezoo.sitter.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,14 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
+import com.what.carezoo.model.Pet_Detail;
 import com.what.carezoo.pet.service.PetService;
+import com.what.carezoo.pet.service.Pet_DetailService;
 @RequestMapping("/visit")
 @Controller
-public class VisitSitterController extends HttpServlet {
+public class VisitSitterController{
 	@Autowired
 	private MemberService memberService;
 	@Autowired
 	private PetService petService;
+	@Autowired
+	private Pet_DetailService pdService;
+	
 	//예약 메인(로그인, 회원가입)
 	@RequestMapping("/main")
 	public String showMain() {
@@ -117,12 +117,14 @@ public class VisitSitterController extends HttpServlet {
 	}
 	//펫리스트에서 강아지 고르기
 	@RequestMapping(value="petList", method=RequestMethod.POST)
-	public String petList(int p_num,Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public String petList(int p_num,Model model,HttpServletRequest request) {
 		String[] checks = request.getParameterValues("p_num");
 		model.addAttribute("p_num",checks);
-//		for(int i=0 ;i<checks.length;i++) {
-//			System.out.println(checks[i]);
-//		}		
+		model.addAttribute("pList", petService.selectPet(p_num));
+		
+		for(int i=0 ;i<checks.length;i++) {
+			System.out.println(checks[i]);
+		}		
 		return "redirect:reservation5";
 	}
 	//예약 전 안내사항 폼
@@ -143,17 +145,33 @@ public class VisitSitterController extends HttpServlet {
 		return "sitter/visit/reservation6";
 	}
 	@RequestMapping(value="complete1",method=RequestMethod.POST)
-	public String reservation7Form(int[] p_num,Model model,String[] week,String[] hour,String[] hAdd) {
+	public String reservation7Form(int[] p_num,Model model,String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd) {
 //		for(int i : p_num) {
 //			System.out.println(i);
 //		}		
-		model.addAttribute("p_num", p_num);
-		System.out.println(week);
-		System.out.println(hour);
-		System.out.println(hAdd);
-		model.addAttribute("week", week);
-		model.addAttribute("hour", hour);
-		model.addAttribute("hAdd", hAdd);		
-		return "sitter/visit/reservation7";
+//		for(int i=0;i<week.length;i++) {
+//			System.out.println(week[i]);
+//		}
+//		for(int i=0;i<hour.length;i++) {
+//			System.out.println(hour[i]);
+//		}
+//		for(int i=0;i<hAdd.length;i++) {
+//			System.out.println(hAdd[i]);
+//		}
+		
+		boolean result = pdService.insertPet_Detail(pd);
+		System.out.println(pd);
+		if (result) {
+			model.addAttribute("p_num", p_num);
+			model.addAttribute("week", pd_week);
+			model.addAttribute("hour", pd_hour);
+			model.addAttribute("hAdd", pd_hAdd);
+			return "sitter/visit/reservation7";
+		}
+			return "complete1";
+	}
+	@RequestMapping(value="")
+	public String reservation7Form() {
+		return "";
 	}
 }

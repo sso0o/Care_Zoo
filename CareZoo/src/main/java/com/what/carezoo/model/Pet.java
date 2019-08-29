@@ -25,6 +25,7 @@ public class Pet {
 	public void setC_num(int c_num) {
 		this.c_num = c_num;
 	}
+	
 	public String getP_kind() {
 		return p_kind;
 	}
@@ -75,10 +76,11 @@ public class Pet {
 	}
 	@Override
 	public String toString() {
-		return "Pet [p_num=" + p_num + ", c_num=" + c_num + ", p_kind=" + p_kind + ", p_name=" + p_name + ", p_sex="
-				+ p_sex + ", p_birth=" + p_birth + ", p_weight=" + p_weight + ", p_none_sex=" + p_none_sex + ", p_img="
-				+ p_img + ", p_notify=" + p_notify + "]";
+		return "Pet [p_num=" + p_num + ", c_num=" + c_num + ", p_kind=" + p_kind + ", p_name="
+				+ p_name + ", p_sex=" + p_sex + ", p_birth=" + p_birth + ", p_weight=" + p_weight + ", p_none_sex="
+				+ p_none_sex + ", p_img=" + p_img + ", p_notify=" + p_notify + "]";
 	}
+
 	
 	
 }

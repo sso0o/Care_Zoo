@@ -29,7 +29,15 @@
 	<select id="selectAllPet" resultType="pet">
 		select * from pet
 	</select>
-	<select id="selectByC_Num" resultType="pet">
+	<select id="selectByC_Num" parameterType="int" resultType="pet">
 		select * from pet where c_num=#{c_num}
+	</select>
+	<select id="selectChoiceByP_Num" parameterType="int" resultType="pet">
+		select * from pet
+		<trim prefix="where" prefixOverrides="OR">
+			<if test="p_num!=null">
+				 p_num=#{p_num}
+			</if>
+		</trim>
 	</select>
 </mapper>
