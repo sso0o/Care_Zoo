@@ -71,5 +71,13 @@ public class PetHotel {
 	public void setPh_longitude(String ph_longitude) {
 		this.ph_longitude = ph_longitude;
 	}
+	@Override
+	public String toString() {
+		return "PetHotel [ph_num=" + ph_num + ", ph_name=" + ph_name + ", ph_address=" + ph_address + ", ph_d_address="
+				+ ph_d_address + ", ph_star=" + ph_star + ", ph_price=" + ph_price + ", ph_p_count=" + ph_p_count
+				+ ", ph_fileName=" + ph_fileName + ", ph_latitude=" + ph_latitude + ", ph_longitude=" + ph_longitude
+				+ "]";
+	}
+
 
 }

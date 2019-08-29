@@ -30,12 +30,15 @@ public class PetHotelService {
 	private PetHotelDao petHotelDao;
 	
 	public boolean addPetHotel(PetHotel ph,MultipartFile file) {
+		System.out.println(ph.getPh_num());
 		if(petHotelDao.insert(ph)>0) {
+			System.out.println(ph);
 			if(file.isEmpty()) {
 				return true;
 			}else {
 				String fullName = writeFile(file);
 				Map<String,Object> fileParam = new HashMap<String,Object>();
+				System.out.println(ph.getPh_num());
 				fileParam.put("ph_num",ph.getPh_num());
 				fileParam.put("ph_fileName",fullName);
 				if(petHotelDao.insertFile(fileParam)>0) {			

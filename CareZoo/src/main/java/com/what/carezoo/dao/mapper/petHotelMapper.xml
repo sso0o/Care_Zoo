@@ -2,9 +2,17 @@
 <mapper namespace="com.what.carezoo.dao.PetHotelDao">
 
 	<insert id="insert" parameterType="PetHotel">
+	<selectKey order="BEFORE" keyProperty="ph_num" resultType="int">
+	<!-- keyProperty="">엔 보드가 가지고 있는 키값을 넣어주면 됨 
+	result Type은 sequence가 int형이니까 int로.
+	board속성에 num이 int형으로 sequence를 생성해서 넣었다.-->
+	select pethotel_seq.nextval from dual
+<!-- 	insert하면서 시퀀스를 하는게 아니라 시퀀스를 미리 조회해서 값을 미리 가지고 있는다
+	그 값을 파라미터로 받아온 보드에 있는 num에 집어넣는다 -->
+	</selectKey>
 		insert 
 		into pethotel (ph_num, ph_p_count, ph_price, ph_name,  ph_address, ph_d_address)
-		values (pethotel_seq.nextval, #{ph_p_count},  0 , #{ph_name}, #{ph_address}, #{ph_d_address} )
+		values (#{ph_num}, #{ph_p_count},  0 , #{ph_name}, #{ph_address}, #{ph_d_address} )
 	</insert>
 
 	<update id="update" parameterType="PetHotel">
@@ -23,13 +31,9 @@
 	
 	<select id="selectOne" parameterType="int" resultType="PetHotel">
 		select *
-		from pethotel
-		where ph_num = #{ph_num}
-		
-		select *
   		  from pethotel ph,pethotel_image f
- 	     where ph.num = f.ph_num(+) 
-           and ph.num = #{ph_num}
+ 	     where ph.ph_num = f.ph_num(+) 
+           and ph.ph_num = #{ph_num}
 	</select>
 	
 	<select id="selectAll" resultType="PetHotel">
@@ -41,10 +45,10 @@
 		<insert id="insertFile" parameterType="map">
 		insert into pethotel_image
 		  			(ph_img_num,ph_num,ph_fileName )
-		values (hotel_img_seq,#{ph_num},#{ph_fileName}) 
+		values (hotel_image_seq.nextval,#{ph_num},#{ph_fileName}) 
 	</insert>
 	<select id="selectFileName" parameterType="int" resultType="String">
-		select * from pethotel_image where PH_NUM = ph_num
+		select * from pethotel_image where PH_NUM = #{ph_num}
 	</select>
 
 
