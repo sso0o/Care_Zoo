@@ -1,5 +1,7 @@
 package com.what.carezoo.pet.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,9 @@ public class Pet_DetailService {
 			return true;
 		}
 		return false;
+	}
+	
+	public List<Pet_Detail> selectByP_Num(List<Integer> p_num){
+		return pdDao.selectByP_Num(p_num);
 	}
 }

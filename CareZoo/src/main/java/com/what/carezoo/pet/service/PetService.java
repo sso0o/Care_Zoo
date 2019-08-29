@@ -46,4 +46,8 @@ public class PetService {
 	public List<Pet> selectByC_Num(int c_num){
 		return petDao.selectByC_Num(c_num);
 	}
+	
+	public List<Pet> selectOnlyNameByP_Num(List<Integer> p_num){
+		return petDao.selectOnlyNameByP_Num(p_num);
+	}
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextPath" value="<%=request.getContextPath() %>"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +14,15 @@
 <form action="">
 	<table>
 		<tr>
-			<th></th>
+
 		</tr>
+<%-- 	<c:forEach items="${pd_List}" var="pd"> --%>
+<!-- 		<tr> -->
+<%-- 			<th>${pd.pd_date}</th> --%>
+<%-- 			<td>${pd.pd_hour}</td> --%>
+<%-- 			<td>${pd.pd_hAdd}</td> --%>
+<!-- 		</tr> -->
+<%-- 	</c:forEach> --%>
 	</table>
 </form>
 </body>

@@ -5,7 +5,16 @@
 			select pet_detail_seq.nextval from dual
 		</selectKey>
 		insert into pet_detail
-		values (#{pd_num},#{p_num},#{pd_week},#{pd_hour},#{pd_hAdd})
+		values (#{pd_num},#{p_num},#{pd_week},#{pd_hour},#{pd_hAdd},sysdate)
 	</insert>
-	
+	<select id="selectByP_Num" parameterType="list" resultType="pet_detail">
+		select * from pet_detail
+		<trim prefix="where" prefixOverrides="OR">
+			<if test="list != null" >
+				<foreach collection="list" item="item">
+					or p_num =#{item}
+				</foreach>
+			</if>
+		</trim>
+	</select>
 </mapper>
