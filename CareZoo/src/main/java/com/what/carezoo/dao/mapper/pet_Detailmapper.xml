@@ -7,5 +7,5 @@
 		insert into pet_detail
 		values (#{pd_num},#{p_num},#{pd_week},#{pd_hour},#{pd_hAdd})
 	</insert>
-
+	
 </mapper>
