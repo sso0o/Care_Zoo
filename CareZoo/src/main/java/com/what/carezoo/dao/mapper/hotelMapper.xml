@@ -34,7 +34,7 @@
 	<insert id="insertFile" parameterType="map">
 		insert into hotel_image
 		  			(h_img_num,h_num,h_fileName )
-		values (hotel_img_seq,#{h_num},#{h_fileName}) 
+		values (hotel_image_seq,#{h_num},#{h_fileName}) 
 	</insert>
 	<select id="selectFileName" parameterType="int" resultType="String">
 		select * from hotel_image where H_NUM = h_num

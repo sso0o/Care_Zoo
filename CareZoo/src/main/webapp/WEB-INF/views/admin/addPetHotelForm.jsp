@@ -87,7 +87,7 @@
 	<div>
 		<fieldset>
 			<legend>호텔 정보 입력</legend>
-			<form action="${contextPath}/admin/addPetHotel" method="post">
+			<form action="${contextPath}/admin/addPetHotel" method="post" enctype="multipart/form-data">
 				<table>
 					
 					<tr>
@@ -110,6 +110,10 @@
 					<tr>
 						<th>가능한 펫 마리수</th>
 						<td><input type="number" name="ph_p_count"></td>
+					</tr>
+					<tr>
+						<th>파일</th>
+						<td><input type="file" name="file" ></td>
 					</tr>
 					
 					<tr>
