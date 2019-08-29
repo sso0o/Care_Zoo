@@ -166,6 +166,7 @@ public class VisitSitterController{
 			model.addAttribute("week", pd_week);
 			model.addAttribute("hour", pd_hour);
 			model.addAttribute("hAdd", pd_hAdd);
+			
 			return "sitter/visit/reservation7";
 		}
 			return "complete1";
