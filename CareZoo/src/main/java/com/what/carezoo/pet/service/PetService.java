@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.what.carezoo.dao.PetDao;
+import com.what.carezoo.dao.Pet_DetailDao;
 import com.what.carezoo.model.Pet;
 
 
@@ -35,8 +36,8 @@ public class PetService {
 		}return false;
 	}
 	
-	public Pet selectPet(int num) {
-		return petDao.selectPet(num);
+	public Pet selectPet(int p_num) {
+		return petDao.selectPet(p_num);
 	}
 	
 	public List<Pet> selectAllPet(){

@@ -36,11 +36,22 @@
 			 order by hsl_num desc)			  
 		WHERE hsl_address LIKE '%${hsl_address}%'
 	</select>
-	<select id="selectAllHsl" parameterType="homesitterlist" resultType="homesitterlist"> 
-		SELECT * 
-		FROM (SELECT * 
-	  		FROM homesitterlist 
- 		    WHERE hsl_size = #{hsl_size} OR hsl_service_type = #{hsl_service_type} OR hsl_pet_age = #{hsl_pet_age} OR <![CDATA[hsl_chkin >= #{hsl_chkin} and hsl_chkout <= #{hsl_chkout} ]]>)
-		ORDER BY hsl_num desc
+	<select id="selectAllHsl" parameterType="homesitterlist" resultType="homesitterlist">
+	SELECT *
+	FROM homesitterlist
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="hsl_size != null">
+			and hsl_size = #{hsl_size}
+		</if>
+		<if test="hsl_service_type != null">
+			and hsl_service_type = #{hsl_service_type}
+		</if>
+		<if test="hsl_pet_age != null">
+			and hsl_pet_age = #{hsl_pet_age}
+		</if>
+		<if test="hsl_chkin != null">
+			and <![CDATA[hsl_chkin >= #{hsl_chkin} and hsl_chkout <= #{hsl_chkout}]]>
+		</if>
+	</trim>
 	</select>
 </mapper>

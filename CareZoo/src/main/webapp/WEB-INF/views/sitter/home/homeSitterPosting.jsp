@@ -6,113 +6,81 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+img {
+    margin: 1em 0;
+    display: block;
+    background: rgb(240, 240, 240);
+    border: 1px solid rgb(0,0,0);
+}
+</style>
 <title>homeSitterPosting</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script type="text/javascript">
-// window.onload=function(){	  
-// 	var file = document.getElementById('file');
-// 	var image = document.getElementById('image');
-// 	file.onchange = function (event) {
-// 		var target = event.currentTarget;
-// 		var xmlHttpRequest = new XMLHttpRequest();
-// 		xmlHttpRequest.open('GET', 'https://api.imgur.com/3/image/', true);
-// 		xmlHttpRequest.setRequestHeader("Authorization", "a67e5c2cedd7a3e");
-// 		xmlHttpRequest.onreadystatechange = function () {
-// 		  if (xmlHttpRequest.readyState == 4) {
-// 		    if (xmlHttpRequest.status == 200) {
-// 		      var result = JSON.parse(xmlHttpRequest.responseText);
-// 		      image.src = result.data.link;
-// 		      console.log(result);
-// 		    }
-// 		    else {
-// 		    	alert("업로드 실패");
-// 		    	image.src = "http://dy.gnch.or.kr/img/no-image.jpg";
-// 		    }
-// 		  }
-// 		};		
-// 	xmlHttpRequest.send(target.file);
-// 	image.src = "https://nrm.dfg.ca.gov/images/image-loader.gif";
-// 	};	
-// }
-var regex = new  RegExp("(.*?)\.(exe|sh|zip|alz)$");
-var maxSize = 5242880; //5MB
-function checkExtension(fileName, fileSize){
-	if(fileSize >= maxSize){
-		alert("파일 사이즈 초과")
-		return false;
-	}
-	if(regex.test(fileName)){
-		alert("해당 종류의 파일은 업로드할 수 없습니다.")
-		return false;
-	}
-	return true;
-}
-$(document).ready(function(){
-	$("#uploadBtn").on("click",function(e){
-		var formData = new FormData();
-		var inputFile = $("input[name='uploadFile']");
-		var files = inputFile[0].files;
-		console.log(files);
-		//add fileData to formdata
-		for(var i =0; i<files.length;i++){
-			formData.append("uploadFile", files[i]);
-		}
-		$.ajax({
-			url:'${contextPath}/home/uploadAjaxAction',
-			processData:false,
-			contentType:false,
-			data:formData,
-			type:"POST",
-			success:function(result){
-				alert("Uploaded");
-				console.log(result);
-				showUploadedFile(result);
-				$('.uploadDiv').html(cloneObj.html());
-			}
-		}); //$.ajax
-	});
-});
-var uploadResult=$(".uploadResult ul");
-function showUploadedFile(uploadResultArr){
-	var str ="";
-	$(uploadResultArr).each(function(i,obj){
-		if(!obj.image){
-			str += "<li><img src='/resources/img/attach.png'>"+obj.fileName+"</li>";
-		} else{			
-// 		str += "<li>"+obj.fileName +"<li>";
-			var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
-			str += "<li><img src = '/display?fileName="+fileCallPath+"'><li>"
-		}
-	});
-	uploadResult.append(str);
-}
+	window.onload=function(){
+		var file = document.querySelector('#getfile');
+		
+		file.onchange = function () { 
+		    var fileList = file.files ;
+		    
+		    // 읽기
+		    var reader = new FileReader();
+		    reader.readAsDataURL(fileList [0]);
+		
+		    //로드 한 후
+		    reader.onload = function  () {
+		        //로컬 이미지를 보여주기
+		        document.querySelector('#preview').src = reader.result;
+		        
+		        //썸네일 이미지 생성
+		        var tempImage = new Image(); //drawImage 메서드에 넣기 위해 이미지 객체화
+		        tempImage.src = reader.result; //data-uri를 이미지 객체에 주입
+		        tempImage.onload = function() {
+		            //리사이즈를 위해 캔버스 객체 생성
+		            var canvas = document.createElement('canvas');
+		            var canvasContext = canvas.getContext("2d");
+		            
+		            //캔버스 크기 설정
+		            canvas.width = 100; //가로 100px
+		            canvas.height = 100; //세로 100px
+		            
+		            //이미지를 캔버스에 그리기
+		            canvasContext.drawImage(this, 0, 0, 100, 100);
+		            //캔버스에 그린 이미지를 다시 data-uri 형태로 변환
+		            var dataURI = canvas.toDataURL("image/jpeg");
+		            
+		            //썸네일 이미지 보여주기
+		            document.querySelector('#thumbnail').src = dataURI;
+		            
+		            //썸네일 이미지를 다운로드할 수 있도록 링크 설정
+		            document.querySelector('#download').href = dataURI;
+		        };
+		    }; 
+		}; 
+	};
 </script>
 </head>
 <body>
-	<div class="uploadDiv">
-<!-- 		<img id=image src="http://dy.gnch.or.kr/img/no-image.jpg"> -->
-		<input type="file" name="uploadFile" multiple="multiple">
-	</div>
-	<button id="uploadBtn">Upload</button>
-	<div class="uploadResult">
-		<ul>
-		
-		</ul>
-	</div>
+	<h3>로컬에 있는 이미지를 바로 브라우저에 표시</h3>
+	<img id="preview" src="" width="700" alt="로컬에 있는 이미지가 보여지는 영역">
+	<a id="download" download="thumbnail.jpg" target="_blank"> 
+		<img id="thumbnail" src="" width="100" alt="썸네일영역 (클릭하면 다운로드 가능)">
+	</a>
+	<input type="file" id="getfile" accept="image/*">
 	<div>
 		<form action="">
+		<h1>가정용펫시터 글 등록페이지</h1>
 			<table>
 				<tr>
-					<th></th>
-					<td>
-					</td>
-				</tr>
-				<tr>
-					<th></th>
+					<th>글제목</th>
 					<td></td>
 				</tr>
 				<tr>
-					<th></th>
+					<th>글내용</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>현재 키우는 펫 크기를 선택해주세요</th>
 					<td></td>
 				</tr>
 				<tr>
