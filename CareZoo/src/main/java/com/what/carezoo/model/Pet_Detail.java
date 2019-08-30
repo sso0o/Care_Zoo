@@ -8,8 +8,21 @@ public class Pet_Detail {
 	private String pd_hour;
 	private String pd_hAdd;
 	private String pd_date;
+	private String p_name;
 	
 	
+
+	public String getP_name() {
+		return p_name;
+	}
+
+
+
+	public void setP_name(String p_name) {
+		this.p_name = p_name;
+	}
+
+
 
 	public int getPd_num() {
 		return pd_num;
@@ -81,11 +94,9 @@ public class Pet_Detail {
 		this.pd_date = pd_date;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Pet_Detail [pd_num=" + pd_num + ", p_num=" + p_num + ", pd_week=" + pd_week + ", pd_hour=" + pd_hour
-				+ ", pd_hAdd=" + pd_hAdd + ", pd_date=" + pd_date + "]";
+				+ ", pd_hAdd=" + pd_hAdd + ", pd_date=" + pd_date + ", p_name=" + p_name + "]";
 	}
 }

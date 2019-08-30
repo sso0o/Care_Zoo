@@ -41,6 +41,9 @@
 	<c:forEach items="${p_num}" var="p">
 		<input type="hidden" name="p_num" value="${p}">
 	</c:forEach>
+	<c:forEach items="${p_name}" var="n">
+		<input type="hidden" name="p_name" value="${n}">
+	</c:forEach>
 	<table border='1'>
 		<tr>
 			<th><input type="checkbox" name="needs" id="needs1">

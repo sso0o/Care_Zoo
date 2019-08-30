@@ -30,8 +30,8 @@ public class PetService {
 		return false;
 	}
 	
-	public boolean deletePet(Pet pet) {
-		if(petDao.deletePet(pet)>0) {
+	public boolean deletePet(int p_num) {
+		if(petDao.deletePet(p_num)>0) {
 			return true;
 		}return false;
 	}

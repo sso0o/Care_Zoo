@@ -49,6 +49,7 @@ upload.onchange = function (e) {
 				<td>
 					<input type="file" name="p_img" id="p_img">
 					<div id="holder"></div>
+					
 				</td>
 			</tr>
 			<tr>

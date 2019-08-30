@@ -32,6 +32,9 @@
 	<c:forEach items="${p_num}" var="p">
 		<input type="hidden" name="p_num" value="${p}">
 	</c:forEach>
+	<c:forEach items="${p_name}" var="n">
+		<input type="hidden" name="p_name" value="${n}">
+	</c:forEach>
 <table>
 	<tr>
 		<th>요일선택(중복선택 가능)</th>

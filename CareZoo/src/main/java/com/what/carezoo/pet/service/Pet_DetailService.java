@@ -30,4 +30,5 @@ public class Pet_DetailService {
 	public List<Pet_Detail> selectByP_Num(List<Integer> p_num){
 		return pdDao.selectByP_Num(p_num);
 	}
+	
 }

@@ -15,11 +15,36 @@ function test_checkbox(){
 	//alert(values.length); 
 	for(var i=0;i<values.length;i++){
 		if(values[i].checked){
-			alert(values[i].value);
+			//alert(values[i].value);
 			flag= true;
 		}
 	}
 	return flag;
+}
+//삭제버튼 클릭했을 때 작동되는 함수
+function petDeleteOpen(p_num,c_num){	
+	console.log(p_num);
+	console.log(c_num);
+			var p_num = p_num;
+ 			var c_num = c_num;
+			//삭제로직 실행
+			$.ajax({
+				url:"${contextPath}/visit/delete",
+				data:{"p_num":p_num,"c_num":c_num},
+				type:"post",
+				success:function(result){
+					console.log(result);
+					if(result){
+						alert("삭제완료");
+						location.href="${contextPath}/visit/petList?c_num="+c_num
+					}else{
+						alert("삭제실패");
+					}
+				},error:function(r,s,e){
+					console.log("r:"+r+"s:"+s+"e:"+e);
+				}
+			});
+
 }
 </script>
 <meta charset="UTF-8">
@@ -35,18 +60,20 @@ function test_checkbox(){
 		<ul>
 			
 			<li><input type="hidden" name="c_num" value="${c_num}">
+			<input type="checkbox" name="p_num" value="${pet.p_num}">
 			${pet.p_name}(${pet.p_weight}kg,${pet.p_birth})
-			<input type="checkbox" name="p_num" value="${pet.p_num}"></li>
+			
+			<input type="hidden" name="p_name" value="${pet.p_name}">
+			<input type="button" name="p_num" onclick="petDeleteOpen(${pet.p_num},${c_num})" value="x"></li>
 		</ul>
 		</c:forEach>
 		<div>
 			<input type="submit" value="다음" onclick="return test_checkbox()">
 			<!-- return: 클릭했을 때 함수호출
 			true: action 수행, false: action수행 안함 -->
+			
 		</div>
 	</form>
-		<div>
-			<button onclick="location.href='${contextPath}/visit/apply?c_num=${c_num}'">반려견 등록</button>
-		</div>
+	<button onclick="location.href='${contextPath}/visit/apply?c_num=${c_num}'">새로운 반려견 등록</button>
 </body>
 </html>
