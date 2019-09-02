@@ -29,16 +29,16 @@
 .ui-datepicker .ui-datepicker-prev-hover, .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
 .ui-datepicker .ui-datepicker-prev { 
 	left:2px;
-	background-image: url(../../img/common/calendar_prev.png);
-	background-image: url(../../img/common/calendar_prev_ie8.png)\9;
+/* 	background-image: url(../../img/common/calendar_prev.png); */
+/* 	background-image: url(../../img/common/calendar_prev_ie8.png)\9; */
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
 }
 .ui-datepicker .ui-datepicker-next {
 	right:2px;
-	background-image: url(../../img/common/calendar_next.png);
-	background-image: url(../../img/common/calendar_next_ie8.png)\9;
+/* 	background-image: url(../../img/common/calendar_next.png); */
+/* 	background-image: url(../../img/common/calendar_next_ie8.png)\9; */
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
