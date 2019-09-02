@@ -30,9 +30,9 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	// 펫호텔 목록보기
 	@RequestMapping("/petHotelList")
 	public String showPetHotelList(Model model) {
-		List<PetHotel> hList = phService.getAllPetHotel();
-
-		model.addAttribute("hList", hList);
+		List<PetHotel> phList = phService.getAllPetHotel();
+		System.out.println(phList);
+		model.addAttribute("phList", phList);
 		return "hotel/petHotelList";
 	}
 
@@ -46,7 +46,13 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	@RequestMapping("/petHotelView")
 	public String showPetHotelView(Model model, @RequestParam("ph_num") int ph_num) {
 		System.out.println(phService.getPetHotelbyNum(ph_num));
-		model.addAttribute("pethotel", phService.getPetHotelbyNum(ph_num));
+		model.addAttribute("petHotel", phService.getPetHotelbyNum(ph_num));
+		List<String> filesName = phService.getFileList(ph_num);
+		for (int i=0; i<filesName.size(); i++) {
+			String str = filesName.get(i);
+			System.out.println(str);
+		}
+		model.addAttribute("filesName",filesName);
 		return "hotel/petHotelView";
 	}
 	

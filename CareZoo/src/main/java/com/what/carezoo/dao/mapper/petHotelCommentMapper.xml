@@ -9,12 +9,11 @@
 
 	<update id="update" parameterType="PetHotelComment">
 		update PetHotelComment
-		set phc_comment = #{phc_comment},
-		phc_img = #{phc_img}
+		set phc_comment = #{phc_comment}
 		where phc_num = #{phc_num}
 	</update>
 	
-	<delete id="delete" parameterType="PetHotelComment">
+	<delete id="delete" parameterType="int">
 		delete from PetHotelComment where phc_num = #{phc_num}
 	</delete>
 	

@@ -14,9 +14,11 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 
+import com.what.carezoo.dao.PetHotelCommentDao;
 import com.what.carezoo.dao.PetHotelDao;
 import com.what.carezoo.model.DownloadView;
 import com.what.carezoo.model.PetHotel;
+import com.what.carezoo.model.PetHotelComment;
 
 @Transactional
 @Service
@@ -26,6 +28,10 @@ public class PetHotelService {
 
 	@Autowired
 	private PetHotelDao petHotelDao;
+	
+	@Autowired
+	private PetHotelCommentDao petHotelComDao;
+	
 
 	public boolean addPetHotel(PetHotel ph, List<MultipartFile> files) {
 		System.out.println(ph.getPh_num());
@@ -129,4 +135,30 @@ public class PetHotelService {
 		return filesName;
 	}
 
+	public boolean insert(PetHotelComment phc) {
+		if(petHotelComDao.insert(phc) > 0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean update(PetHotelComment phc) {
+		if (petHotelComDao.update(phc) > 0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean delete(int phc_num) {
+		if (petHotelComDao.delete(phc_num) > 0) {
+			return true;
+		}
+		return false;
+	}
+	public PetHotelComment selectOne(int phc_num) {
+		return petHotelComDao.selectOne(phc_num);
+	}
+	public List<PetHotelComment> selectAll(){
+		return petHotelComDao.selectAll();
+		
+	}
+	
 }
