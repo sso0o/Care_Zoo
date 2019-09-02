@@ -15,13 +15,14 @@
 				<th>고객넘</th>
 				<th>고객이름</th>
 				<th>고객아이디</th>
-				<th>수정</th>
+<!-- 				<th>펫수</th> -->
 			</tr>
 			<c:forEach items="${cList }" var="c">
 				<tr>
 					<td>${c.c_num }</td>
 					<td>${c.c_name }</td>
 					<td>${c.c_email }</td>
+<%-- 					<td>${c.c_email }</td> --%>
 				</tr>
 			</c:forEach>
 		</table>
