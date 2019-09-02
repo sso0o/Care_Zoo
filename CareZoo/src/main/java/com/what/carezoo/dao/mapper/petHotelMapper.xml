@@ -31,11 +31,15 @@
 	
 	<select id="selectOne" parameterType="int" resultType="PetHotel">
 		select *
+  		  from pethotel ph
+ 	     where ph.ph_num = #{ph_num}
+	</select>
+	<select id="selectFileList" parameterType="int" resultType="String">
+			select ph_fileName
   		  from pethotel ph,pethotel_image f
  	     where ph.ph_num = f.ph_num(+) 
            and ph.ph_num = #{ph_num}
-	</select>
-	<select id="selectFileList" parameterType="int" resultType="PetHotel">
+	<!-- resultType = "hashMap" 으로 하면 list로 간다요 -->
 	</select>
 	
 	<select id="selectAll" resultType="PetHotel">

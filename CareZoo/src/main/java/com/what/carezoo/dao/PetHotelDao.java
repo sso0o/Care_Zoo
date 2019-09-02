@@ -16,5 +16,6 @@ public interface PetHotelDao {
 	public List<PetHotel> selectAll();
 	public int insertFile(Map<String,Object> param);
 	public String selectFileName(int ph_num);
+	public List<String> selectFileList(int ph_num);
 
 }
