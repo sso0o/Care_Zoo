@@ -11,5 +11,9 @@ public class DongbanHotelController {//보호자+펫 호텔
 	public String showHotelList() {
 		return "/hotel/hotelList";
 	}
-
+	
+	@RequestMapping("/hotelView")
+	public String showHotelView() {
+		return "/hotel/hotelView";
+	}
 }

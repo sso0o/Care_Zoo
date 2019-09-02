@@ -8,6 +8,12 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
+<script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap">
+</script>
+<script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap">
+</script>
 <meta charset="UTF-8">
 <title>petHotelView</title>
 <link rel="stylesheet" type="text/css"
@@ -49,6 +55,9 @@
 	<div class="reservation">
 		<div class="reserRequest"></div>
 		<div class="calendar"></div>
+	</div>
+	<div class="show_map">
+		<div id="map_canvas"></div>
 	</div>
 
 </body>
