@@ -40,4 +40,11 @@
 			</if>
 		</trim>
 	</select>
+	
+	<select id="countPetByC_num" parameterType="int" resultType="int">
+		select count(*)
+		from pet
+		where c_num=#{c_num}
+		group by c_num
+	</select>
 </mapper>
