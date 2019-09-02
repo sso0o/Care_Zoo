@@ -60,11 +60,9 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	
 	@ResponseBody
 	@RequestMapping(value = "/image")
-	public byte[] getImage(@RequestParam("ph_num") int ph_num) {
+	public byte[] getImage(String fileName) {
 		// 지정된 경로에서 이미지 읽어서 byte[]형태로 반환
-		PetHotel pethotel = phService.getPetHotelbyNum(ph_num);
-		System.out.println(pethotel.getPh_fileName());
-		File file = new File(FILE_PATH + pethotel.getPh_fileName());
+		File file = new File(FILE_PATH + fileName);
 		InputStream in = null;
 		try {
 			in = new FileInputStream(file);

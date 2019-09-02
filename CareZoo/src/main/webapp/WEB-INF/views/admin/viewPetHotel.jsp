@@ -15,7 +15,7 @@
 			return false;
 		}
 	}
-	$(function(){ //문서가 로딩되면 실행할 함수
+	$(function() { //문서가 로딩되면 실행할 함수
 		var fileName = getOriginFileName('${pethotel.ph_fileName}');
 		$("#attach_file").text(fileName);
 	});
@@ -23,15 +23,17 @@
 
 </head>
 <body>
+<input type="hidden" name="ph_num"
+							value="${pethotel.ph_num }">
 	<div>
 		<fieldset>
 			<legend>펫호텔 정보</legend>
 			<form action="${contextPath }/admin/modifyPetHotel" method="post">
 				<table>
 					<tr>
-						<td><input type="hidden" name="ph_num" value="${pethotel.ph_num }"></td>
 						<th>호텔이름</th>
-						<td><input type="text" name="ph_name" value="${pethotel.ph_name }"></td>
+						<td><input type="text" name="ph_name"
+							value="${pethotel.ph_name }"></td>
 					</tr>
 					<tr>
 						<th>주소</th>
@@ -49,16 +51,26 @@
 						<th>가능한 펫 마리수</th>
 						<td><input type="number" name="ph_p_count"
 							value="${pethotel.ph_p_count }"></td>
-					</tr>
 
+					</tr>
+						<tr>
+						<th>이미지</th>
+					<c:forEach items="${filesName}" var="fn">
+							<td><img width="200px" height="200px"
+								src="${contextPath}/petHotel/image?fileName=${fn}" /><br>
+								<button name="" onclick="location.href='fileDelete?fileName=${fn}'">삭제</button></td>
+					</c:forEach>
+						</tr>
+						<tr>
+						<th>이미지추가:<input type="file" name="file"> </th>
+						</tr>
 					<tr>
 						<td><input type="submit" value="수정"></td>
 						<td><input type="button" value="삭제" onclick="removeCheck()"></td>
 					</tr>
 					<tr>
-<!-- 						<th>첨부파일</th> -->
-<%-- 						<td><a href="download?ph_num=${pethotel.ph_num}" id="attach_file"></a></td> --%>
-						<td><img width="200px" height="200px" src="${contextPath}/petHotel/image?ph_num=${pethotel.ph_num}"/></td>
+						<!-- <th>첨부파일</th> -->
+						<%-- <td><a href="download?ph_num=${pethotel.ph_num}" id="attach_file"></a></td> --%>
 					</tr>
 				</table>
 			</form>

@@ -73,7 +73,7 @@ public class AdminController {
 	// 펫호텔 추가
 	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
 	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest){
-        List<MultipartFile> files = mtfRequest.getFiles("files");
+        List<MultipartFile> files = mtfRequest.getFiles("file");
 //        String src = mtfRequest.getParameter("src");
 //        System.out.println("src value : " + src);
 //        System.out.println(fileList.get(0));
@@ -107,8 +107,13 @@ public class AdminController {
 //		PetHotel ph = phService.getPetHotelbyNum(ph_num);
 //		model.addAttribute("ph", ph);
 		System.out.println(phService.getPetHotelbyNum(ph_num));
+		List<String> filesName = phService.getFileList(ph_num);
+		for (int i=0; i<filesName.size(); i++) {
+			String str = filesName.get(i);
+			System.out.println(str);
+		}
 		model.addAttribute("pethotel", phService.getPetHotelbyNum(ph_num));
-		
+		model.addAttribute("filesName",filesName);
 		return "admin/viewPetHotel";
 	}
 

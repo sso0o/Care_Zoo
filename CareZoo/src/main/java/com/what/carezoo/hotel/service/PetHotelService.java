@@ -124,5 +124,9 @@ public class PetHotelService {
 
 		return view;
 	}
+	public List<String> getFileList(int ph_num){
+		List<String> filesName = petHotelDao.selectFileList(ph_num);
+		return filesName;
+	}
 
 }
