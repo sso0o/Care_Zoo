@@ -13,6 +13,6 @@ public interface HomeSitterListDao {
 	public int deleteHsl(int hsl_num);
 	public HomeSitterList selectOnebyHsl_num(int hsl_num);
 	public HomeSitterList searchHsl(HomeSitterList hsl);
-	public HomeSitterList searchHslbyAddress(@Param("hsl_address") String hsl_address,@Param("hsl_d_address")String hsl_d_address);
+	public List<HomeSitterList> searchHslbyAddress(List<HomeSitterList> hsl);
 	public List<HomeSitterList> selectAllHsl(HomeSitterList hsl);
 }

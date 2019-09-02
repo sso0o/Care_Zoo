@@ -26,32 +26,30 @@
 		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size}
 	</select>
 	<select id="searchHslbyAddress" parameterType="string" resultType="homesitterlist"> 
-		SELECT * 
-		FROM (SELECT *
-			  FROM homesitterlist 
-			  WHERE 1=0 
-			  		<if test="hsl_address != null">
-			  			OR hsl_address like ('%${hsl_address}%')
-			  		</if>			  		
-			 order by hsl_num desc)			  
-		WHERE hsl_address LIKE '%${hsl_address}%'
+		SELECT *
+		FROM homesitterlist 
+		WHERE 1=0 
+			<foreach collection="hsl_address" item="type"  open="(" close=")" separator="or">
+		    	hsl_address like ('%${hsl_address}%')
+		    </foreach>			  		
+		order by hsl_num desc			  
 	</select>
 	<select id="selectAllHsl" parameterType="homesitterlist" resultType="homesitterlist">
-	SELECT *
-	FROM homesitterlist
-	<trim prefix="where" prefixOverrides="AND|OR">
-		<if test="hsl_size != null">
-			and hsl_size = #{hsl_size}
-		</if>
-		<if test="hsl_service_type != null">
-			and hsl_service_type = #{hsl_service_type}
-		</if>
-		<if test="hsl_pet_age != null">
-			and hsl_pet_age = #{hsl_pet_age}
-		</if>
-		<if test="hsl_chkin != null">
-			and <![CDATA[hsl_chkin >= #{hsl_chkin} and hsl_chkout <= #{hsl_chkout}]]>
-		</if>
-	</trim>
+		SELECT *
+		FROM homesitterlist
+		<trim prefix="where" prefixOverrides="AND|OR">
+			<if test="hsl_size != null">
+				or hsl_size = #{hsl_size}
+			</if>
+			<if test="hsl_service_type != null">
+				or hsl_service_type = #{hsl_service_type}
+			</if>
+			<if test="hsl_pet_age != null">
+				or hsl_pet_age = #{hsl_pet_age}
+			</if>
+			<if test="hsl_chkin != null">
+				or <![CDATA[hsl_chkin >= #{hsl_chkin} and hsl_chkout <= #{hsl_chkout}]]>
+			</if>
+		</trim>
 	</select>
 </mapper>
