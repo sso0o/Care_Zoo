@@ -11,7 +11,7 @@ public interface PetHotelCommentDao {
 	public int delete(PetHotelComment phc);
 	public PetHotelComment selectOne(int num);
 	public List<PetHotelComment> selectAll();
-
+	public double ph_star(int ph_num);
 	
 	
 }
