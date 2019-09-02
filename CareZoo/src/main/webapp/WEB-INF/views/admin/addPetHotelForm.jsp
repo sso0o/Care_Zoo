@@ -126,18 +126,19 @@ img {
 		$("#addItemBtn")
 				.click(
 						function() {
-							if (index > 1) {
-								alert($("img[name='file']").length);
+							console.log("addItem의 index:"+index);
+								console.log("file개수세기:"+$(".fileClass").length);
+							if ($(".fileClass").length > 0) {
+								console.log("img개수세기:"+$(".selProductFile").length);
 								var file = document.getElementById('file'
-										+ (index - 1));
+										+ ($(".fileClass").length));
 								// 								var file = $("#file"+(index-1));
-								console.log(file.files.length);
+								console.log("file의length:"+file.files.length);
 								if (file.files.length == 0) {
 									console.log("length 실행!");
 									console.log($("#file" + (parseInt(index))));
 									// 									$("#file" + (parseInt(index))).remove();
 									$(file).remove();
-									index--;
 								}
 							}
 							//파일 선택란을 보여준다.
@@ -147,11 +148,11 @@ img {
 							// 			var newitem = $("#file"+lastItemNo).clone();
 							var newfile = "<input type='file' id='file"
 									+ (parseInt(index))
-									+ "'name='file'  style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
+									+ "'name='file' class='fileClass'  style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
 
-							if (index == 5) {
+							if ($(".selProductFile").length == 5) {
 								//그리고 해당 아이템은 5개 이상 생성할수 없도록 제한
-								alert("5개 이상 파일 추가 하실 수 없습니다.");
+								alert("5개까지 가능합니다.");
 							} else {
 								$("#example").append(newfile);
 
@@ -166,9 +167,8 @@ img {
 							//onclick=\"deleteImageAction("+index+")\"
 							$("#file" + (parseInt(index))).on("change",
 									handleImgFileSelect);
-							console.log(index);
 
-							index++;
+							console.log("add가끝난뒤 index:"+index);
 
 						});
 
@@ -187,6 +187,7 @@ img {
 	function handleImgFileSelect(e) {
 
 		console.log("handleImg");
+		console.log("handleImg때의 index:"+index);
 		// 이미지 정보들을 초기화
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
@@ -209,17 +210,19 @@ img {
 					}
 					reader.readAsDataURL(f);
 				});
+		index++;
 	}
 
-	function deleteImageAction(index) {
+	function deleteImageAction(fileIndex) {
 		console.log("delete start!");
-		var file = document.getElementById('file' + (index - 1));
-		var img = document.getElementById('preImg' + (index - 1));
-		var dButton = document.getElementById('deleteButton' + (index - 1));
+		var file = document.getElementById('file' + (fileIndex - 1));
+		var img = document.getElementById('preImg' + (fileIndex - 1));
+		var dButton = document.getElementById('deleteButton' + (fileIndex - 1));
 		$(file).remove();
 		$(img).remove();
 		$(dButton).remove();
 		index--;
+		console.log("index="+index);
 	}
 </script>
 </head>
@@ -253,9 +256,7 @@ img {
 						<td><input type="number" name="ph_p_count"></td>
 					</tr>
 					<tr>
-						<th>이미지</th>
-						<!-- 						<td><input type="file" name="file" multiple></td> -->
-						<td>
+
 					<tr>
 						<th>사진</th>
 						<td><input type="button" id="addItemBtn" class="my_button"
@@ -263,11 +264,10 @@ img {
 							<div id="example"></div></td>
 				</table>
 				<div>
-					<div class="imgs_wrap"></div>
+					<div class="imgs_wrap" style="border:1px solid"></div>
 				</div>
 				<input type="submit" value="제출">
 			</form>
-				<input type='button' id='deleteButton' onclick='deleteImageAction(2)'value='삭제'>
 		</fieldset>
 
 	</div>
