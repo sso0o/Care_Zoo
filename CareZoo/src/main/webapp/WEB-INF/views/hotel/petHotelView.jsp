@@ -5,11 +5,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
-<meta charset="UTF-8">
-<title>petHotelView</title>
+	
+<script type="text/javascript"
+   src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
+<script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap">
+</script>
+<script type="text/javascript">
+   //구글맵 v3
+   function initialize() {
+
+      var geocoder = new google.maps.Geocoder();
+      
+      var addr = "서울 강남구 강남대로 238 (도곡동)";
+
+      var lat = "";
+      var lng = "";
+
+      geocoder.geocode({
+         'address' : addr
+      },
+
+      function(results, status) {
+
+         if (results != "") {
+
+            var location = results[0].geometry.location;
+
+            lat = location.lat();
+            lng = location.lng();
+
+            var latlng = new google.maps.LatLng(lat, lng);
+            var myOptions = {
+               zoom : 15,
+               center : latlng,
+               mapTypeControl : true,
+               mapTypeId : google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            var marker = new google.maps.Marker({
+               position : latlng,
+               map : map
+            });
+            
+            marker.setMap(map);
+         } else
+            $("#map_canvas").html("위도와 경도를 찾을 수 없습니다.");
+      })
+   }
+
+   $(function() {
+      initialize()
+   })
+</script>
+<style>
+#map_canvas {
+   width: 300px;
+   height: 300px;
+}
+</style>
+
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/board.css">
 <script type="text/javascript"
@@ -21,6 +81,9 @@
 		$("#attach_file").text(fileName);
 	});
 </script>
+
+<title>petHotelView</title>
+
 </head>
 <body>
 
@@ -49,6 +112,10 @@
 	<div class="reservation">
 		<div class="reserRequest"></div>
 		<div class="calendar"></div>
+	</div>
+	
+	<div>
+		<div id="map_canvas"></div>
 	</div>
 
 </body>
