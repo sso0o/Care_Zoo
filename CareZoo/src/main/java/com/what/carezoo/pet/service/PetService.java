@@ -46,4 +46,8 @@ public class PetService {
 	public List<Pet> selectByC_Num(int c_num){
 		return petDao.selectByC_Num(c_num);
 	}
+	
+	public int c_has_pet(int c_num) {
+		return petDao.countPetByC_num(c_num);
+	}
 }

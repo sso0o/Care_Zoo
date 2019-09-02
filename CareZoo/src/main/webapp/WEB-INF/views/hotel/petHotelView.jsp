@@ -11,9 +11,6 @@
 <script type="text/javascript"
         src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap">
 </script>
-<script type="text/javascript"
-        src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap">
-</script>
 <meta charset="UTF-8">
 <title>petHotelView</title>
 <link rel="stylesheet" type="text/css"

@@ -56,6 +56,12 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		
 		return null;
 	}
+	
+	
+	
+	
+	
+	
 //	"${contextPath}/image?ph_num=${pethotel.ph_num}&fileName=9eed7ab3-fb5d-451d-84b0-137dc68e5c2e_NAVER.jpg"/></td>
 	
 	@ResponseBody

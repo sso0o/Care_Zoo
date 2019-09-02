@@ -17,7 +17,9 @@ import com.what.carezoo.hotel.service.DongbanHotelService;
 import com.what.carezoo.hotel.service.PetHotelService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.PetHotel;
+import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.sitter.service.SitterService;
 
 @Controller
@@ -33,7 +35,8 @@ public class AdminController {
 	@Autowired
 	private MemberService mService;
 	
-
+	@Autowired
+	private PetService pService;
 	
 
 	@RequestMapping("/main")
@@ -68,6 +71,55 @@ public class AdminController {
 		return "admin/memberList";
 	}
 	
+	@RequestMapping("/memberView")
+	public String showMemberView(String c_email, Model m) {
+		Customer c = mService.getMemberByEmail(c_email);
+		int c_num = c.getC_num();
+		List<Pet> pL = pService.selectByC_Num(c_num);
+		
+		m.addAttribute("c", c);
+		m.addAttribute("pL", pL);
+		
+		return "admin/memberView";
+	}
+	
+	@RequestMapping("/addMemberForm")
+	public String addMemberForm() {
+		return "admin/addMemberForm";
+	}
+	
+	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
+	public String addMember(Customer c) {
+		boolean rst = mService.joinMember(c);
+		if(rst) {
+			System.out.println("true");
+		} else {
+			System.out.println("false");
+		}
+		return "redirect:/admin/memberList";
+	}
+	
+	
+	///////////////////////////////////////////////////////////////////////////////// 펫
+	
+	@RequestMapping("/addPetForm")
+	public String addPetForm(int c_num, Model m) {
+		m.addAttribute("c_num", c_num);
+		return "admin/addPetForm";
+	}
+	
+	@RequestMapping(value = "/addPet", method = RequestMethod.POST)
+	public String addPet(Pet p) {
+		Customer c = mService.getMemberByC_num(p.getC_num());
+		String email = c.getC_email();
+		boolean rst = pService.insertPet(p);
+		if(rst) {
+			System.out.println("true");
+		} else {
+			System.out.println("false");
+		}
+		return "redirect:/admin/memberView?c_email="+email;
+	}
 	
 
 	////////////////////////////////////////////////////////////////////////// 호텔
@@ -163,5 +215,7 @@ public class AdminController {
 			return "redirect:/admin/viewPetHotel?ph_num="+ph_num;
 		}
 	}
+	
+	
 
 }
