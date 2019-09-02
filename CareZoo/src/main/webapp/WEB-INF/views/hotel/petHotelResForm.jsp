@@ -40,7 +40,7 @@ ul, li {
 		<fieldset>
 			<legend>예약 정보 입력</legend>
 
-			<form class="resInfo" action="">
+			<form action="${contextPath }/petHotel/petHotelRes" method="post">
 
 				<table>
 					<tr>
