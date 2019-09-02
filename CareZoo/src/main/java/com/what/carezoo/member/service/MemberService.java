@@ -39,6 +39,10 @@ public class MemberService {
 	public Customer getMemberByEmail(String email) {
 		return memberDao.selectOneByEmail(email);
 	}
+	
+	public Customer getMemberByC_num(int c_num) {
+		return memberDao.selectOneByNum(c_num);
+	}
 	//c_email컬럼 합치는 메서드
 	public String email(String c_email,String c_e_address) {
 		c_email = c_email+"@"+c_e_address;

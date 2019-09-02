@@ -11,6 +11,7 @@
 </head>
 <body>
 	<div>
+
 		<div>
 			<fieldset>
 				<legend>호텔 옵션 선택</legend>
@@ -33,6 +34,27 @@
 				</c:forEach>
 			</table>
 		</div>
+
+	
+	</div>
+	
+	
+	
+	<div>
+		<table>
+			<tr>
+				<th>num</th>
+				
+				<th>name</th>
+			</tr>
+			<c:forEach items="${phList}" var="ph">
+				<tr>
+					<td>${ph.ph_num }</td>
+					<td>${ph.ph_name }</td>
+				</tr>
+			</c:forEach>
+		</table>
+
 	</div>
 
 </body>

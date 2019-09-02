@@ -15,6 +15,8 @@
 		<button onclick="location.href='${contextPath}/carezoo/admin/addPetHotelForm'">펫호텔추가</button>
 		<button onclick="location.href='${contextPath}/carezoo/admin/petHotelList'">펫호텔수정</button>
 		
+		<br>
+		<button onclick="location.href='${contextPath}/carezoo/admin/memberList'">멤버목록</button>
 	</div>
 
 </body>

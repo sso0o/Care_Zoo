@@ -26,6 +26,15 @@
 	<select id="selectAll" parameterType="int" resultType="PetHotelComment">
 		select *
 		from PetHotelComment
+	</select>
+	
+	<select id="ph_star">
+		select ph.ph_num, ph.ph_name, round(star,1)
+		from pethotel ph left outer join(select PetHotelComment, avg(phc_star) star
+										from PetHotelComment
+										group by ph_num
+										order by ph_num )s
+		on ph.ph_num=s.ph_num;
 		
 	</select>
 </mapper>

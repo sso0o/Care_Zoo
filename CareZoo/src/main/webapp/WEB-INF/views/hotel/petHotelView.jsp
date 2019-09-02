@@ -11,6 +11,7 @@
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
 
+
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
 <script type="text/javascript"
@@ -71,6 +72,9 @@
 	height: 300px;
 }
 </style>
+
+<meta charset="UTF-8">
+<title>petHotelView</title>
 
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/resources/css/board.css">
@@ -134,7 +138,13 @@
 		<div id="map_canvas"></div>
 	</div>
 
-	
+	<div class="reservation">
+		<div class="reserRequest"></div>
+		<div class="calendar"></div>
+	</div>
+	<div class="show_map">
+		<div id="map_canvas"></div>
+	</div>
 
 
 </body>
