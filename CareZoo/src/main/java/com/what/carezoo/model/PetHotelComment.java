@@ -10,8 +10,14 @@ public class PetHotelComment {
 	private double phc_star;
 	private String phc_comment;
 	private Date phc_write_date;
-	private String phc_img;
+	private String c_name;
 
+	public String getC_name() {
+		return c_name;
+	}
+	public void setC_name(String c_name) {
+		this.c_name = c_name;
+	}
 	public int getPhc_num() {
 		return phc_num;
 	}
@@ -54,11 +60,6 @@ public class PetHotelComment {
 	public void setPhc_write_date(Date phc_write_date) {
 		this.phc_write_date = phc_write_date;
 	}
-	public String getPhc_img() {
-		return phc_img;
-	}
-	public void setPhc_img(String phc_img) {
-		this.phc_img = phc_img;
-	}
+
 	
 }                  

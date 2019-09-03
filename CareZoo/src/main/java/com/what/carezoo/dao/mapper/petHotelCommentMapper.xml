@@ -17,15 +17,23 @@
 		delete from PetHotelComment where phc_num = #{phc_num}
 	</delete>
 	
-	<select id="selectOne" parameterType="int" resultType="PetHotelComment">
+	<select id="selectByPhc_num" parameterType="int" resultType="PetHotelComment">
 		select * 
 		from PetHotelComment
 		where phc_num = #{phc_num}
 	</select>
 	
+	<select id="selectByPh_num" parameterType="int" resultType="PetHotelComment">
+		select *
+		from PetHotelComment phc, customer c 
+		where phc.c_num = c.c_num(+) 
+		and ph_num = #{ph_num}
+	</select>
+	
 	<select id="selectAll" parameterType="int" resultType="PetHotelComment">
 		select *
 		from PetHotelComment
+
 	</select>
 	
 	<select id="ph_star">

@@ -153,8 +153,11 @@ public class PetHotelService {
 		}
 		return false;
 	}
-	public PetHotelComment selectOne(int phc_num) {
-		return petHotelComDao.selectOne(phc_num);
+	public PetHotelComment selectByPhc_numOne(int phc_num) {
+		return petHotelComDao.selectByPhc_num(phc_num);
+	}
+	public List<PetHotelComment> selectByPh_num(int ph_num) {
+		return petHotelComDao.selectByPh_num(ph_num);
 	}
 	public List<PetHotelComment> selectAll(){
 		return petHotelComDao.selectAll();

@@ -57,6 +57,8 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			System.out.println(str);
 		}
 		model.addAttribute("filesName",filesName);
+		
+		model.addAttribute("phComment",phService.selectByPh_num(ph_num));
 		return "hotel/petHotelView";
 	}
 	

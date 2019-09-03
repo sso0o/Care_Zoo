@@ -9,7 +9,8 @@ public interface PetHotelCommentDao {
 	public int insert(PetHotelComment phc);
 	public int update(PetHotelComment phc);
 	public int delete(int phc_num);
-	public PetHotelComment selectOne(int num);
+	public PetHotelComment selectByPhc_num(int phc_num);
+	public List<PetHotelComment> selectByPh_num(int ph_num);
 	public List<PetHotelComment> selectAll();
 	public double ph_star(int ph_num);
 	
