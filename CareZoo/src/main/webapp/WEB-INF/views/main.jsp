@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick-theme.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-    <link rel="stylesheet" type="text/css" href="./css/indexCss.css"> 
     <script type="text/javascript" src="../assets/js/jquery-latest.js"></script> 
     <script src="../assets/js/admin.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -94,6 +93,7 @@
     </style>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
     <script type="text/javascript">
         $(document).on('ready', function () {
             $(".lazy").slick({
@@ -103,34 +103,7 @@
                 , autoplay: true, //자동플레이 유무( false시 자동플레이 안됨)
                 autoplaySpeed: 4000 // 자동플레이 스피드
             });
-            var jbOffset = $('.menu').offset();
-            $(window).scroll(function () {
-                if ($(document).scrollTop() > jbOffset.top) {
-                    /*내려갔을때*/
-                    $('.menu').addClass('jbFixed');
-                    $('.menu>ul').addClass('liFixed');
-                    /* $('.menu>ul>li:hover>a').css("color","aqua");*/
 
-
-                }
-                else {
-                    /*올라갔을때*/
-                    $('.menu').removeClass('jbFixed');
-                    $('.menu>ul').removeClass('liFixed');
-                }
-            });
-             if($("html").width()<1150){
-                       $('.menu').css("width","1100px");
-                    }else{
-                        $('.menu').css("width","100%");
-                    }
-            $(window).resize(function() {
-                   if($("html").width()<1150){
-                       $('.menu').css("width","1100px");
-                    }else{
-                        $('.menu').css("width","100%");
-                    }
-                });
         });
     </script>
 </head>
@@ -148,9 +121,9 @@
     <nav>
         <div class='menu'>
             <ul style="">
-                <li class='active sub'><a href='${contextPath}/sitter/main''>시터</a>
+                <li class='active sub'><a href='${contextPath}/sitter/main'>시터</a>
                     <ul>
-                        <li class='last'><a href='${contextPath}/home/main''>가정펫시터</a>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
                             <!-- 
                      <ul>
                         <li><a href='#'>HTML Basic</a></li>
@@ -217,9 +190,7 @@
                     </fieldset>
                 </div>
             </main>
-            
-        <div>
-        </div>
+           
         </section>
     </div>
 </body>
