@@ -35,8 +35,10 @@ function petDeleteOpen(p_num,c_num){
 				success:function(result){
 					console.log(result);
 					if(result){
-						alert("삭제완료");
-						location.href="${contextPath}/visit/petList?c_num="+c_num
+						if(confirm("정말 삭제하시겠습니까?")){
+							alert("삭제완료");
+							location.href="${contextPath}/visit/petList?c_num="+c_num
+						}
 					}else{
 						alert("삭제실패");
 					}
