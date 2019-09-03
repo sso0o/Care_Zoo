@@ -7,7 +7,29 @@
 <head>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
+//삭제버튼 클릭했을 때 작동되는 함수
+function petDeleteOpen(p_num){	
+	console.log(p_num);
+			var p_num = p_num;
+			//삭제로직 실행
+			$.ajax({
+				url:"${contextPath}/visit/delete",
+				data:{"p_num":p_num},
+				type:"post",
+				success:function(result){
+					console.log(result);
+					if(result){
+						alert("삭제완료");
+						location.href="${contextPath}/visit/"
+					}else{
+						alert("삭제실패");
+					}
+				},error:function(r,s,e){
+					console.log("r:"+r+"s:"+s+"e:"+e);
+				}
+			});
 
+}
 </script>
 <meta charset="UTF-8">
 <title>예약내용 확인 폼</title>
@@ -22,26 +44,18 @@
 				<c:forEach items="${p_name}" var="name">
 					<tr>
 						
-						<td>${name.p_name}님 예약내용입니다.&emsp;<button name="delete" id="delete" onclick="location.href='delete()'">x</button></td>
+						<td>'${name.p_name}' 예약내용입니다.&emsp;<input type="button" name="p_num" onclick="location.href='delete(p_num)'" value="삭제"></td>
 						<td><input type="hidden" name="p_num1" value="${name.p_num}"></td>
 					</tr>
 				</c:forEach>
 				<c:forEach items="${pd_List}" var="p">
 					<tr>
-						<td>${p.pd_date}&emsp;${p.pd_week}&nbsp;${p.pd_hour}&nbsp;${p.pd_hAdd}&nbsp;</td>
+						<td>${p.pd_date}&emsp;${p.pd_week}&nbsp;${p.pd_hour}&nbsp;${p.pd_hAdd}&nbsp;${p.p_name}</td>
 						<td><input type="hidden" name="p_num" value="${p.p_num}"></td>
 					</tr>
 				</c:forEach>
 				
 			</tr>	
-					<!-- 				<tr> -->
-					<%-- 					<td><input type="text" value="${name}" name="p_name"></td> --%>
-					<%-- 					<td><input type="text" name="p_num" value="${p_num}"></td> --%>
-					<%-- 					<td><input type="text" name="pd_week" value="${week}"></td> --%>
-					<%-- 					<td><input type="text" name="pd_hour" value="${hour}"></td> --%>
-					<%-- 					<td><input type="text" name="pd_hAdd" value="${hAdd}"></td> --%>
-					<!-- 				</tr> -->
-
 		</table>
 		</div>
 		<div>

@@ -5,8 +5,19 @@
 			select pet_detail_seq.nextval from dual
 		</selectKey>
 		insert into pet_detail
-		values (#{pd_num},#{p_num},#{pd_week},#{pd_hour},#{pd_hAdd},sysdate,#{p_name})
+    	  values (#{pd_num},#{p_num},#{pd_week},#{pd_hour},#{pd_hAdd},sysdate,#{p_name})
+<!-- 		insert all -->
+		
+<!-- 		into pet_detail -->
+<!-- 		values (#{pd_num},#{p_num},#{pd_week},#{pd_hour},#{pd_hAdd},sysdate,#{p_name}) -->
+<!-- 		<foreach collection="list" item="item"> -->
+<!-- 			into pet_weeklist -->
+<!-- 			values(#{pd_num},#{item.pd_week},#{pd_hour},#{pd_hadd},#{pd_date}) -->
+<!-- 		</foreach> -->
+<!-- 		select * from dual -->
 	</insert>
+	
+	
 	<select id="selectByP_Num" parameterType="list" resultType="pet_detail">
 		select * from pet_detail
 		<trim prefix="where" prefixOverrides="OR">

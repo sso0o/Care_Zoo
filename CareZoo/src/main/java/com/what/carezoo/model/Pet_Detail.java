@@ -1,5 +1,7 @@
 package com.what.carezoo.model;
 
+import java.util.List;
+
 public class Pet_Detail {
 
 	private int pd_num;
@@ -9,8 +11,20 @@ public class Pet_Detail {
 	private String pd_hAdd;
 	private String pd_date;
 	private String p_name;
+	private List<String> list;
 	
-	
+
+	public List<String> getList() {
+		return list;
+	}
+
+
+
+	public void setList(List<String> list) {
+		this.list = list;
+	}
+
+
 
 	public String getP_name() {
 		return p_name;

@@ -134,7 +134,8 @@ $(function() {
 					//이메일 입력방식 선택
 					$('#selectEmail').change(function() {
 						$("#selectEmail option:selected").each(function() {
-							if ($(this).val() == '1') { //직접입력일 경우 $("#str_email02").val(''); //값 초기화
+							if ($(this).val() == '1') { //직접입력일 경우 
+								$("#str_email02").val(''); //값 초기화
 								$("#str_email02").attr("disabled", false); //활성화
 							} else { //직접입력이 아닐경우
 								$("#str_email02").val($(this).text()); //선택값 입력

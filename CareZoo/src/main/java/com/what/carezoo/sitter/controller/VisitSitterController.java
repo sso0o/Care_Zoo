@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.what.carezoo.dao.Pet_WeekListDao;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
@@ -27,7 +28,8 @@ public class VisitSitterController{
 	private PetService petService;
 	@Autowired
 	private Pet_DetailService pdService;
-	
+	@Autowired
+	private Pet_WeekListDao pwlServcie;
 	//예약 메인(로그인, 회원가입)
 	@RequestMapping("/main")
 	public String showMain() {
@@ -150,8 +152,11 @@ public class VisitSitterController{
 	}
 	//예약내용 확인하는 폼
 	@RequestMapping(value="complete1",method=RequestMethod.POST)
-	public String reservation7Form(@RequestParam() ArrayList<Integer> p_num,HttpServletRequest request,Model model,String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd,String[] p_name) {
-
+	public String reservation7Form(@RequestParam() ArrayList<Integer> p_num,HttpServletRequest request,Model model,
+			String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd,String[] p_name) {
+		for(int i=0;i<pd_week.length;i++) {
+			System.out.println(pd_week[i]);
+		}
 		for(int i :p_num) {
 			System.out.println(i);
 			pd.setP_num(i);
@@ -163,17 +168,16 @@ public class VisitSitterController{
 				model.addAttribute("hour", pd_hour);
 				model.addAttribute("hAdd", pd_hAdd);
 				model.addAttribute("p_name",petService.selectOnlyNameByP_Num(p_num));
+						
 			}
 		}
 			model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
-			//model.addAttribute("p_name",petService.selectOnlyNameByP_Num(p_num));
-//			System.out.println(petService.selectOnlyNameByP_Num(p_num));
-			//System.out.println(pdService.selectByP_Num(p_num));
 			return "sitter/visit/reservation7";
 	}
 	//사전만남 신청폼
 	@RequestMapping(value="complete2",method=RequestMethod.POST)
 	public String reservationBtn(@RequestParam() ArrayList<Integer> p_num,Model model,String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd,String[] p_name) {
+	
 		for(int i :p_num) {
 			System.out.println(i);
 			pd.setP_num(i);
@@ -191,22 +195,11 @@ public class VisitSitterController{
 			System.out.println(pdService.selectByP_Num(p_num));
 		return "sitter/visit/reservation8";
 	}
+	
 	//펫리스트에서 선택 펫 삭제
-	//ajax는 현재화면 이동없이 보여주는 거니까 완료되도 리스트가 삭제가 안된다..
-	//ajax로 리스트를 다시그려내야하는지...?
 	@RequestMapping(value="delete",method=RequestMethod.POST)
 	@ResponseBody
-	public boolean delete(@RequestParam("p_num") int p_num,Model model, @RequestParam("c_num")int c_num) {
+	public boolean delete(@RequestParam("p_num") int p_num) {
 		return petService.deletePet(p_num);
-//		System.out.println(p_num);
-//		boolean result = petService.deletePet(p_num);
-//		String msg ="삭제 실패";
-//		String url="petList?c_num="+c_num;
-//		if(result) {
-//			msg="삭제성공";
-//		}
-//		model.addAttribute("msg", msg);
-//		model.addAttribute("url", url);
-//		return "result";
 	}
 }
