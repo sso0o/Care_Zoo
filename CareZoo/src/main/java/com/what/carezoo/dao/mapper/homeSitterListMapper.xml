@@ -1,37 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterListDao">
-	<insert id="insertHsl" parameterType="HomeSitterList">
+	<insert id="insertHsl" parameterType="homeSitterList">
 		<selectKey order="BEFORE" keyProperty="hsl_num" resultType="int">
 			select homsitterlist_seq.nextval from dual
 		</selectKey>
 		insert into homesitterlist (hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age)
 		values (#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age})
 	</insert>
-	<insert id="insertHslAdd" parameterType="HomeSitterList">
+	<insert id="insertHslAdd" parameterType="homeSitterList">
 		
 	</insert>
-	<update id="updateHsl" parameterType="HomeSitterList">
+	<update id="updateHsl" parameterType="homeSitterList">
 		
 	</update>
 	<delete id="deleteHsl" parameterType="int">
 		
 	</delete>
-	<select id="selectOnebyHsl_num" parameterType="int" resultType="HomeSitterList">
+	<select id="selectOnebyHsl_num" parameterType="int" resultType="homeSitterList">
 		
 	</select>
-	<select id="searchHsl" parameterType="homesitterlist" resultType="homesitterlist"> 
+	<select id="searchHsl" parameterType="homeSitterList" resultType="homeSitterList"> 
 		SELECT * 
 		FROM homesitterlist 
 		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size}
 	</select>
-	<select id="searchHslbyAddress" parameterType="string" resultType="homesitterlist"> 
+	<select id="searchHslbyAddress" parameterType="list" resultType="homeSitterlist"> 
 		SELECT *
 		FROM homesitterlist 
-		WHERE 1=0 
-			<foreach collection="hsl_address" item="type"  open="(" close=")" separator="or">
-		    	hsl_address like ('%${hsl_address}%')
-		    </foreach>			  		
+		<trim prefix="where" prefixOverrides="AND|OR">			
+			<foreach collection="list" item="item" separator="or">
+		    	hsl_address like ('%${item}%')
+		    </foreach>						
+		</trim>			  		
 		order by hsl_num desc			  
 	</select>
 	<select id="selectAllHsl" parameterType="homesitterlist" resultType="homesitterlist">
