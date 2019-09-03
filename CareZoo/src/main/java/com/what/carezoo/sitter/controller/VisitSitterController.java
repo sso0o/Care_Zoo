@@ -1,12 +1,15 @@
 package com.what.carezoo.sitter.controller;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +20,8 @@ import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.Pet_Detail;
+import com.what.carezoo.model.Pet_Details;
+import com.what.carezoo.model.Pet_WeekList;
 import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.pet.service.Pet_DetailService;
 @RequestMapping("/visit")
@@ -152,26 +157,15 @@ public class VisitSitterController{
 	}
 	//예약내용 확인하는 폼
 	@RequestMapping(value="complete1",method=RequestMethod.POST)
-	public String reservation7Form(@RequestParam() ArrayList<Integer> p_num,HttpServletRequest request,Model model,
-			String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd,String[] p_name) {
-		for(int i=0;i<pd_week.length;i++) {
-			System.out.println(pd_week[i]);
-		}
-		for(int i :p_num) {
-			System.out.println(i);
-			pd.setP_num(i);
-			boolean result = pdService.insertPet_Detail(pd);
-			System.out.println(pd);
-			if (result) {
-				model.addAttribute("p_num", p_num);
-				model.addAttribute("week", pd_week);
-				model.addAttribute("hour", pd_hour);
-				model.addAttribute("hAdd", pd_hAdd);
-				model.addAttribute("p_name",petService.selectOnlyNameByP_Num(p_num));
-						
-			}
-		}
-			model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
+	public String reservation7Form(HttpServletRequest request,Model model,Pet_Details list
+			,@RequestParam() ArrayList<Integer> p_num) {
+		//컨트롤러에서 리스트를 받아서 리스트 순서를 만들어야함...
+		System.out.println(list);
+		
+//		pdService.insertPet_Detail2(list);
+		System.out.println(pdService.insertPet_Detail2(list));
+
+			//model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
 			return "sitter/visit/reservation7";
 	}
 	//사전만남 신청폼
