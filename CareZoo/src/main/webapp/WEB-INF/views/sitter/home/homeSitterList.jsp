@@ -87,7 +87,7 @@ $(function () {
 		console.log("form submit : " + detailParam+stateParam);
 		$.ajax({
 			url:"${contextPath}/home/search",
-			data:stateParam+detailParam,
+			data:stateParam,
 			type:"get",
 			dataType:"json",
 			success:function(result){
