@@ -5,7 +5,7 @@ public class Pet_WeekList {
 	private int pd_num;
 	private String pd_week;
 	private String pd_hour;
-	private String pd_hadd;
+	private String pd_hAdd;
 	private String pd_date;
 	public int getPd_num() {
 		return pd_num;
@@ -26,10 +26,10 @@ public class Pet_WeekList {
 		this.pd_hour = pd_hour;
 	}
 	public String getPd_hadd() {
-		return pd_hadd;
+		return pd_hAdd;
 	}
 	public void setPd_hadd(String pd_hadd) {
-		this.pd_hadd = pd_hadd;
+		this.pd_hAdd = pd_hadd;
 	}
 	public String getPd_date() {
 		return pd_date;
@@ -40,7 +40,7 @@ public class Pet_WeekList {
 	@Override
 	public String toString() {
 		return "Pet_WeekList [pd_num=" + pd_num + ", pd_week=" + pd_week + ", pd_hour=" + pd_hour + ", pd_hadd="
-				+ pd_hadd + ", pd_date=" + pd_date + "]";
+				+ pd_hAdd + ", pd_date=" + pd_date + "]";
 	}
 	
 }

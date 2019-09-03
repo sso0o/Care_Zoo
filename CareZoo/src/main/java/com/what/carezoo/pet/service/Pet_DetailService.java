@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.what.carezoo.dao.Pet_DetailDao;
 import com.what.carezoo.model.Pet_Detail;
+import com.what.carezoo.model.Pet_Details;
 
 @Service
 public class Pet_DetailService {
@@ -22,6 +23,13 @@ public class Pet_DetailService {
 //		pd.setPd_num(pd_num);
 //		pd.setPd_week(pd_week);	
 		if(pdDao.insertPet_DetailDao(pd)>0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean insertPet_Detail2(Pet_Details pd) {
+
+		if(pdDao.insertPet_DetailDao2(pd)>0) {
 			return true;
 		}
 		return false;

@@ -20,7 +20,7 @@ function petDeleteOpen(p_num){
 					console.log(result);
 					if(result){
 						alert("삭제완료");
-						location.href="${contextPath}/visit/"
+						location.href="${contextPath}/visit/complete1?p_num="+p_num
 					}else{
 						alert("삭제실패");
 					}
@@ -41,17 +41,13 @@ function petDeleteOpen(p_num){
 		<div>
 		<table>
 		<tr>
-				<c:forEach items="${p_name}" var="name">
-					<tr>
-						
-						<td>'${name.p_name}' 예약내용입니다.&emsp;<input type="button" name="p_num" onclick="location.href='delete(p_num)'" value="삭제"></td>
-						<td><input type="hidden" name="p_num1" value="${name.p_num}"></td>
-					</tr>
-				</c:forEach>
 				<c:forEach items="${pd_List}" var="p">
 					<tr>
-						<td>${p.pd_date}&emsp;${p.pd_week}&nbsp;${p.pd_hour}&nbsp;${p.pd_hAdd}&nbsp;${p.p_name}</td>
+						<td>${p.pd_date}&emsp; 매주 ${p.pd_week}요일 예약이 되었습니다.</td>
 						<td><input type="hidden" name="p_num" value="${p.p_num}"></td>
+					</tr>
+					<tr>
+						<td>&nbsp;${p.pd_hour}&nbsp;${p.pd_hAdd}</td>
 					</tr>
 				</c:forEach>
 				
@@ -62,6 +58,7 @@ function petDeleteOpen(p_num){
 			<input type="submit" value="다음">
 			<button
 								onclick="location.href='${contextPath}/visit/complete?p_num=${p_num}'">추가/변경</button>
+			<button onclick="petDeleteOpen(p_num)">일정 삭제</button>
 		</div>
 	</form>
 </body>
