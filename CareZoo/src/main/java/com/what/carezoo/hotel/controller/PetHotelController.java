@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,9 +30,12 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 목록보기
 	@RequestMapping("/petHotelList")
-	public String showPetHotelList(Model model) {
+	public String showPetHotelList(String in, String out,String p_num, Model model) {
 		List<PetHotel> phList = phService.getAllPetHotel();
 		System.out.println(phList);
+		model.addAttribute("p_num", p_num);
+		model.addAttribute("in", in);
+		model.addAttribute("out", out);
 		model.addAttribute("phList", phList);
 		return "hotel/petHotelList";
 	}
@@ -63,8 +67,12 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return null;
 	}
 	
-	
-	
+	@RequestMapping(value = "/petHotelRes", method = RequestMethod.POST)
+	public String makePetHotelRes() {
+		
+		
+		return null;
+	}
 	
 	
 	

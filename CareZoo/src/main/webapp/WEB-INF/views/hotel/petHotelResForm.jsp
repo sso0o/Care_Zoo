@@ -40,7 +40,7 @@ ul, li {
 		<fieldset>
 			<legend>예약 정보 입력</legend>
 
-			<form action="${contextPath }/petHotel/petHotelRes" method="post">
+			<form action="${contextPath }/petHotel/petHotelList" method="post">
 
 				<table>
 					<tr>
@@ -56,7 +56,7 @@ ul, li {
 					<tr>
 						<td>반려견 정보</td>
 						<td>
-							<select name="petInfo">
+							<select name="p_num">
 								<option value="a">a</option>
 								<option value="b">b</option>
 								<option value="c">c</option>
