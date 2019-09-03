@@ -1,5 +1,6 @@
 package com.what.carezoo.model;
 
+
 public class HomeSitterList {
 	 private int hsl_num;
 	 private int hs_num;
@@ -19,13 +20,6 @@ public class HomeSitterList {
 	 private String hsl_service_type;
 	 private String hsl_pet_age;
 	 private String hsl_d_d_address;
-
-	public String getFileName() {
-		return hsl_fileName;
-	}
-	 public void setFileName(String fileName) {
-		 this.hsl_fileName = fileName;
-	}
 	public int getHsl_num() {
 		return hsl_num;
 	}
@@ -98,7 +92,12 @@ public class HomeSitterList {
 	public void setHsl_family(String hsl_family) {
 		this.hsl_family = hsl_family;
 	}
-
+	public String getHsl_fileName() {
+		return hsl_fileName;
+	}
+	public void setHsl_fileName(String hsl_fileName) {
+		this.hsl_fileName = hsl_fileName;
+	}
 	public String getHsl_address() {
 		return hsl_address;
 	}
@@ -134,9 +133,19 @@ public class HomeSitterList {
 		return "HomeSitterList [hsl_num=" + hsl_num + ", hs_num=" + hs_num + ", hsl_title=" + hsl_title
 				+ ", hsl_comment=" + hsl_comment + ", hsl_size=" + hsl_size + ", hsl_chkin=" + hsl_chkin
 				+ ", hsl_chkout=" + hsl_chkout + ", hsl_care_place=" + hsl_care_place + ", hsl_subway=" + hsl_subway
-				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family 
-				+  ", hsl_address=" + hsl_address + ", hsl_d_address=" + hsl_d_address + ", hsl_service_type="
-				+ hsl_service_type + ", hsl_pet_age=" + hsl_pet_age + ", hsl_d_d_address=" + hsl_d_d_address + "]";
-	}
- 
+				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family + ", hsl_fileName="
+				+ hsl_fileName + ", hsl_address=" + hsl_address + ", hsl_d_address=" + hsl_d_address
+				+ ", hsl_service_type=" + hsl_service_type + ", hsl_pet_age=" + hsl_pet_age + ", hsl_d_d_address="
+				+ hsl_d_d_address + ", getHsl_num()=" + getHsl_num() + ", getHs_num()=" + getHs_num()
+				+ ", getHsl_title()=" + getHsl_title() + ", getHsl_comment()=" + getHsl_comment() + ", getHsl_size()="
+				+ getHsl_size() + ", getHsl_chkin()=" + getHsl_chkin() + ", getHsl_chkout()=" + getHsl_chkout()
+				+ ", getHsl_care_place()=" + getHsl_care_place() + ", getHsl_subway()=" + getHsl_subway()
+				+ ", getHsl_yard()=" + getHsl_yard() + ", getHsl_baby()=" + getHsl_baby() + ", getHsl_family()="
+				+ getHsl_family() + ", getHsl_fileName()=" + getHsl_fileName() + ", getHsl_address()="
+				+ getHsl_address() + ", getHsl_d_address()=" + getHsl_d_address() + ", getHsl_service_type()="
+				+ getHsl_service_type() + ", getHsl_pet_age()=" + getHsl_pet_age() + ", getHsl_d_d_address()="
+				+ getHsl_d_d_address() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	} 
+	 
 }

@@ -1,5 +1,6 @@
 package com.what.carezoo.sitter.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.what.carezoo.model.HomeSitterList;
@@ -25,10 +27,10 @@ public class HomeSitterController {
 	// 가정시터 검색목록 가져오기
 	@ResponseBody
 	@RequestMapping("/search")
-	public List<HomeSitterList> searchHS(HomeSitterList hsl) {
-		System.out.println("모델:"+hsl);
-		System.out.println("가져온값"+hssService.getbySearchingHsl(hsl));
-		return hssService.getbySearchingHsl(hsl);
+	public List<HomeSitterList> searchHS(@RequestParam() ArrayList<String> hsl_address) {
+		System.out.println("모델:"+hsl_address);
+		System.out.println("가져온값"+hssService.getByHslbyAddress(hsl_address));
+		return hssService.getByHslbyAddress(hsl_address);
 	}
 	// 가정시터 게시글 등록 뷰 보여주기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)

@@ -156,4 +156,9 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 		<property name="mapperInterface" value="com.what.carezoo.dao.Pet_DetailDao"></property>
 	</bean>
+	
+	<bean id="petWeekList" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface" value="com.what.carezoo.dao.Pet_WeekListDao"></property>
+	</bean>
 </beans>
