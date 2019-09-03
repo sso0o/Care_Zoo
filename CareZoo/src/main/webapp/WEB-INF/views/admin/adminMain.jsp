@@ -17,6 +17,9 @@
 		
 		<br>
 		<button onclick="location.href='${contextPath}/carezoo/admin/memberList'">멤버목록</button>
+		
+		<br>
+		<button onclick="location.href='${contextPath}/carezoo/admin/resList'">예약하기</button>
 	</div>
 
 </body>

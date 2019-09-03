@@ -121,6 +121,27 @@ public class AdminController {
 		return "redirect:/admin/memberView?c_email="+email;
 	}
 	
+	//////////////////////////////////////////////////////////////////////////예약
+	
+	@RequestMapping("/resList")
+	public String resList(Model m) {
+		
+		
+		return "admin/resList";
+	}
+	
+	@RequestMapping("/resForm")
+	public String resForm() {
+		return "admin/resForm";
+	}
+	
+	@RequestMapping(value = "/resPetHotel", method = RequestMethod.POST)
+	public String resPetHotel() {
+		return "admin/resList";
+	}
+	
+	
+	
 
 	////////////////////////////////////////////////////////////////////////// 호텔
 	// add PetHotel Form
