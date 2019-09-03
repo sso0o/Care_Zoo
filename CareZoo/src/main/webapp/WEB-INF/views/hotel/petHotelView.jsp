@@ -25,11 +25,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> branch 'master' of https://github.com/sso0o/Care_Zoo.git
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
 <script type="text/javascript"
@@ -112,7 +107,6 @@
 		$("#attach_file").text(fileName);
 	});
 
-	}
 </script>
 
 <script type="text/javascript">
