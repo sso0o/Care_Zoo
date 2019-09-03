@@ -15,11 +15,26 @@
 		<div>
 			<fieldset>
 				<legend>호텔 옵션 선택</legend>
-				<input type="checkbox" name="asdf" value="aaa">bbb
+				aa<input type="checkbox" name="asdf" value="aaa"><br>
+				p_num = <input type="text" name="p_num" value="${p_num }"><br>
+				체크인<input type="text" name="in" value="${in }"><br>
+				체크아웃<input type="text" name="out" value="${out }"><br>
+				
 			</fieldset>
 		</div>
+		
 		<div>
 			<table>
+				<tr>
+					<td></td>
+					<td>
+						<select name="listOption" style="width: 100px; height: 25px;">
+							<option value="star">별점순</option>
+							<option value="comments">후기순</option>
+						</select>
+					</td>
+				</tr>
+				
 				<c:forEach var="phList" items="${phList}">
 				<tr>
 					<td><a href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a></td>
@@ -34,26 +49,6 @@
 				</c:forEach>
 			</table>
 		</div>
-
-	
-	</div>
-	
-	
-	
-	<div>
-		<table>
-			<tr>
-				<th>num</th>
-				
-				<th>name</th>
-			</tr>
-			<c:forEach items="${phList}" var="ph">
-				<tr>
-					<td>${ph.ph_num }</td>
-					<td>${ph.ph_name }</td>
-				</tr>
-			</c:forEach>
-		</table>
 
 	</div>
 
