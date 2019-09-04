@@ -1,5 +1,6 @@
 package com.what.carezoo.sitter.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +28,18 @@ public class HomeSitterController {
 	// 가정시터 검색목록 가져오기
 	@ResponseBody
 	@RequestMapping("/search")
-	public List<HomeSitterList> searchHS(@RequestParam() ArrayList<String> hsl_address) {
+	public List<HomeSitterList> searchHS(@RequestParam("hsl_address") ArrayList<String> hsl_address, HomeSitterList hsl) {
 		System.out.println("모델:"+hsl_address);
+		System.out.println("hsl:"+hsl);
+		if(hsl==null) {			
+			hsl = new HomeSitterList();
+		}
+		if(hsl_address==null) {
+			hsl_address = new ArrayList<String>(); 			
+		}		
 		System.out.println("가져온값"+hssService.getByHslbyAddress(hsl_address));
-		return hssService.getByHslbyAddress(hsl_address);
+		System.out.println("값"+hssService.getbySearchingHsl(hsl_address,hsl));
+		return hssService.getbySearchingHsl(hsl_address,hsl);
 	}
 	// 가정시터 게시글 등록 뷰 보여주기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)

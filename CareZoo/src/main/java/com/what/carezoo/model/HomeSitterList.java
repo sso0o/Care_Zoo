@@ -136,16 +136,6 @@ public class HomeSitterList {
 				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family + ", hsl_fileName="
 				+ hsl_fileName + ", hsl_address=" + hsl_address + ", hsl_d_address=" + hsl_d_address
 				+ ", hsl_service_type=" + hsl_service_type + ", hsl_pet_age=" + hsl_pet_age + ", hsl_d_d_address="
-				+ hsl_d_d_address + ", getHsl_num()=" + getHsl_num() + ", getHs_num()=" + getHs_num()
-				+ ", getHsl_title()=" + getHsl_title() + ", getHsl_comment()=" + getHsl_comment() + ", getHsl_size()="
-				+ getHsl_size() + ", getHsl_chkin()=" + getHsl_chkin() + ", getHsl_chkout()=" + getHsl_chkout()
-				+ ", getHsl_care_place()=" + getHsl_care_place() + ", getHsl_subway()=" + getHsl_subway()
-				+ ", getHsl_yard()=" + getHsl_yard() + ", getHsl_baby()=" + getHsl_baby() + ", getHsl_family()="
-				+ getHsl_family() + ", getHsl_fileName()=" + getHsl_fileName() + ", getHsl_address()="
-				+ getHsl_address() + ", getHsl_d_address()=" + getHsl_d_address() + ", getHsl_service_type()="
-				+ getHsl_service_type() + ", getHsl_pet_age()=" + getHsl_pet_age() + ", getHsl_d_d_address()="
-				+ getHsl_d_d_address() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
-	} 
-	 
+				+ hsl_d_d_address + "]";
+	}	 
 }

@@ -20,8 +20,8 @@ public class HomeSitterSearchingService {
 		}
 		return false;
 	}
-	public List<HomeSitterList> getbySearchingHsl(HomeSitterList hsl){		
-		return hslDao.selectAllHsl(hsl);
+	public List<HomeSitterList> getbySearchingHsl(List<String> hsl_address,HomeSitterList hsl){		
+		return hslDao.selectAllHsl(hsl_address,hsl);
 	}
 	public List<HomeSitterList> getByHslbyAddress(List<String> hsl_address){
 		return hslDao.searchHslbyAddress(hsl_address);
