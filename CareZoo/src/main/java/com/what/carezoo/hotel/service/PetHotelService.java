@@ -16,9 +16,11 @@ import org.springframework.web.servlet.View;
 
 import com.what.carezoo.dao.PetHotelCommentDao;
 import com.what.carezoo.dao.PetHotelDao;
+import com.what.carezoo.dao.PetHotelReservationDao;
 import com.what.carezoo.model.DownloadView;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelComment;
+import com.what.carezoo.model.PetHotelReservation;
 
 @Transactional
 @Service
@@ -31,6 +33,9 @@ public class PetHotelService {
 	
 	@Autowired
 	private PetHotelCommentDao petHotelComDao;
+	
+	@Autowired
+	private PetHotelReservationDao petHotelResDao;
 	
 
 	public boolean addPetHotel(PetHotel ph, List<MultipartFile> files) {
@@ -159,6 +164,43 @@ public class PetHotelService {
 	public List<PetHotelComment> selectAll(){
 		return petHotelComDao.selectAll();
 		
+	}
+	
+	
+	
+	
+	/////////////////////////////////////////
+	//pethotelRes
+	
+	public boolean insertPetHotelRes(PetHotelReservation phr) {
+		if(petHotelResDao.insert(phr)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updatePetHotelRes(PetHotelReservation phr) {
+		if(petHotelResDao.update(phr) > 0) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public boolean deletePetHotelRes(PetHotelReservation phr) {
+		if(petHotelResDao.delete(phr) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public PetHotelReservation getOnePetHotelRes(int phr_num) {
+		return petHotelResDao.selectOne(phr_num);
+		
+	}
+	
+	public List<PetHotelReservation> getAllPetHotelRes() {
+		return petHotelResDao.selectAll();
 	}
 	
 }
