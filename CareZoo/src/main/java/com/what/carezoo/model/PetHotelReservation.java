@@ -3,6 +3,7 @@ package com.what.carezoo.model;
 public class PetHotelReservation {
     private int phr_num;
 	private int c_num;
+	private int p_num;
 	private int ph_num;
 	private String phr_chkin;
 	private String phr_chkout;
@@ -18,6 +19,13 @@ public class PetHotelReservation {
 	}
 	public void setC_num(int c_num) {
 		this.c_num = c_num;
+	}
+	
+	public int getP_num() {
+		return p_num;
+	}
+	public void setP_num(int p_num) {
+		this.p_num = p_num;
 	}
 	public int getPh_num() {
 		return ph_num;
@@ -43,6 +51,11 @@ public class PetHotelReservation {
 	public void setPhr_status(String phr_status) {
 		this.phr_status = phr_status;
 	}
-
+	@Override
+	public String toString() {
+		return "PetHotelReservation [phr_num=" + phr_num + ", c_num=" + c_num + ", p_num=" + p_num + ", ph_num="
+				+ ph_num + ", phr_chkin=" + phr_chkin + ", phr_chkout=" + phr_chkout + ", phr_status=" + phr_status
+				+ "]";
+	}
 	
 }
