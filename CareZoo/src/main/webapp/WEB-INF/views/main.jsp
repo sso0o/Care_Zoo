@@ -121,7 +121,8 @@
     <nav>
         <div class='menu'>
             <ul style="">
-                <li class='active sub'><a href='${contextPath}/sitter/main'>시터</a>
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+         
                     <ul>
                         <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
                             <!-- 
