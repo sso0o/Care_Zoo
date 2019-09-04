@@ -35,22 +35,33 @@
 		</trim>			  		
 		order by hsl_num desc			  
 	</select>
-	<select id="selectAllHsl" parameterType="homesitterlist" resultType="homesitterlist">
+	<select id="selectAllHsl" resultType="map">
 		SELECT *
-		FROM homesitterlist
+		FROM homesitterlist HSL LEFT JOIN homesitter HS ON HSL.HS_NUM = HS.HS_NUM 
+			 LEFT JOIN homesitterlist_image HSI ON hsl.hsl_num = hsi.hsl_num
 		<trim prefix="where" prefixOverrides="AND|OR">
-			<if test="hsl_size != null">
-				or hsl_size = #{hsl_size}
+			<if test="hsl.hsl_size != null">
+				or hsl_size = #{hsl.hsl_size}
 			</if>
-			<if test="hsl_service_type != null">
-				or hsl_service_type = #{hsl_service_type}
+			<if test="hsl.hsl_service_type != null">
+				or hsl_service_type = #{hsl.hsl_service_type}
 			</if>
-			<if test="hsl_pet_age != null">
-				or hsl_pet_age = #{hsl_pet_age}
+			<if test="hsl.hsl_pet_age != null">
+				or hsl_pet_age = #{hsl.hsl_pet_age}
 			</if>
-			<if test="hsl_chkin != null">
-				or <![CDATA[hsl_chkin >= #{hsl_chkin} and hsl_chkout <= #{hsl_chkout}]]>
+			<if test="hsl.hsl_chkin != null">
+				or <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]>
 			</if>
+			<if test="list!=null">
+				<foreach collection="list" item="item" separator="or" >
+			    	hsl_address like ('%${item}%')
+			    </foreach>	
+			</if>
+			<choose>
+				<otherwise>
+					or hsl_service_type = 'allday'
+				</otherwise>
+			</choose>
 		</trim>
 	</select>
 </mapper>
