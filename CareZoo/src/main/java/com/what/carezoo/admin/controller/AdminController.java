@@ -1,24 +1,37 @@
 package com.what.carezoo.admin.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.what.carezoo.hotel.service.DongbanHotelService;
 import com.what.carezoo.hotel.service.PetHotelService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.PetHotel;
+import com.what.carezoo.model.PetHotelReservation;
 import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.sitter.service.SitterService;
 
@@ -37,6 +50,7 @@ public class AdminController {
 	
 	@Autowired
 	private PetService pService;
+	
 	
 
 	@RequestMapping("/main")
@@ -121,23 +135,61 @@ public class AdminController {
 		return "redirect:/admin/memberView?c_email="+email;
 	}
 	
-	//////////////////////////////////////////////////////////////////////////예약
-	
-	@RequestMapping("/resList")
-	public String resList(Model m) {
-		
-		
-		return "admin/resList";
+	@ResponseBody
+	@RequestMapping("/petchk")
+	public Map<String, Object> petchk(int c_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		List<Pet> pL = pService.selectByC_Num(c_num);
+		rst.put("pL", pL);
+		return rst;
 	}
 	
-	@RequestMapping("/resForm")
-	public String resForm() {
-		return "admin/resForm";
+	//////////////////////////////////////////////////////////////////////////예약
+	
+	@RequestMapping("/resPetHotelList")
+	public String resList(Model m) {
+		List<PetHotelReservation> phR = phService.getAllPetHotelRes();
+		
+		m.addAttribute("phR", phR);
+		
+		return "admin/resPetHotelList";
+	}
+	
+	@RequestMapping("/resPetHotelForm")
+	public String resPetHotelForm(Model m) {
+		List<Customer> cL = mService.selectAll();
+		List<PetHotel> phL = phService.getAllPetHotel();
+		
+		m.addAttribute("cL", cL);
+		m.addAttribute("phL", phL);
+		return "admin/resPetHotelForm";
 	}
 	
 	@RequestMapping(value = "/resPetHotel", method = RequestMethod.POST)
-	public String resPetHotel() {
-		return "admin/resList";
+	@ResponseBody
+	public boolean resPetHotel(String str, HttpServletRequest req) {
+		List<PetHotelReservation> phR = new ArrayList<PetHotelReservation>();
+		System.out.println("str -----------"+str);
+		JSONArray jArray = new JSONArray(str);
+		System.out.println(jArray);
+		for (int i = 0; i < jArray.length(); i++) {
+			PetHotelReservation r = new PetHotelReservation();
+			JSONObject jo = jArray.getJSONObject(i);
+			r.setC_num(jo.getInt("c_num"));
+			r.setP_num(jo.getInt("p_num"));
+			r.setPh_num(jo.getInt("ph_num"));
+			r.setPhr_chkin(jo.getString("phr_chkin"));
+			r.setPhr_chkout(jo.getString("phr_chkout"));
+			System.out.println(r);
+			phR.add(r);
+		}
+		for (int i = 0; i < phR.size(); i++) {
+			
+		}
+		if(phR.size()>0) {
+			return true;
+		}
+		return false;
 	}
 	
 	
