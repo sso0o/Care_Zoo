@@ -26,6 +26,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.what.carezoo.hotel.service.DongbanHotelService;
+import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
@@ -50,6 +51,9 @@ public class AdminController {
 	
 	@Autowired
 	private PetService pService;
+	
+	@Autowired
+	private PetHotelReservationService phrService;
 	
 	
 
@@ -183,9 +187,19 @@ public class AdminController {
 			System.out.println(r);
 			phR.add(r);
 		}
-		for (int i = 0; i < phR.size(); i++) {
-			
-		}
+		
+//		for (PetHotelReservation r : phR) {
+//			boolean result = rst.add(phrService.addPetHotelRes(r));
+//			if(result) {
+//				
+//			}
+//		}
+//		
+//		
+//		if (!rst.contains(false)) {
+//			return true;
+//		}
+		
 		if(phR.size()>0) {
 			return true;
 		}

@@ -105,7 +105,7 @@
 				type:"post",
 				dataType: "JSON",
 				success: function(rst) {
-					alert("삽입성공");
+					alert("삽입성공")
 				}, error : function() {
 					alert("삽입실패")
 				}

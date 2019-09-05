@@ -1,6 +1,5 @@
 package com.what.carezoo.hotel.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 
 import java.util.List;
 
@@ -16,24 +15,33 @@ public class PetHotelReservationService {
 	@Autowired
 	private PetHotelReservationDao petHotelResDao;
 	
-	public boolean addPetHotelRes() {
+	public boolean addPetHotelRes(PetHotelReservation phr) {
+		if(petHotelResDao.insert(phr) > 0) {
+			return true;
+		}
 		return false;
 	}
 	
-	public boolean modifyPetHotelRes() {
+	public boolean modifyPetHotelRes(PetHotelReservation phr) {
+		if(petHotelResDao.update(phr) > 0) {
+			return true;
+		}
 		return false;
 	}
 	
-	public boolean removePetHotelRes() {
+	public boolean removePetHotelRes(PetHotelReservation phr) {
+		if(petHotelResDao.delete(phr) > 0) {
+			return true;
+		}
 		return false;
 	}
 	
-	public PetHotelReservation getPetHotelRes() {
-		return null;
+	public PetHotelReservation getPetHotelRes(int ph_num) {
+		return petHotelResDao.selectOne(ph_num);
 	}
 	
 	public List<PetHotelReservation> getAllPetHotelRes() {
-		return null;
+		return petHotelResDao.selectAll();
 	}
 
 }
