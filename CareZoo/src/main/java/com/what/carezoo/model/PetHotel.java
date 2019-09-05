@@ -1,5 +1,7 @@
 package com.what.carezoo.model;
 
+import java.util.List;
+
 public class PetHotel {
 	private int ph_num;	   
 	private String ph_name;		
@@ -11,6 +13,13 @@ public class PetHotel {
 	private String ph_fileName;		
 	private String ph_latitude;		
 	private String ph_longitude;
+	private List<String> filesName;
+	public List<String> getFilesName() {
+		return filesName;
+	}
+	public void setFilesName(List<String> filesName) {
+		this.filesName = filesName;
+	}
 	public int getPh_num() {
 		return ph_num;
 	}
@@ -76,8 +85,9 @@ public class PetHotel {
 		return "PetHotel [ph_num=" + ph_num + ", ph_name=" + ph_name + ", ph_address=" + ph_address + ", ph_d_address="
 				+ ph_d_address + ", ph_star=" + ph_star + ", ph_price=" + ph_price + ", ph_p_count=" + ph_p_count
 				+ ", ph_fileName=" + ph_fileName + ", ph_latitude=" + ph_latitude + ", ph_longitude=" + ph_longitude
-				+ "]";
+				+ ", filesName=" + filesName + "]";
 	}
+
 
 
 }

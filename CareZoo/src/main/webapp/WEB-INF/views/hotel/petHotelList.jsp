@@ -19,37 +19,48 @@
 				p_num = <input type="text" name="p_num" value="${p_num }"><br>
 				체크인<input type="text" name="in" value="${in }"><br>
 				체크아웃<input type="text" name="out" value="${out }"><br>
-				
+
 			</fieldset>
 		</div>
-		
+
 		<div>
 			<table>
 				<tr>
 					<td></td>
-					<td>
-						<select name="listOption" style="width: 100px; height: 25px;">
+					<td><select name="listOption"
+						style="width: 100px; height: 25px;">
 							<option value="star">별점순</option>
 							<option value="comments">후기순</option>
-						</select>
-					</td>
-				</tr>
-				
-				<c:forEach var="phList" items="${phList}">
-				<tr>
-					<td><a href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a></td>
+					</select></td>
 				</tr>
 
-					<!-- 				<p> -->
-					<%-- 					<c:out value="${boardMap.title}" /> --%>
-					<!-- 				</p> -->
-<!-- 					사진:<br> -->
-<!-- 					<img width="200px" height="200px" -->
-<%-- 						src="${contextPath}/image?fileName=NAVER.jpg" /> --%>
-				</c:forEach>
 			</table>
 		</div>
+		<div class="pethotelList">
+			<c:forEach var="phList" items="${phList}">
 
+
+				<span>호텔이름:</span>
+				<a
+					href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a>
+				<br>
+					그림:
+				<c:forEach items="${phList.filesName}" var="fn">
+					<div>
+						<img src="${contextPath}/petHotel/image?fileName=${fn}"
+							data-sizes="100vw" data-srcset=""
+							style="width: 680px; height: 580px;">
+					</div>
+				</c:forEach>
+
+				<!-- 				<p> -->
+				<%-- 					<c:out value="${boardMap.title}" /> --%>
+				<!-- 				</p> -->
+				<!-- 					사진:<br> -->
+				<!-- 					<img width="200px" height="200px" -->
+				<%-- 						src="${contextPath}/image?fileName=NAVER.jpg" /> --%>
+			</c:forEach>
+		</div>
 	</div>
 
 </body>
