@@ -30,14 +30,15 @@
  * http://docs.jquery.com/UI/Datepicker#theming
  */
 .ui-datepicker {
-	width: 17em;
+	width: 293px;
+	height: 288px;
 	padding: .2em .2em 0;
 	display: none;
 }
 
 .ui-datepicker .ui-datepicker-header {
 	position: relative;
-	padding: .0em 0;
+	padding: .2em 0;
 }
 
 .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
@@ -104,8 +105,9 @@
 }
 
 .ui-datepicker table {
-	width: 100%;
-	font-size: .9em;
+	width: 100% auto;
+	height: 230px;
+	font-size: 15px;
 	border-collapse: collapse;
 	margin: 0 0 .4em;
 }

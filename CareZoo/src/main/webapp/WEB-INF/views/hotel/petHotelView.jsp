@@ -11,8 +11,7 @@
 
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/pignose.calendar.min.css">
+
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <link rel='stylesheet' type='text/css'
@@ -146,10 +145,31 @@
 											}
 										});
 						var datepickerEnd = $('.col-dates .pull-right')
-								.datepicker({
-									dateFormat : 'yy-mm-dd',
-									minDate : moment('yy-mm-dd').toDate()
-								});
+								.datepicker(
+										{
+											closeText : "닫기",
+											prevText : "이전달",
+											nextText : "다음달",
+											currentText : "오늘",
+											monthNames : [ "1월", "2월", "3월",
+													"4월", "5월", "6월", "7월",
+													"8월", "9월", "10월", "11월",
+													"12월" ],
+											monthNamesShort : [ "1월", "2월",
+													"3월", "4월", "5월", "6월",
+													"7월", "8월", "9월", "10월",
+													"11월", "12월" ],
+											dayNames : [ "일요일", "월요일", "화요일",
+													"수요일", "목요일", "금요일", "토요일" ],
+											dayNamesShort : [ "일", "월", "화",
+													"수", "목", "금", "토" ],
+											dayNamesMin : [ "일", "월", "화", "수",
+													"목", "금", "토" ],
+											weekHeader : "주",
+											dateFormat : 'yy-mm-dd',
+											minDate : moment('yy-mm-dd')
+													.toDate()
+										});
 					});
 
 	function initialize() {
@@ -283,137 +303,8 @@ footer {
 	padding-right: 10px;
 }
 
-
-
 body {
 	margin: 0;
-}
-/* placeholder color */
-input:-ms-input-placeholder {
-	color: #000;
-}
-
-input::-webkit-input-placeholder {
-	color: #000;
-}
-
-input::-moz-placeholder {
-	color: #000;
-}
-
-input::-moz-placeholder {
-	color: #000;
-}
-
-.wrapper {
-	position: relative;
-	width: 445px;
-	height: 45px;
-	margin: 10px;
-}
-
-.ion-calendar {
-	position: absolute;
-	right: 20px;
-	top: 14px;
-}
-/* input */
-#datepicker:hover {
-	background-color: #eaf7ff;
-}
-
-#datepicker:focus {
-	outline: none;
-}
-/* calendar table */
-.ui-datepicker {
-	display: none;
-	background-color: #fff;
-	border-radius: 5px;
-	margin-top: 10px;
-	margin-left: 0px;
-	margin-right: 42.5px;
-	padding: 20px;
-	width: 300px;
-}
-
-#datepicker:focus>.ui-datepicker {
-	display: block;
-}
-
-.ui-datepicker-prev, .ui-datepicker-next {
-	cursor: pointer;
-}
-
-.ui-datepicker-next {
-	float: right;
-}
-
-.ui-state-disabled {
-	cursor: auto;
-	color: hsla(0, 0%, 80%, 1);
-}
-
-.ui-datepicker-title {
-	text-align: center;
-	padding: 10px;
-	font-weight: 100;
-	font-size: 20px;
-}
-
-.ui-datepicker-calendar {
-	width: 100%;
-}
-/* day of week cell */
-.ui-datepicker-calendar>thead>tr>th {
-	padding: 5px auto;
-	font-size: 20px;
-	font-weight: 400;
-}
-/* day cell */
-.ui-datepicker-calendar>tbody>tr>td {
-	border-radius: 100%;
-	width: 44px;
-	height: 44px;
-	cursor: pointer;
-	padding: 5px auto;
-	font-weight: 100;
-	text-align: center;
-}
-
-.ui-datepicker-calendar>tbody>tr>td:hover {
-	background-color: #c6e2f7;
-}
-
-.ui-datepicker-calendar>tbody>tr>td>a {
-	color: #000;
-	font-size: 18px;
-	font-weight: 400;
-	text-decoration: none;
-}
-/* past days */
-.ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {
-	cursor: auto;
-	background-color: #fff;
-	
-}
-/* media */
-@media ( max-width : 445px) {
-	.wrapper {
-		width: calc(100vw - 20px);
-	}
-	.ui-datepicker {
-		margin-right: 0;
-		margin-left: 0;
-		padding: 10px;
-		width: calc(100vw - 20px);
-		margin: 10px auto;
-	}
-	.ui-datepicker-calendar>tbody>tr>td {
-		width: 38px;
-		height: 38px;
-	}
-
 }
 </style>
 
@@ -512,7 +403,7 @@ input::-moz-placeholder {
 					</tr>
 					<tr>
 						<td><input type="hidden" id="sample4_postcode"
-							placeholder="우편번호"> 주소:${petHotel.ph_address}" <input
+							placeholder="우편번호"> 주소:${petHotel.ph_address} <input
 							type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
 							${petHotel.ph_d_address }
 					</tr>
@@ -566,35 +457,39 @@ input::-moz-placeholder {
 		</div>
 		<br> <br> <br> <br>
 		<div style="float: left;">
-			<div class="col-dates"
-				style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
-				<span style="font-size: 17px; text-align: center">예약기간을
-					정해주세요.</span> <input type="text" class="pull-left" placeholder="시작 날짜"
-					readonly="readonly" name="hsl_chkin"
-					style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" />
-				<span>&gt;</span> <input type="text" class="pull-right"
-					placeholder="마침 날짜" readonly="readonly" name="hsl_chkout"
-					style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" />
+			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
+				<div class="col-dates"
+					style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+					<span style="font-size: 17px; text-align: center">예약기간을
+						정해주세요.</span> <br> <br> <input type="text" class="pull-left"
+						placeholder="시작 날짜" readonly="readonly" name="hsl_chkin"
+						style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" />
+					<span>&gt;</span> <input type="text" class="pull-right"
+						placeholder="마침 날짜" readonly="readonly" name="hsl_chkout"
+						style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" />
 
-				<br style="padding: 20px"> <br>
-				<div style="">
-					<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
+					<br style="padding: 20px"> <br>
+					<div style="">
+						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
+					</div>
+					<hr>
+					<span>(시작날짜 마침날짜 계산일)박</span><span>(가격)</span>
+					<hr>
+					<span>반려견 추가</span><span>(가격)</span>
+					<hr>
+					<span>총 합계:</span> <span>(총가격)</span>
+					<br>
+					<br>
+					<input type="submit" value="예약하기">
 				</div>
-				<hr>
-				<span>(시작날짜 마침날짜 계산일)박</span><span>(가격)</span>
-				<hr>
-				<span>반려견 추가</span><span>(가격)</span>
-				<hr>
-				<span>총 합계:</span> <span>(총가격)</span>
-
-			</div>
+			</form>
 			<br>
 			<div
-				style="margin-top: 0px auto; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
-				<span style="font-size: 17px;">/캘린더 미리보기/</span><br>
-				<div id="datepicker" class="calendar2" style="border: none;">
-
-				</div>
+				style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+				<span style="font-size: 17px;">/캘린더 미리보기/</span> <br>
+				<br>
+				<div id="datepicker" class="calendar2"
+					style="border-collapse: none; width: 50px; color: red"></div>
 
 			</div>
 		</div>
