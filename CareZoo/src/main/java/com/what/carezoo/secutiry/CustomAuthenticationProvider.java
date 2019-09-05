@@ -20,8 +20,8 @@ import com.what.carezoo.member.service.MemberService;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 	// 권한을 부여하는 기능을 가지는 클래스
 
-	@Autowired
-	private MemberService mService;
+//	@Autowired
+//	private MemberService mService;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
