@@ -10,79 +10,220 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel='stylesheet' type='text/css'
+	href='${contextPath}/resources/css/datepicker.css' />
+<link rel='stylesheet' type='text/css'
+	href='${contextPath}/resources/css/homeSitter.css' />
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${contextPath}/resources/js/moment.js"
+	type="text/javascript"></script>
+<script src="${contextPath}/resources/js/datepicker-ko.js"
+	type="text/javascript"></script>
+
+<script type="text/javascript">
+	$(function() {
+		var paramsArr = [];
+
+		//datepicker
+		var datepickerStart = $('#chkin')
+				.datepicker(
+						{
+							dateFormat : 'yy-mm-dd',
+							minDate : moment('yy-mm-dd').toDate(),
+							onSelect : function(selected) {
+								datepickerEnd.datepicker('option', 'minDate',
+										selected);
+
+								if (datepickerEnd.prop('disabled')) {
+									datepickerEnd.datepicker('setDate',
+											selected);
+								} else if (!datepickerEnd.val()) {
+									setTimeout($.proxy(
+											datepickerEnd.datepicker,
+											datepickerEnd, 'show'), 50);
+								}
+							}
+						});
+		var datepickerEnd = $('#chkout').datepicker({
+			dateFormat : 'yy-mm-dd',
+			minDate : moment('yy-mm-dd').toDate()
+		});
+
+// 		$("#pullBtn").on("click", function() {
+// 			var c_num = $(this).val();
+
+// 			$.ajax({
+// 				url : "${contextPath}/admin/petchk",
+// 				data : {
+// 					c_num : c_num
+// 				},
+// 				dataType : "json",
+// 				success : function(data) {
+// 					// 					console.log(data.pL)
+// 					$("#petL").find("option").remove();
+// 					for ( var i in data.pL) {
+// 						// 						alert(data.pL[i].p_num)
+// 						var op = '<option value=\"'
+// 						op += (data.pL[i].p_num)
+// 						op += '\" title=\"'
+// 						op += (data.pL[i].p_name)
+// 						op += '\">'
+// 						op += (data.pL[i].p_name)
+// 						op += '</option>'
+// 						$(op).appendTo("#petL");
+// 					}
+// 				},
+// 				error : function() {
+// 					alert("실패");
+// 				}
+// 			});
+
+// 		});
+
+		//추가버튼
+		$("#addBtn").on("click", function() {
+			var detailParam = $(this).parent().parent().serialize();
+			var dateStart = moment(datepickerStart.datepicker('getDate'));
+			var dateEnd = moment(datepickerEnd.datepicker('getDate'));
+			if (dateStart.isValid() && dateEnd.isValid()) {
+				detailParam.chkin = dateStart.format('YYYY-MM-DD');
+				detailParam.chkout = dateEnd.format('YYYY-MM-DD');
+			}
+			add(dateStart, dateEnd);
+		})
+
+		//제출버튼(예약)
+		$("#btnSubmit").on(
+				"click",
+				function() {
+					$("#rst tr").not('tr:first').each(
+							function() {
+								var param = {};
+								param.c_num = $(this).find('td').find(
+										"input[id='c_num']").val();
+								param.p_num = $(this).find('td').find(
+										"input[id='p_num']").val();
+								param.ph_num = $(this).find('td').find(
+										"input[id='ph_num']").val();
+								param.phr_chkin = $(this).find('td').find(
+										"input[id='phr_chkin']").val();
+								param.phr_chkout = $(this).find('td').find(
+										"input[id='phr_chkout']").val();
+								console.log(param)
+								paramsArr.push(param);
+							})
+
+					var arrData = JSON.stringify(paramsArr)
+
+					console.log(arrData)
+					$.ajax({
+						url : "${contextPath}/admin/resPetHotel",
+						data : {
+							"str" : arrData
+						},
+						type : "post",
+						dataType : "JSON",
+						success : function(rst) {
+							alert("삽입성공")
+						},
+						error : function() {
+							alert("삽입실패")
+						}
+					});
+				});
+	})
+
+	var count = 0;
+	function add(dateStart, dateEnd) {
+		var ds = dateStart.format('YYYY-MM-DD')
+		var de = dateEnd.format('YYYY-MM-DD')
+// 		var cname = $("#cnum").find("option:selected").attr("title");
+		var pname = $("#petL").find("option:selected").attr("title");
+
+		var table = $("#rst");
+		var tr = $("<tr>");
+		var td3 = $("<td>").append('<input type="hidden" id="p_num" value="' + $("#petL").val() + '">'+pname);
+		var td5 = $("<td>").append('<input type="hidden" id="ph_num" value="' + $("#phnum").val() + '">'+$("#phname").val());
+		var td7 = $("<td>").append('<input type="text" id="phr_chkin" value="' + ds + '">');
+		var td8 = $("<td>").append('<input type="text" id="phr_chkout" value="' + de + '">');
+		var btn = $("<button>삭제</button>")
+
+		tr.append(td3);
+		tr.append(td5);
+		tr.append(td7);
+		tr.append(td8);
+		tr.append($("<td>").append(btn));
+		(function() {
+			btn.on("click", function() {
+				$(this).parent().parent().remove();
+			})
+		})();
+		table.append(tr);
+	}
+</script>
 
 <title>petHotelResForm</title>
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-<link href="${contextPath }/resources/css/minical.css" rel="stylesheet"
-	type="text/css">
-
-<style>
-ul, li {
-	list-style: none;
-}
-</style>
-
-
-
 
 </head>
 <body>
 
 	<div>
-		<h2>펫호텔 예약</h2>
 		<fieldset>
-			<legend>예약 정보 입력</legend>
+			<legend>예약정보</legend>
 
-			<form action="${contextPath }/petHotel/petHotelList" method="post">
-
-				<table>
-					<tr>
-
-					</tr>
-
-					<tr>
-						<td>체크인</td>
-						<td><input type="text" name="in"></td>
-						<td>체크아웃</td>
-						<td><input type="text" name="out"></td>
-					</tr>
-					<tr>
-						<td>반려견 정보</td>
-						<td>
-							<select name="p_num">
-								<option value="a">a</option>
-								<option value="b">b</option>
-								<option value="c">c</option>
-								<option value="d">d</option>
-							</select>
-						</td>
-					</tr>
+			<table id="list">
+				<tr>
+<!-- 					<th>불러오기</th> -->
+					<th>펫</th>
+					<th>펫호텔</th>
+					<th>체크인</th>
+					<th>체크아웃</th>
+					<th>추가</th>
+				</tr>
+				<tr>
+<!-- 					<td><input type="button" id="pullBtn" value="불러오기"></td> -->
+					<td><select name="p_num" id="petL">
+					</select></td>
+					<!-- 
+					<td><select name="ph_num" id="phnum">
+							<c:forEach items="${phL }" var="ph">
+								<option value="${ph.ph_num }" title="${ph.ph_name }">${ph.ph_name }</option>
+							</c:forEach>
+					</select></td>
+					 -->
+					<td><input type="hidden" id="phnum" name="ph_num" value=""><input type="text" id="phname" value=""></td>
 					
+					<td><input type="text" placeholder="시작 날짜" readonly="readonly"
+						name="phr_chkin" id="chkin"></td>
+					<td><input type="text" placeholder="마침 날짜" readonly="readonly"
+						name="phr_chkout" id="chkout"></td>
+					<td ><input type="button" id="addBtn" value="추가"></td>
+				</tr>
 
+			</table>
+		</fieldset>
+		<div>
+			<hr>
+		</div>
+		<div>
+			<fieldset>
+				<legend>예약 확인</legend>
 
+				<table id="rst" style="width: 600px">
 					<tr>
-						<td><input type="submit" value="예약하기"></td>
+						<th>펫</th>
+						<th>펫호텔</th>
+						<th>체크인</th>
+						<th>체크아웃</th>
+						<th>삭제</th>
 					</tr>
 				</table>
-			</form>
-		</fieldset>
-
-
+			</fieldset>
+			<button id="btnSubmit">제출</button>
+		</div>
 	</div>
-
-	<script src="${contextPath}/resources/js/minical.js"></script>
-	<script type="text/javascript">
-		$("input[name='in']").minical();
-		$("input[name='out']").minical();
-	</script>
-
 
 </body>
 </html>

@@ -5,9 +5,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +22,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.what.carezoo.hotel.service.PetHotelService;
+import com.what.carezoo.member.service.MemberService;
+import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.PetHotel;
+import com.what.carezoo.model.PetHotelReservation;
 
 
 @Controller
 @RequestMapping("/petHotel")
 public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤러
+	
+	@Autowired
+	private MemberService mService;
 
 	@Autowired
 	private PetHotelService phService;
+	
 	private static final String FILE_PATH = "c:/temp/";
 
 	// 펫호텔 목록보기
@@ -40,10 +52,52 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return "hotel/petHotelList";
 	}
 
-	// 펫호텔 예약폼
+	// 펫호텔 예약폼 --> 회원가입 상태여야하고, 고객넘, 고객의 펫리스트 넘겨야함
 	@RequestMapping("/petHotelResForm")
-	public String showPetHotelResForm() {
+	public String resPetHotelForm(Model m) {
+		List<Customer> cL = mService.selectAll();
+		List<PetHotel> phL = phService.getAllPetHotel();
+		
+		m.addAttribute("cL", cL);
+		m.addAttribute("phL", phL);
 		return "hotel/petHotelResForm";
+	}
+	
+	@RequestMapping(value = "/resPetHotel", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean resPetHotel(String str, HttpServletRequest req) {
+		List<PetHotelReservation> phR = new ArrayList<PetHotelReservation>();
+		System.out.println("str -----------"+str);
+		JSONArray jArray = new JSONArray(str);
+		System.out.println(jArray);
+		for (int i = 0; i < jArray.length(); i++) {
+			PetHotelReservation r = new PetHotelReservation();
+			JSONObject jo = jArray.getJSONObject(i);
+			r.setC_num(jo.getInt("c_num"));
+			r.setP_num(jo.getInt("p_num"));
+			r.setPh_num(jo.getInt("ph_num"));
+			r.setPhr_chkin(jo.getString("phr_chkin"));
+			r.setPhr_chkout(jo.getString("phr_chkout"));
+			System.out.println(r);
+			phR.add(r);
+		}
+		
+//		for (PetHotelReservation r : phR) {
+//			boolean result = rst.add(phrService.addPetHotelRes(r));
+//			if(result) {
+//				
+//			}
+//		}
+//		
+//		
+//		if (!rst.contains(false)) {
+//			return true;
+//		}
+		
+		if(phR.size()>0) {
+			return true;
+		}
+		return false;
 	}
 
 	// 펫호텔 상세보기
