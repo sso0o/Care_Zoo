@@ -20,27 +20,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.sitter.service.SitterService;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private SitterService sService;
+	
+//	private 
 	//로그인
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginForm() {
 		return "loginForm";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
-		System.out.println(c_email);
-		System.out.println(c_pass);
-		if(memberService.login(c_email,c_pass)) {
-			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
-			return "mainLogin";
-		}
-		return "login";
-	}
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public String login(HttpServletRequest request,Model model,String c_email, String c_pass, String user) {
+//		System.out.println(c_email);
+//		System.out.println(c_pass);
+//		System.out.println(user);
+//		if(memberService.login(c_email,c_pass)) {
+//			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
+//			return "mainLogin";
+//		}
+//		return "login";
+//	}
 	//회원가입
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String joinForm() {

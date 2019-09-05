@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
@@ -55,64 +54,44 @@
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
 <script type="text/javascript"
-	src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap">
-	
-</script>
+	src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script>
 
 <script type="text/javascript">
 	var imgCommonPreview = new Image();
-	$(document)
-			.on(
-					'ready',
-					function() {
-						$("#datepicker").datepicker(
-								{
-									closeText : "닫기",
-									prevText : "이전달",
-									nextText : "다음달",
-									currentText : "오늘",
-									monthNames : [ "1월", "2월", "3월", "4월",
-											"5월", "6월", "7월", "8월", "9월",
-											"10월", "11월", "12월" ],
-									monthNamesShort : [ "1월", "2월", "3월", "4월",
-											"5월", "6월", "7월", "8월", "9월",
-											"10월", "11월", "12월" ],
-									dayNames : [ "일요일", "월요일", "화요일", "수요일",
-											"목요일", "금요일", "토요일" ],
-									dayNamesShort : [ "일", "월", "화", "수", "목",
-											"금", "토" ],
-									dayNamesMin : [ "일", "월", "화", "수", "목",
-											"금", "토" ],
-									weekHeader : "주",
-									dateFormat : 'yy-mm-dd',
-									minDate : moment('yy-mm-dd').toDate()
-								});
+	$(document).on('ready',function() {
+			
+		$("#datepicker").datepicker({
+			closeText : "닫기",
+			prevText : "이전달",
+			nextText : "다음달",
+			currentText : "오늘",
+			monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+			monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+			dayNames : [ "일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일" ],
+			dayNamesShort : [ "일", "월", "화", "수", "목", "금", "토" ],
+			dayNamesMin : [ "일", "월", "화", "수", "목", "금", "토" ],
+			weekHeader : "주",
+			dateFormat : 'yy-mm-dd',
+			minDate : moment('yy-mm-dd').toDate()
+		});
 
-						$(".lazy").slick({
-							dots : true,
-							lazyLoad : 'ondemand', // ondemand progressive anticipated
-							infinite : true,
-							centerMode : false,
-							// 			autoplay : true, //자동플레이 유무( false시 자동플레이 안됨)
-							autoplaySpeed : 4000
-						// 자동플레이 스피드
-						});
-						var datepickerStart = $('.col-dates .pull-left')
-								.datepicker(
-										{
-											closeText : "닫기",
-											prevText : "이전달",
-											nextText : "다음달",
-											currentText : "오늘",
-											monthNames : [ "1월", "2월", "3월",
-													"4월", "5월", "6월", "7월",
-													"8월", "9월", "10월", "11월",
-													"12월" ],
-											monthNamesShort : [ "1월", "2월",
-													"3월", "4월", "5월", "6월",
-													"7월", "8월", "9월", "10월",
-													"11월", "12월" ],
-											dayNames : [ "일요일", "월요일", "화요일",
+		$(".lazy").slick({
+			dots : true,
+			lazyLoad : 'ondemand', // ondemand progressive anticipated
+			infinite : true,
+			centerMode : false,
+			// 			autoplay : true, //자동플레이 유무( false시 자동플레이 안됨)
+			autoplaySpeed : 4000
+			// 자동플레이 스피드
+		});
+	var datepickerStart = $('.col-dates .pull-left').datepicker({
+		closeText : "닫기",
+		prevText : "이전달",
+		nextText : "다음달",
+		currentText : "오늘",
+		monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+		monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+		dayNames : [ "일요일", "월요일", "화요일",
 													"수요일", "목요일", "금요일", "토요일" ],
 											dayNamesShort : [ "일", "월", "화",
 													"수", "목", "금", "토" ],
