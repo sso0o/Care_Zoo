@@ -183,6 +183,9 @@ public class AdminController {
 			System.out.println(r);
 			phR.add(r);
 		}
+		for (int i = 0; i < phR.size(); i++) {
+			
+		}
 		if(phR.size()>0) {
 			return true;
 		}

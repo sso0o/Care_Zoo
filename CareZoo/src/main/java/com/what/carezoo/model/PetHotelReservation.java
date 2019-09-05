@@ -8,6 +8,7 @@ public class PetHotelReservation {
 	private String phr_chkin;
 	private String phr_chkout;
 	private String phr_status;
+	
 	public int getPhr_num() {
 		return phr_num;
 	}
