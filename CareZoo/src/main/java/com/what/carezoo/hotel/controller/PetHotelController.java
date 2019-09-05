@@ -55,11 +55,8 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	// 펫호텔 예약폼 --> 회원가입 상태여야하고, 고객넘, 고객의 펫리스트 넘겨야함
 	@RequestMapping("/petHotelResForm")
 	public String resPetHotelForm(Model m) {
-		List<Customer> cL = mService.selectAll();
-		List<PetHotel> phL = phService.getAllPetHotel();
-		
-		m.addAttribute("cL", cL);
-		m.addAttribute("phL", phL);
+
+
 		return "hotel/petHotelResForm";
 	}
 	
