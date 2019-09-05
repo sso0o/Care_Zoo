@@ -18,40 +18,54 @@
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
 <script type="text/javascript"> 
 $(function () {
-	//전체 도시 검색 버튼 선택/해제
-	$('#state_check_all').click(function() {
-		if($('#state_check_all').prop("checked")){
-			$("input[name=hsl_address]").prop('checked', true);
-			console.log("checked 실행");
-		}else{
-			$("input[name=hsl_address]").prop('checked', false);
-		}
-	})
 	//검색탭
-	var isOpen = false;
-	$("#menu_1").on("click", function(){
-		if(!isOpen){
+// 	var isOpen = false;
+// 	$("#menu_0").on("click", function(){
+// 		if(!isOpen){
+// 			$("#subtbl_0").css("display","block");
+// 		}else{
+// 			$("#subtbl_0").css("display","none");
+// 		}
+// 		isOpen = !isOpen
+// 	});
+	var isMenu1 = false;
+	$("#menu_1").on("click", function(){	
+		
+		if(!isMenu1){
 			$("#subtbl_1").css("display","block");
+			$("#subtbl_1").siblings().css("display","none");
 		}else{
 			$("#subtbl_1").css("display","none");
 		}
-		isOpen = !isOpen
+		isMenu1 = !isMenu1;
+		isMenu2 = false;
+		isMenu3 = false;
 	});
+	
+	var isMenu2 =false;
 	$("#menu_2").on("click", function(){
-		if(!isOpen){
+		if(!isMenu2){
 			$("#subtbl_2").css("display","block");
+			$("#subtbl_2").siblings().css("display","none");
 		}else{
 			$("#subtbl_2").css("display","none");
 		}
-		isOpen = !isOpen
+		isMenu2 = !isMenu2;
+		isMenu1 = false;
+		isMenu3 = false;
 	});
+	
+	var isMenu3 = false;
 	$("#menu_3").on("click",function(){
-		if(!isOpen){
+		if(!isMenu3){
 			$("#subtbl_3").css("display","block");
+			$("#subtbl_3").siblings().css("display","none");
 		}else{
 			$("#subtbl_3").css("display","none");
 		}
-		isOpen = !isOpen
+		isMenu3 = !isMenu3;
+		isMenu1 = false;
+		isMenu2 = false;
 	});
 	//datepicker동작
 	var datepickerStart = $('.col-dates .pull-left').datepicker({
@@ -71,33 +85,13 @@ $(function () {
 		dateFormat: 'yy-mm-dd', 
 		minDate: moment('yy-mm-dd').toDate()
 	});
-	
-	//detail 검색 폼 전달
-// 	var detailParam = $("#detail_form").on("submit", function(){
-// 		var dtParam = $(this).serialize();
-// 		$.ajax({
-// 			url:"${contextPath}/home/search",
-// 			data:dtParam,
-// 			type:"get",
-// 			dataType:"json",
-// 			success:function(result){
-// 				if(result){
-// 					alert("등록완료");
-// 					console.log("result : "+result);
-					
-// 				}else{
-// 					alert("오류발생!!");
-// 				}
-// 			},
-// 			error:function(request,status,error){
-// 				alert(" error = " + error);
-// 			}
-// 		});// ajax
-// 		return false;
-// 	});
+// 	var $allState_click = $("#menu_0").on("click", function() {
+// 		$("#subtbl_0").children().is(":checked");
+// 	})
 	//state 검색 폼 전달
 	$("form").on("submit",function(){
 		event.preventDefault();
+// 		$allState_click;
 		var stateParam = $('input[name=hsl_address]:checked').serialize();
 // 		var detailParam = $("#detail_form").on("submit", function(){$(this).serialize()});
 		var detailParam = $("#detail_form").serialize();
@@ -108,7 +102,8 @@ $(function () {
 			detailParam.hsl_chkin = dateStart.format('YYYY-MM-DD');
 			detailParam.hsl_chkout = dateEnd.format('YYYY-MM-DD');
 		}
-		console.log("form submit : " +stateParam);
+		console.log("stateParam submit : " +stateParam);
+		console.log("detailParam submit : " +detailParam);
 		$.ajax({
 			url:"${contextPath}/home/search",
 			data:stateParam+'&'+detailParam,
@@ -120,13 +115,17 @@ $(function () {
 					alert("등록완료");
 					console.log("result : "+d);
 					for(var i in d){
-						var tr = $('<tr style="border: 1px">');
-						$('<td>)').text(d[i].HSL_FILENAME).appendTo(tr);
-						$('<td>)').text(d[i].HSL_ADDRESS).appendTo(tr);
-						$('<td>)').text(d[i].HSL_CHKIN).appendTo(tr);
-						$('<td>)').text(d[i].HSL_CHKOUT).appendTo(tr);
-						$('<td>)').text(d[i].HS_NAME).appendTo(tr);
-						$("#search_result").append(tr);
+						var table = $('<table>');
+						$('<tr>').appendTo(table);
+						$('<td>)').text(d[i].HSL_FILENAME).appendTo(table);
+						
+						$('<td>)').text(d[i].HSL_ADDRESS).appendTo(table);
+						$('<td>)').text(d[i].HSL_CHKIN).appendTo(table);
+						$('<td>)').text(d[i].HSL_CHKOUT).appendTo(table);
+						$('<td>)').text(d[i].HS_NAME).appendTo(table);
+						$('</tr>').appendTo(table);
+						$('</table>').appendTo(table);
+						$(".homeSitterList").append(table);
 					}					
 				}else{
 					alert("오류발생!!");
@@ -149,7 +148,6 @@ $(function () {
             <td colspan="3" class="top_space"></td>
         </tr>
         <tr>
-        	<td class="td_left_right_space"></td>
             <td>
                 <table id="maintable"style="width:100%; height:30px">
 	                <tr>
@@ -160,17 +158,22 @@ $(function () {
 	                </tr>
                 </table>
             </td>
-            <td class="td_left_right_space"></td>
         </tr>
     </table>
     <div>
-<!--     	<form> -->
-<!-- 			<input type="hidden" name="hsl_address" value="서울"> -->
-<!-- 			<input type="hidden" name="hsl_address" value="경기"> -->
-<!-- 			<input type="hidden" name="hsl_address" value="인천" > -->
-<!--     	</form> -->
-	    <form>
-			<table id="subtbl_1" style="display:none">
+    	<form id="subtbl_0" style="display:none">
+   			<table>
+					<tr>
+						<td>
+							<input type="checkbox" name="hsl_address" value="서울"> 
+							<input type="checkbox" name="hsl_address" value="경기"> 
+							<input type="checkbox" name="hsl_address" value="인천">
+						</td>
+					</tr>
+			</table>
+    	</form>
+	    <form id="subtbl_1" style="display:none">
+			<table >
 				<tr class="state_seoul">
 					<td id="check_container">
 						<input type="checkbox" name="hsl_address" id="state1" value="강남구">
@@ -233,8 +236,8 @@ $(function () {
 			     </tr>
 			</table>
 		</form>
-		<form>
-			<table id="subtbl_2" style="display:none">
+		<form id="subtbl_2" style="display:none">
+			<table>
 				<tr>
 					<td id="check_container">
 						<input type="checkbox" name="hsl_address" id="state26" value="고양시">고양시
@@ -278,8 +281,8 @@ $(function () {
 			     </tr>
 			</table>
 		</form>
-		<form>
-			<table id="subtbl_3" style="display:none">
+		<form id="subtbl_3" style="display:none">
+			<table>
 				<tr>
 					<td id="check_container">
 						<input type="checkbox" name="hsl_address" id="state57" value="계양구">계양구
@@ -310,16 +313,15 @@ $(function () {
 		<table>
 			<tr>
 				<td>
-					<input type="hidden" name="hsl_address" value="서울">
-					<input type="hidden" name="hsl_address" value="경기">
-					<input type="hidden" name="hsl_address" value="인천" >
+					<input type="hidden" name="hsl_address" value="">
 				</td>
 			</tr>
 			<tr class="col-type">
 				<th>서비스</th>
 				<td>
-					<select name="hsl.hsl_service_type" >
-						<option title="24시간 돌봄" value="allday" selected="selected">24시간 돌봄</option>
+					<select name="hsl_service_type"  >
+					 	<option value="" selected disabled hidden>==선택하세요==</option>
+						<option title="24시간 돌봄" value="allday" >24시간 돌봄</option>
 						<option title="데이케어" value="daycare">데이케어</option>
 					</select>
 				</td>
@@ -327,15 +329,16 @@ $(function () {
 			<tr class="col-dates">
 				<th>예약일</th>
 				<td >
-					<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="hsl.hsl_chkin"/>
+					<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" value =""/>
 					<span>&gt;</span>
-					<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="hsl.hsl_chkout"/>
+					<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" value =""/>
 				</td>
 			</tr>
 			<tr class="col-age">
 				<th>반려견 나이</th>
 				<td>
-					<select name="hsl.hsl_pet_age" data-width="130px">
+					<select name="hsl_pet_age" data-width="130px">
+						<option value="" selected disabled hidden>==선택하세요==</option>
 						<option title="강아지" value="puppy">강아지 (1살 이하)</option>
 						<option title="성견" value="dog">성견 (2~6살)</option>
 						<option title="노령견" value="agedDog">노령견 (7살 이상)</option>
@@ -345,7 +348,8 @@ $(function () {
 			<tr class="col-size">
 				<th>반려견 크기</th>
 				<td>
-					<select name="hsl.hsl_size" data-width="130px">
+					<select name="hsl_size" data-width="130px">
+						<option value="" selected disabled hidden>==선택하세요==</option>
 						<option title="소형견" value="S">소형견 (0~4.9kg)</option>
 						<option title="중형견" value="M">중형견 (5~14.9kg)</option>
 						<option title="대형견" value="L">대형견 (15kg 이상)</option>
@@ -359,20 +363,41 @@ $(function () {
 				</td>
 			</tr>
 		</table>
-<!-- 		<a href="#" role="button" aria-label="Delete item 1">초기화</a>  -->
 	</form>
 </div>
-<div>	
-	<table id="search_result">
-		<tr style="border: 1px">
-			<td>사진, 주소</td>
-			<td>제목</td>
-			<td>작성자</td>
-			<td>고객후기 개수</td>
-			<td>펫시터총점</td>
-		</tr>
+<div class="homeSitterList">
+	<table>
+	
 	</table>
-</div>                                                  
+</div>
+<div class="slide">
+	<img id="backImg" src="${contextPath}/resources/img/arrowL.png" alt="" width="50">
+	<div id="showImg">
+		<img src="${contextPath}/resources/img/event_image.jpg" alt="" width="100" height="150">
+		<img src="${contextPath}/resources/img/event_image2.jpg" alt="" width="100" height="150">
+		<img src="${contextPath}/resources/img/event_image3.jpg" alt="" width="100" height="150">
+	</div>			
+	<img id="nextImg"  src="${contextPath}/resources/img/arrowR.png" alt="" width="50">
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var imgs = $("#slide #showImg");
+		var img_count = imgs.children().length;
+		var img_position = 1;
+		$('#backImg').click(function(){
+			back();
+		});
+		$('#nextImg').click(function(){
+			next();
+		});
+		function back(){
+			if(1<img_position){
+				imgs.animate({
+					left:'+=100px';
+				});
+			}
+		}
+	});
+</script>                                                  
 </body>                                                  
 </html>                                                                                                      
-                                                       
