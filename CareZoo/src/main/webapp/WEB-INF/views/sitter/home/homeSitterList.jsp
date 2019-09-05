@@ -72,29 +72,62 @@ $(function () {
 		minDate: moment('yy-mm-dd').toDate()
 	});
 	
-	//검색 폼 전달
+	//detail 검색 폼 전달
+// 	var detailParam = $("#detail_form").on("submit", function(){
+// 		var dtParam = $(this).serialize();
+// 		$.ajax({
+// 			url:"${contextPath}/home/search",
+// 			data:dtParam,
+// 			type:"get",
+// 			dataType:"json",
+// 			success:function(result){
+// 				if(result){
+// 					alert("등록완료");
+// 					console.log("result : "+result);
+					
+// 				}else{
+// 					alert("오류발생!!");
+// 				}
+// 			},
+// 			error:function(request,status,error){
+// 				alert(" error = " + error);
+// 			}
+// 		});// ajax
+// 		return false;
+// 	});
+	//state 검색 폼 전달
 	$("form").on("submit",function(){
 		event.preventDefault();
-		var stateParam = $('input:checkbox:checked').serialize();
-		var detailParam = $(this).serialize();
-		document.write(stateParam);
+		var stateParam = $('input[name=hsl_address]:checked').serialize();
+// 		var detailParam = $("#detail_form").on("submit", function(){$(this).serialize()});
+		var detailParam = $("#detail_form").serialize();
+// 		document.write("st: "+stateParam+" //dt: "+detailParam);
 		var dateStart = moment(datepickerStart.datepicker('getDate'));
 		var dateEnd = moment(datepickerEnd.datepicker('getDate'));
 		if (dateStart.isValid() && dateEnd.isValid()) {
 			detailParam.hsl_chkin = dateStart.format('YYYY-MM-DD');
 			detailParam.hsl_chkout = dateEnd.format('YYYY-MM-DD');
 		}
-		console.log("form submit : " + detailParam+stateParam);
+		console.log("form submit : " +stateParam);
 		$.ajax({
 			url:"${contextPath}/home/search",
-			data:stateParam,
+			data:stateParam+'&'+detailParam,
+// 			data:stateParam,
 			type:"get",
 			dataType:"json",
-			success:function(result){
-				if(result){
+			success:function(d){
+				if(d){
 					alert("등록완료");
-					console.log(stateParam);
-					
+					console.log("result : "+d);
+					for(var i in d){
+						var tr = $('<tr style="border: 1px">');
+						$('<td>)').text(d[i].HSL_FILENAME).appendTo(tr);
+						$('<td>)').text(d[i].HSL_ADDRESS).appendTo(tr);
+						$('<td>)').text(d[i].HSL_CHKIN).appendTo(tr);
+						$('<td>)').text(d[i].HSL_CHKOUT).appendTo(tr);
+						$('<td>)').text(d[i].HS_NAME).appendTo(tr);
+						$("#search_result").append(tr);
+					}					
 				}else{
 					alert("오류발생!!");
 				}
@@ -131,6 +164,11 @@ $(function () {
         </tr>
     </table>
     <div>
+<!--     	<form> -->
+<!-- 			<input type="hidden" name="hsl_address" value="서울"> -->
+<!-- 			<input type="hidden" name="hsl_address" value="경기"> -->
+<!-- 			<input type="hidden" name="hsl_address" value="인천" > -->
+<!--     	</form> -->
 	    <form>
 			<table id="subtbl_1" style="display:none">
 				<tr class="state_seoul">
@@ -268,12 +306,19 @@ $(function () {
 </div> 
 <!-- 홈시터 검색필터 설정부분 -->
 <div class="main-wrap no-profile">
-	<form>
+	<form id="detail_form">
 		<table>
+			<tr>
+				<td>
+					<input type="hidden" name="hsl_address" value="서울">
+					<input type="hidden" name="hsl_address" value="경기">
+					<input type="hidden" name="hsl_address" value="인천" >
+				</td>
+			</tr>
 			<tr class="col-type">
 				<th>서비스</th>
 				<td>
-					<select name="hsl_service_type" >
+					<select name="hsl.hsl_service_type" >
 						<option title="24시간 돌봄" value="allday" selected="selected">24시간 돌봄</option>
 						<option title="데이케어" value="daycare">데이케어</option>
 					</select>
@@ -282,15 +327,15 @@ $(function () {
 			<tr class="col-dates">
 				<th>예약일</th>
 				<td >
-					<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin"/>
+					<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="hsl.hsl_chkin"/>
 					<span>&gt;</span>
-					<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout"/>
+					<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="hsl.hsl_chkout"/>
 				</td>
 			</tr>
 			<tr class="col-age">
 				<th>반려견 나이</th>
 				<td>
-					<select name="hsl_pet_age" data-width="130px">
+					<select name="hsl.hsl_pet_age" data-width="130px">
 						<option title="강아지" value="puppy">강아지 (1살 이하)</option>
 						<option title="성견" value="dog">성견 (2~6살)</option>
 						<option title="노령견" value="agedDog">노령견 (7살 이상)</option>
@@ -300,7 +345,7 @@ $(function () {
 			<tr class="col-size">
 				<th>반려견 크기</th>
 				<td>
-					<select name="hsl_size" data-width="130px">
+					<select name="hsl.hsl_size" data-width="130px">
 						<option title="소형견" value="S">소형견 (0~4.9kg)</option>
 						<option title="중형견" value="M">중형견 (5~14.9kg)</option>
 						<option title="대형견" value="L">대형견 (15kg 이상)</option>
@@ -319,29 +364,12 @@ $(function () {
 </div>
 <div>	
 	<table id="search_result">
-		<tr>
-			<th></th>
-			<td></td>
-		</tr>
-		<tr>
-			<th></th>
-			<td></td>
-		</tr>
-		<tr>
-			<th></th>
-			<td></td>
-		</tr>
-		<tr>
-			<th></th>
-			<td></td>
-		</tr>
-		<tr>
-			<th></th>
-			<td></td>
-		</tr>
-		<tr>
-			<th></th>
-			<td></td>
+		<tr style="border: 1px">
+			<td>사진, 주소</td>
+			<td>제목</td>
+			<td>작성자</td>
+			<td>고객후기 개수</td>
+			<td>펫시터총점</td>
 		</tr>
 	</table>
 </div>                                                  
