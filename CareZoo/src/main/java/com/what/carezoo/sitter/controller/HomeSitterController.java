@@ -37,7 +37,6 @@ public class HomeSitterController {
 		if(hsl_address==null) {
 			hsl_address = new ArrayList<String>(); 			
 		}		
-		System.out.println("가져온값"+hssService.getByHslbyAddress(hsl_address));
 		System.out.println("값"+hssService.getbySearchingHsl(hsl_address,hsl));
 		return hssService.getbySearchingHsl(hsl_address,hsl);
 	}
