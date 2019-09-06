@@ -35,9 +35,19 @@ public class Pet_DetailService {
 		return false;
 	}
 	
+	public boolean deletePet_Detail(String pd_week) {
+		if(pdDao.deletePet_Detail(pd_week)>0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public List<Pet_Detail> selectByP_Num(List<Integer> p_num){
 		return pdDao.selectByP_Num(p_num);
 	}
 	
+	public List<Pet_Detail> selectByWeek(List<String> pd_week){
+		return pdDao.selectByWeek(pd_week);
+	}
 
 }
