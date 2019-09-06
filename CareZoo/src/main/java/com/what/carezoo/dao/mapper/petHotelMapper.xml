@@ -43,10 +43,15 @@
 	</select>
 	
 	<select id="selectAll" resultType="PetHotel">
-		select * 
-		from pethotel
-		order by ph_num
+          select *
+  		  from pethotel ph, 
+          (select ph_num, min(phr_price) as ph_minPrice,max(phr_price) as ph_maxPrice from pethotelroom group by ph_num) r,
+          (select ph_num, count(ph_num) as ph_c_count, round(avg(phc_star),1)as ph_avgStar from pethotelcomment group by ph_num) c 
+ 	     where ph.ph_num  = r.ph_num(+)
+         and ph.ph_num = c.ph_num(+)
+         order by ph.ph_num 
 	</select>
+	
 	
 		<insert id="insertFile" parameterType="map">
 		insert into pethotel_image

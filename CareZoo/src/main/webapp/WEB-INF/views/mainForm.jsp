@@ -30,7 +30,7 @@
     <nav>
         <div class='menu'>
             <ul style="">
-                <li class='active sub'><a href='#'>시터</a>
+                <li class='active sub'><a href='#'>SITTER</a>
                     <ul>
                         <li class='last'><a href='#'>가정펫시터</a>
                             <!-- 
@@ -43,21 +43,21 @@
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
-                <li class='active sub'><a href='#'>호텔</a>
+                <li class='active sub'><a href='#'>HOTEL</a>
                     <ul>
                         <li class='last'><a href='#'>애견동반호텔</a></li>
                         <li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
                     </ul>
                 </li>
-                <li class='active sub'><a href='#'>후기</a>
+                <li class='active sub'><a href='#'>REVIEW</a>
                     <ul>
                         <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
                         <li class='last'><a href='#'>시터</a></li>
                         <li class='last'><a href='#'>호텔</a></li>
                     </ul>
                 </li>
-                <li class='last'><a href='#' style="font-size: 17px">마이페이지</a></li>
-                <li class='last'><a href='#' style="font-size: 17px">고객센터</a></li>
+                <li class='last'><a href='#' style="font-size: 17px">MTPAGE</a></li>
+                <li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
             </ul>
         </div>
     </nav>

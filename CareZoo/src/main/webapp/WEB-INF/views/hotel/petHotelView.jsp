@@ -10,8 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/lightslider.css" />
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <link rel='stylesheet' type='text/css'
@@ -29,6 +31,8 @@
 	href="${contextPath}/resources/slick/slick-theme.css">
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+
+
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
@@ -43,6 +47,10 @@
 	type="text/javascript"></script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/index.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/resources/js/lightslider.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script src="${contextPath}/resources/slick/slick.js"
@@ -65,6 +73,7 @@
 			.on(
 					'ready',
 					function() {
+
 						$("#datepicker").datepicker(
 								{
 									closeText : "닫기",
@@ -216,6 +225,23 @@
 
 	$(function() {
 		initialize();
+
+		$("#content-slider").lightSlider({
+			loop : true,
+			keyPress : true
+		});
+		$('#image-gallery').lightSlider({
+			gallery : true,
+			item : 1,
+			thumbItem : 9,
+			slideMargin : 0,
+			speed : 500,
+			auto : true,
+			loop : true,
+			onSliderLoad : function() {
+				$('#image-gallery').removeClass('cS-hidden');
+			}
+		});
 	})
 </script>
 <style>
@@ -306,6 +332,31 @@ footer {
 body {
 	margin: 0;
 }
+
+ul {
+	list-style: none outside none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.demo .item {
+	margin-bottom: 60px;
+}
+
+.content-slider li {
+	background-color: #ed3020;
+	text-align: center;
+	color: #FFF;
+}
+
+.content-slider h3 {
+	margin: 0;
+	padding: 70px 0;
+}
+
+.demo {
+	width: 800px;
+}
 </style>
 
 
@@ -374,18 +425,34 @@ body {
 						</td>
 					</tr>
 				</table>
+				<!-- 				<div style="width: 700px;"> -->
+				<!-- 					<div class="lazy slider" -->
+				<!-- 						style="width: 700px; height: 600px; margin-left: 0;"> -->
+				<%-- 						<c:forEach items="${filesName}" var="fn"> --%>
+				<!-- 							<div> -->
+				<%-- 								<img src="${contextPath}/petHotel/image?fileName=${fn}" --%>
+				<!-- 									data-sizes="100vw" data-srcset="" -->
+				<!-- 									style="width: 680px; height: 580px;"> -->
+				<!-- 							</div> -->
+				<%-- 						</c:forEach> --%>
+				<!-- 					</div> -->
+				<!-- 				</div> -->
 				<div style="width: 700px;">
-					<div class="lazy slider"
-						style="width: 700px; height: 600px; margin-left: 0;">
-						<c:forEach items="${filesName}" var="fn">
-							<div>
-								<img src="${contextPath}/petHotel/image?fileName=${fn}"
-									data-sizes="100vw" data-srcset=""
-									style="width: 680px; height: 580px;">
-							</div>
-						</c:forEach>
+
+					<div class="item">
+						<div class="clearfix" style="max-width: 680px;">
+							<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+								<c:forEach items="${filesName}" var="fn">
+									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img
+										src="${contextPath}/petHotel/image?fileName=${fn}"
+										style="width: 680px; height: 580px;" /></li>
+								</c:forEach>
+							</ul>
+						</div>
 					</div>
+
 				</div>
+
 				<table>
 					<tr>
 						<td><br></td>
@@ -445,7 +512,9 @@ body {
 							</td>
 						</tr>
 					</c:forEach>
+
 				</table>
+				<div class="demo"></div>
 			</div>
 			<div class="reservation">
 				<div class="reserRequest"></div>
@@ -477,23 +546,20 @@ body {
 					<hr>
 					<span>반려견 추가</span><span>(가격)</span>
 					<hr>
-					<span>총 합계:</span> <span>(총가격)</span>
-					<br>
-					<br>
-					<input type="submit" value="예약하기">
+					<span>총 합계:</span> <span>(총가격)</span> <br> <br> <input
+						type="submit" value="예약하기">
 				</div>
 			</form>
 			<br>
 			<div
 				style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
-				<span style="font-size: 17px;">/캘린더 미리보기/</span> <br>
-				<br>
+				<span style="font-size: 17px;">/캘린더 미리보기/</span> <br> <br>
 				<div id="datepicker" class="calendar2"
 					style="border-collapse: none; width: 50px; color: red"></div>
 
 			</div>
 		</div>
 	</div>
-
+	<div class="container">asdsadasd</div>
 </body>
 </html>

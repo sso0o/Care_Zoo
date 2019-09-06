@@ -1,16 +1,122 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>petHotelList</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/lightslider.css" />
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/resources/css/index.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+<style type="text/css">
+ul {
+	list-style: none outside none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.demo .item {
+	margin-bottom: 60px;
+}
+
+padding
+
+
+:
+
+ 
+
+70
+px
+
+ 
+
+0;
+}
+.demo {
+	width: 800px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"
+	type="text/javascript"></script>
+<script type="text/javascript"
+	src="${contextPath}/resources/js/lightslider.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/resources/js/index.js"></script>
+<script>
+	$(document).ready(function() {
+
+		$('#image-gallery').lightSlider({
+			isthumb : true, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
+			gallery : true,
+			item : 1,
+			thumbItem : 9,
+			slideMargin : 0,
+			speed : 500,
+			auto : true,
+			loop : true,
+			onSliderLoad : function() {
+				$('#image-gallery').removeClass('cS-hidden');
+			}
+		});
+	});
+</script>
 <!-- 애견호텔 목록 -->
 </head>
-<body>
+<body class=container>
+	<div class="container">
+		<header>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg"
+				class="anchor_logo"></a> <br>
+			<div class="header_Btn">
+				<a class="btn_Login" href="${contextPath}/member/login">로그인</a> <a
+					class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+			</div>
+		</header>
+	</div>
+	<nav>
+		<div class='menu'>
+			<ul style="">
+				<li class='active sub'><a href='#'>SITTER</a>
+					<ul>
+						<li class='last'><a href='#'>가정펫시터</a> <!-- 
+                     <ul>
+                        <li><a href='#'>HTML Basic</a></li>
+                        <li class='last'><a href='#'>HTML Advanced</a></li>
+                     </ul>
+                      --></li>
+						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+					</ul></li>
+				<li class='active sub'><a href='#'>HOTEL</a>
+					<ul>
+						<li class='last'><a href='#'>애견동반호텔</a></li>
+						<li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
+					</ul></li>
+				<li class='active sub'><a href='#'>REVIEW</a>
+					<ul>
+						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+						<li class='last'><a href='#'>시터</a></li>
+						<li class='last'><a href='#'>호텔</a></li>
+					</ul></li>
+				<li class='last'><a href='#' style="font-size: 17px">MTPAGE</a></li>
+				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class='container'></div>
+	<br>
+	<br>
 	<div>
 
 		<div>
@@ -37,34 +143,47 @@
 
 			</table>
 		</div>
-		
+
 
 		<div class="pethotelList">
-			<c:forEach var="phList" items="${phList}">
 
-				<div style="border:1px solid; margin:50px">
-				<span></span>
-				<a
-					href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a>
-				<br>
-				${phList.ph_address}&nbsp;${phList.ph_d_address}
-					)
-				<c:forEach items="${phList.filesName}" var="fn">
-					<div>
-						<img src="${contextPath}/petHotel/image?fileName=${fn}"
-							data-sizes="100vw" data-srcset=""
-							style="width: 100px; height: 100px;">
-							<fmt:formatNumber value="${price }" pattern="#,###" />
+			<c:forEach var="phList" items="${phList}">
+				<div style="border: 1px solid; margin: 50px; height: 350px;">
+					<div
+						style="width: auto; display: inline-block display:inline; float: left;">
+						<br>
+
 					</div>
-				</c:forEach>
+					<div style="">
+						<span></span> <br> <a
+							href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a>
+						<br> ${phList.ph_address}&nbsp;${phList.ph_d_address}
+						<fmt:formatNumber value="${phList.ph_minPrice }" pattern="#,###" />
+						~
+						<fmt:formatNumber value="${phList.ph_maxPrice }" pattern="#,###" />
+						후기:${phList.ph_c_count}개 <br> ${phList.ph_avgStar }
+					</div>
+
+					<!-- 				<p> -->
+					<%-- 					<c:out value="${boardMap.title}" /> --%>
+					<!-- 				</p> -->
+					<!-- 					사진:<br> -->
+					<!-- 					<img width="200px" height="200px" -->
+					<%-- 						src="${contextPath}/image?fileName=NAVER.jpg" /> --%>
 				</div>
 
-				<!-- 				<p> -->
-				<%-- 					<c:out value="${boardMap.title}" /> --%>
-				<!-- 				</p> -->
-				<!-- 					사진:<br> -->
-				<!-- 					<img width="200px" height="200px" -->
-				<%-- 						src="${contextPath}/image?fileName=NAVER.jpg" /> --%>
+				<div class="item">
+					<div class="clearfix" style="max-width: 200px;">
+						<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+							<c:forEach items="${phList.ph_filesName}" var="fn">
+								<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img
+									src="${contextPath}/petHotel/image?fileName=${fn}"
+									style="width: 200px; height: 200px;" /></li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+
 			</c:forEach>
 		</div>
 	</div>
