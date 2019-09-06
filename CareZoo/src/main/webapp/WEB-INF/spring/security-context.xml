@@ -16,21 +16,25 @@
 	<security:http auto-config="true" use-expressions="true">
 		<security:custom-filter ref="requestContextFilter" before="FORM_LOGIN_FILTER"/>
 <!-- 		<security:intercept-url pattern="/login" access="permitAll" /> -->
+			<security:intercept-url pattern="/logout" access="hasAnyRole('CUSTOMER','HOME','VISIT','ADMIN')" />
 
 <!-- 		<security:access-denied-handler error-page="/WEB-INF/views/main.jsp" /> -->
 		<security:form-login login-page="/member/loginForm"
 			authentication-failure-url="/member/loginForm?login=fail"
 			login-processing-url="/login" 
-			default-target-url="/carezoo" 
+			default-target-url="/" 
 			username-parameter="userid" 
 			password-parameter="pw" 
 			always-use-default-target='true'    
 		/>
 
 		<security:logout delete-cookies="JSESSIONID"
-			logout-url="/logout" invalidate-session="true"
-			logout-success-url="/loginForm" />
-
+			logout-url="/logout" 
+			invalidate-session="true"
+			logout-success-url="/" />
+			
+		<security:csrf disabled="true"/>
+		
 	</security:http>
 	<bean id="requestContextFilter" class="org.springframework.web.filter.RequestContextFilter"></bean>
 	

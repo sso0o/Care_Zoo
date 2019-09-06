@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.RequestContextListener;
@@ -20,7 +21,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.what.carezoo.admin.service.AdminService;
 import com.what.carezoo.member.service.MemberService;
+import com.what.carezoo.model.Admin;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.HomeSitter;
+import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.VisitSitterService;
 
@@ -45,7 +49,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	private HomeSitterService hsService;
 	
 	@Autowired
-	private VisitSitterService csService;
+	private VisitSitterService vsService;
 	
 	@Autowired
 	private AdminService aService;
@@ -68,6 +72,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		
 		Authentication authToken=null;
+		List<SimpleGrantedAuthority> auths = new ArrayList<SimpleGrantedAuthority>();
 		
 		if(type.equals("customer")) {
 			System.out.println("customer==================================");
@@ -76,21 +81,42 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			System.out.println(c);
 			if(c != null && c.getC_pass().equals(pw)) {
 				System.out.println("로그인 성공");
-				
+				auths.add(new SimpleGrantedAuthority("CUSTOMER"));
+				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}
+		    return authToken;
 			
 		} else if(type.equals("home")) {
 			System.out.println("home==================================");
+			HomeSitter hs = hsService.getHomeSitterByEmail(userid);
+			if(hs != null && hs.getHs_pass().equals(pw)) {
+				System.out.println("로그인 성공");
+				auths.add(new SimpleGrantedAuthority("HOME"));
+				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
+			}
+		    return authToken;
 		} else if(type.equals("visit")) {
 			System.out.println("visit==================================");
-		} else {
+			VisitSitter vs = vsService.getVisitSitterByEmail(userid);
+			if(vs != null && vs.getVs_pass().equals(pw)) {
+				System.out.println("로그인 성공");
+				auths.add(new SimpleGrantedAuthority("VISIT"));
+				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
+			}
+		    return authToken;
+		} else if(type.equals("admin")){
 			System.out.println("admin==================================");
+			Admin a = aService.getOneAdminByEmail(userid);
+			if(a != null && a.getAdm_pass().equals(pw)) {
+				System.out.println("로그인 성공");
+				auths.add(new SimpleGrantedAuthority("ADMIN"));
+				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
+			}
+		    return authToken;
+		} else {
+			return authToken;
 		}
-		
-		
-		
 
-		return null;
 	}
 
 	@Override

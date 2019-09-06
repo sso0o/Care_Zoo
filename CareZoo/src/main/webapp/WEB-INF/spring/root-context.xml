@@ -23,7 +23,8 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="mapperLocations"
 			value="classpath:com/what/carezoo/dao/mapper/**/*.xml"></property>
-		<property name="typeAliasesPackage" value="com.what.carezoo.model"></property>
+		<property name="typeAliasesPackage"
+			value="com.what.carezoo.model"></property>
 	</bean>
 
 	<!-- comment dao -->
@@ -143,6 +144,13 @@
 			value="com.what.carezoo.dao.MemberDao"></property>
 	</bean>
 
+	<!-- admin Dao -->
+	<bean id="adminDao"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.AdminDao"></property>
+	</bean>
 
 	<!-- pet dao -->
 	<bean id="petDao"
@@ -151,21 +159,27 @@
 		<property name="mapperInterface"
 			value="com.what.carezoo.dao.PetDao"></property>
 	</bean>
-	
-	<bean id="petDetail" class="org.mybatis.spring.mapper.MapperFactoryBean">
+
+	<bean id="petDetail"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-		<property name="mapperInterface" value="com.what.carezoo.dao.Pet_DetailDao"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.Pet_DetailDao"></property>
 	</bean>
-	
-	<bean id="petWeekList" class="org.mybatis.spring.mapper.MapperFactoryBean">
+
+	<bean id="petWeekList"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-		<property name="mapperInterface" value="com.what.carezoo.dao.Pet_WeekListDao"></property>
+		<property name="mapperInterface"
+			value="com.what.carezoo.dao.Pet_WeekListDao"></property>
 	</bean>
-	
-	<bean id = "requestContextListener" class="org.springframework.web.context.request.RequestContextListener">
-	
+
+	<bean id="requestContextListener"
+		class="org.springframework.web.context.request.RequestContextListener">
+
 	</bean>
-	
-	<context:component-scan	base-package="com.what.carezoo"></context:component-scan>
-	
+
+	<context:component-scan
+		base-package="com.what.carezoo"></context:component-scan>
+
 </beans>

@@ -11,7 +11,7 @@
 </head>
 <body>
 	<form action="${contextPath }/login" method="post">
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+<%-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
 		<fieldset>
 			<legend>로그인</legend>
 			<table>
