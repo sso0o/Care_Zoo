@@ -6,7 +6,7 @@ import com.what.carezoo.model.Admin;
 
 
 public interface AdminDao {
-	
+
 	public int insert(Admin a);
 	public int update(Admin a);
 	public int delete(Admin a);
