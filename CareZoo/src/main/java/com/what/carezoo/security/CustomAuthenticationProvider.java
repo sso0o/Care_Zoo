@@ -1,4 +1,4 @@
-package com.what.carezoo.secutiry;
+package com.what.carezoo.security;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
