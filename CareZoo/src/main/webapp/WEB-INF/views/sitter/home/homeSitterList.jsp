@@ -19,15 +19,8 @@
 <script type="text/javascript"> 
 $(function () {
 	//검색탭
-// 	var isOpen = false;
-// 	$("#menu_0").on("click", function(){
-// 		if(!isOpen){
-// 			$("#subtbl_0").css("display","block");
-// 		}else{
-// 			$("#subtbl_0").css("display","none");
-// 		}
-// 		isOpen = !isOpen
-// 	});
+	slideImage();
+	
 	var isMenu1 = false;
 	$("#menu_1").on("click", function(){	
 		
@@ -85,17 +78,11 @@ $(function () {
 		dateFormat: 'yy-mm-dd', 
 		minDate: moment('yy-mm-dd').toDate()
 	});
-// 	var $allState_click = $("#menu_0").on("click", function() {
-// 		$("#subtbl_0").children().is(":checked");
-// 	})
 	//state 검색 폼 전달
 	$("form").on("submit",function(){
 		event.preventDefault();
-// 		$allState_click;
 		var stateParam = $('input[name=hsl_address]:checked').serialize();
-// 		var detailParam = $("#detail_form").on("submit", function(){$(this).serialize()});
 		var detailParam = $("#detail_form").serialize();
-// 		document.write("st: "+stateParam+" //dt: "+detailParam);
 		var dateStart = moment(datepickerStart.datepicker('getDate'));
 		var dateEnd = moment(datepickerEnd.datepicker('getDate'));
 		if (dateStart.isValid() && dateEnd.isValid()) {
@@ -107,7 +94,6 @@ $(function () {
 		$.ajax({
 			url:"${contextPath}/home/search",
 			data:stateParam+'&'+detailParam,
-// 			data:stateParam,
 			type:"get",
 			dataType:"json",
 			success:function(d){
@@ -117,8 +103,7 @@ $(function () {
 					for(var i in d){
 						var table = $('<table>');
 						$('<tr>').appendTo(table);
-						$('<td>)').text(d[i].HSL_FILENAME).appendTo(table);
-						
+						$('<td>)').text(d[i].HSL_FILENAME).appendTo(table);						
 						$('<td>)').text(d[i].HSL_ADDRESS).appendTo(table);
 						$('<td>)').text(d[i].HSL_CHKIN).appendTo(table);
 						$('<td>)').text(d[i].HSL_CHKOUT).appendTo(table);
@@ -137,8 +122,75 @@ $(function () {
 		});// ajax
 		return false;
 	});
+	
+	//이미지 띄우기
+	function slideImage(){
+		var imgs = $("#showImg");
+		var img_count = imgs.children().size;
+		var img_position = 1;
+		$('#backImg').click(function(){
+			back();
+		});
+		$('#nextImg').click(function(){
+			next();
+		});
+		function back(){
+			if(1<img_position){
+				imgs.animate({
+					left:'100px'
+				});
+				img_position--;
+			}		
+		}
+		function next(){
+			if(img_count>img_position){
+				imgs.animate({
+					left:'-100px'
+				});
+				img_position++;
+			}
+		}		
+	}
 });
 </script>
+<style type="text/css">
+	#slide{
+		width: 100px;
+		height: 150px;
+		overflow: hidden;
+		position: relative;
+		margin: o auto;
+	}
+	#slide #showImg{
+		width:5000px;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.image{
+		display: inline-block;
+	}
+	#backImg{
+		top:47px;
+		left:55px;
+		position: absolute;
+		cursor: pointer;
+		z-index: 1;
+		width: 30px;
+	}
+	#nextImg{
+		top:47px;
+		left:123px;
+		position: absolute;
+		cursor: pointer;
+		z-index: 1;
+		width: 30px;
+	}
+	#slide_container{
+		position: relative;
+	    padding-left: 55px;
+	}
+</style>
 </head>
 <body>
 <!-- 지역 검색 -->
@@ -313,14 +365,13 @@ $(function () {
 		<table>
 			<tr>
 				<td>
-					<input type="hidden" name="hsl_address" value="">
+<!-- 					<input type="hidden" name="hsl_address" value=""> -->
 				</td>
 			</tr>
 			<tr class="col-type">
 				<th>서비스</th>
 				<td>
 					<select name="hsl_service_type"  >
-					 	<option value="" selected disabled hidden>==선택하세요==</option>
 						<option title="24시간 돌봄" value="allday" >24시간 돌봄</option>
 						<option title="데이케어" value="daycare">데이케어</option>
 					</select>
@@ -329,9 +380,9 @@ $(function () {
 			<tr class="col-dates">
 				<th>예약일</th>
 				<td >
-					<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" value =""/>
+					<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" />
 					<span>&gt;</span>
-					<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" value =""/>
+					<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" />
 				</td>
 			</tr>
 			<tr class="col-age">
@@ -367,37 +418,18 @@ $(function () {
 </div>
 <div class="homeSitterList">
 	<table>
-	
 	</table>
 </div>
-<div class="slide">
-	<img id="backImg" src="${contextPath}/resources/img/arrowL.png" alt="" width="50">
-	<div id="showImg">
-		<img src="${contextPath}/resources/img/event_image.jpg" alt="" width="100" height="150">
-		<img src="${contextPath}/resources/img/event_image2.jpg" alt="" width="100" height="150">
-		<img src="${contextPath}/resources/img/event_image3.jpg" alt="" width="100" height="150">
-	</div>			
-	<img id="nextImg"  src="${contextPath}/resources/img/arrowR.png" alt="" width="50">
+<div id="slide_container">
+	<img id="backImg" src="${contextPath}/resources/img/arrowL.png" alt="">
+	<div id="slide" >
+		<div id="showImg">
+			<div class="image"><img src="${contextPath}/resources/img/event_image.jpg" alt="" width="100px" height="150px"></div>
+			<div class="image"><img src="${contextPath}/resources/img/event_image2.jpg" alt="" width="100px" height="150px"></div>
+			<div class="image"><img src="${contextPath}/resources/img/event_image3.jpg" alt="" width="100px" height="150px"></div>
+		</div>			
+	</div>                                  
+	<img id="nextImg"  src="${contextPath}/resources/img/arrowR.png" alt="" >
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		var imgs = $("#slide #showImg");
-		var img_count = imgs.children().length;
-		var img_position = 1;
-		$('#backImg').click(function(){
-			back();
-		});
-		$('#nextImg').click(function(){
-			next();
-		});
-		function back(){
-			if(1<img_position){
-				imgs.animate({
-					left:'+=100px';
-				});
-			}
-		}
-	});
-</script>                                                  
 </body>                                                  
 </html>                                                                                                      

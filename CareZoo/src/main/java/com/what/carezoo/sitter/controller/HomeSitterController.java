@@ -28,7 +28,7 @@ public class HomeSitterController {
 	// 가정시터 검색목록 가져오기
 	@ResponseBody
 	@RequestMapping("/search")
-	public List<HomeSitterList> searchHS(@RequestParam("hsl_address") ArrayList<String> hsl_address, HomeSitterList hsl) {
+	public List<HomeSitterList> searchHS(@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address, HomeSitterList hsl) {
 		System.out.println("모델:"+hsl_address);
 		System.out.println("hsl:"+hsl);
 		if(hsl==null) {			
@@ -53,6 +53,6 @@ public class HomeSitterController {
 	@RequestMapping("/view")
 	public String enterHomeSitterView(HomeSitterList hsl) {
 		System.out.println(hsl);
-		return "sitter/home/homeSitterList";
+		return "sitter/home/homeSitterView";
 	}
 }
