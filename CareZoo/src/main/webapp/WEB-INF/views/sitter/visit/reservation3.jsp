@@ -7,32 +7,42 @@
 <head>
 <meta charset="UTF-8">
 <title>reservation3</title>
+<style type="text/css">
+	.img_wrap{
+		width:300px;
+		margin-top:50px;
+	}
+	.img_wrap img{
+		max-width: 100%;
+	}
+</style>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-var upload = document.getElementsById('p_name')[0],
-    holder = document.getElementById('holder');
+var sel_file;
 
-upload.onchange = function (e) {
-  e.preventDefault();
+$(document).ready(function(){
+	$("#input_img").on("change", handleImgFileSelect);
+});
 
-  var file = upload.files[0],
-      reader = new FileReader();
-  reader.onload = function (event) {
-    var img = new Image();
-    img.src = event.target.result;
-    // note: no onload required since we've got the dataurl...I think! :)
-    if (img.width > 560) { // holder width
-      img.width = 560;
-    }
-    holder.innerHTML = '';
-    holder.appendChild(img);
-  };
-  reader.readAsDataURL(file);
-
-  return false;
-};
-
+function handleImgFileSelect(e){
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+	
+	filesArr.forEach(function(f){
+		if(!f.type.match("image.*")){
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+		sel_file = f;
+		
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$("#img").attr("src",e.target.result);
+		}
+		reader.readAsDataURL(f);
+	})
+}
 </script>
 </head>
 <body>
@@ -47,9 +57,10 @@ upload.onchange = function (e) {
 			<tr>
 				<th>이미지등록</th>
 				<td>
-					<input type="file" name="p_img" id="p_img">
-					<div id="holder"></div>
-					
+					<input type="file" name="p_img" id="input_img">
+					<div class="img_wrap">
+					<img id="img" />
+					</div>
 				</td>
 			</tr>
 			<tr>

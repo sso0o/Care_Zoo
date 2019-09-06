@@ -65,7 +65,6 @@ function petDeleteOpen(p_num,c_num){
 			<input type="checkbox" name="p_num" value="${pet.p_num}">
 			${pet.p_name}(${pet.p_weight}kg,${pet.p_birth})
 			
-			<input type="hidden" name="p_name" value="${pet.p_name}">
 			<input type="button" name="p_num" onclick="petDeleteOpen(${pet.p_num},${c_num})" value="x"></li>
 		</ul>
 		</c:forEach>

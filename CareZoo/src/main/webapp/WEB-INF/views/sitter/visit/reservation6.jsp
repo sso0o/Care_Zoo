@@ -46,11 +46,12 @@ function oneCheckbox1(a){
 </head>
 <body>
 <form action="complete1" method="post" name="checkForm" id="checkForm">
+	<input type="hidden" name="c_num" value ="${c_num}">
 	<c:forEach items="${p_num}" var="p">
 		<input type="hidden" name="p_num" value="${p}">
 	</c:forEach>
 	<c:forEach items="${p_name}" var="n">
-		<input type="hidden" name="p_name" value="${n}">
+		<input type="hidden" name="p_name" value="${n.p_name}">
 	</c:forEach>
 <table>
 	<tr>

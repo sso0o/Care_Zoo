@@ -1,8 +1,12 @@
 package com.what.carezoo.sitter.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -128,46 +132,74 @@ public class VisitSitterController{
 	}
 	//펫리스트에서 강아지 고르기
 	@RequestMapping(value="petList", method=RequestMethod.POST)
-	public String petList(int p_num,Model model,HttpServletRequest request,String p_name) {
-		String[] checks = request.getParameterValues("p_num");
-		String[] checkss = request.getParameterValues("p_name");
+	public String petList(@RequestParam() ArrayList<Integer> p_num,Model model,HttpServletRequest request,int c_num) {
+//		String[] checks = request.getParameterValues("p_num");
 		
-		model.addAttribute("p_num",checks);
-		model.addAttribute("p_name", checkss);
-		model.addAttribute("pList", petService.selectPet(p_num));
-		
-		for(int i=0 ;i<checks.length;i++) {
-			System.out.println(checks[i]);
-		}		
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("p_num",p_num);
+		model.addAttribute("p_name",petService.selectOnlyNameByP_Num(p_num));
+		//model.addAttribute("pList", petService.selectPet(p_num));
+			
 		return "redirect:reservation5";
 	}
 	//예약 전 안내사항 폼
 	@RequestMapping(value="reservation5",method=RequestMethod.GET)
-	public String preReservation5Form(int[] p_num,Model model,HttpServletRequest request,String[] p_name) {	
+	public String preReservation5Form(@RequestParam() ArrayList<Integer> p_num,Model model,HttpServletRequest request,int c_num) {	
+		model.addAttribute("c_num", c_num);
 		model.addAttribute("p_num", p_num);
-		model.addAttribute("p_name", p_name);
+		model.addAttribute("p_name", petService.selectOnlyNameByP_Num(p_num));
 		return "sitter/visit/reservation5";
 	}
 	//예약 요일,시간, 추가시간 고르기
 	@RequestMapping(value="complete",method=RequestMethod.POST)
-	public String reservation6Form(int[] p_num,Model model,HttpServletRequest request,String[] p_name) {	
+	public String reservation6Form(@RequestParam() ArrayList<Integer> p_num,Model model,HttpServletRequest request,int c_num) {	
+		model.addAttribute("c_num", c_num);
 		model.addAttribute("p_num", p_num);
-		model.addAttribute("p_name", p_name);
+		model.addAttribute("p_name", petService.selectOnlyNameByP_Num(p_num));
 		return "sitter/visit/reservation6";
 	}
 	//예약내용 확인하는 폼
 	@RequestMapping(value="complete1",method=RequestMethod.POST)
 	public String reservation7Form(HttpServletRequest request,Model model,Pet_Details list
-			,@RequestParam() ArrayList<Integer> p_num) {
-		//컨트롤러에서 리스트를 받아서 리스트 순서를 만들어야함...
-		System.out.println(list);
+			,@RequestParam() ArrayList<Integer> p_num,int c_num,
+					@RequestParam() ArrayList<String> p_name) {
 		
-//		pdService.insertPet_Detail2(list);
-		System.out.println(pdService.insertPet_Detail2(list));
-
-			//model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
-			return "sitter/visit/reservation7";
+		System.out.println(list);
+		for(int i : p_num) {
+			list.setC_num(c_num);
+		}
+		list.setP_name(p_name);
+		pdService.insertPet_Detail2(list);//저장
+		
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("p_name",list.getP_name());
+		model.addAttribute("pd_week", list.getPd_week());
+		model.addAttribute("pd_hour", list.getPd_hour());
+		model.addAttribute("pd_hAdd", list.getPd_hAdd());
+		model.addAttribute("p_num", p_num);
+		//model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
+		return "sitter/visit/reservation7";
 	}
+	@RequestMapping(value="addForm",method=RequestMethod.POST)
+	@ResponseBody
+	public String addForm() {
+		return "reservation7-1";
+	}
+	
+	//펫리스트에서 선택 펫 삭제
+	@RequestMapping(value="delete",method=RequestMethod.POST)
+	@ResponseBody
+	public boolean delete(@RequestParam("p_num") int p_num) {
+		return petService.deletePet(p_num);
+	}
+	
+	//예약리스트의 요일 삭제
+	@RequestMapping(value="delete1",method=RequestMethod.POST)
+	@ResponseBody
+	public boolean delete1(@RequestParam("pd_week") String pd_week) {
+		return pdService.deletePet_Detail(pd_week);
+	}
+	
 	//사전만남 신청폼
 	@RequestMapping(value="complete2",method=RequestMethod.POST)
 	public String reservationBtn(@RequestParam() ArrayList<Integer> p_num,Model model,String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd,String[] p_name) {
@@ -190,10 +222,4 @@ public class VisitSitterController{
 		return "sitter/visit/reservation8";
 	}
 	
-	//펫리스트에서 선택 펫 삭제
-	@RequestMapping(value="delete",method=RequestMethod.POST)
-	@ResponseBody
-	public boolean delete(@RequestParam("p_num") int p_num) {
-		return petService.deletePet(p_num);
-	}
 }
