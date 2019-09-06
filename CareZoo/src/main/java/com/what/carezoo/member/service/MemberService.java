@@ -15,7 +15,8 @@ public class MemberService {
 	@Autowired
 	private MemberDao memberDao;
 	
-	private SqlSessionTemplate userSqlsession;
+	
+//	private SqlSessionTemplate userSqlsession;
 	
 //	//로그인
 //	public boolean login(String c_email,String c_pass) {
@@ -50,16 +51,16 @@ public class MemberService {
 		return c_email;
 	}
 	//가입
-	public boolean joinMember(Customer customer) {
-		customer.setC_email(email(customer.getC_email(), customer.getC_e_address()));
-		if(memberDao.insertCustomer(customer)>0) {
-			System.out.println(customer);
-			if(pass(customer.getC_pass(), customer.getC_pass_chk())){
-				return true;
-			}
-		}
-		return false;
-	}
+//	public boolean joinMember(Customer customer) {
+//		customer.setC_email(email(customer.getC_email(), customer.getC_e_address()));
+//		if(memberDao.insertCustomer(customer)>0) {
+//			System.out.println(customer);
+//			if(pass(customer.getC_pass(), customer.getC_pass_chk())){
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	
 	public List<Customer> selectAll(){
 		return memberDao.selectAll();
