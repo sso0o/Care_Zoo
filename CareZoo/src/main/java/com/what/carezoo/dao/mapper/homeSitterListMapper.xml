@@ -35,11 +35,16 @@
 		</trim>			  		
 		order by hsl_num desc			  
 	</select>
+	
+	
+	
+	
 	<select id="selectAllHsl" resultType="map">
 		SELECT *
 		FROM homesitterlist HSLI LEFT JOIN homesitter HS ON HSLI.HS_NUM = HS.HS_NUM 
 			 LEFT JOIN homesitterlist_image HSI ON HSLI.HSL_NUM = HSI.HSL_NUM
 		<trim prefix="where" prefixOverrides="AND|OR">
+		
 			<if test="hsl.hsl_size != null">
 				or hsl_size = #{hsl.hsl_size}
 			</if>
@@ -52,14 +57,25 @@
 			<if test="hsl.hsl_chkin != null">
 				or <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]>
 			</if>
-				<foreach collection="list" item="item">
-			    	 or hsl_address like ('%${item}%')
-			    </foreach>	
-			<choose>
-				<otherwise>
-				 or hsl_service_type = 'allday'
-				</otherwise>
-			</choose>
+			<foreach collection="list" item="item">
+		    	 or hsl_address like ('%${item}%')
+		    </foreach>	
+
 		</trim>
 	</select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
