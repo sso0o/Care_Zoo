@@ -231,6 +231,7 @@
 			keyPress : true
 		});
 		$('#image-gallery').lightSlider({
+			isthumb : true,
 			gallery : true,
 			item : 1,
 			thumbItem : 9,

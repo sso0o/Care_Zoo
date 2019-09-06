@@ -30,20 +30,17 @@ ul {
 	margin-bottom: 60px;
 }
 
-padding
-
-
-:
-
- 
-
-70
-px
-
- 
-
-0;
+.content-slider li {
+	background-color: #ed3020;
+	text-align: center;
+	color: #FFF;
 }
+
+.content-slider h3 {
+	margin: 0;
+	padding: 70px 0;
+}
+
 .demo {
 	width: 800px;
 }
@@ -57,17 +54,18 @@ px
 <script>
 	$(document).ready(function() {
 
-		$('#image-gallery').lightSlider({
-			isthumb : true, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
+		$('.image-gallery').lightSlider({
+			isthumb : false, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
 			gallery : true,
 			item : 1,
 			thumbItem : 9,
 			slideMargin : 0,
 			speed : 500,
-			auto : true,
+			auto : false,
 			loop : true,
+			addClass : $('.clearfix'),
 			onSliderLoad : function() {
-				$('#image-gallery').removeClass('cS-hidden');
+				$('.image-gallery').removeClass('cS-hidden');
 			}
 		});
 	});
@@ -151,17 +149,33 @@ px
 				<div style="border: 1px solid; margin: 50px; height: 350px;">
 					<div
 						style="width: auto; display: inline-block display:inline; float: left;">
+						<div class="item">
+							<div class="clearfix" style="max-width: 350px;">
+								<ul class="image-gallery"
+									class="gallery list-unstyled cS-hidden">
+									<c:forEach items="${phList.ph_filesName}" var="fn">
+										<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"
+										><img
+											src="${contextPath}/petHotel/image?fileName=${fn}"
+											style="width: 350px; height: 350px;" /></li>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+
 						<br>
 
 					</div>
 					<div style="">
 						<span></span> <br> <a
 							href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a>
-						<br> ${phList.ph_address}&nbsp;${phList.ph_d_address}
+						<br> <div>${phList.ph_address} ${phList.ph_d_address}</div>
+						<div>
 						<fmt:formatNumber value="${phList.ph_minPrice }" pattern="#,###" />
 						~
 						<fmt:formatNumber value="${phList.ph_maxPrice }" pattern="#,###" />
-						후기:${phList.ph_c_count}개 <br> ${phList.ph_avgStar }
+						</div>
+						<div>후기:${phList.ph_c_count}개 <br> ${phList.ph_avgStar }</div>
 					</div>
 
 					<!-- 				<p> -->
@@ -172,19 +186,10 @@ px
 					<%-- 						src="${contextPath}/image?fileName=NAVER.jpg" /> --%>
 				</div>
 
-				<div class="item">
-					<div class="clearfix" style="max-width: 200px;">
-						<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-							<c:forEach items="${phList.ph_filesName}" var="fn">
-								<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img
-									src="${contextPath}/petHotel/image?fileName=${fn}"
-									style="width: 200px; height: 200px;" /></li>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
 
 			</c:forEach>
+
+
 		</div>
 	</div>
 
