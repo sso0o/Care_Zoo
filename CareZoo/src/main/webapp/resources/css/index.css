@@ -274,6 +274,7 @@ main {
 .jbFixed {
 	position: fixed;
 	top: 4px;
+	right: 1px;
 }
 
 .liFixed {

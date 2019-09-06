@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -36,22 +37,27 @@
 
 			</table>
 		</div>
+		
+
 		<div class="pethotelList">
 			<c:forEach var="phList" items="${phList}">
 
-
-				<span>호텔이름:</span>
+				<div style="border:1px solid; margin:50px">
+				<span></span>
 				<a
 					href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a>
 				<br>
-					그림:
+				${phList.ph_address}&nbsp;${phList.ph_d_address}
+					)
 				<c:forEach items="${phList.filesName}" var="fn">
 					<div>
 						<img src="${contextPath}/petHotel/image?fileName=${fn}"
 							data-sizes="100vw" data-srcset=""
-							style="width: 680px; height: 580px;">
+							style="width: 100px; height: 100px;">
+							<fmt:formatNumber value="${price }" pattern="#,###" />
 					</div>
 				</c:forEach>
+				</div>
 
 				<!-- 				<p> -->
 				<%-- 					<c:out value="${boardMap.title}" /> --%>

@@ -44,6 +44,9 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	@RequestMapping("/petHotelList")
 	public String showPetHotelList(String in, String out,String p_num, Model model) {
 		List<PetHotel> phList = phService.getAllPetHotel();
+		for(int i=0;i<phList.size();i++) {
+			(phList.get(i)).setFilesName(phService.getFileList((phList.get(i)).getPh_num()));
+		}
 		System.out.println(phList);
 		model.addAttribute("p_num", p_num);
 		model.addAttribute("in", in);
@@ -100,8 +103,9 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	// 펫호텔 상세보기
 	@RequestMapping("/petHotelView")
 	public String showPetHotelView(Model model, @RequestParam("ph_num") int ph_num) {
-		System.out.println(phService.getPetHotelbyNum(ph_num));
-		model.addAttribute("petHotel", phService.getPetHotelbyNum(ph_num));
+		PetHotel petHotel = phService.getPetHotelbyNum(ph_num); 
+		petHotel.setFilesName(phService.getFileList(petHotel.getPh_num()));
+		model.addAttribute("petHotel", petHotel);
 		List<String> filesName = phService.getFileList(ph_num);
 		for (int i=0; i<filesName.size(); i++) {
 			String str = filesName.get(i);
