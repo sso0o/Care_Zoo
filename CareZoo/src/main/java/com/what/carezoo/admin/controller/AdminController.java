@@ -106,17 +106,17 @@ public class AdminController {
 		return "admin/addMemberForm";
 	}
 	
-	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
-	public String addMember(Customer c) {
-		boolean rst = mService.joinMember(c);
-		if(rst) {
-			System.out.println("true");
-		} else {
-			System.out.println("false");
-		}
-		return "redirect:/admin/memberList";
-	}
-	
+//	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
+//	public String addMember(Customer c) {
+//		boolean rst = mService.joinMember(c);
+//		if(rst) {
+//			System.out.println("true");
+//		} else {
+//			System.out.println("false");
+//		}
+//		return "redirect:/admin/memberList";
+//	}
+//	
 	
 	///////////////////////////////////////////////////////////////////////////////// 펫
 	
