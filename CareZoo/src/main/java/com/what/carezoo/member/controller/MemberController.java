@@ -20,57 +20,64 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.sitter.service.SitterService;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private SitterService sService;
+	
+//	private 
 	//로그인
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+	@RequestMapping(value="/loginForm")
 	public String loginForm() {
 		return "loginForm";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
-		System.out.println(c_email);
-		System.out.println(c_pass);
-		if(memberService.login(c_email,c_pass)) {
-			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
-			return "mainLogin";
-		}
-		return "login";
-	}
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public String login(HttpServletRequest request,Model model,String c_email, String c_pass, String user) {
+//		System.out.println(c_email);
+//		System.out.println(c_pass);
+//		System.out.println(user);
+//		if(memberService.login(c_email,c_pass)) {
+//			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
+//			return "mainLogin";
+//		}
+//		return "login";
+//	}
 	//회원가입
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String joinForm() {
 		return "joinForm";
 	}
 	
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(Customer customer,Model model,HttpServletRequest request) {
-		if(customer.getC_address() != null & customer.getC_birth() !=null
-				& customer.getC_contact() != null & customer.getC_d_address() != null 
-				& customer.getC_e_address() !=null & customer.getC_email() !=null 
-				& customer.getC_name()!=null & customer.getC_pass() !=null 
-				& customer.getC_pass_chk() !=null	& customer.getC_sex() != null) {
-		boolean result =memberService.joinMember(customer);
-		//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
-		if(result) {
-			return "redirect:member/login";
-		}
-		String msg ="비밀번호 일치 또는 빈칸이 있는지 확인해 주세요";
-		String url = "join";
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		return "result";
-	}
-	String msg ="빈칸이 있는지 확인해 주세요";
-	String url = "join";
-	model.addAttribute("msg", msg);
-	model.addAttribute("url", url);
-	return "result";
-}
+//	@RequestMapping(value="/join", method=RequestMethod.POST)
+//	public String join(Customer customer,Model model,HttpServletRequest request) {
+//		if(customer.getC_address() != null & customer.getC_birth() !=null
+//				& customer.getC_contact() != null & customer.getC_d_address() != null 
+//				& customer.getC_e_address() !=null & customer.getC_email() !=null 
+//				& customer.getC_name()!=null & customer.getC_pass() !=null 
+//				& customer.getC_pass_chk() !=null	& customer.getC_sex() != null) {
+//		boolean result =memberService.joinMember(customer);
+//		//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
+//		if(result) {
+//			return "redirect:member/login";
+//		}
+//		String msg ="비밀번호 일치 또는 빈칸이 있는지 확인해 주세요";
+//		String url = "join";
+//		model.addAttribute("msg", msg);
+//		model.addAttribute("url", url);
+//		return "result";
+//	}
+//	String msg ="빈칸이 있는지 확인해 주세요";
+//	String url = "join";
+//	model.addAttribute("msg", msg);
+//	model.addAttribute("url", url);
+//	return "result";
+//}
 	//아이디 유효성 검사
 	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	@ResponseBody

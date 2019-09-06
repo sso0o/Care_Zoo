@@ -51,48 +51,48 @@ public class VisitSitterController{
 		return "sitter/visit/joinForm";
 	}
 	
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(Customer customer,Model model) {
-		if(customer.getC_address() != null & customer.getC_birth() !=null
-				& customer.getC_contact() != null & customer.getC_d_address() != null 
-				& customer.getC_e_address() !=null & customer.getC_email() !=null 
-				& customer.getC_name()!=null & customer.getC_pass() !=null 
-				& customer.getC_pass_chk() !=null	& customer.getC_sex() != null) {
-			boolean result =memberService.joinMember(customer);
-			//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
-			if(result) {
-				model.addAttribute("c_num", memberService.getMemberByEmail(customer.getC_email()).getC_num());
-				return "sitter/visit/reservation2";
-			}
-			String msg ="비밀번호 일치 여부를 확인해 주세요";
-			String url = "join";
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			return "result";
-		}
-		String msg ="빈칸이 있는지 확인해 주세요";
-		String url = "join";
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		return "result";
-	}
+//	@RequestMapping(value="/join", method=RequestMethod.POST)
+//	public String join(Customer customer,Model model) {
+//		if(customer.getC_address() != null & customer.getC_birth() !=null
+//				& customer.getC_contact() != null & customer.getC_d_address() != null 
+//				& customer.getC_e_address() !=null & customer.getC_email() !=null 
+//				& customer.getC_name()!=null & customer.getC_pass() !=null 
+//				& customer.getC_pass_chk() !=null	& customer.getC_sex() != null) {
+//			boolean result =memberService.joinMember(customer);
+//			//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
+//			if(result) {
+//				model.addAttribute("c_num", memberService.getMemberByEmail(customer.getC_email()).getC_num());
+//				return "sitter/visit/reservation2";
+//			}
+//			String msg ="비밀번호 일치 여부를 확인해 주세요";
+//			String url = "join";
+//			model.addAttribute("msg", msg);
+//			model.addAttribute("url", url);
+//			return "result";
+//		}
+//		String msg ="빈칸이 있는지 확인해 주세요";
+//		String url = "join";
+//		model.addAttribute("msg", msg);
+//		model.addAttribute("url", url);
+//		return "result";
+//	}
 	//로그인
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String loginForm() {
 		return "sitter/visit/loginForm";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
-		System.out.println(c_email);
-		System.out.println(c_pass);
-		if(memberService.login(c_email,c_pass)) {
-			model.addAttribute("c_num", memberService.getMemberByEmail(c_email).getC_num());
-			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
-			return "sitter/visit/reservation2";
-		}
-		return "login";
-	}
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
+//		System.out.println(c_email);
+//		System.out.println(c_pass);
+//		if(memberService.login(c_email,c_pass)) {
+//			model.addAttribute("c_num", memberService.getMemberByEmail(c_email).getC_num());
+//			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
+//			return "sitter/visit/reservation2";
+//		}
+//		return "login";
+//	}
 	//돌봄신청 폼(펫조인)
 	@RequestMapping(value="apply",method=RequestMethod.GET)
 	public String reservation3Form(Model model,int c_num) {

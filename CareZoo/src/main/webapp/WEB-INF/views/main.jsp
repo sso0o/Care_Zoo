@@ -2,12 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath() %>"/>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>맡겨주~~</title>
     <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick-theme.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
@@ -95,6 +100,14 @@
     <script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
     <script type="text/javascript">
+    function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
+    
         $(document).on('ready', function () {
             $(".lazy").slick({
                 dots: true
@@ -106,6 +119,7 @@
 
         });
     </script>
+    
 </head>
 
 <body>
@@ -113,9 +127,16 @@
         <header>
             <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
          
-            <div class="header_Btn"> 
-            <a class="btn_Login" href="${contextPath}/member/login">로그인</a> 
-            <a class="btn_Join" href="${contextPath}/member/join">회원가입</a> </div>
+            <div class="header_Btn" id="sessioncheck"> 
+            <sec:authorize access="isAnonymous()">
+            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            	<label id="principal"><sec:authentication property="principal"/>님 반갑습니다!</label>
+            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+            </sec:authorize>
+             </div>
         </header>
     </div>
     <nav>
