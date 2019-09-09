@@ -42,11 +42,8 @@
 		</trim>
 	</select>
 
-<!-- 	<select id="selectOnlyNameByP_Num" parameterType="int" resultType="pet"> -->
-<!-- 		select p_name from pet p_num=#{p_num} -->
-<!-- 	</select> -->
 	<select id="selectOnlyNameByP_Num" parameterType="list" resultType="pet">
-		select p_num,p_name from pet
+		select p_name from pet
 		<trim prefix="where" prefixOverrides="OR">
 			<if test="list!=null">
 				<foreach collection="list" item="p_num">

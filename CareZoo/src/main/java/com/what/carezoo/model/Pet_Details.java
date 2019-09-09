@@ -1,5 +1,6 @@
 package com.what.carezoo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pet_Details {
@@ -10,8 +11,17 @@ public class Pet_Details {
 	private String pd_hour;
 	private String pd_hAdd;
 	private String pd_date;
-	private String p_name;
+	private ArrayList<String> p_name;
+	private int c_num;
+	
+	
 
+	public int getC_num() {
+		return c_num;
+	}
+	public void setC_num(int c_num) {
+		this.c_num = c_num;
+	}
 	public int getPd_num() {
 		return pd_num;
 	}
@@ -50,16 +60,17 @@ public class Pet_Details {
 	public void setPd_date(String pd_date) {
 		this.pd_date = pd_date;
 	}
-	public String getP_name() {
+	
+public ArrayList<String> getP_name() {
 		return p_name;
 	}
-	public void setP_name(String p_name) {
-		this.p_name = p_name;
+	public void setP_name(ArrayList<String> p_name2) {
+		this.p_name = p_name2;
 	}
 	@Override
 	public String toString() {
 		return "Pet_Details [pd_num=" + pd_num + ", p_num=" + p_num + ", pd_week=" + pd_week + ", pd_hour=" + pd_hour
-				+ ", pd_hAdd=" + pd_hAdd + ", pd_date=" + pd_date + ", p_name=" + p_name + "]";
+				+ ", pd_hAdd=" + pd_hAdd + ", pd_date=" + pd_date + ", p_name=" + p_name + ", c_num=" + c_num + "]";
 	}
 	
 	

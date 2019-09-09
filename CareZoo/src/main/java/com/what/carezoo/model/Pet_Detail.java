@@ -9,8 +9,6 @@ public class Pet_Detail {
 	private String pd_hAdd;
 	private String pd_date;
 	private String p_name;
-	
-	
 
 	public String getP_name() {
 		return p_name;
