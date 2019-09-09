@@ -6,109 +6,94 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">
-img {
-    margin: 1em 0;
-    display: block;
-    background: rgb(240, 240, 240);
-    border: 1px solid rgb(0,0,0);
-}
-</style>
 <title>homeSitterPosting</title>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-	window.onload=function(){
-		var file = document.querySelector('#getfile');
-		
-		file.onchange = function () { 
-		    var fileList = file.files ;
-		    
-		    // 읽기
-		    var reader = new FileReader();
-		    reader.readAsDataURL(fileList [0]);
-		
-		    //로드 한 후
-		    reader.onload = function  () {
-		        //로컬 이미지를 보여주기
-		        document.querySelector('#preview').src = reader.result;
-		        
-		        //썸네일 이미지 생성
-		        var tempImage = new Image(); //drawImage 메서드에 넣기 위해 이미지 객체화
-		        tempImage.src = reader.result; //data-uri를 이미지 객체에 주입
-		        tempImage.onload = function() {
-		            //리사이즈를 위해 캔버스 객체 생성
-		            var canvas = document.createElement('canvas');
-		            var canvasContext = canvas.getContext("2d");
-		            
-		            //캔버스 크기 설정
-		            canvas.width = 100; //가로 100px
-		            canvas.height = 100; //세로 100px
-		            
-		            //이미지를 캔버스에 그리기
-		            canvasContext.drawImage(this, 0, 0, 100, 100);
-		            //캔버스에 그린 이미지를 다시 data-uri 형태로 변환
-		            var dataURI = canvas.toDataURL("image/jpeg");
-		            
-		            //썸네일 이미지 보여주기
-		            document.querySelector('#thumbnail').src = dataURI;
-		            
-		            //썸네일 이미지를 다운로드할 수 있도록 링크 설정
-		            document.querySelector('#download').href = dataURI;
-		        };
-		    }; 
-		}; 
-	};
-</script>
 </head>
 <body>
-	<h3>로컬에 있는 이미지를 바로 브라우저에 표시</h3>
-	<img id="preview" src="" width="700" alt="로컬에 있는 이미지가 보여지는 영역">
-	<a id="download" download="thumbnail.jpg" target="_blank"> 
-		<img id="thumbnail" src="" width="100" alt="썸네일영역 (클릭하면 다운로드 가능)">
-	</a>
-	<input type="file" id="getfile" accept="image/*">
-	<div>
-		<form action="">
+<div>
+	<form action="home/write" method="post" enctype="multipart/form-data">
 		<h1>가정용펫시터 글 등록페이지</h1>
-			<table>
-				<tr>
-					<th>글제목</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>글내용</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>현재 키우는 펫 크기를 선택해주세요</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th></th>
-					<td></td>
-				</tr>
-				<tr>
-					<th></th>
-					<td></td>
-				</tr>
-			</table>
-		</form>
-	</div>
+		<table>
+			<tr>
+				<th>글제목**</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>글내용**</th>
+				<td>Q. 왜 도그메이트 펫시터를 하게 되었나요?<textarea rows="5" cols="10"></textarea> </td>
+				<td>Q. 반려견을 키운 경험에 대해 알려주세요. 현재 반려견을 키우고 계시다면 자세히 소개해주세요!<textarea rows="5" cols="10"></textarea></td>
+				<td>Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 약속드립니다.<textarea rows="5" cols="10"></textarea></td>
+				<td>※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.<textarea rows="5" cols="10"></textarea></td>
+			</tr>
+			<tr>
+				<th>돌봄 공간의 사진을 올려주세요**</th>
+				<td><input type="file" name="hsl_filename"></td>
+			</tr>
+			<tr>
+				<th>펫을 돌볼 수 있는 날짜를 선택해 주세요**</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>체크인 가능 시간의 범위를 지정해 주세요</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>체크아웃 가능 시간의 범위를 지정해 주세요</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>돌봄 가능한 강아지의 크기를 선택해 주세요</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>돌봄 가능한 강아지의 나이를 선택해 주세요</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>현재 키우고 있는 펫 크기를 선택해주세요</th>
+				<td></td>
+			</tr>
+		</table>
+		<h1>돌봄 환경에 대해 자세히 알려주세요</h1>
+		<table>
+			<tr>
+				<th>돌봄공간</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>인근 지하철역</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>마당유무</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>14세미만 아동 거주 유무</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>가족 동거 유무</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>다른 동물 유무</th>
+				<td></td>
+			</tr>
+			<tr>
+				<th>강아지 사진</th>
+				<td></td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td>
+					<input type="submit" value="등록">
+					<input type="reset" value="다시쓰기">
+					<input type="button" value="돌아가기" onclick="location.href='${contextPath}/home/main">
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
 </body>
 </html>

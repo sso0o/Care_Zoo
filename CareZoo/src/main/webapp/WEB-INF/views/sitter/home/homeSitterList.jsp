@@ -203,7 +203,7 @@ $(function () {
             <td>
                 <table id="maintable"style="width:100%; height:30px">
 	                <tr>
-	                    <td id="menu_0" class="td_mainmenubox_Off"  style="cursor:hand"><a href="#">전체</a></td>
+	                    <td id="menu_0" class="td_mainmenubox_Off"  style="cursor:hand"><a href="${contextPath}/home/main">전체</a></td>
 	                    <td id="menu_1" class="td_mainmenubox_Off"  style="cursor:hand"><a href="#">서울</a></td>
 	                    <td id="menu_2" class="td_mainmenubox_Off"  style="cursor:hand"><a href="#">경기</a></td>
 	                    <td id="menu_3" class="td_mainmenubox_Off"  style="cursor:hand"><a href="#">인천</a></td>
@@ -420,16 +420,17 @@ $(function () {
 	<table>
 	</table>
 </div>
-<div id="slide_container">
-	<img id="backImg" src="${contextPath}/resources/img/arrowL.png" alt="">
-	<div id="slide" >
-		<div id="showImg">
-			<div class="image"><img src="${contextPath}/resources/img/event_image.jpg" alt="" width="100px" height="150px"></div>
-			<div class="image"><img src="${contextPath}/resources/img/event_image2.jpg" alt="" width="100px" height="150px"></div>
-			<div class="image"><img src="${contextPath}/resources/img/event_image3.jpg" alt="" width="100px" height="150px"></div>
-		</div>			
-	</div>                                  
-	<img id="nextImg"  src="${contextPath}/resources/img/arrowR.png" alt="" >
+<div>
+	<table style="border: 5px;">
+		<tr>
+			<td><img alt="엑박사진" src="홈시터집사진"></td>
+			<td>글제목</td>
+			<td>홈시터이름<span>키우는 반려견 수</span></td>
+			<td>가격<span></span></td>
+			<td>별점<span>고객 후기 ****개</span><span>정기고객***명</span></td>
+		</tr>	
+	</table>
+	
 </div>
 </body>                                                  
 </html>                                                                                                      

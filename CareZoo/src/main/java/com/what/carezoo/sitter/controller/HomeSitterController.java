@@ -22,7 +22,7 @@ public class HomeSitterController {
 	private HomeSitterSearchingService hssService;
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")
-	public String enterHomeSitterMain() {
+	public String enterHomeSitterMain(Model model) {
 		return "sitter/home/homeSitterList";
 	}
 	// 가정시터 검색목록 가져오기
@@ -51,8 +51,7 @@ public class HomeSitterController {
 		return "sitter/home/homeSitterPosting";
 	}
 	@RequestMapping("/view")
-	public String enterHomeSitterView(HomeSitterList hsl) {
-		System.out.println(hsl);
+	public String enterHomeSitterView() {
 		return "sitter/home/homeSitterView";
 	}
 }

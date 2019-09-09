@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterListDao">
+	<insert id="insertHslImageFile" parameterType="homeSitterList_Image">
+		insert into homeSitterList_Image(hsl_img_num, hsl_num, hsl_filename, hsl_write_date)
+		values(homesitterlist_image_seq.nextval,${hsl_num},${hsl_filename},sysdate)
+	</insert>
 	<insert id="insertHsl" parameterType="homeSitterList">
 		<selectKey order="BEFORE" keyProperty="hsl_num" resultType="int">
 			select homsitterlist_seq.nextval from dual
@@ -25,6 +29,13 @@
 		FROM homesitterlist 
 		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size}
 	</select>
+	
+	<select id="searchHsls" parameterType="homeSitterList" resultType="homeSitterList"> 
+		SELECT * 
+		FROM homesitterlist 
+		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size}
+	</select>
+	
 	<select id="searchHslbyAddress" parameterType="list" resultType="homeSitterlist"> 
 		SELECT *
 		FROM homesitterlist 
@@ -35,10 +46,7 @@
 		</trim>			  		
 		order by hsl_num desc			  
 	</select>
-	
-	
-	
-	
+		
 	<select id="selectAllHsl" resultType="map">
 		SELECT *
 		FROM homesitterlist HSLI LEFT JOIN homesitter HS ON HSLI.HS_NUM = HS.HS_NUM 
