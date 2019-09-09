@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.management.relation.Role;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -76,12 +77,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		if(type.equals("customer")) {
 			System.out.println("customer==================================");
-			System.out.println("외않되ㅜ");
 			Customer c = mService.getMemberByEmail(userid);
 			System.out.println(c);
 			if(c != null && c.getC_pass().equals(pw)) {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("CUSTOMER"));
+				HttpSession session = request.getSession();
+				session.setAttribute("user_num", mService.getMemberByEmail(userid).getC_num());
+				session.setAttribute("user_name", mService.getMemberByEmail(userid).getC_name());
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}
 		    return authToken;

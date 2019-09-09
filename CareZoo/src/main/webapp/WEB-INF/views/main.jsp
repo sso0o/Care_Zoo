@@ -100,13 +100,13 @@
     <script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
     <script type="text/javascript">
-    function logoutCheck() {
-		if (confirm("정말 로그아웃?") == true) {
-			location.href = '${contextPath}/logout'
-		} else {
-			return false;
+	    function logoutCheck() {
+			if (confirm("정말 로그아웃?") == true) {
+				location.href = '${contextPath}/logout'
+			} else {
+				return false;
+			}
 		}
-	}
     
         $(document).on('ready', function () {
             $(".lazy").slick({
@@ -118,7 +118,8 @@
             });
 
         });
-    </script>
+
+	</script>
     
 </head>
 
@@ -133,7 +134,8 @@
             	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-            	<label id="principal"><sec:authentication property="principal"/>님 반갑습니다!</label>
+            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
+            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
             	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
             </sec:authorize>
              </div>
