@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +23,145 @@
 <script src="${contextPath}/resources/js/datepicker-ko.js"
 	type="text/javascript"></script>
 
+<style>
+#map_canvas {
+	width: 300px;
+	height: 300px;
+}
+
+.pignose-calendar-unit-disabled a {
+	color: red !important
+}
+
+footer {
+	
+}
+
+.slider {
+	width: 200px;
+	margin: 50px auto;
+}
+
+.slick-slide {
+	margin: 10px;
+}
+
+.slick-slide img {
+	width: 80%;
+}
+
+.slick-prev:before, .slick-next:before {
+	color: black;
+}
+
+.slick-slide {
+	margin-left: 0;
+	transition: all ease-in-out .3s;
+	opacity: .2;
+}
+
+.slick-active {
+	opacity: .5;
+}
+
+.slick-current {
+	opacity: 1;
+}
+
+.lazy slider slick-initialized slick-slider slick-dotted {
+	margin-left: 0;
+}
+
+.review {
+	float: left;
+	width: 50%;
+	margin: auto 0;
+}
+
+.review .fieldview .subReview {
+	display: inline-block;
+	width: 45%;
+	margin: auto 0;
+	min-height: 400px;
+	border: none;
+}
+
+.review .fieldview {
+	border: 5px solid #ddd;
+	border-radius: 5px;
+	padding: 5px;
+	min-height: 200px;
+}
+
+.review .fieldview legend {
+	background: #40bf9f;
+	color: #fff;
+	padding: 5px 10px;
+	font-size: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 0 5px #ddd;
+	margin-left: 20px;
+}
+
+.review.review .fieldview p {
+	text-align: right;
+	padding-right: 10px;
+}
+
+body {
+	margin: 0;
+}
+
+ul {
+	list-style: none outside none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.demo .item {
+	margin-bottom: 60px;
+}
+
+.content-slider li {
+	background-color: #ed3020;
+	text-align: center;
+	color: #FFF;
+}
+
+.content-slider h3 {
+	margin: 0;
+	padding: 70px 0;
+}
+
+.demo {
+	width: 800px;
+}
+</style>
+
 <script type="text/javascript">
 	$(function() {
+		$(function() {
+			initialize();
+
+			$("#content-slider").lightSlider({
+				loop : true,
+				keyPress : true
+			});
+			$('#image-gallery').lightSlider({
+				isthumb : true,
+				gallery : true,
+				item : 1,
+				thumbItem : 9,
+				slideMargin : 0,
+				speed : 500,
+				auto : true,
+				loop : true,
+				onSliderLoad : function() {
+					$('#image-gallery').removeClass('cS-hidden');
+				}
+			});
+		})
+		
 		var paramsArr = [];
 
 		//datepicker
@@ -168,6 +306,53 @@
 
 </head>
 <body>
+	<div>
+		<header>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+         
+            <div class="header_Btn" id="sessioncheck"> 
+            <sec:authorize access="isAnonymous()">
+            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
+            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+            </sec:authorize>
+             </div>
+		</header>
+	</div>
+	<nav>
+		<div class='menu'>
+			<ul style="">
+				<li class='active sub'><a href='#'>SITTER</a>
+					<ul>
+						<li class='last'><a href='#'>가정펫시터</a> <!-- 
+                     <ul>
+                        <li><a href='#'>HTML Basic</a></li>
+                        <li class='last'><a href='#'>HTML Advanced</a></li>
+                     </ul>
+                      --></li>
+						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+					</ul></li>
+				<li class='active sub'><a href='#'>HOTEL</a>
+					<ul>
+						<li class='last'><a href='#'>애견동반호텔</a></li>
+						<li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
+					</ul></li>
+				<li class='active sub'><a href='#'>REVIEW</a>
+					<ul>
+						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+						<li class='last'><a href='#'>시터</a></li>
+						<li class='last'><a href='#'>호텔</a></li>
+					</ul></li>
+				<li class='last'><a href='#' style="font-size: 17px">MY
+						PAGE</a></li>
+				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
+			</ul>
+		</div>
+	</nav>
 
 	<div>
 		<fieldset>

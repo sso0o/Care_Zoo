@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -368,12 +369,19 @@ ul {
 <body>
 	<div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg"
-				class="anchor_logo"></a> <br>
-			<div class="header_Btn">
-				<a class="btn_Login" href="${contextPath}/member/login">로그인</a> <a
-					class="btn_Join" href="${contextPath}/member/join">회원가입</a>
-			</div>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+         
+            <div class="header_Btn" id="sessioncheck"> 
+            <sec:authorize access="isAnonymous()">
+            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
+            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+            </sec:authorize>
+             </div>
 		</header>
 	</div>
 	<nav>
@@ -527,7 +535,7 @@ ul {
 		</div>
 		<br> <br> <br> <br>
 		<div style="float: left;">
-			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
+			<form action="${contextPath }/petHotel/petHotelResForm?ph_num=${petHotel.ph_num}" method="post">
 				<div class="col-dates"
 					style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
 					<span style="font-size: 17px; text-align: center">예약기간을
