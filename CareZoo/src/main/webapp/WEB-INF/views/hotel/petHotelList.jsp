@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,14 +76,21 @@ ul {
 </head>
 <body class=container>
 	<div class="container">
-		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg"
-				class="anchor_logo"></a> <br>
-			<div class="header_Btn">
-				<a class="btn_Login" href="${contextPath}/member/login">로그인</a> <a
-					class="btn_Join" href="${contextPath}/member/join">회원가입</a>
-			</div>
-		</header>
+		 <header>
+            <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+         
+            <div class="header_Btn" id="sessioncheck"> 
+            <sec:authorize access="isAnonymous()">
+            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
+            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+            </sec:authorize>
+             </div>
+        </header>
 	</div>
 	<nav>
 		<div class='menu'>
