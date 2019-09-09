@@ -60,8 +60,9 @@ ul {
 			item : 1,
 			thumbItem : 9,
 			slideMargin : 0,
-			speed : 500,
-			auto : false,
+			speed : 1000,
+			pause:4000,
+			auto : true,
 			loop : true,
 			addClass : $('.clearfix'),
 			onSliderLoad : function() {
