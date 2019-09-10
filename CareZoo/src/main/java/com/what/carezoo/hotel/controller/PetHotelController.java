@@ -55,7 +55,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return "hotel/petHotelList";
 	}
 
-	// 펫호텔 예약폼 --> 회원가입 상태여야하고, 고객넘, 고객의 펫리스트 넘겨야함
+	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
 	@RequestMapping(value = "/petHotelResForm", method = RequestMethod.POST)
 	public String resPetHotelForm(Model m, int ph_num, String phr_chkin, String phr_chkout ) {
 		m.addAttribute("chkin", phr_chkin);
@@ -83,22 +83,10 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			phR.add(r);
 		}
 		
-//		for (PetHotelReservation r : phR) {
-//			boolean result = rst.add(phrService.addPetHotelRes(r));
-//			if(result) {
-//				
-//			}
-//		}
-//		
-//		
-//		if (!rst.contains(false)) {
-//			return true;
-//		}
 		
-		if(phR.size()>0) {
-			return true;
-		}
+		
 		return false;
+
 	}
 
 	// 펫호텔 상세보기

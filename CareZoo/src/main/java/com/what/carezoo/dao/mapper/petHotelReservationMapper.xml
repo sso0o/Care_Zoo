@@ -18,10 +18,17 @@
 		where phr_num = #{phr_num}
 	</delete>
 	
-	<select id="selectOne" parameterType="int" resultType="PetHotelReservation">
+	
+	<select id="selectOneByNum" parameterType="int" resultType="PetHotelReservation">
 		select *
 		from PetHotelReservation
 		where phr_num = #{phr_num}
+	</select>
+	
+	<select id="selectByResInfo" parameterType="int" resultType="PetHotelReservation">
+		select *
+		from PetHotelReservation
+		where p_num = #{p_num}
 	</select>
 	
 	<select id="selectAll" resultType="PetHotelReservation">

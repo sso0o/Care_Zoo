@@ -198,7 +198,7 @@ public class PetHotelService {
 	}
 	
 	public PetHotelReservation getOnePetHotelRes(int phr_num) {
-		return petHotelResDao.selectOne(phr_num);
+		return petHotelResDao.selectOneByNum(phr_num);
 		
 	}
 	
