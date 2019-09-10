@@ -24,11 +24,7 @@
 $(function() {
 //datepicker disable : 해당일 제외하고 선택하기 *************** 홈시터가 지정한 날짜를 disable 설정필요
 	$('#calendar').datepicker({ beforeShowDay: unavailableD });
-	$('#checkin').datetimepicker({
-	});
-	$('#checkout').datetimepicker({
-	});
-	var unavailableDates = ["19-9-2019","14-9-2019"];
+	var unavailableDates = ["19-9-2019","14-9-2019"];   //*************** 홈시터가 지정한 날짜를 disable 설정필요
 	function unavailableD(date) {
 	    var dateType = date.getDate() + "-" + (date.getMonth()+1) + "-" +date.getFullYear();
 	    if ($.inArray(dateType, unavailableDates) < 0) {
@@ -37,16 +33,29 @@ $(function() {
 	        return [false,"","Booked Out"];
 	    }
 	}	
-	$('#check_in').timepicker({
-		timeFormat:'HH:mm',
-		'minTime':'09:00',
-		'maxTime': '11:00'});
-	$('#check_out').timepicker({
-		timeFormat:'HH:mm',
-		'minTime':'15:00',
-		'maxTime': '17:00'});
-
-// 	$('#check_out').datepicker();
+	var datepickerStart = $('#checkin').datetimepicker({
+		beforeShowDay: unavailableD,
+		dateFormat: 'yy-mm-dd', 
+		minDate: moment('yy-mm-dd').toDate(),
+		onSelect: function (selected) {
+			datepickerEnd.datepicker('option', 'minDate', selected);
+			if (datepickerEnd.prop('disabled')) {
+				datepickerEnd.datepicker('setDate', selected);
+			} else if (!datepickerEnd.val()) {
+				setTimeout($.proxy(datepickerEnd.datepicker, datepickerEnd, 'show'), 50);
+			}
+		},
+		timeFormat: 'HH:mm' ,
+		stepMinute: '30',
+		timeRange: '7:00','11:00','30'
+		
+	});
+	var datepickerEnd = $('#checkout').datetimepicker({
+		beforeShowDay: unavailableD,
+		dateFormat: 'yy-mm-dd', 
+		minDate: moment('yy-mm-dd').toDate(),
+		timeFormat: 'HH:mm'
+	});
 });
 </script>
 </head>
@@ -83,7 +92,7 @@ $(function() {
 	<div>돌보미 소개</div>
 	<div>
 		<p>
-			
+			소개웅앵웅
 		</p>
 	</div>
 	<div>
@@ -103,9 +112,82 @@ $(function() {
 			<div>예약을 원하는 날짜와 시간을 선택해주세요</div>
 			<table>
 				<tr>
-					<td>시작/마침날짜 선택할 수 있도로 누르면 달력 띄우기
-						<input type="text" id="checkin">
-						<input type="text" id="checkout">
+					<td>시작/마침날짜 선택할 수 있도로 누르면 달력 띄우기<br>
+						<input type="text" id="checkin"><br>
+						<select name="hsr_chkin" id="checkin_time">
+							<option value="" selected disabled hidden>맡기는 시간</option>
+							<option value="7:00">7:00</option>
+							<option value="7:30">7:30</option>
+							<option value="8:00">8:00</option>
+							<option value="8:30">8:30</option>
+							<option value="9:00">9:00</option>
+							<option value="9:30">9:30</option>
+							<option value="10:00">10:00</option>
+							<option value="10:30">10:30</option>
+							<option value="11:00">11:00</option>
+							<option value="11:30">11:30</option>
+							<option value="12:00">12:00</option>
+							<option value="12:30">12:30</option>
+							<option value="13:00">13:00</option>
+							<option value="13:30">13:30</option>
+							<option value="14:00">14:00</option>
+							<option value="14:30">14:30</option>
+							<option value="15:00">15:00</option>
+							<option value="15:30">15:30</option>
+							<option value="16:00">16:00</option>
+							<option value="16:30">16:30</option>
+							<option value="17:00">17:00</option>
+							<option value="17:30">17:30</option>
+							<option value="18:00">18:00</option>
+							<option value="18:30">18:30</option>
+							<option value="19:00">19:00</option>
+							<option value="19:30">19:30</option>
+							<option value="20:00">20:00</option>
+							<option value="20:30">20:30</option>
+							<option value="21:00">21:00</option>
+							<option value="21:30">21:30</option>
+							<option value="22:00">22:00</option>
+							<option value="22:30">22:30</option>
+							<option value="23:00">23:00</option>
+						</select>
+						<br>
+						<input type="text" id="checkout"><br>
+						<select name="hsr_chkout" id="checkout_time">
+							<option value="" selected disabled hidden>데려가는 시간</option>
+							<option value="7:00">7:00</option>
+							<option value="7:30">7:30</option>
+							<option value="8:00">8:00</option>
+							<option value="8:30">8:30</option>
+							<option value="9:00">9:00</option>
+							<option value="9:30">9:30</option>
+							<option value="10:00">10:00</option>
+							<option value="10:30">10:30</option>
+							<option value="11:00">11:00</option>
+							<option value="11:30">11:30</option>
+							<option value="12:00">12:00</option>
+							<option value="12:30">12:30</option>
+							<option value="13:00">13:00</option>
+							<option value="13:30">13:30</option>
+							<option value="14:00">14:00</option>
+							<option value="14:30">14:30</option>
+							<option value="15:00">15:00</option>
+							<option value="15:30">15:30</option>
+							<option value="16:00">16:00</option>
+							<option value="16:30">16:30</option>
+							<option value="17:00">17:00</option>
+							<option value="17:30">17:30</option>
+							<option value="18:00">18:00</option>
+							<option value="18:30">18:30</option>
+							<option value="19:00">19:00</option>
+							<option value="19:30">19:30</option>
+							<option value="20:00">20:00</option>
+							<option value="20:30">20:30</option>
+							<option value="21:00">21:00</option>
+							<option value="21:30">21:30</option>
+							<option value="22:00">22:00</option>
+							<option value="22:30">22:30</option>
+							<option value="23:00">23:00</option>
+						</select>
 					</td>
 					<td>총 가격</td>
 					<td>checkBox:pet_size선택
