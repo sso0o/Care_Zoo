@@ -37,17 +37,7 @@ public class MemberController {
 		return "loginForm";
 	}
 	
-//	@RequestMapping(value="/login", method=RequestMethod.POST)
-//	public String login(HttpServletRequest request,Model model,String c_email, String c_pass, String user) {
-//		System.out.println(c_email);
-//		System.out.println(c_pass);
-//		System.out.println(user);
-//		if(memberService.login(c_email,c_pass)) {
-//			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
-//			return "mainLogin";
-//		}
-//		return "login";
-//	}
+
 	//회원가입
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String joinForm() {
