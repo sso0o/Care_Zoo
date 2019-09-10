@@ -1,27 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel='stylesheet' type='text/css'
-	href='${contextPath}/resources/css/datepicker.css' />
-<link rel='stylesheet' type='text/css'
-	href='${contextPath}/resources/css/homeSitter.css' />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' />
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' />
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="${contextPath}/resources/js/moment.js"
-	type="text/javascript"></script>
-<script src="${contextPath}/resources/js/datepicker-ko.js"
-	type="text/javascript"></script>
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+
 
 <style>
 #map_canvas {
@@ -160,7 +165,7 @@ ul {
 					$('#image-gallery').removeClass('cS-hidden');
 				}
 			});
-		})
+		});
 		
 		var paramsArr = [];
 
@@ -188,37 +193,51 @@ ul {
 			dateFormat : 'yy-mm-dd',
 			minDate : moment('yy-mm-dd').toDate()
 		});
+		
+		var user_num = <%=session.getAttribute("user_num") %>		
+		$.ajax({
+			url : "${contextPath}/admin/petchk",
+			data : {
+				c_num : user_num
+			},
+			dataType : "json",
+			success : function(data) { 
+				$("#petL").find("option").remove();
+				for ( var i in data.pL) {
+				// 						alert(data.pL[i].p_num)
+				var op = '<option value=\"'
+				op += (data.pL[i].p_num)
+				op += '\" title=\"'
+				op += (data.pL[i].p_name)
+				op += '\">'
+				op += (data.pL[i].p_name)
+				op += '</option>'
+				$(op).appendTo("#petL");
+				}
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
 
-// 		$("#pullBtn").on("click", function() {
-// 			var c_num = $(this).val();
-
-// 			$.ajax({
-// 				url : "${contextPath}/admin/petchk",
-// 				data : {
-// 					c_num : c_num
-// 				},
-// 				dataType : "json",
-// 				success : function(data) {
-// 					// 					console.log(data.pL)
-// 					$("#petL").find("option").remove();
-// 					for ( var i in data.pL) {
-// 						// 						alert(data.pL[i].p_num)
-// 						var op = '<option value=\"'
-// 						op += (data.pL[i].p_num)
-// 						op += '\" title=\"'
-// 						op += (data.pL[i].p_name)
-// 						op += '\">'
-// 						op += (data.pL[i].p_name)
-// 						op += '</option>'
-// 						$(op).appendTo("#petL");
-// 					}
-// 				},
-// 				error : function() {
-// 					alert("실패");
-// 				}
-// 			});
-
-// 		});
+		var phnum = <%=request.getParameter("ph_num")%>
+		$.ajax({
+			url : "${contextPath}/admin/phchk",
+			data : {
+				ph_num : phnum
+			},
+			dataType : "json",
+			success : function(data) {
+				var inputp_num = '<input type="text" id="ph_name" value="'+ data.ph_name +'">'
+				
+				$(inputp_num).appendTo("#rrrr");
+			},
+			error : function() {
+				alert("실패");
+			}
+		});
+		
+	
 
 		//추가버튼
 		$("#addBtn").on("click", function() {
@@ -231,62 +250,58 @@ ul {
 			}
 			add(dateStart, dateEnd);
 		})
+		
 
 		//제출버튼(예약)
-		$("#btnSubmit").on(
-				"click",
-				function() {
-					$("#rst tr").not('tr:first').each(
-							function() {
-								var param = {};
-								param.c_num = $(this).find('td').find(
-										"input[id='c_num']").val();
-								param.p_num = $(this).find('td').find(
-										"input[id='p_num']").val();
-								param.ph_num = $(this).find('td').find(
-										"input[id='ph_num']").val();
-								param.phr_chkin = $(this).find('td').find(
-										"input[id='phr_chkin']").val();
-								param.phr_chkout = $(this).find('td').find(
-										"input[id='phr_chkout']").val();
-								console.log(param)
-								paramsArr.push(param);
-							})
-
-					var arrData = JSON.stringify(paramsArr)
-
-					console.log(arrData)
-					$.ajax({
-						url : "${contextPath}/admin/resPetHotel",
-						data : {
-							"str" : arrData
-						},
-						type : "post",
-						dataType : "JSON",
-						success : function(rst) {
-							alert("삽입성공")
-						},
-						error : function() {
-							alert("삽입실패")
-						}
-					});
-				});
+		$("#btnSubmit").on("click",function() {
+			$("#rst tr").not('tr:first').each(
+					function() {
+						var param = {};
+						param.c_num = <%=session.getAttribute("user_num") %>
+						param.p_num = $(this).find('td').find("input[id='p_num']").val();
+						param.ph_num = $(this).find('td').find("input[id='ph_num']").val();
+						param.phr_chkin = $(this).find('td').find("input[id='phr_chkin']").val();
+						param.phr_chkout = $(this).find('td').find("input[id='phr_chkout']").val();
+						console.log(param)
+						paramsArr.push(param);
+					})
+	
+			var arrData = JSON.stringify(paramsArr)
+	
+			console.log(arrData)
+			$.ajax({
+				url : "${contextPath}/petHotel/resPetHotel",
+				data : {
+					"str" : arrData
+				},
+				type : "post",
+				dataType : "JSON",
+				success : function(rst) {
+					alert("삽입성공")
+				},
+				error : function(rst) {
+					alert("삽입실패")
+				}
+			});
+		});
 	})
 
 	var count = 0;
 	function add(dateStart, dateEnd) {
 		var ds = dateStart.format('YYYY-MM-DD')
 		var de = dateEnd.format('YYYY-MM-DD')
-// 		var cname = $("#cnum").find("option:selected").attr("title");
+		// 		var cname = $("#cnum").find("option:selected").attr("title");
 		var pname = $("#petL").find("option:selected").attr("title");
 
 		var table = $("#rst");
 		var tr = $("<tr>");
-		var td3 = $("<td>").append('<input type="hidden" id="p_num" value="' + $("#petL").val() + '">'+pname);
-		var td5 = $("<td>").append('<input type="hidden" id="ph_num" value="' + $("#phnum").val() + '">'+$("#phname").val());
-		var td7 = $("<td>").append('<input type="text" id="phr_chkin" value="' + ds + '">');
-		var td8 = $("<td>").append('<input type="text" id="phr_chkout" value="' + de + '">');
+		
+		var td3 = $("<td>").append('<input type="hidden" id="p_num" value="'+ $("#petL").val() + '">' + pname);
+		var td5 = $("<td>").append('<input type="hidden" id="ph_num" value="'+ $("#phnum").val() + '">' + $("#ph_name").val());
+		var td7 = $("<td>").append('<input type="text" id="phr_chkin" value="'+ ds + '">');
+		var td8 = $("<td>").append('<input type="text" id="phr_chkout" value="'+ de + '">');
 		var btn = $("<button>삭제</button>")
+
 
 		tr.append(td3);
 		tr.append(td5);
@@ -306,21 +321,21 @@ ul {
 
 </head>
 <body>
-	<div>
+	<div class="container">
 		<header>
 			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-         
-            <div class="header_Btn" id="sessioncheck"> 
-            <sec:authorize access="isAnonymous()">
-            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
-            </sec:authorize>
-            <sec:authorize access="isAuthenticated()">
-            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
-            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
-            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
-            </sec:authorize>
-             </div>
+
+			<div class="header_Btn" id="sessioncheck">
+				<sec:authorize access="isAnonymous()">
+					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+				</sec:authorize>
+			</div>
 		</header>
 	</div>
 	<nav>
@@ -347,20 +362,21 @@ ul {
 						<li class='last'><a href='#'>시터</a></li>
 						<li class='last'><a href='#'>호텔</a></li>
 					</ul></li>
-				<li class='last'><a href='#' style="font-size: 17px">MY
-						PAGE</a></li>
+				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
 				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
 			</ul>
 		</div>
 	</nav>
-
-	<div>
+	<br>
+	<br>
+	<br>
+	<div class="container">
 		<fieldset>
 			<legend>예약정보</legend>
 
 			<table id="list">
 				<tr>
-<!-- 					<th>불러오기</th> -->
+					<!-- 					<th>불러오기</th> -->
 					<th>펫</th>
 					<th>펫호텔</th>
 					<th>체크인</th>
@@ -368,23 +384,24 @@ ul {
 					<th>추가</th>
 				</tr>
 				<tr>
-<!-- 					<td><input type="button" id="pullBtn" value="불러오기"></td> -->
-					<td><select name="p_num" id="petL">
-					</select></td>
-					<!-- 
-					<td><select name="ph_num" id="phnum">
-							<c:forEach items="${phL }" var="ph">
-								<option value="${ph.ph_num }" title="${ph.ph_name }">${ph.ph_name }</option>
-							</c:forEach>
-					</select></td>
-					 -->
-					<td><input type="hidden" id="phnum" name="ph_num" value=""><input type="text" id="phname" value=""></td>
-					
-					<td><input type="text" placeholder="시작 날짜" readonly="readonly"
-						name="phr_chkin" id="chkin"></td>
-					<td><input type="text" placeholder="마침 날짜" readonly="readonly"
-						name="phr_chkout" id="chkout"></td>
-					<td ><input type="button" id="addBtn" value="추가"></td>
+
+					<td>
+						<select name="p_num" id="petL">
+						</select>
+					</td>
+					<td id="rrrr">
+						<input type="hidden" id="phnum" name="ph_num" value="${phnum }">
+					</td>
+
+					<td>
+						<input type="text" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" id="chkin" value="${chkin }">
+					</td>
+					<td>
+						<input type="text" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" id="chkout" value="${chkout }">
+					</td>
+					<td>
+						<input type="button" id="addBtn" value="추가">
+					</td>
 				</tr>
 
 			</table>
