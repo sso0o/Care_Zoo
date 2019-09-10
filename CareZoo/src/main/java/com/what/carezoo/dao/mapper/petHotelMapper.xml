@@ -2,68 +2,150 @@
 <mapper namespace="com.what.carezoo.dao.PetHotelDao">
 
 	<insert id="insert" parameterType="PetHotel">
-	<selectKey order="BEFORE" keyProperty="ph_num" resultType="int">
-	<!-- keyProperty="">엔 보드가 가지고 있는 키값을 넣어주면 됨 
-	result Type은 sequence가 int형이니까 int로.
-	board속성에 num이 int형으로 sequence를 생성해서 넣었다.-->
-	select pethotel_seq.nextval from dual
-<!-- 	insert하면서 시퀀스를 하는게 아니라 시퀀스를 미리 조회해서 값을 미리 가지고 있는다
-	그 값을 파라미터로 받아온 보드에 있는 num에 집어넣는다 -->
-	</selectKey>
-		insert 
-		into pethotel (ph_num, ph_p_count, ph_price, ph_name,  ph_address, ph_d_address)
-		values (#{ph_num}, #{ph_p_count},  0 , #{ph_name}, #{ph_address}, #{ph_d_address} )
+		<selectKey order="BEFORE" keyProperty="ph_num"
+			resultType="int">
+			<!-- keyProperty="">엔 보드가 가지고 있는 키값을 넣어주면 됨 result Type은 sequence가 int형이니까 
+				int로. board속성에 num이 int형으로 sequence를 생성해서 넣었다. -->
+			select pethotel_seq.nextval from dual
+			<!-- insert하면서 시퀀스를 하는게 아니라 시퀀스를 미리 조회해서 값을 미리 가지고 있는다 그 값을 파라미터로 받아온 
+				보드에 있는 num에 집어넣는다 -->
+		</selectKey>
+		insert
+		into pethotel (ph_num, ph_p_count, ph_price, ph_name,
+		ph_address,
+		ph_d_address)
+		values (#{ph_num}, #{ph_p_count}, 0 ,
+		#{ph_name},
+		#{ph_address}, #{ph_d_address} )
 	</insert>
 
 	<update id="update" parameterType="PetHotel">
 		update pethotel
-		set ph_name=#{ph_name},
+		set
+		ph_name=#{ph_name},
 		ph_address = #{ph_address},
 		ph_d_address=#{ph_d_address},
 		ph_p_count = #{ph_p_count}
-		where ph_num = #{ph_num}
+		where ph_num =
+		#{ph_num}
 	</update>
 
 	<delete id="delete" parameterType="int">
-		delete from pethotel 
-		where ph_num = #{ph_num}
+		delete from pethotel
+		where
+		ph_num = #{ph_num}
 	</delete>
-	
+
 	<select id="selectOne" parameterType="int" resultType="PetHotel">
 		select *
-  		  from pethotel ph
- 	     where ph.ph_num = #{ph_num}
+		from pethotel ph
+		where ph.ph_num = #{ph_num}
 	</select>
-	<select id="selectFileList" parameterType="int" resultType="String">
-			select ph_fileName
-  		  from pethotel ph,pethotel_image f
- 	     where ph.ph_num = f.ph_num(+) 
-           and ph.ph_num = #{ph_num}
-	<!-- resultType = "hashMap" 으로 하면 list로 간다요 -->
+	<select id="selectFileList" parameterType="int"
+		resultType="String">
+		select ph_fileName
+		from pethotel ph,pethotel_image f
+		where ph.ph_num =
+		f.ph_num(+)
+		and ph.ph_num = #{ph_num}
+		<!-- resultType = "hashMap" 으로 하면 list로 간다요 -->
 	</select>
-	
+
 	<select id="selectAll" resultType="PetHotel">
-          select *
-  		  from pethotel ph, 
-          (select ph_num, min(phr_price) as ph_minPrice,max(phr_price) as ph_maxPrice from pethotelroom group by ph_num) r,
-          (select ph_num, count(ph_num) as ph_c_count, round(avg(phc_star),1)as ph_avgStar from pethotelcomment group by ph_num) c 
- 	     where ph.ph_num  = r.ph_num(+)
-         and ph.ph_num = c.ph_num(+)
-         order by ph.ph_num 
+		select *
+		from pethotel ph,
+		(select ph_num, min(phr_price) as
+		ph_minPrice,max(phr_price) as
+		ph_maxPrice
+		from pethotelroom group by
+		ph_num) r,
+		(select ph_num,
+		count(ph_num) as ph_c_count,
+		round(avg(phc_star),1)as
+		ph_avgStar from
+		pethotelcomment group by
+		ph_num) c
+		where ph.ph_num = r.ph_num(+)
+		and
+		ph.ph_num = c.ph_num(+)
+		order by ph.ph_num
+
 	</select>
-	
-	
-		<insert id="insertFile" parameterType="map">
+	<select id="search" resultType="PetHotel">
+		select *
+		from pethotel ph,
+		(select ph_num, min(phr_price) as
+		ph_minPrice,max(phr_price) as ph_maxPrice
+		from pethotelroom group by
+		ph_num) r,
+		(select ph_num, count(ph_num) as ph_c_count,
+		round(avg(phc_star),1)as
+		ph_avgStar from pethotelcomment group by
+		ph_num) c
+
+		<trim prefix="where" prefixOverrides="AND|OR">
+			ph.ph_num = r.ph_num(+)
+			and ph.ph_num = c.ph_num(+)
+			
+			<if test="ph.ph_pet_size != null">
+				and ph_pet_size like
+				('%#{ph.ph_pet_size}%')
+			</if>
+			<if test="ph.ph_service_type != null">
+				and ph_service_type = #{ph.ph_service_type}
+			</if>
+			<if test="ph.ph_pet_age != null">
+				and ph_pet_age = #{ph.ph_pet_age}
+			</if>
+			<!-- <if test="hsl.hsl_chkin != null"> -->
+			<!-- or <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]> -->
+			<!-- </if> -->
+			<foreach collection="list" item="item">
+				and ph_address like
+				('%${item}%')
+			</foreach>
+		</trim>
+		order by ph.ph_num
+	</select>
+
+
+	<insert id="insertFile" parameterType="map">
 		insert into pethotel_image
-		  			(ph_img_num,ph_num,ph_fileName )
-		values (hotel_image_seq.nextval,#{ph_num},#{ph_fileName}) 
+		(ph_img_num,ph_num,ph_fileName )
+		values
+		(hotel_image_seq.nextval,#{ph_num},#{ph_fileName})
 	</insert>
-	
-	<select id="selectFileName" parameterType="int" resultType="String">
+
+	<select id="selectFileName" parameterType="int"
+		resultType="String">
 		select * from pethotel_image where PH_NUM = #{ph_num}
 	</select>
 
 
+	<!-- <select id="selectAllHsl" resultType="map"> -->
+	<!-- SELECT * -->
+	<!-- FROM homesitterlist HSLI LEFT JOIN homesitter HS ON HSLI.HS_NUM = HS.HS_NUM -->
+	<!-- LEFT JOIN homesitterlist_image HSI ON HSLI.HSL_NUM = HSI.HSL_NUM -->
+	<!-- <trim prefix="where" prefixOverrides="AND|OR"> -->
+
+	<!-- <if test="hsl.hsl_size != null"> -->
+	<!-- or hsl_size = #{hsl.hsl_size} -->
+	<!-- </if> -->
+	<!-- <if test="hsl.hsl_service_type != null"> -->
+	<!-- or hsl_service_type = #{hsl.hsl_service_type} -->
+	<!-- </if> -->
+	<!-- <if test="hsl.hsl_pet_age != null"> -->
+	<!-- or hsl_pet_age = #{hsl.hsl_pet_age} -->
+	<!-- </if> -->
+	<!-- <if test="hsl.hsl_chkin != null"> -->
+	<!-- or <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]> -->
+	<!-- </if> -->
+	<!-- <foreach collection="list" item="item"> -->
+	<!-- or hsl_address like ('%${item}%') -->
+	<!-- </foreach> -->
+	<!-- </trim> -->
+
+	<!-- </select> -->
 
 
 </mapper>

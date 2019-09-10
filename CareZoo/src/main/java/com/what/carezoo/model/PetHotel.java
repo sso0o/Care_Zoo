@@ -16,6 +16,9 @@ public class PetHotel {
 	private double ph_avgStar;
 	private int ph_maxPrice;
 	private int ph_minPrice;
+	private String ph_pet_size;
+	private String ph_pet_age;
+	private String ph_service_type;
 
 	public void setPh_fileName(String ph_fileName) {
 		this.ph_fileName = ph_fileName;
@@ -121,15 +124,34 @@ public class PetHotel {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public String getPh_pet_size() {
+		return ph_pet_size;
+	}
+	public void setPh_pet_size(String ph_pet_size) {
+		this.ph_pet_size = ph_pet_size;
+	}
+	public String getPh_pet_age() {
+		return ph_pet_age;
+	}
+	public void setPh_pet_age(String ph_pet_age) {
+		this.ph_pet_age = ph_pet_age;
+	}
+	public String getPh_service_type() {
+		return ph_service_type;
+	}
+	public void setPh_service_type(String ph_service_type) {
+		this.ph_service_type = ph_service_type;
+	}
 	@Override
 	public String toString() {
 		return "PetHotel [ph_num=" + ph_num + ", ph_name=" + ph_name + ", ph_address=" + ph_address + ", ph_d_address="
 				+ ph_d_address + ", ph_p_count=" + ph_p_count + ", ph_latitude=" + ph_latitude + ", ph_longitude="
 				+ ph_longitude + ", ph_fileName=" + ph_fileName + ", ph_filesName=" + ph_filesName + ", ph_c_count="
 				+ ph_c_count + ", ph_avgStar=" + ph_avgStar + ", ph_maxPrice=" + ph_maxPrice + ", ph_minPrice="
-				+ ph_minPrice + "]";
+				+ ph_minPrice + ", ph_pet_size=" + ph_pet_size + ", ph_pet_age=" + ph_pet_age + ", ph_service_type="
+				+ ph_service_type + "]";
 	}
-	
+
 	
 
 }
