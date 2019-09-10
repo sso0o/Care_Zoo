@@ -183,6 +183,7 @@ ul {
 // 								var fileName = ('<li data-thumb="${contextPath}/petHotel/image?fileName='+(d[i].fileName)[a]+'>');
 // 								fileName.appendTo(table);
 								alert((d[i].fileName[i])[a]);
+								
 							}
 							
 							$('</ul>').appendTo(table);
