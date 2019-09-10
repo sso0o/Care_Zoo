@@ -196,7 +196,7 @@ ul {
 		
 		var user_num = <%=session.getAttribute("user_num") %>		
 		$.ajax({
-			url : "${contextPath}/admin/petchk",
+			url : "${contextPath}/petHotel/petchk",
 			data : {
 				c_num : user_num
 			},
@@ -222,7 +222,7 @@ ul {
 
 		var phnum = <%=request.getParameter("ph_num")%>
 		$.ajax({
-			url : "${contextPath}/admin/phchk",
+			url : "${contextPath}/petHotel/phchk",
 			data : {
 				ph_num : phnum
 			},
@@ -277,10 +277,10 @@ ul {
 				type : "post",
 				dataType : "JSON",
 				success : function(rst) {
-					alert("삽입성공")
+					alert("예약성공")
 				},
 				error : function(rst) {
-					alert("삽입실패")
+					alert("중복되는 예약이 있습니다 다시 확인해주세요:)")
 				}
 			});
 		});

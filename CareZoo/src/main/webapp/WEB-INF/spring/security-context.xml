@@ -17,7 +17,8 @@
 		<security:custom-filter ref="requestContextFilter" before="FORM_LOGIN_FILTER"/>
 <!-- 		<security:intercept-url pattern="/login" access="permitAll" /> -->
 			<security:intercept-url pattern="/logout" access="hasAnyRole('CUSTOMER','HOME','VISIT','ADMIN')" />
-
+			<security:intercept-url pattern="/admin/**" access="ADMIN" />
+			
 <!-- 		<security:access-denied-handler error-page="/WEB-INF/views/main.jsp" /> -->
 		<security:form-login login-page="/member/loginForm"
 			authentication-failure-url="/member/loginForm?login=fail"

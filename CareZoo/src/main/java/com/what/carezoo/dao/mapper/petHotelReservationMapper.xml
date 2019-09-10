@@ -2,14 +2,14 @@
 <mapper namespace="com.what.carezoo.dao.PetHotelReservationDao">
 	<insert id="insert" parameterType="PetHotelReservation">
 		insert 
-		into PetHotelReservation (phr_num, c_num,p_num, ph_num, phr_chekin, phr_chekout, phr_status)
-		values (pethotelreservation_seq.nextval, #{c_num}, #{p_num}, #{ph_num}, #{phr_chekin}, #{phr_chekout}, #{phr_status} )
+		into PetHotelReservation (phr_num, c_num,p_num, ph_num, phr_chkin, phr_chkout)
+		values (pethotelreservation_seq.nextval, #{c_num}, #{p_num}, #{ph_num}, #{phr_chkin}, #{phr_chkout} )
 	</insert>
 
 	<update id="update" parameterType="PetHotelReservation">
 		update PetHotelReservation
-		set phr_chekin=#{phr_chekin},
-			phr_chekout=#{phr_chekout},
+		set phr_chekin=#{phr_chkin},
+			phr_chekout=#{phr_chkout},
 		where phr_num = #{phr_num}
 	</update>
 
@@ -25,10 +25,12 @@
 		where phr_num = #{phr_num}
 	</select>
 	
-	<select id="selectByResInfo" parameterType="int" resultType="PetHotelReservation">
+	<select id="selectByResInfo" parameterType="PetHotelReservation" resultType="PetHotelReservation">
 		select *
 		from PetHotelReservation
 		where p_num = #{p_num}
+		and #{phr_chkin} between phr_chkin and phr_chkout-1
+		and #{phr_chkout} between phr_chkin and phr_chkout
 	</select>
 	
 	<select id="selectAll" resultType="PetHotelReservation">

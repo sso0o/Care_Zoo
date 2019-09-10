@@ -36,8 +36,12 @@ public class PetHotelReservationService {
 		return false;
 	}
 	
-	public PetHotelReservation getPetHotelRes(int ph_num) {
+	public PetHotelReservation getPetHotelResByNum(int ph_num) {
 		return petHotelResDao.selectOneByNum(ph_num);
+	}
+	
+	public PetHotelReservation getPetHotelResByResInfo(PetHotelReservation phr) {
+		return petHotelResDao.selectByResInfo(phr);
 	}
 	
 	public List<PetHotelReservation> getAllPetHotelRes() {

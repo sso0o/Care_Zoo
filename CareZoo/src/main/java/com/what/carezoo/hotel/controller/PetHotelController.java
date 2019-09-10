@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,11 +23,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.pet.service.PetService;
 
 
 @Controller
@@ -34,9 +39,15 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	
 	@Autowired
 	private MemberService mService;
+	
+	@Autowired
+	private PetService pService;
 
 	@Autowired
 	private PetHotelService phService;
+	
+	@Autowired
+	private PetHotelReservationService phrService;
 	
 	private static final String FILE_PATH = "c:/temp/";
 
@@ -53,6 +64,24 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		model.addAttribute("out", out);
 		model.addAttribute("phList", phList);
 		return "hotel/petHotelList";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/petchk")
+	public Map<String, Object> petchk(int c_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		List<Pet> pL = pService.selectByC_Num(c_num);
+		rst.put("pL", pL);
+		return rst;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/phchk")
+	public Map<String, Object> getPh_Name(int ph_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		PetHotel ph = phService.getPetHotelbyNum(ph_num);
+		rst.put("ph_name", ph.getPh_name());
+		return rst;
 	}
 
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
@@ -82,10 +111,22 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			System.out.println(r);
 			phR.add(r);
 		}
+		int addCount = 0;
+		for (PetHotelReservation r : phR) {
+			PetHotelReservation selectResult = phrService.getPetHotelResByResInfo(r);
+			if(selectResult==null) {
+				boolean rst = phrService.addPetHotelRes(r);
+				if(rst) {
+					addCount += 1;
+				}
+			}
+		}
 		
-		
-		
-		return false;
+		if(addCount == phR.size()) {
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 
