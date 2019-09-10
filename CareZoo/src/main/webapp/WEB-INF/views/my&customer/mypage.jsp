@@ -8,7 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/fullcalendar.css' />
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/fullcalendar.pring.css' />
+
+<script src="${contextPath}/resources/js/fullcalendar.min.js" />
+<script src="${contextPath}/resources/js/moment.min.js" />
+<script src="${contextPath}/resources/js/jquery.min.js" />
 
 <script type="text/javascript">
 	function logoutCheck() {
@@ -19,6 +27,83 @@
 		}
 	}
 </script>
+<script>
+
+	$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			defaultDate: '2015-02-12',
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2015-02-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2015-02-07',
+					end: '2015-02-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2015-02-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2015-02-16T16:00:00'
+				},
+				{
+					title: 'Conference',
+					start: '2015-02-11',
+					end: '2015-02-13'
+				},
+				{
+					title: 'Meeting',
+					start: '2015-02-12T10:30:00',
+					end: '2015-02-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2015-02-12T12:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2015-02-12T14:30:00'
+				},
+				{
+					title: 'Happy Hour',
+					start: '2015-02-12T17:30:00'
+				},
+				{
+					title: 'Dinner',
+					start: '2015-02-12T20:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2015-02-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2015-02-28'
+				}
+			]
+		});
+		
+	});
+
+</script>
+<style>
+
+
+#calendar {
+	max-width: 900px;
+	margin: 0 auto;
+}
+</style>
 <title>mypage</title>
 <!-- 마이페이지 시작 -->
 </head>
@@ -66,12 +151,15 @@
 						<li class='last'><a href='#'>호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='' style="font-size: 17px">Q&A</a></li>
+				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
 			</ul>
 		</div>
 	</nav>
+	<br>
+	<br>
+	<br>
 	<div class="container">
-		<span>dkssuddddddddddddddddd</span>
+		<div id='calendar'></div>
 	</div>
 </body>
 </html>

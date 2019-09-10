@@ -11,15 +11,104 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-<script type="text/javascript">
-	function logoutCheck() {
-		if (confirm("정말 로그아웃?") == true) {
-			location.href = '${contextPath}/logout'
-		} else {
-			return false;
-		}
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
+
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
+
+<script type="text/javascript" src='${contextPath}/resources/js/moment.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
+
+<script>
+function logoutCheck() {
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
 	}
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	var d = new Date();
+	
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'dayGrid', 'interaction' ],
+      defaultView: 'dayGridMonth',
+      defaultDate: d,
+      editable: true,
+      selectable: true,
+      eventLimit: true, // allow "more" link when too many events
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,dayGridWeek'
+      },
+//       views: {
+//         resourceTimeGridTwoDay: {
+//           type: 'dayGridMonth',
+//           duration: { days: 2 },
+//           buttonText: '2 days',
+//         }
+//       },
+
+      //// uncomment this line to hide the all-day slot
+      //allDaySlot: false,
+
+//       resources: [
+//         { id: 'a', title: 'Room A' },
+//         { id: 'b', title: 'Room B', eventColor: 'green' },
+//         { id: 'c', title: 'Room C', eventColor: 'orange' },
+//         { id: 'd', title: 'Room D', eventColor: 'red' }
+//       ],
+//       events: [
+//         { id: '1', resourceId: 'a', start: '2019-08-06', end: '2019-08-08', title: 'event 1' },
+//         { id: '2', resourceId: 'a', start: '2019-08-07', end: '2019-08-07', title: 'event 2' },
+//         { id: '3', resourceId: 'b', start: '2019-08-07', end: '2019-08-08', title: 'event 3' },
+//         { id: '4', resourceId: 'c', start: '2019-08-07', end: '2019-08-07', title: 'event 4' },
+//         { id: '5', resourceId: 'd', start: '2019-08-07', end: '2019-08-07', title: 'event 5' }
+//       ],
+
+//       select: function(arg) {
+//           console.log(
+//             'select',
+//             arg.startStr,
+//             arg.endStr,
+//             arg.resource ? arg.resource.id : '(no resource)'
+//           );
+//         },
+//       dateClick: function(arg) {
+//           console.log(
+//             'dateClick',
+//             arg.date,
+//             arg.resource ? arg.resource.id : '(no resource)'
+//           );
+  
+//         }
+    
+        
+    });
+
+    calendar.render();
+  });
+
 </script>
+<style>
+
+/*   body { */
+/*     margin: 0; */
+/*     padding: 0; */
+/*     font-family: Arial, Helvetica Neue, Helvetica, sans-serif; */
+/*     font-size: 14px; */
+/*   } */
+#calendar {
+	max-width: 900px;
+	margin: 50px auto;
+}
+</style>
 <title>mypage</title>
 <!-- 마이페이지 시작 -->
 </head>
@@ -71,9 +160,15 @@
 			</ul>
 		</div>
 	</nav>
-	<br><br><br>
-	<div class="container" >
-		
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		<div id='calendar'></div>
+		<div>
+			dydydydydy
+		</div>
 	</div>
+	
 </body>
 </html>
