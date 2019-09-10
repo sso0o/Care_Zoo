@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +12,9 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
-<link rel="stylesheet"
-	href="${contextPath}/resources/css/lightslider.css" />
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/index.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
-	rel="stylesheet">
+<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <style type="text/css">
 ul {
 	list-style: none outside none;
@@ -46,12 +41,9 @@ ul {
 	width: 800px;
 }
 </style>
-<script src="https://code.jquery.com/jquery-2.2.0.min.js"
-	type="text/javascript"></script>
-<script type="text/javascript"
-	src="${contextPath}/resources/js/lightslider.js"></script>
-<script type="text/javascript"
-	src="${contextPath}/resources/js/index.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
 <script>
 	$(document).ready(function() {
 
@@ -76,21 +68,21 @@ ul {
 </head>
 <body class=container>
 	<div class="container">
-		 <header>
-            <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-         
-            <div class="header_Btn" id="sessioncheck"> 
-            <sec:authorize access="isAnonymous()">
-            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
-            </sec:authorize>
-            <sec:authorize access="isAuthenticated()">
-            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
-            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
-            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
-            </sec:authorize>
-             </div>
-        </header>
+		<header>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+
+			<div class="header_Btn" id="sessioncheck">
+				<sec:authorize access="isAnonymous()">
+					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+					<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+				</sec:authorize>
+			</div>
+		</header>
 	</div>
 	<nav>
 		<div class='menu'>
@@ -129,10 +121,15 @@ ul {
 		<div>
 			<fieldset>
 				<legend>호텔 옵션 선택</legend>
-				aa<input type="checkbox" name="asdf" value="aaa"><br>
-				p_num = <input type="text" name="p_num" value="${p_num }"><br>
-				체크인<input type="text" name="in" value="${in }"><br>
-				체크아웃<input type="text" name="out" value="${out }"><br>
+				aa
+				<input type="checkbox" name="asdf" value="aaa">
+				<br> p_num =
+				<input type="text" name="p_num" value="${p_num }">
+				<br> 체크인
+				<input type="text" name="in" value="${in }">
+				<br> 체크아웃
+				<input type="text" name="out" value="${out }">
+				<br>
 
 			</fieldset>
 		</div>
@@ -141,11 +138,12 @@ ul {
 			<table>
 				<tr>
 					<td></td>
-					<td><select name="listOption"
-						style="width: 100px; height: 25px;">
+					<td>
+						<select name="listOption" style="width: 100px; height: 25px;">
 							<option value="star">별점순</option>
 							<option value="comments">후기순</option>
-					</select></td>
+						</select>
+					</td>
 				</tr>
 
 			</table>
@@ -156,17 +154,12 @@ ul {
 
 			<c:forEach var="phList" items="${phList}">
 				<div style="border: 1px solid; margin: 50px; height: 350px;">
-					<div
-						style="width: auto; display: inline-block display:inline; float: left;">
+					<div style="width: auto; display: inline-block display:inline; float: left;">
 						<div class="item">
 							<div class="clearfix" style="max-width: 350px;">
-								<ul class="image-gallery"
-									class="gallery list-unstyled cS-hidden">
+								<ul class="image-gallery" class="gallery list-unstyled cS-hidden">
 									<c:forEach items="${phList.ph_filesName}" var="fn">
-										<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"
-										><img
-											src="${contextPath}/petHotel/image?fileName=${fn}"
-											style="width: 350px; height: 350px;" /></li>
+										<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 350px; height: 350px;" /></li>
 									</c:forEach>
 								</ul>
 							</div>
@@ -176,15 +169,16 @@ ul {
 
 					</div>
 					<div style="">
-						<span></span> <br> <a
-							href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a>
-						<br> <div>${phList.ph_address} ${phList.ph_d_address}</div>
+						<span></span> <br> <a href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a> <br>
+						<div>${phList.ph_address}${phList.ph_d_address}</div>
 						<div>
-						<fmt:formatNumber value="${phList.ph_minPrice }" pattern="#,###" />
-						~
-						<fmt:formatNumber value="${phList.ph_maxPrice }" pattern="#,###" />
+							<fmt:formatNumber value="${phList.ph_minPrice }" pattern="#,###" />
+							~
+							<fmt:formatNumber value="${phList.ph_maxPrice }" pattern="#,###" />
 						</div>
-						<div>후기:${phList.ph_c_count}개 <br> ${phList.ph_avgStar }</div>
+						<div>
+							후기:${phList.ph_c_count}개 <br> ${phList.ph_avgStar }
+						</div>
 					</div>
 
 					<!-- 				<p> -->

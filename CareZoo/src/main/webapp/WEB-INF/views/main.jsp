@@ -172,7 +172,7 @@
                     </ul>
                 </li>
                 <li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
-                <li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
+                <li class='last'><a href='${contextPath}/admin/qna' style="font-size: 17px">Q&A</a></li>
             </ul>
         </div>
     </nav>

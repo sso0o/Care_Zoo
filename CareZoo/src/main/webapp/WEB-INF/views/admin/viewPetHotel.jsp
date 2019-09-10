@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
@@ -23,8 +22,7 @@
 
 </head>
 <body>
-<input type="hidden" name="ph_num"
-							value="${pethotel.ph_num }">
+	<input type="hidden" name="ph_num" value="${pethotel.ph_num }">
 	<div>
 		<fieldset>
 			<legend>펫호텔 정보</legend>
@@ -32,41 +30,50 @@
 				<table>
 					<tr>
 						<th>호텔이름</th>
-						<td><input type="text" name="ph_name"
-							value="${pethotel.ph_name }"></td>
+						<td>
+							<input type="text" name="ph_name" value="${pethotel.ph_name }">
+						</td>
 					</tr>
 					<tr>
 						<th>주소</th>
-						<td><input type="hidden" id="sample4_postcode"
-							placeholder="우편번호"> <input type="button"
-							onclick="sample4_execDaumPostcode()" value="우편번호 찾기"> <input
-							type="text" id="sample4_roadAddress" name="ph_address"
-							value="${pethotel.ph_address }"> <input type="hidden"
-							id="sample4_jibunAddress" placeholder="지번주소"></td>
-						<td><input type="text" id="c_d_address" name="ph_d_address"
-							value="${pethotel.ph_d_address }"> <span id="guide"
-							style="color: #999"></span></td>
+						<td>
+							<input type="hidden" id="sample4_postcode" placeholder="우편번호">
+							<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+							<input type="text" id="sample4_roadAddress" name="ph_address" value="${pethotel.ph_address }">
+							<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+						</td>
+						<td>
+							<input type="text" id="c_d_address" name="ph_d_address" value="${pethotel.ph_d_address }">
+							<span id="guide" style="color: #999"></span>
+						</td>
 					</tr>
 					<tr>
 						<th>가능한 펫 마리수</th>
-						<td><input type="number" name="ph_p_count"
-							value="${pethotel.ph_p_count }"></td>
+						<td>
+							<input type="number" name="ph_p_count" value="${pethotel.ph_p_count }">
+						</td>
 
 					</tr>
-						<tr>
-						<th>이미지</th>
-					<c:forEach items="${filesName}" var="fn">
-							<td><img width="200px" height="200px"
-								src="${contextPath}/petHotel/image?fileName=${fn}" /><br>
-								<button name="" onclick="location.href='fileDelete?fileName=${fn}'">삭제</button></td>
-					</c:forEach>
-						</tr>
-						<tr>
-						<th>이미지추가:<input type="file" name="file"> </th>
-						</tr>
 					<tr>
-						<td><input type="submit" value="수정"></td>
-						<td><input type="button" value="삭제" onclick="removeCheck()"></td>
+						<th>이미지</th>
+						<c:forEach items="${filesName}" var="fn">
+							<td>
+								<img width="200px" height="200px" src="${contextPath}/petHotel/image?fileName=${fn}" /><br>
+								<button name="" onclick="location.href='fileDelete?fileName=${fn}'">삭제</button>
+							</td>
+						</c:forEach>
+					</tr>
+					<tr>
+						<th>이미지추가:<input type="file" name="file">
+						</th>
+					</tr>
+					<tr>
+						<td>
+							<input type="submit" value="수정">
+						</td>
+						<td>
+							<input type="button" value="삭제" onclick="removeCheck()">
+						</td>
 					</tr>
 					<tr>
 						<!-- <th>첨부파일</th> -->

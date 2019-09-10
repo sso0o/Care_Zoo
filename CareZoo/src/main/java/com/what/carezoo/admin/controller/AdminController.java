@@ -150,6 +150,16 @@ public class AdminController {
 	
 	//////////////////////////////////////////////////////////////////////////예약
 	
+	@ResponseBody
+	@RequestMapping("/phchk")
+	public Map<String, Object> getPh_Name(int ph_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		PetHotel ph = phService.getPetHotelbyNum(ph_num);
+		rst.put("ph_name", ph.getPh_name());
+		return rst;
+	}
+	
+	
 	@RequestMapping("/resPetHotelList")
 	public String resList(Model m) {
 		List<PetHotelReservation> phR = phService.getAllPetHotelRes();
