@@ -72,6 +72,7 @@
 
 	</select>
 	<select id="search" resultType="PetHotel">
+
 		select *
 		from pethotel ph,
 		(select ph_num, min(phr_price) as
@@ -86,24 +87,28 @@
 		<trim prefix="where" prefixOverrides="AND|OR">
 			ph.ph_num = r.ph_num(+)
 			and ph.ph_num = c.ph_num(+)
-			
+
 			<if test="ph.ph_pet_size != null">
 				and ph_pet_size like
-				('%#{ph.ph_pet_size}%')
+				'%' || #{ph.ph_pet_size} || '%'
 			</if>
 			<if test="ph.ph_service_type != null">
 				and ph_service_type = #{ph.ph_service_type}
 			</if>
 			<if test="ph.ph_pet_age != null">
-				and ph_pet_age = #{ph.ph_pet_age}
+				and ph_pet_age like '%' || #{ph.ph_pet_age} || '%'
 			</if>
+			
 			<!-- <if test="hsl.hsl_chkin != null"> -->
 			<!-- or <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]> -->
 			<!-- </if> -->
-			<foreach collection="list" item="item">
-				and ph_address like
+				
+				and ph.ph_address IN (select ph_address from pethotel where
+			<foreach collection="list" item="item" separator="or">
+				ph_address like
 				('%${item}%')
 			</foreach>
+			)
 		</trim>
 		order by ph.ph_num
 	</select>

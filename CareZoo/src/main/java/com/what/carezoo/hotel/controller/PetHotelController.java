@@ -65,20 +65,49 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		model.addAttribute("phList", phList);
 		return "hotel/petHotelList";
 	}
-	   @ResponseBody
+//	   @ResponseBody
+//	   @RequestMapping("/petHotelSearch")
+//	   public List<PetHotel> searchPetHotel(@RequestParam(value="ph_address" ,required = false) ArrayList<String> ph_address, PetHotel ph) {
+//	      System.out.println("모델:"+ph_address); //주소
+//	      System.out.println("ph:"+ph); //서비스 예약일 반려견 나이 반려견 크기 정보
+//	      if(ph==null) {         
+//	         ph = new PetHotel();
+//	      }
+//	      if(ph_address==null) {
+//	         ph_address = new ArrayList<String>();          
+//	      }      
+//	      List<PetHotel> phList = phService.searchPetHotel(ph_address,ph);
+//	      
+//			for(int i=0;i<phList.size();i++) {
+//				(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
+//			}
+//	      
+//	      System.out.println("==============================값"
+//	      +phList);
+//	      return phList;
+//	   }
 	   @RequestMapping("/petHotelSearch")
-	   public List<PetHotel> searchPetHotel(@RequestParam(value="ph_address" ,required = false) ArrayList<String> ph_address, PetHotel ph) {
-	      System.out.println("모델:"+ph_address); //주소
-	      System.out.println("ph:"+ph); //서비스 예약일 반려견 나이 반려견 크기 정보
-	      if(ph==null) {         
-	         ph = new PetHotel();
-	      }
-	      if(ph_address==null) {
-	         ph_address = new ArrayList<String>();          
-	      }      
-	      
-	      System.out.println("값"+phService.searchPetHotel(ph_address,ph));
-	      return phService.searchPetHotel(ph_address,ph);
+	   public String searchPetHotel(HttpServletRequest request, @RequestParam(value="ph_address" ,required = false) ArrayList<String> ph_address, PetHotel ph,Model model) {
+
+		   System.out.println("모델:"+ph_address); //주소
+		   System.out.println("ph:"+ph); //서비스 예약일 반려견 나이 반려견 크기 정보
+		   if(ph==null) {         
+			   ph = new PetHotel();
+		   }
+		   if(ph_address==null) {
+			   ph_address = new ArrayList<String>();          
+		   }      
+		   List<PetHotel> phList = phService.searchPetHotel(ph_address,ph);
+		   
+		   for(int i=0;i<phList.size();i++) {
+			   (phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
+		   }
+		   
+		   System.out.println("==============================값"
+				   +phList);
+		   model.addAttribute("phList", phList);
+		   
+		   return "hotel/petHotelList";
 	   }
 	
 	@ResponseBody
