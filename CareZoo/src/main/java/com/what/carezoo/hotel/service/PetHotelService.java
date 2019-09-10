@@ -30,13 +30,12 @@ public class PetHotelService {
 
 	@Autowired
 	private PetHotelDao petHotelDao;
-	
+
 	@Autowired
 	private PetHotelCommentDao petHotelComDao;
-	
+
 	@Autowired
 	private PetHotelReservationDao petHotelResDao;
-	
 
 	public boolean addPetHotel(PetHotel ph, List<MultipartFile> files) {
 		System.out.println(ph.getPh_num());
@@ -63,10 +62,11 @@ public class PetHotelService {
 						// file업로드 안됐는디 게시글이 올려지는 게 이상함. 그래서 트랜잭션 적용 ㄱ_ㄱ
 						// 트랜잭션:
 						// insertFile이 실행되지 않았을 때 insertBoard도 실행되지 않게 해라!
-						
+
 					}
 				}
-			}return true;
+			}
+			return true;
 		}
 		return false;
 	}
@@ -111,6 +111,10 @@ public class PetHotelService {
 		return petHotelDao.selectAll();
 	}
 
+	public List<PetHotel> searchPetHotel(List<String> ph_address, PetHotel ph) {
+		return petHotelDao.search(ph_address, ph);
+	}
+
 	public int insertFile(Map<String, Object> param) {
 		return 0;
 
@@ -135,75 +139,78 @@ public class PetHotelService {
 
 		return view;
 	}
-	public List<String> getFileList(int ph_num){
+
+	public List<String> getFileList(int ph_num) {
 		List<String> filesName = petHotelDao.selectFileList(ph_num);
 		return filesName;
 	}
 
 	public boolean insert(PetHotelComment phc) {
-		if(petHotelComDao.insert(phc) > 0) {
+		if (petHotelComDao.insert(phc) > 0) {
 			return true;
 		}
 		return false;
 	}
+
 	public boolean update(PetHotelComment phc) {
 		if (petHotelComDao.update(phc) > 0) {
 			return true;
 		}
 		return false;
 	}
+
 	public boolean delete(int phc_num) {
 		if (petHotelComDao.delete(phc_num) > 0) {
 			return true;
 		}
 		return false;
 	}
+
 	public PetHotelComment selectByPhc_numOne(int phc_num) {
 		return petHotelComDao.selectByPhc_num(phc_num);
 	}
+
 	public List<PetHotelComment> selectByPh_num(int ph_num) {
 		return petHotelComDao.selectByPh_num(ph_num);
 	}
-	public List<PetHotelComment> selectAll(){
+
+	public List<PetHotelComment> selectAll() {
 		return petHotelComDao.selectAll();
-		
+
 	}
-	
-	
-	
-	
+
 	/////////////////////////////////////////
-	//pethotelRes
-	
+	// pethotelRes
+
 	public boolean insertPetHotelRes(PetHotelReservation phr) {
-		if(petHotelResDao.insert(phr)>0) {
+		if (petHotelResDao.insert(phr) > 0) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public boolean updatePetHotelRes(PetHotelReservation phr) {
-		if(petHotelResDao.update(phr) > 0) {
+		if (petHotelResDao.update(phr) > 0) {
 			return true;
 		}
 		return false;
-		
+
 	}
-	
+
 	public boolean deletePetHotelRes(PetHotelReservation phr) {
-		if(petHotelResDao.delete(phr) > 0) {
+		if (petHotelResDao.delete(phr) > 0) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public PetHotelReservation getOnePetHotelRes(int phr_num) {
 		return petHotelResDao.selectOneByNum(phr_num);
-		
+
 	}
-	
+
 	public List<PetHotelReservation> getAllPetHotelRes() {
 		return petHotelResDao.selectAll();
 	}
-	
+
 }
