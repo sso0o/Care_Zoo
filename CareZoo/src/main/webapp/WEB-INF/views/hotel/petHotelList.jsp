@@ -14,12 +14,9 @@
 <meta name="description" content="">
 <link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-<<<<<<< HEAD
-=======
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' />
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' />
->>>>>>> refs/heads/yjbranch
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <style type="text/css">
 ul {
@@ -50,11 +47,8 @@ ul {
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
-<<<<<<< HEAD
-=======
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
->>>>>>> refs/heads/yjbranch
 <script>
 	$(document).ready(function() {
 
@@ -230,11 +224,7 @@ ul {
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-<<<<<<< HEAD
 					<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
-=======
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
->>>>>>> refs/heads/yjbranch
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -275,7 +265,6 @@ ul {
 	<div>
 
 		<div>
-<<<<<<< HEAD
 			<fieldset>
 				<legend>호텔 옵션 선택</legend>
 				aa
@@ -289,7 +278,6 @@ ul {
 				<br>
 
 			</fieldset>
-=======
 			<table style="width: 420px;">
 				<tr>
 					<td colspan="3" class="top_space"></td>
@@ -379,7 +367,6 @@ ul {
 					</table>
 				</form>
 			</div>
->>>>>>> refs/heads/yjbranch
 		</div>
 
 		<div>
