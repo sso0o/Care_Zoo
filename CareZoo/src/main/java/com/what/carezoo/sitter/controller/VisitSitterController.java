@@ -180,6 +180,7 @@ public class VisitSitterController{
 		//model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
 		return "sitter/visit/reservation7";
 	}
+	//추가/변경폼
 	@RequestMapping(value="addForm",method=RequestMethod.POST)
 	@ResponseBody
 	public String addForm() {

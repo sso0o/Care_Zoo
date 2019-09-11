@@ -32,6 +32,7 @@ function petDeleteOpen(pd_week,p_num){
 			});
 
 }
+//추가/변경 클릭 함수...
 function add(c_num,p_num,p_name){	
 	console.log(c_num);
 	console.log(p_num);
@@ -48,7 +49,7 @@ function add(c_num,p_num,p_name){
 					console.log(result);
 					if(result){
 						alert("삭제완료");
-						location.href="${contextPath}/visit/addForm
+						location.href="${contextPath}/visit/addForm";
 					}else{
 						alert("삭제실패");
 					}
