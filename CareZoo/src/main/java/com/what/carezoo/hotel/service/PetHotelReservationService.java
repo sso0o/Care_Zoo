@@ -44,6 +44,10 @@ public class PetHotelReservationService {
 		return petHotelResDao.selectByResInfo(phr);
 	}
 	
+	public List<PetHotelReservation> getPetHotelResByCnum(int c_num) {
+		return petHotelResDao.selectByCnum(c_num);
+	}
+	
 	public List<PetHotelReservation> getAllPetHotelRes() {
 		return petHotelResDao.selectAll();
 	}

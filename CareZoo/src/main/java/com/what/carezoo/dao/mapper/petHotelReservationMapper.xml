@@ -9,7 +9,7 @@
 	<update id="update" parameterType="PetHotelReservation">
 		update PetHotelReservation
 		set phr_chekin=#{phr_chkin},
-			phr_chekout=#{phr_chkout},
+			phr_chekout=#{phr_chkout}
 		where phr_num = #{phr_num}
 	</update>
 
@@ -32,6 +32,13 @@
 		and #{phr_chkin} between phr_chkin and phr_chkout-1
 		and #{phr_chkout} between phr_chkin and phr_chkout
 	</select>
+	
+	<select id="selectByCnum" parameterType="int" resultType="PetHotelReservation">
+		select * 
+		from PetHotelReservation
+		where c_num = #{c_num}
+	</select>
+	
 	
 	<select id="selectAll" resultType="PetHotelReservation">
 		select * 

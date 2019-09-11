@@ -18,9 +18,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.HomeSitterReservation;
+import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.VisitSitterReservation;
+import com.what.carezoo.sitter.service.HomeSitterReservationService;
+import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.SitterService;
+import com.what.carezoo.sitter.service.VisitSitterReservationService;
+import com.what.carezoo.sitter.service.VisitSitterService;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
@@ -29,6 +37,15 @@ public class MemberController {
 	
 	@Autowired
 	private SitterService sService;
+	
+	@Autowired
+	private HomeSitterReservationService hsrService;
+	
+	@Autowired
+	private VisitSitterReservationService vsrService;
+	
+	@Autowired
+	private PetHotelReservationService phrService;
 	
 //	private 
 	//로그인
@@ -95,6 +112,32 @@ public class MemberController {
 	@RequestMapping(value="/myPage",method=RequestMethod.GET)
 	public String myPageForm() {
 		return "my&customer/mypageForm";
+	}
+	
+	//예약 가져오기
+	@ResponseBody
+	@RequestMapping(value="/myReservation",method=RequestMethod.GET)
+	public Map<String, Object> myReservation(int c_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		List<HomeSitterReservation> hsrList = hsrService.getHomeSitterResByCnum(c_num);
+		List<VisitSitterReservation> vsrList = vsrService.getVisitSitterResByCnum(c_num);
+		List<PetHotelReservation> phrList = phrService.getPetHotelResByCnum(c_num);
+		
+		if(hsrList.size()>0) {
+			rst.put("hsrList",hsrList);			
+		}
+		
+		if(vsrList.size()>0) {
+			rst.put("vsrList",vsrList);		
+		}
+		
+		if(phrList.size()>0) {
+			rst.put("phrList",phrList);			
+		}
+
+		System.out.println(rst);
+	
+		return rst;
 	}
 
 }
