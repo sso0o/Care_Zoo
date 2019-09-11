@@ -1,75 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterListDao">
-	<insert id="insertHslImageFile" parameterType="homeSitterList_Image">
-		insert into homeSitterList_Image(hsl_img_num, hsl_num, hsl_filename, hsl_write_date)
+	<insert id="insertHslImageFile"
+		parameterType="homeSitterList_Image">
+		insert into homeSitterList_Image(hsl_img_num, hsl_num,
+		hsl_filename, hsl_write_date)
 		values(homesitterlist_image_seq.nextval,${hsl_num},${hsl_filename},sysdate)
 	</insert>
 	<insert id="insertHsl" parameterType="homeSitterList">
-		<selectKey order="BEFORE" keyProperty="hsl_num" resultType="int">
+		<selectKey order="BEFORE" keyProperty="hsl_num"
+			resultType="int">
 			select homsitterlist_seq.nextval from dual
 		</selectKey>
-		insert into homesitterlist (hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age)
-		values (#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age})
+		insert into homesitterlist
+		(hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age)
+		values
+		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age})
 	</insert>
 	<insert id="insertHslAdd" parameterType="homeSitterList">
-		
+
 	</insert>
 	<update id="updateHsl" parameterType="homeSitterList">
-		
+
 	</update>
 	<delete id="deleteHsl" parameterType="int">
-		
+
 	</delete>
-	<select id="selectOnebyHsl_num" parameterType="int" resultType="homeSitterList">
-		
+	<select id="selectOnebyHsl_num" parameterType="int"
+		resultType="homeSitterList">
+		select * from homesitterlist where hsl_num = #{hsl_num}
 	</select>
-	<select id="searchHsl" parameterType="homeSitterList" resultType="homeSitterList"> 
-		SELECT * 
-		FROM homesitterlist 
-		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size}
-	</select>
-	
-	<select id="searchHsls" parameterType="homeSitterList" resultType="homeSitterList"> 
-		SELECT * 
-		FROM homesitterlist 
-		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size}
-	</select>
-	
-	<select id="searchHslbyAddress" parameterType="list" resultType="homeSitterlist"> 
+	<select id="searchHsl" parameterType="homeSitterList"
+		resultType="homeSitterList">
 		SELECT *
-		FROM homesitterlist 
-		<trim prefix="where" prefixOverrides="AND|OR">			
-			<foreach collection="list" item="item" separator="or">
-		    	hsl_address like ('%${item}%')
-		    </foreach>						
-		</trim>			  		
-		order by hsl_num desc			  
+		FROM homesitterlist
+		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size =
+		#{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND
+		hsl_size = #{hsl_size}
 	</select>
-		
+
+	<select id="searchHsls" parameterType="homeSitterList"
+		resultType="homeSitterList">
+		SELECT *
+		FROM homesitterlist
+		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size =
+		#{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND
+		hsl_size = #{hsl_size}
+	</select>
+
+	<select id="searchHslbyAddress" parameterType="list"
+		resultType="homeSitterlist">
+		SELECT *
+		FROM homesitterlist
+		<trim prefix="where" prefixOverrides="AND|OR">
+			<foreach collection="list" item="item" separator="or">
+				hsl_address like ('%${item}%')
+			</foreach>
+		</trim>
+		order by hsl_num desc
+	</select>
+
 	<select id="selectAllHsl" resultType="map">
 		SELECT *
-		FROM homesitterlist HSLI LEFT JOIN homesitter HS ON HSLI.HS_NUM = HS.HS_NUM 
-			 LEFT JOIN homesitterlist_image HSI ON HSLI.HSL_NUM = HSI.HSL_NUM
+		FROM homesitterlist hsli LEFT JOIN homesitter hs ON
+		hsli.hs_num = hs.hs_num
+		LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
 		<trim prefix="where" prefixOverrides="AND|OR">
-		
 			<if test="hsl.hsl_size != null">
-				or hsl_size = #{hsl.hsl_size}
+				and hsl_size = #{hsl.hsl_size}
 			</if>
 			<if test="hsl.hsl_service_type != null">
-				or hsl_service_type = #{hsl.hsl_service_type}
+				and hsl_service_type = #{hsl.hsl_service_type}
 			</if>
 			<if test="hsl.hsl_pet_age != null">
-				or hsl_pet_age = #{hsl.hsl_pet_age}
+				and hsl_pet_age = #{hsl.hsl_pet_age}
 			</if>
 			<if test="hsl.hsl_chkin != null">
-				or <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]>
+				and <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]>
 			</if>
-			<foreach collection="list" item="item">
-		    	 or hsl_address like ('%${item}%')
-		    </foreach>	
-
 		</trim>
+		and hsl_address in (select hsl_address from homesitterlist where
+		<foreach collection="list" item="item" separator="or">
+			hsl_address like ('%${item}%')
+		</foreach>
+		)
 	</select>
 </mapper>
 

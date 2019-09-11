@@ -6,7 +6,6 @@
 		into HotelReservation (hr_num, c_num, h_num, hr_child, hr_adult, hr_chekin, hr_chekout, hr_status)
 		values (hotelreservation_seq.nextval, #{c_num}, #{h_num}, #{hr_child}, #{hr_adult}, #{hr_chekin}, #{hr_chekout}, #{hr_status} )
 	</insert>
-
 	<update id="update" parameterType="HotelReservation">
 		update HotelReservation
 		set hr_child=#{hr_child},
@@ -15,21 +14,17 @@
 			hr_chekout=#{hr_chekout},
 		where hr_num = #{hr_num}
 	</update>
-
 	<delete id="delete" parameterType="HotelReservation">
 		delete from HotelReservation 
 		where hr_num = #{hr_num}
-	</delete>
-	
+	</delete>	
 	<select id="selectOne" parameterType="int" resultType="HotelReservation">
 		select *
 		from HotelReservation
 		where hr_num = #{hr_num}
-	</select>
-	
+	</select>	
 	<select id="selectAll" resultType="HotelReservation">
 		select * 
 		from HotelReservation
 	</select>
-
 </mapper>
