@@ -14,8 +14,6 @@ public class Pet_Details {
 	private ArrayList<String> p_name;
 	private int c_num;
 	
-	
-
 	public int getC_num() {
 		return c_num;
 	}

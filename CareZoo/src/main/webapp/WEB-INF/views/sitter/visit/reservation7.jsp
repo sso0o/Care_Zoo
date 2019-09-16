@@ -73,10 +73,19 @@ function add(c_num,p_num,p_name){
 					<td><input type="text" name="c_num" value="${c_num}"></td>
 					<td>
 					<c:forEach items="${p_num}" var="p">
-					<input type="text" name="p_num" value="${p}">
+						<input type="text" name="p_num" value="${p}">
 					</c:forEach>
 					<c:forEach items="${p_name}" var="n">
 					<input type="text" name="p_name" value="${n}">
+						</c:forEach>
+					<c:forEach items="${pd_week}" var="w">
+						<input type="text" name="pd_week" value="${w}">
+					</c:forEach>
+					<c:forEach items="${pd_hour}" var="h">
+						<input type="text" name="pd_hour" value="${h}">
+					</c:forEach>
+					<c:forEach items="${pd_hAdd}" var="a">
+						<input type="text" name="pd_hAdd" value="${a}">
 					</c:forEach>
 					</td>
 				</tr>

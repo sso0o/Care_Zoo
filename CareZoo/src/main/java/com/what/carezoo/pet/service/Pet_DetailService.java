@@ -42,8 +42,8 @@ public class Pet_DetailService {
 		return false;
 	}
 	
-	public List<Pet_Detail> selectByP_Num(List<Integer> p_num){
-		return pdDao.selectByP_Num(p_num);
+	public List<Pet_Detail> selectByP_Num(List<Integer> p_num,int c_num){
+		return pdDao.selectByP_Num(p_num, c_num);
 	}
 	
 	public List<Pet_Detail> selectByWeek(List<String> pd_week){

@@ -9,6 +9,20 @@ public class Pet_Detail {
 	private String pd_hAdd;
 	private String pd_date;
 	private String p_name;
+	private int c_num;
+	
+	
+	public int getC_num() {
+		return c_num;
+	}
+
+
+
+	public void setC_num(int c_num) {
+		this.c_num = c_num;
+	}
+
+
 
 	public String getP_name() {
 		return p_name;
@@ -95,6 +109,6 @@ public class Pet_Detail {
 	@Override
 	public String toString() {
 		return "Pet_Detail [pd_num=" + pd_num + ", p_num=" + p_num + ", pd_week=" + pd_week + ", pd_hour=" + pd_hour
-				+ ", pd_hAdd=" + pd_hAdd + ", pd_date=" + pd_date + ", p_name=" + p_name + "]";
+				+ ", pd_hAdd=" + pd_hAdd + ", pd_date=" + pd_date + ", p_name=" + p_name + ", c_num=" + c_num + "]";
 	}
 }
