@@ -6,27 +6,67 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사전만남 신청폼</title>
+<script type="text/javascript">
+//새창띄우기(playPlan)
+function openWin(){  
+    window.open("${contextPath}/visit/playPlan", "새창", "width=800, height=900, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
+
+//checkbox
+$(function() {
+	$("#btn").on("click", function() {
+
+		var check = $("#play").val();
+		if(check){
+			return true;
+		}
+	});
+});
+</script>
+<title>요청사항 폼!!</title>
 </head>
 <body>
-<form action="">
-		<input type="text" value="${p_name}" name="p_name"> 
-		<input type="text" name="p_num" value="${p_num}">
-	    <input type="text" name="pd_week" value="${pd_week}"> 
-	    <input type="text" name="pd_date" value="${pd_date}">
-	    <input type="text" name="pd_hour" value="${pd_hour}">
-	    <input type="text" name="pd_hAdd" value="${pd_hAdd}">
+<form action="sub" method="post">
+		<input type="text" name="c_num" value="${c_num}">
+		<c:forEach items="${p_num}" var="p">
+			<input type="text" name="p_num" value="${p}">
+		</c:forEach>
+		<c:forEach items="${p_name}" var="n">
+			<input type="text" name="p_name" value="${n}">
+		</c:forEach>
+		<c:forEach items="${pd_week}" var="w">
+			<input type="text" name="pd_week" value="${w}">
+		</c:forEach>
+		<c:forEach items="${pd_hour}" var="h">
+			<input type="text" name="pd_hour" value="${h}">
+		</c:forEach>
+		<c:forEach items="${pd_hAdd}" var="a">
+			<input type="text" name="pd_hAdd" value="${a}">
+		</c:forEach>
+
 		<div>
-			<button onclick="location.href=''">사전 만남 신청하기</button>
-			<br>
-			<button onclick="location.href=''">사전 만남 없이 진행하기</button>
+		<h2>펫시터에게 전달 할 요청사항이 있으신가요?</h2>
+			<table>
+				<tr>
+					<td>
+						<input type="checkbox" id="play" value="산책없이 놀이 서비스로 대체해주세요." >산책없이 놀이 서비스로 대체해주세요.<br>
+						<input type="checkbox" id="play" value="산책 위주로 진행해주세요." >산책 위주로 진행해주세요.<br>
+						<input type="checkbox" id="play" value="생식 급여가 필요합니다." >생식 급여가 필요합니다.<br>
+						<input type="checkbox" id="play" value="노령견 및 환자견 케어가 필요합니다." >노령견 및 환자견 케어가 필요합니다.<br>
+					</td> 
+				</tr>
+			</table>
+			<div>
+			<!-- 새창띄우기 -->
+				<input type="button" onclick="openWin()" value="놀이 프로그램 자세히보기">
+			</div>
+			<div>
+				<textarea rows="20" cols="60" placeholder="기타 요청 사항을 작성해주세요. 
+															*정해진 시간에 투약을 해약하거나, 야외 배변 필수 등 돌봄 중 펫시터가 유의해야하는 사항을 꼭 작성해주세요."></textarea>
+			</div>
+		<div>
+			<input type="submit" id="btn" value="다음">
 		</div>
-		<div>
-		<h2>사전만남이란?</h2>
-			<ul>
-				<li>강아지 체크리스트 작성 및 친화과정을 갖는 시간입니다.</li>
-				<li>사전만남은 신청 시 2~3일내로 진행하시는 걸 권장합니다.</li>
-			</ul>
 	</div>
 </form>		
 </body>

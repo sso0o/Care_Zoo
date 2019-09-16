@@ -1,11 +1,9 @@
 package com.what.carezoo.security;
 
-import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.management.relation.Role;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +15,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.what.carezoo.admin.service.AdminService;
@@ -83,7 +80,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("CUSTOMER"));
 				HttpSession session = request.getSession();
-				session.setAttribute("user_num", mService.getMemberByEmail(userid).getC_num());
+				session.setAttribute("c_num", mService.getMemberByEmail(userid).getC_num());
 				session.setAttribute("user_name", mService.getMemberByEmail(userid).getC_name());
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}

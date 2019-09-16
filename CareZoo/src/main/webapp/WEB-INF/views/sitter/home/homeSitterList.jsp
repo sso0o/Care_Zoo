@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <c:set var="contextPath" value="<%=request.getContextPath() %>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -9,14 +10,23 @@
 <meta charset="UTF-8">
 <title>homeSitterList</title>
 <!-- 가정용 펫시터 리스트 -->
+<!-- link for datepicker -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
+<!--  link for datepicker css -->
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/>
+<!-- link for navBar -->
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- script for datepicker -->
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
+<!-- script for navBar -->
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> 
 <script type="text/javascript"> 
 $(function () {
 	//검색탭
@@ -158,6 +168,42 @@ $(function () {
 </head>
 <body>
 <div>
+	<div class="container">
+        <header>
+            <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <br>
+            <div class="header_Btn"> <a class="btn_Login" href="#">로그인</a> <a class="btn_Join" href="#">회원가입</a> </div>
+        </header>
+    </div>
+    <nav>
+        <div class='menu'>
+            <ul style="">
+                <li class='active sub'><a href='#'>시터</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/visit/main'>가정펫시터</a></li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+                    </ul>
+                </li>
+                <li class='active sub'><a href='#'>호텔</a>
+                    <ul>
+                        <li class='last'><a href='#'>애견동반호텔</a></li>
+                        <li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
+                    </ul>
+                </li>
+                <li class='active sub'><a href='#'>후기</a>
+                    <ul>
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+                        <li class='last'><a href='#'>시터</a></li>
+                        <li class='last'><a href='#'>호텔</a></li>
+                    </ul>
+                </li>
+                <li class='last'><a href='#' style="font-size: 17px">마이페이지</a></li>
+                <li class='last'><a href='#' style="font-size: 17px">고객센터</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div>	
 	<!-- 지역 검색 -->
 	<div>
 	    <table style="width:420px;">

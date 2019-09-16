@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,10 +42,13 @@ public class VisitSitterController{
 	@Autowired
 	private Pet_WeekListDao pwlServcie;
 	//예약 메인(로그인, 회원가입)
-	@PreAuthorize("hasRole('CUSTOMER')")
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/main")
-	public String showMain() {
-		return "sitter/visit/Reservation1";
+	public String showMain(HttpSession session,Model model) {
+		int c_num = (Integer)session.getAttribute("c_num");
+		model.addAttribute("c_num", c_num);
+		
+		return "sitter/visit/reservation2";
 	}
 	//주소
 	@RequestMapping("/address")
@@ -82,23 +86,7 @@ public class VisitSitterController{
 //		model.addAttribute("url", url);
 //		return "result";
 //	}
-	//로그인
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String loginForm() {
-		return "sitter/visit/loginForm";
-	}
-	
-//	@RequestMapping(value="/login", method=RequestMethod.POST)
-//	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
-//		System.out.println(c_email);
-//		System.out.println(c_pass);
-//		if(memberService.login(c_email,c_pass)) {
-//			model.addAttribute("c_num", memberService.getMemberByEmail(c_email).getC_num());
-//			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
-//			return "sitter/visit/reservation2";
-//		}
-//		return "login";
-//	}
+
 	//일반돌봄신청
 	@RequestMapping(value="nomalapply",method=RequestMethod.GET)
 	public String reservation3_1Form(Model model,int c_num){
@@ -207,7 +195,7 @@ public class VisitSitterController{
 		model.addAttribute("p_name", petService.selectOnlyNameByP_Num(p_num));
 		return "sitter/visit/reservation6";
 	}
-	//예약내용 확인하는 폼
+	//예약내용 확인하는 폼(정기돌봄)
 	@RequestMapping(value="complete1",method=RequestMethod.POST)
 	public String reservation7Form(HttpServletRequest request,Model model,Pet_Details list
 			,@RequestParam() ArrayList<Integer> p_num,int c_num,
@@ -230,7 +218,7 @@ public class VisitSitterController{
 		return "sitter/visit/reservation7";
 	}
 	
-	//예약내용 확인하는 폼
+	//예약내용 확인하는 폼(일반돌봄)
 	@RequestMapping(value="complete11",method=RequestMethod.POST)
 	public String reservation9Form(HttpServletRequest request,Model model,Pet_Details list
 			,@RequestParam() ArrayList<Integer> p_num,int c_num,
@@ -250,7 +238,7 @@ public class VisitSitterController{
 		model.addAttribute("pd_hAdd", list.getPd_hAdd());
 		model.addAttribute("p_num", p_num);
 		//model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
-		return "sitter/visit/reservation9";
+		return "sitter/visit/reservation7_1";
 	}
 	
 	//추가/변경폼
@@ -274,26 +262,75 @@ public class VisitSitterController{
 		return pdService.deletePet_Detail(pd_week);
 	}
 	
-	//사전만남 신청폼
+	//전달 요청사항 신청폼
 	@RequestMapping(value="complete2",method=RequestMethod.POST)
-	public String reservationBtn(@RequestParam() ArrayList<Integer> p_num,Model model,String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd,String[] p_name) {
+	public String reservationBtn(@RequestParam() ArrayList<Integer> p_num,Model model,
+			String[] pd_week,String pd_hour,String pd_hAdd,
+			Pet_Detail pd,String[] p_name,int c_num) {
 	
-		for(int i :p_num) {
-			System.out.println(i);
-			pd.setP_num(i);
-			boolean result = pdService.insertPet_Detail(pd);
-			System.out.println(pd);
-			if (result) {
 				model.addAttribute("p_num", p_num);
-				model.addAttribute("week", pd_week);
-				model.addAttribute("hour", pd_hour);
-				model.addAttribute("hAdd", pd_hAdd);
+				model.addAttribute("pd_week", pd_week);
+				model.addAttribute("pd_hour", pd_hour);
+				model.addAttribute("pd_hAdd", pd_hAdd);
 				model.addAttribute("p_name", p_name);
-			}
-		}
-			model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
-			System.out.println(pdService.selectByP_Num(p_num));
+				model.addAttribute("c_num", c_num);
+
 		return "sitter/visit/reservation8";
 	}
 	
+	//놀이시간표체크폼
+	@RequestMapping(value="playPlan",method=RequestMethod.GET)
+	public String playPlanForm() {
+		return "sitter/visit/playPlan";
+	}
+	
+	//예약 확인 및 결제정보 폼
+	@RequestMapping(value="reservation10",method=RequestMethod.GET)
+	public String reservation10Form(@RequestParam() ArrayList<Integer> p_num,Model model,
+			String[] pd_week,String pd_hour,String pd_hAdd,
+			Pet_Detail pd,String[] p_name,int c_num) {
+		
+		model.addAttribute("p_num", p_num);
+		model.addAttribute("pd_week", pd_week);
+		model.addAttribute("pd_hour", pd_hour);
+		model.addAttribute("pd_hAdd", pd_hAdd);
+		model.addAttribute("p_name", p_name);
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("address", memberService.getMemberByC_num(c_num));
+		return "sitter/visit/reservation10";
+	}
+	
+	//예약 확인및 결제정보 (일반)
+	@RequestMapping(value="sub",method=RequestMethod.POST)
+	public String reservation10(@RequestParam() ArrayList<Integer> p_num,Model model,
+			String[] pd_week,String pd_hour,String pd_hAdd,
+			Pet_Detail pd,String[] p_name,int c_num) {
+		
+				model.addAttribute("p_num", p_num);
+				model.addAttribute("pd_week", pd_week);
+				model.addAttribute("pd_hour", pd_hour);
+				model.addAttribute("pd_hAdd", pd_hAdd);
+				model.addAttribute("p_name", p_name);
+				model.addAttribute("c_num", c_num);
+				model.addAttribute("address", memberService.getMemberByC_num(c_num));
+				
+		return "sitter/visit/reservation10";
+	}
+	
+	//요금 세부 정보 보기 폼
+	@RequestMapping(value="payment",method=RequestMethod.POST)
+	public String paymentForm(@RequestParam() ArrayList<Integer> p_num,Model model,
+			String[] pd_week,String pd_hour,String[] pd_hAdd,
+			Pet_Detail pd,String[] p_name,int c_num) {
+				
+				model.addAttribute("p_num", p_num);
+				model.addAttribute("pd_week", pd_week);
+				model.addAttribute("pd_hour", pd_hour);
+				model.addAttribute("pd_hAdd", pd_hAdd);
+				model.addAttribute("p_name", p_name);
+				model.addAttribute("c_num", c_num);
+				model.addAttribute("list", pdService.selectByP_Num(p_num,c_num));
+
+		return "sitter/visit/payment";
+	}
 }
