@@ -86,17 +86,17 @@ public class VisitSitterController{
 		return "sitter/visit/loginForm";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
-		System.out.println(c_email);
-		System.out.println(c_pass);
-		if(memberService.login(c_email,c_pass)) {
-			model.addAttribute("c_num", memberService.getMemberByEmail(c_email).getC_num());
-			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
-			return "sitter/visit/reservation2";
-		}
-		return "login";
-	}
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
+//		System.out.println(c_email);
+//		System.out.println(c_pass);
+//		if(memberService.login(c_email,c_pass)) {
+//			model.addAttribute("c_num", memberService.getMemberByEmail(c_email).getC_num());
+//			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
+//			return "sitter/visit/reservation2";
+//		}
+//		return "login";
+//	}
 	//일반돌봄신청
 	@RequestMapping(value="nomalapply",method=RequestMethod.GET)
 	public String reservation3_1Form(Model model,int c_num){
