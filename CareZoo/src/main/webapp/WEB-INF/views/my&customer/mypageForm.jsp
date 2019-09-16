@@ -138,7 +138,6 @@
 	width: 100%; /* Full width */
 	height: 100%; /* Full height */
 	background-color: rgba(0, 0, 0, 0.4);
-	
 }
 
 .modal-table {
@@ -150,8 +149,8 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-  	margin-top: -150px;  
-  	margin-left: -275px;  
+	margin-top: -150px;
+	margin-left: -275px;
 }
 
 .modal-table th {
@@ -234,7 +233,7 @@
 						end : data.vsrList[i].vsr_chkout,
 						title : '방문시터예약',
 						description : '이거슨 방문시터',
-						color : 'purple'
+						color : 'rgba(0, 0, 120, 0.6)'
 					}
 					calendar.addEvent(e)
 					calendar.render();
@@ -248,7 +247,7 @@
 						end : data.hsrList[i].hsr_chkout,
 						title : '가정시터예약',
 						description : '이거슨 가정시터',
-						color : 'green'
+						color : 'rgba(0, 120, 0, 0.6)'
 					}
 					calendar.addEvent(e)
 					calendar.render();
@@ -262,7 +261,7 @@
 						end : data.phrList[i].phr_chkout+'T11:00',
 						title : '펫호텔예약',
 						description : '이거슨 펫호텔',
-						color : 'red'
+						color : 'rgba(200, 0, 0, 0.6)'
 					}
 					calendar.addEvent(e)
 					calendar.render();
@@ -273,7 +272,8 @@
 				alert("데이터를 불러오는데 실패했습니다.")
 			}
 		})
-	calendar.render();
+
+		calendar.render();
 
 	});
 	
@@ -292,6 +292,7 @@
 #calendar {
 	max-width: 900px;
 	margin: 50px auto;
+	max-height: 700px;
 }
 </style>
 <title>mypage</title>
@@ -357,39 +358,39 @@
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
 	<div class="modal-modify" id="reply-modal">
 		<!-- css 적용 하기 위한 경우 class -->
-		
-			<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-			<table class="modal-table">
-				<tr>
-					<input type="hidden" name="a" value="">
-					<input type="hidden" name="id" id="" value="">
-				</tr>
-				<tr>
-					<th>이름</th>
-					<td>
-						<input type="text" name="name" id="modal-name" value="">
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td>
-						<input type="text" name="pw" id="modal-pass" placeholder="비밀번호을 입력하세요">
-					</td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td>
-						<input type="text" name="content" id="modal-content" value="">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="button" id="btnModify" value="수정">
-						<input type="button" id="btnDelete" value="삭제">
-						<input type="button" id="btnClose" value="닫기">
-					</td>
-				</tr>
-			</table>
+
+		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
+		<table class="modal-table">
+			<tr>
+				<input type="hidden" name="a" value="">
+				<input type="hidden" name="id" id="" value="">
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td>
+					<input type="text" name="name" id="modal-name" value="">
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td>
+					<input type="text" name="pw" id="modal-pass" placeholder="비밀번호을 입력하세요">
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<input type="text" name="content" id="modal-content" value="">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" id="btnModify" value="수정">
+					<input type="button" id="btnDelete" value="삭제">
+					<input type="button" id="btnClose" value="닫기">
+				</td>
+			</tr>
+		</table>
 
 	</div>
 
