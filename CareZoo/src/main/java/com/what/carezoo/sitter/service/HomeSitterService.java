@@ -68,7 +68,9 @@ public class HomeSitterService {
 	public List<HomeSitterList> getByHsl(HomeSitterList hsl){
 		return hslDao.searchHsls(hsl);
 	}
-	
+	public List<HomeSitterList> getallHsl(){
+		return hslDao.selectHsl();
+	}
 	public String writeFile(MultipartFile file) {
 		String fullName = null;
 		UUID uuid = UUID.randomUUID();

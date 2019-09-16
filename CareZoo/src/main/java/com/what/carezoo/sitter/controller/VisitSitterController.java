@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,6 +41,7 @@ public class VisitSitterController{
 	@Autowired
 	private Pet_WeekListDao pwlServcie;
 	//예약 메인(로그인, 회원가입)
+	@PreAuthorize("hasRole('CUSTOMER')")
 	@RequestMapping("/main")
 	public String showMain() {
 		return "sitter/visit/Reservation1";

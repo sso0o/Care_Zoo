@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,20 +24,22 @@ public class HomeSitterController {
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")
 	public String enterHomeSitterMain(Model model) {
+		model.addAttribute("hslList", hsService.getallHsl());
+		System.out.println(hsService.getallHsl());
 		return "sitter/home/homeSitterList";
 	}
 	// 가정시터 검색목록 가져오기
 	@ResponseBody
 	@RequestMapping("/search")
 	public List<HomeSitterList> searchHS(@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address, HomeSitterList hsl) {
+		if(hsl==null) {			
+			hsl = new HomeSitterList();
+		}
+		if(hsl_address==null) {
+			hsl_address = new ArrayList<String>(); 			
+		}		
 		System.out.println("모델:"+hsl_address);
 		System.out.println("hsl:"+hsl);
-//		if(hsl==null) {			
-//			hsl = new HomeSitterList();
-//		}
-//		if(hsl_address==null) {
-//			hsl_address = new ArrayList<String>(); 			
-//		}		
 		System.out.println("값"+hsService.getbySearchingHsl(hsl_address,hsl));
 		return hsService.getbySearchingHsl(hsl_address,hsl);
 	}
@@ -55,5 +58,10 @@ public class HomeSitterController {
 //		System.out.println("num:"+hsl_num+"list : "+hsService.getHomeSitterByHsl_Num(hsl_num));
 		model.addAttribute("hsList", hsService.getHomeSitterByHsl_Num(hsl_num));
 		return "sitter/home/homeSitterView";
+	}
+	@RequestMapping("/reserve")
+	@PreAuthorize("hasRole('CUSTOMER')")
+	public String reserveHomeSitter(Model model) {
+		return "sitter/home/homeSitterList";
 	}
 }

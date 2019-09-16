@@ -16,6 +16,7 @@ public interface HomeSitterListDao {
 	public HomeSitterList selectOnebyHsl_num(int hsl_num);
 	public HomeSitterList searchHsl(HomeSitterList hsl);
 	public List<HomeSitterList> searchHsls(HomeSitterList hsl);	
+	public List<HomeSitterList> selectHsl();	
 	public List<HomeSitterList> selectAllHsl(@Param("list")List<String> hsl_address, @Param("hsl")HomeSitterList hsl);
 	public int insertHslImageFile(HomeSitterList_Image hsl_img);
 }

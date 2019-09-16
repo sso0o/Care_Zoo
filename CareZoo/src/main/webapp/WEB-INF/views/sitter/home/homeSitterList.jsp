@@ -20,8 +20,6 @@
 <script type="text/javascript"> 
 $(function () {
 	//검색탭
-	slideImage();
-	
 	var isMenu1 = false;
 	$("#menu_1").on("click", function(){	
 		
@@ -62,7 +60,7 @@ $(function () {
 		isMenu2 = false;
 	});
 	//datepicker동작
-	var datepickerStart = $('.col-dates .pull-left').datepicker({
+	var datepickerStart = $('#hsl_chkin').datepicker({
 		dateFormat: 'yy-mm-dd', 
 		minDate: moment('yy-mm-dd').toDate(),
 		onSelect: function (selected) {
@@ -75,85 +73,48 @@ $(function () {
 			}
 		}
 	});
-	var datepickerEnd = $('.col-dates .pull-right').datepicker({
+	var datepickerEnd = $('#hsl_chkout').datepicker({
 		dateFormat: 'yy-mm-dd', 
 		minDate: moment('yy-mm-dd').toDate()
 	});
 	//state 검색 폼 전달
-// 	$("form").on("submit",function(){
 	$("form").on("submit",function(){
 		event.preventDefault();
 		var stateParam = $('input[name=hsl_address]:checked').serialize();
 		var detailParam = $("#detail_form").serialize();
-		var dateStart = moment(datepickerStart.datepicker('getDate'));
-		var dateEnd = moment(datepickerEnd.datepicker('getDate'));
-		if (dateStart.isValid() && dateEnd.isValid()) {
-			detailParam.hsl_chkin = dateStart.format('YYYY-MM-DD');
-			detailParam.hsl_chkout = dateEnd.format('YYYY-MM-DD');
-		}
 		console.log("stateParam submit : " +stateParam);
 		console.log("detailParam submit : " +detailParam);
-		document.getElementById('stateParam&detailParam').submit();
-// 		$.ajax({
-// 			url:"${contextPath}/home/search",
-// 			data:stateParam+'&'+detailParam,
-// 			type:"get",
-// 			dataType:"json",
-// 			success:function(d){
-// 				if(d){
-// 					alert("등록완료");
-// 					console.log("result : "+d);
-// 					for(var i in d){
-// 						var table = $('<table>');
-// 						$('<tr>').appendTo(table);
-// 						$('<td>)').text(d[i].HSL_FILENAME).appendTo(table);						
-// 						$('<td>)').text(d[i].HSL_ADDRESS).appendTo(table);
-// 						$('<td>)').text(d[i].HSL_CHKIN).appendTo(table);
-// 						$('<td>)').text(d[i].HSL_CHKOUT).appendTo(table);
-// 						$('<td>)').text(d[i].HS_NAME).appendTo(table);
-// 						$('</tr>').appendTo(table);
-// 						$('</table>').appendTo(table);
-// 						$(".homeSitterList").append(table);
-// 					}					
-// 				}else{
-// 					alert("오류발생!!");
-// 				}
-// 			},
-// 			error:function(request,status,error){
-// 				alert(" error = " + error);
-// 			}
-// 		});// ajax
-// 		return false;
-	});
-	
-	//이미지 띄우기
-	function slideImage(){
-		var imgs = $("#showImg");
-		var img_count = imgs.children().size;
-		var img_position = 1;
-		$('#backImg').click(function(){
-			back();
-		});
-		$('#nextImg').click(function(){
-			next();
-		});
-		function back(){
-			if(1<img_position){
-				imgs.animate({
-					left:'100px'
-				});
-				img_position--;
-			}		
-		}
-		function next(){
-			if(img_count>img_position){
-				imgs.animate({
-					left:'-100px'
-				});
-				img_position++;
+		$.ajax({
+			url:"${contextPath}/home/search",
+			data:stateParam+'&'+detailParam,
+			type:"get",
+			dataType:"json",
+			success:function(d){
+				if(d){
+					alert("등록완료");
+					console.log("result : "+d);
+					for(var i in d){
+						var table = $('<table>');
+						$('<tr>').appendTo(table);
+						$('<td>)').text(d[i].HSL_FILENAME).appendTo(table);						
+						$('<td>)').text(d[i].HSL_ADDRESS).appendTo(table);
+						$('<td>)').text(d[i].HSL_CHKIN).appendTo(table);
+						$('<td>)').text(d[i].HSL_CHKOUT).appendTo(table);
+						$('<td>)').text(d[i].HS_NAME).appendTo(table);
+						$('</tr>').appendTo(table);
+						$('</table>').appendTo(table);
+						$(".homeSitterList").append(table);
+					}					
+				}else{
+					alert("오류발생!!");
+				}
+			},
+			error:function(request,status,error){
+				alert(" error = " + error);
 			}
-		}		
-	}
+		});// ajax
+		return false;
+	});
 });
 </script>
 <style type="text/css">
@@ -364,15 +325,10 @@ $(function () {
 		</div>                                        
 	</div> 
 	<!-- 홈시터 검색필터 설정부분 -->
-	<div class="main-wrap no-profile">
+	<div>
 		<form id="detail_form">
 			<table>
 				<tr>
-					<td>
-	<!-- 					<input type="hidden" name="hsl_address" value=""> -->
-					</td>
-				</tr>
-				<tr class="col-type">
 					<th>서비스</th>
 					<td>
 						<select name="hsl_service_type"  >
@@ -381,15 +337,15 @@ $(function () {
 						</select>
 					</td>
 				</tr>
-				<tr class="col-dates">
+				<tr>
 					<th>예약일</th>
 					<td >
-						<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" />
+						<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin"/>
 						<span>&gt;</span>
-						<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" />
+						<input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout"/>
 					</td>
 				</tr>
-				<tr class="col-age">
+				<tr>
 					<th>반려견 나이</th>
 					<td>
 						<select name="hsl_pet_age" data-width="130px">
@@ -400,7 +356,7 @@ $(function () {
 						</select>
 					</td>
 				</tr>
-				<tr class="col-size">
+				<tr>
 					<th>반려견 크기</th>
 					<td>
 						<select name="hsl_size" data-width="130px">
@@ -411,9 +367,9 @@ $(function () {
 						</select>
 					</td>
 				</tr>
-				<tr class="col-btn">
+				<tr>
 					<td>
-						<button class="btn hidden-xs">찾기</button>
+						<button type="submit" class="btn">찾기</button>
 						<button type="reset" class="btn">초기화</button>
 					</td>
 				</tr>
@@ -443,36 +399,38 @@ $(function () {
 			</tr>
 		</table>
 	</div>
-<!-- 	<div class="homeSitterlist"> -->
-<%-- 		<c:forEach var="phList" items="${phList}"> --%>
-<!-- 			<div style="border: 1px solid; margin: 50px; height: 350px;"> -->
+	<div class="homeSitterlist">
+		<c:forEach var="hslList" items="${hslList}">
+			<div style="border: 1px solid; margin: 50px; height: 350px;">
 <!-- 				<div style="width: auto; display: inline-block display:inline; float: left;"> -->
 <!-- 					<div class="item"> -->
 <!-- 						<div class="clearfix" style="max-width: 350px;"> -->
 <!-- 							<ul class="image-gallery" class="gallery list-unstyled cS-hidden"> -->
-<%-- 								<c:forEach items="${phList.ph_filesName}" var="fn"> --%>
-<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 350px; height: 350px;" /></li> --%>
+<%-- 								<c:forEach items="${hslList.ph_filesName}" var="fn"> --%>
+<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"> --%>
+<%-- 										<img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 350px; height: 350px;" /> --%>
+<!-- 									</li> -->
 <%-- 								</c:forEach> --%>
 <!-- 							</ul> -->
 <!-- 						</div> -->
 <!-- 					</div> -->
 <!-- 					<br> -->
 <!-- 				</div> -->
-<!-- 				<div style=""> -->
-<%-- 					<span></span> <br> <a href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a> <br> --%>
-<%-- 					<div>${phList.ph_address}${phList.ph_d_address}</div> --%>
-<!-- 					<div> -->
-<%-- 						<fmt:formatNumber value="${phList.ph_minPrice }" pattern="#,###" /> --%>
-<!-- 						~ -->
-<%-- 						<fmt:formatNumber value="${phList.ph_maxPrice }" pattern="#,###" /> --%>
-<!-- 					</div> -->
-<!-- 					<div> -->
-<%-- 						후기:${phList.ph_c_count}개 <br> ${phList.ph_avgStar } --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<%-- 		</c:forEach> --%>
-<!-- 	</div> -->
+				<div>
+					<span></span> <br> <a href="${contextPath}/home/homeSitterView?hsl_num=${hslList.hsl_num}">${hslList.ph_name}</a><br>
+					<div>${hslList.ph_address}${hslList.ph_d_address}</div>
+					<div>
+						<fmt:formatNumber value="${hslList.ph_minPrice }" pattern="#,###" />
+						~
+						<fmt:formatNumber value="${hslList.ph_maxPrice }" pattern="#,###" />
+					</div>
+					<div>
+						후기:${hslList.ph_c_count}개 <br> ${hslList.ph_avgStar }
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
 </div>
 </body>                                                  
 </html>                                                                                                      
