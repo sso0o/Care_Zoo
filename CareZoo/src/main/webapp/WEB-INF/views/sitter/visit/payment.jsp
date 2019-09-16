@@ -55,12 +55,14 @@ th{
 		</tr>
 		
 			<c:forEach items="${pd_week}" var="week">
-			<tr>
-				<th>${week}</th>
-			</tr>
+				<tr>
+					<td>${week}</td>
+					<td></td>
+				</tr>
 			</c:forEach>
+			<th>추가 시간 내역</th>
 			<c:forEach items="${pd_hAdd}" var="hAdd">
-				<th>${hAdd}</th>
+				<td>${hAdd}</td>
 				
 			</c:forEach>
 				

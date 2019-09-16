@@ -80,7 +80,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("CUSTOMER"));
 				HttpSession session = request.getSession();
-				session.setAttribute("user_num", mService.getMemberByEmail(userid).getC_num());
+				session.setAttribute("c_num", mService.getMemberByEmail(userid).getC_num());
 				session.setAttribute("user_name", mService.getMemberByEmail(userid).getC_name());
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}

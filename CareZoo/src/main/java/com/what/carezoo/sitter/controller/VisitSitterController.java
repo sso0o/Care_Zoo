@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,8 +44,11 @@ public class VisitSitterController{
 	//예약 메인(로그인, 회원가입)
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/main")
-	public String showMain(Model model) {
-		return "sitter/visit/Reservation1";
+	public String showMain(HttpSession session,Model model) {
+		int c_num = (Integer)session.getAttribute("c_num");
+		model.addAttribute("c_num", c_num);
+		
+		return "sitter/visit/reservation2";
 	}
 	//주소
 	@RequestMapping("/address")
@@ -82,23 +86,7 @@ public class VisitSitterController{
 //		model.addAttribute("url", url);
 //		return "result";
 //	}
-	//로그인
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String loginForm() {
-		return "sitter/visit/loginForm";
-	}
-	
-//	@RequestMapping(value="/login", method=RequestMethod.POST)
-//	public String login(HttpServletRequest request,Model model,String c_email, String c_pass) {
-//		System.out.println(c_email);
-//		System.out.println(c_pass);
-//		if(memberService.login(c_email,c_pass)) {
-//			model.addAttribute("c_num", memberService.getMemberByEmail(c_email).getC_num());
-//			model.addAttribute("c_name",memberService.getMemberByEmail(c_email).getC_name());
-//			return "sitter/visit/reservation2";
-//		}
-//		return "login";
-//	}
+
 	//일반돌봄신청
 	@RequestMapping(value="nomalapply",method=RequestMethod.GET)
 	public String reservation3_1Form(Model model,int c_num){
