@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.VisitSitterReservationDao">
+
+	<insert id="insert" parameterType="VisitSitterReservation">
+		insert
+		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_chkout, vsr_hour)
+		values (visitsitterreservation_seq.nextval,#{c_num}, #{vs_num}, #{vsr_chkin}, #{vsr_chkout}, #{vsr_hour} )
+	</insert>
+
+	<update id="update" parameterType="VisitSitterReservation">
+		update visitsitterreservation
+		set vsr_chkin = #{vsr_chkin},
+		vsr_chkout = #{vsr_chkout},
+		vsr_hour = #{vsr_hour}
+		where hsr_num = #{hsr_num}
+	</update>
+
+	<delete id="delete" parameterType="VisitSitterReservation">
+		delete from
+		visitsitterreservation
+		where hsr_num = #{hsr_num}
+	</delete>
+
+	<select id="selectByCnum" parameterType="int" resultType="VisitSitterReservation">
+		select *
+		from visitsitterreservation
+		where c_num = #{c_num}
+	</select>
+
+
+	<select id="selectAll" resultType="VisitSitterReservation">
+		select *
+		from visitsitterreservation
+	</select>
 </mapper>

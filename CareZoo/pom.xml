@@ -30,7 +30,7 @@
 		<org.aspectj-version>1.9.2</org.aspectj-version>
 		<org.springframework.security-version>4.2.3.RELEASE</org.springframework.security-version>
 	</properties>
-
+	
 	<dependencies>
 
 		<dependency>

@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/qnatabstyle.css" />
 <script type="text/javascript" src="${contextPath }/resources/js/qnatab.js"></script>
@@ -46,17 +45,16 @@
 
 	<div class="container">
 		<section class="tabs">
-			<input id="tab-1" type="radio" name="radio-set"
-				class="tab-selector-1" checked="checked" /> <label for="tab-1"
-				class="tab-label-1">방문펫시터</label> <input id="tab-2" type="radio"
-				name="radio-set" class="tab-selector-2" /> <label for="tab-2"
-				class="tab-label-2">가정펫시터</label> <input id="tab-3" type="radio"
-				name="radio-set" class="tab-selector-3" /> <label for="tab-3"
-				class="tab-label-3">서비스가격</label> <input id="tab-4" type="radio"
-				name="radio-set" class="tab-selector-4" /> <label for="tab-4"
-				class="tab-label-4">펫시터지원</label> <input id="tab-5" type="radio"
-				name="radio-set" class="tab-selector-5" /> <label for="tab-5"
-				class="tab-label-5">기타</label>
+			<input id="tab-1" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
+			<label for="tab-1" class="tab-label-1">방문펫시터</label>
+			<input id="tab-2" type="radio" name="radio-set" class="tab-selector-2" />
+			<label for="tab-2" class="tab-label-2">가정펫시터</label>
+			<input id="tab-3" type="radio" name="radio-set" class="tab-selector-3" />
+			<label for="tab-3" class="tab-label-3">서비스가격</label>
+			<input id="tab-4" type="radio" name="radio-set" class="tab-selector-4" />
+			<label for="tab-4" class="tab-label-4">펫시터지원</label>
+			<input id="tab-5" type="radio" name="radio-set" class="tab-selector-5" />
+			<label for="tab-5" class="tab-label-5">기타</label>
 
 
 			<div class="clear-shadow"></div>

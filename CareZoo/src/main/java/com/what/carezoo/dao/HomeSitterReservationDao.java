@@ -1,5 +1,15 @@
 package com.what.carezoo.dao;
 
-public interface HomeSitterReservationDao {
+import java.util.List;
 
+import com.what.carezoo.model.HomeSitterReservation;
+
+public interface HomeSitterReservationDao {
+	
+	public int insert(HomeSitterReservation hsr);
+	public int update(HomeSitterReservation hsr);
+	public int delete(HomeSitterReservation hsr);
+	public List<HomeSitterReservation> selectByCnum(int c_num);
+//	public HomeSitterReservation selectByResInfo(HomeSitterReservation hsr);
+	public List<HomeSitterReservation> selectAll();
 }
