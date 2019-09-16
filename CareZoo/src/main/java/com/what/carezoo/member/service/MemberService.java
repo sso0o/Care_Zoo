@@ -18,18 +18,18 @@ public class MemberService {
 	
 //	private SqlSessionTemplate userSqlsession;
 	
-//	//로그인
-//	public boolean login(String c_email,String c_pass) {
-//		Customer member = memberDao.selectOneByEmail(c_email);
-//		if(member!=null) {
-//			String originPass = member.getC_pass();
-//			if(c_pass.equals(originPass)) {
-//				//아이디존재, 비밀번호 일치
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	//로그인
+	public boolean login(String c_email,String c_pass) {
+		Customer member = memberDao.selectOneByEmail(c_email);
+		if(member!=null) {
+			String originPass = member.getC_pass();
+			if(c_pass.equals(originPass)) {
+				//아이디존재, 비밀번호 일치
+				return true;
+			}
+		}
+		return false;
+	}
 	//비밀번호 중복 확인
 	public boolean pass(String c_pass,String c_pass_chk) {
 		if(c_pass.equals(c_pass_chk)) {

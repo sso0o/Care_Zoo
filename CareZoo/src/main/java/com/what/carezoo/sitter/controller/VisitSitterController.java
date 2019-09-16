@@ -205,7 +205,7 @@ public class VisitSitterController{
 		model.addAttribute("p_name", petService.selectOnlyNameByP_Num(p_num));
 		return "sitter/visit/reservation6";
 	}
-	//예약내용 확인하는 폼
+	//예약내용 확인하는 폼(정기돌봄)
 	@RequestMapping(value="complete1",method=RequestMethod.POST)
 	public String reservation7Form(HttpServletRequest request,Model model,Pet_Details list
 			,@RequestParam() ArrayList<Integer> p_num,int c_num,
@@ -228,7 +228,7 @@ public class VisitSitterController{
 		return "sitter/visit/reservation7";
 	}
 	
-	//예약내용 확인하는 폼
+	//예약내용 확인하는 폼(일반돌봄)
 	@RequestMapping(value="complete11",method=RequestMethod.POST)
 	public String reservation9Form(HttpServletRequest request,Model model,Pet_Details list
 			,@RequestParam() ArrayList<Integer> p_num,int c_num,
@@ -248,7 +248,7 @@ public class VisitSitterController{
 		model.addAttribute("pd_hAdd", list.getPd_hAdd());
 		model.addAttribute("p_num", p_num);
 		//model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
-		return "sitter/visit/reservation9";
+		return "sitter/visit/reservation7_1";
 	}
 	
 	//추가/변경폼
@@ -272,26 +272,75 @@ public class VisitSitterController{
 		return pdService.deletePet_Detail(pd_week);
 	}
 	
-	//사전만남 신청폼
+	//전달 요청사항 신청폼
 	@RequestMapping(value="complete2",method=RequestMethod.POST)
-	public String reservationBtn(@RequestParam() ArrayList<Integer> p_num,Model model,String[] pd_week,String[] pd_hour,String[] pd_hAdd,Pet_Detail pd,String[] p_name) {
+	public String reservationBtn(@RequestParam() ArrayList<Integer> p_num,Model model,
+			String[] pd_week,String pd_hour,String pd_hAdd,
+			Pet_Detail pd,String[] p_name,int c_num) {
 	
-		for(int i :p_num) {
-			System.out.println(i);
-			pd.setP_num(i);
-			boolean result = pdService.insertPet_Detail(pd);
-			System.out.println(pd);
-			if (result) {
 				model.addAttribute("p_num", p_num);
-				model.addAttribute("week", pd_week);
-				model.addAttribute("hour", pd_hour);
-				model.addAttribute("hAdd", pd_hAdd);
+				model.addAttribute("pd_week", pd_week);
+				model.addAttribute("pd_hour", pd_hour);
+				model.addAttribute("pd_hAdd", pd_hAdd);
 				model.addAttribute("p_name", p_name);
-			}
-		}
-			model.addAttribute("pd_List", pdService.selectByP_Num(p_num));
-			System.out.println(pdService.selectByP_Num(p_num));
+				model.addAttribute("c_num", c_num);
+
 		return "sitter/visit/reservation8";
 	}
 	
+	//놀이시간표체크폼
+	@RequestMapping(value="playPlan",method=RequestMethod.GET)
+	public String playPlanForm() {
+		return "sitter/visit/playPlan";
+	}
+	
+	//예약 확인 및 결제정보 폼
+	@RequestMapping(value="reservation10",method=RequestMethod.GET)
+	public String reservation10Form(@RequestParam() ArrayList<Integer> p_num,Model model,
+			String[] pd_week,String pd_hour,String pd_hAdd,
+			Pet_Detail pd,String[] p_name,int c_num) {
+		
+		model.addAttribute("p_num", p_num);
+		model.addAttribute("pd_week", pd_week);
+		model.addAttribute("pd_hour", pd_hour);
+		model.addAttribute("pd_hAdd", pd_hAdd);
+		model.addAttribute("p_name", p_name);
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("address", memberService.getMemberByC_num(c_num));
+		return "sitter/visit/reservation10";
+	}
+	
+	//예약 확인및 결제정보 (일반)
+	@RequestMapping(value="sub",method=RequestMethod.POST)
+	public String reservation10(@RequestParam() ArrayList<Integer> p_num,Model model,
+			String[] pd_week,String pd_hour,String pd_hAdd,
+			Pet_Detail pd,String[] p_name,int c_num) {
+		
+				model.addAttribute("p_num", p_num);
+				model.addAttribute("pd_week", pd_week);
+				model.addAttribute("pd_hour", pd_hour);
+				model.addAttribute("pd_hAdd", pd_hAdd);
+				model.addAttribute("p_name", p_name);
+				model.addAttribute("c_num", c_num);
+				model.addAttribute("address", memberService.getMemberByC_num(c_num));
+				
+		return "sitter/visit/reservation10";
+	}
+	
+	//요금 세부 정보 보기 폼
+	@RequestMapping(value="payment",method=RequestMethod.POST)
+	public String paymentForm(@RequestParam() ArrayList<Integer> p_num,Model model,
+			String[] pd_week,String pd_hour,String[] pd_hAdd,
+			Pet_Detail pd,String[] p_name,int c_num) {
+				
+				model.addAttribute("p_num", p_num);
+				model.addAttribute("pd_week", pd_week);
+				model.addAttribute("pd_hour", pd_hour);
+				model.addAttribute("pd_hAdd", pd_hAdd);
+				model.addAttribute("p_name", p_name);
+				model.addAttribute("c_num", c_num);
+				model.addAttribute("list", pdService.selectByP_Num(p_num,c_num));
+
+		return "sitter/visit/payment";
+	}
 }

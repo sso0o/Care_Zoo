@@ -37,8 +37,8 @@
 		delete from pet_detail where pd_week like #{pd_week}
 	</delete>
 
-	<select id="selectByP_Num" parameterType="list"
-		resultType="pet_detail">
+	<select id="selectByP_Num"
+		resultType="map">
 		select * from pet_detail
 		<trim prefix="where" prefixOverrides="OR">
 			<if test="list != null">
