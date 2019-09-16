@@ -209,6 +209,11 @@
 			eventClick : function(info) {
 				var infocheck = info.event.groupId+'='+info.event.id
 				var chkoutTime = info.event.end
+				
+				$("#type").val(info.event.groupId)
+				$("#number").val(info.event.id)
+				
+				
 				$("#reply-modal").show();
 			}
 
@@ -259,7 +264,7 @@
 						id : data.phrList[i].phr_num,
 						start : data.phrList[i].phr_chkin+'T13:00',
 						end : data.phrList[i].phr_chkout+'T11:00',
-						title : '펫호텔예약',
+						title : data.phInfo[i].
 						description : '이거슨 펫호텔',
 						color : 'rgba(200, 0, 0, 0.6)'
 					}
@@ -360,15 +365,15 @@
 		<!-- css 적용 하기 위한 경우 class -->
 
 		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-		<table class="modal-table">
+		<table class="modal-table" id="modal-table" style="padding: 20px;">
 			<tr>
-				<input type="hidden" name="a" value="">
-				<input type="hidden" name="id" id="" value="">
+				<input type="hidden" name="type" id="type">
+				<input type="hidden" name="number" id="number">
 			</tr>
 			<tr>
 				<th>이름</th>
 				<td>
-					<input type="text" name="name" id="modal-name" value="">
+					<input type="text" name="name" id="modal-name" value="" style="width: 100%">
 				</td>
 			</tr>
 			<tr>

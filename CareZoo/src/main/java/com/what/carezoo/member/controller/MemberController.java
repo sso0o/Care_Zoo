@@ -19,11 +19,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.what.carezoo.hotel.service.PetHotelReservationService;
+import com.what.carezoo.hotel.service.PetHotelService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterReservation;
+import com.what.carezoo.model.Pet;
+import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
+import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
 import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.SitterService;
@@ -46,6 +52,18 @@ public class MemberController {
 	
 	@Autowired
 	private PetHotelReservationService phrService;
+	
+	@Autowired
+	private HomeSitterService hsService;
+	
+	@Autowired
+	private VisitSitterService vsService;
+	
+	@Autowired
+	private PetHotelService phService;
+	
+	@Autowired
+	private PetService pService;
 	
 //	private 
 	//로그인
@@ -122,17 +140,40 @@ public class MemberController {
 		List<HomeSitterReservation> hsrList = hsrService.getHomeSitterResByCnum(c_num);
 		List<VisitSitterReservation> vsrList = vsrService.getVisitSitterResByCnum(c_num);
 		List<PetHotelReservation> phrList = phrService.getPetHotelResByCnum(c_num);
+
 		
 		if(hsrList.size()>0) {
+			List<HomeSitter> hs = new ArrayList<HomeSitter>();
+			for (HomeSitterReservation hsr : hsrList) {
+				HomeSitter h = hsService.getHomeSitterByNum(hsr.getHs_num());
+				hs.add(h);
+			}
 			rst.put("hsrList",hsrList);			
+			rst.put("hsInfo",hs);			
 		}
 		
 		if(vsrList.size()>0) {
+			List<VisitSitter> vs = new ArrayList<VisitSitter>();
+			for (VisitSitterReservation vsr : vsrList) {
+				VisitSitter v = vsService.getVisitSitterByNum(vsr.getVs_num());
+				vs.add(v);
+			}
 			rst.put("vsrList",vsrList);		
+			rst.put("vsInfo",vs);	
 		}
 		
 		if(phrList.size()>0) {
-			rst.put("phrList",phrList);			
+			List<PetHotel> ph = new ArrayList<PetHotel>();
+			List<Pet> pet = new ArrayList<Pet>();
+			for (PetHotelReservation phr : phrList) {
+				PetHotel p = phService.getPetHotelbyNum(phr.getPh_num());
+				Pet pp = pService.selectPet(phr.getP_num());
+				ph.add(p);
+				pet.add(pp);
+			}
+			rst.put("phrList",phrList);
+			rst.put("phInfo",ph);
+			rst.put("pet", pet);
 		}
 
 		System.out.println(rst);

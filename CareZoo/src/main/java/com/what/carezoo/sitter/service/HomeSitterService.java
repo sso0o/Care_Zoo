@@ -41,7 +41,7 @@ public class HomeSitterService {
 	}
 	
 	public HomeSitter getHomeSitterByNum(int hs_num) {
-		return null;		
+		return hsDao.selectOneByNum(hs_num);		
 	}
 	
 	public HomeSitter getHomeSitterByEmail(String hs_email) {
