@@ -41,9 +41,9 @@ public class VisitSitterController{
 	@Autowired
 	private Pet_WeekListDao pwlServcie;
 	//예약 메인(로그인, 회원가입)
-	@PreAuthorize("hasRole('CUSTOMER')")
+	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/main")
-	public String showMain() {
+	public String showMain(Model model) {
 		return "sitter/visit/Reservation1";
 	}
 	//주소
