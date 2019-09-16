@@ -60,7 +60,7 @@ public class HomeSitterController {
 		return "sitter/home/homeSitterView";
 	}
 	@RequestMapping("/reserve")
-	@PreAuthorize("hasRole('CUSTOMER')")
+	@PreAuthorize("isAuthenticated()")
 	public String reserveHomeSitter(Model model) {
 		return "sitter/home/homeSitterList";
 	}
