@@ -64,21 +64,20 @@ $(function() {
 		minDate: moment('yy-mm-dd').toDate(),
 		timeFormat: 'HH:mm',
 		stepMinute: '30',
-// 		onSelect: 
-	});
-	$('#checkout').change(function() {	
-		var startDate = new Date(datepickerStart.val())
-		var endDate = new Date($(this).val())
-		for(var i in unavailableDates){
-			
-			var notableDays = new Date(unavailableDates[i])
-			if(startDate<notableDays && notableDays<endDate){
-				alert("예약 불가능한 일자가 존재합니다. 다시 선택해 주세요.");
-				return [false];	
-			}		
+		onSelect: function(){
+			var startDate = new Date(datepickerStart.val())
+			var endDate = new Date($(this).val())
+			for(var i in unavailableDates){
+				
+				var notableDays = new Date(unavailableDates[i])
+				if(startDate<notableDays && notableDays<endDate){
+					alert("예약 불가능한 일자가 존재합니다. 다시 선택해 주세요.");
+					return [false];	
+				}		
+			}
+			alert("성공")
+			return [true];
 		}
-		alert("성공")
-		return [true];	
 	});
 	var pricePerDay = 30000;
 	var pricePerPetSize = 15000;

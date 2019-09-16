@@ -22,11 +22,10 @@
 <!-- 		<security:access-denied-handler error-page="/WEB-INF/views/main.jsp" /> -->
 		<security:form-login login-page="/member/loginForm"
 			authentication-failure-url="/member/loginForm?login=fail"
-			login-processing-url="/login" 
-			default-target-url="/" 
+			login-processing-url="/login"  
 			username-parameter="userid" 
 			password-parameter="pw" 
-			always-use-default-target='true'    
+			default-target-url="/"    
 		/>
 
 		<security:logout delete-cookies="JSESSIONID"
