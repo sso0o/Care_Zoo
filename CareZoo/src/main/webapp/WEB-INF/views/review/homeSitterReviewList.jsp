@@ -24,8 +24,8 @@ function logoutCheck() {
 }
 
 </script>
-<title>serviceCenter</title>
-<!-- 고객센터 -->
+<title>HomeSitterReviewList</title>
+
 </head>
 <body>
 <div class="container">

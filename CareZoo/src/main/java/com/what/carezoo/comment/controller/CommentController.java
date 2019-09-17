@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/review")
 public class CommentController {
 	
-	@RequestMapping("/reviewMain")
-	public String reviewMain() {
-		return "review/reviewMain";
+	@RequestMapping("/hsRList")
+	public String homeSitterReview() {
+		return "review/homeSitterReviewList";
 	}
 
 }
