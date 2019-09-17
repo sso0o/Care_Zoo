@@ -24,8 +24,8 @@ function logoutCheck() {
 }
 
 </script>
-<title>serviceCenter</title>
-<!-- 고객센터 -->
+<title>권한 없음</title>
+
 </head>
 <body>
 <div class="container">
@@ -80,7 +80,8 @@ function logoutCheck() {
 	<br>
 	<br>
 	<div class="container">
-<!-- 		여기다가 작성하시면 됩니다아 -->
+
+		<span>권한이 없음</span>
 	</div>
 </body>
 </html>
