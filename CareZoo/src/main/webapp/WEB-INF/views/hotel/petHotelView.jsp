@@ -27,7 +27,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
@@ -38,187 +37,113 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap">
-   
-</script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script>
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-   var imgCommonPreview = new Image();
-   $(document)
-         .on(
-               'ready',
-               function() {
+	var imgCommonPreview = new Image();
+	$(document)
+			.on(
+					'ready',
+					function() {
 
-                  $("#datepicker").datepicker(
-                        {
-                           closeText : "닫기",
-                           prevText : "이전달",
-                           nextText : "다음달",
-                           currentText : "오늘",
-                           monthNames : [ "1월", "2월", "3월", "4월",
-                                 "5월", "6월", "7월", "8월", "9월",
-                                 "10월", "11월", "12월" ],
-                           monthNamesShort : [ "1월", "2월", "3월", "4월",
-                                 "5월", "6월", "7월", "8월", "9월",
-                                 "10월", "11월", "12월" ],
-                           dayNames : [ "일요일", "월요일", "화요일", "수요일",
-                                 "목요일", "금요일", "토요일" ],
-                           dayNamesShort : [ "일", "월", "화", "수", "목",
-                                 "금", "토" ],
-                           dayNamesMin : [ "일", "월", "화", "수", "목",
-                                 "금", "토" ],
-                           weekHeader : "주",
-                           dateFormat : 'yy-mm-dd',
-                           minDate : moment('yy-mm-dd').toDate()
-                        });
+						var datepickerStart = $('.col-dates .pull-left').datepicker(
+								{
+									dateFormat : 'yy-mm-dd',
+									minDate : moment('yy-mm-dd').toDate(),
+									onSelect : function(selected) {
+										datepickerEnd.datepicker('option', 'minDate',
+												selected);
 
-                  $(".lazy").slick({
-                     dots : true,
-                     lazyLoad : 'ondemand', // ondemand progressive anticipated
-                     infinite : true,
-                     centerMode : false,
-                     //          autoplay : true, //자동플레이 유무( false시 자동플레이 안됨)
-                     autoplaySpeed : 4000
-                  // 자동플레이 스피드
-                  });
-                  var datepickerStart = $('.col-dates .pull-left')
-                        .datepicker(
-                              {
-                                 closeText : "닫기",
-                                 prevText : "이전달",
-                                 nextText : "다음달",
-                                 currentText : "오늘",
-                                 monthNames : [ "1월", "2월", "3월",
-                                       "4월", "5월", "6월", "7월",
-                                       "8월", "9월", "10월", "11월",
-                                       "12월" ],
-                                 monthNamesShort : [ "1월", "2월",
-                                       "3월", "4월", "5월", "6월",
-                                       "7월", "8월", "9월", "10월",
-                                       "11월", "12월" ],
-                                 dayNames : [ "일요일", "월요일", "화요일",
-                                       "수요일", "목요일", "금요일", "토요일" ],
-                                 dayNamesShort : [ "일", "월", "화",
-                                       "수", "목", "금", "토" ],
-                                 dayNamesMin : [ "일", "월", "화", "수",
-                                       "목", "금", "토" ],
-                                 weekHeader : "주",
-                                 dateFormat : 'yy-mm-dd',
-                                 minDate : moment('yy-mm-dd')
-                                       .toDate(),
-                                 onSelect : function(selected) {
-                                    datepickerEnd.datepicker(
-                                          'option', 'minDate',
-                                          selected);
+										if (datepickerEnd.prop('disabled')) {
+											datepickerEnd.datepicker('setDate',
+													selected);
+										} else if (!datepickerEnd.val()) {
+											setTimeout($.proxy(
+													datepickerEnd.datepicker,
+													datepickerEnd, 'show'), 50);
+										}
+									}
+								});
+						var datepickerEnd = $('.col-dates .pull-right').datepicker({
+							dateFormat : 'yy-mm-dd',
+							minDate : moment('yy-mm-dd').toDate()
+						});
+						
+						$(".lazy").slick({
+							dots : true,
+							lazyLoad : 'ondemand', // ondemand progressive anticipated
+							infinite : true,
+							centerMode : false,
+							//          autoplay : true, //자동플레이 유무( false시 자동플레이 안됨)
+							autoplaySpeed : 4000
+						// 자동플레이 스피드
+						});
+					});
 
-                                    if (datepickerEnd
-                                          .prop('disabled')) {
-                                       datepickerEnd
-                                             .datepicker(
-                                                   'setDate',
-                                                   selected);
-                                    } else if (!datepickerEnd.val()) {
-                                       setTimeout(
-                                             $
-                                                   .proxy(
-                                                         datepickerEnd.datepicker,
-                                                         datepickerEnd,
-                                                         'show'),
-                                             50);
-                                    }
-                                 }
-                              });
-                  var datepickerEnd = $('.col-dates .pull-right')
-                        .datepicker(
-                              {
-                                 closeText : "닫기",
-                                 prevText : "이전달",
-                                 nextText : "다음달",
-                                 currentText : "오늘",
-                                 monthNames : [ "1월", "2월", "3월",
-                                       "4월", "5월", "6월", "7월",
-                                       "8월", "9월", "10월", "11월",
-                                       "12월" ],
-                                 monthNamesShort : [ "1월", "2월",
-                                       "3월", "4월", "5월", "6월",
-                                       "7월", "8월", "9월", "10월",
-                                       "11월", "12월" ],
-                                 dayNames : [ "일요일", "월요일", "화요일",
-                                       "수요일", "목요일", "금요일", "토요일" ],
-                                 dayNamesShort : [ "일", "월", "화",
-                                       "수", "목", "금", "토" ],
-                                 dayNamesMin : [ "일", "월", "화", "수",
-                                       "목", "금", "토" ],
-                                 weekHeader : "주",
-                                 dateFormat : 'yy-mm-dd',
-                                 minDate : moment('yy-mm-dd')
-                                       .toDate()
-                              });
-               });
+	function initialize() {
 
-   function initialize() {
+		var geocoder = new google.maps.Geocoder();
 
-      var geocoder = new google.maps.Geocoder();
+		var addr = '${petHotel.ph_address}';
 
-      var addr = '${petHotel.ph_address}';
+		var lat = "";
+		var lng = "";
 
-      var lat = "";
-      var lng = "";
+		geocoder.geocode({
+			'address' : addr
+		},
 
-      geocoder.geocode({
-         'address' : addr
-      },
+		function(results, status) {
 
-      function(results, status) {
+			if (results != "") {
 
-         if (results != "") {
+				var location = results[0].geometry.location;
 
-            var location = results[0].geometry.location;
+				lat = location.lat();
+				lng = location.lng();
 
-            lat = location.lat();
-            lng = location.lng();
+				var latlng = new google.maps.LatLng(lat, lng);
+				var myOptions = {
+					zoom : 15,
+					center : latlng,
+					mapTypeControl : true,
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				};
+				var map = new google.maps.Map(document
+						.getElementById("map_canvas"), myOptions);
+				var marker = new google.maps.Marker({
+					position : latlng,
+					map : map
+				});
 
-            var latlng = new google.maps.LatLng(lat, lng);
-            var myOptions = {
-               zoom : 15,
-               center : latlng,
-               mapTypeControl : true,
-               mapTypeId : google.maps.MapTypeId.ROADMAP
-            };
-            var map = new google.maps.Map(document
-                  .getElementById("map_canvas"), myOptions);
-            var marker = new google.maps.Marker({
-               position : latlng,
-               map : map
-            });
+				marker.setMap(map);
+			} else
+				$("#map_canvas").html("위도와 경도를 찾을 수 없습니다.");
+		})
+	}
 
-            marker.setMap(map);
-         } else
-            $("#map_canvas").html("위도와 경도를 찾을 수 없습니다.");
-      })
-   }
+	$(function() {
+		initialize();
 
-   $(function() {
-      initialize();
-
-      $("#content-slider").lightSlider({
-         loop : true,
-         keyPress : true
-      });
-      $('#image-gallery').lightSlider({
-         isthumb : true,
-         gallery : true,
-         item : 1,
-         thumbItem : 9,
-         slideMargin : 0,
-         speed : 500,
-         auto : true,
-         loop : true,
-         onSliderLoad : function() {
-            $('#image-gallery').removeClass('cS-hidden');
-         }
-      });
-   })
+		$("#content-slider").lightSlider({
+			loop : true,
+			keyPress : true
+		});
+		$('#image-gallery').lightSlider({
+			isthumb : true,
+			gallery : true,
+			item : 1,
+			thumbItem : 9,
+			slideMargin : 0,
+			speed : 500,
+			auto : true,
+			loop : true,
+			onSliderLoad : function() {
+				$('#image-gallery').removeClass('cS-hidden');
+			}
+		});
+	})
 </script>
 <style>
 #map_canvas {
@@ -352,7 +277,7 @@ ul {
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -453,10 +378,7 @@ ul {
 					</tr>
 					<tr>
 						<td>
-							<input type="hidden" id="sample4_postcode" placeholder="우편번호">
-							주소:${petHotel.ph_address}
-							<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
-							${petHotel.ph_d_address }
+							<input type="hidden" id="sample4_postcode" placeholder="우편번호"> 주소:${petHotel.ph_address} <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"> ${petHotel.ph_d_address }
 					</tr>
 					<tr>
 						<td>
@@ -515,13 +437,7 @@ ul {
 		<div style="float: left;">
 			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
 				<div class="col-dates" style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
-					<input type="hidden" name="ph_num" value="${petHotel.ph_num }">
-					<span style="font-size: 17px; text-align: center">예약기간을 정해주세요.</span> <br> <br>
-					<input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" />
-					<span>&gt;</span>
-					<input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" />
-
-					<br style="padding: 20px"> <br>
+					<input type="hidden" name="ph_num" value="${petHotel.ph_num }"> <span style="font-size: 17px; text-align: center">예약기간을 정해주세요.</span> <br> <br> <input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
 					<div style="">
 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
 					</div>
@@ -530,8 +446,7 @@ ul {
 					<hr>
 					<span>반려견 추가</span><span>(가격)</span>
 					<hr>
-					<span>총 합계:</span> <span>(총가격)</span> <br> <br>
-					<input type="submit" value="예약하기">
+					<span>총 합계:</span> <span>(총가격)</span> <br> <br> <input type="submit" value="예약하기">
 				</div>
 			</form>
 			<br>
