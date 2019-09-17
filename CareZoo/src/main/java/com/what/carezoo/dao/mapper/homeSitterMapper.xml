@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterDao">
-
+	<insert id="insertHomeSitter" parameterType="homesitter">
+		<selectKey order="BEFORE" keyProperty="hs_num" resultType="int">
+			select hs_num_seq.nextval from dual
+		</selectKey>
+		insert into homesitter(hs_name,hs_sex,hs_birth,hs_contact,hs_address,hs_d_address,hs_job,hs_p_count,hs_e_address,hs_pass,hs_pass_chk,hs_regi_date)
+		values (#{hs_name}, #{hs_sex}, #{hs_birth}, #{hs_contact}, #{hs_address}, #{hs_d_address}, #{hs_job}, #{hs_p_count}, #{hs_e_address}, #{hs_pass}, #{hs_pass_chk}, sysdate )
+	</insert>
+	<update id="updateHomeSitter" parameterType="homesitter">
+		update homesitter 
+		set hs_name = #{hs_name}
+		    hs_birth = #{hs_birth}
+		   	hs_contact = #{hs_contact}
+		    hs_address = #{hs_address}
+		    hs_d_address = #{hs_d_address}
+		    hs_job = #{hs_job}
+		    hs_p_count = #{hs_p_count}
+		    hs_e_address = #{hs_e_address}
+		where hs_num = #{hs_num}
+	</update>
+	<delete id="deleteHomeSitter" parameterType="int">
+		delete * homesitter where hs_pass = #{hs_pass} 
+	</delete>
 	<select id="selectOneByNum" parameterType="int" resultType="homesitter">
 		select * 
 		from homesitter
 		where hs_num = #{hs_num}
 	</select>
-	
 
 	<select id="selectOneByEmail" parameterType="string" resultType="homesitter">
 		select *
@@ -19,6 +39,4 @@
 		select *
 		from homesitter
 	</select>
-
-
 </mapper>
