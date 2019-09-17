@@ -15,6 +15,10 @@ public class VisitSitterReservationService {
 	private VisitSitterReservationDao vsrDao;
 	
 	
+	public VisitSitterReservation getVisitSitterResBuVsrnum(int vsr_num) {
+		return vsrDao.selectByVsrnum(vsr_num);
+	}
+	
 	
 	public List<VisitSitterReservation> getVisitSitterResByCnum(int c_num) {
 		return vsrDao.selectByCnum(c_num);

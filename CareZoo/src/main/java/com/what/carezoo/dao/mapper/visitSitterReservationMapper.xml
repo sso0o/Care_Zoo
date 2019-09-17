@@ -22,6 +22,12 @@
 		where hsr_num = #{hsr_num}
 	</delete>
 
+	<select id="selectByVsrnum" parameterMap="int" resultType="VisitSitterReservation">
+		select *
+		from visitsitterreservation
+		where vsr_num = #{vsr_num}
+	</select>
+
 	<select id="selectByCnum" parameterType="int" resultType="VisitSitterReservation">
 		select *
 		from visitsitterreservation

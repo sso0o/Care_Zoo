@@ -28,6 +28,10 @@ public class HomeSitterController {
 		System.out.println(hsService.getallHsl());
 		return "sitter/home/homeSitterList";
 	}
+	@RequestMapping("/join")
+	public String joinHomeSitter() {
+		return "sitter/home/homeSitterJoinForm";
+	}
 	// 가정시터 검색목록 가져오기
 	@ResponseBody
 	@RequestMapping("/search")

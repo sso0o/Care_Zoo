@@ -30,7 +30,7 @@ function logoutCheck() {
 <body>
 <div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -64,11 +64,12 @@ function logoutCheck() {
 						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
 					</ul></li>
-				<li class='active sub'><a href='#'>REVIEW</a>
+				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
 					<ul>
 						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>시터</a></li>
-						<li class='last'><a href='#'>호텔</a></li>
+						<li class='last'><a href='${contextPath}/comment/hscList'>가정시터</a></li>
+						<li class='last'><a href='${contextPath}/comment/vscList'>방문시터</a></li>
+						<li class='last'><a href='${contextPath}/comment/phcList'>펫호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
 				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>

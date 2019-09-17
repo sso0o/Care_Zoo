@@ -9,6 +9,7 @@ public interface VisitSitterReservationDao {
 	public int insert(VisitSitterReservation vsr);
 	public int update(VisitSitterReservation vsr);
 	public int delete(VisitSitterReservation vsr);
+	public VisitSitterReservation selectByVsrnum(int vsr_num);
 	public List<VisitSitterReservation> selectByCnum(int c_num);
 //	public VisitSitterReservation selectByResInfo(VisitSitterReservation vsr);
 	public List<VisitSitterReservation> selectAll();

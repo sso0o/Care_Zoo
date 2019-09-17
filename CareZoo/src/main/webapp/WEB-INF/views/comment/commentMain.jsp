@@ -24,13 +24,29 @@ function logoutCheck() {
 }
 
 </script>
-<title>serviceCenter</title>
-<!-- 고객센터 -->
+
+<style type="text/css">
+.review{
+	display:inline-block;
+	width: 250px;
+	height: 250px;
+	background-color: red;
+	color: white;
+	border-radius: 10%;
+	text-align: center;
+	margin-left: 20px;
+	line-height: 240px;
+	vertical-align: middle;
+}
+
+</style>
+<title>Review</title>
+
 </head>
 <body>
 <div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -64,12 +80,12 @@ function logoutCheck() {
 						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
 					</ul></li>
-				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
+				<li class='active sub'><a href='#'>REVIEW</a>
 					<ul>
 						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='${contextPath}/comment/hscList'>가정시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/vscList'>방문시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/phcList'>펫호텔</a></li>
+						<li class='last'><a href='#'>가정시터</a></li>
+						<li class='last'><a href='#'>방문시터</a></li>
+						<li class='last'><a href='#'>펫호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
 				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
@@ -79,8 +95,10 @@ function logoutCheck() {
 	<br>
 	<br>
 	<br>
-	<div class="container">
-<!-- 		여기다가 작성하시면 됩니다아 -->
+	<div class="container"  style="width: 900px; padding-left: 80px;">
+		<span class="review" id="hsR">가정시터 후기 보러가기</span>
+		<span class="review" id="vsR">방문시터 후기 보러가기</span>
+		<span class="review" id="hR">호텔 후기 보러가기</span>
 	</div>
 </body>
 </html>

@@ -21,6 +21,12 @@
 		homesitterreservation
 		where hsr_num = #{hsr_num}
 	</delete>
+	
+	<select id="selectByHsrnum" parameterType="int" resultType="HomeSitterReservation">
+		select *
+		from homesitterreservation
+		where hsr_num = #{hsr_num}
+	</select>
 
 	<select id="selectByCnum" parameterType="int" resultType="HomeSitterReservation">
 		select *

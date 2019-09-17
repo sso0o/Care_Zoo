@@ -110,6 +110,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			if(a != null && a.getAdm_pass().equals(pw)) {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("ADMIN"));
+				HttpSession session = request.getSession();
+//				session.setAttribute("user_name", mService.getMemberByEmail(userid).getC_name());
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}
 		    return authToken;

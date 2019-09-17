@@ -6,9 +6,9 @@ import com.what.carezoo.model.HomeSitter;
 
 public interface HomeSitterDao {
 	
-	public int insert(HomeSitter hs);
-	public int update(HomeSitter hs);
-	public int delete(HomeSitter hs);
+	public int insertHomeSitter(HomeSitter hs);
+	public int updateHomeSitter(HomeSitter hs);
+	public int deleteHomeSitter(int Hhs_pass);
 	public HomeSitter selectOneByNum(int hs_num);
 	public HomeSitter selectOneByEmail(String hs_email);
 	public List<HomeSitter> selectAllHomeSitter();

@@ -24,8 +24,8 @@ function logoutCheck() {
 }
 
 </script>
-<title>serviceCenter</title>
-<!-- 고객센터 -->
+<title>권한 없음</title>
+
 </head>
 <body>
 <div class="container">
@@ -64,12 +64,12 @@ function logoutCheck() {
 						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
 					</ul></li>
-				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
+				<li class='active sub'><a href='${contextPath}/review/hsRList'>REVIEW</a>
 					<ul>
 						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='${contextPath}/comment/hscList'>가정시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/vscList'>방문시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/phcList'>펫호텔</a></li>
+						<li class='last'><a href='#'>가정시터</a></li>
+						<li class='last'><a href='#'>방문시터</a></li>
+						<li class='last'><a href='#'>펫호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
 				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
@@ -80,7 +80,8 @@ function logoutCheck() {
 	<br>
 	<br>
 	<div class="container">
-<!-- 		여기다가 작성하시면 됩니다아 -->
+
+		<span>권한이 없음</span>
 	</div>
 </body>
 </html>

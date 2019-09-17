@@ -142,8 +142,11 @@
 
 .modal-table {
 	background-color: #fefefe;
-	padding: 20px;
-	border: 1px solid #888;
+	padding-top: 5px;
+	padding-left: 40px;
+	padding-right: 20px;
+	padding-bottom: 10px; 
+	border : 1px solid #888;
 	width: 550px; /* Could be more or less, depending on screen size */
 	height: 300px;
 	position: absolute;
@@ -151,10 +154,34 @@
 	left: 50%;
 	margin-top: -150px;
 	margin-left: -275px;
+	border: 1px solid #888;
 }
 
 .modal-table th {
 	background-color: #7858a7;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.review{
+	color: #aaa;
+	float: right;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.close:hover, .close:focus,
+.review:hover, .review:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 </style>
 
@@ -172,7 +199,7 @@
 
 	document.addEventListener('DOMContentLoaded', function() {
 		var d = new Date();
-		var num = <%=session.getAttribute("user_num")%>
+		var num = <%=session.getAttribute("c_num")%>
 		var calendarEl = document.getElementById('calendar');
 
 		var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -215,13 +242,29 @@
 				
 				
 				$("#reply-modal").show();
+				
+				$("#modal-close").on("click", function() {
+					$("#reply-modal").hide();
+				});
+				
+				$("#modal-review").on("click", function() {
+					if(d>chkoutTime){
+						if(info.event.groupId=="phr_num"){
+							location.href='${contextPath}/comment/phCommentForm?phr_num='+info.event.id
+						} else if(info.event.groupId=="hsr_num"){
+							location.href='${contextPath}/comment/hsCommentForm?hsr_num='+info.event.id
+						}else if(info.event.groupId=="vsr_num"){
+							location.href='${contextPath}/comment/vsCommentForm?vsr_num='+info.event.id
+						}
+					} else{
+						alert("조건을 갖추지 못하였습니다 :/")
+					}
+				});
 			}
 
 		});
 		
-		$("#btnClose").on("click", function() {
-			$("#reply-modal").hide();
-		});
+		
 
 		$.ajax({
 			url : "${contextPath}/member/myReservation",
@@ -250,8 +293,8 @@
 						id : data.hsrList[i].hsr_num,
 						start : data.hsrList[i].hsr_chkin,
 						end : data.hsrList[i].hsr_chkout,
-						title : '가정시터예약',
-						description : '이거슨 가정시터',
+						title : '가정시터 예약',
+						description : data.hsInfo[i].hs_name,
 						color : 'rgba(0, 120, 0, 0.6)'
 					}
 					calendar.addEvent(e)
@@ -264,8 +307,8 @@
 						id : data.phrList[i].phr_num,
 						start : data.phrList[i].phr_chkin+'T13:00',
 						end : data.phrList[i].phr_chkout+'T11:00',
-						title : data.phInfo[i].
-						description : '이거슨 펫호텔',
+						title : data.phInfo[i].ph_name,
+						description : data.pet[i].p_name,
 						color : 'rgba(200, 0, 0, 0.6)'
 					}
 					calendar.addEvent(e)
@@ -277,6 +320,15 @@
 				alert("데이터를 불러오는데 실패했습니다.")
 			}
 		})
+		
+		var iiii = {
+			start : '2019-09-26',
+			end: '2019-09-27',
+			description : 'test',
+			title: 'test'
+			
+		}
+		calendar.addEvent(iiii);
 
 		calendar.render();
 
@@ -306,7 +358,7 @@
 <body>
 	<div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -364,11 +416,19 @@
 	<div class="modal-modify" id="reply-modal">
 		<!-- css 적용 하기 위한 경우 class -->
 
+
+
 		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-		<table class="modal-table" id="modal-table" style="padding: 20px;">
-			<tr>
-				<input type="hidden" name="type" id="type">
-				<input type="hidden" name="number" id="number">
+		<table class="modal-table" id="modal-table">
+			<tr height="10px">
+				<td>
+					<input type="hidden" name="type" id="type">
+				</td>
+				<td>
+					<input type="hidden" name="number" id="number">
+				</td>
+				<td class="close" id="modal-close">&times;</td>
+
 			</tr>
 			<tr>
 				<th>이름</th>
@@ -389,12 +449,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
-					<input type="button" id="btnModify" value="수정">
-					<input type="button" id="btnDelete" value="삭제">
-					<input type="button" id="btnClose" value="닫기">
-				</td>
+				<td colspan="3" style="text-align: center"><span class="review" id="modal-review">후기등록</span>
 			</tr>
+
 		</table>
 
 	</div>

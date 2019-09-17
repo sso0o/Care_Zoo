@@ -14,6 +14,10 @@ public class HomeSitterReservationService {
 	@Autowired
 	private HomeSitterReservationDao hsrDao;
 	
+	public HomeSitterReservation getHomeSitterResByHsrnum(int hsr_num) {
+		return hsrDao.selectByHsrnum(hsr_num);
+	}
+	
 	
 	public List<HomeSitterReservation> getHomeSitterResByCnum(int c_num){
 		return hsrDao.selectByCnum(c_num);

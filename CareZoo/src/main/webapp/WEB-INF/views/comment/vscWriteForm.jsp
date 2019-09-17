@@ -24,7 +24,7 @@ function logoutCheck() {
 }
 
 </script>
-<title>serviceCenter</title>
+<title>hscWriteForm</title>
 <!-- 고객센터 -->
 </head>
 <body>
