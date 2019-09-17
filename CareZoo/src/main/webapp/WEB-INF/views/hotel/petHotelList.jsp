@@ -103,28 +103,28 @@ ul {
 								minDate : 0
 							});
 				}
-						$("form").on("submit", function() {
-				// 			event.preventDefault();
-							alert(datepickerStart
-									.datepicker('getDate'));
-// 							var stateParam = $('input[name=ph_address]:checked').serialize();
-							var detailParam = $("form").serialize();
-														var dateStart = moment(datepickerStart
-																.datepicker('getDate'));
-														var dateEnd = moment(datepickerEnd
-																.datepicker('getDate'));
-														if (dateStart.isValid() && dateEnd.isValid()) {
-															detailParam.phr_chkin = dateStart
-																	.format('YYYY-MM-DD');
-															detailParam.phr_chkout = dateEnd
-																	.format('YYYY-MM-DD');
-														}else{
-															alert("날짜를 선택해주세요.");
-															}
-// 							alert("stateParam submit : " + encodeURI(stateParam));
+// 						$("form").on("submit", function() {
+// 				// 			event.preventDefault();
+// 							alert(datepickerStart
+// 									.datepicker('getDate'));
+// // 							var stateParam = $('input[name=ph_address]:checked').serialize();
+// 							var detailParam = $("form").serialize();
+// 														var dateStart = moment(datepickerStart
+// 																.datepicker('getDate'));
+// 														var dateEnd = moment(datepickerEnd
+// 																.datepicker('getDate'));
+// 														if (dateStart.isValid() && dateEnd.isValid()) {
+// 															detailParam.phr_chkin = dateStart
+// 																	.format('YYYY-MM-DD');
+// 															detailParam.phr_chkout = dateEnd
+// 																	.format('YYYY-MM-DD');
+// 														}else{
+// 															alert("날짜를 선택해주세요.");
+// 															}
+// // 							alert("stateParam submit : " + encodeURI(stateParam));
 
-							alert("d"+detailParam);
-							alert("phr"+detailParam.phr_chkin);
+// 							alert("d"+detailParam);
+// 							alert("phr"+detailParam.phr_chkin);
 // 							alert("detailParam submit : " + encodeURI(detailParam));
 				// 			$.ajax({
 				// 				url : "${contextPath}/petHotel/petHotelSearch",
@@ -201,7 +201,7 @@ ul {
 				// 			});// ajax
 
 				// 			return false;
-						});
+// 						});
 
 				//=====================================================================================================//
 
