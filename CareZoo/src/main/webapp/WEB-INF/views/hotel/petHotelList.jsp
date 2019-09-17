@@ -63,30 +63,69 @@ ul {
 <script type="text/javascript">
 	$(document).ready(
 			function() {
+				//datepicker동작
 
 				//state 검색 폼 전달
 
 				//=====================================================================================================//
+				$("#datepicker").datepicker({
+					minDate : 0
+				});
+				var datepickerStart = $('.col-dates .pull-left').datepicker(
+						{
+							dateFormat : 'yy-mm-dd',
+							minDate : 0,
+							onSelect : function(selected) {
+								datepickerEnd.datepicker('option', 'minDate',
+										selected);
 
-				// 		$("form").on("submit", function() {
+								if (datepickerEnd.prop('disabled')) {
+									datepickerEnd.datepicker('setDate',
+											selected);
+								} else if (!datepickerEnd.val()) {
+									setTimeout($.proxy(
+											datepickerEnd.datepicker,
+											datepickerEnd, 'show'), 50);
+								}
+							}
+						});
+
+				if (moment('yyyy-mm-dd').toDate() == null) {
+					var datepickerEnd = $('.col-dates .pull-right').datepicker(
+							{
+								dateFormat : 'yy-mm-dd',
+								minDate : moment('yy-mm-dd').toDate()
+							});
+				} else {
+					var datepickerEnd = $('.col-dates .pull-right').datepicker(
+							{
+								dateFormat : 'yy-mm-dd',
+								minDate : 0
+							});
+				}
+						$("form").on("submit", function() {
 				// 			event.preventDefault();
+							alert(datepickerStart
+									.datepicker('getDate'));
+// 							var stateParam = $('input[name=ph_address]:checked').serialize();
+							var detailParam = $("form").serialize();
+														var dateStart = moment(datepickerStart
+																.datepicker('getDate'));
+														var dateEnd = moment(datepickerEnd
+																.datepicker('getDate'));
+														if (dateStart.isValid() && dateEnd.isValid()) {
+															detailParam.phr_chkin = dateStart
+																	.format('YYYY-MM-DD');
+															detailParam.phr_chkout = dateEnd
+																	.format('YYYY-MM-DD');
+														}else{
+															alert("날짜를 선택해주세요.");
+															}
+// 							alert("stateParam submit : " + encodeURI(stateParam));
 
-				// 			var stateParam = $('input[name=ph_address]:checked').serialize();
-				// 			var detailParam = $("#detail_form").serialize();
-				// 			// 							var dateStart = moment(datepickerStart
-				// 			// 									.datepicker('getDate'));
-				// 			// 							var dateEnd = moment(datepickerEnd
-				// 			// 									.datepicker('getDate'));
-				// 			// 							if (dateStart.isValid() && dateEnd.isValid()) {
-				// 			// 								detailParam.ph_chkin = dateStart
-				// 			// 										.format('YYYY-MM-DD');
-				// 			// 								detailParam.ph_chkout = dateEnd
-				// 			// 										.format('YYYY-MM-DD');
-				// 			// 							}else{
-				// alert("날짜를 선택해주세요.");
-				//											}
-				// 			console.log("stateParam submit : " + stateParam);
-				// 			// 							console.log("detailParam submit : " + detailParam);
+							alert("d"+detailParam);
+							alert("phr"+detailParam.phr_chkin);
+// 							alert("detailParam submit : " + encodeURI(detailParam));
 				// 			$.ajax({
 				// 				url : "${contextPath}/petHotel/petHotelSearch",
 				// 				data : stateParam + '&' + detailParam,
@@ -162,7 +201,7 @@ ul {
 				// 			});// ajax
 
 				// 			return false;
-				// 		});
+						});
 
 				//=====================================================================================================//
 
@@ -225,42 +264,7 @@ ul {
 					isMenu2 = false;
 				});
 
-				//datepicker동작
-				$("#datepicker").datepicker({
-					minDate : 0
-				});
-				var datepickerStart = $('.col-dates .pull-left').datepicker(
-						{
-							dateFormat : 'yy-mm-dd',
-							minDate : 0,
-							onSelect : function(selected) {
-								datepickerEnd.datepicker('option', 'minDate',
-										selected);
 
-								if (datepickerEnd.prop('disabled')) {
-									datepickerEnd.datepicker('setDate',
-											selected);
-								} else if (!datepickerEnd.val()) {
-									setTimeout($.proxy(
-											datepickerEnd.datepicker,
-											datepickerEnd, 'show'), 50);
-								}
-							}
-						});
-
-				if (moment('yy-mm-dd').toDate() == null) {
-					var datepickerEnd = $('.col-dates .pull-right').datepicker(
-							{
-								dateFormat : 'yy-mm-dd',
-								minDate : moment('yy-mm-dd').toDate()
-							});
-				} else {
-					var datepickerEnd = $('.col-dates .pull-right').datepicker(
-							{
-								dateFormat : 'yy-mm-dd',
-								minDate : 0
-							});
-				}
 			});
 </script>
 <!-- 애견호텔 목록 -->
@@ -421,7 +425,7 @@ ul {
 						</tr>
 						<tr class="col-dates">
 							<th>예약일</th>
-							<td><input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" /></td>
+							<td><input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" /></td>
 						</tr>
 						<tr class="col-age">
 							<th>반려견 나이</th>
