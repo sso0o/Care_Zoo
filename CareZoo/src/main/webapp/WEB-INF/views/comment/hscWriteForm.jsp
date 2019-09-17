@@ -80,7 +80,10 @@ function logoutCheck() {
 	<br>
 	<br>
 	<div class="container">
-<!-- 		여기다가 작성하시면 됩니다아 -->
+		<fieldset>
+			<legend style="text-align: center;">가정시터 후기 작성</legend>
+			
+		</fieldset>
 	</div>
 </body>
 </html>

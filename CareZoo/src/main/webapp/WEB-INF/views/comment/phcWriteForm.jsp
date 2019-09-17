@@ -15,20 +15,96 @@
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 
 <script type="text/javascript">
-function logoutCheck() {
-	if (confirm("정말 로그아웃?") == true) {
-		location.href = '${contextPath}/logout'
-	} else {
-		return false;
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
 	}
+	
+// 	$(function(){
+// 		var phr_num = ${phr.phr_num}
+// 		var ph_num = ${phr.ph_num}
+// 		var c_num = ${phr.c_num}
+// 		$.ajax({
+// 			url: "${contextPath}/petHotel/petHotel",
+// 			data : {ph_num : ph_num},
+// 			dataType: "JSON",
+// 			success: function(data) {
+// 				alert("dkssud")
+// 				console.log(data)
+// 			},
+// 			error: function() {
+				
+// 			}
+// 		})
+// 	});
+
+		var phr_num = ${phr.phr_num}
+		var ph_num = ${phr.ph_num}
+		var c_num = ${phr.c_num}
+	
+	$.ajax({
+		url: "${contextPath}/petHotel/petHotel",
+		data : {ph_num : ph_num},
+		dataType: "JSON",
+		success: function(data) {
+			console.log(data)
+			$("#name").val(data.ph.ph_name)
+		},
+		error: function() {
+			alert("실패")
+		}
+	})
+</script>
+
+
+<style type="text/css">
+.tab{
+	width: 800px;
+	margin: 0 auto;	
+	border: 1px solid #efefef; 
+	padding: 10px;
+	margin-top: 35px;
 }
 
-</script>
+.tab tr{
+	line-height: 3em;
+	
+}
+
+.tab th{
+	background-color: #efefef;
+	width: 30%;
+}
+
+.tab td input {
+	width: 94.5%;
+	line-height: 2.5em;
+	font-size: 15px;
+	font-weight: bolder;
+	padding-left: 15px;
+	margin-left: 10px;
+}
+
+.content{
+	width: 96.5%;
+	margin-left: 10px;
+	vertical-align: middle;
+	font-size: 15px;
+	resize: none;
+}
+
+.name{
+	border: none;
+}
+</style>
 <title>hscWriteForm</title>
 <!-- 고객센터 -->
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<header>
 			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
@@ -80,7 +156,32 @@ function logoutCheck() {
 	<br>
 	<br>
 	<div class="container">
-<!-- 		여기다가 작성하시면 됩니다아 -->
+		<fieldset>
+			<legend style="text-align: center;">펫호텔 후기 작성</legend>
+			<table class="tab">
+				<tr>
+					<th>제목*</th>
+					<td><input type="text" id="title" class="title"></td>
+				</tr>
+				<tr>
+					<th>호텔이름</th>
+					<td><input type="text" id="name"></td>
+				</tr>
+				<tr>
+					<th>별점*</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>내용*</th>
+					<td><textarea rows="10" cols="50" id="content" class="content"></textarea></td>
+				</tr>
+				<tr>
+					<th>dhdhdhhd</th>
+					<td></td>
+				</tr>
+			</table>
+
+		</fieldset>
 	</div>
 </body>
 </html>

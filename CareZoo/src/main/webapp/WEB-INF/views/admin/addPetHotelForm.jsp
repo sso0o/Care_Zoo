@@ -14,9 +14,7 @@ img {
 }
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script>
 	// 	new daum.Postcode({
 	// 		oncomplete : function(data) {
