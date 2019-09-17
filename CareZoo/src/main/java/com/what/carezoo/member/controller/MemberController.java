@@ -130,9 +130,14 @@ public class MemberController {
 	}
 	//마이페이지
 	@RequestMapping(value="/myPage",method=RequestMethod.GET)
-	@PreAuthorize("hasAuthority('CUSTOMER')")
+	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN'} )")
 	public String myPageForm() {
 		return "my&customer/mypageForm";
+	}
+	
+	@RequestMapping("/noAuth")
+	public String noAuth() {
+		return "noAuth";
 	}
 	
 	//예약 가져오기
