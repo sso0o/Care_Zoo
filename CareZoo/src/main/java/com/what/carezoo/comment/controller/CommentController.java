@@ -4,24 +4,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/review")
+@RequestMapping("/comment")
 public class CommentController {
 	
-	@RequestMapping("/hsRList")
-	public String homeSitterReview() {
-		return "review/homeSitterReviewList";
+	@RequestMapping("/hscList")
+	public String homeSitterComment() {
+		return "comment/homeSitterCommentList";
 	}
 	
 	
-	@RequestMapping("/vsRList")
-	public String visitSitterReview() {
-		return "review/homeSitterReviewList";
+	@RequestMapping("/vscList")
+	public String visitSitterComment() {
+		return "comment/homeSitterCommentList";
 	}
 	
 	
-	@RequestMapping("/phRList")
-	public String petHotelReview() {
-		return "review/homeSitterReviewList";
+	@RequestMapping("/phcList")
+	public String petHotelComment() {
+		return "comment/homeSitterCommentList";
 	}
 
 }
