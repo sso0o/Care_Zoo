@@ -11,5 +11,17 @@ public class CommentController {
 	public String homeSitterReview() {
 		return "review/homeSitterReviewList";
 	}
+	
+	
+	@RequestMapping("/vsRList")
+	public String visitSitterReview() {
+		return "review/homeSitterReviewList";
+	}
+	
+	
+	@RequestMapping("/phRList")
+	public String petHotelReview() {
+		return "review/homeSitterReviewList";
+	}
 
 }
