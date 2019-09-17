@@ -11,104 +11,24 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/fullcalendar.css' />
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/fullcalendar.pring.css' />
 
-<script src="${contextPath}/resources/js/fullcalendar.min.js" />
-<script src="${contextPath}/resources/js/moment.min.js" />
-<script src="${contextPath}/resources/js/jquery.min.js" />
+<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 
 <script type="text/javascript">
-	function logoutCheck() {
-		if (confirm("정말 로그아웃?") == true) {
-			location.href = '${contextPath}/logout'
-		} else {
-			return false;
-		}
+function logoutCheck() {
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
 	}
-</script>
-<script>
-
-	$(document).ready(function() {
-
-		$('#calendar').fullCalendar({
-			defaultDate: '2015-02-12',
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			events: [
-				{
-					title: 'All Day Event',
-					start: '2015-02-01'
-				},
-				{
-					title: 'Long Event',
-					start: '2015-02-07',
-					end: '2015-02-10'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2015-02-09T16:00:00'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2015-02-16T16:00:00'
-				},
-				{
-					title: 'Conference',
-					start: '2015-02-11',
-					end: '2015-02-13'
-				},
-				{
-					title: 'Meeting',
-					start: '2015-02-12T10:30:00',
-					end: '2015-02-12T12:30:00'
-				},
-				{
-					title: 'Lunch',
-					start: '2015-02-12T12:00:00'
-				},
-				{
-					title: 'Meeting',
-					start: '2015-02-12T14:30:00'
-				},
-				{
-					title: 'Happy Hour',
-					start: '2015-02-12T17:30:00'
-				},
-				{
-					title: 'Dinner',
-					start: '2015-02-12T20:00:00'
-				},
-				{
-					title: 'Birthday Party',
-					start: '2015-02-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2015-02-28'
-				}
-			]
-		});
-		
-	});
-
-</script>
-<style>
-
-
-#calendar {
-	max-width: 900px;
-	margin: 0 auto;
 }
-</style>
-<title>mypage</title>
-<!-- 마이페이지 시작 -->
+
+</script>
+<title>serviceCenter</title>
+<!-- 고객센터 -->
 </head>
 <body>
-	<div class="container">
+<div class="container">
 		<header>
 			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
@@ -144,11 +64,12 @@
 						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
 					</ul></li>
-				<li class='active sub'><a href='#'>REVIEW</a>
+				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
 					<ul>
 						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>시터</a></li>
-						<li class='last'><a href='#'>호텔</a></li>
+						<li class='last'><a href='${contextPath}/comment/hscList'>가정시터</a></li>
+						<li class='last'><a href='${contextPath}/comment/vscList'>방문시터</a></li>
+						<li class='last'><a href='${contextPath}/comment/phcList'>펫호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
 				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
@@ -159,7 +80,7 @@
 	<br>
 	<br>
 	<div class="container">
-		<div id='calendar'></div>
+<!-- 		여기다가 작성하시면 됩니다아 -->
 	</div>
 </body>
 </html>

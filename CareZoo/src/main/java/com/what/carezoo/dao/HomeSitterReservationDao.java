@@ -9,6 +9,7 @@ public interface HomeSitterReservationDao {
 	public int insert(HomeSitterReservation hsr);
 	public int update(HomeSitterReservation hsr);
 	public int delete(HomeSitterReservation hsr);
+	public HomeSitterReservation selectByHsrnum(int hsr_num);
 	public List<HomeSitterReservation> selectByCnum(int c_num);
 //	public HomeSitterReservation selectByResInfo(HomeSitterReservation hsr);
 	public List<HomeSitterReservation> selectAll();

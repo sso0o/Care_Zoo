@@ -249,7 +249,13 @@
 				
 				$("#modal-review").on("click", function() {
 					if(d>chkoutTime){
-						location.href="${contextPath}"
+						if(info.event.groupId=="phr_num"){
+							location.href='${contextPath}/comment/phCommentForm?phr_num='+info.event.id
+						} else if(info.event.groupId=="hsr_num"){
+							location.href='${contextPath}/comment/hsCommentForm?hsr_num='+info.event.id
+						}else if(info.event.groupId=="vsr_num"){
+							location.href='${contextPath}/comment/vsCommentForm?vsr_num='+info.event.id
+						}
 					} else{
 						alert("조건을 갖추지 못하였습니다 :/")
 					}
@@ -352,7 +358,7 @@
 <body>
 	<div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
