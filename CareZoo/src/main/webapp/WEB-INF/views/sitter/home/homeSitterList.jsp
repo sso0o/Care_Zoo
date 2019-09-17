@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:set var="contextPath" value="<%=request.getContextPath() %>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
 <!-- link for datepicker -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
-<!--  link for datepicker css -->
+<!--  link for homesitter css -->
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/>
 <!-- link for navBar -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
@@ -25,8 +25,8 @@
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
 <!-- script for navBar -->
-<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> 
+<!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> -->
+<%-- <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>  --%>
 <script type="text/javascript"> 
 $(function () {
 	//검색탭
@@ -70,7 +70,7 @@ $(function () {
 		isMenu2 = false;
 	});
 	//datepicker동작
-	var datepickerStart = $('#hsl_chkin').datepicker({
+	var datepickerStart = jQuery('#hsl_chkin').datepicker({
 		dateFormat: 'yy-mm-dd', 
 		minDate: moment('yy-mm-dd').toDate(),
 		onSelect: function (selected) {
@@ -83,7 +83,7 @@ $(function () {
 			}
 		}
 	});
-	var datepickerEnd = $('#hsl_chkout').datepicker({
+	var datepickerEnd = jQuery('#hsl_chkout').datepicker({
 		dateFormat: 'yy-mm-dd', 
 		minDate: moment('yy-mm-dd').toDate()
 	});
@@ -125,85 +125,72 @@ $(function () {
 		});// ajax
 		return false;
 	});
+	
+	//네비게이션
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
 });
 </script>
-<style type="text/css">
-	#slide{
-		width: 100px;
-		height: 150px;
-		overflow: hidden;
-		position: relative;
-		margin: o auto;
-	}
-	#slide #showImg{
-		width:5000px;
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
-	.image{
-		display: inline-block;
-	}
-	#backImg{
-		top:47px;
-		left:55px;
-		position: absolute;
-		cursor: pointer;
-		z-index: 1;
-		width: 30px;
-	}
-	#nextImg{
-		top:47px;
-		left:123px;
-		position: absolute;
-		cursor: pointer;
-		z-index: 1;
-		width: 30px;
-	}
-	#slide_container{
-		position: relative;
-	    padding-left: 55px;
-	}
-</style>
 </head>
 <body>
-<div>
-	<div class="container">
-        <header>
-            <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-            <br>
-            <div class="header_Btn"> <a class="btn_Login" href="#">로그인</a> <a class="btn_Join" href="#">회원가입</a> </div>
-        </header>
-    </div>
-    <nav>
-        <div class='menu'>
-            <ul style="">
-                <li class='active sub'><a href='#'>시터</a>
-                    <ul>
-                        <li class='last'><a href='${contextPath}/visit/main'>가정펫시터</a></li>
-                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-                    </ul>
-                </li>
-                <li class='active sub'><a href='#'>호텔</a>
-                    <ul>
-                        <li class='last'><a href='#'>애견동반호텔</a></li>
-                        <li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
-                    </ul>
-                </li>
-                <li class='active sub'><a href='#'>후기</a>
-                    <ul>
-                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-                        <li class='last'><a href='#'>시터</a></li>
-                        <li class='last'><a href='#'>호텔</a></li>
-                    </ul>
-                </li>
-                <li class='last'><a href='#' style="font-size: 17px">마이페이지</a></li>
-                <li class='last'><a href='#' style="font-size: 17px">고객센터</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
-<div>	
+<div class="container">
+	<!-- 네비게이션 -->
+	<div>
+		<div class="container">
+	        <header>
+	            <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+	         
+	            <div class="header_Btn" id="sessioncheck"> 
+	            <sec:authorize access="isAnonymous()">
+	            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+	            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+	            </sec:authorize>
+	            <sec:authorize access="isAuthenticated()">
+	            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
+	            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+	            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+	            </sec:authorize>
+	             </div>
+	        </header>
+	    </div>
+	    <nav>
+	        <div class='menu'>
+	            <ul style="">
+	                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+	         
+	                    <ul>
+	                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
+	                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+	                    </ul>
+	                </li>
+	                <li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
+	                    <ul>
+	                        <li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
+	                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
+	                    </ul>
+	                </li>
+	                <li class='active sub'><a href='#'>REVIEW</a>
+	                    <ul>
+	                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+	                        <li class='last'><a href='#'>시터</a></li>
+	                        <li class='last'><a href='#'>호텔</a></li>
+	                    </ul>
+	                </li>
+	                <li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
+	                <li class='last'><a href='${contextPath}/admin/qna' style="font-size: 17px">Q&A</a></li>
+	            </ul>
+	        </div>
+	    </nav>
+	</div>	
+	<!-- 칸 띄우기 위함 -->
+	<div class='container'></div>
+	<br>
+	<br>
 	<!-- 지역 검색 -->
 	<div>
 	    <table style="width:420px;">
@@ -426,25 +413,25 @@ $(function () {
 		<table>
 		</table>
 	</div>
-	<div>
-		<table style="border: 5px;">
-			<tr>
-				<td>
+<!-- 	<div> -->
+<!-- 		<table style="border: 5px;"> -->
+<!-- 			<tr> -->
+<!-- 				<td> -->
 <!-- 					<img alt="엑박사진" src="홈시터집사진"> -->
-				</td>
-				<td>글제목</td>
-				<td>
-					홈시터이름<span>키우는 반려견 수</span>
-				</td>
-				<td>
-					가격<span></span>
-				</td>
-				<td>
-					별점<span>고객 후기 ****개</span><span>정기고객***명</span>
-				</td>
-			</tr>
-		</table>
-	</div>
+<!-- 				</td> -->
+<!-- 				<td>글제목</td> -->
+<!-- 				<td> -->
+<!-- 					홈시터이름<span>키우는 반려견 수</span> -->
+<!-- 				</td> -->
+<!-- 				<td> -->
+<!-- 					가격<span></span> -->
+<!-- 				</td> -->
+<!-- 				<td> -->
+<!-- 					별점<span>고객 후기 ****개</span><span>정기고객***명</span> -->
+<!-- 				</td> -->
+<!-- 			</tr> -->
+<!-- 		</table> -->
+<!-- 	</div> -->
 	<div class="homeSitterlist">
 		<c:forEach var="hslList" items="${hslList}">
 			<div style="border: 1px solid; margin: 50px; height: 350px;">
@@ -463,15 +450,15 @@ $(function () {
 <!-- 					<br> -->
 <!-- 				</div> -->
 				<div>
-					<span></span> <br> <a href="${contextPath}/home/homeSitterView?hsl_num=${hslList.hsl_num}">${hslList.ph_name}</a><br>
-					<div>${hslList.ph_address}${hslList.ph_d_address}</div>
+					<span></span> <br> <a href="${contextPath}/home/homeSitterView?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br>
+					<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div>
 					<div>
-						<fmt:formatNumber value="${hslList.ph_minPrice }" pattern="#,###" />
+						<fmt:formatNumber value="" pattern="#,###" />
 						~
-						<fmt:formatNumber value="${hslList.ph_maxPrice }" pattern="#,###" />
+						<fmt:formatNumber value="" pattern="#,###" />
 					</div>
 					<div>
-						후기:${hslList.ph_c_count}개 <br> ${hslList.ph_avgStar }
+<%-- 						후기:${hslList.ph_c_count}개 <br> ${hslList.ph_avgStar } --%>
 					</div>
 				</div>
 			</div>

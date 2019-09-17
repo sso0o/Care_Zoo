@@ -24,18 +24,16 @@
 	<delete id="deleteHsl" parameterType="int">
 
 	</delete>
-	<select id="selectOnebyHsl_num" parameterType="int"
-		resultType="homeSitterList">
+	<select id="selectOnebyHsl_num" parameterType="int" resultType="homeSitterList">
 		select * from homesitterlist where hsl_num = #{hsl_num}
 	</select>
 	<!-- 모든 홈시터 가져오기 -->
-	<select id="selectHsl" resultType="homeSitterList">
+	<select id="selectHsl" resultType="map">
 		SELECT * FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
 										  LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
 	</select>
 	
-	<select id="searchHslbyAddress" parameterType="list"
-		resultType="homeSitterlist">
+	<select id="searchHslbyAddress" parameterType="list" resultType="homeSitterlist">
 		SELECT *
 		FROM homesitterlist
 		<trim prefix="where" prefixOverrides="AND|OR">
@@ -45,7 +43,6 @@
 		</trim>
 		order by hsl_num desc
 	</select>
-
 	<select id="selectAllHsl" resultType="map">
 		SELECT *
 		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
