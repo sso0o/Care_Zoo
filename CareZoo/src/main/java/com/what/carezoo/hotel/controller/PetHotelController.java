@@ -50,6 +50,17 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	private PetHotelReservationService phrService;
 	
 	private static final String FILE_PATH = "c:/temp/";
+	
+	//펫호텔 정보 가져오기
+	@RequestMapping("/petHotel")
+	@ResponseBody
+	public Map<String, Object> getPetHotel(int ph_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("ph",phService.getPetHotelbyNum(ph_num));
+		System.out.println(rst);
+		return rst;
+		
+	}
 
 	// 펫호텔 목록보기
 	@RequestMapping("/petHotelList")
