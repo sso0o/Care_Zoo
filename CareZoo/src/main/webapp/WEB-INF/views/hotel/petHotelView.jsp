@@ -26,6 +26,7 @@
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/lang/ko.js'></script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -161,153 +162,151 @@
 			}
 		});
 	})
-	
-				function logoutCheck() {
-				if (confirm("정말 로그아웃?") == true) {
-					location.href = '${contextPath}/logout'
-				} else {
-					return false;
-				}
-			}
 
-			document.addEventListener('DOMContentLoaded', function() {
-				var d = new Date();
-				var num = <%=session.getAttribute("c_num")%>
-				var calendarEl = document.getElementById('calendar');
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
 
-				var calendar = new FullCalendar.Calendar(calendarEl, {
-					plugins : [ 'dayGrid', 'interaction' ],
-//		 			timeZone : "Asian/Seoul",
-					editable : false,
-					defaultView : 'dayGridMonth',
-					defaultDate : d,
-					editable : true,
-					selectable : true,
-					eventLimit : true, // allow "more" link when too many events
-					header : {
-						left : 'prev,next today',
-						center : 'title',
-						right : 'dayGridMonth,dayGridWeek'
-					},
-					eventRender : function(info) {
-						var tooltip = new Tooltip(info.el, {
-							title : info.event.extendedProps.description,
-							placement : 'top',
-							trigger : 'hover',
-							container : 'body'
-						});
-					},
-
-					//// uncomment this line to hide the all-day slot
-					//allDaySlot: false,
-
-					select : function(arg) {
-						console.log(arg.startStr, arg.endStr,
-								arg.resource ? arg.resource.id : '(no resource)');
-					}
-					,
-					eventClick : function(info) {
-						var infocheck = info.event.groupId+'='+info.event.id
-						var chkoutTime = info.event.end
-						
-						$("#type").val(info.event.groupId)
-						$("#number").val(info.event.id)
-						
-						
-						$("#reply-modal").show();
-						
-						$("#modal-close").on("click", function() {
-							$("#reply-modal").hide();
-						});
-						
-						$("#modal-review").on("click", function() {
-							if(d>chkoutTime){
-								if(info.event.groupId=="phr_num"){
-									location.href='${contextPath}/comment/phCommentForm?phr_num='+info.event.id
-								} else if(info.event.groupId=="hsr_num"){
-									location.href='${contextPath}/comment/hsCommentForm?hsr_num='+info.event.id
-								}else if(info.event.groupId=="vsr_num"){
-									location.href='${contextPath}/comment/vsCommentForm?vsr_num='+info.event.id
-								}
-							} else{
-								alert("조건을 갖추지 못하였습니다 :/")
-							}
-						});
-					}
-
+	document.addEventListener('DOMContentLoaded', function() {
+		var d = new Date();
+		var num =
+<%=session.getAttribute("c_num")%>
+	var calendarEl = document.getElementById('calendar');
+		var calHeight = 450;
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			plugins : [ 'dayGrid', 'interaction' ],
+			//		 			timeZone : "Asian/Seoul",
+			locale : 'ko',
+			height : calHeight,
+			// 				    contentHeight:calHeight,
+			allDayDefault : false,
+			editable : false,
+			defaultView : 'dayGridMonth',
+			defaultDate : d,
+			editable : false,
+			selectable : false,
+			eventLimit : false, // allow "more" link when too many events
+			header : {
+				left : 'prev,next',
+				center : 'title',
+				right : 'dayGridMonth,dayGridWeek'
+			},
+			eventRender : function(info) {
+				var tooltip = new Tooltip(info.el, {
+					title : info.event.extendedProps.description,
+					placement : 'top',
+					trigger : 'hover',
+					container : 'body'
 				});
-				
-				
+			},
 
-				$.ajax({
-					url : "${contextPath}/member/myReservation",
-					data : {
-						c_num : num
-					},
-					dataType : "JSON",
-					success : function(data) {
-						for (var i = 0; i < data.vsrList.length; i++) {
-							var e = {
-								groupId : 'vsr_num',
-								id : data.vsrList[i].vsr_num,
-								start : data.vsrList[i].vsr_chkin,
-								end : data.vsrList[i].vsr_chkout,
-								title : '방문시터예약',
-								description : '이거슨 방문시터',
-								color : 'rgba(0, 0, 120, 0.6)'
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
+		//// uncomment this line to hide the all-day slot
+		//allDaySlot: false,
 
-						for (var i = 0; i < data.hsrList.length; i++) {
-							var e = {
-								groupId : 'hsr_num',
-								id : data.hsrList[i].hsr_num,
-								start : data.hsrList[i].hsr_chkin,
-								end : data.hsrList[i].hsr_chkout,
-								title : '가정시터 예약',
-								description : data.hsInfo[i].hs_name,
-								color : 'rgba(0, 120, 0, 0.6)'
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
+		// 					select : function(arg) {
+		// 						console.log(arg.startStr, arg.endStr,
+		// 								arg.resource ? arg.resource.id : '(no resource)');
+		// 					}
+		// 					,
+		// 					eventClick : function(info) {
+		// 						var infocheck = info.event.groupId+'='+info.event.id
+		// 						var chkoutTime = info.event.end
 
-						for (var i = 0; i < data.phrList.length; i++) {
-							var e = {
-								groupId : 'phr_num',
-								id : data.phrList[i].phr_num,
-								start : data.phrList[i].phr_chkin+'T13:00',
-								end : data.phrList[i].phr_chkout+'T11:00',
-								title : data.phInfo[i].ph_name,
-								description : data.pet[i].p_name,
-								color : 'rgba(200, 0, 0, 0.6)'
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
+		// 						$("#type").val(info.event.groupId)
+		// 						$("#number").val(info.event.id)
 
-					},
-					error : function() {
-						alert("데이터를 불러오는데 실패했습니다.")
-					}
-				})
-// 		var iiii = {
-// 			start : '2019-09-26',
-// 			end: '2019-09-27',
-// 			description : 'test',
-// 			title: 'test'
-			
-// 		}
-// 		calendar.addEvent(iiii);
-				calendar.render();
+		// 						$("#reply-modal").show();
 
-			});
-			
-			
-			
-			
+		// 						$("#modal-close").on("click", function() {
+		// 							$("#reply-modal").hide();
+		// 						});
+
+		// 						$("#modal-review").on("click", function() {
+		// 							if(d>chkoutTime){
+		// 								if(info.event.groupId=="phr_num"){
+		// 									location.href='${contextPath}/comment/phCommentForm?phr_num='+info.event.id
+		// 								} else if(info.event.groupId=="hsr_num"){
+		// 									location.href='${contextPath}/comment/hsCommentForm?hsr_num='+info.event.id
+		// 								}else if(info.event.groupId=="vsr_num"){
+		// 									location.href='${contextPath}/comment/vsCommentForm?vsr_num='+info.event.id
+		// 								}
+		// 							} else{
+		// 								alert("조건을 갖추지 못하였습니다 :/")
+		// 							}
+		// 						});
+		// 					}
+
+		});
+
+		// 				$.ajax({
+		// 					url : "${contextPath}/member/myReservation",
+		// 					data : {
+		// 						c_num : num
+		// 					},
+		// 					dataType : "JSON",
+		// 					success : function(data) {
+		// 						for (var i = 0; i < data.vsrList.length; i++) {
+		// 							var e = {
+		// 								groupId : 'vsr_num',
+		// 								id : data.vsrList[i].vsr_num,
+		// 								start : data.vsrList[i].vsr_chkin,
+		// 								end : data.vsrList[i].vsr_chkout,
+		// 								title : '방문시터예약',
+		// 								description : '이거슨 방문시터',
+		// 								color : 'rgba(0, 0, 120, 0.6)'
+		// 							}
+		// 							calendar.addEvent(e)
+		// 							calendar.render();
+		// 						}
+
+		// 						for (var i = 0; i < data.hsrList.length; i++) {
+		// 							var e = {
+		// 								groupId : 'hsr_num',
+		// 								id : data.hsrList[i].hsr_num,
+		// 								start : data.hsrList[i].hsr_chkin,
+		// 								end : data.hsrList[i].hsr_chkout,
+		// 								title : '가정시터 예약',
+		// 								description : data.hsInfo[i].hs_name,
+		// 								color : 'rgba(0, 120, 0, 0.6)'
+		// 							}
+		// 							calendar.addEvent(e)
+		// 							calendar.render();
+		// 						}
+
+		// 						for (var i = 0; i < data.phrList.length; i++) {
+		// 							var e = {
+		// 								groupId : 'phr_num',
+		// 								id : data.phrList[i].phr_num,
+		// 								start : data.phrList[i].phr_chkin+'T13:00',
+		// 								end : data.phrList[i].phr_chkout+'T11:00',
+		// 								title : data.phInfo[i].ph_name,
+		// 								description : data.pet[i].p_name,
+		// 								color : 'rgba(200, 0, 0, 0.6)'
+		// 							}
+		// 							calendar.addEvent(e)
+		// 							calendar.render();
+		// 						}
+
+		// 					},
+		// 					error : function() {
+		// 						alert("데이터를 불러오는데 실패했습니다.")
+		// 					}
+		// 				})
+		// 		var iiii = {
+		// 			start : '2019-09-26',
+		// 			end: '2019-09-27',
+		// 			description : 'test',
+		// 			title: 'test'
+
+		// 		}
+		// 		calendar.addEvent(iiii);
+		calendar.render();
+
+	});
 </script>
 <style>
 #map_canvas {
@@ -358,7 +357,6 @@ footer {
 	margin-left: 0;
 }
 
-
 body {
 	margin: 0;
 }
@@ -387,6 +385,7 @@ ul {
 .demo {
 	width: 800px;
 }
+
 .popper, .tooltip {
 	position: absolute;
 	z-index: 9999;
@@ -428,7 +427,8 @@ ul {
 	margin-bottom: 5px;
 }
 
-.popper[x-placement^="top"] .popper__arrow, .tooltip[x-placement^="top"] .tooltip-arrow {
+.popper[x-placement^="top"] .popper__arrow, .tooltip[x-placement^="top"] .tooltip-arrow
+	{
 	border-width: 5px 5px 0 5px;
 	border-left-color: transparent;
 	border-right-color: transparent;
@@ -443,7 +443,8 @@ ul {
 	margin-top: 5px;
 }
 
-.tooltip[x-placement^="bottom"] .tooltip-arrow, .popper[x-placement^="bottom"] .popper__arrow {
+.tooltip[x-placement^="bottom"] .tooltip-arrow, .popper[x-placement^="bottom"] .popper__arrow
+	{
 	border-width: 0 5px 5px 5px;
 	border-left-color: transparent;
 	border-right-color: transparent;
@@ -458,7 +459,8 @@ ul {
 	margin-left: 5px;
 }
 
-.popper[x-placement^="right"] .popper__arrow, .tooltip[x-placement^="right"] .tooltip-arrow {
+.popper[x-placement^="right"] .popper__arrow, .tooltip[x-placement^="right"] .tooltip-arrow
+	{
 	border-width: 5px 5px 5px 0;
 	border-left-color: transparent;
 	border-top-color: transparent;
@@ -473,7 +475,8 @@ ul {
 	margin-right: 5px;
 }
 
-.popper[x-placement^="left"] .popper__arrow, .tooltip[x-placement^="left"] .tooltip-arrow {
+.popper[x-placement^="left"] .popper__arrow, .tooltip[x-placement^="left"] .tooltip-arrow
+	{
 	border-width: 5px 0 5px 5px;
 	border-top-color: transparent;
 	border-right-color: transparent;
@@ -502,8 +505,8 @@ ul {
 	padding-top: 5px;
 	padding-left: 40px;
 	padding-right: 20px;
-	padding-bottom: 10px; 
-	border : 1px solid #888;
+	padding-bottom: 10px;
+	border: 1px solid #888;
 	width: 550px; /* Could be more or less, depending on screen size */
 	height: 300px;
 	position: absolute;
@@ -526,7 +529,7 @@ ul {
 	text-align: right;
 }
 
-.review{
+.review {
 	color: #aaa;
 	float: right;
 	font-size: 20px;
@@ -534,11 +537,23 @@ ul {
 	text-align: center;
 }
 
-.close:hover, .close:focus,
-.review:hover, .review:focus {
+.close:hover, .close:focus, .review:hover, .review:focus {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+a.fc-more {
+	font-size: 1px;
+}
+
+.fc-toolbar h2 {
+	font-size: 20px;
+	margin: 0;
+}
+
+td.fc-day.fc-past { /*지난 날 블러*/
+	background-color: #EEEEEE;
 }
 </style>
 
@@ -597,7 +612,7 @@ ul {
 	<br>
 	<br>
 	<div class="container">
-		<div style="width: 700px; display: inline-block display:inline; float: left;">
+		<div style="width: 700px; display: inline-block; float: left;">
 			<div>
 
 				<table>
@@ -710,7 +725,18 @@ ul {
 		<div style="float: left;">
 			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
 				<div class="col-dates" style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
-					<input type="hidden" name="ph_num" value="${petHotel.ph_num }"> <span style="font-size: 17px; text-align: center">예약기간을 정해주세요.</span> <br> <br> <input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
+
+					<label>방:&nbsp; </label> <select name="roomSelect" class="rSelect">
+						<option value="">필수선택</option>
+						<option value="학생">학생</option>
+						<option value="회사원">회사원</option>
+						<option value="기타">기타</option>
+						<c:forEach items="${filesName}" var="fn">
+<%-- 							<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+								<option value="">
+						
+						</c:forEach>
+					</select> <br> <input type="hidden" name="ph_num" value="${petHotel.ph_num }"> <span style="font-size: 17px; text-align: center">예약기간을 정해주세요.</span> <br> <br> <input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
 					<div style="">
 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
 					</div>
@@ -723,9 +749,9 @@ ul {
 				</div>
 			</form>
 			<br>
-			<div style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+			<div style="padding: 10px; font-size: 15px; height: 1000px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
 				<span style="font-size: 17px;">/캘린더 미리보기/</span> <br> <br>
-				<div id="datepicker" class="calendar2" style="border-collapse: none; width: 50px; color: red"></div>
+
 				<div id='calendar'></div>
 			</div>
 		</div>
