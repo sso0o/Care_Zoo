@@ -44,6 +44,13 @@ ul {
 .demo {
 	width: 800px;
 }
+.petHotel {
+cursor: pointer;
+
+}
+.petHotel:hover{
+	 outline: 1px solid aqua;
+}
 </style>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -53,13 +60,6 @@ ul {
 <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
-
-<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-<%-- <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/> --%>
-<%-- <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/> --%>
-
-<%-- <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> --%>
-<%-- <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script> --%>
 <script type="text/javascript">
 	$(document).ready(
 			function() {
@@ -266,6 +266,11 @@ ul {
 
 
 			});
+			
+			$(".petHotel").click(function() { 
+				location.href='/index.do'
+					
+			} );
 </script>
 <!-- 애견호텔 목록 -->
 </head>
@@ -447,7 +452,7 @@ ul {
 		<div class="pethotelList">
 
 			<c:forEach var="phList" items="${phList}">
-				<div style="border: 1px solid; margin: 50px; height: 350px;">
+				<div class="petHotel" onclick="location.href='${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}'"style="border: 1px solid; margin: 50px; height: 350px;">
 					<div style="width: auto; display: inline-block display:inline; float: left;">
 						<div class="item">
 							<div class="clearfix" style="max-width: 350px;">

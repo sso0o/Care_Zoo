@@ -21,7 +21,11 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick-theme.css">
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -39,60 +43,60 @@
 <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
-
+<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
+<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 <script type="text/javascript">
 	var imgCommonPreview = new Image();
-	$(document)
-			.on(
-					'ready',
-					function() {
+	$(document).on(
+			'ready',
+			function() {
 
-						$("#datepicker").datepicker({
-							minDate : 0
+				$("#datepicker").datepicker({
+					minDate : 0
+				});
+				var datepickerStart = $('.col-dates .pull-left').datepicker(
+						{
+							dateFormat : 'yy-mm-dd',
+							minDate : 0,
+							onSelect : function(selected) {
+								datepickerEnd.datepicker('option', 'minDate',
+										selected);
+
+								if (datepickerEnd.prop('disabled')) {
+									datepickerEnd.datepicker('setDate',
+											selected);
+								} else if (!datepickerEnd.val()) {
+									setTimeout($.proxy(
+											datepickerEnd.datepicker,
+											datepickerEnd, 'show'), 50);
+								}
+							}
 						});
-						var datepickerStart = $('.col-dates .pull-left').datepicker(
-								{
-									dateFormat : 'yy-mm-dd',
-									minDate : 0,
-									onSelect : function(selected) {
-										datepickerEnd.datepicker('option', 'minDate',
-												selected);
 
-										if (datepickerEnd.prop('disabled')) {
-											datepickerEnd.datepicker('setDate',
-													selected);
-										} else if (!datepickerEnd.val()) {
-											setTimeout($.proxy(
-													datepickerEnd.datepicker,
-													datepickerEnd, 'show'), 50);
-										}
-									}
-								});
+				if (moment('yyyy-mm-dd').toDate() == null) {
+					var datepickerEnd = $('.col-dates .pull-right').datepicker(
+							{
+								dateFormat : 'yy-mm-dd',
+								minDate : moment('yy-mm-dd').toDate()
+							});
+				} else {
+					var datepickerEnd = $('.col-dates .pull-right').datepicker(
+							{
+								dateFormat : 'yy-mm-dd',
+								minDate : 0
+							});
+				}
 
-						if (moment('yyyy-mm-dd').toDate() == null) {
-							var datepickerEnd = $('.col-dates .pull-right').datepicker(
-									{
-										dateFormat : 'yy-mm-dd',
-										minDate : moment('yy-mm-dd').toDate()
-									});
-						} else {
-							var datepickerEnd = $('.col-dates .pull-right').datepicker(
-									{
-										dateFormat : 'yy-mm-dd',
-										minDate : 0
-									});
-						}
-						
-						$(".lazy").slick({
-							dots : true,
-							lazyLoad : 'ondemand', // ondemand progressive anticipated
-							infinite : true,
-							centerMode : false,
-							//          autoplay : true, //자동플레이 유무( false시 자동플레이 안됨)
-							autoplaySpeed : 4000
-						// 자동플레이 스피드
-						});
-					});
+				$(".lazy").slick({
+					dots : true,
+					lazyLoad : 'ondemand', // ondemand progressive anticipated
+					infinite : true,
+					centerMode : false,
+					//          autoplay : true, //자동플레이 유무( false시 자동플레이 안됨)
+					autoplaySpeed : 4000
+				// 자동플레이 스피드
+				});
+			});
 
 	function initialize() {
 
@@ -157,6 +161,153 @@
 			}
 		});
 	})
+	
+				function logoutCheck() {
+				if (confirm("정말 로그아웃?") == true) {
+					location.href = '${contextPath}/logout'
+				} else {
+					return false;
+				}
+			}
+
+			document.addEventListener('DOMContentLoaded', function() {
+				var d = new Date();
+				var num = <%=session.getAttribute("c_num")%>
+				var calendarEl = document.getElementById('calendar');
+
+				var calendar = new FullCalendar.Calendar(calendarEl, {
+					plugins : [ 'dayGrid', 'interaction' ],
+//		 			timeZone : "Asian/Seoul",
+					editable : false,
+					defaultView : 'dayGridMonth',
+					defaultDate : d,
+					editable : true,
+					selectable : true,
+					eventLimit : true, // allow "more" link when too many events
+					header : {
+						left : 'prev,next today',
+						center : 'title',
+						right : 'dayGridMonth,dayGridWeek'
+					},
+					eventRender : function(info) {
+						var tooltip = new Tooltip(info.el, {
+							title : info.event.extendedProps.description,
+							placement : 'top',
+							trigger : 'hover',
+							container : 'body'
+						});
+					},
+
+					//// uncomment this line to hide the all-day slot
+					//allDaySlot: false,
+
+					select : function(arg) {
+						console.log(arg.startStr, arg.endStr,
+								arg.resource ? arg.resource.id : '(no resource)');
+					}
+					,
+					eventClick : function(info) {
+						var infocheck = info.event.groupId+'='+info.event.id
+						var chkoutTime = info.event.end
+						
+						$("#type").val(info.event.groupId)
+						$("#number").val(info.event.id)
+						
+						
+						$("#reply-modal").show();
+						
+						$("#modal-close").on("click", function() {
+							$("#reply-modal").hide();
+						});
+						
+						$("#modal-review").on("click", function() {
+							if(d>chkoutTime){
+								if(info.event.groupId=="phr_num"){
+									location.href='${contextPath}/comment/phCommentForm?phr_num='+info.event.id
+								} else if(info.event.groupId=="hsr_num"){
+									location.href='${contextPath}/comment/hsCommentForm?hsr_num='+info.event.id
+								}else if(info.event.groupId=="vsr_num"){
+									location.href='${contextPath}/comment/vsCommentForm?vsr_num='+info.event.id
+								}
+							} else{
+								alert("조건을 갖추지 못하였습니다 :/")
+							}
+						});
+					}
+
+				});
+				
+				
+
+				$.ajax({
+					url : "${contextPath}/member/myReservation",
+					data : {
+						c_num : num
+					},
+					dataType : "JSON",
+					success : function(data) {
+						for (var i = 0; i < data.vsrList.length; i++) {
+							var e = {
+								groupId : 'vsr_num',
+								id : data.vsrList[i].vsr_num,
+								start : data.vsrList[i].vsr_chkin,
+								end : data.vsrList[i].vsr_chkout,
+								title : '방문시터예약',
+								description : '이거슨 방문시터',
+								color : 'rgba(0, 0, 120, 0.6)'
+							}
+							calendar.addEvent(e)
+							calendar.render();
+						}
+
+						for (var i = 0; i < data.hsrList.length; i++) {
+							var e = {
+								groupId : 'hsr_num',
+								id : data.hsrList[i].hsr_num,
+								start : data.hsrList[i].hsr_chkin,
+								end : data.hsrList[i].hsr_chkout,
+								title : '가정시터 예약',
+								description : data.hsInfo[i].hs_name,
+								color : 'rgba(0, 120, 0, 0.6)'
+							}
+							calendar.addEvent(e)
+							calendar.render();
+						}
+
+						for (var i = 0; i < data.phrList.length; i++) {
+							var e = {
+								groupId : 'phr_num',
+								id : data.phrList[i].phr_num,
+								start : data.phrList[i].phr_chkin+'T13:00',
+								end : data.phrList[i].phr_chkout+'T11:00',
+								title : data.phInfo[i].ph_name,
+								description : data.pet[i].p_name,
+								color : 'rgba(200, 0, 0, 0.6)'
+							}
+							calendar.addEvent(e)
+							calendar.render();
+						}
+
+					},
+					error : function() {
+						alert("데이터를 불러오는데 실패했습니다.")
+					}
+				})
+// 		var iiii = {
+// 			start : '2019-09-26',
+// 			end: '2019-09-27',
+// 			description : 'test',
+// 			title: 'test'
+			
+// 		}
+// 		calendar.addEvent(iiii);
+				calendar.render();
+
+			});
+			
+			
+			
+			
 </script>
 <style>
 #map_canvas {
@@ -207,41 +358,6 @@ footer {
 	margin-left: 0;
 }
 
-.review {
-	float: left;
-	width: 50%;
-	margin: auto 0;
-}
-
-.review .fieldview .subReview {
-	display: inline-block;
-	width: 45%;
-	margin: auto 0;
-	min-height: 400px;
-	border: none;
-}
-
-.review .fieldview {
-	border: 5px solid #ddd;
-	border-radius: 5px;
-	padding: 5px;
-	min-height: 200px;
-}
-
-.review .fieldview legend {
-	background: #40bf9f;
-	color: #fff;
-	padding: 5px 10px;
-	font-size: 20px;
-	border-radius: 5px;
-	box-shadow: 0 0 0 5px #ddd;
-	margin-left: 20px;
-}
-
-.review.review .fieldview p {
-	text-align: right;
-	padding-right: 10px;
-}
 
 body {
 	margin: 0;
@@ -270,6 +386,159 @@ ul {
 
 .demo {
 	width: 800px;
+}
+.popper, .tooltip {
+	position: absolute;
+	z-index: 9999;
+	background: #e1e1e1;
+	color: black;
+	width: 150px;
+	border-radius: 3px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+	padding: 10px;
+	text-align: center;
+}
+
+.style5 .tooltip {
+	background: #1E252B;
+	color: #FFFFFF;
+	max-width: 200px;
+	width: auto;
+	font-size: .8rem;
+	padding: .5em 1em;
+}
+
+.popper .popper__arrow, .tooltip .tooltip-arrow {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	position: absolute;
+	margin: 5px;
+}
+
+.tooltip .tooltip-arrow, .popper .popper__arrow {
+	border-color: #e1e1e1;
+}
+
+.style5 .tooltip .tooltip-arrow {
+	border-color: #050f0c;
+}
+
+.popper[x-placement^="top"], .tooltip[x-placement^="top"] {
+	margin-bottom: 5px;
+}
+
+.popper[x-placement^="top"] .popper__arrow, .tooltip[x-placement^="top"] .tooltip-arrow {
+	border-width: 5px 5px 0 5px;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	bottom: -5px;
+	left: calc(50% - 5px);
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.popper[x-placement^="bottom"], .tooltip[x-placement^="bottom"] {
+	margin-top: 5px;
+}
+
+.tooltip[x-placement^="bottom"] .tooltip-arrow, .popper[x-placement^="bottom"] .popper__arrow {
+	border-width: 0 5px 5px 5px;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-top-color: transparent;
+	top: -5px;
+	left: calc(50% - 5px);
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.tooltip[x-placement^="right"], .popper[x-placement^="right"] {
+	margin-left: 5px;
+}
+
+.popper[x-placement^="right"] .popper__arrow, .tooltip[x-placement^="right"] .tooltip-arrow {
+	border-width: 5px 5px 5px 0;
+	border-left-color: transparent;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+	left: -5px;
+	top: calc(50% - 5px);
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.popper[x-placement^="left"], .tooltip[x-placement^="left"] {
+	margin-right: 5px;
+}
+
+.popper[x-placement^="left"] .popper__arrow, .tooltip[x-placement^="left"] .tooltip-arrow {
+	border-width: 5px 0 5px 5px;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	right: -5px;
+	top: calc(50% - 5px);
+	margin-left: 0;
+	margin-right: 0;
+}
+
+/* 	===========================================모달 */
+.modal-modify {
+	overflow: hidden;
+	z-index: 999;
+	display: none;
+	left: 0;
+	top: 0;
+	position: fixed;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-table {
+	background-color: #fefefe;
+	padding-top: 5px;
+	padding-left: 40px;
+	padding-right: 20px;
+	padding-bottom: 10px; 
+	border : 1px solid #888;
+	width: 550px; /* Could be more or less, depending on screen size */
+	height: 300px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -275px;
+	border: 1px solid #888;
+}
+
+.modal-table th {
+	background-color: #7858a7;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.review{
+	color: #aaa;
+	float: right;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.close:hover, .close:focus,
+.review:hover, .review:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 </style>
 
@@ -372,9 +641,7 @@ ul {
 
 				<table>
 					<tr>
-						<td>
-							<br>
-						</td>
+						<td><br></td>
 					</tr>
 					<tr>
 						<td>
@@ -382,16 +649,13 @@ ul {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<br>
-						</td>
+						<td><br></td>
 					</tr>
 					<tr>
 						<td>가능한 펫 마리수:${petHotel.ph_p_count }
 					</tr>
 					<tr>
-						<td>
-							<input type="hidden" id="sample4_postcode" placeholder="우편번호"> 주소:${petHotel.ph_address} <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"> ${petHotel.ph_d_address }
+						<td><input type="hidden" id="sample4_postcode" placeholder="우편번호"> 주소:${petHotel.ph_address} <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"> ${petHotel.ph_d_address }
 					</tr>
 					<tr>
 						<td>
@@ -401,9 +665,7 @@ ul {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<br>
-						</td>
+						<td><br></td>
 					</tr>
 					<tr>
 						<td>
@@ -411,9 +673,7 @@ ul {
 						</td>
 					</tr>
 					<tr>
-						<td>
-							<br>
-						</td>
+						<td><br></td>
 					</tr>
 					<c:forEach var="phComment" items="${phComment}">
 						<tr>
@@ -466,7 +726,7 @@ ul {
 			<div style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
 				<span style="font-size: 17px;">/캘린더 미리보기/</span> <br> <br>
 				<div id="datepicker" class="calendar2" style="border-collapse: none; width: 50px; color: red"></div>
-
+				<div id='calendar'></div>
 			</div>
 		</div>
 	</div>
