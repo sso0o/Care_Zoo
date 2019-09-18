@@ -47,10 +47,13 @@
 					'ready',
 					function() {
 
+						$("#datepicker").datepicker({
+							minDate : 0
+						});
 						var datepickerStart = $('.col-dates .pull-left').datepicker(
 								{
 									dateFormat : 'yy-mm-dd',
-									minDate : moment('yy-mm-dd').toDate(),
+									minDate : 0,
 									onSelect : function(selected) {
 										datepickerEnd.datepicker('option', 'minDate',
 												selected);
@@ -65,10 +68,20 @@
 										}
 									}
 								});
-						var datepickerEnd = $('.col-dates .pull-right').datepicker({
-							dateFormat : 'yy-mm-dd',
-							minDate : moment('yy-mm-dd').toDate()
-						});
+
+						if (moment('yyyy-mm-dd').toDate() == null) {
+							var datepickerEnd = $('.col-dates .pull-right').datepicker(
+									{
+										dateFormat : 'yy-mm-dd',
+										minDate : moment('yy-mm-dd').toDate()
+									});
+						} else {
+							var datepickerEnd = $('.col-dates .pull-right').datepicker(
+									{
+										dateFormat : 'yy-mm-dd',
+										minDate : 0
+									});
+						}
 						
 						$(".lazy").slick({
 							dots : true,
@@ -457,6 +470,6 @@ ul {
 			</div>
 		</div>
 	</div>
-	<div class="container">asdsadasd</div>
+	<div class="container">ㄴㅁㅇ</div>
 </body>
 </html>

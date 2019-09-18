@@ -411,18 +411,6 @@ ul {
 				</table>
 				<div class="main-wrap no-profile">
 					<table>
-						<tr>
-							<td>
-								<!-- 					<input type="hidden" name="ph_address" value=""> -->
-							</td>
-						</tr>
-						<tr class="col-type">
-							<th>서비스</th>
-							<td><select name="ph_service_type">
-									<option title="24시간돌봄" value="24시간돌봄">24시간돌봄</option>
-									<option title="데이케어" value="데이케어">데이케어</option>
-							</select></td>
-						</tr>
 						<tr class="col-dates">
 							<th>예약일</th>
 							<td><input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" /></td>
