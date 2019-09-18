@@ -136,8 +136,8 @@
 		order by ph.ph_num
 	</select>
 
-	<select id="selectPhRoom" resultType="PetHotel">
-	select phr_num from PETHOTELROOM
+	<select id="selectPhRoom" resultType="PetHotelRoom">
+	select * from PETHOTELROOM
 	where ph_num = #{ph_num}
 	</select>
 

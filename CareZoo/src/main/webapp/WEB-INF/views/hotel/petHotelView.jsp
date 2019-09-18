@@ -728,13 +728,9 @@ td.fc-day.fc-past { /*지난 날 블러*/
 
 					<label>방:&nbsp; </label> <select name="roomSelect" class="rSelect">
 						<option value="">필수선택</option>
-						<option value="학생">학생</option>
-						<option value="회사원">회사원</option>
-						<option value="기타">기타</option>
-						<c:forEach items="${filesName}" var="fn">
+						<c:forEach items="${petHotelRoomList}" var="phrl">
 <%-- 							<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-								<option value="">
-						
+								<option value="${phrl.phrm_name}">${phrl.phrm_name}</option>
 						</c:forEach>
 					</select> <br> <input type="hidden" name="ph_num" value="${petHotel.ph_num }"> <span style="font-size: 17px; text-align: center">예약기간을 정해주세요.</span> <br> <br> <input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
 					<div style="">

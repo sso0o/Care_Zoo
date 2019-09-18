@@ -30,6 +30,7 @@ import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.PetHotelRoom;
 import com.what.carezoo.pet.service.PetService;
 
 
@@ -197,6 +198,9 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			String str = filesName.get(i);
 			System.out.println(str);
 		}
+		List<PetHotelRoom> petHotelRoomList = phService.getAllPetHotelRoom(ph_num);
+		System.out.println("Room:"+ petHotelRoomList);
+		model.addAttribute("petHotelRoomList",petHotelRoomList);
 		model.addAttribute("filesName",filesName);
 		
 		model.addAttribute("phComment",phService.selectByPh_num(ph_num));
