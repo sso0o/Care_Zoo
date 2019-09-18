@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.model.HomeSitterReservation;
+import com.what.carezoo.model.PetHotelComment;
 import com.what.carezoo.model.PetHotelReservation;
 import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
@@ -68,15 +70,19 @@ public class CommentController {
 	
 	
 	///////////////////////////////////////////////////////////////후기작성
+	@RequestMapping("/writeHSC")
 	public String writeHSComment() {
 		return null;
 	}
 	
+	@RequestMapping("/writeVSC")
 	public String writeVSComment() {
 		return null;
 	}
 	
-	public String writePHComment() {
+	@RequestMapping(value = "/writePHC", method = RequestMethod.POST)
+	public String writePHComment(PetHotelComment phc) {
+		
 		return null;
 	}
 
