@@ -1,5 +1,7 @@
 package com.what.carezoo.dao;
 
+import java.util.Map;
+
 import com.what.carezoo.model.HomeSitterComment;
 import com.what.carezoo.model.PetHotelComment;
 import com.what.carezoo.model.ViSitSitterComment;
@@ -21,5 +23,9 @@ public interface CommentDao {
 	public HomeSitterComment selectHSCByHSCnum(int hsc_num);
 	public ViSitSitterComment selectVSCByVSCnum(int vsc_num);
 	public PetHotelComment selectPHCByPHCnum(int phc_num);
-
+	
+	
+	public int HSCinsertFile(Map<String,Object> param);
+	public int VSCinsertFile(Map<String,Object> param);
+	public int PHCinsertFile(Map<String,Object> param);
 }

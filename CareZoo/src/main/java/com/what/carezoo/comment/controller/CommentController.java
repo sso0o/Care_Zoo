@@ -1,15 +1,22 @@
 package com.what.carezoo.comment.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.what.carezoo.comment.service.CommentService;
 import com.what.carezoo.hotel.service.PetHotelReservationService;
+import com.what.carezoo.model.HomeSitterComment;
 import com.what.carezoo.model.HomeSitterReservation;
 import com.what.carezoo.model.PetHotelComment;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.ViSitSitterComment;
 import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
 import com.what.carezoo.sitter.service.VisitSitterReservationService;
@@ -26,6 +33,18 @@ public class CommentController {
 	
 	@Autowired
 	private PetHotelReservationService phrService;
+	
+//	@Autowired
+//	private HomeSitterComment hscService;
+//	
+//	@Autowired
+//	private ViSitSitterComment vscService;
+//	
+//	@Autowired
+//	private PetHotelComment phcService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	
 	@RequestMapping("/hscList")
@@ -81,7 +100,10 @@ public class CommentController {
 	}
 	
 	@RequestMapping(value = "/writePHC", method = RequestMethod.POST)
-	public String writePHComment(PetHotelComment phc) {
+	public String writePHComment(PetHotelComment phc, MultipartHttpServletRequest mtfRequest) {
+		List<MultipartFile> files = mtfRequest.getFiles("file");
+		
+		boolean rst = commentService.writePHC(phc, files);
 		
 		return null;
 	}
