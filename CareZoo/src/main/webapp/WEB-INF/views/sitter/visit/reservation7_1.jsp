@@ -66,7 +66,7 @@ function add(c_num,p_num,p_name){
 <body>
 <h1>예약 변경을 원할 경우 추가/변경을 눌러주세요</h1>
 
-	<form action="complete2" method="post">
+	<form action="complete22" method="post">
 		<div>
 			<table>
 				<tr>

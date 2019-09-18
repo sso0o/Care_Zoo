@@ -9,12 +9,92 @@
 th{
 	font-weight:600;
 }
-</style>
-<script type="text/javascript">
 
-// 	function goBack() {
-// 		window.history.back();
+</style>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function(){
+	
+	var pay = "";
+	if($("#hAdd").val()=="없음"){
+		 pay = 0+"원";
+	}else if($("#hAdd").val()=="+1시간"){
+		pay = 15000+"원";
+	}else if($("#hAdd").val()=="+2시간"){
+		pay = 30000+"원";
+	}else if($("#hAdd").val()=="+3시간"){
+		pay = 45000+"원";
+	}else if($("#hAdd").val()=="+4시간"){
+		pay = 60000 +"원";
+	}
+	$("#hdd").append(pay);
+	
+	//p_num
+// 	var jsonData = ${p_num};
+// 	console.log(jsonData);
+// 	str="";
+// 	for(i in jsonData){
+// 		str += i== jsonData.length-1 
+// 		? "p_num="+jsonData[i]:"p_num="+jsonData[i]+"&"
 // 	}
+// 	console.log(str)
+	$.ajax({
+		url:"${contextPath}/visit/test",
+		type:"post",
+		data:${list},
+		dataType:"json",
+		success:function(data){
+			console.log(data);
+				var max = ${p_num}.length-1;
+				 var total = 28000+(5000*max)+"원";	
+				 $("#total").append(total);
+				 	for(var i =0;i<${p_num}.length;i++){
+			 		if(i>0){
+			 			var str = $("<tr><th>한마리 추가</th> <td>5000원</td></tr>");
+			 			($("#add").append(str))*i;
+			 		}
+			 	}
+		},
+		error:function(jqXHR, testStatus, errorTrown){
+			alert('mm');
+			
+		}
+			
+	});
+	
+	//pd_week
+// 	var jsonData2 = ${pd_week};
+// 	console.log(jsonData2);
+// 	str2="";
+// 	for(i in jsonData2){
+// 		str2 += i== jsonData2.length-1 
+// 		? "pd_week="+jsonData2[i]:"pd_week="+jsonData2[i]+"&"
+// 	}
+// 	console.log(str2)
+// 	$.ajax({
+// 		url:"${contextPath}/visit/test2",
+// 		type:"post",
+// 		data:str2,
+// 		dataType:"json",
+// 		success:function(data){
+// 			console.log(data);
+// 				var max = ${pd_week}.length-1;
+// 				 var total1 = 28000+(5000*max)+"원";	
+// 				 	for(var i =0;i<${pd_week}.length+1;i++){
+// 			 		if(i>0){
+						
+// 						 $("#total1").append("<tr><th>"+${pd_week}[i-1]+"</th><td>"+total1+"</td><tr>");
+// 			 		}
+// 			 	}
+// 		},
+// 		error:function(jqXHR, testStatus, errorTrown){
+// 			alert('mm');
+			
+// 		}
+			
+// 	});
+}); 
+
 </script>
 <meta charset="UTF-8">
 <title>요금 세부 정보</title>
@@ -38,32 +118,42 @@ th{
 		</tr>
 		<tr>
 			<th>회당 기본 금액</th>
-			<td>33000원</td>
+			<td><div id="total"></div></td>
 		</tr>
 		<tr>	
 			<th>기본 1마리</th>
 			<td>28000원</td>
 		</tr>
-		<tr>	
-			<th>1마리 추가</th>
-			<td>5000원</td>
+		<tr>
+			<td>
+				<div id="add">
+		
+				</div>
+			</td>
 		</tr>
 	</table>
 	<table>
 		<tr>
 			<th>상세 예약 내역</th>
 		</tr>
-		
-			<c:forEach items="${pd_week}" var="week">
+<!-- 		<tr> -->
+<%-- 			<c:forEach items="${pd_week}" var="week"> --%>
+			
+<%-- 					<th>${week}</th> --%>
+					
+			
+<%-- 			</c:forEach> --%>
 				<tr>
-					<td>${week}</td>
-					<td></td>
+					<td><div id="total1"></div></td>
 				</tr>
-			</c:forEach>
-			<th>추가 시간 내역</th>
-			<c:forEach items="${pd_hAdd}" var="hAdd">
-				<td>${hAdd}</td>
-				
+<!-- 		</tr> -->
+			<tr>
+				<th>추가 시간 내역</th>
+			</tr>
+			<c:forEach items="${pd_hAdd}" var="hAdd" >
+				<th>${hAdd}</th>
+				<input type="hidden" id="hAdd" value="${hAdd}">
+				<td><div id="hdd"></div></td>
 			</c:forEach>
 				
 		
