@@ -104,19 +104,9 @@
 			<tr>
 				<td>
 					<div id="cal">
-<!-- 						<input type="text" id="week" name="pd_week"> -->
 					</div>
-					<div class="date-pick"></div>
 				</td>
 			</tr>
-
-
-			<!-- datepicker가 날자가 요일로 들어가게끔! -->
-			<!-- 			<tr> -->
-			<!-- 				<td>날자선택: <input type="text" id="datepicker1" name="pd_week"> -->
-			<!-- 				</td> -->
-			<!-- 			</tr> -->
-
 			<tr>
 				<th>시간대 선택(선택한 시간대에 펫시터가 방문합니다)</th>
 			</tr>
