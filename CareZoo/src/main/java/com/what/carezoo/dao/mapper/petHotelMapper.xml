@@ -136,15 +136,10 @@
 		order by ph.ph_num
 	</select>
 
-	<!-- <select id="selectPhRoom" resultType="PetHotel"> -->
-	<!-- select phr_num from PETHOTELROOM -->
-	<!-- <trim prefix="where" prefixOverrides="AND|OR"> -->
-	<!-- <if test="ph.ph_pet_size != null"> -->
-	<!-- ph_pet_size like -->
-	<!-- '%' || #{phr_pet_size} || '%' -->
-	<!-- </if> -->
-	<!-- </trim> -->
-	<!-- </select> -->
+	<select id="selectPhRoom" resultType="PetHotel">
+	select phr_num from PETHOTELROOM
+	where ph_num = #{ph_num}
+	</select>
 
 
 

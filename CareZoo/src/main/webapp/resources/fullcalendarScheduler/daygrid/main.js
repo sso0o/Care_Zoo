@@ -76,7 +76,7 @@ Docs & License: https://fullcalendar.io/
                 this.options.fixedWeekCount) {
                 var rowCnt = Math.ceil(// could be partial weeks due to hiddenDays
                 core.diffWeeks(start, end));
-                end = core.addWeeks(end, 5 - rowCnt);
+                end = core.addWeeks(end, 6 - rowCnt);
             }
             return { start: start, end: end };
         };

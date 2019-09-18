@@ -21,6 +21,7 @@ import com.what.carezoo.model.DownloadView;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelComment;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.PetHotelRoom;
 
 @Transactional
 @Service
@@ -106,7 +107,11 @@ public class PetHotelService {
 	public PetHotel getPetHotelbyNum(int ph_num) {
 		return petHotelDao.selectOne(ph_num);
 	}
-
+	
+	public List<PetHotelRoom> getAllPetHotelRoom(int ph_num){
+		return petHotelDao.selectPhRoom(ph_num);
+	}
+	
 	public List<PetHotel> getAllPetHotel() {
 		return petHotelDao.selectAll();
 	}
