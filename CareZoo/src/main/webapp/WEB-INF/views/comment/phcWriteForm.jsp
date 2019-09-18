@@ -51,30 +51,43 @@
 		dataType: "JSON",
 		success: function(data) {
 			console.log(data)
-			$("#name").val(data.ph.ph_name)
+			$("#ph_name").val(data.ph.ph_name)
 		},
 		error: function() {
 			alert("실패")
 		}
 	})
+
+	$(function() {
+		$('.starRev span').click(function(){
+			$(this).parent().children('span').removeClass('on');
+			$(this).addClass('on').prevAll('span').addClass('on');
+// 			alert($(this).attr('title'))
+			$("#phr_star").val($(this).attr('title'))
+			return false;
+		});
+		
+
+	})
+
+	
 </script>
 
 
 <style type="text/css">
-.tab{
+.tab {
 	width: 800px;
-	margin: 0 auto;	
-	border: 1px solid #efefef; 
+	margin: 0 auto;
+	border: 1px solid #efefef;
 	padding: 10px;
 	margin-top: 35px;
 }
 
-.tab tr{
+.tab tr {
 	line-height: 3em;
-	
 }
 
-.tab th{
+.tab th {
 	background-color: #efefef;
 	width: 30%;
 }
@@ -88,7 +101,7 @@
 	margin-left: 10px;
 }
 
-.content{
+.content {
 	width: 96.5%;
 	margin-left: 10px;
 	vertical-align: middle;
@@ -96,8 +109,48 @@
 	resize: none;
 }
 
-.name{
+.name {
 	border: none;
+}
+
+.submit {
+	color: #777;
+	border: none;
+	background-color: #fff;
+}
+
+.submit:hover, .submit:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.starR1 {
+	background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
+	background-size: auto 100%;
+	width: 15px;
+	height: 30px;
+	float: left;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.starR2 {
+	background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+	background-size: auto 100%;
+	width: 15px;
+	height: 30px;
+	float: left;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.starR1.on {
+	background-position: 0 0;
+}
+
+.starR2.on {
+	background-position: -15px 0;
 }
 </style>
 <title>hscWriteForm</title>
@@ -158,29 +211,45 @@
 	<div class="container">
 		<fieldset>
 			<legend style="text-align: center;">펫호텔 후기 작성</legend>
-			<table class="tab">
-				<tr>
-					<th>제목*</th>
-					<td><input type="text" id="title" class="title"></td>
-				</tr>
-				<tr>
-					<th>호텔이름</th>
-					<td><input type="text" id="name"></td>
-				</tr>
-				<tr>
-					<th>별점*</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>내용*</th>
-					<td><textarea rows="10" cols="50" id="content" class="content"></textarea></td>
-				</tr>
-				<tr>
-					<th>dhdhdhhd</th>
-					<td></td>
-				</tr>
-			</table>
-
+			<form action="${contextPath }/comment/writePHC" method="post">
+				<table class="tab">
+					<tr>
+						<th>호텔이름</th>
+						<td>
+							<input type="text" id="ph_name" readonly="readonly">
+						</td>
+					</tr>
+					<tr>
+						<th>별점*</th>
+						<td style="padding-left: 10px">
+							<span class="starRev"> <span class="starR1" title="0.5">별1_왼쪽</span> <span class="starR2" title="1">별1_오른쪽</span> <span class="starR1" title="1.5">별2_왼쪽</span> <span class="starR2" title="2">별2_오른쪽</span> <span class="starR1" title="2.5">별3_왼쪽</span> <span class="starR2" title="3">별3_오른쪽</span> <span class="starR1" title="3.5">별4_왼쪽</span> <span class="starR2" title="4">별4_오른쪽</span> <span class="starR1" title="4.5">별5_왼쪽</span> <span class="starR2" title="5">별5_오른쪽</span>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<th>내용*</th>
+						<td>
+							<textarea rows="10" cols="50" name="phc_comment" class="content"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<th>dhdhdhhd</th>
+						<td></td>
+					</tr>
+					<tr>
+						<td>
+							<input type="hidden" name="c_num" value="${phr.c_num}">
+							<input type="hidden" name="ph_num" value="${phr.ph_num}">
+							<input type="hidden" name="phr_star" id="phr_star"> 
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center;" class="add">
+							<input type="submit" class="submit" value="등록">
+						</td>
+					</tr>
+				</table>
+			</form>
 		</fieldset>
 	</div>
 </body>
