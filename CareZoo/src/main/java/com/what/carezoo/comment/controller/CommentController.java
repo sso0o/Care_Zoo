@@ -24,47 +24,43 @@ import com.what.carezoo.sitter.service.VisitSitterReservationService;
 @Controller
 @RequestMapping("/comment")
 public class CommentController {
-	
+
 	@Autowired
 	private HomeSitterReservationService hsrService;
-	
+
 	@Autowired
 	private VisitSitterReservationService vsrService;
-	
+
 	@Autowired
 	private PetHotelReservationService phrService;
-	
-//	@Autowired
-//	private HomeSitterComment hscService;
-//	
-//	@Autowired
-//	private ViSitSitterComment vscService;
-//	
-//	@Autowired
-//	private PetHotelComment phcService;
-	
+
+	//	@Autowired
+	//	private HomeSitterComment hscService;
+	//	
+	//	@Autowired
+	//	private ViSitSitterComment vscService;
+	//	
+	//	@Autowired
+	//	private PetHotelComment phcService;
+
 	@Autowired
 	private CommentService commentService;
-	
-	
+
 	@RequestMapping("/hscList")
 	public String homeSitterComment() {
 		return "comment/homeSitterCommentList";
 	}
-	
-	
+
 	@RequestMapping("/vscList")
 	public String visitSitterComment() {
 		return "comment/homeSitterCommentList";
 	}
-	
-	
+
 	@RequestMapping("/phcList")
 	public String petHotelComment() {
 		return "comment/homeSitterCommentList";
 	}
-	
-	
+
 	//////////////////////////////////////////////////////////////////후기작성 폼
 	@RequestMapping("/hsCommentForm")
 	public String hsCommentForm(int hsr_num, Model m) {
@@ -72,40 +68,64 @@ public class CommentController {
 		m.addAttribute("hsr", hsr);
 		return "comment/hscWriteForm";
 	}
-	
+
 	@RequestMapping("/vsCommentForm")
 	public String vsCommentForm(int vsr_num, Model m) {
 		VisitSitterReservation vsr = vsrService.getVisitSitterResBuVsrnum(vsr_num);
 		m.addAttribute("vsr", vsr);
 		return "comment/vscWriteForm";
 	}
-	
+
 	@RequestMapping("/phCommentForm")
 	public String phCommentForm(int phr_num, Model m) {
 		PetHotelReservation phr = phrService.getPetHotelResByNum(phr_num);
 		m.addAttribute("phr", phr);
 		return "comment/phcWriteForm";
 	}
-	
-	
+
 	///////////////////////////////////////////////////////////////후기작성
 	@RequestMapping("/writeHSC")
-	public String writeHSComment() {
-		return null;
+	public String writeHSComment(HomeSitterComment hsc, MultipartHttpServletRequest mtfRequest) {
+		System.out.println("HomeSitterComment : " + hsc);
+
+		List<MultipartFile> files = mtfRequest.getFiles("file");
+
+		boolean rst = commentService.writeHSC(hsc, files);
+		if (rst) {
+			return "redirect:/member/myPage";
+		} else {
+			return "redirect:/";
+		}
+
 	}
-	
+
 	@RequestMapping("/writeVSC")
-	public String writeVSComment() {
-		return null;
+	public String writeVSComment(ViSitSitterComment vsc, MultipartHttpServletRequest mtfRequest) {
+		System.out.println("VisitSitterComment : " + vsc);
+
+		List<MultipartFile> files = mtfRequest.getFiles("file");
+
+		boolean rst = commentService.writeVSC(vsc, files);
+		if (rst) {
+			return "redirect:/member/myPage";
+		} else {
+			return "redirect:/";
+		}
 	}
-	
+
 	@RequestMapping(value = "/writePHC", method = RequestMethod.POST)
 	public String writePHComment(PetHotelComment phc, MultipartHttpServletRequest mtfRequest) {
+		System.out.println("PetHotelComment : " + phc);
+
 		List<MultipartFile> files = mtfRequest.getFiles("file");
-		
+
 		boolean rst = commentService.writePHC(phc, files);
-		
-		return null;
+		if (rst) {
+			return "redirect:/member/myPage";
+		} else {
+			return "redirect:/";
+		}
+
 	}
 
 }

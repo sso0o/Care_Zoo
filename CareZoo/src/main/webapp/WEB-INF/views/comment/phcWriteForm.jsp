@@ -44,13 +44,17 @@
 		var phr_num = ${phr.phr_num}
 		var ph_num = ${phr.ph_num}
 		var c_num = ${phr.c_num}
+		
+		console.log("phr_num =="+phr_num)
+		console.log("ph_num =="+ph_num)
+		console.log("c_num =="+c_num)
 	
 	$.ajax({
 		url: "${contextPath}/petHotel/petHotel",
 		data : {ph_num : ph_num},
 		dataType: "JSON",
 		success: function(data) {
-			console.log(data)
+			console.log(data);
 			$("#ph_name").val(data.ph.ph_name)
 		},
 		error: function() {
@@ -65,7 +69,7 @@
 			$(this).parent().children('span').removeClass('on');
 			$(this).addClass('on').prevAll('span').addClass('on');
 // 			alert($(this).attr('title'))
-			$("#phr_star").val($(this).attr('title'))
+			$("#phc_star").val($(this).attr('title'))
 			return false;
 			
 		});
@@ -384,8 +388,9 @@ img {
 					<tr>
 						<td>
 							<input type="hidden" name="c_num" value="${phr.c_num}">
+							<input type="hidden" name="phr_num" value="${phr.phr_num}">
 							<input type="hidden" name="ph_num" value="${phr.ph_num}">
-							<input type="hidden" name="phr_star" id="phr_star"> 
+							<input type="hidden" name="phc_star" id="phc_star" value="0"> 
 						</td>
 					</tr>
 					<tr>

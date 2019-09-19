@@ -25,16 +25,50 @@ public class CommentService {
 	@Autowired
 	private CommentDao cDao;
 
-	public boolean writeHSC(HomeSitterComment hsc) {
+	public boolean writeHSC(HomeSitterComment hsc, List<MultipartFile> files) {
 		if (cDao.insertHSC(hsc) > 0) {
+			if (files.isEmpty()) {
+				return true;
+			} else {
+				System.out.println("파일이 있을경우ㅠ 일로 넘어오냐ㅑㅑㅑ");
+				for (MultipartFile mf : files) {
+					String fullName = writeFile(mf);
+					Map<String, Object> fileParam = new HashMap<String, Object>();
+					fileParam.put("hsc", hsc.getHsc_num());
+					fileParam.put("hsc_img_filename",fullName);
+					System.out.println(fileParam);
+					if(cDao.HSCinsertFile(fileParam)>0) {
+						return true;
+					} else return false;
+				}
+
+			}
 			return true;
+
 		}
 		return false;
 	}
 
-	public boolean writeVSC(ViSitSitterComment vsc) {
+	public boolean writeVSC(ViSitSitterComment vsc, List<MultipartFile> files) {
 		if (cDao.insertVSC(vsc) > 0) {
+			if (files.isEmpty()) {
+				return true;
+			} else {
+				System.out.println("파일이 있을경우ㅠ 일로 넘어오냐ㅑㅑㅑ");
+				for (MultipartFile mf : files) {
+					String fullName = writeFile(mf);
+					Map<String, Object> fileParam = new HashMap<String, Object>();
+					fileParam.put("vsc", vsc.getVsc_num());
+					fileParam.put("vsc_img_filename",fullName);
+					System.out.println(fileParam);
+					if(cDao.VSCinsertFile(fileParam)>0) {
+						return true;
+					} else return false;
+				}
+
+			}
 			return true;
+
 		}
 		return false;
 	}
@@ -44,12 +78,14 @@ public class CommentService {
 			if (files.isEmpty()) {
 				return true;
 			} else {
+				System.out.println("파일이 있을경우ㅠ 일로 넘어오냐ㅑㅑㅑ");
 				for (MultipartFile mf : files) {
 					String fullName = writeFile(mf);
 					Map<String, Object> fileParam = new HashMap<String, Object>();
 					fileParam.put("phc_num", phc.getPhc_num());
 					fileParam.put("phc_img_filename",fullName);
-					if(cDao.HSCinsertFile(fileParam)>0) {
+					System.out.println(fileParam);
+					if(cDao.PHCinsertFile(fileParam)>0) {
 						return true;
 					} else return false;
 				}

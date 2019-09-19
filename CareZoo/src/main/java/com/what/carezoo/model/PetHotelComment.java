@@ -3,6 +3,11 @@ package com.what.carezoo.model;
 import java.util.Date;
 
 public class PetHotelComment {
+	@Override
+	public String toString() {
+		return "PetHotelComment [phc_num=" + phc_num + ", phr_num=" + phr_num + ", ph_num=" + ph_num + ", c_num=" + c_num + ", phc_star=" + phc_star + ", phc_comment=" + phc_comment + ", phc_write_date=" + phc_write_date + ", c_name="
+				+ c_name + "]";
+	}
 	private int phc_num;
 	private int phr_num;
 	private int ph_num;

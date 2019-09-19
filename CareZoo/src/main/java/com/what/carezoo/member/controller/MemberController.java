@@ -184,7 +184,7 @@ public class MemberController {
 			rst.put("pet", pet);
 		}
 
-		System.out.println(rst);
+//		System.out.println(rst);
 	
 		return rst;
 	}

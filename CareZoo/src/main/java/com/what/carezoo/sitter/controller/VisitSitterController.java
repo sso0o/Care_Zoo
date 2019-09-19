@@ -30,6 +30,7 @@ import com.what.carezoo.model.Pet_Details;
 import com.what.carezoo.model.Pet_WeekList;
 import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.pet.service.Pet_DetailService;
+import com.what.carezoo.sitter.service.VisitSitterService;
 @RequestMapping("/visit")
 @Controller
 public class VisitSitterController{
@@ -41,6 +42,9 @@ public class VisitSitterController{
 	private Pet_DetailService pdService;
 	@Autowired
 	private Pet_WeekListDao pwlServcie;
+	@Autowired
+	private VisitSitterService vsService;
+	
 	//예약 메인(로그인, 회원가입)
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping("/main")
@@ -60,6 +64,16 @@ public class VisitSitterController{
 	public String joinForm() {
 		return "sitter/visit/joinForm";
 	}
+	
+	//방문시터 정보 가져오기
+	@RequestMapping("/visitSitter")
+	@ResponseBody
+	public Map<String, Object> getVisitSitter(int vs_num){
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("vs", vsService.getVisitSitterByNum(vs_num));
+		return rst;
+	}
+	
 	
 //	@RequestMapping(value="/join", method=RequestMethod.POST)
 //	public String join(Customer customer,Model model) {

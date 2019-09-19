@@ -17,7 +17,7 @@
 	<insert id="insertPHC" parameterType="PetHotelComment">
 		insert into PetHotelComment 
 		(phc_num, phr_num, ph_num, c_num, phc_comment, phc_star, phc_write_date)
-		values (pethotelcomment_seq.nextval, #{vsr_num}, #{vs_num}, #{c_num}, #{vsc_comment}, #{phc_star}, sysdate )
+		values (pethotelcomment_seq.nextval, #{phr_num}, #{ph_num}, #{c_num}, #{phc_comment}, #{phc_star}, sysdate )
 	</insert>
 	
 	<update id="updateHSC" parameterType="HomeSitterComment"></update>
