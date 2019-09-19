@@ -29,7 +29,6 @@
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/lang/ko.js'></script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
@@ -52,10 +51,8 @@
 			'ready',
 			function() {
 
-				$("#datepicker").datepicker({
-					minDate : 0
-				});
-				var datepickerStart = $('.col-dates .pull-left').datepicker(
+
+				var 					datepickerStart = $('.col-dates .pull-left').datepicker(
 						{
 							dateFormat : 'yy-mm-dd',
 							minDate : 0,
@@ -72,6 +69,7 @@
 											datepickerEnd, 'show'), 50);
 								}
 							}
+
 						});
 
 				if (moment('yyyy-mm-dd').toDate() == null) {
@@ -87,17 +85,33 @@
 								minDate : 0
 							});
 				}
-
-				$(".lazy").slick({
-					dots : true,
-					lazyLoad : 'ondemand', // ondemand progressive anticipated
-					infinite : true,
-					centerMode : false,
-					//          autoplay : true, //자동플레이 유무( false시 자동플레이 안됨)
-					autoplaySpeed : 4000
-				// 자동플레이 스피드
+				
+				$('.rSelect').change(function(){
+					if ($('.rSelect option:selected').val() == "required") {
+						
+						$('.pull-left').val("체크인 날짜");
+						$('.pull-right').val("체크아웃 날짜");
+						
+					}
+				});
+//qwewqqweqwee
+				
+				$('.pull-left').click(function(){
+					
+					if ($('.rSelect option:selected').val() == "required") {
+						alert("방을 선택해주세요.");
+						$('#ui-datepicker-div').css("display","none");
+					}
+				});
+				$('.pull-right').click(function(){
+					
+					if ($('.rSelect option:selected').val() == "required") {
+						alert("방을 선택해주세요.");
+						$('#ui-datepicker-div').css("display","none");
+					}
 				});
 			});
+			
 
 	function initialize() {
 
@@ -320,41 +334,6 @@
 
 footer {
 	
-}
-
-.slider {
-	width: 200px;
-	margin: 50px auto;
-}
-
-.slick-slide {
-	margin: 10px;
-}
-
-.slick-slide img {
-	width: 80%;
-}
-
-.slick-prev:before, .slick-next:before {
-	color: black;
-}
-
-.slick-slide {
-	margin-left: 0;
-	transition: all ease-in-out .3s;
-	opacity: .2;
-}
-
-.slick-active {
-	opacity: .5;
-}
-
-.slick-current {
-	opacity: 1;
-}
-
-.lazy slider slick-initialized slick-slider slick-dotted {
-	margin-left: 0;
 }
 
 body {
@@ -727,20 +706,21 @@ td.fc-day.fc-past { /*지난 날 블러*/
 				<div class="col-dates" style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
 
 					<label>방:&nbsp; </label> <select name="roomSelect" class="rSelect">
-						<option value="">필수선택</option>
+						<option value="required">필수선택</option>
 						<c:forEach items="${petHotelRoomList}" var="phrl">
-<%-- 							<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-								<option value="${phrl.phrm_name}">${phrl.phrm_name}</option>
+							<%-- 							<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+							<option value="${phrl.phrm_name}">${phrl.phrm_name}</option>
 						</c:forEach>
-					</select> <br> <input type="hidden" name="ph_num" value="${petHotel.ph_num }"> <span style="font-size: 17px; text-align: center">예약기간을 정해주세요.</span> <br> <br> <input type="text" class="pull-left" placeholder="시작 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="마침 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
+					</select> <br> <input type="hidden" name="ph_num" value="${petHotel.ph_num }">  <br> <input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
 					<div style="">
 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
-					</div>
+					
 					<hr>
 					<span>(시작날짜 마침날짜 계산일)박</span><span>(가격)</span>
 					<hr>
 					<span>반려견 추가</span><span>(가격)</span>
 					<hr>
+					</div>
 					<span>총 합계:</span> <span>(총가격)</span> <br> <br> <input type="submit" value="예약하기">
 				</div>
 			</form>
