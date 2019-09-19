@@ -46,7 +46,7 @@ $(function() {
 	var datepickerStart = $('#checkin').datetimepicker({
 		beforeShowDay: unavailableD,
 		dateFormat: 'yy-mm-dd', 
-		minDate: moment('yy-mm-dd').toDate(),
+		minDate: 'today',
 		onSelect: function (selected) {
 			datepickerEnd.datepicker('option', 'minDate', selected);
 			if (datepickerEnd.prop('disabled')) {
@@ -61,7 +61,7 @@ $(function() {
 	var datepickerEnd = $('#checkout').datetimepicker({
 		beforeShowDay: unavailableD,
 		dateFormat: 'yy-mm-dd', 
-		minDate: moment('yy-mm-dd').toDate(),
+		minDate: 'today',
 		timeFormat: 'HH:mm',
 		stepMinute: '30',
 		//예약 불가능일때 선택 막기

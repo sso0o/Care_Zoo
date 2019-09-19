@@ -7,23 +7,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
 import com.what.carezoo.member.service.MemberService;
-import com.what.carezoo.model.Customer;
+
 import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterReservation;
 import com.what.carezoo.model.Pet;

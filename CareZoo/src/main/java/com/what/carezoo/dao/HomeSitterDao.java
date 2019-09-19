@@ -12,6 +12,6 @@ public interface HomeSitterDao {
 	public HomeSitter selectOneByNum(int hs_num);
 	public HomeSitter selectOneByEmail(String hs_email);
 	public List<HomeSitter> selectAllHomeSitter();
-	
+	public int homeSitterIdCheck(String hs_email);
 
 }
