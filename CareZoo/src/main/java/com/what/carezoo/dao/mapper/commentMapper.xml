@@ -2,6 +2,25 @@
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.CommentDao">
 
+	<select id="commentChkHSC" parameterType="int" resultType="int">
+		select count(*)
+		from HomeSitterComment
+		where hsr_num = #{hsr_num}
+	</select>
+	
+	<select id="commentChkVSC" parameterType="int" resultType="int">
+		select count(*)
+		from ViSitSitterComment
+		where vsr_num = #{vsr_num}
+	</select>
+	
+	<select id="commentChkPHC" parameterType="int" resultType="int">
+		select count(*)
+		from PetHotelComment
+		where phr_num = #{phr_num}
+	</select>
+	
+
 	<insert id="insertHSC" parameterType="HomeSitterComment">
 		insert into HomeSitterComment 
 		(hsc_num, hsr_num, hs_num, c_num, hsc_comment, hsc_star, hsc_write_date)
@@ -72,5 +91,23 @@
 		values (pethotelcomment_image_seq.nextval, #{phc_num}, #{phc_img_filename}, sysdate)
 	</insert>
 
+	
+	<select id="getStarHS" parameterType="int" resultType="double">
+		select round(avg(hsc_star), 1) as star
+		from homesittercomment
+		where hs_num = #{hs_num}
+	</select>
+	
+	<select id="getStarVS" parameterType="int" resultType="double">
+		select round(avg(vsc_star), 1) as star
+		from visitsittercomment
+		where vs_num = #{vs_num}
+	</select>
+	
+	<select id="getStarPH" parameterType="int" resultType="double">
+		select round(avg(phc_star), 1) as star
+		from pethotelcomment
+		where ph_num = #{ph_num}
+	</select>
 
 </mapper>

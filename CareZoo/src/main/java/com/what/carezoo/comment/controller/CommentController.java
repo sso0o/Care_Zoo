@@ -1,29 +1,47 @@
 package com.what.carezoo.comment.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.comment.service.CommentService;
 import com.what.carezoo.hotel.service.PetHotelReservationService;
+import com.what.carezoo.hotel.service.PetHotelService;
+import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterComment;
 import com.what.carezoo.model.HomeSitterReservation;
+import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelComment;
 import com.what.carezoo.model.PetHotelReservation;
 import com.what.carezoo.model.ViSitSitterComment;
+import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
+import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.VisitSitterReservationService;
+import com.what.carezoo.sitter.service.VisitSitterService;
 
 @Controller
 @RequestMapping("/comment")
 public class CommentController {
+	
+	@Autowired
+	private HomeSitterService hsService;
+	
+	@Autowired
+	private VisitSitterService vsService;
+	
+	@Autowired
+	private PetHotelService phService;
 
 	@Autowired
 	private HomeSitterReservationService hsrService;
@@ -34,14 +52,14 @@ public class CommentController {
 	@Autowired
 	private PetHotelReservationService phrService;
 
-	//	@Autowired
-	//	private HomeSitterComment hscService;
-	//	
-	//	@Autowired
-	//	private ViSitSitterComment vscService;
-	//	
-	//	@Autowired
-	//	private PetHotelComment phcService;
+//	@Autowired
+//	private HomeSitterComment hscService;
+//	
+//	@Autowired
+//	private ViSitSitterComment vscService;
+//	
+//	@Autowired
+//	private PetHotelComment phcService;
 
 	@Autowired
 	private CommentService commentService;
@@ -60,6 +78,83 @@ public class CommentController {
 	public String petHotelComment() {
 		return "comment/homeSitterCommentList";
 	}
+	
+	//////////////////////////////////////////////////////////////////후기작성 여부 확인
+	@RequestMapping("/commentchk")
+	@ResponseBody
+	public boolean commentchk(String groupId, int id) {
+		System.out.println("=========================================================================");
+		System.out.println("groupId ==> "+groupId);
+		System.out.println("id ==> "+id);
+		
+		if(groupId.equals("phr_num") && commentService.commentChkPHC(id)) {
+			System.out.println("후기 들어있나 확인");
+			return true;
+		} else if(groupId.equals("hsr_num")&&commentService.commentChkHSC(id)) {
+			return true;
+		} else if(groupId.equals("vsr_num")&&commentService.commentChkVSC(id)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+	
+	//////////////////////////////////////////////////////////////////모달정보 가져오기 
+	@RequestMapping("/getModalPH")
+	@ResponseBody
+	public Map<String, Object> getModalInfoPH(int num) {
+		PetHotelReservation phr = phrService.getPetHotelResByNum(num);
+		PetHotel ph = phService.getPetHotelbyNum(phr.getPh_num());
+		String name = ph.getPh_name();
+		String contact = ph.getPh_contact();
+		double star = commentService.getStarPH(ph.getPh_num());
+		String fileName = phService.getFileList(ph.getPh_num()).get(0);
+		int number = ph.getPh_num();
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("name",name);
+		rst.put("contact",contact);
+		rst.put("star",star);
+		if(fileName == null) {			
+			rst.put("fileName",null);
+		} else {
+			rst.put("fileName",fileName);
+		}
+		rst.put("number",number);
+		return rst;
+	}
+	
+	@RequestMapping("/getModalHS")
+	@ResponseBody
+	public Map<String, Object> getModalInfoHS(int num) {
+		HomeSitterReservation hsr = hsrService.getHomeSitterResByHsrnum(num);
+		HomeSitter hs = hsService.getHomeSitterByNum(hsr.getHs_num());
+		String name = hs.getHs_name();
+		int contact = hs.getHs_contact();
+		Double star = commentService.getStarHS(hs.getHs_num());
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("name",name);
+		rst.put("contact",contact);
+		rst.put("star",star);
+		return rst;
+	}
+	
+	@RequestMapping("/getModalVS")
+	@ResponseBody
+	public Map<String, Object> getModalInfoVS(int num) {
+		VisitSitterReservation vsr = vsrService.getVisitSitterResBuVsrnum(num);
+		VisitSitter vs = vsService.getVisitSitterByNum(vsr.getVs_num());
+		String name = vs.getVs_name();
+		String contact = vs.getVs_contact();
+		Double star = commentService.getStarVS(vs.getVs_num());
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("name",name);
+		rst.put("contact",contact);
+		rst.put("star",star);
+		return rst;
+	}
+	
+	
 
 	//////////////////////////////////////////////////////////////////후기작성 폼
 	@RequestMapping("/hsCommentForm")
@@ -84,7 +179,7 @@ public class CommentController {
 	}
 
 	///////////////////////////////////////////////////////////////후기작성
-	@RequestMapping("/writeHSC")
+	@RequestMapping(value = "/writeHSC", method = RequestMethod.POST)
 	public String writeHSComment(HomeSitterComment hsc, MultipartHttpServletRequest mtfRequest) {
 		System.out.println("HomeSitterComment : " + hsc);
 
@@ -99,7 +194,7 @@ public class CommentController {
 
 	}
 
-	@RequestMapping("/writeVSC")
+	@RequestMapping(value = "/writeVSC", method = RequestMethod.POST)
 	public String writeVSComment(ViSitSitterComment vsc, MultipartHttpServletRequest mtfRequest) {
 		System.out.println("VisitSitterComment : " + vsc);
 

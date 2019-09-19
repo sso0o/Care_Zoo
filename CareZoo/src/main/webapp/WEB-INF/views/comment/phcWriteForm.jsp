@@ -362,7 +362,12 @@ img {
 					<tr>
 						<th>별점*</th>
 						<td style="padding-left: 10px">
-							<span class="starRev"> <span class="starR1" title="0.5">별1_왼쪽</span> <span class="starR2" title="1">별1_오른쪽</span> <span class="starR1" title="1.5">별2_왼쪽</span> <span class="starR2" title="2">별2_오른쪽</span> <span class="starR1" title="2.5">별3_왼쪽</span> <span class="starR2" title="3">별3_오른쪽</span> <span class="starR1" title="3.5">별4_왼쪽</span> <span class="starR2" title="4">별4_오른쪽</span> <span class="starR1" title="4.5">별5_왼쪽</span> <span class="starR2" title="5">별5_오른쪽</span>
+							<span class="starRev"> 
+								<span class="starR1" title="0.5">별1_왼쪽</span> <span class="starR2" title="1">별1_오른쪽</span> 
+								<span class="starR1" title="1.5">별2_왼쪽</span> <span class="starR2" title="2">별2_오른쪽</span> 
+								<span class="starR1" title="2.5">별3_왼쪽</span> <span class="starR2" title="3">별3_오른쪽</span> 
+								<span class="starR1" title="3.5">별4_왼쪽</span> <span class="starR2" title="4">별4_오른쪽</span> 
+								<span class="starR1" title="4.5">별5_왼쪽</span> <span class="starR2" title="5">별5_오른쪽</span>
 							</span>
 						</td>
 					</tr>

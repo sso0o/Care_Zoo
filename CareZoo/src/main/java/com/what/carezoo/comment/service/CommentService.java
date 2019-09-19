@@ -24,7 +24,44 @@ public class CommentService {
 
 	@Autowired
 	private CommentDao cDao;
-
+	
+	
+	public Double getStarHS(int hs_num) {
+		return cDao.getStarHS(hs_num);
+	}
+	
+	public Double getStarVS(int vs_num) {
+		return cDao.getStarVS(vs_num);
+	}
+	
+	public Double getStarPH(int ph_num) {
+		return cDao.getStarPH(ph_num);
+	}
+	
+	
+	
+	public boolean commentChkHSC(int hsr_num) {
+		if(cDao.commentChkHSC(hsr_num)==0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean commentChkVSC(int vsr_num) {
+		if(cDao.commentChkVSC(vsr_num)==0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean commentChkPHC(int phr_num) {
+		int count = cDao.commentChkPHC(phr_num);
+		if(cDao.commentChkPHC(phr_num)==0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean writeHSC(HomeSitterComment hsc, List<MultipartFile> files) {
 		if (cDao.insertHSC(hsc) > 0) {
 			if (files.isEmpty()) {
@@ -34,7 +71,7 @@ public class CommentService {
 				for (MultipartFile mf : files) {
 					String fullName = writeFile(mf);
 					Map<String, Object> fileParam = new HashMap<String, Object>();
-					fileParam.put("hsc", hsc.getHsc_num());
+					fileParam.put("hsc_num", hsc.getHsc_num());
 					fileParam.put("hsc_img_filename",fullName);
 					System.out.println(fileParam);
 					if(cDao.HSCinsertFile(fileParam)>0) {
@@ -58,7 +95,7 @@ public class CommentService {
 				for (MultipartFile mf : files) {
 					String fullName = writeFile(mf);
 					Map<String, Object> fileParam = new HashMap<String, Object>();
-					fileParam.put("vsc", vsc.getVsc_num());
+					fileParam.put("vsc_num", vsc.getVsc_num());
 					fileParam.put("vsc_img_filename",fullName);
 					System.out.println(fileParam);
 					if(cDao.VSCinsertFile(fileParam)>0) {
