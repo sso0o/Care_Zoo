@@ -50,8 +50,11 @@ public class HomeSitterService {
 	
 	public List<HomeSitter> getAllHomeSitter(){
 		return null;
+	}	
+	//아이디 체크
+	public int userIdCheck(String hs_email) {
+		return hsDao.homeSitterIdCheck(hs_email);
 	}
-	
 	//homesitterList
 	public HomeSitterList getHomeSitterByHsl_Num(int hsl_num) {
 		return hslDao.selectOnebyHsl_num(hsl_num);		

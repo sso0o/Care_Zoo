@@ -6,44 +6,63 @@
 <head>
 <meta charset="UTF-8">
 <title>HomeSitterJoinForm</title>
+<!-- link for datepicker -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- jquery cdn -->
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<!-- datepicker -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
 <!--script for daum postcode -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="${contextPath}/resources/js/daumPostcode.js" type="text/javascript"></script>
-<!-- latest Jquery version -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!--뭔지 모르겠음  -->
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<!--  Jquery version -->
+<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+<!-- script for checking form fillout  -->
+<script type="text/javascript" src="${contextPath}/resources/js/homeSitterJoin.js"></script>
 <script type="text/javascript">
-//아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
 $(function() {
+	//생일 선택 datepicker
+	$("#hs_birth").datepicker({
+		maxDate: 'today'
+	});
+	//form 유효성 검사
+	$("#joinForm").on("submit",function(){
+		//만약에 필수요소가 제대로 채워지지 않았으면 return false;
+		var result = homeSitterJoinCheck("joinForm");
+		if(!result){		
+			return false;
+		}
+	});
+	//아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
     //idck 버튼을 클릭했을 때 
     $("#idCheck").click(function() {
         
-        var c_email =  $("#hs_email").val(); 
-        var c_e_address = $("#selectEmail").val();
-		var email = c_email + "@" + c_e_address;
-
+        var hs_email =  $("#hs_email").val(); 
+        var hs_e_address = $("#selectEmail").val();
+		var email = hs_email + "@" + hs_e_address;
         $.ajax({
             async: true,
             type : 'POST',
-            data : {c_email : email},
-            url : "${contextPath}/member/idCheck",
+            data : {hs_email : email},
+            url : "${contextPath}/home/idCheck",
             dataType : "json",
-            success : function(data) {
+            success : function(data) {            	
                 if (data.cnt > 0) {                    
                     alert("아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-
                 } else {
                     alert("사용가능한 아이디입니다.");
-                    
                 }
             },
-            error : function(error) {
-                
+            error : function(error) {                
                 alert("error : " + error);
             }
-        });
+        }); //ajax end
     });
   //이메일 입력방식 선택
 	$('#selectEmail').change(function() {
@@ -69,7 +88,7 @@ input[type="number"]::-webkit-inner-spin-button {
 </head>
 <body>
 	<div>
-		<form action="join" method="post" name="userInfo" onsubmit="return checkValue()">
+		<form action="join" method="post" name="userInfo" onsubmit="return checkValue()" id="joinForm">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<fieldset>
 				<legend> 회원가입 정보 입력 </legend>
@@ -79,7 +98,7 @@ input[type="number"]::-webkit-inner-spin-button {
 						<td><input type="text" name="hs_email" id="hs_email">@
 							<input type="text" name="hs_e_address" id="hs_e_address">
 								<select name="hs_e_address" id="selectEmail">
-									<option value="" selected="selected">직접입력</option>
+									<option value="" selected="selected" id="directFillIn">직접입력</option>
 									<option value="naver.com">naver.com</option>
 									<option value="hanmail.net">hanmail.net</option>
 									<option value="hotmail.com">hotmail.com</option>
@@ -126,7 +145,7 @@ input[type="number"]::-webkit-inner-spin-button {
 					</tr>
 					<tr>
 						<td>생일:</td>
-						<td><input type="date" name="hs_birth"></td>
+						<td><input type="text" name="hs_birth" id="hs_birth"></td>
 					</tr>
 					<tr>
 						<td>휴대폰번호: </td>

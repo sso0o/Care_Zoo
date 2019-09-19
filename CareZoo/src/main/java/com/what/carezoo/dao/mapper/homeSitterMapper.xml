@@ -8,6 +8,7 @@
 		insert into homesitter(hs_name,hs_sex,hs_birth,hs_contact,hs_address,hs_d_address,hs_job,hs_p_count,hs_e_address,hs_pass,hs_pass_chk,hs_regi_date)
 		values (#{hs_name}, #{hs_sex}, #{hs_birth}, #{hs_contact}, #{hs_address}, #{hs_d_address}, #{hs_job}, #{hs_p_count}, #{hs_e_address}, #{hs_pass}, #{hs_pass_chk}, sysdate )
 	</insert>
+	
 	<update id="updateHomeSitter" parameterType="homesitter">
 		update homesitter 
 		set hs_name = #{hs_name}
@@ -20,23 +21,30 @@
 		    hs_e_address = #{hs_e_address}
 		where hs_num = #{hs_num}
 	</update>
+	
 	<delete id="deleteHomeSitter" parameterType="int">
 		delete * homesitter where hs_pass = #{hs_pass} 
 	</delete>
+	
 	<select id="selectOneByNum" parameterType="int" resultType="homesitter">
 		select * 
 		from homesitter
 		where hs_num = #{hs_num}
 	</select>
-
+	
 	<select id="selectOneByEmail" parameterType="string" resultType="homesitter">
 		select *
 		form homesitter
 		where hs_email = #{hs_email}
 	</select>
-
+	
 	<select id="selectAllHomeSitter" resultType="homesitter">
 		select *
 		from homesitter
 	</select>
+	
+	<select id="homeSitterIdCheck" parameterType="string" resultType="Integer">
+		select count(*) from customer where hs_email =#{hs_email}
+	</select>
+	
 </mapper>

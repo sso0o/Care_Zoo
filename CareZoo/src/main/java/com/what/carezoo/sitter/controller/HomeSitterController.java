@@ -2,7 +2,9 @@ package com.what.carezoo.sitter.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -67,5 +69,18 @@ public class HomeSitterController {
 	@PreAuthorize("isAuthenticated()")
 	public String reserveHomeSitter(Model model) {
 		return "sitter/home/homeSitterList";
+	}
+	//////////HomeSitter////////////////////////////////////////////////////////////////////
+	//아이디 유효성 검사
+	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<Object, Object> idCheck(String hs_email) {
+		System.out.println(hs_email);
+		int count = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		count = hsService.userIdCheck(hs_email);
+		System.out.println(count);
+		map.put("cnt", count);
+		return map;
 	}
 }
