@@ -13,12 +13,22 @@
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script >
 $(function(){
+	
 	$("#cal").datepicker({
 		dateFormat:'yy-mm-dd',
-		minDate:0
+		minDate:0,
+		regional:"ko",
+		beforeShowDay:function(date){
+			//선택한 요일 값 가져오기..
+			var week = new Array('월','화','수','목','금','토','일');
+			
+			var day = date.getDay();
+			console.log(day);	
+			return[(day !=0 && day!=5 &&day!=3 &&day!=4 &&day!=6)];
+		}
 	});
 });
-	
+
 
 
 </script>
@@ -27,13 +37,22 @@ $(function(){
 </head>
 <body>
 
-<%-- 		<input type="text" name="c_num" value="${c_num}"> --%>
-<%-- 		<c:forEach items="${p_num}" var="p"> --%>
-<%-- 			<input type="text" name="p_num" value="${p}"> --%>
-<%-- 		</c:forEach> --%>
-<%-- 		<c:forEach items="${p_name}" var="n"> --%>
-<%-- 			<input type="text" name="p_name" value="${n.p_name}"> --%>
-<%-- 		</c:forEach> --%>
+	<input type="text" name="c_num" value="${c_num}">
+	<c:forEach items="${p_num}" var="p">
+		<input type="text" name="p_num" value="${p}">
+	</c:forEach>
+	<c:forEach items="${p_name}" var="n">
+		<input type="text" name="p_name" value="${n}">
+	</c:forEach>
+	<c:forEach items="${pd_week}" var="w">
+		<input type="text" name="pd_week" value="${w}">
+	</c:forEach>
+	<c:forEach items="${pd_hour}" var="h">
+		<input type="text" name="pd_hour" value="${h}">
+	</c:forEach>
+	<c:forEach items="${pd_hAdd}" var="a">
+		<input type="text" name="pd_hAdd" value="${a}">
+	</c:forEach>
 	<!-- 달력 -->	
 	<div id="cal"></div>
 </body>
