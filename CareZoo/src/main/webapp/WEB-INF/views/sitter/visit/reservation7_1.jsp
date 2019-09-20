@@ -26,7 +26,7 @@ function petDeleteOpen(pd_week,pd_hAdd,c_num){
 					console.log(result);
 					if(result){
 						alert("삭제완료");
-						//삭제되고 남은 pd_week를 보여줘야하잔하....
+						//삭제되고 남은 pd_hAdd를 보여줘야하잔하....
 						location.href="${contextPath}/visit/complete11?c_num="+c_num;
 					}else{
 						alert("삭제실패");
@@ -37,33 +37,7 @@ function petDeleteOpen(pd_week,pd_hAdd,c_num){
 			});
 
 }
-//추가/변경 클릭 함수...
-function add(c_num,p_num,p_name){	
-	console.log(c_num);
-	console.log(p_num);
-	console.log(p_name);
-			var c_num = c_num;
-			var p_num = p_num;
-			var p_name= p_name;
-			//삭제로직 실행
-			$.ajax({
-				url:"${contextPath}/visit/delete1",
-				data:{"c_num":c_num,"p_num":p_num,"p_name":p_name},
-				type:"post",
-				success:function(result){
-					console.log(result);
-					if(result){
-						alert("추가완료");
-						location.href="${contextPath}/visit/addForm";
-					}else{
-						alert("추가실패");
-					}
-				},error:function(r,s,e){
-					console.log("r:"+r+"s:"+s+"e:"+e);
-				}
-			});
 
-}
 </script>
 <meta charset="UTF-8">
 <title>예약내용 확인 폼</title>
@@ -97,16 +71,17 @@ function add(c_num,p_num,p_name){
 				<tr>
 					<c:forEach items="${pd_week}" var="w">
 						${w} &emsp;
-						<input type="button" onclick="location.href='${contextPath}/visit/addForm'" value="추가/변경">	
-						<br>
+						
 						<c:forEach items="${pd_hour}" var="h">
 						${h}
 						<c:forEach items="${pd_hAdd}" var="a">
 						${a} &emsp;
-						
+						<input type="button" onclick="petDeleteOpen('${w}','${a}',${c_num})" value="x"> <br>
+						<input type="button" onclick="location.href='${contextPath}/visit/addForm?pd_week=${w}&pd_hour=${h}&pd_hAdd=${a}&c_num=${c_num}'" value="추가/변경">	
+						<br>
 							</c:forEach>
 						</c:forEach>
-						<input type="button" onclick="petDeleteOpen('${w}','${pd_hAdd}',${c_num})" value="x"> <br>
+						
 					</c:forEach>
 				</tr>
 			</table>

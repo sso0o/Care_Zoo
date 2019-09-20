@@ -15,20 +15,39 @@ th{
 <script type="text/javascript">
 $(function(){
 	
-	var pay = "";
-	if($("#hAdd").val()=="없음"){
-		 pay = 0+"원";
-	}else if($("#hAdd").val()=="+1시간"){
-		pay = 15000+"원";
-	}else if($("#hAdd").val()=="+2시간"){
-		pay = 30000+"원";
-	}else if($("#hAdd").val()=="+3시간"){
-		pay = 45000+"원";
-	}else if($("#hAdd").val()=="+4시간"){
-		pay = 60000 +"원";
-	}
-	$("#hdd").append(pay);
-	
+for(var i=0;i<${pd_week}.length;i++){
+	var maxCount = ${pd_week}.length;
+}
+$("#count").append(maxCount);
+
+var pay = "";
+if($("#hAdd").val()=="없음"){
+	 pay = 0+"원";
+}else if($("#hAdd").val()=="+1시간"){
+	pay = 15000+"원 ";
+}else if($("#hAdd").val()=="+2시간"){
+	pay = 30000+"원 ";
+}else if($("#hAdd").val()=="+3시간"){
+	pay = 45000+"원 ";
+}else if($("#hAdd").val()=="+4시간"){
+	pay = 60000 +"원";
+}
+$("#hdd").append(pay);
+
+var total = "";
+if($("#hAdd").val()=="없음"){
+	 total = 0*maxCount+"원";
+}else if($("#hAdd").val()=="+1시간"){
+	total = 15000*maxCount+"원 ";
+}else if($("#hAdd").val()=="+2시간"){
+	total = 30000*maxCount+"원 ";
+}else if($("#hAdd").val()=="+3시간"){
+	total = 45000*maxCount+"원 ";
+}else if($("#hAdd").val()=="+4시간"){
+	total = 60000*maxCount+"원";
+}
+console.log(total);
+$("#totalPay").append(total);
 	//p_num
 // 	var jsonData = ${p_num};
 // 	console.log(jsonData);
@@ -163,11 +182,16 @@ $(function(){
 <!-- 		</tr> -->
 			<tr>
 				<th>추가 시간 내역</th>
+				<th>기본 비용</th>
+				<th>이용 횟수</th>
+				<th>추가비 합계</th>
 			</tr>
 			<c:forEach items="${pd_hAdd}" var="hAdd" >
 				<th>${hAdd}</th>
 				<input type="hidden" id="hAdd" value="${hAdd}">
 				<td><div id="hdd"></div></td>
+				<td><div id="count" style="text-align:center"></div></td>
+				<td><div id="totalPay"></div></td>
 			</c:forEach>
 				
 		
