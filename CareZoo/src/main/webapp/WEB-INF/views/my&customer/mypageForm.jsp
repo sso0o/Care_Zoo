@@ -161,6 +161,17 @@
 	background-color: #7858a7;
 }
 
+.modal-content.name {
+	color: #555;
+	
+}
+
+.modal-content.name:hover, .modal-content.name:focus{
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
 .modal-content {
  	border: none; 
 	font-size: 20px;
@@ -191,6 +202,34 @@
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+.starR1 {
+	background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
+	background-size: auto 100%;
+	width: 15px;
+	height: 30px;
+	float: left;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.starR2 {
+	background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
+	background-size: auto 100%;
+	width: 15px;
+	height: 30px;
+	float: left;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.starR1.on {
+	background-position: 0 0;
+}
+
+.starR2.on {
+	background-position: -15px 0;
 }
 </style>
 
@@ -388,13 +427,16 @@
 				console.log(data)				
 				$("#modal-name").val(data.name);
 				$("#modal-contact").val(data.contact);
-				$("#modal-star").val(data.star);
+				$("#modal-star").val(data.star+"점");
 				rstnum = data.number;
 				if(data.fileName != null){
 					$("#modal-img").attr("src","c:\temp"+data.fileName)
 				} else{
 					$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg")
 				}
+				var rststar = parseInt(data.star /0.5) 
+				console.log(rststar)
+				$("#star"+rststar).addClass('on').prevAll('span').addClass('on');
 				
 				$("#atag").on('click', function() {
 					if($("#groupid").val()=="phr_num"){
@@ -417,6 +459,11 @@
 
 		$("#modal-close").on("click", function() {
 			$("#reply-modal").hide();
+			$("#starRev").children('span').removeClass('on');
+			$("#modal-name").val("");
+			$("#modal-contact").val("");
+			$("#modal-star").val("");
+			$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg")
 		});
 	}
 
@@ -516,18 +563,28 @@
 				<td rowspan="3" style="width: 150px">
 					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 150px; vertical-align: middle;">
 				</td>
-				<td>
-					<a id="atag"><input type="text" class="modal-content" name="modal-name" id="modal-name" value=""></a>
+				<td colspan="2">
+					<a id="atag"><input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly"></a>
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<input type="text" class="modal-content" name="modal-contact" id="modal-contact" value="">
+				<td colspan="2">
+					<input type="text" class="modal-content" name="modal-contact" id="modal-contact" value="" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
+				<td style="padding-left: 30px; width: 170px;">
+					<span id="starRev" class="starRev"> 
+						<span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> 
+						<span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4"  title="2">별2_오른쪽</span> 
+						<span class="starR1" id="star5" title="2.5">별3_왼쪽</span> <span class="starR2" id="star6" title="3">별3_오른쪽</span> 
+						<span class="starR1" id="star7" title="3.5">별4_왼쪽</span> <span class="starR2" id="star8" title="4">별4_오른쪽</span> 
+						<span class="starR1" id="star9" title="4.5">별5_왼쪽</span> <span class="starR2" id="star10" title="5">별5_오른쪽</span>
+					</span>
+				</td>
 				<td>
-					<input type="text" class="modal-content" name="modal-contact" id="modal-star" value="">
+					<input type="text" class="modal-content" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
+					
 				</td>
 			</tr>
 			<tr>
