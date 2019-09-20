@@ -1,5 +1,6 @@
 package com.what.carezoo.sitter.controller;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -234,7 +235,7 @@ public class VisitSitterController{
 	@RequestMapping(value="complete11",method=RequestMethod.POST)
 	public String reservation9Form(Model model,Pet_Details list
 			,@RequestParam() ArrayList<Integer> p_num,int c_num,
-					@RequestParam() ArrayList<String> p_name) throws JsonProcessingException {
+					@RequestParam() ArrayList<String> p_name){
 		
 		System.out.println(list);
 		for(int i : p_num) {
@@ -252,10 +253,11 @@ public class VisitSitterController{
 		
 		return "sitter/visit/reservation7_1";
 	}
-	//ajax방식
+	//ajax방식=====예약 내용 확인하는 폼
 	@RequestMapping(value="complete11",method=RequestMethod.GET)
 	public String complete11List(int c_num,Model model ) {
 		System.out.println(c_num);
+	
 		System.out.println("조회======="+pdService.selectByC_Num(c_num));
 		
 		Set<String> p_name = new HashSet<String>();
@@ -263,7 +265,7 @@ public class VisitSitterController{
 		Set<String> pd_hour = new HashSet<String>();
 		Set<String> pd_hAdd = new HashSet<String>();
 		Set<Integer> p_num = new HashSet<Integer>();
-		
+				
 		for(int i=0;i<pdService.selectByC_Num(c_num).size();i++) {
 			p_name.add(pdService.selectByC_Num(c_num).get(i).getP_name());
 			p_num.add(pdService.selectByC_Num(c_num).get(i).getP_num());
@@ -292,14 +294,37 @@ public class VisitSitterController{
 	
 	//추가/변경폼
 	@RequestMapping(value="addForm",method=RequestMethod.GET)
-	public String addForm() {
+	public String addForm(String pd_week, String pd_hour, String pd_hAdd, 
+			int c_num,Model model) {
+		model.addAttribute("pd_week", pd_week);
+		model.addAttribute("pd_hour", pd_hour);
+		model.addAttribute("pd_hAdd", "+"+pd_hAdd.trim());
+		model.addAttribute("c_num", c_num);
+		
 		return "sitter/visit/addForm";
 	}
 	
 	//추가/변경폼2
-	@RequestMapping(value="hAdd", method=RequestMethod.POST)
-	public String hAdd() {
-		return "";
+	@RequestMapping(value="adds", method=RequestMethod.POST)
+	public String hAdd(String pd_week,String pd_hour,String pd_hAdd,
+			int c_num,Model model) {
+		System.out.println(pd_week);
+		System.out.println(c_num);
+		System.out.println(pd_hour);
+		//기존에 있는거랑 중복이 되지 않도록!
+		ArrayList<String> list = new ArrayList<String>();
+		list.add(pd_hour);
+		
+		Set<String> pd_hour2 = new HashSet<String>(list);
+		//Set<String> pd_hAdd2 = new HashSet<String>();
+	
+		
+		//pd_hAdd2.add(pd_hAdd);
+		System.out.println(pd_hour2);
+		//System.out.println(pd_hAdd2);
+
+		
+		return "sitter/visit/reservation7_1";
 		
 	}
 	
