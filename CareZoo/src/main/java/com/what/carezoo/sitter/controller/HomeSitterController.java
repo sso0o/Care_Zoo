@@ -34,6 +34,19 @@ public class HomeSitterController {
 	public String joinHomeSitter() {
 		return "sitter/home/homeSitterJoinForm";
 	}
+	
+	//홈시터 정보 가져오기
+	@RequestMapping("/homeSitter")
+	@ResponseBody
+	public Map<String, Object> getHomeSitter(int hs_num){
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("hs", hsService.getHomeSitterByNum(hs_num));
+		return rst;
+	}
+	
+	
+	
+	
 	// 가정시터 검색목록 가져오기
 	@ResponseBody
 	@RequestMapping("/search")
