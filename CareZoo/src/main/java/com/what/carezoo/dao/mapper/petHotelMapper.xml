@@ -104,8 +104,8 @@
 					and ph.ph_num = phrm.ph_num(+)
 					and phrm.phrm_pet_size like '%' ||
 					#{ph.ph_pet_size} || '%'
-					and ((NOT phr_chkin between '2019-10-09'
-					and '2019-10-10')OR(
+					and ((NOT phr_chkin between '#{ph.phr_chkin}'
+					and '#{ph.phr_chkout}')OR(
 					phr_chkin
 					IS NULL))
 					and ((NOT phr_chkout between
@@ -136,9 +136,13 @@
 		order by ph.ph_num
 	</select>
 
-	<select id="selectPhRoom" resultType="PetHotelRoom">
+	<select id="selectPhRoomByPh_num" resultType="PetHotelRoom">
 	select * from PETHOTELROOM
 	where ph_num = #{ph_num}
+	</select>
+	<select id="selectPhRoomByPhrm_num" resultType="PetHotelRoom">
+	select * from PETHOTELROOM
+	where phrm_num = #{phrm_num}
 	</select>
 
 

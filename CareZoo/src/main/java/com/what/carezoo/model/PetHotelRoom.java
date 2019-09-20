@@ -5,9 +5,24 @@ public class PetHotelRoom {
 	private int phrm_num;
 	private String phrm_name;
 	private int phrm_price;
+	private int phrm_m_price;
+	private int phrm_l_price;
 	private int phrm_p_count;
 	private int phmr_day_price;
 	private String phrm_pet_size;
+	
+	public int getPhrm_m_price() {
+		return phrm_m_price;
+	}
+	public void setPhrm_m_price(int phrm_m_price) {
+		this.phrm_m_price = phrm_m_price;
+	}
+	public int getPhrm_l_price() {
+		return phrm_l_price;
+	}
+	public void setPhrm_l_price(int phrm_l_price) {
+		this.phrm_l_price = phrm_l_price;
+	}
 	public int getPh_num() {
 		return ph_num;
 	}
@@ -53,9 +68,11 @@ public class PetHotelRoom {
 	@Override
 	public String toString() {
 		return "PetHotelRoom [ph_num=" + ph_num + ", phrm_num=" + phrm_num + ", phrm_name=" + phrm_name
-				+ ", phrm_price=" + phrm_price + ", phrm_p_count=" + phrm_p_count + ", phmr_day_price=" + phmr_day_price
-				+ ", phrm_pet_size=" + phrm_pet_size + "]";
+				+ ", phrm_price=" + phrm_price + ", phrm_m_price=" + phrm_m_price + ", phrm_l_price=" + phrm_l_price
+				+ ", phrm_p_count=" + phrm_p_count + ", phmr_day_price=" + phmr_day_price + ", phrm_pet_size="
+				+ phrm_pet_size + "]";
 	}
+
 	
 	
 }

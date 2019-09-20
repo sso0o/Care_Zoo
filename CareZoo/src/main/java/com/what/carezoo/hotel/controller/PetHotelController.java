@@ -207,6 +207,13 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return "hotel/petHotelView";
 	}
 	
+	// view에서 Room을 선택했을 때 자세히 띄워줌
+	@ResponseBody
+	@RequestMapping("/petHotelRoomDetail")
+	public PetHotelRoom showPetHotelRoom(@RequestParam("phrm_num") int phrm_num) {
+		PetHotelRoom petHotelRoom = phService.petHotelRoomDetail(phrm_num);
+		return petHotelRoom;
+	}
 	// 펫호텔 키워드로 선택
 	@RequestMapping("/addressKeyword")
 	public String addressKeyworkSelect(String keywork) {

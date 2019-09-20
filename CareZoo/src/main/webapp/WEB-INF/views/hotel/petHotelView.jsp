@@ -47,12 +47,37 @@
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 <script type="text/javascript">
 	var imgCommonPreview = new Image();
+	var sizeS=0;
+	var sizeM=0;
+	var sizeL=0;
+
+	function sizePriceSetter(s,m,l){
+		var sizeS=s;
+		var sizeM=m;
+		var sizeL=l;
+		if ($('.sizeSelect option:selected').val() == "소형견") {
+		$('.oneNightPrice').text(+s);
+		}else if($('.sizeSelect option:selected').val() == "중형견"){
+			$('.oneNightPrice').text(+m);
+		}else{
+			$('.oneNightPrice').text(+l);
+		}
+	        var start = $('.col-dates .pull-left').datepicker('getDate');
+		        var end   = $('.col-dates .pull-right').datepicker('getDate');
+		        var days   = (end - start)/1000;
+		        days   = days/60;
+		        days   = days/60;
+		        days   = days/24;
+		        $('.nightCount').text(days+"박");
+		        $('.nightCountPrice').text(days*($('.oneNightPrice').text()));
+	}
+
 	$(document).on(
 			'ready',
 			function() {
 
-
-				var 					datepickerStart = $('.col-dates .pull-left').datepicker(
+		
+				var datepickerStart = $('.col-dates .pull-left').datepicker(
 						{
 							dateFormat : 'yy-mm-dd',
 							minDate : 0,
@@ -61,8 +86,8 @@
 										selected);
 
 								if (datepickerEnd.prop('disabled')) {
-									datepickerEnd.datepicker('setDate',
-											selected);
+									datepickerEnd.datepicker('setDate',selected
+									);
 								} else if (!datepickerEnd.val()) {
 									setTimeout($.proxy(
 											datepickerEnd.datepicker,
@@ -79,39 +104,171 @@
 								minDate : moment('yy-mm-dd').toDate()
 							});
 				} else {
+					alert("end실행!");
 					var datepickerEnd = $('.col-dates .pull-right').datepicker(
 							{
+								onClose: function(dateText, inst) {
+							        // dateText는 날짜 스트링
+							        // inst는 datepicker의 여러 값이 있던데
+							        //          아직 쓸모를 찾지 못했다.
+						            console.log("onClose 실행!!");
+	 						        var start = $('.col-dates .pull-left').datepicker('getDate');
+		 					        var end   = $('.col-dates .pull-right').datepicker('getDate');
+		 					        var days   = (end - start)/1000;
+		 					        days   = days/60;
+		 					        days   = days/60;
+		 					        days   = days/24;
+		 					        alert(days);
+		 					        $('.nightCount').text(days+"박");
+		 					        $('.nightCountPrice').text(days*($('.oneNightPrice').text()));
+							    },
+								afterShow: function (input, inst, td) {
+
+								},
 								dateFormat : 'yy-mm-dd',
 								minDate : 0
 							});
 				}
+				$('.reservationForm').hide();
+
+// 				$('.sizeSelect').change(function() {
+// 					if ($('.sizeSelect option:selected').val() == "소형견") {
+
+// 						$('.pull-left').val("1박",);
+// 						$('.pull-right').val("체크아웃 날짜");
+// 					}
+// 				});
 				
-				$('.rSelect').change(function(){
-					if ($('.rSelect option:selected').val() == "required") {
+				
+				
+
+				
+				
+				$('.rSelect').change(function() {
+						$('.drawResForm').remove();
 						
+					if ($('.rSelect option:selected').val() == "required") {
+
 						$('.pull-left').val("체크인 날짜");
 						$('.pull-right').val("체크아웃 날짜");
+
+					} else {
+						var roomNum = $('.rSelect option:selected').val();
+						$.ajax({
+							url : "${contextPath}/petHotel/petHotelRoomDetail",
+							data : {
+								phrm_num : roomNum
+							},
+							dataType : "JSON",
+							success : function(data) {
+
+						var resForm=$('<div>');
+						resForm.addClass('drawResForm');
+						var selectbox = $('<select class="sizeSelect" onchange="sizePriceSetter('+data.phrm_price+','+data.phrm_m_price+','+data.phrm_l_price+')">');
+// 						var selectbox = $('<select>');
+ 						var size=(data.phrm_pet_size).split(',');
+// 						for(var i=0;i<size.length; i++){
+// 						    console.log(i+":"+size[i]);
+// 						}
+// 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
+ 						$('<label>').text("1박:").appendTo(resForm);
+ 						$('<label class="oneNightPrice">').text(data.phrm_price).appendTo(resForm);
+ 						resForm.append('&nbsp;');
+ 						resForm.append('&nbsp;');
+ 						//소형견 대형견 ,로 나눠서 3개로 만든다음에 select으로 만들어야함,,
+						for(var i=0;i<size.length; i++){
+ 						$("<option value='"+size[i]+"'>"+size[i]+"</option>").appendTo(selectbox);
+						}
+ 						resForm.append(selectbox);
+ 						$('</select>').appendTo(resForm)
+ 						$('<hr>').appendTo(resForm);
+ 						$('<span class="nightCount">').text("1박").appendTo(resForm);
+ 						$('<span class="nightCountPrice">').text(data.phrm_price).appendTo(resForm);
+ 						$('<span>').text("원").appendTo(resForm);
+ 						$('<hr>').appendTo(resForm);
+ 						$('<span>').text("반려견 추가:").appendTo(resForm);
+ 						$('<span>').text("원").appendTo(resForm);
+ 						$('<hr>').appendTo(resForm);
+ 						
+ 						$(".reservationForm").append(resForm);
+// 						<hr>
+// 						<span>(시작날짜 마침날짜 계산일)박</span><span>(가격)</span>
+// 						<hr>
+// 						<span>반려견 추가</span><span>(가격)</span>
+// 						<hr>
+// 						<span>총 합계:</span> <span>(총가격)</span> <br> <br> <input type="submit" value="예약하기">
+				
+	
+								$('#test').prev().css("color", "aqua");
+							},
+							error : function() {
+								alert("데이터를 불러오는데 실패했습니다.")
+							}
+						})
+						$('.reservationForm').show();
+						
+						
+						
+// 						$("form").on("submit",function(){
+// 							event.preventDefault();
+// 							var stateParam = $('input[name=hsl_address]:checked').serialize();
+// 							var detailParam = $("#detail_form").serialize();
+// 							console.log("stateParam submit : " +stateParam);
+// 							console.log("detailParam submit : " +detailParam);
+// 							$.ajax({
+// 								url:"${contextPath}/home/search",
+// 								data:stateParam+'&'+detailParam,
+// 								type:"get",
+// 								dataType:"json",
+// 								success:function(d){
+// 									if(d){
+// 										alert("등록완료");
+// 										console.log("result : "+d);
+// 										for(var i in d){
+// 											var table = $('<table>');
+// 											$('<tr>').appendTo(table);
+// 											$('<td>)').text(d[i].HSL_FILENAME).appendTo(table);						
+// 											$('<td>)').text(d[i].HSL_ADDRESS).appendTo(table);
+// 											$('<td>)').text(d[i].HSL_CHKIN).appendTo(table);
+// 											$('<td>)').text(d[i].HSL_CHKOUT).appendTo(table);
+// 											$('<td>)').text(d[i].HS_NAME).appendTo(table);
+// 											$('</tr>').appendTo(table);
+// 											$('</table>').appendTo(table);
+// 											$(".homeSitterList").append(table);
+// 										}					
+// 									}else{
+// 										alert("오류발생!!");
+// 									}
+// 								},
+// 								error:function(request,status,error){
+// 									alert(" error = " + error);
+// 								}
+// 							});// ajax
+// 							return false;
+// 						});	
+						
+						
+						
 						
 					}
 				});
-//qwewqqweqwee
-				
-				$('.pull-left').click(function(){
-					
+				//qwewqqweqwee
+
+				$('.pull-left').click(function() {
+
 					if ($('.rSelect option:selected').val() == "required") {
-						alert("방을 선택해주세요.");
-						$('#ui-datepicker-div').css("display","none");
+// 						alert("방을 선택해주세요.");
+// 						$('#ui-datepicker-div').css("display", "none");
 					}
 				});
-				$('.pull-right').click(function(){
-					
+				$('.pull-right').click(function() {
+
 					if ($('.rSelect option:selected').val() == "required") {
-						alert("방을 선택해주세요.");
-						$('#ui-datepicker-div').css("display","none");
+// 						alert("방을 선택해주세요.");
+// 						$('#ui-datepicker-div').css("display", "none");
 					}
 				});
 			});
-			
 
 	function initialize() {
 
@@ -255,6 +412,8 @@
 		// 					}
 
 		});
+		
+		
 
 		// 				$.ajax({
 		// 					url : "${contextPath}/member/myReservation",
@@ -700,32 +859,34 @@ td.fc-day.fc-past { /*지난 날 블러*/
 				<div id="map_canvas"></div>
 			</div>
 		</div>
-		<br> <br> <br> <br>
+		<br> <br> 
 		<div style="float: left;">
 			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
-				<div class="col-dates" style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+				<div class="col-dates" style="padding: 10px; font-size: 15px; width: auto; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
 
+
+				<br> <input type="hidden" name="ph_num" value="${petHotel.ph_num }"> <br> <input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
 					<label>방:&nbsp; </label> <select name="roomSelect" class="rSelect">
 						<option value="required">필수선택</option>
 						<c:forEach items="${petHotelRoomList}" var="phrl">
 							<%-- 							<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-							<option value="${phrl.phrm_name}">${phrl.phrm_name}</option>
+							<option value="${phrl.phrm_num}">${phrl.phrm_name}</option>
 						</c:forEach>
-					</select> <br> <input type="hidden" name="ph_num" value="${petHotel.ph_num }">  <br> <input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <span>&gt;</span> <input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
-					<div style="">
-						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
-					
-					<hr>
-					<span>(시작날짜 마침날짜 계산일)박</span><span>(가격)</span>
-					<hr>
-					<span>반려견 추가</span><span>(가격)</span>
-					<hr>
+					</select>
+					<div class="reservationForm" style="">
+<!-- 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span> -->
+
+<!-- 						<hr> -->
+<!-- 						<span>(시작날짜 마침날짜 계산일)박</span><span>(가격)</span> -->
+<!-- 						<hr> -->
+<!-- 						<span>반려견 추가</span><span>(가격)</span> -->
+<!-- 						<hr> -->
+<!-- 						<span>총 합계:</span> <span>(총가격)</span> <br> <br> <input type="submit" value="예약하기"> -->
 					</div>
-					<span>총 합계:</span> <span>(총가격)</span> <br> <br> <input type="submit" value="예약하기">
 				</div>
 			</form>
 			<br>
-			<div style="padding: 10px; font-size: 15px; height: 1000px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+			<div style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
 				<span style="font-size: 17px;">/캘린더 미리보기/</span> <br> <br>
 
 				<div id='calendar'></div>

@@ -109,7 +109,7 @@ public class PetHotelService {
 	}
 	
 	public List<PetHotelRoom> getAllPetHotelRoom(int ph_num){
-		return petHotelDao.selectPhRoom(ph_num);
+		return petHotelDao.selectPhRoomByPh_num(ph_num);
 	}
 	
 	public List<PetHotel> getAllPetHotel() {
@@ -216,6 +216,11 @@ public class PetHotelService {
 
 	public List<PetHotelReservation> getAllPetHotelRes() {
 		return petHotelResDao.selectAll();
+	}
+	
+	public PetHotelRoom petHotelRoomDetail(int phrm_num) {
+		return petHotelDao.selectPhRoomByPhrm_num(phrm_num);
+		
 	}
 
 }
