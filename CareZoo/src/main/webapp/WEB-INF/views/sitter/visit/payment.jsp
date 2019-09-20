@@ -38,10 +38,14 @@ $(function(){
 // 		? "p_num="+jsonData[i]:"p_num="+jsonData[i]+"&"
 // 	}
 // 	console.log(str)
+//	var json = JSON.stringify(${p_num});
+	var json =${list};
+	console.log(json);
+	
 	$.ajax({
 		url:"${contextPath}/visit/test",
 		type:"post",
-		data:${list},
+		data:json, 
 		dataType:"json",
 		success:function(data){
 			console.log(data);
@@ -54,6 +58,16 @@ $(function(){
 			 			($("#add").append(str))*i;
 			 		}
 			 	}
+// 			var max = data.length-1;
+// 			console.log(max);
+// 			var total = 28000+(5000*max)+"원";
+// 			$("#total").append(total);
+// 			for(var i=0;i<data.length;i++){
+// 				if(i>0){
+// 					var str = $("<tr><th>한마리 추가</th> <td>5000원</td></tr>");
+// 		 			($("#add").append(str))*i;
+// 				}
+// 			}
 		},
 		error:function(jqXHR, testStatus, errorTrown){
 			alert('mm');
@@ -63,36 +77,36 @@ $(function(){
 	});
 	
 	//pd_week
-// 	var jsonData2 = ${pd_week};
-// 	console.log(jsonData2);
+	var jsonData2 = ${list2};
+	console.log(jsonData2);
 // 	str2="";
 // 	for(i in jsonData2){
 // 		str2 += i== jsonData2.length-1 
 // 		? "pd_week="+jsonData2[i]:"pd_week="+jsonData2[i]+"&"
 // 	}
 // 	console.log(str2)
-// 	$.ajax({
-// 		url:"${contextPath}/visit/test2",
-// 		type:"post",
-// 		data:str2,
-// 		dataType:"json",
-// 		success:function(data){
-// 			console.log(data);
-// 				var max = ${pd_week}.length-1;
-// 				 var total1 = 28000+(5000*max)+"원";	
-// 				 	for(var i =0;i<${pd_week}.length+1;i++){
-// 			 		if(i>0){
-						
-// 						 $("#total1").append("<tr><th>"+${pd_week}[i-1]+"</th><td>"+total1+"</td><tr>");
-// 			 		}
-// 			 	}
-// 		},
-// 		error:function(jqXHR, testStatus, errorTrown){
-// 			alert('mm');
+	$.ajax({
+		url:"${contextPath}/visit/test2",
+		type:"post",
+		data:jsonData2,
+		dataType:"json",
+		success:function(data){
+			console.log(data);
+
+				var max = ${p_num}.length-1;
+				 var total1 = 28000+(5000*max)+"원";	
+					$.each(data,function(key,value){
+						console.log(value);
+						 $("#total1").append("<tr><th>"+value+"</th><td>"+total1+"</td><tr>");
+					});
+
+		},
+		error:function(jqXHR, testStatus, errorTrown){
+			alert('mm');
 			
-// 		}
+		}
 			
-// 	});
+	});
 }); 
 
 </script>

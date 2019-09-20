@@ -8,21 +8,26 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 //삭제버튼 클릭했을 때 작동되는 함수
-function petDeleteOpen(pd_week,p_num){	
-	console.log(pd_week);
-	console.log(p_num);
+function petDeleteOpen(pd_week,pd_hAdd,c_num){	
 			var pd_week = pd_week;
-			var p_num = p_num;
+			var pd_hAdd = pd_hAdd;
+			var c_num = c_num;
+			
+			console.log(pd_week);
+			console.log(pd_hAdd);
+			console.log(c_num);
+			
 			//삭제로직 실행
 			$.ajax({
 				url:"${contextPath}/visit/delete1",
-				data:{"pd_week":pd_week,"p_num":p_num},
+				data:{"pd_week":pd_week,"pd_hAdd":pd_hAdd},
 				type:"post",
 				success:function(result){
 					console.log(result);
 					if(result){
 						alert("삭제완료");
-						location.href="${contextPath}/visit/complete1?p_num="+p_num
+						//삭제되고 남은 pd_week를 보여줘야하잔하....
+						location.href="${contextPath}/visit/complete11?c_num="+c_num;
 					}else{
 						alert("삭제실패");
 					}
@@ -48,10 +53,10 @@ function add(c_num,p_num,p_name){
 				success:function(result){
 					console.log(result);
 					if(result){
-						alert("삭제완료");
+						alert("추가완료");
 						location.href="${contextPath}/visit/addForm";
 					}else{
-						alert("삭제실패");
+						alert("추가실패");
 					}
 				},error:function(r,s,e){
 					console.log("r:"+r+"s:"+s+"e:"+e);
@@ -92,7 +97,7 @@ function add(c_num,p_num,p_name){
 				<tr>
 					<c:forEach items="${pd_week}" var="w">
 						${w} &emsp;
-						<button onclick="add(${c},${p},${n})">추가/변경</button>	
+						<input type="button" onclick="location.href='${contextPath}/visit/addForm'" value="추가/변경">	
 						<br>
 						<c:forEach items="${pd_hour}" var="h">
 						${h}
@@ -101,15 +106,13 @@ function add(c_num,p_num,p_name){
 						
 							</c:forEach>
 						</c:forEach>
-						<button onclick="petDeleteOpen(${w})">x</button><br>
+						<input type="button" onclick="petDeleteOpen('${w}','${pd_hAdd}',${c_num})" value="x"> <br>
 					</c:forEach>
 				</tr>
 			</table>
 		</div>
 		<div>
 			<input type="submit" value="다음">
-			
-			
 		</div>
 	</form>
 </body>

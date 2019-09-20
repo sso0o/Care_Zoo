@@ -9,12 +9,15 @@
 <body>
 <h1>선택한 시간대에 펫시터가 방문 합니다.<br></h1>
 <h2>(중복선택 가능/기본 1시간 돌봄)</h2>
-<form action="">
+<form action="hAdd" method="post">
 	<table>
 		<tr>
 			<th></th>
 		</tr>
 	</table>
+	<div>
+		<input type="submit" value="확인">
+	</div>
 </form>
 </body>
 </html>

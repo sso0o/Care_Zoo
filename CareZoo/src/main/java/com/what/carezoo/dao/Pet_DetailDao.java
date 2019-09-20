@@ -10,7 +10,8 @@ import com.what.carezoo.model.Pet_Details;
 public interface Pet_DetailDao {
 	public int insertPet_DetailDao(Pet_Detail pet_detail);
 	public int insertPet_DetailDao2(Pet_Details pet_detail);
-	public int deletePet_Detail(String pd_week);
+	public int deletePet_Detail(@Param("pd_week")String pd_week,@Param("pd_hAdd")String pd_hAdd);
 	public List<Pet_Detail> selectByP_Num(@Param("list")List<Integer> list,@Param("c_num")int c_num);
 	public List<Pet_Detail> selectByWeek(List<String> pd_week);
+	public List<Pet_Detail> selectByC_Num(int c_num);
 }

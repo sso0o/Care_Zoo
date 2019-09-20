@@ -34,7 +34,7 @@
 	</insert>
 	
 	<delete id="deletePet_Detail" parameterType="string">
-		delete from pet_detail where pd_week like #{pd_week}
+		delete from pet_detail where pd_hAdd like #{pd_hAdd} and pd_week like #{pd_week} 
 	</delete>
 
 	<select id="selectByP_Num"
@@ -61,5 +61,9 @@
 			</if>
 		</trim>
 		order by pd_week
+	</select>
+	
+	<select id="selectByC_Num" parameterType="int" resultType="pet_detail">
+		select * from pet_detail where c_num =#{c_num} order by pd_week
 	</select>
 </mapper>
