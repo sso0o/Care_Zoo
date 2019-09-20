@@ -34,7 +34,7 @@
 	
 	<select id="selectOneByEmail" parameterType="string" resultType="homesitter">
 		select *
-		form homesitter
+		from homesitter
 		where hs_email = #{hs_email}
 	</select>
 	

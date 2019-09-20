@@ -171,7 +171,7 @@ footer {
 						<li class='last'><a href='#'>펫호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/myReservation?c_num=<%=session.getAttribute("user_num") %>' style="font-size: 17px">Q&A</a></li>
+				<li class='last'><a href='${contextPath}/member/myReservation?<%=session.getAttribute("user_num") %>' style="font-size: 17px">Q&A</a></li>
 			</ul>
 		</div>
 	</nav>
