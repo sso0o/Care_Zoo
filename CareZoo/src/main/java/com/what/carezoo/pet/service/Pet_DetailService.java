@@ -35,8 +35,8 @@ public class Pet_DetailService {
 		return false;
 	}
 	
-	public boolean deletePet_Detail(String pd_week) {
-		if(pdDao.deletePet_Detail(pd_week)>0) {
+	public boolean deletePet_Detail(String pd_week,String pd_hAdd) {
+		if(pdDao.deletePet_Detail(pd_week,pd_hAdd)>0) {
 			return true;
 		}
 		return false;
@@ -48,6 +48,10 @@ public class Pet_DetailService {
 	
 	public List<Pet_Detail> selectByWeek(List<String> pd_week){
 		return pdDao.selectByWeek(pd_week);
+	}
+	
+	public List<Pet_Detail> selectByC_Num(int c_num){
+		return pdDao.selectByC_Num(c_num);
 	}
 
 }

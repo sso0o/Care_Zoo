@@ -46,7 +46,10 @@
 		<tr>
 			<td><input type="submit" value="요금 세부 정보 보기"></td>
 		</tr>
-
+		<tr>
+			<th>카드 결제</th>
+			<td><input type="button" onclick="location.href='${contextPath}/visit/card" value="카드등록"></td>
+		</tr>
 
 	</table>
 </form>	
