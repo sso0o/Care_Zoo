@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.model.HomeSitterList;
 import com.what.carezoo.sitter.service.HomeSitterService;
@@ -69,8 +71,14 @@ public class HomeSitterController {
 	}
 	// 가정시터 게시글 등록 로직수행
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writeHsl() {
-		return "sitter/home/homeSitterPosting";
+	public String writeHsl(HomeSitterList hsl, MultipartHttpServletRequest mtfRequest) {
+		List<MultipartFile> files = mtfRequest.getFiles("file");
+		boolean rst = hsService.addHsl(hsl, files);
+		if(rst) {
+			return "redirect:/home/main";
+		}else {
+			return "edirect:/home/write";
+		}
 	}
 	@RequestMapping("/view")
 	public String enterHomeSitterView(Model model, int hsl_num) {
@@ -85,8 +93,8 @@ public class HomeSitterController {
 	}
 	//////////HomeSitter////////////////////////////////////////////////////////////////////
 	//아이디 유효성 검사
-	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	@ResponseBody
+	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	public Map<Object, Object> idCheck(String hs_email) {
 		System.out.println(hs_email);
 		int count = 0;

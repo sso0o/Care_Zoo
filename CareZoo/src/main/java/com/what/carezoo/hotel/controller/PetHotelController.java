@@ -65,7 +65,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 목록보기
 	@RequestMapping("/petHotelList")
-	public String showPetHotelList(String in, String out,String p_num, Model model) {
+	public String showPetHotelList(String in, String out,String p_num, Model model) {          
 		List<PetHotel> phList = phService.getAllPetHotel();
 		for(int i=0;i<phList.size();i++) {
 			(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
@@ -216,22 +216,14 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	}
 	// 펫호텔 키워드로 선택
 	@RequestMapping("/addressKeyword")
-	public String addressKeyworkSelect(String keywork) {
-		
+	public String addressKeyworkSelect(String keywork) {		
 		return null;
-	}
-	
+	}	
 	@RequestMapping(value = "/petHotelRes", method = RequestMethod.POST)
-	public String makePetHotelRes() {
-		
-		
+	public String makePetHotelRes() {	
 		return null;
-	}
-	
-	
-	
-//	"${contextPath}/image?ph_num=${pethotel.ph_num}&fileName=9eed7ab3-fb5d-451d-84b0-137dc68e5c2e_NAVER.jpg"/></td>
-	
+	}	
+//	"${contextPath}/image?ph_num=${pethotel.ph_num}&fileName=9eed7ab3-fb5d-451d-84b0-137dc68e5c2e_NAVER.jpg"/></td>	
 	@ResponseBody
 	@RequestMapping(value = "/image")
 	public byte[] getImage(String fileName) {
