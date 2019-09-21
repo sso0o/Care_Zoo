@@ -2,7 +2,9 @@ package com.what.carezoo.sitter.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +58,24 @@ public class HomeSitterService {
 		return hsDao.homeSitterIdCheck(hs_email);
 	}
 	//homesitterList
+	public boolean addHsl(HomeSitterList hsl, List<MultipartFile> files) {
+		if(hslDao.insertHsl(hsl)>0) {
+			if(files.isEmpty()) {
+				return true;
+			}else {
+				for(MultipartFile mf : files) {
+					String fullName = writeFile(mf);
+					Map<String, Object> fileParam = new HashMap<String, Object>();
+					fileParam.put("hsl_num", hsl.getHsl_num());
+					fileParam.put("hsl_fileName", fullName);
+					if(hslDao.insertFile(fileParam)>0) {
+						//insertfile에서 오류생기면 게시글도 안올라가게 막기
+					}
+				} 
+			}
+		}
+		return false;
+	}
 	public HomeSitterList getHomeSitterByHsl_Num(int hsl_num) {
 		return hslDao.selectOnebyHsl_num(hsl_num);		
 	}
@@ -68,23 +88,20 @@ public class HomeSitterService {
 	public List<HomeSitterList> getbySearchingHsl(List<String> hsl_address,HomeSitterList hsl){		
 		return hslDao.selectAllHsl(hsl_address,hsl);
 	}
-	public List<HomeSitterList> getByHsl(HomeSitterList hsl){
-		return hslDao.searchHsls(hsl);
-	}
 	public List<HomeSitterList> getallHsl(){
 		return hslDao.selectHsl();
 	}
 	public String writeFile(MultipartFile file) {
 		String fullName = null;
-		UUID uuid = UUID.randomUUID();
+		UUID uuid = UUID.randomUUID(); // UUID만들어서 파일이름에 붙여서 저장할 파일명 생성
 		fullName = uuid.toString()+"_"+file.getOriginalFilename();
-		File target = new File(UPLOAD_PATH,fullName);
+		File target = new File(UPLOAD_PATH,fullName); //지정한 경로에 파일 만들고 받아온 파일의 내용을 복붙하는 방식으로 저장
 		try {
 			FileCopyUtils.copy(file.getBytes(), target);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("파일복사예외발생!");
 		}
-		return fullName;
+		return fullName; //만든 파일명 반환
 	}	
 }

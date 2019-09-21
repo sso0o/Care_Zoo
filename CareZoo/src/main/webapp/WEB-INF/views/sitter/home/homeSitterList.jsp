@@ -29,6 +29,7 @@
 <%-- <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>  --%>
 <script type="text/javascript"> 
 $(function () {
+
 	//검색탭
 	var isMenu1 = false;
 	$("#menu_1").on("click", function(){	
@@ -69,6 +70,7 @@ $(function () {
 		isMenu1 = false;
 		isMenu2 = false;
 	});
+	$('#')
 	//datepicker동작
 	var datepickerStart = jQuery('#hsl_chkin').datepicker({
 		dateFormat: 'yy-mm-dd', 
@@ -138,6 +140,7 @@ $(function () {
 </script>
 </head>
 <body>
+<div>
 <div class="container">
 	<!-- 네비게이션 -->
 	<div>
