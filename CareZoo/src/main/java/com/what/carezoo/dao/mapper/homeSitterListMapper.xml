@@ -6,19 +6,14 @@
 			select homsitterlist_seq.nextval from dual
 		</selectKey>
 		insert into homesitterlist
-		(hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age)
+		(hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age,hsl_writedate)
 		values
-		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age})
+		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age},sysdate)
 	</insert>
 	<update id="updateHsl" parameterType="homeSitterList"></update>
 	<delete id="deleteHsl" parameterType="int"></delete>
 	<select id="selectOnebyHsl_num" parameterType="int" resultType="homeSitterList">
 		select * from homesitterlist where hsl_num = #{hsl_num}
-	</select>
-	<!-- 모든 홈시터 가져오기 -->
-	<select id="selectHsl" resultType="map">
-		SELECT * FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
-										  LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
 	</select>	
 	<select id="selectAllHsl" resultType="map">
 		SELECT *
@@ -53,11 +48,27 @@
 		</trim>
 	</select>
 	<!-- 파일 올리기 -->
-		<insert id="insertFile" parameterType="map">
+	<insert id="insertFile" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="hsl_img_num" resultType="int">
+			select homesitterlist_image_seq.nextval from dual
+		</selectKey>
 		insert into homesitterlist_image (hsl_img_num,hsl_num,hsl_img_filename,hsl_img_write_date )
-		values (homesitterlist_image_seq,#{hsl_num},#{hsl_img_filename},sysdate)
+		values (#{hsl_img_num},#{hsl_num},#{hsl_img_filename},sysdate)
 	</insert>
-	<select id="selectFileName" parameterType="int" resultType="String">
+		<!-- 모든 홈시터 가져오기 -->
+	<select id="selectHsl" resultType="map">
+		SELECT * 
+		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
+		LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num		
+	</select>
+	<select id="selectFileName" parameterType="int" resultType="string">
 		select * from homesitterlist_image where hsl_num = #{hsl_num}
+	</select>
+	<select id="selectFileList" parameterType="int" resultType="string">
+		select hsl_img_filename
+		  from homesitterlist hsl, homesitterlist_image hslI
+		 where hsl.hsl_num = hslI.hsl_num(+)
+		   and hsl.hsl_num = #{hsl_num}
+		<!-- resultType = "hashMap" 으로 하면 list로 간다요 -->
 	</select>
 </mapper>

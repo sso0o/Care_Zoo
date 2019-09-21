@@ -29,7 +29,6 @@
 <%-- <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>  --%>
 <script type="text/javascript"> 
 $(function () {
-
 	//검색탭
 	var isMenu1 = false;
 	$("#menu_1").on("click", function(){	
@@ -136,11 +135,13 @@ $(function () {
 			return false;
 		}
 	}
+	
 });
+	//이미지 띄우기
+	
 </script>
 </head>
 <body>
-<div>
 <div class="container">
 	<!-- 네비게이션 -->
 	<div>
@@ -453,7 +454,7 @@ $(function () {
 <!-- 					<br> -->
 <!-- 				</div> -->
 				<div>
-					<span></span> <br> <a href="${contextPath}/home/homeSitterView?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br>
+					<span></span> <br> <a href="${contextPath}/home/homeSitterView?hsl_num=${hslList.HSL_NUM}">${hslList.HSL_NAME }</a><br>
 					<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div>
 					<div>
 						<fmt:formatNumber value="" pattern="#,###" />

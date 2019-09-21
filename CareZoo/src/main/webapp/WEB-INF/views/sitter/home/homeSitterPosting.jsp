@@ -49,20 +49,19 @@ $(function(){
 		// 이미지 정보들을 초기화
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
-		filesArr
-				.forEach(function(f) {
-					if (!f.type.match("image.*")) {
-						alert("확장자는 이미지 확장자만 가능합니다.");
-						return;
-					}
-					sel_file = f;
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove' style='width:250px, height:250px'></a>";
-						$(".imgs_wrap").append(html);
-					}
-					reader.readAsDataURL(f);
-				});
+		filesArr.forEach(function(f) {
+			if (!f.type.match("image.*")) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+			sel_file = f;
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selProductFile' title='Click to remove' style='width:250px, height:250px'></a>";
+				$(".imgs_wrap").append(html);
+			}
+			reader.readAsDataURL(f);
+		});
 	}
 	$(function(id, file, func) {
 		$('#' + id).ajaxForm({
@@ -112,7 +111,7 @@ $(function(){
 </head>
 <body>
 	<div>
-		<form action="home/write" method="post" enctype="multipart/form-data">
+		<form action="${contextPath }/home/write" method="post" enctype="multipart/form-data">
 			<h1>가정용펫시터 글 등록페이지</h1>
 			<table>
 				<tr>
@@ -145,33 +144,32 @@ $(function(){
 <!-- 						<div id="example"></div> -->
 <!-- 					</td> -->
 					<td>
-						<input type="button" id="addItemBtn" class="my_button" value="파일추가">
+						<input type="button" id="addItemBtn" class="my_button" value="파일추가" name="hsl_img_filename"> 
 						<div id="example"></div>
 					</td> 
 				</tr>
 				<tr>
 					<th>펫을 돌볼 수 있는 날짜를 선택해 주세요**</th>
-					<td></td>
+					<td><input type="text" name="hsl_service_type" value="24시간돌봄"></td>
 				</tr>
 				<tr>
 					<th>체크인 가능 시간의 범위를 지정해 주세요</th>
-					<td></td>
+					<td><input type="date" name="hsl_chkin"></td>
 				</tr>
 				<tr>
 					<th>체크아웃 가능 시간의 범위를 지정해 주세요</th>
-					<td></td>
+					<td><input type="date" name="hsl_chkout"></td>
 				</tr>
 				<tr>
 					<th>돌봄 가능한 강아지의 크기를 선택해 주세요</th>
-					<td></td>
+					<td><input type="text" name="hsl_size" value="소형견"></td>
 				</tr>
 				<tr>
 					<th>돌봄 가능한 강아지의 나이를 선택해 주세요</th>
-					<td></td>
+					<td><input type="text" name="hsl_pet_age" value="강아지"></td>
 				</tr>
 				<tr>
 					<th>현재 키우고 있는 펫 크기를 선택해주세요</th>
-					<td></td>
 				</tr>
 			</table>
 			<h1>돌봄 환경에 대해 자세히 알려주세요</h1>
