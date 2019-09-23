@@ -51,9 +51,10 @@ $(function() {
 			datepickerEnd.datepicker('option', 'minDate', selected);
 			if (datepickerEnd.prop('disabled')) {
 				datepickerEnd.datepicker('setDate', selected);
-			} else if (!datepickerEnd.val()) {
-				setTimeout($.proxy(datepickerEnd.datepicker, datepickerEnd, 'show'), 50);
 			}
+// 			else if (!datepickerEnd.val()) {
+// 				setTimeout($.proxy(datepickerEnd.datepicker, datepickerEnd, 'show'), 50);
+// 			}
 		},
 		timeFormat: 'HH:mm',
 		stepMinute: '30'		

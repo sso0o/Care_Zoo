@@ -24,13 +24,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.model.HomeSitterList;
+import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.sitter.service.HomeSitterListService;
 import com.what.carezoo.sitter.service.HomeSitterService;
 
 @RequestMapping("home")
 @Controller
 public class HomeSitterController {
-	private static final String FILE_PATH = "c:/temp/";
+	private static final String FILE_PATH = "c://temp/";
 	@Autowired
 	private HomeSitterService hsService;
 	@Autowired
@@ -38,8 +39,12 @@ public class HomeSitterController {
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")
 	public String enterHomeSitterMain(Model model) {
-		model.addAttribute("hslList", hslService.getallHsl());
-		System.out.println(hslService.getallHsl());
+//		model.addAttribute("hslList", hslService.getallHsl());
+		List<Map<String, Object>> hslList = hslService.getHsl();
+		for(int i=0;i<hslList.size();i++) {
+			System.out.println("GET"+i+"="+hslList.get(i));
+		}
+		model.addAttribute("hslList",hslList);
 		return "sitter/home/homeSitterList";
 	}
 	@RequestMapping("/join")
@@ -134,7 +139,7 @@ public class HomeSitterController {
 	@RequestMapping("/reserve")
 	@PreAuthorize("isAuthenticated()")
 	public String reserveHomeSitter(Model model) {
-		return "sitter/home/homeSitterList";
+		return "sitter/home/homeSitterConfirm";
 	}
 
 }

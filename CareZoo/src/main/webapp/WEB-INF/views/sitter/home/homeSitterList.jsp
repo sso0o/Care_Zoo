@@ -8,8 +8,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>homeSitterList</title>
 <!-- 가정용 펫시터 리스트 -->
+<!--link for lightslider -->
+<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
 <!-- link for datepicker -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
@@ -27,6 +32,39 @@
 <!-- script for navBar -->
 <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> -->
 <%-- <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>  --%>
+<style type="text/css">
+ul {
+	list-style: none outside none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.demo .item {
+	margin-bottom: 60px;
+}
+
+.content-slider li {
+	background-color: #ed3020;
+	text-align: center;
+	color: #FFF;
+}
+
+.content-slider h3 {
+	margin: 0;
+	padding: 70px 0;
+}
+
+.demo {
+	width: 800px;
+}
+.homesitterList {
+cursor: pointer;
+
+}
+.homesitterList{
+	 outline: 1px solid aqua;
+}
+</style>
 <script type="text/javascript"> 
 $(function () {
 	//검색탭
@@ -138,7 +176,7 @@ $(function () {
 	
 });
 	//이미지 띄우기
-	
+	// ajax로 이미지 띄우기 왜냐면 map으로 받으니깐!!!
 </script>
 </head>
 <body>
@@ -438,31 +476,31 @@ $(function () {
 <!-- 	</div> -->
 	<div class="homeSitterlist">
 		<c:forEach var="hslList" items="${hslList}">
-			<div style="border: 1px solid; margin: 50px; height: 350px;">
-<!-- 				<div style="width: auto; display: inline-block display:inline; float: left;"> -->
-<!-- 					<div class="item"> -->
-<!-- 						<div class="clearfix" style="max-width: 350px;"> -->
-<!-- 							<ul class="image-gallery" class="gallery list-unstyled cS-hidden"> -->
-<%-- 								<c:forEach items="${hslList.ph_filesName}" var="fn"> --%>
-<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"> --%>
-<%-- 										<img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 350px; height: 350px;" /> --%>
-<!-- 									</li> -->
-<%-- 								</c:forEach> --%>
-<!-- 							</ul> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<br> -->
-<!-- 				</div> -->
+			<div class = "homesitterList" style="border: 1px solid; margin: 50px; height: 350px;">
+				<div style="width: auto; display: inline-block display:inline; float: left;">
+					<div class="item">
+						<div class="clearfix" style="max-width: 350px;">
+							<ul class="image-gallery" class="gallery list-unstyled cS-hidden">
+								<c:forEach items="${hslList.HSL_IMG_FILENAME}" var="fn">
+									<li data-thumb="${contextPath}/home/image?fileName=${fn}">
+										<img src="${contextPath}/home/image?fileName=${fn}" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'" style="width: 350px; height: 350px;" />										
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+					<br>
+				</div>
 				<div>
-					<span></span> <br> <a href="${contextPath}/home/homeSitterView?hsl_num=${hslList.HSL_NUM}">${hslList.HSL_NAME }</a><br>
+					<span></span> <br> <a href="${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br>
 					<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div>
 					<div>
 						<fmt:formatNumber value="" pattern="#,###" />
 						~
-						<fmt:formatNumber value="" pattern="#,###" />
+						<fmt:formatNumber value="" pattern="#,###" />+
 					</div>
 					<div>
-<%-- 						후기:${hslList.ph_c_count}개 <br> ${hslList.ph_avgStar } --%>
+						후기:${hslList.ph_c_count}개 <br> ${hslList.HS_STAR }
 					</div>
 				</div>
 			</div>
