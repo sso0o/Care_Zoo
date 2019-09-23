@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.what.carezoo.comment.service.CommentService;
 import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
+import com.what.carezoo.member.service.MemberService;
+import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterComment;
 import com.what.carezoo.model.HomeSitterReservation;
@@ -42,6 +44,9 @@ public class CommentController {
 	
 	@Autowired
 	private PetHotelService phService;
+	
+	@Autowired
+	private MemberService mService;
 
 	@Autowired
 	private HomeSitterReservationService hsrService;
@@ -110,6 +115,7 @@ public class CommentController {
 		String contact = ph.getPh_contact();
 		double star = commentService.getStarPH(ph.getPh_num());
 		String fileName = phService.getFileList(ph.getPh_num()).get(0);
+		String address = ph.getPh_address()+ph.getPh_d_address();
 		int number = ph.getPh_num();
 		Map<String, Object> rst = new HashMap<String, Object>();
 		rst.put("name",name);
@@ -121,6 +127,7 @@ public class CommentController {
 			rst.put("fileName",fileName);
 		}
 		rst.put("number",number);
+		rst.put("address",address);
 		return rst;
 	}
 	
@@ -132,10 +139,12 @@ public class CommentController {
 		String name = hs.getHs_name();
 		int contact = hs.getHs_contact();
 		Double star = commentService.getStarHS(hs.getHs_num());
+		String address = hs.getHs_address()+hs.getHs_d_address();
 		Map<String, Object> rst = new HashMap<String, Object>();
 		rst.put("name",name);
 		rst.put("contact",contact);
 		rst.put("star",star);
+		rst.put("address",address);
 		return rst;
 	}
 	
@@ -151,6 +160,20 @@ public class CommentController {
 		rst.put("name",name);
 		rst.put("contact",contact);
 		rst.put("star",star);
+		return rst;
+	}
+	
+	@RequestMapping("/getModalC")
+	@ResponseBody
+	public Map<String, Object> getModalC(int num) {
+		Customer c = mService.getMemberByC_num(num);
+		String name = c.getC_name();
+		String contact = c.getC_contact();
+		String address = c.getC_address()+c.getC_d_address();
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("name",name);
+		rst.put("contact",contact);
+		rst.put("address",address);
 		return rst;
 	}
 	
