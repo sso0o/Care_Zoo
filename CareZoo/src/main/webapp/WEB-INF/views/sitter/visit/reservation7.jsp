@@ -92,7 +92,7 @@ function add(c_num,p_num,p_name){
 				<tr>
 					<c:forEach items="${pd_week}" var="w">
 						매주${w}요일 &emsp;
-						<button onclick="add(${c},${p},${n})">추가/변경</button>	
+						<button onclick="add(${c},${p},${n})">추가/변경</button>
 						<br>
 						<c:forEach items="${pd_hour}" var="h">
 						${h}
@@ -101,7 +101,8 @@ function add(c_num,p_num,p_name){
 						
 							</c:forEach>
 						</c:forEach>
-						<button onclick="petDeleteOpen(${w})">x</button><br>
+						<button onclick="petDeleteOpen(${w})">x</button>
+						<br>
 					</c:forEach>
 				</tr>
 			</table>

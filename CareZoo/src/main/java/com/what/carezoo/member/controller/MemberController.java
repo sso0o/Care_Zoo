@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.what.carezoo.hotel.service.PetHotelReservationService;
@@ -125,7 +127,7 @@ public class MemberController {
 	}
 	//마이페이지
 	@RequestMapping(value="/myPage",method=RequestMethod.GET)
-	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN'} )")
+	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
 	public String myPageForm() {
 		return "my&customer/mypageForm";
 	}
@@ -137,8 +139,8 @@ public class MemberController {
 	
 	//예약 가져오기
 	@ResponseBody
-	@RequestMapping(value="/myReservation",method=RequestMethod.GET)
-	public Map<String, Object> myReservation(int c_num) {
+	@RequestMapping(value="/myReservationCustomer",method=RequestMethod.GET)
+	public Map<String, Object> myReservation(int c_num ) {
 		Map<String, Object> rst = new HashMap<String, Object>();
 		List<HomeSitterReservation> hsrList = hsrService.getHomeSitterResByCnum(c_num);
 		List<VisitSitterReservation> vsrList = vsrService.getVisitSitterResByCnum(c_num);
@@ -179,7 +181,7 @@ public class MemberController {
 			rst.put("pet", pet);
 		}
 
-		System.out.println(rst);
+//		System.out.println(rst);
 	
 		return rst;
 	}

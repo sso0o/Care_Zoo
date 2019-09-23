@@ -80,7 +80,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("CUSTOMER"));
 				HttpSession session = request.getSession();
-				session.setAttribute("c_num", mService.getMemberByEmail(userid).getC_num());
+				session.setAttribute("user_numtype", "c_num="+mService.getMemberByEmail(userid).getC_num());
+				session.setAttribute("user_num", mService.getMemberByEmail(userid).getC_num());
 				session.setAttribute("user_name", mService.getMemberByEmail(userid).getC_name());
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}
@@ -92,6 +93,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			if(hs != null && hs.getHs_pass().equals(pw)) {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("HOME"));
+				HttpSession session = request.getSession();
+				session.setAttribute("user_numtype", "hs_num="+hsService.getHomeSitterByEmail(userid).getHs_num());
+				session.setAttribute("user_num", hsService.getHomeSitterByEmail(userid).getHs_num());
+				session.setAttribute("user_name", hsService.getHomeSitterByEmail(userid).getHs_name());
+				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}
 		    return authToken;
@@ -101,6 +107,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			if(vs != null && vs.getVs_pass().equals(pw)) {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("VISIT"));
+				HttpSession session = request.getSession();
+				session.setAttribute("user_numtype", "vs_num="+vsService.getVisitSitterByEmail(userid).getVs_num());
+				session.setAttribute("user_num", vsService.getVisitSitterByEmail(userid).getVs_num());
+				session.setAttribute("user_name", vsService.getVisitSitterByEmail(userid).getVs_name());
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}
 		    return authToken;

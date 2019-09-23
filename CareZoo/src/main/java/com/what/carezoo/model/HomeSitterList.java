@@ -1,5 +1,6 @@
 package com.what.carezoo.model;
 
+import java.util.List;
 
 public class HomeSitterList {
 	 private int hsl_num;
@@ -15,6 +16,7 @@ public class HomeSitterList {
 	 private String hsl_baby;
 	 private String hsl_family;
 	 private String hsl_fileName;
+	 private List<String> hsl_filesName; 
 	 private String hsl_address;
 	 private String hsl_d_address;
 	 private String hsl_service_type;
@@ -98,6 +100,12 @@ public class HomeSitterList {
 	public void setHsl_fileName(String hsl_fileName) {
 		this.hsl_fileName = hsl_fileName;
 	}
+	public List<String> getHsl_filesName() {
+		return hsl_filesName;
+	}
+	public void setHsl_filesName(List<String> hsl_filesName) {
+		this.hsl_filesName = hsl_filesName;
+	}
 	public String getHsl_address() {
 		return hsl_address;
 	}
@@ -134,8 +142,9 @@ public class HomeSitterList {
 				+ ", hsl_comment=" + hsl_comment + ", hsl_size=" + hsl_size + ", hsl_chkin=" + hsl_chkin
 				+ ", hsl_chkout=" + hsl_chkout + ", hsl_care_place=" + hsl_care_place + ", hsl_subway=" + hsl_subway
 				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family + ", hsl_fileName="
-				+ hsl_fileName + ", hsl_address=" + hsl_address + ", hsl_d_address=" + hsl_d_address
-				+ ", hsl_service_type=" + hsl_service_type + ", hsl_pet_age=" + hsl_pet_age + ", hsl_d_d_address="
-				+ hsl_d_d_address + "]";
-	}	 
+				+ hsl_fileName + ", hsl_filesName=" + hsl_filesName + ", hsl_address=" + hsl_address
+				+ ", hsl_d_address=" + hsl_d_address + ", hsl_service_type=" + hsl_service_type + ", hsl_pet_age="
+				+ hsl_pet_age + ", hsl_d_d_address=" + hsl_d_d_address + "]";
+	}
+	 
 }

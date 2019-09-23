@@ -11,6 +11,7 @@ public class HomeSitterReservation {
 	private String hsr_chkout;
 	private String hsr_hour;
 	private String hsr_status;
+	private int p_num;
 	public int getHsr_num() {
 		return hsr_num;
 	}
@@ -53,11 +54,18 @@ public class HomeSitterReservation {
 	public void setHsr_status(String hsr_status) {
 		this.hsr_status = hsr_status;
 	}
+	public int getP_num() {
+		return p_num;
+	}
+	public void setP_num(int p_num) {
+		this.p_num = p_num;
+	}
 	@Override
 	public String toString() {
-		return "HomeSitterReservation [hsr_num=" + hsr_num + ", c_num=" + c_num + ", hs_num=" + hs_num + ", hsr_chkin="
-				+ hsr_chkin + ", hsr_chkout=" + hsr_chkout + ", hsr_hour=" + hsr_hour + ", hsr_status=" + hsr_status
-				+ "]";
+		return "HomeSitterReservation [hsr_num=" + hsr_num + ", c_num=" + c_num + ", hs_num=" + hs_num + ", hsr_chkin=" + hsr_chkin + ", hsr_chkout=" + hsr_chkout + ", hsr_hour=" + hsr_hour + ", hsr_status=" + hsr_status + ", p_num="
+				+ p_num + "]";
 	}
+	
+	
 	
 }

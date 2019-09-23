@@ -23,6 +23,10 @@ public class HomeSitterReservationService {
 		return hsrDao.selectByCnum(c_num);
 	}
 	
+	public List<HomeSitterReservation> getHomeSitterResByHSnum(int hs_num){
+		return hsrDao.selectByHSnum(hs_num);
+	}
+	
 	
 	public List<HomeSitterReservation> getAllHomeSitterRes() {
 		return hsrDao.selectAll();

@@ -1,48 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterListDao">
-	<insert id="insertHslImageFile" parameterType="homeSitterList_Image">
-		insert into homeSitterList_Image(hsl_img_num, hsl_num,
-		hsl_filename, hsl_write_date)
-		values(homesitterlist_image_seq.nextval,${hsl_num},${hsl_filename},sysdate)
-	</insert>
 	<insert id="insertHsl" parameterType="homeSitterList">
 		<selectKey order="BEFORE" keyProperty="hsl_num" resultType="int">
 			select homsitterlist_seq.nextval from dual
 		</selectKey>
 		insert into homesitterlist
-		(hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age)
+		(hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age,hsl_writedate)
 		values
-		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age})
+		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age},sysdate)
 	</insert>
-	<insert id="insertHslAdd" parameterType="homeSitterList">
-
-	</insert>
-	<update id="updateHsl" parameterType="homeSitterList">
-
-	</update>
-	<delete id="deleteHsl" parameterType="int">
-
-	</delete>
+	<update id="updateHsl" parameterType="homeSitterList"></update>
+	<delete id="deleteHsl" parameterType="int"></delete>
 	<select id="selectOnebyHsl_num" parameterType="int" resultType="homeSitterList">
 		select * from homesitterlist where hsl_num = #{hsl_num}
-	</select>
-	<!-- 모든 홈시터 가져오기 -->
-	<select id="selectHsl" resultType="map">
-		SELECT * FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
-										  LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
-	</select>
-	
-	<select id="searchHslbyAddress" parameterType="list" resultType="homeSitterlist">
-		SELECT *
-		FROM homesitterlist
-		<trim prefix="where" prefixOverrides="AND|OR">
-			<foreach collection="list" item="item" separator="or">
-				hsl_address like ('%${item}%')
-			</foreach>
-		</trim>
-		order by hsl_num desc
-	</select>
+	</select>	
 	<select id="selectAllHsl" resultType="map">
 		SELECT *
 		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
@@ -61,10 +33,10 @@
 				('%${hsl.hsl_pet_age}%')
 			</if>
 			<if test="hsl.hsl_chkin != ''">
-				AND hsl_chkin like ('%${hsl.hsl_chkin}%')
+				AND  <![CDATA[hsli.hsl_chkin <= #{hsl.hsl_chkin}]]>
 			</if>
 			<if test="hsl.hsl_chkout != ''">
-				AND hsl_chkout like ('%${hsl.hsl_chkout}%')
+				AND <![CDATA[hsli.hsl_chkout >= #{hsl.hsl_chkout}]]>
 			</if>
 			<if test="hsl.hsl_address != null"> 
 				and hsli.hsl_address in (select hsl_address from homesitterlist where
@@ -75,22 +47,28 @@
 			</if>
 		</trim>
 	</select>
-<!-- <select id="searchHsl" parameterType="homeSitterList"
-		resultType="homeSitterList">
-		SELECT *
-		FROM homesitterlist
-		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size =
-		#{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND
-		hsl_size = #{hsl_size}
+	<!-- 파일 올리기 -->
+	<insert id="insertFile" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="hsl_img_num" resultType="int">
+			select homesitterlist_image_seq.nextval from dual
+		</selectKey>
+		insert into homesitterlist_image (hsl_img_num,hsl_num,hsl_img_filename,hsl_img_write_date )
+		values (#{hsl_img_num},#{hsl_num},#{hsl_img_filename},sysdate)
+	</insert>
+		<!-- 모든 홈시터 가져오기 -->
+	<select id="selectHsl" resultType="map">
+		SELECT * 
+		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
+		LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num		
 	</select>
-
-	<select id="searchHsls" parameterType="homeSitterList"
-		resultType="homeSitterList">
-		SELECT *
-		FROM homesitterlist
-		WHERE hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size =
-		#{hsl_size} AND hsl_size = #{hsl_size} AND hsl_size = #{hsl_size} AND
-		hsl_size = #{hsl_size}
+	<select id="selectFileName" parameterType="int" resultType="string">
+		select * from homesitterlist_image where hsl_num = #{hsl_num}
 	</select>
--->
+	<select id="selectFileList" parameterType="int" resultType="string">
+		select hsl_img_filename
+		  from homesitterlist hsl, homesitterlist_image hslI
+		 where hsl.hsl_num = hslI.hsl_num(+)
+		   and hsl.hsl_num = #{hsl_num}
+		<!-- resultType = "hashMap" 으로 하면 list로 간다요 -->
+	</select>
 </mapper>
