@@ -87,30 +87,37 @@
 		<trim prefix="where" prefixOverrides="AND|OR">
 			ph.ph_num = r.ph_num(+)
 			and ph.ph_num = c.ph_num(+)
+			
+<!-- 			<if test="ph.ph_pet_size != null"> -->
+<!-- 				and ph_pet_size like -->
+<!-- 				'%' || #{ph.ph_pet_size} || '%' -->
+<!-- 			</if> -->
 
-			<if test="ph.ph_pet_size != null">
-				and ph_pet_size like
-				'%' || #{ph.ph_pet_size} || '%'
-			</if>
-
-			<if test="ph.ph_pet_age != null">
-				and ph_pet_age like '%' || #{ph.ph_pet_age} || '%'
-			</if>
 			<if test="ph.phr_chkin != null">
 				<if test="ph.phr_chkout != null">
-					and ph.ph_num IN ( select phrm.ph_num from PETHOTELROOM
-					phrm, PETHOTELRESERVATION phr
-					where phrm.phrm_num = phr.phrm_num(+)
-					and ph.ph_num = phrm.ph_num(+)
-					and phrm.phrm_pet_size like '%' ||
-					#{ph.ph_pet_size} || '%'
-					and ((NOT phr_chkin between '#{ph.phr_chkin}'
-					and '#{ph.phr_chkout}')OR(
-					phr_chkin
-					IS NULL))
-					and ((NOT phr_chkout between
-					'2019-10-09' and '2019-10-10')OR(
-					phr_chkout IS NULL)))
+
+
+		and	            
+		ph.ph_num IN ( select phrm.ph_num 
+     				 from pethotelroom phrm
+    			 	 where phrm.phrm_num not in(
+    			 			 			select phrm2.phrm_num
+     									from pethotelroom phrm2 
+     									where phrm2.phrm_p_max <![CDATA[ <= ]]> (
+     											select count(phrm.phrm_num) r_cnt
+                     	                 	  	from PETHOTELROOM phrm, PETHOTELRESERVATION phr 
+                                    			where phrm.phrm_pet_size like '%' || #{ph.ph_pet_size} || '%'
+                                       			and phrm.phrm_num = phr.phrm_num
+                                       			and phrm.phrm_num = phrm2.phrm_num
+                                       			and (phr_chkin between '2019-09-10' and '2019-09-12'
+                                        or (phrm2.phrm_num = phr.phrm_num and phr_chkout between '2019-10-01' and '2019-10-12')
+                                       			group by phrm.phrm_num)
+                               or phrm2.phrm_pet_size NOT like '%' || #{ph.ph_pet_size} || '%')
+                              <if test="ph.phr_chkin != null">
+                            	   and phrm.phrm_pet_size like '%' || #{ph.ph_pet_size} || '%'
+								</if>
+                               )
+
 				</if>
 			</if>
 			<!-- <if test="ph.hsl_chkin != ''"> -->
@@ -123,23 +130,29 @@
 			<!-- or <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]> -->
 			<!-- </if> -->
 			<if test="ph.ph_address != null">
-				and ph.ph_address IN (select ph_address from pethotel where
-
+				and ph.ph_address 
 				<foreach collection="list" item="item" separator="or">
-					ph_address
 					like
 					('%${item}%')
 				</foreach>
-				)
 			</if>
 		</trim>
 		order by ph.ph_num
 	</select>
 
 	<select id="selectPhRoomByPh_num" resultType="PetHotelRoom">
-	select * from PETHOTELROOM
-	where ph_num = #{ph_num}
+            select ph_num, phrm_num, phrm_name, phrm_price, phrm_p_max, phrm_m_price, phrm_l_price, phrm_pet_size,  NVL(r_cnt,0) rcount from PETHOTELROOM phrm, 
+                                        (select phrm2.phrm_num phrm_num2, count(phrm2.phrm_num) r_cnt from PETHOTELROOM phrm2, PETHOTELRESERVATION phr 
+                                        where phrm2.phrm_num = phr.phrm_num
+                                        and (phr_chkin between '2019-09-10' and '2019-09-12'
+                                        or (phrm2.phrm_num = phr.phrm_num and phr_chkout between '2019-10-01' and '2019-10-12'))
+                                        and phrm2.ph_num = #{ph_num}
+                                        group by phrm2.phrm_num) chkphrm
+                                        where phrm.ph_num = #{ph_num}
+                                        and phrm.phrm_num = chkphrm.phrm_num2(+)
+                                        order by phrm_num;
 	</select>
+	
 	<select id="selectPhRoomByPhrm_num" resultType="PetHotelRoom">
 	select * from PETHOTELROOM
 	where phrm_num = #{phrm_num}
