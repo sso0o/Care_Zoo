@@ -111,6 +111,9 @@ public class PetHotelService {
 	public List<PetHotelRoom> getAllPetHotelRoom(int ph_num){
 		return petHotelDao.selectPhRoomByPh_num(ph_num);
 	}
+	public List<PetHotelRoom> getHotelRoomByDate(String phr_chkin, String phr_chkout, int ph_num){
+		return petHotelDao.DetailPhRoomByDate(phr_chkin,phr_chkout,ph_num);
+	}
 	
 	public List<PetHotel> getAllPetHotel() {
 		return petHotelDao.selectAll();
@@ -222,5 +225,7 @@ public class PetHotelService {
 		return petHotelDao.selectPhRoomByPhrm_num(phrm_num);
 		
 	}
+
+
 
 }
