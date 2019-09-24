@@ -185,5 +185,12 @@ public class MemberController {
 	
 		return rst;
 	}
+	
+	@RequestMapping("/qna")
+	public String qnaForm() {
+		
+		return "my&customer/qnaForm";
+		
+	}
 
 }
