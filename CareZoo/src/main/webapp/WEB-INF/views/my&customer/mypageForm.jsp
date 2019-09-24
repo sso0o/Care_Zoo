@@ -247,6 +247,7 @@
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
 	var user_num = "<%=session.getAttribute("user_num")%>"
 	var user_name = "<%=session.getAttribute("user_name")%>"
+	var d = new Date();
 	
 	function logoutCheck() {
 		if (confirm("정말 로그아웃?") == true) {
@@ -265,7 +266,7 @@
 	
 
 	document.addEventListener('DOMContentLoaded', function() {
-		var d = new Date();
+		
 		var num = <%=session.getAttribute("user_num")%>
 		var calendarEl = document.getElementById('calendar');
 		
@@ -300,7 +301,7 @@
 
 			select : function(arg) {
 				console.log(arg.startStr, arg.endStr, arg.resource ? arg.resource.id : '(no resource)');
-				document.getElementById("p1").innerHTML=arg.startStr ;
+// 				document.getElementById("p1").innerHTML=arg.startStr ;
 				myResList(arg.startStr);
 
 			}
@@ -572,6 +573,11 @@
 	function myResList(checkDate) {
 		console.log("function : "+checkDate);
 		console.log("function : "+user_numtype);
+		var showEvent = $("#showEvent");
+		$("#legend").text(checkDate);
+		
+
+		showEvent.children("p").remove();
 		$.ajax({
 			url : "${contextPath}/member/myReservationCustomer",
 			data: {
@@ -580,16 +586,31 @@
 			dataType: "JSON",
 			success: function(data) {
 				for (var i = 0; i < data.vsrList.length; i++) {
-					
+					if(data.vsrList[i].vsr_chkin<=checkDate && checkDate <=data.vsrList[i].vsr_chkout){
+						var pTag = "<p>"+data.vsInfo[i].vs_name+"  "+data.vsInfo.vs_contact+" "+data.vsrList.vsr_status+"</p>";
+						showEvent.append(pTag);	
+					}
+							
 				}
 				
 				for (var i = 0; i < data.hsrList.length; i++) {
+					if(data.hsrList[i].hsr_chkin<=checkDate && checkDate <=data.hsrList[i].hsr_chkout){
+						var pTag = "<p>"+data.hsInfo[i].hs_name+"  "+data.hsInfo.hs_contact+" "+data.hsrList.hsr_status+"</p>";
+						showEvent.append(pTag);
+					}
+					
+				}
+				
+				console.log(data.phrList)
+				for (var i = 0; i < data.phrList.length; i++) {
+					if(data.phrList[i].phr_chkin <= checkDate && checkDate <= data.phrList[i].phr_chkout){
+						var pTag = "<p>"+data.phInfo[i].ph_name+"  "+data.phInfo.ph_contact+" "+data.phrList.phr_status+"</p>";
+						showEvent.append(pTag);
+					}
 					
 				}
 
-				for (var i = 0; i < data.phrList.length; i++) {
-					
-				}
+				
 			},
 			error: function() {
 				
@@ -665,7 +686,7 @@
 						<li class='last'><a href='#'>호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
+				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -675,11 +696,11 @@
 	<div class="container">
 		<div id='calendar'></div>
 		<div class="content">
-			<fieldset>
-				<legend style="text-align: center;">여기에 선택한 날짜의 예약이 나옴</legend>
-					<p id="p1">1</p>
-					<p>1</p>
-					<p>1</p>
+			<fieldset id="showEvent">
+				<legend style="text-align: center;" id="legend">여기에 선택한 날짜의 예약이 나옴</legend>
+<!-- 					<p id="p1">1</p> -->
+<!-- 					<p>1</p> -->
+<!-- 					<p>1</p> -->
 			</fieldset>
 		</div>
 		<div>

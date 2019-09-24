@@ -25,15 +25,18 @@
 .tabs input#tab-4{
 	left: 360px;
 }
+.tabs input#tab-5{
+	left: 480px;
+}
 
 .tabs label {
-	background: #5ba4a4;
-	background: -moz-linear-gradient(top, #5ba4a4 0%, #4e8c8a 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5ba4a4), color-stop(100%,#4e8c8a));
-	background: -webkit-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
-	background: -o-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
-	background: -ms-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
-	background: linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
+	background: #40bf9f;
+/* 	background: -moz-linear-gradient(top, #5ba4a4 0%, #4e8c8a 100%); */
+/* 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5ba4a4), color-stop(100%,#4e8c8a)); */
+/* 	background: -webkit-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%); */
+/* 	background: -o-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%); */
+/* 	background: -ms-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%); */
+/* 	background: linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%); */
 	font-size: 15px;
 	line-height: 40px;
 	height: 40px;
@@ -65,7 +68,7 @@
 }
 
 .tabs input:hover + label {
-	background: #5ba4a4;
+	background: #40bf9f;
 	top: -8px;
 	-webkit-transition: top linear 0.2s;
     -moz-transition: top linear 0.2s;
@@ -74,7 +77,7 @@
     transition: top linear 0.2s;
 }
 .tabs input:hover + label:after{
-	background: #5ba4a4;
+	background: #40bf9f;
 }
 .tabs input:hover + label ~ .clear-shadow {
     top: -8px;
@@ -102,34 +105,42 @@
 }
 
 .tabs input.tab-selector-1:hover + label.tab-label-1 ~ .clear-shadow{
-    z-index: 3;
+    z-index: 4;
 }
 
 .tabs input.tab-selector-2:hover + label.tab-label-2 ~ .clear-shadow {
-    z-index: 2;
+    z-index: 3;
 }
 
 .tabs input.tab-selector-3:hover + label.tab-label-3 ~ .clear-shadow {
-    z-index: 1;
+    z-index: 2;
 }
 
 .tabs input.tab-selector-4:hover + label.tab-label-4 ~ .clear-shadow {
+    z-index: 1;
+}
+.tabs input.tab-selector-5:hover + label.tab-label-5 ~ .clear-shadow {
     z-index: 0;
 }
+
 .tabs label:first-of-type {
-    z-index: 4;
+    z-index: 5;
     box-shadow: 2px 0 2px rgba(0,0,0,0.1);
 }
 
 .tab-label-2 {
-    z-index: 3;
+    z-index: 4;
 }
 
 .tab-label-3 {
-    z-index: 2;
+    z-index: 3;
 }
 
 .tab-label-4 {
+    z-index: 2;
+}
+
+.tab-label-5 {
     z-index: 1;
 }
 
@@ -144,7 +155,7 @@
 }
 
 .clear-shadow {
-    background: #5ba4a4;
+    background: #40bf9f;
 	position: relative;
 	top: 0;
     height: 10px;
@@ -159,22 +170,26 @@
     background: #fff;
 	position: relative;
     width: 100%;
-	height: 370px;
+	min-height: auto;
+	height: auto;
 	z-index: 5;
-	overflow: hidden;
+/* 	overflow: hidden; */
     box-shadow: 0 -2px 3px -2px rgba(0,0,0,0.2), 0 2px 2px rgba(0,0,0,0.1);
     border-radius: 0 3px 3px 3px;
 }
 
 .content div {
-    position: absolute;
+	display: none;
+	width: 90%;
+	height: auto;
+/*     position: absolute; */
 	top: 0;
 	left: 0;
 	bottom: 100%;
 	padding: 10px 40px;
-	overflow: hidden;
+/* 	overflow: hidden; */
 	z-index: 1;
-    opacity: 0;
+
     -webkit-transition: all linear 0.1s;
     -moz-transition: all linear 0.1s;
     -o-transition: all linear 0.1s;
@@ -185,7 +200,8 @@
 .tabs input.tab-selector-1:checked ~ .content .content-1,
 .tabs input.tab-selector-2:checked ~ .content .content-2,
 .tabs input.tab-selector-3:checked ~ .content .content-3,
-.tabs input.tab-selector-4:checked ~ .content .content-4 {
+.tabs input.tab-selector-4:checked ~ .content .content-4,
+.tabs input.tab-selector-5:checked ~ .content .content-5 {
 	bottom: 0px;
     z-index: 100;
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
@@ -196,13 +212,16 @@
     -o-transition: all ease-out 0.2s 0.2s;
     -ms-transition: all ease-out 0.2s 0.2s;
     transition: all ease-out 0.2s 0.2s;
+    display: block;
 }
 
 .content div h2,
 .content div h3{
 	color: #398080;
 }
-.content div p {
+
+.content div ul li p, 
+.content div ul li ul{
 	font-size: 14px;
 	line-height: 22px;
 	font-style: italic;
@@ -210,6 +229,11 @@
 	margin: 0;
 	color: #777;
 	padding-left: 15px;
-	font-family: Cambria, Georgia, serif;
 	border-left: 8px solid rgba(63,148,148, 0.1);
 }
+
+.infoBody{
+	height: auto;
+}
+
+
