@@ -7,25 +7,72 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<!-- 필수요소 -->
+<!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
+<!-- 메뉴바 -->
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+
+<!-- 글씨체 -->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 
-<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
+<!-- 선택요소 -->
+<!-- 풀캘린더 -->
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
+
+<!-- 시간 관련된 함수 사용하기위해서 있어야할것들(캘린더 데이터픽커) -->
+<script type="text/javascript" src='${contextPath}/resources/js/moment.js'></script>
+
+<!-- 사이드메뉴 -->
+<link rel='stylesheet' href='${contextPath}/resources/css/sideMenu.css' />
+
+<!-- 마이페이지(달력에 모달) -->
+<link rel='stylesheet' href='${contextPath}/resources/css/myPage_modal.css' />
+<!-- 별점 -->
+<link rel='stylesheet' href='${contextPath}/resources/css/star.css' />
+
+<!-- 달력 이벤트 마우스 가져다대면 정보뜨는거 -->
+<link rel='stylesheet' href='${contextPath}/resources/css/popper_tooltip.css' />
+<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
+<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 
 <script type="text/javascript">
-function logoutCheck() {
-	if (confirm("정말 로그아웃?") == true) {
-		location.href = '${contextPath}/logout'
-	} else {
-		return false;
+	
+	// 로그아웃확인 <--모든페이지에 필수
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
 	}
-}
+	
+	$(function() { //문서가 로딩되면 실행할 함수
+		
+	})
+
+	// $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
+	
+	// })
+	
+	// 기본적으로 세션에 저장된 정보
+	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+	var user_num = "<%=session.getAttribute("user_num")%>"
+	var user_name = "<%=session.getAttribute("user_name")%>"
+
 
 </script>
-<title>권한 없음</title>
 
+
+
+<title>Insert title here</title>
 </head>
 <body>
 <div class="container">
@@ -69,12 +116,11 @@ function logoutCheck() {
 			</ul>
 		</div>
 	</nav>
-	<br>
-	<br>
-	<br>
+	
+	<br><br><br>
 	<div class="container">
-
-		<span>권한이 없음</span>
+<!-- 		여기다 내용을 작성하시면 됩니다 -->
+		
 	</div>
-</body>
+	</body>
 </html>

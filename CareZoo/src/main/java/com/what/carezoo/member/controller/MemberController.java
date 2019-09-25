@@ -7,11 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
 import com.what.carezoo.member.service.MemberService;
-
+import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterReservation;
 import com.what.carezoo.model.Pet;
@@ -72,36 +75,24 @@ public class MemberController {
 	}
 	
 
-	//회원가입
-	@RequestMapping(value="/join", method=RequestMethod.GET)
+	//회원가입 폼
+	@RequestMapping(value="/joinForm", method=RequestMethod.GET)
 	public String joinForm() {
 		return "joinForm";
 	}
 	
-//	@RequestMapping(value="/join", method=RequestMethod.POST)
-//	public String join(Customer customer,Model model,HttpServletRequest request) {
-//		if(customer.getC_address() != null & customer.getC_birth() !=null
-//				& customer.getC_contact() != null & customer.getC_d_address() != null 
-//				& customer.getC_e_address() !=null & customer.getC_email() !=null 
-//				& customer.getC_name()!=null & customer.getC_pass() !=null 
-//				& customer.getC_pass_chk() !=null	& customer.getC_sex() != null) {
-//		boolean result =memberService.joinMember(customer);
-//		//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
-//		if(result) {
-//			return "redirect:member/login";
-//		}
-//		String msg ="비밀번호 일치 또는 빈칸이 있는지 확인해 주세요";
-//		String url = "join";
-//		model.addAttribute("msg", msg);
-//		model.addAttribute("url", url);
-//		return "result";
-//	}
-//	String msg ="빈칸이 있는지 확인해 주세요";
-//	String url = "join";
-//	model.addAttribute("msg", msg);
-//	model.addAttribute("url", url);
-//	return "result";
-//}
+	//회원가입
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String join(Customer customer, Model m) {
+		boolean rst = memberService.joinMember(customer);
+		if(rst) {
+			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
+			return "main";
+		} else {
+			return "joinForm";
+		}
+
+}
 	//아이디 유효성 검사
 	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	@ResponseBody
@@ -125,11 +116,25 @@ public class MemberController {
 	public String mainLoginForm() {
 		return "mainLogin";
 	}
+	
 	//마이페이지
 	@RequestMapping(value="/myPage",method=RequestMethod.GET)
 	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
 	public String myPageForm() {
-		return "my&customer/mypageForm";
+		return "my&customer/userInfo";
+	}
+	
+	//예약현황페이지
+	@RequestMapping(value="/myReservation",method=RequestMethod.GET)
+	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
+	public String myReservation() {
+		return "my&customer/myReservation";
+	}
+	
+	//펫정보 페이지
+	@RequestMapping("/myPet")
+	public String myPet() {
+		return "my&customer/petInfo";
 	}
 	
 	@RequestMapping("/noAuth")
@@ -188,9 +193,13 @@ public class MemberController {
 	
 	@RequestMapping("/qna")
 	public String qnaForm() {
-		
-		return "my&customer/qnaForm";
-		
+		return "my&customer/qnaForm";	
+	}
+	
+	
+	@RequestMapping("/modifyUserInfo")
+	public String modifyUserInfo() {
+		return "my&customer/checkUser";	
 	}
 
 }

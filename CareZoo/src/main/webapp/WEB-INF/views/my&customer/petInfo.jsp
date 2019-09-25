@@ -11,24 +11,60 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-
+<link rel='stylesheet' href='${contextPath}/resources/css/sideMenu.css' />
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 
-<script type="text/javascript">
-function logoutCheck() {
-	if (confirm("정말 로그아웃?") == true) {
-		location.href = '${contextPath}/logout'
-	} else {
-		return false;
+<style>
+
+</style>
+
+<script>
+	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+	var user_num = "<%=session.getAttribute("user_num")%>"
+	var user_name = "<%=session.getAttribute("user_name")%>"
+	var d = new Date();
+	
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
 	}
-}
+	
+	$(function() {
+		console.log("numtype : "+user_numtype)
+		console.log("name : "+user_name)
+		console.log("num : "+user_num)
+	})//문서가 로딩되면 실행할 함수
+	
+
 
 </script>
-<title>권한 없음</title>
+<style>
 
+</style>
+<title>petPage</title>
+<!-- 마이페이지 시작 -->
 </head>
 <body>
-<div class="container">
+<input type="checkbox" id="menuicon">
+			<label for="menuicon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</label>
+			<div class="sidebar">
+				<div>
+					<ul>
+						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
+						<li><a href="${contextPath}/member/myPet">펫 정보</a></li>
+						<li><a href="${contextPath}/member/myReservation">예약상황 보기</a></li>
+					</ul>
+				</div>
+			</div>
+
+	<div class="container">
 		<header>
 			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
@@ -73,8 +109,14 @@ function logoutCheck() {
 	<br>
 	<br>
 	<div class="container">
+		
+		<span>여긴 펫 정보</span>
 
-		<span>권한이 없음</span>
 	</div>
+	
+
+
+
+
 </body>
 </html>
