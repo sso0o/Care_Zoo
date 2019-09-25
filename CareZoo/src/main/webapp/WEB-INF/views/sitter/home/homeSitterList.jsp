@@ -18,7 +18,7 @@
 <!-- link for datepicker -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
-<!--  link for homesitter css -->
+<!--  link for DogMate datepicker css -->
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/>
 <!-- link for navBar -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">

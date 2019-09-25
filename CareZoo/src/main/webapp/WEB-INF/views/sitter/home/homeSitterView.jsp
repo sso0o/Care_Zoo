@@ -79,35 +79,36 @@ $(function() {
 			return [true];
 		}
 	});
-	var pricePerST = 20000;
-	var pricePerDay = 30000;
-	var pricePerPetSize = 15000;
-	var amount = 30000;
-	$('#petSize-select').change(function() {
-		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
-			pricePerDay = 30000;
-			pricePerPetSize = 15000;
-			$('.pricePerDay').empty().append(pricePerDay);
-			$('#addPet').empty().append(pricePerPetSize);
-			$('#hsr_totalprice').empty().append(pricePerDay);
-		}else{
-			pricePerDay = 40000;
-			pricePerPetSize = 25000;
-			$('.pricePerDay').empty().append(pricePerDay);
-			$('#addPet').empty().append(pricePerPetSize);
-			$('#hsr_totalprice').empty().append(pricePerDay);
-		}
-		amount = (pricePerDay+pricePerPetSize*$('#hsr_numof_pet').val());
-		$('#hsr_totalprice').empty().append(amount);
-		return pricePerDay;
-	})
-	$('#hsr_numof_pet').on("click", function(){
-		$('#hsr_totalprice').empty().append(pricePerPetSize);
-		amount = (pricePerDay+pricePerPetSize*$('#hsr_numof_pet').val());
-		$('#hsr_totalprice').empty().append(amount);
-		$('#totalpriceInput').val(amount);
-	});
-	$('#totalpriceInput').val(amount);
+	//가격 계산하기
+// 	var pricePerST = 20000;
+// 	var pricePerDay = 30000;
+// 	var pricePerPetSize = 15000;
+// 	var amount = 30000;
+// 	$('#petSize-select').change(function() {
+// 		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
+// 			pricePerDay = 30000;
+// 			pricePerPetSize = 15000;
+// 			$('.pricePerDay').empty().append(pricePerDay);
+// 			$('#addPet').empty().append(pricePerPetSize);
+// 			$('#hsr_totalprice').empty().append(pricePerDay);
+// 		}else{
+// 			pricePerDay = 40000;
+// 			pricePerPetSize = 25000;
+// 			$('.pricePerDay').empty().append(pricePerDay);
+// 			$('#addPet').empty().append(pricePerPetSize);
+// 			$('#hsr_totalprice').empty().append(pricePerDay);
+// 		}
+// 		amount = (pricePerDay+pricePerPetSize*$('#hsr_numof_pet').val());
+// 		$('#hsr_totalprice').empty().append(amount);
+// 		return pricePerDay;
+// 	})
+// 	$('#hsr_numof_pet').on("click", function(){
+// 		$('#hsr_totalprice').empty().append(pricePerPetSize);
+// 		amount = (pricePerDay+pricePerPetSize*$('#hsr_numof_pet').val());
+// 		$('#hsr_totalprice').empty().append(amount);
+// 		$('#totalpriceInput').val(amount);
+// 	});
+// 	$('#totalpriceInput').val(amount);
 	
 });
 //날짜 기간차 구하기
@@ -121,7 +122,7 @@ function showDays() {
     var endday = new Date(endL[0], Number(endL[1])-1, endL[2])
     console.log(endday);
     if (!start||!end) return false;
-    var days = (endday.getTime() - startday.getTime())/1000/60/60/24;
+    var days = ((endday.getTime() - startday.getTime())/1000/60/60/24);
     if (days == 0){
     	$('#DAY').empty().append('1 day');
     	$('#days').val(days+'박');
@@ -130,6 +131,10 @@ function showDays() {
     	$('#days').val(days+'박');
     }
     return true;
+}
+//가격 계산하기
+function calculatePrice() {
+	
 }
 </script>
 </head>
@@ -176,7 +181,38 @@ function showDays() {
 		</div>
 	</div>
 </div>
-
+<script type="text/javascript">
+function calculatePrice() {
+	var pricePerDay = 30000;
+	var pricePerPetSize = 15000;
+	var amount = 30000;
+	$('#petSize-select').change(function() {
+		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
+			pricePerDay = 30000;
+			pricePerPetSize = 15000;
+			$('.pricePerDay').empty().append(pricePerDay);
+			$('#addPet').empty().append(pricePerPetSize);
+			$('#hsr_totalprice').empty().append(pricePerDay);
+		}else{
+			pricePerDay = 40000;
+			pricePerPetSize = 25000;
+			$('.pricePerDay').empty().append(pricePerDay);
+			$('#addPet').empty().append(pricePerPetSize);
+			$('#hsr_totalprice').empty().append(pricePerDay);
+		}
+		amount = (pricePerDay+pricePerPetSize*$('#hsr_numof_pet').val());
+		$('#hsr_totalprice').empty().append(amount);
+		return pricePerDay;
+	})
+	$('#hsr_numof_pet').on("click", function(){
+		$('#hsr_totalprice').empty().append(pricePerPetSize);
+		amount = (pricePerDay+pricePerPetSize*$('#hsr_numof_pet').val());
+		$('#hsr_totalprice').empty().append(amount);
+		$('#totalpriceInput').val(amount);
+	});
+	$('#totalpriceInput').val(amount);
+}
+</script>
 <div>
 	<div>
 		<fieldset>
@@ -200,14 +236,6 @@ function showDays() {
 								</select>
 							</span>
 						</td>
-<!-- 						<td><span class="pricePerST">30000</span>원  -->
-<!-- 							<span> -->
-<!-- 								<select id="serviceType" name="hsl_service_type" data-width="130px"> -->
-<!-- 									<option id="overnightCare" value="24시간돌봄" selected="selected">24시간돌봄</option> -->
-<!-- 									<option id="dayCare" value="데이케어">데이케어</option> -->
-<!-- 								</select> -->
-<!-- 							</span> -->
-<!-- 						</td> -->
 						<td>반려견 추가 당 <span id="addPet">15000</span>원</td>
 						<td><span id ="DAY">1박 </span> <span class="pricePerDay"> 20000</span>원</td>
 						<td>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet"></span><span id="totalAddPetPrice"></span>원</td>
