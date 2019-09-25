@@ -219,7 +219,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	}
 	@ResponseBody
 	@RequestMapping("/petHotelRoomDateChoice")
-	public List<PetHotelRoom> showPetHotelRoom(String phr_chkin, String phr_chkout, int ph_num) {
+	public List<PetHotelRoom> showPetHotelRoom(String phr_chkin, String phr_chkout,@RequestParam("ph_num") int ph_num) {
 		System.out.println(phr_chkin+phr_chkout+ph_num);
 		
 		
@@ -233,9 +233,11 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	public String addressKeyworkSelect(String keywork) {		
 		return null;
 	}	
-	@RequestMapping(value = "/petHotelRes", method = RequestMethod.POST)
-	public String makePetHotelRes() {	
-		return null;
+	@ResponseBody
+	@RequestMapping(value = "/petHotelReservation")
+	public List<PetHotelReservation> makePetHotelRes(@RequestParam("phrm_num") int phrm_num) {
+		
+		return phrService.getPetHotelResByPhrm_num(phrm_num);
 	}	
 //	"${contextPath}/image?ph_num=${pethotel.ph_num}&fileName=9eed7ab3-fb5d-451d-84b0-137dc68e5c2e_NAVER.jpg"/></td>	
 	@ResponseBody

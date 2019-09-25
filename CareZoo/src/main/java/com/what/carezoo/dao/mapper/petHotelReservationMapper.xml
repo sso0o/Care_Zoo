@@ -30,6 +30,11 @@
 		from PetHotelReservation
 		where ph_num = #{ph_num}
 	</select>
+	<select id="selectByPhrm_num" parameterType="int" resultType="PetHotelReservation">
+		select *
+		from PetHotelReservation
+		where phrm_num = #{phrm_num}
+	</select>
 	
 	<select id="selectByResInfo" parameterType="PetHotelReservation" resultType="PetHotelReservation">
 		select *

@@ -12,39 +12,35 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
-<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' />
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' />
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/slick/slick-theme.css">
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
-<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/lang/ko.js'></script>
+<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" /> <!-- 슬라이드 -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" /> <!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' /> <!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' /> <!-- 데이트피커 -->
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css"> <!-- 메뉴바 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet"> <!-- 폰트 -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" /> <!-- ?ㅁ?  -->
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' /> <!-- 캘린더 -->
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' /> <!-- 캘린더 -->
 
+<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-<script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src='${contextPath}/resources/js/moment.js'></script> <!-- 데이트피커 -->
 
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> <!-- 메뉴바 -->
+<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
+<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script> <!-- 슬라이더 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script> <!-- 데이트피커 -->
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/lang/ko.js'></script> <!-- 캘린더 -->
 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script>
-<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
-<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
-<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <!-- 데이트피커 -->
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script> <!-- 구글맵 -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script> <!-- 구글맵 -->
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script> <!-- 데이트피커 -->
+<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script> <!-- 캘린더 -->
+<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script> <!-- 캘린더 -->
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script> <!-- 캘린더 -->
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script><!-- 캘린더 -->
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script><!-- 캘린더 -->
 <script type="text/javascript">
 	var imgCommonPreview = new Image();
 	var sizeS=0;
@@ -52,6 +48,7 @@
 	var sizeL=0;
 	var currentVal = 0;
 	var days=0;// 시작-마지막날 계산
+	var pet_max=0;
 	
 	function sizePriceSetter(s,m,l){
 		var sizeS=s;
@@ -86,7 +83,7 @@
 	}
 	
 	function incrementValue(e) {
-		if(currentVal == 5){
+		if(currentVal == pet_max){
 		}else{
 		  e.preventDefault();
 		  var fieldName = $(e.target).data('field');
@@ -121,10 +118,21 @@
 			console.log(currentVal);
 			total();
 		}
-	
+		
+
+
+		
+		
 	$(document).on(
 			'ready',
 			function() {
+				
+				 var select = $("select#color");
+
+				    select.change(function(){
+				        var select_name = $(this).children("option:selected").text();
+				        $(this).siblings("label").text(select_name);
+				    });
 				var datepickerStart = $('.col-dates .pull-left').datepicker(
 						{
 							dateFormat : 'yy-mm-dd',
@@ -211,9 +219,11 @@
 		 										},
 		 										dataType : "JSON",
 		 										success : function(data) {
-
+											pet_max = (data.phrm_p_max)-(data.rcount); 
 		 									var resForm=$('<div>');
 		 									var PriceAndSize=$('<div class="PriceAndSize" style="text-align:center">');
+		 									
+		 									$('<label for="color" style="display:none;">color</label>').appendTo(PriceAndSize);
 		 									resForm.addClass('drawResForm');
 //		 			 						var selectbox = $('<select>');
 		 			 						var size=(data.phrm_pet_size).split(',');
@@ -224,6 +234,8 @@
 											$('<br>').appendTo(resForm);
 		 									var selectbox = $('<select class="sizeSelect" style="text-align:center" onchange="sizePriceSetter('+data.phrm_price+','+data.phrm_m_price+','+data.phrm_l_price+')">');
 		 			 						$('<label class="oneNightPrice" style="text-align:center;font-size:20px">').text(numberWithCommas(data.phrm_price)).appendTo(PriceAndSize);
+		 			 						PriceAndSize.append('&nbsp;');
+		 			 						PriceAndSize.append('&nbsp;');
 		 			 						PriceAndSize.append('&nbsp;');
 		 			 						PriceAndSize.append('&nbsp;');
 		 									for(var i=0;i<size.length; i++){
@@ -282,7 +294,7 @@
 		 			 						$('<span>').text("총 합계: ").appendTo(total);
 		 			 						
 		 			 						var totalPrice = $('<div class="totalPriceDiv" style="float:right">');
-		 			 						$('<span class="totalPrice">').text(data.phrm_price*days).appendTo(totalPrice);
+		 			 						$('<span class="totalPrice">').text(numberWithCommas(data.phrm_price*days)).appendTo(totalPrice);
 		 			 						$('<span>').text("원").appendTo(totalPrice);
 		 			 						resForm.append(total);
 		 			 						resForm.append(totalPrice);
@@ -420,11 +432,11 @@
 		}
 	}
 
+		roomCalendar();
 	document.addEventListener('DOMContentLoaded', function() {
 		var d = new Date();
-		var num =
-<%=session.getAttribute("c_num")%>
-	var calendarEl = document.getElementById('calendar');
+		<%=session.getAttribute("c_num")%>
+		var calendarEl = document.getElementById('calendar');
 		var calHeight = 450;
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			plugins : [ 'dayGrid', 'interaction' ],
@@ -434,11 +446,12 @@
 			// 				    contentHeight:calHeight,
 			allDayDefault : false,
 			editable : false,
+			displayEventTime: false,
 			defaultView : 'dayGridMonth',
 			defaultDate : d,
-			editable : false,
+			editable : true,
 			selectable : false,
-			eventLimit : false, // allow "more" link when too many events
+			eventLimit : true, // allow "more" link when too many events
 			header : {
 				left : 'prev,next',
 				center : 'title',
@@ -452,110 +465,68 @@
 					container : 'body'
 				});
 			},
+		});
+		var reservationId = null;
+		function roomCalendar(){
+			var room_num = $('.rCalSelect option:selected').val();
+			$.ajax({
+					url : "${contextPath}/petHotel/petHotelReservation",
+					data : {
+						phrm_num : room_num
+					},
+					dataType : "JSON",
+					success : function(data) {
+// 						if(reservationId != null){
+// 							alert("reservationId");
+// 							reservationId.remove();
+// 						}
+						var Calendar = $('<div id="calendar">');
+						$('.calendarDiv').append(Calendar);
+						
+						for (var i = 0; i < data.length; i++) {
+							e = {
+								groupId : 'vsr_num',
+								id : reservationId,
+								start : data[i].phr_chkin,
+								end : data[i].phr_chkout+'T11:00',
+								title : '예약',
+								description : data[i].phr_chkin.substring(2,12)+' ~ '+data[i].phr_chkout.substring(2,12),
+								color : 'rgba(0, 0, 120, 0.6)',
+							}
+							
+							calendar.addEvent(e);
+							calendar.render();
+						}
+						
+					},
+					error : function() {
+						alert("데이터를 불러오는데 실패했습니다.")
+					}
+				})	
+	}
 
-		//// uncomment this line to hide the all-day slot
-		//allDaySlot: false,
+// 				var iiii = {
+// 					start : '2019-09-26',
+// 					end: '2019-09-27',
+// 					description : 'test',
+// 					title: 'test'
 
-		// 					select : function(arg) {
-		// 						console.log(arg.startStr, arg.endStr,
-		// 								arg.resource ? arg.resource.id : '(no resource)');
-		// 					}
-		// 					,
-		// 					eventClick : function(info) {
-		// 						var infocheck = info.event.groupId+'='+info.event.id
-		// 						var chkoutTime = info.event.end
-
-		// 						$("#type").val(info.event.groupId)
-		// 						$("#number").val(info.event.id)
-
-		// 						$("#reply-modal").show();
-
-		// 						$("#modal-close").on("click", function() {
-		// 							$("#reply-modal").hide();
-		// 						});
-
-		// 						$("#modal-review").on("click", function() {
-		// 							if(d>chkoutTime){
-		// 								if(info.event.groupId=="phr_num"){
-		// 									location.href='${contextPath}/comment/phCommentForm?phr_num='+info.event.id
-		// 								} else if(info.event.groupId=="hsr_num"){
-		// 									location.href='${contextPath}/comment/hsCommentForm?hsr_num='+info.event.id
-		// 								}else if(info.event.groupId=="vsr_num"){
-		// 									location.href='${contextPath}/comment/vsCommentForm?vsr_num='+info.event.id
-		// 								}
-		// 							} else{
-		// 								alert("조건을 갖추지 못하였습니다 :/")
-		// 							}
-		// 						});
-		// 					}
-
+// 				}
+// 				calendar.addEvent(iiii);
+		calendar.render();
+		$('.rCalSelect').on("change",function(){
+			
+			
+			
+			
+			roomCalendar();
 		});
 
-		// 				$.ajax({
-		// 					url : "${contextPath}/member/myReservation",
-		// 					data : {
-		// 						c_num : num
-		// 					},
-		// 					dataType : "JSON",
-		// 					success : function(data) {
-		// 						for (var i = 0; i < data.vsrList.length; i++) {
-		// 							var e = {
-		// 								groupId : 'vsr_num',
-		// 								id : data.vsrList[i].vsr_num,
-		// 								start : data.vsrList[i].vsr_chkin,
-		// 								end : data.vsrList[i].vsr_chkout,
-		// 								title : '방문시터예약',
-		// 								description : '이거슨 방문시터',
-		// 								color : 'rgba(0, 0, 120, 0.6)'
-		// 							}
-		// 							calendar.addEvent(e)
-		// 							calendar.render();
-		// 						}
-
-		// 						for (var i = 0; i < data.hsrList.length; i++) {
-		// 							var e = {
-		// 								groupId : 'hsr_num',
-		// 								id : data.hsrList[i].hsr_num,
-		// 								start : data.hsrList[i].hsr_chkin,
-		// 								end : data.hsrList[i].hsr_chkout,
-		// 								title : '가정시터 예약',
-		// 								description : data.hsInfo[i].hs_name,
-		// 								color : 'rgba(0, 120, 0, 0.6)'
-		// 							}
-		// 							calendar.addEvent(e)
-		// 							calendar.render();
-		// 						}
-
-		// 						for (var i = 0; i < data.phrList.length; i++) {
-		// 							var e = {
-		// 								groupId : 'phr_num',
-		// 								id : data.phrList[i].phr_num,
-		// 								start : data.phrList[i].phr_chkin+'T13:00',
-		// 								end : data.phrList[i].phr_chkout+'T11:00',
-		// 								title : data.phInfo[i].ph_name,
-		// 								description : data.pet[i].p_name,
-		// 								color : 'rgba(200, 0, 0, 0.6)'
-		// 							}
-		// 							calendar.addEvent(e)
-		// 							calendar.render();
-		// 						}
-
-		// 					},
-		// 					error : function() {
-		// 						alert("데이터를 불러오는데 실패했습니다.")
-		// 					}
-		// 				})
-		// 		var iiii = {
-		// 			start : '2019-09-26',
-		// 			end: '2019-09-27',
-		// 			description : 'test',
-		// 			title: 'test'
-
-		// 		}
-		// 		calendar.addEvent(iiii);
-		calendar.render();
-
 	});
+	
+	
+
+	
 </script>
 <style>
 #map_canvas {
@@ -772,7 +743,7 @@ td.fc-day.fc-past { /*지난 날 블러*/
 
 input,
 textarea {
-  border: 1px solid #eeeeee;
+  border: 1px solid #b9d5e8;
   box-sizing: border-box;
   margin: 0;
   outline: none;
@@ -816,7 +787,7 @@ input::-webkit-inner-spin-button {
   height: 31px;
   left: -6px;
   text-align: center;
-  width: 50px;
+  width: 40px;
   display: inline-block;
   font-size: 13px;
   margin: 0 0 5px;
@@ -824,7 +795,7 @@ input::-webkit-inner-spin-button {
 }
 
 .button-plus {
-  left: -13px;
+  left: -8px;
 }
 
 input[type="number"] {
@@ -854,6 +825,33 @@ input[type="number"] {
             color:white;
             background-color: skyblue;
         }
+
+
+.sizeSelect {
+    position: relative;
+    width: 130px;
+    height: 40px;
+    background: url(select_arrow.png) 180px center no-repeat; /* 화살표 이미지 */
+    border: 1px solid #b9d5e8;
+}
+.sizeSelect label {
+    position: absolute;
+    font-size: 14px;
+    color: #a97228;
+    top: 13px;
+    left: 12px;
+    letter-spacing: 1px;
+}
+.sizeSelect select#color {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    opacity: 0;
+    filter: alpha(opacity=0);/* IE 8 */
+
+}
 
 </style>
 
@@ -1056,14 +1054,23 @@ input[type="number"] {
 				</div>
 			</form>
 			<br>
-			<div style="padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
-				<span style="font-size: 17px;">/캘린더 미리보기/</span> <br> <br>
-
-				<div id='calendar'></div>
+			<div class="calendarDiv" style="display:inline-block; padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+				<br>
+				<span style="font-size: 21px;">&nbsp;캘린더 미리보기&nbsp;</span> 						
+								
+				<div class="roomCalendarDiv" style="display:inline-block">
+						<select name="roomCalendarSelect" class="rCalSelect">
+							<c:forEach items="${petHotelRoomList}" var="phrl">
+								<option value="${phrl.phrm_num}">${phrl.phrm_name}</option>
+							</c:forEach>
+						</select>
+						</div>
+<br><br><hr>
+<!-- 				<div id='calendar'></div> -->
 			</div>
 		</div>
 
 	</div>
-	<div class="container">ㄴㅁㅇ</div>
+	<div class="container"></div>
 </body>
 </html>
