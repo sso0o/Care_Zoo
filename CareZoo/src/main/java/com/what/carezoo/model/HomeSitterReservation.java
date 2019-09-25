@@ -1,9 +1,7 @@
 package com.what.carezoo.model;
 
-import java.sql.Date;
 
 public class HomeSitterReservation {
-
 	private int hsr_num;
 	private int c_num;
 	private int hs_num;
@@ -11,6 +9,9 @@ public class HomeSitterReservation {
 	private String hsr_chkout;
 	private String hsr_hour;
 	private String hsr_status;
+	private int hsr_numof_pet;
+	private int p_num;
+	private int hsr_totalprice;
 	public int getHsr_num() {
 		return hsr_num;
 	}
@@ -53,11 +54,28 @@ public class HomeSitterReservation {
 	public void setHsr_status(String hsr_status) {
 		this.hsr_status = hsr_status;
 	}
+	public int getHsr_numof_pet() {
+		return hsr_numof_pet;
+	}
+	public void setHsr_numof_pet(int hsr_numof_pet) {
+		this.hsr_numof_pet = hsr_numof_pet;
+	}
+	public int getP_num() {
+		return p_num;
+	}
+	public void setP_num(int p_num) {
+		this.p_num = p_num;
+	}
+	public int getHsr_totalprice() {
+		return hsr_totalprice;
+	}
+	public void setHsr_totalprice(int hsr_totalprice) {
+		this.hsr_totalprice = hsr_totalprice;
+	}
 	@Override
 	public String toString() {
 		return "HomeSitterReservation [hsr_num=" + hsr_num + ", c_num=" + c_num + ", hs_num=" + hs_num + ", hsr_chkin="
 				+ hsr_chkin + ", hsr_chkout=" + hsr_chkout + ", hsr_hour=" + hsr_hour + ", hsr_status=" + hsr_status
-				+ "]";
+				+ ", hsr_numof_pet=" + hsr_numof_pet + ", p_num=" + p_num + ", hsr_totalprice=" + hsr_totalprice + "]";
 	}
-	
 }

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,8 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.model.HomeSitterList;
-import com.what.carezoo.model.PetHotel;
+import com.what.carezoo.model.HomeSitterReservation;
 import com.what.carezoo.sitter.service.HomeSitterListService;
+import com.what.carezoo.sitter.service.HomeSitterReservationService;
 import com.what.carezoo.sitter.service.HomeSitterService;
 
 @RequestMapping("home")
@@ -36,14 +38,16 @@ public class HomeSitterController {
 	private HomeSitterService hsService;
 	@Autowired
 	private HomeSitterListService hslService;
+	@Autowired
+	private HomeSitterReservationService hsResService;
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")
 	public String enterHomeSitterMain(Model model) {
 //		model.addAttribute("hslList", hslService.getallHsl());
 		List<Map<String, Object>> hslList = hslService.getHsl();
-		for(int i=0;i<hslList.size();i++) {
-			System.out.println("GET"+i+"="+hslList.get(i));
-		}
+//		for(int i=0;i<hslList.size();i++) {
+//			System.out.println("GET"+i+"="+hslList.get(i));
+//		}
 		model.addAttribute("hslList",hslList);
 		return "sitter/home/homeSitterList";
 	}
@@ -130,16 +134,33 @@ public class HomeSitterController {
 		return null;
 	}
 	//홈시터 게시글 상세보기
+//	@Secured("CUSTOMER")
 	@RequestMapping("/view")
 	public String enterHomeSitterView(Model model, int hsl_num) {
 		model.addAttribute("hsList", hslService.getHomeSitterByHsl_Num(hsl_num));
 		return "sitter/home/homeSitterView";
 	}
 	//홈시터 예약페이지
-	@RequestMapping("/reserve")
+////	@Secured("CUSTOMER")
+////	@PreAuthorsize("isAuthenticated()")
+//	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
+//	public String reserveHomeSitter(Model model, HomeSitterReservation hsr, int hsl_num) {
+//		System.out.println(hsr);
+//		System.out.println(hslService.getallHsl(hsl_num));
+////		model.addAttribute("hsr", hsr);
+////		model.addAttribute("hsList", hslService.getallHsl(hsl_num));
+//		return "sitter/home/homeSitterConfirm";
+//	}
+	
 	@PreAuthorize("isAuthenticated()")
-	public String reserveHomeSitter(Model model) {
+	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
+	public String reserveHomeSitter(Model model, int hsl_num, @RequestParam Map<String,Object> params) {
+		System.out.println("123123 : " + hsl_num);
+		System.out.println(params);
+		model.addAttribute("params", params);
+//		System.out.println(hslService.getallHsl(hsl_num));
+//		model.addAttribute("hsr", hsr);
+//		model.addAttribute("hsList", hslService.getallHsl(hsl_num));
 		return "sitter/home/homeSitterConfirm";
 	}
-
 }

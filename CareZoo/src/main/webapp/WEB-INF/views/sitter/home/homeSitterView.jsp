@@ -22,6 +22,7 @@
 <!-- 가정집 펫시터 상세내용 -->
 <script type="text/javascript">
 $(function() {
+	
 //datepicker disable : 해당일 제외하고 선택하기 *************** 홈시터가 지정한 날짜를 disable 설정필요
 	$('#calendar').datepicker({ beforeShowDay: unavailableD });
 	var unavailableDates = ["2019-9-19","2019-9-14"];   //*************** 홈시터가 지정한 날짜를 disable 설정필요
@@ -43,7 +44,7 @@ $(function() {
 // 	   } 
 // 	   return [true]; 
 // 	}
-	var datepickerStart = $('#checkin').datetimepicker({
+	var datepickerStart = $('#checkin').datepicker({
 		beforeShowDay: unavailableD,
 		dateFormat: 'yy-mm-dd', 
 		minDate: 'today',
@@ -51,20 +52,17 @@ $(function() {
 			datepickerEnd.datepicker('option', 'minDate', selected);
 			if (datepickerEnd.prop('disabled')) {
 				datepickerEnd.datepicker('setDate', selected);
-			}
+			} 
+			showDays();
 // 			else if (!datepickerEnd.val()) {
 // 				setTimeout($.proxy(datepickerEnd.datepicker, datepickerEnd, 'show'), 50);
 // 			}
-		},
-		timeFormat: 'HH:mm',
-		stepMinute: '30'		
+		}
 	});
-	var datepickerEnd = $('#checkout').datetimepicker({
+	var datepickerEnd = $('#checkout').datepicker({
 		beforeShowDay: unavailableD,
 		dateFormat: 'yy-mm-dd', 
 		minDate: 'today',
-		timeFormat: 'HH:mm',
-		stepMinute: '30',
 		//예약 불가능일때 선택 막기
 		onSelect: function(){
 			var startDate = new Date(datepickerStart.val())
@@ -76,37 +74,63 @@ $(function() {
 					return [false];	
 				}		
 			}
+			 showDays();
 			alert("성공")
 			return [true];
 		}
 	});
+	var pricePerST = 20000;
 	var pricePerDay = 30000;
 	var pricePerPetSize = 15000;
-	var amount
+	var amount = 30000;
 	$('#petSize-select').change(function() {
 		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
 			pricePerDay = 30000;
 			pricePerPetSize = 15000;
 			$('.pricePerDay').empty().append(pricePerDay);
 			$('#addPet').empty().append(pricePerPetSize);
-			$('#totalAmount').empty().append(pricePerDay);
+			$('#hsr_totalprice').empty().append(pricePerDay);
 		}else{
 			pricePerDay = 40000;
 			pricePerPetSize = 25000;
 			$('.pricePerDay').empty().append(pricePerDay);
 			$('#addPet').empty().append(pricePerPetSize);
-			$('#totalAmount').empty().append(pricePerDay);
+			$('#hsr_totalprice').empty().append(pricePerDay);
 		}
 		amount = (pricePerDay+pricePerPetSize*$('#hsr_numof_pet').val());
-		$('#totalAmount').empty().append(amount);
+		$('#hsr_totalprice').empty().append(amount);
 		return pricePerDay;
 	})
 	$('#hsr_numof_pet').on("click", function(){
-		$('#totalAmount').empty().append(pricePerPetSize);
+		$('#hsr_totalprice').empty().append(pricePerPetSize);
 		amount = (pricePerDay+pricePerPetSize*$('#hsr_numof_pet').val());
-		$('#totalAmount').empty().append(amount);
-	});	
+		$('#hsr_totalprice').empty().append(amount);
+		$('#totalpriceInput').val(amount);
+	});
+	$('#totalpriceInput').val(amount);
+	
 });
+//날짜 기간차 구하기
+function showDays() {
+    var start = $('#checkin').val();
+   	var startL = start.split('-');
+   	var startday = new Date(startL[0], Number(startL[1])-1, startL[2]);
+    console.log(startday);
+    var end = $('#checkout').val();
+    var endL = end.split('-');
+    var endday = new Date(endL[0], Number(endL[1])-1, endL[2])
+    console.log(endday);
+    if (!start||!end) return false;
+    var days = (endday.getTime() - startday.getTime())/1000/60/60/24;
+    if (days == 0){
+    	$('#DAY').empty().append('1 day');
+    	$('#days').val(days+'박');
+    }else {
+    	$('#DAY').empty().append(days+'박');
+    	$('#days').val(days+'박');
+    }
+    return true;
+}
 </script>
 </head>
 <body>
@@ -157,26 +181,40 @@ $(function() {
 	<div>
 		<fieldset>
 			<legend>예약을 원하는 날짜와 시간을 선택해주세요</legend>
-			<form action="reserve" method="post" id="reserve">
+			<form action="reserve" method="post" >
+				<input type="text" name="hsl_num" value="${hsList.hsl_num }">
+				<input type="text" name="c_num" value="${c_num}">
+				<input type="text" name="hs_num" value="${hsList.hs_num}">
 				<table>
 					<tr>
 						<td>시작/마침날짜 선택할 수 있도로 누르면 달력 띄우기<br>
-							<input type="text" id="checkin"><br>
-							<input type="text" id="checkout">
+							<input type="text" id="checkin" name="hsr_chkin"><br>
+							<input type="text" id="checkout" name="hsr_chkout"><br>
+							<input type="text" id="days" readonly="readonly">
 						</td>
 						<td><span class="pricePerDay">30000</span>원 
 							<span>
-								<select id="petSize-select"name="hsl_size" data-width="130px">
-									<option id="nomalSize" value="소형견, 중형견">15kg 미만</option>
+								<select id="petSize-select" name="hsl_size" data-width="130px">
+									<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option>
 									<option id="bigSize" value="대형견">15kg 이상</option>
 								</select>
 							</span>
 						</td>
+<!-- 						<td><span class="pricePerST">30000</span>원  -->
+<!-- 							<span> -->
+<!-- 								<select id="serviceType" name="hsl_service_type" data-width="130px"> -->
+<!-- 									<option id="overnightCare" value="24시간돌봄" selected="selected">24시간돌봄</option> -->
+<!-- 									<option id="dayCare" value="데이케어">데이케어</option> -->
+<!-- 								</select> -->
+<!-- 							</span> -->
+<!-- 						</td> -->
 						<td>반려견 추가 당 <span id="addPet">15000</span>원</td>
-						<td>1박<span class="pricePerDay">30,000</span>원</td>
+						<td><span id ="DAY">1박 </span> <span class="pricePerDay"> 20000</span>원</td>
 						<td>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet"></span><span id="totalAddPetPrice"></span>원</td>
-<!-- 						<td>부가세<span>4,3000원</span></td> -->
-						<td>총 가격 : <span id="totalAmount">30,000</span>원</td>
+<!-- 						<td>부가세<span>4,3000원</span></td> --> 
+						<td>총 가격 : <span id="hsr_totalprice">30,000</span>원
+						<input type="text" name="hsr_totalprice" id="totalpriceInput">
+						</td>
 					</tr>
 					<tr>
 						<td><input type="submit" value="예약하기"></td>

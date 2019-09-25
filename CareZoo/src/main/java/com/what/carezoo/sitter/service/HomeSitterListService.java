@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.what.carezoo.dao.HomeSitterListDao;
 import com.what.carezoo.model.HomeSitterList;
-import com.what.carezoo.model.PetHotel;
 @Service
 public class HomeSitterListService {
 	
@@ -61,8 +60,8 @@ public class HomeSitterListService {
 	public List<HomeSitterList> getbySearchingHsl(List<String> hsl_address,HomeSitterList hsl){		
 		return hslDao.selectAllHsl(hsl_address,hsl);
 	}
-	public List<HomeSitterList> getallHsl(){
-		return hslDao.selectHsl();
+	public Map<String, Object> getallHsl(int hsl_num){
+		return hslDao.selectHsl(hsl_num);
 	} 
 	public List<Map<String, Object>> getHsl(){
 		return hslDao.selectallHsl();
