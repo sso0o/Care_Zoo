@@ -21,6 +21,19 @@
 
 
 <!-- 선택요소 -->
+
+<!-- 부트스트랩 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- 구글맵 api -->
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap">
+
+
 <!-- 풀캘린더 -->
 <link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
 <link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
@@ -43,6 +56,10 @@
 <link rel='stylesheet' href='${contextPath}/resources/css/popper_tooltip.css' />
 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+
+<!-- 주소가져오기 -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 
 <script type="text/javascript">
 	
