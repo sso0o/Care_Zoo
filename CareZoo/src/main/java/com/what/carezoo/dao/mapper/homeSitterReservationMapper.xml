@@ -2,13 +2,23 @@
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterReservationDao">
 
-	<insert id="insert" parameterType="HomeSitterReservation">
+	<insert id="insert" parameterType="homeSitterReservation">
+		insert
+		into homesitterreservation (hsr_num, c_num, hs_num, hsr_chkin, hsr_chkout, hsr_hour)
+		values (homesitterreservation_seq.nextval, #{c_num}, #{hs_num}, #{hsr_chkin}, #{hsr_chkout},#{hsr_hour} )
+		where homesitterreservation hsr, homesitter hs
+	</insert>
+	
+	<insert id="insertHsr" parameterType="homeSitterReservation">
+		<selectKey order="BEFORE" keyProperty="hsr_num" resultType="int">
+			select homesitterreservation_seq.nextval from dual
+		</selectKey>
 		insert
 		into homesitterreservation (hsr_num, c_num, hs_num, hsr_chkin, hsr_chkout, hsr_hour)
 		values (homesitterreservation_seq.nextval, #{c_num}, #{hs_num}, #{hsr_chkin}, #{hsr_chkout},#{hsr_hour} )
 	</insert>
-
-	<update id="update" parameterType="HomeSitterReservation">
+	
+	<update id="update" parameterType="homeSitterReservation">
 		update homesitterreservation
 		set hsr_chkin = #{hsr_chkin},
 		hsr_chkout = #{hsr_chkout},
@@ -16,19 +26,19 @@
 		where hsr_num = #{hsr_num}
 	</update>
 
-	<delete id="delete" parameterType="HomeSitterReservation">
+	<delete id="delete" parameterType="homeSitterReservation">
 		delete from
 		homesitterreservation
 		where hsr_num = #{hsr_num}
 	</delete>
 	
-	<select id="selectByHsrnum" parameterType="int" resultType="HomeSitterReservation">
+	<select id="selectByHsrnum" parameterType="int" resultType="homeSitterReservation">
 		select *
 		from homesitterreservation
 		where hsr_num = #{hsr_num}
 	</select>
 
-	<select id="selectByCnum" parameterType="int" resultType="HomeSitterReservation">
+	<select id="selectByCnum" parameterType="int" resultType="homeSitterReservation">
 		select *
 		from homesitterreservation
 		where c_num = #{c_num}
@@ -40,8 +50,7 @@
 		where hs_num = #{hs_num}
 	</select>
 
-
-	<select id="selectAll" resultType="HomeSitterReservation">
+	<select id="selectAll" resultType="homeSitterReservation">
 		select *
 		from homesitterreservation
 	</select>

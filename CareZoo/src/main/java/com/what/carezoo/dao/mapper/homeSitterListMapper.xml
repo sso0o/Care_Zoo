@@ -17,8 +17,8 @@
 	</select>	
 	<select id="selectAllHsl" resultType="map">
 		SELECT *
-		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
-		LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
+		FROM homesitterlist hsli LEFT OUTER JOIN homesitter hs ON hsli.hs_num = hs.hs_num
+		LEFT OUTER JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
 		<trim prefix="where" prefixOverrides="AND|OR">
 			<if test="hsl.hsl_size != null" >
 				AND hsl_size like
@@ -56,10 +56,11 @@
 		values (#{hsl_img_num},#{hsl_num},#{hsl_img_filename},sysdate)
 	</insert>
 		<!-- 모든 홈시터 가져오기 -->
-	<select id="selectHsl" resultType="homeSitterList">
+	<select id="selectHsl" resultType="map" parameterType="int">
 		SELECT * 
-		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
-		LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num		
+		FROM homesitterlist hsli LEFT OUTER JOIN homesitter hs ON hsli.hs_num = hs.hs_num
+		LEFT OUTER JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
+		where hsli.hsl_num = #{hsl_num}
 	</select>
 	<select id="selectallHsl" resultType="map">
 		SELECT * 

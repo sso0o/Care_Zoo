@@ -495,9 +495,9 @@ $(function () {
 					<span></span> <br> <a href="${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br>
 					<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div>
 					<div>
-						<fmt:formatNumber value="" pattern="#,###" />
+						<fmt:formatNumber value="${hslList.HSL_PRICE}" pattern="#,###" />
 						~
-						<fmt:formatNumber value="" pattern="#,###" />+
+						<fmt:formatNumber value="${hslList.HSL_PRICE}" pattern="#,###" />+
 					</div>
 					<div>
 						후기:${hslList.ph_c_count}개 <br> ${hslList.HS_STAR }

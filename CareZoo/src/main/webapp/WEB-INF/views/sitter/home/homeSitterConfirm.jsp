@@ -1,34 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/>
+<link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css'/>
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoosthness/jquery-ui.css" /> -->
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>          
+<script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script> 
 <meta charset="UTF-8">
 <title>homeSitterConfirm</title>
 <!-- 가정시터 예약확인창 -->
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
+<input value="${params.hsl_num }"> 
+<input name="c_num" value="${c_num}">
+<input value="${params.hs_num}" >
+
 <div>
 	<div>
 		<dl>
-			<dt><strong>김수연</strong>님에게 예약요청 메시지를 보냅니다.</dt>
+<%-- 			<fmt:form value="${params.hsr_chkin}"  pattern="yyyy년 MM월 dd일"></fmt:formatDate> --%>
+			<dt><strong>${params.hs_name}</strong>님에게 예약요청 메시지를 보냅니다.</dt>
 			<dd>아래 예약 내역을 확인 후 돌보미에게 문의하세요!</dd>
 		</dl>
 	</div>
-	<form action="" >
+	<form action="">
 		<div>
 			<ul>
 				<li>
 					<dl>
 						<dt>체크인</dt>
-						<dd>2019년 9월 28일 8:00</dd>
+						<dd id="checkIn">${params.hsr_chkin}</dd>
 					</dl>
 				</li>
 				<li>
 					<dl>
 						<dt>체크아웃</dt>
-						<dd>2019년 9월 28일 15:30</dd>
+						<dd id="checkOut">${params.hsr_chkout}</dd>
 					</dl>
 				</li>
 				<li>
@@ -81,32 +101,6 @@
 					<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기 위해</option>
 					<option value="기타">기타</option>
 				</select>
-			</dd>
-		</dl>
-		<dl>
-			<dt>도그메이트를 처음 이용하시는군요!</dt>
-			<dd>
-				소중한 가족을 맡기는 일이기때문에 도그메이트에서는 의뢰인에 대한 신원검증을 하고 있습니다.
-				<strong>‘신분증 사진’ 과 가입시 등록해주신 주소가 나온 ‘우편물 사진’을 받고 있습니다.</strong>
-				(신분증은 주민번호 뒷자리를 가린채로 촬영해주시면 됩니다.)<br>
-				<ul>
-					<li>* 보내주신 소중한 정보들은 도그메이트 내에서만 확인하고 있으며, 돌봄이 완료 된 후 폐기하고 있습니다.</li>
-					<li>* 신원검증은 첫 거래시에만 받고 있으며 신원검증이 되지 않을 경우 서비스 이용이 불가합니다.</li>
-				</ul>
-			</dd>
-			<dd>
-				<div>
-					<img src="">
-					<div>
-						<span class="">신분증 사진 바꾸기</span><input type="file" name="m_photo" id="idcard" class="">
-					</div>
-				</div>
-				<div>
-					<img src="">
-					<div>
-						<span class="">우편물 사진 바꾸기</span><input type="file" name="m_photo" id="post" class="">
-					</div>
-				</div>
 			</dd>
 		</dl>
 		<ul>
