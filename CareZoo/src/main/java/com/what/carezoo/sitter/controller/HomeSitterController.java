@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.model.HomeSitterList;
-import com.what.carezoo.model.HomeSitterReservation;
 import com.what.carezoo.sitter.service.HomeSitterListService;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
 import com.what.carezoo.sitter.service.HomeSitterService;
@@ -77,9 +75,8 @@ public class HomeSitterController {
 		return map;
 	}
 	// 가정시터 검색목록 가져오기
-	@ResponseBody
 	@RequestMapping("/search")
-	public List<HomeSitterList> searchHS(@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address, HomeSitterList hsl) {
+	public String searchHS(Model model,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address, HomeSitterList hsl) {
 		if(hsl==null) {			
 			hsl = new HomeSitterList();
 		}
@@ -89,7 +86,8 @@ public class HomeSitterController {
 		System.out.println("모델:"+hsl_address);
 		System.out.println("hsl:"+hsl);
 		System.out.println("값"+hslService.getbySearchingHsl(hsl_address,hsl));
-		return hslService.getbySearchingHsl(hsl_address,hsl);
+		model.addAttribute("hslList", hslService.getbySearchingHsl(hsl_address,hsl));
+		return "sitter/home/homeSitterList";
 	}
 	// 가정시터 게시글 등록 뷰 보여주기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)

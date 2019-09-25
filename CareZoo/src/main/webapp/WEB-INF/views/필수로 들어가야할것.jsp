@@ -60,7 +60,21 @@
 <!-- 주소가져오기 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
+<!--//////////////////////////////////희진 Start//////////////////////////////////////////////////-->
+<!-- link for datepicker -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
 
+<!--  link for DogMate datepicker css -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/>
+
+<!-- script for datepicker -->
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
+<!--//////////////////////////////////희진 End////////////////////////////////////////////////// -->
 <script type="text/javascript">
 	
 	// 로그아웃확인 <--모든페이지에 필수
