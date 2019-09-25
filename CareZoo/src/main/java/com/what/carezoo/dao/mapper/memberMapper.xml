@@ -6,7 +6,7 @@
 			select customer_seq.nextval from dual
 		</selectKey>
 		insert into customer
-		values(#{c_num},#{c_name},#{c_email},#{c_pass},#{c_address},#{c_d_address},#{c_sex},#{c_birth},#{c_contact},#{c_e_address})
+		values(#{c_num},#{c_name},#{c_email},#{c_pass},#{c_address},#{c_d_address},#{c_sex},#{c_birth},#{c_contact})
 	</insert>
 	
 	<update id="updateCustomer" parameterType="customer">
