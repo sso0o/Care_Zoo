@@ -24,8 +24,24 @@ function logoutCheck() {
 }
 
 </script>
-<title>권한 없음</title>
 
+<style type="text/css">
+.passcheck{
+	width: 700px;
+	height: 300px;
+	margin: 0 auto;
+}
+
+.passcheck form{
+	margin: 0 auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+
+</style>
+<title>비밀번호 확인</title>
+<!-- 고객센터 -->
 </head>
 <body>
 <div class="container">
@@ -73,8 +89,13 @@ function logoutCheck() {
 	<br>
 	<br>
 	<div class="container">
-
-		<span>권한이 없음</span>
+		<h3 style="text-align: center">비밀번호 확인</h3>
+		<fieldset class="passcheck">
+			<form action="#">
+				<label>비밀번호 입력 : </label>
+				<input type="password" name="pw">
+			</form>
+		</fieldset>
 	</div>
 </body>
 </html>

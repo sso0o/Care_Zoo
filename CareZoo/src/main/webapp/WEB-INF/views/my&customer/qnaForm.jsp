@@ -43,12 +43,12 @@ function logoutCheck() {
 <body>
 <div class="container">
 		<header>
-			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
@@ -62,30 +62,23 @@ function logoutCheck() {
 		<div class='menu'>
 			<ul style="">
 				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-
 					<ul>
-						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      --></li>
+						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
 						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
 					</ul></li>
-				<li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
+				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>PETHOTEL</a>
 					<ul>
-						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
 					</ul></li>
 				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
 					<ul>
 						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='${contextPath}/comment/hscList'>가정시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/vscList'>방문시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/phcList'>펫호텔</a></li>
+						<li class='last'><a href='#'>가정시터</a></li>
+						<li class='last'><a href='#'>방문시터</a></li>
+						<li class='last'><a href='#'>펫호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
+				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">FAQ</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -93,6 +86,9 @@ function logoutCheck() {
 	<br>
 	<br>
 	<div class="container infoBody">
+		<h2 style="text-align: center;">자주 묻는 질문</h2>
+		<hr>
+	
 		<section class="tabs">
 			<input id="tab-1" type="radio" name="radio-set" class="tab-selector-1" checked="checked" />
 			<label for="tab-1" class="tab-label-1">방문펫시터</label>
@@ -263,14 +259,19 @@ function logoutCheck() {
 					</ul>
 				</div>
 				<div class="content-5">
-					<h3>웅앵</h3>
-					<p>이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이
-						웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이
-						웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵</p>
-					<h3>Get in touch</h3>
-					<p>이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이
-						웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이
-						웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵 이거슨 어쩌구저쩌구 큐엔에이 웅앵웅앵</p>
+					<ul class="tree">
+						<li><span>회원가입</span>
+						 	<ul>
+								<li>회원가입어쩌구저쩌구</li>
+							</ul>
+						</li>
+						<hr>
+						<li><span>ㅇㅂㅇ</span>
+						 	<ul>
+								<li>집에서 보내는 여유시간이 많다면 가정집 펫시터로 활동해 보세요. 집에서 강아지를 돌보며 부수입을 벌 수 있습니다.</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</section>
