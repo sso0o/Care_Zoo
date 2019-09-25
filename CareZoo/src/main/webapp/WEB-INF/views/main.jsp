@@ -103,6 +103,7 @@ footer {
 <script src="${contextPath}/resources/slick/slick.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
 <script type="text/javascript">
+
 	function logoutCheck() {
 		if (confirm("정말 로그아웃?") == true) {
 			location.href = '${contextPath}/logout'
@@ -120,8 +121,15 @@ footer {
 			autoplaySpeed : 4000
 		// 자동플레이 스피드
 		});
+		
+		
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
+		
 
 	});
+
 </script>
 
 </head>
@@ -134,7 +142,7 @@ footer {
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
@@ -171,7 +179,7 @@ footer {
 						<li class='last'><a href='#'>펫호텔</a></li>
 					</ul></li>
 				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/myReservation?c_num=<%=session.getAttribute("user_num") %>' style="font-size: 17px">Q&A</a></li>
+				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">FAQ</a></li>
 			</ul>
 		</div>
 	</nav>

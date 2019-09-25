@@ -28,7 +28,8 @@ function logoutCheck() {
 <!-- 고객센터 -->
 </head>
 <body>
-<div class="container">
+<div class="container
+">
 		<header>
 			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 

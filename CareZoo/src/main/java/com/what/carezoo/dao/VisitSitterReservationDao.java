@@ -11,6 +11,7 @@ public interface VisitSitterReservationDao {
 	public int delete(VisitSitterReservation vsr);
 	public VisitSitterReservation selectByVsrnum(int vsr_num);
 	public List<VisitSitterReservation> selectByCnum(int c_num);
+	public List<VisitSitterReservation> selectByVSnum(int vs_num);
 //	public VisitSitterReservation selectByResInfo(VisitSitterReservation vsr);
 	public List<VisitSitterReservation> selectAll();
 

@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
@@ -17,229 +18,25 @@
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
+<%-- <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/moment-timezone/main.js'></script> --%>
+<%-- <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/moment/main.js'></script> --%>
 
 <script type="text/javascript" src='${contextPath}/resources/js/moment.js'></script>
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 
-<style>
+<!-- 사이드메뉴 -->
+<link rel='stylesheet' href='${contextPath}/resources/css/sideMenu.css' />
 
-/*
-  i wish this required CSS was better documented :(
-  https://github.com/FezVrasta/popper.js/issues/674
-  derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
-  */
-.popper, .tooltip {
-	position: absolute;
-	z-index: 9999;
-	background: #e1e1e1;
-	color: black;
-	width: 150px;
-	border-radius: 3px;
-	box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-	padding: 10px;
-	text-align: center;
-}
+<!-- 마이페이지(달력에 모달) -->
+<link rel='stylesheet' href='${contextPath}/resources/css/myPage_modal.css' />
+<!-- 별점 -->
+<link rel='stylesheet' href='${contextPath}/resources/css/star.css' />
 
-.style5 .tooltip {
-	background: #1E252B;
-	color: #FFFFFF;
-	max-width: 200px;
-	width: auto;
-	font-size: .8rem;
-	padding: .5em 1em;
-}
-
-.popper .popper__arrow, .tooltip .tooltip-arrow {
-	width: 0;
-	height: 0;
-	border-style: solid;
-	position: absolute;
-	margin: 5px;
-}
-
-.tooltip .tooltip-arrow, .popper .popper__arrow {
-	border-color: #e1e1e1;
-}
-
-.style5 .tooltip .tooltip-arrow {
-	border-color: #050f0c;
-}
-
-.popper[x-placement^="top"], .tooltip[x-placement^="top"] {
-	margin-bottom: 5px;
-}
-
-.popper[x-placement^="top"] .popper__arrow, .tooltip[x-placement^="top"] .tooltip-arrow {
-	border-width: 5px 5px 0 5px;
-	border-left-color: transparent;
-	border-right-color: transparent;
-	border-bottom-color: transparent;
-	bottom: -5px;
-	left: calc(50% - 5px);
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-.popper[x-placement^="bottom"], .tooltip[x-placement^="bottom"] {
-	margin-top: 5px;
-}
-
-.tooltip[x-placement^="bottom"] .tooltip-arrow, .popper[x-placement^="bottom"] .popper__arrow {
-	border-width: 0 5px 5px 5px;
-	border-left-color: transparent;
-	border-right-color: transparent;
-	border-top-color: transparent;
-	top: -5px;
-	left: calc(50% - 5px);
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-.tooltip[x-placement^="right"], .popper[x-placement^="right"] {
-	margin-left: 5px;
-}
-
-.popper[x-placement^="right"] .popper__arrow, .tooltip[x-placement^="right"] .tooltip-arrow {
-	border-width: 5px 5px 5px 0;
-	border-left-color: transparent;
-	border-top-color: transparent;
-	border-bottom-color: transparent;
-	left: -5px;
-	top: calc(50% - 5px);
-	margin-left: 0;
-	margin-right: 0;
-}
-
-.popper[x-placement^="left"], .tooltip[x-placement^="left"] {
-	margin-right: 5px;
-}
-
-.popper[x-placement^="left"] .popper__arrow, .tooltip[x-placement^="left"] .tooltip-arrow {
-	border-width: 5px 0 5px 5px;
-	border-top-color: transparent;
-	border-right-color: transparent;
-	border-bottom-color: transparent;
-	right: -5px;
-	top: calc(50% - 5px);
-	margin-left: 0;
-	margin-right: 0;
-}
-
-/* 	===========================================모달 */
-.modal-modify {
-	overflow: hidden;
-	z-index: 999;
-	display: none;
-	left: 0;
-	top: 0;
-	position: fixed;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-table {
-	background-color: #fefefe;
-	padding-top: 5px;
-	padding-left: 40px;
-	padding-right: 20px;
-	padding-bottom: 10px; 
-	border : 1px solid #888;
-	width: 550px; /* Could be more or less, depending on screen size */
-	height: 300px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -150px;
-	margin-left: -275px;
-	border: 1px solid #888;
-}
-
-.modal-table th {
-	background-color: #7858a7;
-}
-
-.modal-content.name {
-	color: #555;
-	
-}
-
-.modal-content.name:hover, .modal-content.name:focus{
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.modal-content {
- 	border: none; 
-	font-size: 20px;
-	line-height:2.5em;
-	width: 95%;	
-	margin-left: 10px;
-	text-align: center;
-}
-
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	text-align: right;
-}
-
-.review{
-	color: #aaa;
-	float: right;
-	font-size: 20px;
-	font-weight: bold;
-	text-align: center;
-}
-
-.close:hover, .close:focus,
-.review:hover, .review:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.starR1 {
-	background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat -52px 0;
-	background-size: auto 100%;
-	width: 15px;
-	height: 30px;
-	float: left;
-	text-indent: -9999px;
-	cursor: pointer;
-}
-
-.starR2 {
-	background: url('http://miuu227.godohosting.com/images/icon/ico_review.png') no-repeat right 0;
-	background-size: auto 100%;
-	width: 15px;
-	height: 30px;
-	float: left;
-	text-indent: -9999px;
-	cursor: pointer;
-}
-
-.starR1.on {
-	background-position: 0 0;
-}
-
-.starR2.on {
-	background-position: -15px 0;
-}
-
-#modal-address{
-	font-size: 13px;
-	text-align: right;
-	padding-right: 10px;
-	white-space: normal;
-}
-</style>
-
+<!-- 달력 이벤트 마우스 가져다대면 정보뜨는거 -->
+<link rel='stylesheet' href='${contextPath}/resources/css/popper_tooltip.css' />
 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+
 
 <script>
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
@@ -260,7 +57,6 @@
 		console.log("name : "+user_name)
 		console.log("num : "+user_num)
 	})//문서가 로딩되면 실행할 함수
-	
 	
 
 	document.addEventListener('DOMContentLoaded', function() {
@@ -302,8 +98,7 @@
 // 				document.getElementById("p1").innerHTML=arg.startStr ;
 				myResList(arg.startStr);
 
-			}
-			,
+			},
 			eventClick : function(info) {
 				var infocheck = info.event.groupId+'='+info.event.id
 				var chkoutTime = info.event.end
@@ -312,7 +107,6 @@
 				$("#number").val(info.event.id)
 				
 				modalOpen();
-
 			}
 
 		});
@@ -432,12 +226,9 @@
 					alert("데이터를 불러오는데 실패했습니다.")
 				}
 			})
-			
 		} else{ //관리자
 			
 		}
-		
-		
 		
 		// 후기등록 버튼 눌렀을때 실행할 함수
 		$("#modal-review").on("click", function() {
@@ -461,9 +252,7 @@
 						} else{
 							alert("이미 후기를 작성하셨습니다 :)")
 						}
-					
-					},
-					error: function() {
+					},error: function() {
 					
 					}
 				})
@@ -472,24 +261,19 @@
 				alert("조건을 갖추지 못하였습니다 :/")
 			}
 		});
-		
+	
 		var iiii = {
 			start : '2019-09-17',
 			end: '2019-09-17',
 			description : 'test',
 			title: 'test'
-			
 		}
 		calendar.addEvent(iiii);
-
 		calendar.render();
-		
-		
 
 	});
 	
 	function modalOpen() {
-		
 		console.log($("#groupid").val()+"=="+$("#number").val())
 		var urll = "";
 		if($("#groupid").val()=="phr_num"){
@@ -548,11 +332,9 @@
 					}
 				})
 				
-			},
-			error: function() {
-				
+			},error: function() {
+	
 			}
-			
 		})
 		
 		$("#reply-modal").show();
@@ -637,107 +419,6 @@
 	margin: 0 auto;
 }
 
-input[id="menuicon"] {
-	display: none;
-}
-
-input[id="menuicon"] + label{
-	display: block;
-	width: 40px;
-	height: 30px;
-	position: fixed;
-	right:0;
-	top: 50%;
-	transform: translateY(-50%);
-	transition: all .35s;
-	cursor: pointer;
-}
-
-input[id="menuicon"]:checked + label {
-	z-index: 5;
-	right: 300px;
-
-}
-
-input[id="menuicon"] + label span{
-	display: block;
-	position: absolute;
-	width: 100%;
-	height: 5px;
-	border-radius: 30px;
-	background-color: #40bf9f;
-	transition: all .35s;
-}
-
-input[id="menuicon"]:checked + label span{
-	z-index: 5;
-}
-
-input[id="menuicon"] + label span:nth-child(1) {
-	top: 0;
-}
-
-input[id="menuicon"] + label span:nth-child(2) {
-	top: 50%;
-	transform: translateY(-50%);
-}
-
-input[id="menuicon"] + label span:nth-child(3) {
-	bottom: 0;
-}
-
-input[id="menuicon"]:checked + label span:nth-child(1) {
-	top: 50%;
-	transform: translateY(-50%) rotate(45deg);
-}
-input[id="menuicon"]:checked + label span:nth-child(2) {
-	opacity: 0;
-}
-input[id="menuicon"]:checked + label span:nth-child(3) {
-	bottom: 50%;
-	transform: translateY(50%) rotate(-45deg);
-}
-
-.sidebar{
-	width: 300px;
-	height: 100%;
-	background-color: rgba(190,190,190,0.8);
-	position: fixed;
-	top: 0;
-	right: -300px;
-	z-index: 5;
-	transition: all .35s;
-}
-
-input[id="menuicon"]:checked + label + div{
-	right: 0;
-}
-
-.sidebar div{
-	position: relative;
-	top:45%;
-	transform: translateY(-50%);
-	z-index: 5;
-}
-.sidebar ul{
-	list-style: none;
-	padding-inline-start: 35px;
-	
-}
-
-.sidebar li{
-	margin: 10px 0;
-	color: black;
-}
-
-.sidebar a {
-	text-decoration: none;
-	color: black;
-}
-.sidebar a:hover {
-	color: #40bf9f;
-}
-
 </style>
 <title>mypage</title>
 <!-- 마이페이지 시작 -->
@@ -752,23 +433,21 @@ input[id="menuicon"]:checked + label + div{
 			<div class="sidebar">
 				<div>
 					<ul>
-						<li><a href="${contextPath}/member/userInfo">내 정보</a></li>
-						<li><a href="${contextPath}/member/">예약상황 보기</a></li>
-						<li><a href="${contextPath}/member/modifyUserInfo">회원 정보 수정</a></li>
-						<li><a href="#">펫 정보 수정</a></li>
-						<li><a href="#">내가 남긴 후기</a></li>
+						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
+						<li><a href="${contextPath}/member/myPet">펫 정보</a></li>
+						<li><a href="${contextPath}/member/myReservation">예약상황 보기</a></li>
 					</ul>
 				</div>
 			</div>
 
 	<div class="container">
 		<header>
-			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
@@ -782,29 +461,23 @@ input[id="menuicon"]:checked + label + div{
 		<div class='menu'>
 			<ul style="">
 				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-
 					<ul>
-						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      --></li>
+						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
 						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
 					</ul></li>
-				<li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
+				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>PETHOTEL</a>
 					<ul>
-						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
 					</ul></li>
-				<li class='active sub'><a href='#'>REVIEW</a>
+				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
 					<ul>
 						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>시터</a></li>
-						<li class='last'><a href='#'>호텔</a></li>
+						<li class='last'><a href='#'>가정시터</a></li>
+						<li class='last'><a href='#'>방문시터</a></li>
+						<li class='last'><a href='#'>펫호텔</a></li>
 					</ul></li>
-				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
+				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
+				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">FAQ</a></li>
 			</ul>
 		</div>
 	</nav>
@@ -840,8 +513,6 @@ input[id="menuicon"]:checked + label + div{
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
 	<div class="modal-modify" id="reply-modal">
 		<!-- css 적용 하기 위한 경우 class -->
-
-
 
 		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
 		<table class="modal-table" id="modal-table">
@@ -894,8 +565,6 @@ input[id="menuicon"]:checked + label + div{
 		</table>
 
 	</div>
-
-
 
 </body>
 </html>

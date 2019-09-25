@@ -33,6 +33,12 @@
 		from visitsitterreservation
 		where c_num = #{c_num}
 	</select>
+	
+	<select id="selectByVSnum" parameterType="int" resultType="VisitSitterReservation">
+		select *
+		from visitsitterreservation
+		where vs_num = #{vs_num}
+	</select>
 
 
 	<select id="selectAll" resultType="VisitSitterReservation">

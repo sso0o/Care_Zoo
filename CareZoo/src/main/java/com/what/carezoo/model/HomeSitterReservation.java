@@ -54,6 +54,7 @@ public class HomeSitterReservation {
 	public void setHsr_status(String hsr_status) {
 		this.hsr_status = hsr_status;
 	}
+
 	public int getHsr_numof_pet() {
 		return hsr_numof_pet;
 	}
@@ -74,6 +75,7 @@ public class HomeSitterReservation {
 	}
 	@Override
 	public String toString() {
+
 		return "HomeSitterReservation [hsr_num=" + hsr_num + ", c_num=" + c_num + ", hs_num=" + hs_num + ", hsr_chkin="
 				+ hsr_chkin + ", hsr_chkout=" + hsr_chkout + ", hsr_hour=" + hsr_hour + ", hsr_status=" + hsr_status
 				+ ", hsr_numof_pet=" + hsr_numof_pet + ", p_num=" + p_num + ", hsr_totalprice=" + hsr_totalprice + "]";

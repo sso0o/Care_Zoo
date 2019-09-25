@@ -51,16 +51,13 @@ public class MemberService {
 		return c_email;
 	}
 	//가입
-//	public boolean joinMember(Customer customer) {
-//		customer.setC_email(email(customer.getC_email(), customer.getC_e_address()));
-//		if(memberDao.insertCustomer(customer)>0) {
-//			System.out.println(customer);
-//			if(pass(customer.getC_pass(), customer.getC_pass_chk())){
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
+	public boolean joinMember(Customer customer) {
+		int rst = memberDao.insertCustomer(customer);
+		if(rst>0) {
+			return true;
+		}
+		return false;
+	}
 	
 	public List<Customer> selectAll(){
 		return memberDao.selectAll();

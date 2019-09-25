@@ -8,8 +8,9 @@ public class PetHotelRoom {
 	private int phrm_m_price;
 	private int phrm_l_price;
 	private int phrm_p_count;
-	private int phmr_day_price;
 	private String phrm_pet_size;
+	private int rcount;
+	private int phrm_p_max;
 	
 	public int getPhrm_m_price() {
 		return phrm_m_price;
@@ -53,26 +54,31 @@ public class PetHotelRoom {
 	public void setPhrm_p_count(int phrm_p_count) {
 		this.phrm_p_count = phrm_p_count;
 	}
-	public int getPhmr_day_price() {
-		return phmr_day_price;
-	}
-	public void setPhmr_day_price(int phmr_day_price) {
-		this.phmr_day_price = phmr_day_price;
-	}
+
 	public String getPhrm_pet_size() {
 		return phrm_pet_size;
 	}
 	public void setPhrm_pet_size(String phrm_pet_size) {
 		this.phrm_pet_size = phrm_pet_size;
 	}
+	public int getRcount() {
+		return rcount;
+	}
+	public void setRcount(int rcount) {
+		this.rcount = rcount;
+	}
+	public int getPhrm_p_max() {
+		return phrm_p_max;
+	}
+	public void setPhrm_p_max(int phrm_p_max) {
+		this.phrm_p_max = phrm_p_max;
+	}
 	@Override
 	public String toString() {
 		return "PetHotelRoom [ph_num=" + ph_num + ", phrm_num=" + phrm_num + ", phrm_name=" + phrm_name
 				+ ", phrm_price=" + phrm_price + ", phrm_m_price=" + phrm_m_price + ", phrm_l_price=" + phrm_l_price
-				+ ", phrm_p_count=" + phrm_p_count + ", phmr_day_price=" + phmr_day_price + ", phrm_pet_size="
-				+ phrm_pet_size + "]";
+				+ ", phrm_p_count=" + phrm_p_count + ", phrm_pet_size=" + phrm_pet_size + ", rcount=" + rcount
+				+ ", phrm_p_max=" + phrm_p_max + "]";
 	}
-
-	
 	
 }

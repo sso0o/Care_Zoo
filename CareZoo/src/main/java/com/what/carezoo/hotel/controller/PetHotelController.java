@@ -188,7 +188,10 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 상세보기
 	@RequestMapping("/petHotelView")
-	public String showPetHotelView(Model model, @RequestParam("ph_num") int ph_num) {
+	public String showPetHotelView(Model model, 
+			@RequestParam("ph_num") int ph_num, 
+			String phr_chkin, 
+			String phr_chkout) {
 		PetHotel petHotel = phService.getPetHotelbyNum(ph_num); 
 		System.out.println("asdsad?"+phService.getFileList(petHotel.getPh_num()));
 		petHotel.setPh_filesName(phService.getFileList(petHotel.getPh_num()));
@@ -210,18 +213,31 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	// view에서 Room을 선택했을 때 자세히 띄워줌
 	@ResponseBody
 	@RequestMapping("/petHotelRoomDetail")
-	public PetHotelRoom showPetHotelRoom(@RequestParam("phrm_num") int phrm_num) {
+	public PetHotelRoom showPetHotelRoomDetail(@RequestParam("phrm_num") int phrm_num) {
 		PetHotelRoom petHotelRoom = phService.petHotelRoomDetail(phrm_num);
 		return petHotelRoom;
+	}
+	@ResponseBody
+	@RequestMapping("/petHotelRoomDateChoice")
+	public List<PetHotelRoom> showPetHotelRoom(String phr_chkin, String phr_chkout,@RequestParam("ph_num") int ph_num) {
+		System.out.println(phr_chkin+phr_chkout+ph_num);
+		
+		
+		List<PetHotelRoom> dateChoice = phService.getHotelRoomByDate(phr_chkin,phr_chkout,ph_num);
+		
+		System.out.println(dateChoice);
+		return dateChoice;
 	}
 	// 펫호텔 키워드로 선택
 	@RequestMapping("/addressKeyword")
 	public String addressKeyworkSelect(String keywork) {		
 		return null;
 	}	
-	@RequestMapping(value = "/petHotelRes", method = RequestMethod.POST)
-	public String makePetHotelRes() {	
-		return null;
+	@ResponseBody
+	@RequestMapping(value = "/petHotelReservation")
+	public List<PetHotelReservation> makePetHotelRes(@RequestParam("phrm_num") int phrm_num) {
+		
+		return phrService.getPetHotelResByPhrm_num(phrm_num);
 	}	
 //	"${contextPath}/image?ph_num=${pethotel.ph_num}&fileName=9eed7ab3-fb5d-451d-84b0-137dc68e5c2e_NAVER.jpg"/></td>	
 	@ResponseBody

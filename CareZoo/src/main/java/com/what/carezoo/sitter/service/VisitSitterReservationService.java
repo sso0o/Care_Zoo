@@ -24,6 +24,10 @@ public class VisitSitterReservationService {
 		return vsrDao.selectByCnum(c_num);
 	}
 	
+	public List<VisitSitterReservation> getVisitSitterResByVSnum(int vs_num) {
+		return vsrDao.selectByVSnum(vs_num);
+	}
+	
 	
 	public List<VisitSitterReservation> getAllVisitSitterRes() {
 		return vsrDao.selectAll();

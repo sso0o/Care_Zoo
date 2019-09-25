@@ -43,6 +43,12 @@
 		from homesitterreservation
 		where c_num = #{c_num}
 	</select>
+	
+	<select id="selectByHSnum" parameterType="int" resultType="HomeSitterReservation">
+		select *
+		from homesitterreservation
+		where hs_num = #{hs_num}
+	</select>
 
 	<select id="selectAll" resultType="homeSitterReservation">
 		select *
