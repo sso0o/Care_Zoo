@@ -14,8 +14,41 @@ public class VisitSitterReservationService {
 	@Autowired
 	private VisitSitterReservationDao vsrDao;
 	
+	public boolean insertVisitSitterReservation(VisitSitterReservation vsr) {
+		if(vsrDao.insert(vsr)>0) {
+			return true;
+		}
+		return false;
+	}
 	
-	public VisitSitterReservation getVisitSitterResBuVsrnum(int vsr_num) {
+	public boolean updateVisitSitterReservation(String vsr_hour,String vsr_hAdd,String vsr_chkin) {
+		VisitSitterReservation list = new VisitSitterReservation();
+		list.setVsr_hAdd(vsr_hAdd);
+		list.setVsr_hour(vsr_hour);
+		list.setVsr_chkin(vsr_chkin);
+		if(vsrDao.update(list)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updateStatus(int vsr_num) {
+		VisitSitterReservation list = new VisitSitterReservation();
+		list.setVsr_num(vsr_num);
+		if(vsrDao.updateStatus(list)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean deleteVisitSitterReservation(int vsr_num) {
+		if(vsrDao.delete(vsr_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public VisitSitterReservation getVisitSitterResByVsrnum(int vsr_num) {
 		return vsrDao.selectByVsrnum(vsr_num);
 	}
 	

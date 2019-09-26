@@ -11,7 +11,7 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 	function oneCheckbox(a) {
-		var chk2 = document.getElementsByName("pd_hour");
+		var chk2 = document.getElementsByName("vsr_hour");
 		for (var i = 0; i < chk2.length; i++) {
 			if (chk2[i] != a) {
 				chk2[i].checked = false;
@@ -19,7 +19,7 @@
 		}
 	}
 	function oneCheckbox1(a) {
-		var chk3 = document.getElementsByName("pd_hAdd");
+		var chk3 = document.getElementsByName("vsr_hAdd");
 		for (var i = 0; i < chk3.length; i++) {
 			if (chk3[i] != a) {
 				chk3[i].checked = false;
@@ -79,11 +79,15 @@
 							//인풋요소 삭제 
 							tmpDate.remove();
 						}else{
-							var selDate = $("<input type='hidden' name ='pd_week'>").val(dateVal);
+							var selDate = $("<input type='text' name ='vsr_chkin'>").val(dateVal);
 							//id값을 dateVal값으로 유일값으로 다르게 준다
 							selDate.attr("id",dateVal);
+							selDate.attr("value",dateVal);
 							$("#cal").append(selDate);
 						}
+						
+					
+						
 					}
 				});
 	});
@@ -104,36 +108,46 @@
 			<tr>
 				<td>
 					<div id="cal">
+<!-- 						<input type="text" id="week" name="pd_week"> -->
 					</div>
 				</td>
 			</tr>
+
+			<!-- datepicker가 날자가 요일로 들어가게끔! -->
+			<!-- 			<tr> -->
+			<!-- 				<td>날자선택: <input type="text" id="datepicker1" name="pd_week"> -->
+			<!-- 				</td> -->
+			<!-- 			</tr> -->
+
 			<tr>
 				<th>시간대 선택(선택한 시간대에 펫시터가 방문합니다)</th>
 			</tr>
 			<tr>
 				<td id="checkContainer2">
-					<input type="checkbox" name="pd_hour" id="one" value="9시~12시"
-					onclick="oneCheckbox(this)">9시~12시 
-					<input type="checkbox" name="pd_hour" id="two" value="12시~15시"
-					 onclick="oneCheckbox(this)">12시~15시
-					<input type="checkbox" name="pd_hour" id="three" value="15시~18시"
-					onclick="oneCheckbox(this)">15시~18시
-				    <input type="checkbox"	name="pd_hour" id="four" value="18시~21시"
-					onclick="oneCheckbox(this)">18시~21시
-				</td>
+				<input type="checkbox" name="vsr_hour"id="one" value="9" 
+				onclick="oneCheckbox(this)">9시~12시
+				<input type="checkbox" name="vsr_hour" id="two" value="12"
+				onclick="oneCheckbox(this)">12시~15시 
+				<input type="checkbox" name="vsr_hour" id="three" value="15"
+				onclick="oneCheckbox(this)">15시~18시 
+				<input type="checkbox" name="vsr_hour" id="four" value="18"
+				onclick="oneCheckbox(this)">18시~21시</td>
 			</tr>
 			<tr>
 				<th>시간 추가(기본 1시간 돌봄)</th>
 			</tr>
 			<tr>
-				<td id="checkContainer3"><input type="checkbox" name="pd_hAdd"
-					id="0" value="없음" onclick="oneCheckbox1(this)">없음 <input
-					type="checkbox" name="pd_hAdd" id="1" value="+1시간"
-					onclick="oneCheckbox1(this)">+1시간 <input type="checkbox"
-					name="pd_hAdd" id="2" value="+2시간" onclick="oneCheckbox1(this)">+2시간
-					<input type="checkbox" name="pd_hAdd" id="3" value="+3시간"
-					onclick="oneCheckbox1(this)">+3시간 <input type="checkbox"
-					name="pd_hAdd" id="4" value="+4시간" onclick="oneCheckbox1(this)">+4시간
+				<td id="checkContainer3">
+				<input type="checkbox" name="vsr_hAdd" id="0" value="0" 
+				onclick="oneCheckbox1(this)">없음
+				<input	type="checkbox" name="vsr_hAdd" id="1" value="1"
+				onclick="oneCheckbox1(this)">+1시간
+				<input type="checkbox" name="vsr_hAdd" id="2" value="2"
+				 onclick="oneCheckbox1(this)">+2시간
+				<input type="checkbox" name="vsr_hAdd" id="3" value="3"
+				onclick="oneCheckbox1(this)">+3시간 
+				<input type="checkbox" name="vsr_hAdd" id="4" value="4" 
+				onclick="oneCheckbox1(this)">+4시간
 				</td>
 			</tr>
 		</table>

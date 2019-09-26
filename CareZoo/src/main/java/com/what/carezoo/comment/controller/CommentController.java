@@ -56,7 +56,7 @@ public class CommentController {
 	
 	@RequestMapping("/vsCommentForm")
 	public String vsCommentForm(int vsr_num, Model m) {
-		VisitSitterReservation vsr = vsrService.getVisitSitterResBuVsrnum(vsr_num);
+		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(vsr_num);
 		m.addAttribute("vsr", vsr);
 		return "comment/vscWriteForm";
 	}

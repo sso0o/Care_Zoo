@@ -9,7 +9,16 @@ public class VisitSitterReservation {
 	private int vs_num;
 	private String vsr_chkin;
 	private String vsr_hour;
+	private String vsr_hAdd;
 	private String vsr_status;
+	
+	
+	public String getVsr_hAdd() {
+		return vsr_hAdd;
+	}
+	public void setVsr_hAdd(String vsr_hAdd) {
+		this.vsr_hAdd = vsr_hAdd;
+	}
 	public int getVsr_num() {
 		return vsr_num;
 	}
@@ -49,7 +58,7 @@ public class VisitSitterReservation {
 	@Override
 	public String toString() {
 		return "VisitSitterReservation [vsr_num=" + vsr_num + ", c_num=" + c_num + ", vs_num=" + vs_num + ", vsr_chkin="
-				+ vsr_chkin + ", vsr_hour=" + vsr_hour + ", vsr_status=" + vsr_status + "]";
+				+ vsr_chkin + ", vsr_hour=" + vsr_hour + ", vsr_hAdd=" + vsr_hAdd + ", vsr_status=" + vsr_status + "]";
 	}
 	
 }

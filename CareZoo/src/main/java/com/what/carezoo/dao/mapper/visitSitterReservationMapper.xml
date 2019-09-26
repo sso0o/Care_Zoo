@@ -3,23 +3,32 @@
 <mapper namespace="com.what.carezoo.dao.VisitSitterReservationDao">
 
 	<insert id="insert" parameterType="VisitSitterReservation">
+	<selectKey order="BEFORE" keyProperty="vsr_num"
+		resultType="int">
+		select visitsitterreservation_seq.nextval from dual
+	</selectKey>
 		insert
-		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_chkout, vsr_hour)
-		values (visitsitterreservation_seq.nextval,#{c_num}, #{vs_num}, #{vsr_chkin}, #{vsr_chkout}, #{vsr_hour} )
+		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status)
+		values (#{vsr_num},#{c_num},0, #{vsr_chkin}, #{vsr_hour}, #{vsr_hAdd}, '예약대기중')
 	</insert>
 
 	<update id="update" parameterType="VisitSitterReservation">
 		update visitsitterreservation
-		set vsr_chkin = #{vsr_chkin},
-		vsr_chkout = #{vsr_chkout},
-		vsr_hour = #{vsr_hour}
-		where hsr_num = #{hsr_num}
+		set 
+		vsr_hour = #{vsr_hour},
+		vsr_hAdd = #{vsr_hAdd}
+		where vsr_chkin = #{vsr_chkin}
 	</update>
 
-	<delete id="delete" parameterType="VisitSitterReservation">
+	<update id="updateStatus" parameterType="VisitSitterReservation">
+		update visitsitterreservation
+		set vsr_status = '예약대기중' where vsr_num = #{vsr_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
 		delete from
 		visitsitterreservation
-		where hsr_num = #{hsr_num}
+		where vsr_num = #{vsr_num}
 	</delete>
 
 	<select id="selectByVsrnum" parameterType="int" resultType="VisitSitterReservation">
