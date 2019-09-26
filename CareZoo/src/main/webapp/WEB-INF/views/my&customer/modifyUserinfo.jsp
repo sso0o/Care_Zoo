@@ -2,25 +2,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<!-- 이것도 네줄이 꼭 있어야합니당! -->
+
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta charset="UTF-8">
 
+<!-- 필수요소 -->
+<!-- 제이쿼리 -->
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
+<!-- 메뉴바 -->
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+
+<!-- 글씨체 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<!-- 부트스트랩 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-
+<!-- 주소가져오기 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
 <script>
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 	function getAddress() {
@@ -63,13 +71,11 @@
 							//예상되는 도로명 주소에 조합형 주소를 추가한다.
 							var expRoadAddr = data.autoRoadAddress
 									+ extraRoadAddr;
-							document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
-									+ expRoadAddr + ')';
+							document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '+ expRoadAddr + ')';
 
 						} else if (data.autoJibunAddress) {
 							var expJibunAddr = data.autoJibunAddress;
-							document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
-									+ expJibunAddr + ')';
+							document.getElementById('guide').innerHTML = '(예상 지번 주소 : '+ expJibunAddr + ')';
 
 						} else {
 							document.getElementById('guide').innerHTML = '';
@@ -78,129 +84,195 @@
 				}).open();
 	}
 </script>
+
 <script type="text/javascript">
 
-function logoutCheck() {
-	if (confirm("정말 로그아웃?") == true) {
-		location.href = '${contextPath}/logout'
-	} else {
-		return false;
-	}
-}
-
-function cancleCheck() {
-	if (confirm("취소하시면 작성한 양식이 날라갑니다.\n그래도 취소하시겠습니까?") == true) {
-		location.href = '${contextPath}'
-	} else {
-		return false;
-	}
-}
-
-
-function checkValue() {
-	if($("#email").val() ==""){
-		alert("아이디(이메일)을 입력해주세요");
-		return false;
+var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+var user_num = "<%=session.getAttribute("user_num")%>"
+var user_name = "<%=session.getAttribute("user_name")%>"
+	
+	// 로그아웃확인 <--모든페이지에 필수
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
 	}
 	
-	if($("#pw2").val() ==""){
-		alert("비밀번호를 입력해 주세요");
-		return false;
+	function cancleCheck() {
+		if (confirm("취소하시면 작성한 양식이 날라갑니다.\n그래도 취소하시겠습니까?") == true) {
+			location.href = '${contextPath}'
+		} else {
+			return false;
+		}
 	}
 	
-	if($("#name").val() ==""){
-		alert("이름을 입력해 주세요");
-		return false;
-	}
-	
-	if($("#birth").val() ==""){
-		alert("생년월일을 입력해 주세요");
-		return false;
-	}
-	
-	if($("#sex").val() ==""){
-		alert("성별을 입력해 주세요");
-		return false;
-	}
-	
-	if($("#address").val() ==""){
-		alert("주소를 입력해 주세요");
-		return false;
-	}
-	
-	if($("#d_address").val() ==""){
-		alert("상세주소를 입력해주세요");
-		return false;
-	}
-	
-	if($("#contact").val() ==""){
-		alert("연락처를 입력해주세요");
-		return false;
-	}
-}
-
-var index = 1;
-//아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
-$(function() {
-	$("#email").change(function() {
-		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		var c_email = $("#email").val();
-		if(regExp.test(c_email)){
-			$.ajax({
-	            async: true,
-	            type : 'POST',
-	            data : {c_email : c_email},
-	            url : "${contextPath}/member/idCheck",
-	            dataType : "json",
-	            success : function(data) {
-	                if (data.cnt > 0) {   
-	                	$("#idchk_val").removeClass('green');
-	                	$("#idchk_val").addClass('red');
-	                	$("#idchk_val").text("사용 불가능한 아이디 입니다")
-
-	                } else {
-	                	$("#idchk_val").removeClass('red');
-	                	$("#idchk_val").addClass('green');
-	                	$("#idchk_val").text("사용 가능한 아이디 입니다")
-	                    
-	                }
-	            },
-	            error : function(error) {
-	                
-	                alert("error : " + error);
-	            }
-	        });
-		} else{
-			$("#idchk_val").removeClass('green');
-        	$("#idchk_val").addClass('red');
-        	$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
+	function checkValue() {
+		
+		if($("#pw2").val() ==""){
+			alert("비밀번호를 입력해 주세요");
+			return false;
 		}
 		
-	}); //email체크함수
-	
-	$("#pw2").change(function() {
-		var pw = $("#pw").val(); 
-		var pw2 = $("#pw2").val(); 
-// 		console.log(pw)
-// 		console.log(pw2)
-		
-		if(pw==pw2 ){
-			$("#pwchk_val").removeClass('red');
-        	$("#pwchk_val").addClass('green');
-        	$("#pwchk_val").text("비밀번호가 동일합니다!")
-		} else{
-			$("#pwchk_val").removeClass('green');
-        	$("#pwchk_val").addClass('red');
-        	$("#pwchk_val").text("비밀번호가 다릅니다!")
+		if($("#name").val() ==""){
+			alert("이름을 입력해 주세요");
+			return false;
 		}
 		
-	});//pw체크함수
+		if($("#birth").val() ==""){
+			alert("생년월일을 입력해 주세요");
+			return false;
+		}
+		
+		if($("#sex").val() ==""){
+			alert("성별을 입력해 주세요");
+			return false;
+		}
+		
+		if($("#address").val() ==""){
+			alert("주소를 입력해 주세요");
+			return false;
+		}
+		
+		if($("#d_address").val() ==""){
+			alert("상세주소를 입력해주세요");
+			return false;
+		}
+		
+		if($("#contact").val() != "${customer.c_contact}"){
+			alert("번호 인증을 해주세요");
+			return false;
+		}
+	}
 	
+	$(function() { //문서가 로딩되면 실행할 함수
+		
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
+		
+		$("#pw2").change(function() {
+			var pw = $("#pw").val(); 
+			var pw2 = $("#pw2").val(); 
+//	 		console.log(pw)
+//	 		console.log(pw2)
+			
+			if(pw==pw2 ){
+				$("#pwchk_val").removeClass('red');
+	        	$("#pwchk_val").addClass('green');
+	        	$("#pwchk_val").text("비밀번호가 동일합니다!")
+			} else{
+				$("#pwchk_val").removeClass('green');
+	        	$("#pwchk_val").addClass('red');
+	        	$("#pwchk_val").text("비밀번호가 다릅니다!")
+			}
+			
+		});
 	
-});
+		$("#email").val("${customer.c_email}");
+		$("#name").val("${customer.c_name}");
+		$("#contact").val("${customer.c_contact}");
+		$("#address").val("${customer.c_address}");
+		$("#d_address").val("${customer.c_d_address}");
+		$("#birth").val("${customer.c_birth}");
+		if("${customer.c_birth}" == "1"){
+			$("#sex").val("여자");
+			$("#c_sex").val("1");
+		} else {
+			$("#sex").val("남자");
+			$("#c_sex").val("2");
+		}
+		
+		$.ajax({
+			url:"${contextPath}/member/getImg",
+			data:{
+				user_num : user_num
+			},
+			dataType: "JSON",
+			success: function(data) {
+				console.log(data)
+				if(data.filename != null){
+					$("#img").attr("src","${contextPath}/member/image?fileName="+data.filename)
+				} else {
+					$("#img").attr("src","${contextPath}/resources/img/user.jpg")
+				}
+				
+			}, error: function() {
+				alert("error")
+			}
+		})
+		
+		//옵션추가 버튼 클릭시
+		$("#addItemBtn").click(function() {
+// 			
+			//파일 선택란을 보여준다.
+			//$("tr#item1").show();
+			// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
+			//새로 추가 할 경우 두번째 tr 값을 복사하여 newitem변수에 대입
+			//var newitem = $("#file"+lastItemNo).clone();
+			var newfile = "<input type='file' id='file' name='file' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
+			$("#example").append(newfile);
+			//아이템 추가시 id="item" 값에 넘버를 추가해 준다.               
+			//newitem.attr("id", "file" + (parseInt(lastItemNo) + 1));
+
+			$("#file").trigger('click');
+
+			//file형식의 그것의 취소버튼을 눌렀을 때.
+
+			//onclick=\"deleteImageAction("+index+")\"
+			$("#file").on("change",handleImgFileSelect);
+// 			console.log("add가끝난뒤 index:"+index);
+		});
+	
+		// 이미지 정보들을 담을 배열
+		var sel_files = [];
+
+		function fileUploadAction() {
+			console.log("fileUploadAction");
+			$("#file").trigger('click');
+		}
+
+		var sel_file;
+
+		function handleImgFileSelect(e) {
+// 			console.log("handleImg");
+// 			console.log("handleImg때의 index:"+index);
+			// 이미지 정보들을 초기화
+			var files = e.target.files;
+			var filesArr = Array.prototype.slice.call(files);
+
+			filesArr.forEach(function(f) {
+				if (!f.type.match("image.*")) {
+					alert("확장자는 이미지 확장자만 가능합니다.");
+					return;
+				}
+				sel_file = f;
+				var reader = new FileReader();
+				
+				reader.onload = function(e) {
+					
+					var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='img' class='img' style='width:250px, height:250px'></a>";
+					$(".imgs_wrap").children().remove();
+					$(".imgs_wrap").append(html);
+				}		
+				reader.readAsDataURL(f);		
+			});
+			index++;		
+		}
+		
+	})
+
+	// $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
+	
+	// })
+	
+	// 기본적으로 세션에 저장된 정보
+<%-- 	var user_numtype = "<%=session.getAttribute("user_numtype")%>" --%>
+<%-- 	var user_num = "<%=session.getAttribute("user_num")%>" --%>
+<%-- 	var user_name = "<%=session.getAttribute("user_name")%>" --%>
 
 
- 
 </script>
 
 <style type="text/css">
@@ -232,7 +304,6 @@ legend{
     border-color: #40bf9f;
     width: 200px;
     display: inline;
-    font-weight: bold;
 }
 
 .phone{
@@ -261,23 +332,52 @@ legend{
     border-color: #40bf9f;
     margin: 15px;
     width: 70px;
-    font-weight: bold;
 }
 
+.btn-addImg{
+	border-color: #40bf9f;
+	color: #40bf9f;
+	font-weight: bold;
+	border: 1.5px solid;
+	float: right;
+	margin: 95px 70px;
+}
+.btn-addImg:hover{
+
+	border-color: #40bf9f;
+	background-color: #40bf9f;
+	color: #fff;
+	
+}
+
+.imgs_wrap{
+
+	
+	float: left;
+}
+
+.img{
+	width: 250px;
+	height: 250px;
+}
+
+.imgs{
+	display: inline-block;
+}
 
 </style>
-<meta charset="UTF-8">
+
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 		<header>
 			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
@@ -291,45 +391,37 @@ legend{
 		<div class='menu'>
 			<ul style="">
 				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-
 					<ul>
-						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      --></li>
+						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
 						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
 					</ul></li>
-				<li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
+				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>PETHOTEL</a>
 					<ul>
-						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
 					</ul></li>
 				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
 					<ul>
 						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='${contextPath}/comment/hscList'>가정시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/vscList'>방문시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/phcList'>펫호텔</a></li>
+						<li class='last'><a href='#'>가정시터</a></li>
+						<li class='last'><a href='#'>방문시터</a></li>
+						<li class='last'><a href='#'>펫호텔</a></li>
 					</ul></li>
-				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
+				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
+				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">FAQ</a></li>
 			</ul>
 		</div>
 	</nav>
-	<br>
-	<br>
-	<br>
+	
+	<br><br><br>
 	<div class="content">
-		<h2>회원가입</h2>
-		<hr>
-		<form action="${contextPath }/member/join" method="post" name="userInfo" onsubmit="return checkValue()">
+		<span>회원정보 수정페이지ㅣ</span>
+		<form action="${contextPath }/member/modify" method="post" name="userInfo" onsubmit="return checkValue()" enctype="multipart/form-data" >
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
+			<input type="hidden" value="<%=session.getAttribute("user_num")%>" name="c_num">
 			<div class="main">
 				<div class="form-group">
 					<label for="c_email">아이디</label>
-					<input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요" name="c_email">
+					<input type="email" class="form-control" id="email" name="c_email" readonly="readonly">
 					<span id="idchk_val"></span>
 				</div>
 				<div class="form-group">
@@ -344,20 +436,25 @@ legend{
 				</div>
 				<div class="form-group">
 					<label for="c_name">이름</label>
-					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="c_name">
+					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="c_name" readonly="readonly">
 				</div>
 				<div class="form-group">
-					<label for="c_birth">생년월일</label>
-					<input type="date" class="form-control" id="birth" name="c_birth">
+					<label for="email">생년월일</label>
+					<input type="date" class="form-control" id="birth" name="c_birth" readonly="readonly">
 				</div>
 				<div class="form-group">
-					<label for="c_sex">성별</label><label class="space"></label>
-					<select id="sex" name="c_sex" class="form-control" >
-						<option value="" selected="selected">성별</option>
-						<option value="1">여자</option>
-						<option value="2">남자</option>
-					</select>
+					<label for="c_sex">성별</label>
+					<input type="text" class="form-control" id="sex" readonly="readonly">
+					<input type="hidden" class="form-control" id="c_sex" name="c_sex" readonly="readonly">
 				</div>
+				<div class="form-group imgs">
+					<div class="imgs_wrap" id="imgs_wrap" >
+						<img id="img" class="img" >
+					</div>
+					<input type="button" class="btn btn-addImg" id="addItemBtn" value="사진수정">
+					<div id="example"></div>
+				</div>
+				
 				<div class="form-group">
 					<label for="address">주소</label><label class="space"></label>
 	<!-- 				<input type="button" onclick="sample4_execDaumPostcode()" class="btn btn-outline-success" value="우편번호 찾기"> -->
@@ -376,11 +473,12 @@ legend{
 					</div>
 				</div>
 				<div class="btnGroup">
-					<input type="submit" class="btn btn-submit" value="가입">
+					<input type="submit" class="btn btn-submit" value="변경">
 					<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">
 				</div>
 			</div>
 		</form>
+		
 	</div>
-</body>
+	</body>
 </html>

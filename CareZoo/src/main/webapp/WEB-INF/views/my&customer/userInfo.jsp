@@ -14,6 +14,12 @@
 <link rel='stylesheet' href='${contextPath}/resources/css/sideMenu.css' />
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <style>
 
 </style>
@@ -35,13 +41,46 @@
 	}
 	
 	$(function() {
-		console.log("numtype : "+user_numtype)
-		console.log("name : "+user_name)
-		console.log("num : "+user_num)
-	})//문서가 로딩되면 실행할 함수
-	
-	
-
+		$.ajax({
+			url:"${contextPath}/member/getCustomerInfo",
+			data:{
+				user_num : user_num
+			},
+			dataType: "JSON",
+			success: function(data) {
+				console.log(data);
+				$("#card-birth").text(data.customerInfo.c_birth);
+				$("#card-address").text(data.customerInfo.c_address+" "+data.customerInfo.c_d_address);
+				$("#card-contact").text(data.customerInfo.c_contact.substr(0, 3)+"-"+data.customerInfo.c_contact.substr(3, 4)+"-"+data.customerInfo.c_contact.substr(7, 4));
+				
+			}, error: function() {
+				alert("error")
+			}
+		})
+		
+		$.ajax({
+			url:"${contextPath}/member/getImg",
+			data:{
+				user_num : user_num
+			},
+			dataType: "JSON",
+			success: function(data) {
+				console.log(data)
+				if(data.filename != null){
+					$("#img").attr("src","${contextPath}/member/image?fileName="+data.filename)
+				} else {
+					$("#img").attr("src","${contextPath}/resources/img/user.jpg")
+				}
+				
+			}, error: function() {
+				alert("error")
+			}
+		})
+		
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
+	})
 	
 
 </script>
@@ -50,6 +89,49 @@
 .content{
 	width: 900px;
 	margin: 0 auto;
+}
+
+.card{
+	margin: 30px auto;
+}
+
+.card-body{
+	text-align: center;
+}
+
+.btn-my{
+	color: #40bf9f;
+	background-color: #fff;
+	border-color: #40bf9f;
+}
+
+.btn-my:hover{
+	color: #fff;
+	background-color: #40bf9f;
+	border-color: #40bf9f;
+}
+
+.rounded-circle{
+	border: 1.3px solid rgba(0,0,0,.5);
+	margin: 20px auto;
+	width: 90%;
+	height: 310px;
+} 
+
+.card-label{
+	width: 90px;
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+}
+
+.text-center{
+	width: 190px;
+	display: inline-block;
+}
+
+#card-address{
+	font-size: 12px;
 }
 
 
@@ -68,7 +150,7 @@
 				<div>
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
-						<li><a href="${contextPath}/member/myPet">펫 정보</a></li>
+						<li><a href="${contextPath}/member/myPet?user_num=<%=session.getAttribute("user_num")%>">펫 정보</a></li>
 						<li><a href="${contextPath}/member/myReservation">예약상황 보기</a></li>
 					</ul>
 				</div>
@@ -76,7 +158,7 @@
 
 	<div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="${contextPath }"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -122,16 +204,17 @@
 		<div class="content">
 			<h2>내 정보</h2>
 			<hr>
-			<fieldset>
-				<label></label>
-			</fieldset>
+			<div class="card" style="width: 350px">
+				<img class="card-img-top rounded-circle" id="img" alt="Card image">
+				<div class="card-body">
+					<h4 class="card-title "><%=session.getAttribute("user_name")%>님</h4>
+					<label class="card-label">생년월일</label><p class="card-text text-center" id="card-birth">2</p><br>
+					<label class="card-label">연락처</label><p class="card-text text-center" id="card-contact">2</p><br>
+					<label class="card-label">주소</label><p class="card-text text-center" id="card-address">2</p><br>
+					<a href="${contextPath }/member/modifyUserInfo" class="btn btn-my" style="text-align: center;">정보 수정</a>
+				</div>
+			</div>
 		</div>
-
 	</div>
-	
-
-
-
-
 </body>
 </html>

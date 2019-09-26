@@ -15,13 +15,13 @@
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <!-- 메뉴바 -->
 <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 
 <!-- 글씨체 -->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 
 <!-- 선택요소 -->
-
 <!-- 부트스트랩 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -95,7 +95,7 @@
 <body>
 <div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">

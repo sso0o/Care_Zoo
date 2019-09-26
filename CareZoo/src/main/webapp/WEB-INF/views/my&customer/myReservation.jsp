@@ -120,48 +120,56 @@
 				},
 				dataType : "JSON",
 				success : function(data) {
-					for (var i = 0; i < data.vsrList.length; i++) {
-						var e = {
-							groupId : 'vsr_num',
-							id : data.vsrList[i].vsr_num,
-							start : data.vsrList[i].vsr_chkin,
-							end : data.vsrList[i].vsr_chkout,
-							title : '방문시터예약',
-							description : '이거슨 방문시터',
-							color : 'rgba(0, 0, 120, 0.6)'
+					console.log(data)
+					if(data.vsrList != null){
+						for (var i = 0; i < data.vsrList.length(); i++) {
+							var e = {
+								groupId : 'vsr_num',
+								id : data.vsrList[i].vsr_num,
+								start : data.vsrList[i].vsr_chkin,
+								end : data.vsrList[i].vsr_chkout,
+								title : '방문시터예약',
+								description : '이거슨 방문시터',
+								color : 'rgba(0, 0, 120, 0.6)'
+							}
+							calendar.addEvent(e)
+							calendar.render();
 						}
-						calendar.addEvent(e)
-						calendar.render();
+					
 					}
-
-					for (var i = 0; i < data.hsrList.length; i++) {
-						var e = {
-							groupId : 'hsr_num',
-							id : data.hsrList[i].hsr_num,
-							start : data.hsrList[i].hsr_chkin,
-							end : data.hsrList[i].hsr_chkout,
-							title : '가정시터 예약',
-							description : data.hsInfo[i].hs_name,
-							color : 'rgba(0, 120, 0, 0.6)'
+					if(data.hsrList != null){
+						for (var i = 0; i < data.hsrList.length; i++) {
+							var e = {
+								groupId : 'hsr_num',
+								id : data.hsrList[i].hsr_num,
+								start : data.hsrList[i].hsr_chkin,
+								end : data.hsrList[i].hsr_chkout,
+								title : '가정시터 예약',
+								description : data.hsInfo[i].hs_name,
+								color : 'rgba(0, 120, 0, 0.6)'
+							}
+							calendar.addEvent(e)
+							calendar.render();
 						}
-						calendar.addEvent(e)
-						calendar.render();
 					}
-
-					for (var i = 0; i < data.phrList.length; i++) {
-						var e = {
-							groupId : 'phr_num',
-							id : data.phrList[i].phr_num,
-							start : data.phrList[i].phr_chkin+'T13:00',
-							end : data.phrList[i].phr_chkout+'T11:00',
-							title : data.phInfo[i].ph_name,
-							description : data.pet[i].p_name,
-							color : 'rgba(200, 0, 0, 0.6)'
+					
+					if(data.phrList != null){
+						for (var i = 0; i < data.phrList.length; i++) {
+							var e = {
+								groupId : 'phr_num',
+								id : data.phrList[i].phr_num,
+								start : data.phrList[i].phr_chkin+'T13:00',
+								end : data.phrList[i].phr_chkout+'T11:00',
+								title : data.phInfo[i].ph_name,
+								description : data.pet[i].p_name,
+								color : 'rgba(200, 0, 0, 0.6)'
+							}
+							calendar.addEvent(e)
+							calendar.render();
 						}
-						calendar.addEvent(e)
-						calendar.render();
 					}
-
+					
+					
 				},
 				error : function() {
 					alert("데이터를 불러오는데 실패했습니다.")
@@ -243,17 +251,17 @@
 					success: function(data) {
 						if(data){
 							if($("#groupid").val()=="phr_num"){
-								location.href='${contextPath}/comment/phCommentForm?phr_num='+info.event.id
+								location.href='${contextPath}/comment/phCommentForm?phr_num='+$("#number").val();
 							} else if($("#groupid").val()=="hsr_num"){
-								location.href='${contextPath}/comment/hsCommentForm?hsr_num='+info.event.id
+								location.href='${contextPath}/comment/hsCommentForm?hsr_num='+$("#number").val();
 							}else if($("#groupid").val()=="vsr_num"){
-								location.href='${contextPath}/comment/vsCommentForm?vsr_num='+info.event.id
+								location.href='${contextPath}/comment/vsCommentForm?vsr_num='+$("#number").val();
 							}		
 						} else{
 							alert("이미 후기를 작성하셨습니다 :)")
 						}
 					},error: function() {
-					
+						alert("오류");
 					}
 				})
 			
@@ -263,13 +271,13 @@
 		});
 	
 		var iiii = {
-			start : '2019-09-17',
-			end: '2019-09-17',
-			description : 'test',
-			title: 'test'
-		}
-		calendar.addEvent(iiii);
-		calendar.render();
+				start : '2019-09-17',
+				end: '2019-09-17',
+				description : 'test',
+				title: 'test'
+			}
+			calendar.addEvent(iiii);
+			calendar.render();
 
 	});
 	
@@ -306,7 +314,7 @@
 				}
 				rstnum = data.number;
 				if(data.fileName != null){
-					$("#modal-img").attr("src","c:\temp"+data.fileName)
+					$("#modal-img").attr("src","${contextPath}/comment/image?fileName="+data.filename)
 				} else{
 					$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg")
 				}
@@ -355,7 +363,6 @@
 		console.log("function : "+user_numtype);
 		var showEvent = $("#showEvent");
 		$("#legend").text(checkDate);
-		
 
 		showEvent.children("p").remove();
 		$.ajax({
@@ -365,30 +372,33 @@
 			},
 			dataType: "JSON",
 			success: function(data) {
-				for (var i = 0; i < data.vsrList.length; i++) {
-					if(data.vsrList[i].vsr_chkin<=checkDate && checkDate <=data.vsrList[i].vsr_chkout){
-						var pTag = "<p>"+data.vsInfo[i].vs_name+"  "+data.vsInfo.vs_contact+" "+data.vsrList.vsr_status+"</p>";
-						showEvent.append(pTag);	
+				if(data.vsrList != null){
+					for (var i = 0; i < data.vsrList.length; i++) {
+						if(data.vsrList[i].vsr_chkin<=checkDate && checkDate <=data.vsrList[i].vsr_chkout){
+							var pTag = "<p>"+data.vsInfo[i].vs_name+"  "+data.vsInfo.vs_contact+" "+data.vsrList.vsr_status+"</p>";
+							showEvent.append(pTag);	
+						}	
 					}
-							
 				}
 				
-				for (var i = 0; i < data.hsrList.length; i++) {
-					if(data.hsrList[i].hsr_chkin<=checkDate && checkDate <=data.hsrList[i].hsr_chkout){
-						var pTag = "<p>"+data.hsInfo[i].hs_name+"  "+data.hsInfo.hs_contact+" "+data.hsrList.hsr_status+"</p>";
-						showEvent.append(pTag);
+				if(data.hsrList != null){
+					for (var i = 0; i < data.hsrList.length; i++) {
+						if(data.hsrList[i].hsr_chkin<=checkDate && checkDate <=data.hsrList[i].hsr_chkout){
+							var pTag = "<p>"+data.hsInfo[i].hs_name+"  "+data.hsInfo.hs_contact+" "+data.hsrList.hsr_status+"</p>";
+							showEvent.append(pTag);
+						}
 					}
-					
 				}
 				
-				console.log(data.phrList)
-				for (var i = 0; i < data.phrList.length; i++) {
-					if(data.phrList[i].phr_chkin <= checkDate && checkDate <= data.phrList[i].phr_chkout){
-						var pTag = "<p>"+data.phInfo[i].ph_name+"  "+data.phInfo.ph_contact+" "+data.phrList.phr_status+"</p>";
-						showEvent.append(pTag);
+				if(data.phrList != null){
+					for (var i = 0; i < data.phrList.length; i++) {
+						if(data.phrList[i].phr_chkin <= checkDate && checkDate <= data.phrList[i].phr_chkout){
+							var pTag = "<p>"+data.phInfo[i].ph_name+"  "+data.phInfo.ph_contact+" "+data.phrList.phr_status+"</p>";
+							showEvent.append(pTag);
+						}
 					}
-					
 				}
+				
 
 				
 			},
@@ -434,7 +444,7 @@
 				<div>
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
-						<li><a href="${contextPath}/member/myPet">펫 정보</a></li>
+						<li><a href="${contextPath}/member/myPet?user_num=<%=session.getAttribute("user_num")%>">펫 정보</a></li>
 						<li><a href="${contextPath}/member/myReservation">예약상황 보기</a></li>
 					</ul>
 				</div>
