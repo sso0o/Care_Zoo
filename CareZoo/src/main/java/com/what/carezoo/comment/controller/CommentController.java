@@ -186,7 +186,7 @@ public class CommentController {
 	@ResponseBody
 	public Map<String, Object> getModalInfoVS(int num) {
 		Map<String, Object> rst = new HashMap<String, Object>();
-		VisitSitterReservation vsr = vsrService.getVisitSitterResBuVsrnum(num);
+		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(num);
 		VisitSitter vs = vsService.getVisitSitterByNum(vsr.getVs_num());
 		String name = vs.getVs_name();
 		String contact = vs.getVs_contact();
