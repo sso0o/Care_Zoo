@@ -1,9 +1,15 @@
 package com.what.carezoo.comment.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +41,8 @@ import com.what.carezoo.sitter.service.VisitSitterService;
 @Controller
 @RequestMapping("/comment")
 public class CommentController {
+	
+	private static final String FILE_PATH = "c:/temp/";
 	
 	@Autowired
 	private HomeSitterService hsService;
@@ -106,27 +114,53 @@ public class CommentController {
 	}
 	
 	//////////////////////////////////////////////////////////////////모달정보 가져오기 
+	@ResponseBody
+	@RequestMapping(value = "/image")
+	public byte[] getImage(String fileName) {
+		// 지정된 경로에서 이미지 읽어서 byte[]형태로 반환
+		File file = new File(FILE_PATH + fileName);
+		InputStream in = null;
+		try {
+			in = new FileInputStream(file);
+			// 스트림을 byte[] 형태로 만들기 위해서 라이브러리 추가(CommonIO)
+			return IOUtils.toByteArray(in);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(in != null) in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 	@RequestMapping("/getModalPH")
 	@ResponseBody
 	public Map<String, Object> getModalInfoPH(int num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
 		PetHotelReservation phr = phrService.getPetHotelResByNum(num);
 		PetHotel ph = phService.getPetHotelbyNum(phr.getPh_num());
+		System.out.println(ph);
 		String name = ph.getPh_name();
 		String contact = ph.getPh_contact();
-		double star = commentService.getStarPH(ph.getPh_num());
 		String fileName = phService.getFileList(ph.getPh_num()).get(0);
 		String address = ph.getPh_address()+ph.getPh_d_address();
-		int number = ph.getPh_num();
-		Map<String, Object> rst = new HashMap<String, Object>();
+		Double star = commentService.getStarPH(ph.getPh_num());
+		rst.put("star",star);
 		rst.put("name",name);
 		rst.put("contact",contact);
-		rst.put("star",star);
 		if(fileName == null) {			
+
 			rst.put("fileName",null);
 		} else {
 			rst.put("fileName",fileName);
 		}
-		rst.put("number",number);
+		rst.put("number",ph.getPh_num());
 		rst.put("address",address);
 		return rst;
 	}
@@ -134,16 +168,16 @@ public class CommentController {
 	@RequestMapping("/getModalHS")
 	@ResponseBody
 	public Map<String, Object> getModalInfoHS(int num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
 		HomeSitterReservation hsr = hsrService.getHomeSitterResByHsrnum(num);
 		HomeSitter hs = hsService.getHomeSitterByNum(hsr.getHs_num());
 		String name = hs.getHs_name();
 		int contact = hs.getHs_contact();
-		Double star = commentService.getStarHS(hs.getHs_num());
 		String address = hs.getHs_address()+hs.getHs_d_address();
-		Map<String, Object> rst = new HashMap<String, Object>();
+		Double star = commentService.getStarHS(hs.getHs_num());
+		rst.put("star",star);			
 		rst.put("name",name);
 		rst.put("contact",contact);
-		rst.put("star",star);
 		rst.put("address",address);
 		return rst;
 	}
@@ -151,15 +185,15 @@ public class CommentController {
 	@RequestMapping("/getModalVS")
 	@ResponseBody
 	public Map<String, Object> getModalInfoVS(int num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
 		VisitSitterReservation vsr = vsrService.getVisitSitterResBuVsrnum(num);
 		VisitSitter vs = vsService.getVisitSitterByNum(vsr.getVs_num());
 		String name = vs.getVs_name();
 		String contact = vs.getVs_contact();
 		Double star = commentService.getStarVS(vs.getVs_num());
-		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("star",star);			
 		rst.put("name",name);
 		rst.put("contact",contact);
-		rst.put("star",star);
 		return rst;
 	}
 	

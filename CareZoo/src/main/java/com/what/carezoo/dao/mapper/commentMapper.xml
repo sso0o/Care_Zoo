@@ -22,21 +22,30 @@
 	
 
 	<insert id="insertHSC" parameterType="HomeSitterComment">
+		<selectKey order="BEFORE" keyProperty="hsc_num" resultType="int">
+			select HomeSitterComment_seq.nextval from dual
+		</selectKey>
 		insert into HomeSitterComment 
 		(hsc_num, hsr_num, hs_num, c_num, hsc_comment, hsc_star, hsc_write_date)
-		values (homesittercomment_seq.nextval, #{hsr_num}, #{hs_num}, #{c_num}, #{hsc_comment}, #{hsc_star}, sysdate )
+		values (#{hsc_num}, #{hsr_num}, #{hs_num}, #{c_num}, #{hsc_comment}, #{hsc_star}, sysdate )
 	</insert>
 	
 	<insert id="insertVSC" parameterType="ViSitSitterComment">
+		<selectKey order="BEFORE" keyProperty="vsc_num" resultType="int">
+			select ViSitSitterComment_seq.nextval from dual
+		</selectKey>
 		insert into ViSitSitterComment 
 		(vsc_num, vsr_num, vs_num, c_num, vsc_comment, vsc_star, vsc_write_date)
-		values (visitsittercomment_seq.nextval, #{vsr_num}, #{vs_num}, #{c_num}, #{vsc_comment}, #{vsc_star}, sysdate )
+		values (#{vsc_num}, #{vsr_num}, #{vs_num}, #{c_num}, #{vsc_comment}, #{vsc_star}, sysdate )
 	</insert>
 	
 	<insert id="insertPHC" parameterType="PetHotelComment">
+		<selectKey order="BEFORE" keyProperty="phc_num" resultType="int">
+			select PetHotelComment_seq.nextval from dual
+		</selectKey>
 		insert into PetHotelComment 
 		(phc_num, phr_num, ph_num, c_num, phc_comment, phc_star, phc_write_date)
-		values (pethotelcomment_seq.nextval, #{phr_num}, #{ph_num}, #{c_num}, #{phc_comment}, #{phc_star}, sysdate )
+		values (#{phc_num}, #{phr_num}, #{ph_num}, #{c_num}, #{phc_comment}, #{phc_star}, sysdate )
 	</insert>
 	
 	<update id="updateHSC" parameterType="HomeSitterComment"></update>

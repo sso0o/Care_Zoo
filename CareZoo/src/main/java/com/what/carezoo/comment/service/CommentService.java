@@ -27,14 +27,23 @@ public class CommentService {
 	
 	
 	public Double getStarHS(int hs_num) {
+		if(cDao.getStarHS(hs_num) == null) {
+			return 0.0;
+		}
 		return cDao.getStarHS(hs_num);
 	}
 	
 	public Double getStarVS(int vs_num) {
+		if(cDao.getStarVS(vs_num) == null) {
+			return 0.0;
+		}
 		return cDao.getStarVS(vs_num);
 	}
 	
 	public Double getStarPH(int ph_num) {
+		if(cDao.getStarPH(ph_num) == null) {
+			return 0.0;
+		}
 		return cDao.getStarPH(ph_num);
 	}
 	
@@ -55,7 +64,6 @@ public class CommentService {
 	}
 	
 	public boolean commentChkPHC(int phr_num) {
-		int count = cDao.commentChkPHC(phr_num);
 		if(cDao.commentChkPHC(phr_num)==0) {
 			return true;
 		}
@@ -63,7 +71,9 @@ public class CommentService {
 	}
 	
 	public boolean writeHSC(HomeSitterComment hsc, List<MultipartFile> files) {
+		System.out.println("넣기전 hsc_num"+hsc.getHsc_num());
 		if (cDao.insertHSC(hsc) > 0) {
+			System.out.println("넣고나서 hsc_num"+hsc.getHsc_num());
 			if (files.isEmpty()) {
 				return true;
 			} else {
@@ -78,16 +88,15 @@ public class CommentService {
 						return true;
 					} else return false;
 				}
-
 			}
-			return true;
-
 		}
 		return false;
 	}
 
 	public boolean writeVSC(ViSitSitterComment vsc, List<MultipartFile> files) {
+		System.out.println("넣기전 vsc_num"+vsc.getVsc_num());
 		if (cDao.insertVSC(vsc) > 0) {
+			System.out.println("넣고나서 vsc_num"+vsc.getVsc_num());
 			if (files.isEmpty()) {
 				return true;
 			} else {
@@ -102,16 +111,15 @@ public class CommentService {
 						return true;
 					} else return false;
 				}
-
 			}
-			return true;
-
 		}
 		return false;
 	}
 
 	public boolean writePHC(PetHotelComment phc, List<MultipartFile> files) {
+		System.out.println("넣기전 phc_num"+phc.getPhc_num());
 		if (cDao.insertPHC(phc) > 0) {
+			System.out.println("넣고나서 phc_num"+phc.getPhc_num());
 			if (files.isEmpty()) {
 				return true;
 			} else {
@@ -119,17 +127,14 @@ public class CommentService {
 				for (MultipartFile mf : files) {
 					String fullName = writeFile(mf);
 					Map<String, Object> fileParam = new HashMap<String, Object>();
-					fileParam.put("phc_num", phc.getPhc_num());
+					fileParam.put("phc_num",phc.getPhc_num());
 					fileParam.put("phc_img_filename",fullName);
 					System.out.println(fileParam);
 					if(cDao.PHCinsertFile(fileParam)>0) {
 						return true;
 					} else return false;
 				}
-
 			}
-			return true;
-
 		}
 		return false;
 	}

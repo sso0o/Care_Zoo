@@ -95,7 +95,7 @@
 			// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
 			//새로 추가 할 경우 두번째 tr 값을 복사하여 newitem변수에 대입
 			//var newitem = $("#file"+lastItemNo).clone();
-			var newfile = "<input type='file' id='file"+(parseInt(index))+"'name='file' class='fileClass' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
+			var newfile = "<input type='file' id='file"+(parseInt(index))+"'name='file' class='fileClass' style='display:none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
 
 			if ($(".selProductFile").length == 4) {
 				//그리고 해당 아이템은 4개 이상 생성할수 없도록 제한

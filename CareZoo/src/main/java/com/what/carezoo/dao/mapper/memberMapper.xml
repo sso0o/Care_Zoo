@@ -37,4 +37,21 @@
 	<select id="userIdCheck" parameterType="String" resultType="Integer">
 		select count(*) from customer where c_email =#{c_email}
 	</select>
+	
+	<insert id="insertFile" parameterType="map">
+		insert into customer_image (c_num,c_filename,c_write_date )
+		values (#{c_num},#{c_filename},sysdate)
+	</insert>
+	
+	<select id="selectFile" parameterType="int" resultType="string">
+		select c_filename from customer_image where c_num = #{c_num}
+	</select>
+	
+	<update id="updateFile" parameterType="map">
+		update customer_image
+		set c_filename = #{c_filename}
+			
+		where c_num = #{c_num}
+	</update>
+	
 </mapper>

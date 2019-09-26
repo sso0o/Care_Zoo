@@ -1,16 +1,27 @@
 package com.what.carezoo.member.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.what.carezoo.dao.MemberDao;
 import com.what.carezoo.model.Customer;
 
 @Service
 public class MemberService {
+	
+	private static final String UPLOAD_PATH = "c:\\temp";
+	
+	
 	//회원관련 기능 작성
 	@Autowired
 	private MemberDao memberDao;
@@ -65,5 +76,54 @@ public class MemberService {
 	//아이디 체크
 	public int userIdCheck(String c_email) {
 		return memberDao.userIdCheck(c_email);
+	}
+	
+	//정보 수정
+	public boolean modifyUser(Customer customer, MultipartFile file) {
+		System.out.println("여기로 넘어오닝?");
+		if(memberDao.updateCustomer(customer)>0) {
+			System.out.println("여긴??");
+			if(file == null) {
+				return true;				
+			} else {
+				String fullName = writeFile(file);
+				System.out.println("fullname : "+fullName);
+				Map<String, Object> fileParam = new HashMap<String, Object>();
+				fileParam.put("c_num", customer.getC_num());
+				fileParam.put("c_filename", fullName);
+				if(getImage(customer.getC_num()) != null) {
+					if(memberDao.updateFile(fileParam)>0) {
+						return true;
+					} else return false;
+				} else {
+					if(memberDao.insertFile(fileParam) > 0) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	private String writeFile(MultipartFile file) {
+		String fullName = null;
+		// 1.UUID 만들고, 파일이름에 붙여서 저장할 파일명 생성
+		UUID uuid = UUID.randomUUID();
+		fullName = uuid.toString() + "_" + file.getOriginalFilename();
+		// 2. 파일저장(지정한 경로에 파일을 만들고, 받아온 파일의 내용을 복사)
+		File target = new File(UPLOAD_PATH, fullName); // 비어있는 파일 하나 만들어진 것
+		try {
+			FileCopyUtils.copy(file.getBytes(), target);
+		} catch (IOException e) {
+			System.out.println("파일 복사 예외 발생!!");
+			e.printStackTrace();
+			return null;
+		}
+		// 3. 만든 파일 이름 반환
+		return fullName;
+	}
+	
+	public String  getImage(int num) {
+		return memberDao.selectFile(num);
 	}
 }

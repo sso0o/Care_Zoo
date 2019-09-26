@@ -14,6 +14,12 @@
 
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 function logoutCheck() {
 	if (confirm("정말 로그아웃?") == true) {
@@ -23,19 +29,62 @@ function logoutCheck() {
 	}
 }
 
+//기본적으로 세션에 저장된 정보
+var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+var user_num = "<%=session.getAttribute("user_num")%>"
+var user_name = "<%=session.getAttribute("user_name")%>"
+
+$(function() {
+	
+
+	if("${msg}" != ""){
+		alert("${msg}");
+	}
+	
+
+})//문서가 로딩되면 실행할 함수
+
 </script>
 
 <style type="text/css">
 .passcheck{
 	width: 700px;
 	height: 300px;
-	margin: 0 auto;
+	margin: 50px auto;
+	border: 1px solid rgba(0,0,0,.125);
+	border-radius: .25rem;
 }
 
 .passcheck form{
-	margin: 0 auto;
+	margin: 128px auto;
 	text-align: center;
-	vertical-align: middle;
+}
+
+h3{
+	margin-top: 50px;
+	font-weight: bold;
+}
+
+.btn-my{
+	color: #40bf9f;
+	background-color: #fff;
+	border-color: #40bf9f;
+	margin-bottom: .4rem
+}
+
+.btn-my:hover{
+	color: #fff;
+	background-color: #40bf9f;
+	border-color: #40bf9f;
+}
+
+.passcheck form label {
+	font-weight: bold;
+}
+
+.form-control{
+	width: 250px;
+	display: inline-block;
 }
 
 
@@ -90,10 +139,13 @@ function logoutCheck() {
 	<br>
 	<div class="container">
 		<h3 style="text-align: center">비밀번호 확인</h3>
+		<p>회원정보 수정을 위해 비밀번호를 입력해 주세요</p>
 		<fieldset class="passcheck">
-			<form action="#">
+			<form action="${contextPath }/member/userCheck" method="post">
 				<label>비밀번호 입력 : </label>
-				<input type="password" name="pw">
+				<input type="password" class="form-control" name="pw">
+				<input type="submit" class="btn btn-my" value="확인">
+				<input type="hidden" value="<%=session.getAttribute("user_num")%>" name="num" >
 			</form>
 		</fieldset>
 	</div>

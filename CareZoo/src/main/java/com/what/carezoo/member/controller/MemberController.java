@@ -2,6 +2,11 @@ package com.what.carezoo.member.controller;
 
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,16 +14,20 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
@@ -40,6 +49,9 @@ import com.what.carezoo.sitter.service.VisitSitterService;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
+	
+	private static final String FILE_PATH = "c:/temp/";
+	
 	@Autowired
 	private MemberService memberService;
 	
@@ -133,13 +145,42 @@ public class MemberController {
 	
 	//펫정보 페이지
 	@RequestMapping("/myPet")
-	public String myPet() {
+	public String myPet(int user_num, Model m) {
+		Customer c = memberService.getMemberByC_num(user_num);
+		List<Pet> pL = pService.selectByC_Num(c.getC_num());
+		m.addAttribute("c", c);
+		m.addAttribute("pL", pL);
+
 		return "my&customer/petInfo";
+	}
+	
+	//펫정보 가져오기
+	@ResponseBody
+	@RequestMapping("/getPetInfo")
+	public Map<String, Object> getPetInfo(int p_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("petInfo",pService.selectPet(p_num));
+		return rst;
+	}
+	
+	@RequestMapping("/addPet")
+	public String addPetForm() {
+		return "my&customer/addPetForm";
 	}
 	
 	@RequestMapping("/noAuth")
 	public String noAuth() {
 		return "noAuth";
+	}
+	
+	//회원정보 가져오기(ajax)
+	@ResponseBody
+	@RequestMapping("/getCustomerInfo")
+	public Map<String, Object> getCustomerInfo(int user_num) {
+		System.out.println("여기오니이이이ㅣ이ㅣㅣㅣㅇ");
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("customerInfo", memberService.getMemberByC_num(user_num));
+		return rst;
 	}
 	
 	//예약 가져오기
@@ -199,7 +240,76 @@ public class MemberController {
 	
 	@RequestMapping("/modifyUserInfo")
 	public String modifyUserInfo() {
-		return "my&customer/checkUser";	
+		return "my&customer/checkUser";
 	}
+	
+	
+	@RequestMapping(value = "/userCheck", method=RequestMethod.POST)
+	public String userCheck(int num, String pw, Model m) {
+		Customer c = memberService.getMemberByC_num(num);
+		if(c.getC_pass().equals(pw)) {
+			m.addAttribute("customer", c);
+			return "my&customer/modifyUserinfo";
+		} else { 
+			m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+			return "my&customer/checkUser";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/modify", method=RequestMethod.POST)
+	public String modifyUser(Customer c, Model m, MultipartHttpServletRequest mtfRequest) {
+		MultipartFile file = mtfRequest.getFile("file");
+		System.out.println("file : " + file);
+		System.out.println("c : "+c);
+		boolean rst = memberService.modifyUser(c,file);
+		if(rst) {
+			m.addAttribute("msg", "회원정보를 수정하였습니다");
+			return "my&customer/userInfo";
+		} else {
+			m.addAttribute("customer", c);
+			m.addAttribute("msg", "회원정보 수정 실패!");
+			return "my&customer/modifyUserinfo";
+		}
+			
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
+	public Map<String, Object> getImg(int user_num) {
+		System.out.println("넘어오나");
+		System.out.println(user_num);
+		Map<String, Object> rst = new HashMap<String, Object>();
+		String filename = memberService.getImage(user_num);
+		rst.put("filename", filename);
+		System.out.println("rst : "+rst);
+		return rst;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/image")
+	public byte[] getImg(String fileName) {
+		File file = new File(FILE_PATH + fileName);
+		
+		InputStream in = null;
+		try {
+			in = new FileInputStream(file);
+			// 스트림을 byte[] 형태로 만들기 위해서 라이브러리 추가(CommonIO)
+			return IOUtils.toByteArray(in);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(in != null) in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 
 }
