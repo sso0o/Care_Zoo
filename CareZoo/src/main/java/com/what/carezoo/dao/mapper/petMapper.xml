@@ -33,6 +33,7 @@
 	<select id="selectByC_Num" parameterType="int" resultType="pet">
 		select * from pet where c_num=#{c_num}
 	</select>
+	
 	<select id="selectChoiceByP_Num" parameterType="int" resultType="pet">
 		select * from pet
 		<trim prefix="where" prefixOverrides="OR">

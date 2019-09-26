@@ -1,69 +1,114 @@
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.Pet_DetailDao">
 
-	<insert id="insertPet_DetailDao" parameterType="pet_detail">
-		<selectKey order="BEFORE" keyProperty="pd_num"
-			resultType="int">
-			select pet_detail_seq.nextval from dual
-		</selectKey>
-		insert into pet_detail
-		values
-		(#{pd_num},#{p_num},#{pd_week},#{pd_hour},#{pd_hAdd},sysdate,#{p_name},#{c_num})
+<insert id="insertPet_Detail" parameterType="int">
+	insert into pet_detail
+	values
+	(#{vsr_num},#{p_num})
+</insert>
+
+<select id="selectByVsr_Num" resultType="pet_detail" parameterType="int">
+	select * from pet_detail where vsr_num = #{vsr_num}
+</select>
+<!-- 	<insert id="insertPet_DetailDao" parameterType="pet_detail"> -->
+<!-- 		<selectKey order="BEFORE" keyProperty="pd_num" -->
+<!-- 			resultType="int"> -->
+<!-- 			select pet_detail_seq.nextval from dual -->
+<!-- 		</selectKey> -->
+<!-- 		insert into pet_detail -->
+<!-- 		values -->
+<!-- 		(#{pd_num},#{p_num},#{pd_week},#{pd_hour},#{pd_hAdd},sysdate,#{p_name},#{c_num}) -->
 
 
-	</insert>
+<!-- 	</insert> -->
 
-	<insert id="insertPet_DetailDao2" parameterType="pet_Details">
-		<selectKey order="BEFORE" keyProperty="pd_num"
-			resultType="int">
-			select pet_detail_seq.nextval from dual
-		</selectKey>
-		insert all
-		<foreach collection="p_num" item="item">
-			<foreach collection="pd_week" item="item2">
+<!-- 	<insert id="insertPet_DetailDao2" parameterType="pet_Details"> -->
+<!-- 		<selectKey order="BEFORE" keyProperty="pd_num" -->
+<!-- 			resultType="int"> -->
+<!-- 			select pet_detail_seq.nextval from dual -->
+<!-- 		</selectKey> -->
+<!-- 		insert all -->
+<!-- 		<foreach collection="p_num" item="item"> -->
+<!-- 			<foreach collection="pd_week" item="item2"> -->
 			
-				into pet_detail
-				values (pet_details_getSeq ,#{item},
-				#{item2}, #{pd_hour},#{pd_hAdd},sysdate,(
-					select p_name from pet where p_num = #{item}
-				),#{c_num})
+<!-- 				into pet_detail -->
+<!-- 				values (pet_details_getSeq ,#{item}, -->
+<!-- 				#{item2}, #{pd_hour},#{pd_hAdd},sysdate,( -->
+<!-- 					select p_name from pet where p_num = #{item} -->
+<!-- 				),#{c_num}) -->
 
-			</foreach>
-		</foreach>
-		select * from dual
-	</insert>
+<!-- 			</foreach> -->
+<!-- 		</foreach> -->
+<!-- 		select * from dual -->
+<!-- 	</insert> -->
 	
-	<delete id="deletePet_Detail" parameterType="string">
-		delete from pet_detail where pd_hAdd like #{pd_hAdd} and pd_week like #{pd_week} 
-	</delete>
+<!-- 	<delete id="deletePet_Detail" parameterType="string"> -->
+<!-- 		delete from pet_detail where pd_hAdd like #{pd_hAdd} and pd_week like #{pd_week}  -->
+<!-- 	</delete> -->
 
-	<select id="selectByP_Num"
-		resultType="map">
-		select * from pet_detail
-		<trim prefix="where" prefixOverrides="OR">
-			<if test="list != null">
-				<foreach collection="list" item="item">
-					or p_num =#{item}
-				</foreach>
-			</if>
-		</trim>
-		and c_num = #{c_num}
-	</select>
+<!-- 	<select id="selectByP_Num" -->
+<!-- 		resultType="map"> -->
+<!-- 		select * from pet_detail -->
+<!-- 		<trim prefix="where" prefixOverrides="OR"> -->
+<!-- 			<if test="list != null"> -->
+<!-- 				<foreach collection="list" item="item"> -->
+<!-- 					or p_num =#{item} -->
+<!-- 				</foreach> -->
+<!-- 			</if> -->
+<!-- 		</trim> -->
+<!-- 		and c_num = #{c_num} -->
+<!-- 	</select> -->
 
-	<select id="selectByWeek" parameterType="list"
-		resultType="pet_detail">
-		select * from pet_detail
-		<trim prefix="where" prefixOverrides="OR">
-			<if test="list != null">
-				<foreach collection="list" item="item">
-					or pd_week like #{item}
-				</foreach>
-			</if>
-		</trim>
-		order by pd_week
-	</select>
+<!-- 	<select id="selectByWeek" parameterType="list" -->
+<!-- 		resultType="pet_detail"> -->
+<!-- 		select * from pet_detail -->
+<!-- 		<trim prefix="where" prefixOverrides="OR"> -->
+<!-- 			<if test="list != null"> -->
+<!-- 				<foreach collection="list" item="item"> -->
+<!-- 					or pd_week like #{item} -->
+<!-- 				</foreach> -->
+<!-- 			</if> -->
+<!-- 		</trim> -->
+<!-- 		order by pd_week -->
+<!-- 	</select> -->
+
+
+
+<!-- 	<select id="selectByC_Num" parameterType="int" -->
+<!-- 		resultType="pet_detail"> -->
+<!-- 		select * from pet_detail where c_num =#{c_num} order by -->
+<!-- 		pd_week -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectByWeeks2" parameterType="java.util.HashSet" -->
+<!-- 		resultType="pet_detail"> -->
+<!-- 		select * from pet_detail -->
+<!-- 		<trim prefix="where" prefixOverrides="OR"> -->
+<!-- 			<if test="set != null"> -->
+<!-- 				<foreach collection="set" item="item"> -->
+<!-- 					or pd_week like #{item} -->
+<!-- 				</foreach> -->
+<!-- 			</if> -->
+<!-- 		</trim> -->
+<!-- 		and c_num = #{c_num} order by pd_week -->
+<!-- 	</select> -->
+<!-- 		<select id="selectByWeeks3" parameterType="list" -->
+<!-- 		resultType="pet_detail"> -->
+<!-- 		select * from pet_detail -->
+<!-- 		<trim prefix="where" prefixOverrides="OR"> -->
+<!-- 			<if test="list != null"> -->
+<!-- 				<foreach collection="list" item="item"> -->
+<!-- 					or pd_week like #{item} -->
+<!-- 				</foreach> -->
+<!-- 			</if> -->
+<!-- 		</trim> -->
+<!-- 		and c_num = #{c_num} order by pd_week -->
+<!-- 	</select> -->
 	
-	<select id="selectByC_Num" parameterType="int" resultType="pet_detail">
-		select * from pet_detail where c_num =#{c_num} order by pd_week
-	</select>
+<!-- 	<update id="updatePet_Detail" parameterType="string"> -->
+<!-- 		update pet_detail  -->
+<!-- 		set pd_hour = #{pd_hour}, -->
+<!-- 			pd_hAdd = #{pd_hAdd} -->
+<!-- 		where pd_week = #{pd_week} -->
+<!-- 	</update> -->
 </mapper>
