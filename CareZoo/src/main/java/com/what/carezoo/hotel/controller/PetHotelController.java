@@ -65,17 +65,25 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 목록보기
 	@RequestMapping("/petHotelList")
-	public String showPetHotelList(String in, String out,String p_num, Model model) {          
+	public String showPetHotelList( Model model) {          
 		List<PetHotel> phList = phService.getAllPetHotel();
 		for(int i=0;i<phList.size();i++) {
 			(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
 		}
 		System.out.println(phList);
-		model.addAttribute("p_num", p_num);
-		model.addAttribute("in", in);
-		model.addAttribute("out", out);
 		model.addAttribute("phList", phList);
 		return "hotel/petHotelList";
+	}
+	@ResponseBody
+	@RequestMapping("/petHotelListLoading")
+	public List<PetHotel> loadingPetHotelList() {          
+		List<PetHotel> phList = phService.getAllPetHotel();
+		for(int i=0;i<phList.size();i++) {
+			(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
+		}
+		System.out.println(phList);
+//		model.addAttribute("phList", phList);
+		return phList;
 	}
 //	   @ResponseBody
 //	   @RequestMapping("/petHotelSearch")
@@ -193,20 +201,20 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			String phr_chkin, 
 			String phr_chkout) {
 		PetHotel petHotel = phService.getPetHotelbyNum(ph_num); 
-		System.out.println("asdsad?"+phService.getFileList(petHotel.getPh_num()));
 		petHotel.setPh_filesName(phService.getFileList(petHotel.getPh_num()));
-		model.addAttribute("petHotel", petHotel);
 		List<String> filesName = phService.getFileList(ph_num);
 		for (int i=0; i<filesName.size(); i++) {
 			String str = filesName.get(i);
 			System.out.println(str);
 		}
 		List<PetHotelRoom> petHotelRoomList = phService.getAllPetHotelRoom(ph_num);
-		System.out.println("Room:"+ petHotelRoomList);
+		
+		model.addAttribute("petHotel", petHotel);
 		model.addAttribute("petHotelRoomList",petHotelRoomList);
 		model.addAttribute("filesName",filesName);
-		
 		model.addAttribute("phComment",phService.selectByPh_num(ph_num));
+		
+		
 		return "hotel/petHotelView";
 	}
 	

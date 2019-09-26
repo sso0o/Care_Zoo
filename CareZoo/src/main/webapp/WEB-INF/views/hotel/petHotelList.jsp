@@ -44,13 +44,13 @@ ul {
 .demo {
 	width: 800px;
 }
-.petHotel {
-cursor: pointer;
+  .petHotel { 
+ cursor: pointer; 
 
-}
-.petHotel:hover{
-	 outline: 1px solid aqua;
-}
+ } 
+ .petHotel:hover{ 
+ 	 outline: 1px solid aqua; 
+ }
 </style>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -61,6 +61,7 @@ cursor: pointer;
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> <!-- 데이트피커 -->
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script> <!-- 데이트피커 -->
 <script type="text/javascript">
+var i = 0;
 	$(document).ready(
 			function() {
 				//datepicker동작
@@ -126,6 +127,8 @@ cursor: pointer;
 // 							alert("d"+detailParam);
 // 							alert("phr"+detailParam.phr_chkin);
 // 							alert("detailParam submit : " + encodeURI(detailParam));
+
+
 				// 			$.ajax({
 				// 				url : "${contextPath}/petHotel/petHotelSearch",
 				// 				data : stateParam + '&' + detailParam,
@@ -205,21 +208,21 @@ cursor: pointer;
 
 				//=====================================================================================================//
 
-				$('.image-gallery').lightSlider({
-					isthumb : false, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
-					gallery : true,
-					item : 1,
-					thumbItem : 9,
-					slideMargin : 0,
-					speed : 1000,
-					pause : 4000,
-					auto : true,
-					loop : true,
-					addClass : $('.clearfix'),
-					onSliderLoad : function() {
-						$('.image-gallery').removeClass('cS-hidden');
-					}
-				});
+// 				$('.image-gallery').lightSlider({
+// 					isthumb : false, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
+// 					gallery : true,
+// 					item : 1,
+// 					thumbItem : 9,
+// 					slideMargin : 0,
+// 					speed : 1000,
+// 					pause : 4000,
+// 					auto : true,
+// 					loop : true,
+// 					addClass : $('.clearfix'),
+// 					onSliderLoad : function() {
+// 						$('.image-gallery').removeClass('cS-hidden');
+// 					}
+// 				});
 
 				//검색탭
 				// 				slideImage();
@@ -264,13 +267,272 @@ cursor: pointer;
 					isMenu2 = false;
 				});
 
+				
+				
+				
+				
+				
+				
+				
+				
+				
+									var breaker = 0; 
+				
+				
+				
+// 					var sForm=$('<div class="selectForm" style="text-align:center">');
+// 						$('<label>').text("방: ").appendTo(sForm);
+// 						var roomSelectBox = $('<select class="rSelect">');
+						
+// 						roomSelectBox.on("change",function(){
+// 							$('.drawResForm').remove();
+							
+// 							if ($('.rSelect option:selected').val() == "required") {
+
+// 							} else {
+// 								var roomNum = $('.rSelect option:selected').val();
+								
+								var petHotelListDiv = $('.petHotelList');
+								loadingPage();
+								function loadingPage(){
+									$.ajax({
+								
+									url : "${contextPath}/petHotel/petHotelListLoading",
+									dataType : "JSON",
+									success : function(phList) {
+										
+										console.log("성겅!");
+								for(i;breaker<8;i++){
+									console.log(i);
+									if(breaker <7){
+										
+									var petHotelDiv = $('<div class="petHotel" onclick="location.href=\'${contextPath}/petHotel/petHotelView?ph_num=' +phList[i].ph_num +'\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
+// 								asdasd	var petHotelDiv = $('<div class="petHotel" style="border: 1px solid; margin: 50px; height: 350px;">');
+									var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
+									petHotelDiv.append(petHotelDiv2);
+									var itemDiv = $('<div class="item" style="heigth:350;width:350px">');
+									petHotelDiv2.append(itemDiv);
+									var clearfixDiv = $('<div class="clearfix" style="max-width: 350px;">');
+									itemDiv.append(clearfixDiv);
+									var imagegalleryDiv = $('<ul style="width:350px;">');
+									clearfixDiv.append(imagegalleryDiv);
+
+										for ( var a in phList[i].ph_filesName) {
+		// 								var fileName = ('<li data-thumb="${contextPath}/petHotel/image?fileName='+(d[i].ph_filesName)[a]+'>');
+		// 								var fileName= $('<li data-thumb="${contextPath}/petHotel/image?fileName='+(d[i].ph_filesName)[a]+'>');
+										var imgli=$("<li data-thumb='${contextPath}/petHotel/image?fileName="+phList[i].ph_filesName[a]+"'>");
+										imagegalleryDiv.append(imgli);
+										$("<img style='width: 350px; height: 350px;' src='${contextPath}/petHotel/image?fileName="+phList[i].ph_filesName[a]+"'/>").appendTo(imgli);
+
+		// 								fileName
+		// 								fileName += (d[i].ph_filesName)[a];
+		// 								fileName += '></li>';
+		// 								fileList.append(fileName);
+		// 								fileName.appendTo(fileList);
+		// 								table += fileName;
+
+										}
+
+	
+									imagegalleryDiv.lightSlider({
+										isthumb : false, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
+										gallery : true,
+										item : 1,
+										thumbItem : 9,
+										slideMargin : 0,
+										speed : 1000,
+										pause : 4000,
+										auto : true,
+										loop : true,
+										addClass : clearfixDiv,
+										onSliderLoad : function() {
+											imagegalleryDiv.removeClass('cS-hidden');
+										}
+									});
+		
+									var aArDiv = $('<div style="">');
+									$('<span>').text(phList[i].ph_name).appendTo(aArDiv);
+									$('<div>'+phList[i].ph_address+phList[i].ph_d_address+'</div>').appendTo(aArDiv);
+									var minAndMaxPrice = $('<div>');
+									console.log(phList.ph_minPrice);
+									console.log(phList.ph_maxPrice);
+									minAndMaxPrice.appendTo(aArDiv);
+									var reviewDiv = $('<div>');
+									$('<span>').text('후기: ' + phList[i].ph_c_count+'개 '+phList[i].ph_avgStar).appendTo(reviewDiv);
+									reviewDiv.appendTo(aArDiv);
+									aArDiv.appendTo(petHotelDiv);
+									$('.petHotelList').append(petHotelDiv);
+									breaker = breaker + 1;
+									}else{
+										breaker = 0;
+										break;
+					
+									}
+									}
+								
+	
+									},
+									error : function() {
+										alert("데이터를 불러오는데 실패했습니다.")
+									}
+								})
+										
+										
+								}
+
+									
+									
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+							
+										
+										
+										
+										
+										
+// 							pet_max = (data.phrm_p_max)-(data.rcount); 
+// 								var resForm=$('<div>');
+// 								var PriceAndSize=$('<div class="PriceAndSize" style="text-align:center">');
+								
+// 								$('<label for="color" style="display:none;">color</label>').appendTo(PriceAndSize);
+// 								resForm.addClass('drawResForm');
+// //		 						var selectbox = $('<select>');
+// 		 						var size=(data.phrm_pet_size).split(',');
+// //		 						for(var i=0;i<size.length; i++){
+// //		 						    console.log(i+":"+size[i]);
+// //		 						}
+// //		 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
+// 							$('<br>').appendTo(resForm);
+// 								var selectbox = $('<select class="sizeSelect" style="text-align:center" onchange="sizePriceSetter('+data.phrm_price+','+data.phrm_m_price+','+data.phrm_l_price+')">');
+// 		 						$('<label class="oneNightPrice" style="text-align:center;font-size:20px">').text(numberWithCommas(data.phrm_price)).appendTo(PriceAndSize);
+// 		 						PriceAndSize.append('&nbsp;');
+// 		 						PriceAndSize.append('&nbsp;');
+// 		 						PriceAndSize.append('&nbsp;');
+// 		 						PriceAndSize.append('&nbsp;');
+// 								for(var i=0;i<size.length; i++){
+// 									if(size[i]=="소형견"){
+// 		 						$("<option value='"+size[i]+"'>소형견(5kg이하)</option>").appendTo(selectbox);
+// 									}else if(size[i]=="중형견"){
+// 		 						$("<option value='"+size[i]+"'>중형견(5~10kg)</option>").appendTo(selectbox);
+// 									}else{
+// 		 						$("<option value='"+size[i]+"'>대형견(15kg이상)</option>").appendTo(selectbox);
+// 									}
+// 								}
+// 								PriceAndSize.append(selectbox);
+// 		 						resForm.append(PriceAndSize);
+// 		 						$('<br>').appendTo(resForm);
+// 		 						//소형견 대형견 ,로 나눠서 3개로 만든다음에 select으로 만들어야함,,
+// 		 						$('<hr>').appendTo(resForm);
+// 		 						var nightCount=$('<div class="night" style="display:inline-block">');
+// 		 						$('<div class="nightCount" style="text-align:left; float:left">').text(days+"박: ").appendTo(nightCount);
+// 		 						var countPrice = $('<div class="countPrice" style="float:right">');
+// 		 						$('<span class="nightCountPrice">').text(numberWithCommas(data.phrm_price*days)).appendTo(countPrice);
+// 		 						$('<span>').text("원").appendTo(countPrice);
+		 						
+// 		 						resForm.append(nightCount);
+// 		 						resForm.append(countPrice);
+// 		 						$('<hr>').appendTo(resForm);
+// 		 						var petCount=$('<div class="petCount" style="display:inline-block">');
+// 		 						$('<span>').text("반려견 추가: ").appendTo(petCount);
+		 						
+// 		 						var pmButtonDiv=$('<div class="input-group">');
+// 		 						var minusButton = $('<input type="button" value="-" class="button-minus" data-field="quantity" >').appendTo(pmButtonDiv);
+// 		 						$('<input type="number" step="1" max="" value="0" name="quantity" class="quantity-field" readonly>').appendTo(pmButtonDiv);
+// 		 						var plusButton = $('<input type="button" value="+" class="button-plus" data-field="quantity">').appendTo(pmButtonDiv);
+// //		 						<div class="input-group">
+// //		 					  <input type="button" value="-" class="button-minus" data-field="quantity">
+// //		 					  <input type="number" step="1" max="" value="1" name="quantity" class="quantity-field">
+// //		 					  <input type="button" value="+" class="button-plus" data-field="quantity">
+// //		 						</div>
+// 							pmButtonDiv.on('click', '.button-plus', function(e) {
+// 							  incrementValue(e);
+// 							});
+							
+// 							pmButtonDiv.on('click', '.button-minus', function(e) {
+// 							  decrementValue(e);
+// 							});
+// 		 						var petCountPrice = $('<div class="petCountPrice" style="float:right;height:66px;display:flex;">');
+// 		 						//추가하는거
+// 		 						$('<span class="petAddPrice" style="margin-top:30px;">').text("0").appendTo(petCountPrice);
+// 		 						$('<span style="margin-top:30px;">').text("원").appendTo(petCountPrice);
+// 		 						petCount.append(pmButtonDiv);
+// 		 						resForm.append(petCount);
+// 		 						resForm.append(petCountPrice);
+
+// 		 						$('<hr>').appendTo(resForm);
+		 						
+// 		 						var total=$('<div class="total" style="display:inline-block">');
+// 		 						$('<span>').text("총 합계: ").appendTo(total);
+		 						
+// 		 						var totalPrice = $('<div class="totalPriceDiv" style="float:right">');
+// 		 						$('<span class="totalPrice">').text(numberWithCommas(data.phrm_price*days)).appendTo(totalPrice);
+// 		 						$('<span>').text("원").appendTo(totalPrice);
+// 		 						resForm.append(total);
+// 		 						resForm.append(totalPrice);
+		 						
+// 		 						$('<hr>').appendTo(resForm);
+		 						
+// 		 						var reserButton=$('<div class="reserButton">');
+// 		 						$('<button id="test_btn1">예 약 하 기</button>').appendTo(reserButton);
+// 		 						resForm.append(reserButton);
+		 						
+// 		 						$(".reservationForm").append(resForm);
+// 										$('#test').prev().css("color", "aqua");
+
+				
+				
+								
+								$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+								     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+								    	 loadingPage(); 
+								     } 
+								});
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 
 			});
 			
 			$(".petHotel").click(function() { 
 				location.href='/index.do'
-					
 			} );
+			
+			
+			
+			
+			
+			
+			
+
+
+			
+			
+			
 </script>
 <!-- 애견호텔 목록 -->
 </head>
@@ -449,47 +711,42 @@ cursor: pointer;
 			</div>
 		</form>
 
-		<div class="pethotelList">
+		<div class="petHotelList">
 
-			<c:forEach var="phList" items="${phList}">
-				<div class="petHotel" onclick="location.href='${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}'"style="border: 1px solid; margin: 50px; height: 350px;">
-					<div style="width: auto; display: inline-block display:inline; float: left;">
-						<div class="item">
-							<div class="clearfix" style="max-width: 350px;">
-								<ul class="image-gallery" class="gallery list-unstyled cS-hidden">
-									<c:forEach items="${phList.ph_filesName}" var="fn">
-										<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 350px; height: 350px;" /></li>
-									</c:forEach>
-								</ul>
-							</div>
-						</div>
+<%-- 			<c:forEach var="phList" items="${phList}"> --%>
+<%-- 				<div class="petHotel" onclick="location.href='${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}'"style="border: 1px solid; margin: 50px; height: 350px;"> --%>
+<!-- 					<div style="width: auto; display: inline-block display:inline; float: left;"> -->
+<!-- 						<div class="item"> -->
+<!-- 							<div class="clearfix" style="max-width: 350px;"> -->
+<!-- 								<ul class="image-gallery" class="gallery list-unstyled cS-hidden"> -->
+<%-- 									<c:forEach items="${phList.ph_filesName}" var="fn"> --%>
+<%-- 										<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 350px; height: 350px;" /></li> --%>
+<%-- 									</c:forEach> --%>
+<!-- 								</ul> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 
-						<br>
+<!-- 						<br> -->
 
-					</div>
-					<div style="">
-						<span></span> <br> <a href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a> <br>
-						<div>${phList.ph_address}${phList.ph_d_address}</div>
-						<div>
-							<fmt:formatNumber value="${phList.ph_minPrice }" pattern="#,###" />
-							~
-							<fmt:formatNumber value="${phList.ph_maxPrice }" pattern="#,###" />
-						</div>
-						<div>
-							후기:${phList.ph_c_count}개 <br> ${phList.ph_avgStar }
-						</div>
-					</div>
-
-					<!-- 				<p> -->
-					<%-- 					<c:out value="${boardMap.title}" /> --%>
-					<!-- 				</p> -->
-					<!-- 					사진:<br> -->
-					<!-- 					<img width="200px" height="200px" -->
-					<%-- 						src="${contextPath}/image?fileName=NAVER.jpg" /> --%>
-				</div>
+<!-- 					</div> -->
+<!-- 					<div style=""> -->
+<%-- 						<span></span> <br> <a href="${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}">${phList.ph_name}</a> <br> --%>
+<%-- 						<div>${phList.ph_address}${phList.ph_d_address}</div> --%>
+<!-- 						<div> -->
+<%-- 							<fmt:formatNumber value="${phList.ph_minPrice }" pattern="#,###" /> --%>
+<!-- 							~ -->
+<%-- 							<fmt:formatNumber value="${phList.ph_maxPrice }" pattern="#,###" /> --%>
+<!-- 						</div> -->
+<!-- 						<div> -->
+<%-- 							후기:${phList.ph_c_count}개 <br> ${phList.ph_avgStar } --%>
+<!-- 						</div> -->
+<!-- 					</div> -->
 
 
-			</c:forEach>
+<!-- 				</div> -->
+
+
+<%-- 			</c:forEach> --%>
 
 
 		</div>

@@ -12,35 +12,59 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
-<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" /> <!-- 슬라이드 -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" /> <!-- 데이트피커 -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' /> <!-- 데이트피커 -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' /> <!-- 데이트피커 -->
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css"> <!-- 메뉴바 -->
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet"> <!-- 폰트 -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" /> <!-- ?ㅁ?  -->
-<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' /> <!-- 캘린더 -->
-<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' /> <!-- 캘린더 -->
+
+<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
+<!-- 슬라이드 -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' />
+<!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' />
+<!-- 데이트피커 -->
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+<!-- 메뉴바 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- 폰트 -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<!-- ?ㅁ?  -->
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
+<!-- 캘린더 -->
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
+<!-- 캘린더 -->
 
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script type="text/javascript" src='${contextPath}/resources/js/moment.js'></script> <!-- 데이트피커 -->
+<script type="text/javascript" src='${contextPath}/resources/js/moment.js'></script>
+<!-- 데이트피커 -->
 
-<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> <!-- 메뉴바 -->
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+<!-- 메뉴바 -->
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script> <!-- 슬라이더 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script> <!-- 데이트피커 -->
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/lang/ko.js'></script> <!-- 캘린더 -->
+<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
+<!-- 슬라이더 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<!-- 데이트피커 -->
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/lang/ko.js'></script>
+<!-- 캘린더 -->
 
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <!-- 데이트피커 -->
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script> <!-- 구글맵 -->
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script> <!-- 구글맵 -->
-<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script> <!-- 데이트피커 -->
-<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script> <!-- 캘린더 -->
-<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script> <!-- 캘린더 -->
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script> <!-- 캘린더 -->
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script><!-- 캘린더 -->
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script><!-- 캘린더 -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- 데이트피커 -->
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
+<!-- 구글맵 -->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script>
+<!-- 구글맵 -->
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
+<!-- 데이트피커 -->
+<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
+<!-- 캘린더 -->
+<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+<!-- 캘린더 -->
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
+<!-- 캘린더 -->
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
+<!-- 캘린더 -->
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
+<!-- 캘린더 -->
 <script type="text/javascript">
 	var imgCommonPreview = new Image();
 	var sizeS=0;
@@ -83,7 +107,7 @@
 	}
 	
 	function incrementValue(e) {
-		if(currentVal == pet_max){
+		if(currentVal == pet_max-1){
 		}else{
 		  e.preventDefault();
 		  var fieldName = $(e.target).data('field');
@@ -319,7 +343,7 @@
 		 							
 		 	 						$("<option value='required'>필수선택</option>").appendTo(roomSelectBox);
 		 							for(var i in data){
-		 	 						$("<option value='"+data[i].phrm_num+"'>"+data[i].phrm_name+"</option>").appendTo(roomSelectBox);
+		 	 						$("<option value='"+data[i].phrm_num+"'>"+data[i].phrm_name+"/남은 자리("+((data[i].phrm_p_max)-(data[i].rcount))+")</option>").appendTo(roomSelectBox);
 		 							}
 		 	 						sForm.append(roomSelectBox);
 		 	 						$(".sRoom").append(sForm);
@@ -413,10 +437,9 @@
 			isthumb : true,
 			gallery : true,
 			item : 1,
-			thumbItem : 9,
+			thumbItem : 8,
 			slideMargin : 0,
-			speed : 500,
-			auto : true,
+			speed : 1000,
 			loop : true,
 			onSliderLoad : function() {
 				$('#image-gallery').removeClass('cS-hidden');
@@ -432,13 +455,13 @@
 		}
 	}
 
-		roomCalendar();
+	var calendar=null;
 	document.addEventListener('DOMContentLoaded', function() {
 		var d = new Date();
 		<%=session.getAttribute("c_num")%>
-		var calendarEl = document.getElementById('calendar');
+	var calendarEl = document.getElementById('calendar');
 		var calHeight = 450;
-		var calendar = new FullCalendar.Calendar(calendarEl, {
+		calendar = new FullCalendar.Calendar(calendarEl, {
 			plugins : [ 'dayGrid', 'interaction' ],
 			//		 			timeZone : "Asian/Seoul",
 			locale : 'ko',
@@ -446,7 +469,7 @@
 			// 				    contentHeight:calHeight,
 			allDayDefault : false,
 			editable : false,
-			displayEventTime: false,
+			displayEventTime : false,
 			defaultView : 'dayGridMonth',
 			defaultDate : d,
 			editable : true,
@@ -466,67 +489,63 @@
 				});
 			},
 		});
-		var reservationId = null;
-		function roomCalendar(){
+		function roomCalendar() {
+
 			var room_num = $('.rCalSelect option:selected').val();
 			$.ajax({
-					url : "${contextPath}/petHotel/petHotelReservation",
-					data : {
-						phrm_num : room_num
-					},
-					dataType : "JSON",
-					success : function(data) {
-// 						if(reservationId != null){
-// 							alert("reservationId");
-// 							reservationId.remove();
-// 						}
-						var Calendar = $('<div id="calendar">');
-						$('.calendarDiv').append(Calendar);
-						
-						for (var i = 0; i < data.length; i++) {
-							e = {
-								groupId : 'vsr_num',
-								id : reservationId,
-								start : data[i].phr_chkin,
-								end : data[i].phr_chkout+'T11:00',
-								title : '예약',
-								description : data[i].phr_chkin.substring(2,12)+' ~ '+data[i].phr_chkout.substring(2,12),
-								color : 'rgba(0, 0, 120, 0.6)',
-							}
-							
-							calendar.addEvent(e);
-							calendar.render();
-						}
-						
-					},
-					error : function() {
-						alert("데이터를 불러오는데 실패했습니다.")
+				url : "${contextPath}/petHotel/petHotelReservation",
+				data : {
+					phrm_num : room_num
+				},
+				dataType : "JSON",
+				success : function(data) {
+					// 						if(reservationId != null){
+					// 							alert("reservationId");
+					// 							reservationId.remove();
+					// 						}
+					var events = calendar.getEvents();
+					var len = events.length;
+					for (var i = 0; i < len; i++) {
+						events[i].remove();
 					}
-				})	
-	}
+					for (var i = 0; i < data.length; i++) {
+						e = {
+							groupId : 'vsr_num',
+							id : data[i].phr_num,
+							start : data[i].phr_chkin,
+							end : data[i].phr_chkout + 'T11:00',
+							title : '예약',
+							description : data[i].phr_chkin.substring(2, 12)
+									+ ' ~ '
+									+ data[i].phr_chkout.substring(2, 12),
+							color : 'rgba(0, 0, 120, 0.6)',
+						}
 
-// 				var iiii = {
-// 					start : '2019-09-26',
-// 					end: '2019-09-27',
-// 					description : 'test',
-// 					title: 'test'
+						calendar.addEvent(e);
+						calendar.render();
+					}
 
-// 				}
-// 				calendar.addEvent(iiii);
+				},
+				error : function() {
+					alert("데이터를 불러오는데 실패했습니다.")
+				}
+			})
+		}
+
+		// 				var iiii = {
+		// 					start : '2019-09-26',
+		// 					end: '2019-09-27',
+		// 					description : 'test',
+		// 					title: 'test'
+
+		// 				}
+		// 				calendar.addEvent(iiii);
 		calendar.render();
-		$('.rCalSelect').on("change",function(){
-			
-			
-			
-			
+		$('.rCalSelect').on("change", function() {
 			roomCalendar();
 		});
-
+		roomCalendar();
 	});
-	
-	
-
-	
 </script>
 <style>
 #map_canvas {
@@ -741,118 +760,116 @@ td.fc-day.fc-past { /*지난 날 블러*/
 	background-color: #EEEEEE;
 }
 
-input,
-textarea {
-  border: 1px solid #b9d5e8;
-  box-sizing: border-box;
-  margin: 0;
-  outline: none;
-  padding: 10px;
+input, textarea {
+	border: 1px solid #b9d5e8;
+	box-sizing: border-box;
+	margin: 0;
+	outline: none;
+	padding: 10px;
 }
 
 input[type="button"] {
-  -webkit-appearance: button;
-  cursor: pointer;
+	-webkit-appearance: button;
+	cursor: pointer;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
 }
 
 .input-group {
-  clear: both;
-  margin: 15px 0;
-  position: relative;
+	clear: both;
+	margin: 15px 0;
+	position: relative;
 }
 
 .input-group input[type='button'] {
-  background-color: #eeeeee;
-  min-width: 34px;
-  width: auto;
-  transition: all 300ms ease;
+	background-color: #eeeeee;
+	min-width: 34px;
+	width: auto;
+	transition: all 300ms ease;
 }
 
-.input-group .button-minus,
-.input-group .button-plus {
-  font-weight: bold;
-  height: 31px;
-  padding: 0;
-  width: 38px;
-  position: relative;
+.input-group .button-minus, .input-group .button-plus {
+	font-weight: bold;
+	height: 31px;
+	padding: 0;
+	width: 38px;
+	position: relative;
 }
 
 .input-group .quantity-field {
-  position: relative;
-  height: 31px;
-  left: -6px;
-  text-align: center;
-  width: 40px;
-  display: inline-block;
-  font-size: 13px;
-  margin: 0 0 5px;
-  resize: vertical;
+	position: relative;
+	height: 31px;
+	left: -6px;
+	text-align: center;
+	width: 40px;
+	display: inline-block;
+	font-size: 13px;
+	margin: 0 0 5px;
+	resize: vertical;
 }
 
 .button-plus {
-  left: -8px;
+	left: -8px;
 }
 
 input[type="number"] {
-  -moz-appearance: textfield;
-  -webkit-appearance: none;
+	-moz-appearance: textfield;
+	-webkit-appearance: none;
 }
 
-       	.reserButton {
-			text-align: center;
-        }
+.reserButton {
+	text-align: center;
+}
 
-        #test_btn1{
-            border-radius: 8px;
-            margin-right:-4px;
-            height:50px;
-            width:200px;
-            font-size:20px
-        }
-       	.reserButton button{
-            border: 1px solid skyblue;
-            background-color: rgba(0,0,0,0);
-            color: skyblue;
-            padding: 5px;
-        }
-        .reserButton button:hover{
-        cursor:pointer;
-            color:white;
-            background-color: skyblue;
-        }
+#test_btn1 {
+	border-radius: 8px;
+	margin-right: -4px;
+	height: 50px;
+	width: 200px;
+	font-size: 20px
+}
 
+.reserButton button {
+	border: 1px solid skyblue;
+	background-color: rgba(0, 0, 0, 0);
+	color: skyblue;
+	padding: 5px;
+}
+
+.reserButton button:hover {
+	cursor: pointer;
+	color: white;
+	background-color: skyblue;
+}
 
 .sizeSelect {
-    position: relative;
-    width: 130px;
-    height: 40px;
-    background: url(select_arrow.png) 180px center no-repeat; /* 화살표 이미지 */
-    border: 1px solid #b9d5e8;
+	position: relative;
+	width: 130px;
+	height: 40px;
+	background: url(select_arrow.png) 180px center no-repeat; /* 화살표 이미지 */
+	border: 1px solid #b9d5e8;
 }
+
 .sizeSelect label {
-    position: absolute;
-    font-size: 14px;
-    color: #a97228;
-    top: 13px;
-    left: 12px;
-    letter-spacing: 1px;
+	position: absolute;
+	font-size: 14px;
+	color: #a97228;
+	top: 13px;
+	left: 12px;
+	letter-spacing: 1px;
 }
+
 .sizeSelect select#color {
-    width: 100%;
-    height: 40px;
-    min-height: 40px;
-    line-height: 40px;
-    padding: 0 10px;
-    opacity: 0;
-    filter: alpha(opacity=0);/* IE 8 */
-
+	width: 100%;
+	height: 40px;
+	min-height: 40px;
+	line-height: 40px;
+	padding: 0 10px;
+	opacity: 0;
+	filter: alpha(opacity = 0); /* IE 8 */
 }
-
 </style>
 
 
@@ -1024,24 +1041,22 @@ input[type="number"] {
 		<br> <br>
 		<div style="float: left;">
 			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
-			<div style="padding: 10px; font-size: 15px; width: auto; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px;">
-				
-				<div class="col-dates" style="text-align:center;">
-				<label>원하는 날짜를 선택해주세요.</label>
-				<br>	
-					<input type="hidden" class="ph_num" name="ph_num" value="${petHotel.ph_num }"> <br> <input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px; " /> &nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp; <input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
+				<div style="padding: 10px; font-size: 15px; width: auto; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px;">
+
+					<div class="col-dates" style="text-align: center;">
+						<label>원하는 날짜를 선택해주세요.</label> <br> <input type="hidden" class="ph_num" name="ph_num" value="${petHotel.ph_num }"> <br> <input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> &nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp; <input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
 					</div>
 
-						<div class="sRoom">
-<!-- 						<label>방:&nbsp; </label> <select name="roomSelect" class="rSelect"> -->
-<!-- 							<option value="required">필수선택</option> -->
-<%-- 							<c:forEach items="${petHotelRoomList}" var="phrl"> --%>
-<%-- 															<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-<%-- 								<option value="${phrl.phrm_num}">${phrl.phrm_name}</option> --%>
-<%-- 							</c:forEach> --%>
-<!-- 						</select> -->
-						</div>
-						<div class="reservationForm" style="">
+					<div class="sRoom">
+						<!-- 						<label>방:&nbsp; </label> <select name="roomSelect" class="rSelect"> -->
+						<!-- 							<option value="required">필수선택</option> -->
+						<%-- 							<c:forEach items="${petHotelRoomList}" var="phrl"> --%>
+						<%-- 															<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+						<%-- 								<option value="${phrl.phrm_num}">${phrl.phrm_name}</option> --%>
+						<%-- 							</c:forEach> --%>
+						<!-- 						</select> -->
+					</div>
+					<div class="reservationForm" style="">
 						<!-- 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span> -->
 
 						<!-- 						<hr> -->
@@ -1054,19 +1069,20 @@ input[type="number"] {
 				</div>
 			</form>
 			<br>
-			<div class="calendarDiv" style="display:inline-block; padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+			<div class="calendarDiv" style="display: inline-block; padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+				<br> <span style="font-size: 21px;">&nbsp;캘린더 미리보기&nbsp;</span>
+
+				<div class="roomCalendarDiv" style="display: inline-block">
+					<select name="roomCalendarSelect" class="rCalSelect">
+						<c:forEach items="${petHotelRoomList}" var="phrl">
+							<option value="${phrl.phrm_num}">${phrl.phrm_name}</option>
+						</c:forEach>
+					</select>
+				</div>
 				<br>
-				<span style="font-size: 21px;">&nbsp;캘린더 미리보기&nbsp;</span> 						
-								
-				<div class="roomCalendarDiv" style="display:inline-block">
-						<select name="roomCalendarSelect" class="rCalSelect">
-							<c:forEach items="${petHotelRoomList}" var="phrl">
-								<option value="${phrl.phrm_num}">${phrl.phrm_name}</option>
-							</c:forEach>
-						</select>
-						</div>
-<br><br><hr>
-<!-- 				<div id='calendar'></div> -->
+				<br>
+				<hr>
+				<div id='calendar'></div>
 			</div>
 		</div>
 
