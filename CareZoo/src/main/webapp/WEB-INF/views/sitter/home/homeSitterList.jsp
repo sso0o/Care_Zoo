@@ -23,9 +23,10 @@
 <!-- link for navBar -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- *필수요소*제이쿼리 -->
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <!-- script for datepicker -->
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>

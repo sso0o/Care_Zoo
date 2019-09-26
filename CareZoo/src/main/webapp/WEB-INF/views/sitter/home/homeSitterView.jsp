@@ -24,8 +24,9 @@
 $(function() {
 	var days = 0;
 	var empPricePerDay = 1;
+	showDays();
 	calculatePrice();
-//datepicker disable : 해당일 제외하고 선택하기 *************** 홈시터가 지정한 날짜를 disable 설정필요
+//datepicker disable : 해당일 제외하고 선택하기 *************** 홈시터가 지정한 날짜를 disable 설정필요*
 	$('#calendar').datepicker({ beforeShowDay: unavailableD });
 	var unavailableDates = ["2019-9-19","2019-9-14"];   //*************** 홈시터가 지정한 날짜를 disable 설정필요
 	function unavailableD(date) {
