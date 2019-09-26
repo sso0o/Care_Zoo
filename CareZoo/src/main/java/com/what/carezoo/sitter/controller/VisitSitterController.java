@@ -422,8 +422,8 @@ public class VisitSitterController{
 	@RequestMapping(value="end",method=RequestMethod.GET)
 	public String end(Model model) {
 		model.addAttribute("msg", "예약접수가 완료 되었습니다.");
-		model.addAttribute("url", "${contextPath}");
-		return "sitter/visit/result";
+
+		return "main";
 	}
 	
 	
