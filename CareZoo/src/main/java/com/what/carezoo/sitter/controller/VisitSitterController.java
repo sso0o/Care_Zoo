@@ -236,7 +236,11 @@ public class VisitSitterController{
 			vsr.setC_num(c_num);
 			vsr.setVsr_chkin(tempVsr_chkin[i]);
 			vsr.setVsr_hAdd(vsr_hAdd);
-			vsr.setVsr_hour(vsr_hour);	
+			vsr.setVsr_hour(vsr_hour);
+			
+			if(vsr.getVsr_day()==null) {
+				vsr.setVsr_day("0");
+			}
 		vsrService.insertVisitSitterReservation(vsr);
 		//pet_detail저장
 			for(int j=0;j<p_num.size();j++) {
@@ -381,7 +385,7 @@ public class VisitSitterController{
 	public String paymentForm(Model model,int c_num) throws JsonProcessingException{
 				
 		ArrayList<Integer> p_num = new ArrayList<Integer>();
-		for(int i=0;i<pdService.selectByC_num(c_num).size();i++) {
+		for(int i=0;i<vsrService.getVisitSitterResByCnum(c_num).size();i++) {
 			System.out.println(pdService.selectByC_num(c_num).get(i).getP_num());
 			int nums = pdService.selectByC_num(c_num).get(i).getP_num();
 			p_num.add(nums);
@@ -464,7 +468,7 @@ public class VisitSitterController{
 	}
 	
 	//일반 예약완료
-	@RequestMapping(value="end",method=RequestMethod.POST)
+	@RequestMapping(value="end",method=RequestMethod.GET)
 	public String end(Model model,String vsr_totalPrice,@RequestParam ArrayList<Integer> vsr_num) {
 		System.out.println(vsr_totalPrice);
 		System.out.println(vsr_num);
@@ -478,18 +482,24 @@ public class VisitSitterController{
 	//정기요일의 날자를 선택(정기돌봄)
 	@RequestMapping(value="complete1",method=RequestMethod.POST)
 	public String reservation7Form(Model model,int c_num,
-			@RequestParam() ArrayList<Integer> p_num,String vsr_chkin, String vsr_hour, String vsr_hAdd) {
+			@RequestParam() ArrayList<Integer> p_num,String vsr_day, String vsr_hour, String vsr_hAdd) {
 		//문자열 조각내기
-		String[] tempVsr_chkin = vsr_chkin.split(",");
+		String[] tempVsr_day = vsr_day.split(",");
 		//visitReservation, pet_detail 동시에 저장!
+		//chkin 날자열에 맞춰서 추가 삽입!
+		
 		//visitReservation저장
 		VisitSitterReservation vsr = new VisitSitterReservation();
-		for(int i=0;i<tempVsr_chkin.length;i++) {
+		for(int i=0;i<tempVsr_day.length;i++) {
 			
 			vsr.setC_num(c_num);
-			vsr.setVsr_chkin(tempVsr_chkin[i]);
+			vsr.setVsr_day(tempVsr_day[i]);
 			vsr.setVsr_hAdd(vsr_hAdd);
 			vsr.setVsr_hour(vsr_hour);	
+			
+			if(vsr.getVsr_chkin()==null) {
+				vsr.setVsr_chkin("0");
+			}
 		vsrService.insertVisitSitterReservation(vsr);
 		//pet_detail저장
 			for(int j=0;j<p_num.size();j++) {
@@ -499,119 +509,91 @@ public class VisitSitterController{
 		
 		model.addAttribute("list", vsrService.getVisitSitterResByCnum(c_num));
 		model.addAttribute("p_num", p_num);
+		model.addAttribute("c_num", c_num);
+		return "sitter/visit/reservation7";
+
+	}
+	//정기요일의 날자를 선택(정기돌봄 ajax)
+	@RequestMapping(value="complete1",method=RequestMethod.GET)
+	public String reservation7Form2(Model model,int c_num,int vsr_num) {
+		//int c_num,int vsr_num,
+		ArrayList<Integer> p_num = new ArrayList<Integer>();
+		for(int i=0;i<pdService.selectByC_num(c_num).size();i++) {
+			System.out.println(pdService.selectByC_num(c_num).get(i).getP_num());
+			int nums = pdService.selectByC_num(c_num).get(i).getP_num();
+			p_num.add(nums);
+		}
+		System.out.println("결과==========="+p_num);
+
+		model.addAttribute("list", vsrService.getVisitSitterResByCnum(c_num));
+		model.addAttribute("p_num", p_num);
+		model.addAttribute("c_num", c_num);
 		return "sitter/visit/reservation7";
 
 	}
 	
+	//추가/변경폼
+	@RequestMapping(value="addForm2",method=RequestMethod.GET)
+	public String addForm2(int vsr_num,String vsr_day, String vsr_hour, String vsr_hAdd, 
+			int c_num,Model model) {
+		//p_num 어떻게 넘기는지...
+		ArrayList<Integer> p_num = new ArrayList<Integer>();
+		for(int i=0;i<pdService.selectByVsr_Num(vsr_num).size();i++) {
+			System.out.println(pdService.selectByVsr_Num(vsr_num).get(i).getP_num());
+			int nums = pdService.selectByVsr_Num(vsr_num).get(i).getP_num();
+			p_num.add(nums);
+		}
+		System.out.println("결과==========="+p_num);
+		model.addAttribute("vsr_day", vsr_day);
+		model.addAttribute("vsr_hour", vsr_hour);
+		model.addAttribute("vsr_hAdd", vsr_hAdd);
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("p_num", p_num);
+		model.addAttribute("vsr_num", vsr_num);
+		return "sitter/visit/addForm2";
+	}
+	
+	//추가/변경폼2
+	@RequestMapping(value="adds2", method=RequestMethod.POST)
+	public String hAdd2(String vsr_day, String vsr_hour, String vsr_hAdd, int vsr_num, 
+			@RequestParam ArrayList<Integer> p_num,int c_num,Model model) {
+		//update 하고, complete11(redirect)
+		System.out.println(vsrService.updateVisitSitterReservation(vsr_hour,vsr_hAdd,vsr_day));
+		vsrService.updateVisitSitterReservation(vsr_hour,vsr_hAdd,vsr_day);
+		System.out.println(p_num);
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("vsr_num", vsr_num);
+
+		return "redirect:complete1";
+	}
+	
+	
+	//전달 요청사항 신청폼(정기신청)
+	@RequestMapping(value="complete2",method=RequestMethod.POST)
+	public String reservationBtn2(@RequestParam() ArrayList<Integer> p_num,Model model,int c_num,@RequestParam() ArrayList<Integer> vsr_num
+			,@RequestParam() ArrayList<String> vsr_day) {
+				model.addAttribute("p_num", p_num);
+				model.addAttribute("c_num", c_num);
+				model.addAttribute("vsr_num", vsr_num);
+				model.addAttribute("vsr_day", vsr_day);
+		return "sitter/visit/calendal";
+	}
+	
+	//시작날자 정함
+	@RequestMapping(value="getDate",method=RequestMethod.POST)
+	public String reservation8Form(Model model,int c_num,@RequestParam() ArrayList<Integer> p_num,@RequestParam() ArrayList<Integer> vsr_num,
+			String vsr_chkin) {
+		//chkin 날자  update 해줘야함...
 		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		vsrService.updateVsr_Chkin(vsr_chkin, vsr_num);
+		model.addAttribute("c_num", c_num);
+		model.addAttribute("p_num", p_num);
+		model.addAttribute("vsr_num", vsr_num);
 
-//	//예약내용 확인하는 폼(일반돌봄)
-//	@RequestMapping(value="complete11",method=RequestMethod.POST)
-//	public String reservation9Form(Model model,Pet_Details list
-//			,@RequestParam() ArrayList<Integer> p_num,int c_num,
-//					@RequestParam() ArrayList<String> p_name){
-//		
-//		System.out.println("일반======="+list);
-//		for(int i : p_num) {
-//			list.setC_num(c_num);
-//		}
-//		list.setP_name(p_name);
-//		pdService.insertPet_Detail2(list);//저장
-//		
-//		model.addAttribute("c_num", c_num);
-//		model.addAttribute("p_name",list.getP_name());
-//		model.addAttribute("pd_week", list.getPd_week());
-//		model.addAttribute("pd_hour", list.getPd_hour());
-//		model.addAttribute("pd_hAdd", list.getPd_hAdd());
-//		model.addAttribute("p_num", p_num);
-////		model.addAttribute("pd_List",list);
-//		
-//		return "sitter/visit/reservation7_1";
-//	}
-//	//ajax방식=====예약 내용 확인하는 폼(7_1delete ajax)
-//	@RequestMapping(value="complete11",method=RequestMethod.GET)
-//	public String complete11List(int c_num,Model model ) {
-//		System.out.println(c_num);
-//		Set<String> p_name = new HashSet<String>();
-//		Set<String> pd_week = new HashSet<String>();
-//		Set<String> pd_hour = new HashSet<String>();
-//		Set<String> pd_hAdd = new HashSet<String>();
-//		Set<Integer> p_num = new HashSet<Integer>();
-//		
-//		List<Pet_Detail> pdList = pdService.selectByC_Num(c_num);
-////		System.out.println("sdsd"+pdList);
-//		
-//		for(int i=0;i< pdList.size();i++) {
-//			pd_week.add(pdService.selectByC_Num(c_num).get(i).getPd_week());
-//			p_num.add(pdService.selectByWeek2(pd_week, c_num).get(i).getP_num());
-//			p_name.add(pdService.selectByWeek2(pd_week, c_num).get(i).getP_name());
-//			pd_hour.add(pdService.selectByC_Num(c_num).get(i).getPd_hour());
-//			pd_hAdd.add(pdService.selectByC_Num(c_num).get(i).getPd_hAdd());
-////			pd_week.add(pdList.get(i).getPd_week());
-////			p_num.add(pdList.get(i).getP_num());
-////			p_name.add(pdList.get(i).getP_name());
-////			pd_hour.add(pdList.get(i).getPd_hour());
-////			pd_hAdd.add(pdList.get(i).getPd_hAdd());
-//			
-//		}
-//
-//		model.addAttribute("c_num", c_num);
-//		model.addAttribute("p_name", p_name);
-//		model.addAttribute("pd_week", pd_week);
-//		model.addAttribute("pd_hour", pd_hour);
-//		model.addAttribute("pd_hAdd", pd_hAdd);
-//		model.addAttribute("p_num", p_num);
-//		//model.addAttribute("pd_List", pdList);
-//		return "sitter/visit/reservation7_1";
-//	}
-//	
-//	
-//	//정기 리스트 달력 표시
-//	@RequestMapping(value="complete2",method = RequestMethod.POST)
-//	public String checkWeek(@RequestParam() ArrayList<Integer> p_num,Model model,
-//			String[] pd_week,String pd_hour,String pd_hAdd,
-//			Pet_Detail pd,String[] p_name,int c_num) {
-//		model.addAttribute("p_num", p_num);
-//		model.addAttribute("pd_week", pd_week);
-//		model.addAttribute("pd_hour", pd_hour);
-//		model.addAttribute("pd_hAdd", pd_hAdd);
-//		model.addAttribute("p_name", p_name);
-//		model.addAttribute("c_num", c_num);
-//		
-//		return "sitter/visit/calendal";
-//	}
-
+		return "sitter/visit/reservation8";
+	}
+	
+	
+	
 
 }

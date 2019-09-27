@@ -47,6 +47,13 @@ public class VisitSitterReservationService {
 		return false;
 	}
 	
+	public boolean updateVsr_Chkin(String vsr_chkin,ArrayList<Integer> vsr_num) {
+		if(vsrDao.updateVsr_Chkin(vsr_chkin, vsr_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean deleteVisitSitterReservation(int vsr_num) {
 		if(vsrDao.delete(vsr_num)>0) {
 			return true;

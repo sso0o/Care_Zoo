@@ -52,7 +52,7 @@ $(function(){
 		<tr>
 			<td><input type="hidden" name="c_num" value="${c_num}"></td>
 			<td><c:forEach items="${p_num}" var="p" >
-					<input type="hidden" name="p_num" value="${p}" name="p_num">
+					<input type="text" name="p_num" value="${p}" name="p_num">
 				</c:forEach></td>
 			<td><c:forEach items="${vsr_hAddList}" var="li" >
 				<input type="hidden" id="hAdd" class="hAdd" value="${li.vsr_hAdd}">
