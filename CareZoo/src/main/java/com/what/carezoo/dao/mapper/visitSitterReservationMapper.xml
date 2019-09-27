@@ -8,8 +8,8 @@
 		select visitsitterreservation_seq.nextval from dual
 	</selectKey>
 		insert
-		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status, vsr_totalPrice, vsr_attention, vsr_contents)
-		values (#{vsr_num},#{c_num},0, #{vsr_chkin}, #{vsr_hour}, #{vsr_hAdd}, '0', '0' ,'0','0')
+		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status, vsr_totalPrice, vsr_attention, vsr_contents,vsr_day)
+		values (#{vsr_num},#{c_num},0, #{vsr_chkin}, #{vsr_hour}, #{vsr_hAdd}, '0', '0' ,'0','0',#{vsr_day})
 	</insert>
 
 	<update id="update" parameterType="VisitSitterReservation">
@@ -43,6 +43,19 @@
 		</if>
 	</trim>
 	</update>
+	
+	<update id="updateVsr_Chkin" parameterType="string">
+		update visitsitterreservation
+	set vsr_chkin = #{vsr_chkin}
+		<trim prefix="where" prefixOverrides="OR">
+		<if test="list != null">
+			<foreach collection="list" item="item">
+				or vsr_num =#{item}
+			</foreach>
+		</if>
+	</trim>
+	</update>
+	
 	
 	<delete id="delete" parameterType="int">
 		delete from

@@ -59,13 +59,13 @@ function oneCheckbox1(a){
 	</tr>
 	<tr>
 		<td id="checkContainer">
-			<input type="checkbox" name="vsr_chkin" id="mon" value="1">월
-			<input type="checkbox" name="vsr_chkin" id="tus" value="2">화
-			<input type="checkbox" name="vsr_chkin" id="wen" value="3">수
-			<input type="checkbox" name="vsr_chkin" id="thu" value="4">목
-			<input type="checkbox" name="vsr_chkin" id="fri" value="5">금
-			<input type="checkbox" name="vsr_chkin" id="sat" value="6">토
-			<input type="checkbox" name="vsr_chkin" id="sun" value="0">일
+			<input type="checkbox" name="vsr_day" id="mon" value="1">월
+			<input type="checkbox" name="vsr_day" id="tus" value="2">화
+			<input type="checkbox" name="vsr_day" id="wen" value="3">수
+			<input type="checkbox" name="vsr_day" id="thu" value="4">목
+			<input type="checkbox" name="vsr_day" id="fri" value="5">금
+			<input type="checkbox" name="vsr_day" id="sat" value="6">토
+			<input type="checkbox" name="vsr_day" id="sun" value="0">일
 		</td>
 	</tr>
 	<tr>

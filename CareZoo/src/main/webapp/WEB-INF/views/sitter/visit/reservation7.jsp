@@ -25,7 +25,7 @@ function petDeleteOpen(c_num,vsr_num){
 					if(result){
 						alert("삭제완료");
 						//삭제되고 남은 pd_hAdd를 보여줘야하잔하....
-						location.href="${contextPath}/visit/complete11?c_num="+c_num+"&vsr_num="+vsr_num;
+						location.href="${contextPath}/visit/complete1?c_num="+c_num+"&vsr_num="+vsr_num;
 					}else{
 						alert("삭제실패");
 					}
@@ -33,7 +33,7 @@ function petDeleteOpen(c_num,vsr_num){
 					console.log("r:"+r+"s:"+s+"e:"+e);
 				}
 			});
-
+			
 }
 
 $( document ).ready( function() {
@@ -43,7 +43,35 @@ $( document ).ready( function() {
 	console.log(sum);
 	//id로 가져오면 값 하나만 출력하기 때문에 class로 줘서 사용해야한다.
 		$('.hour').append(originHour+"시~"+sum.toString()+"시");
-    
+		
+	//chkin 요일이름으로 변환!!
+		var chkin = $("input[name=vsr_day]").length;
+		var value =document.getElementsByClassName("vsr_day")[0].value;
+		console.log(value);
+		
+	var result = "";
+	for(var i=0;i<chkin;i++){
+		console.log(value);
+		if(document.getElementsByClassName("vsr_day")[i].value=="1"){
+			result = "월";
+		}else if(document.getElementsByClassName("vsr_day")[i].value=="2"){
+			result = "화";	
+		}else if(document.getElementsByClassName("vsr_day")[i].value=="3"){
+			result = "수";
+		}else if(document.getElementsByClassName("vsr_day")[i].value=="4"){
+			result = "목";
+		}else if(document.getElementsByClassName("vsr_day")[i].value=="5"){
+			result = "금";
+		}else if(document.getElementsByClassName("vsr_day")[i].value=="6"){
+			result = "토";
+		}else if(document.getElementsByClassName("vsr_day")[i].value=="0"){
+			result = "일";
+		}
+		console.log(result);
+		//.부터가져오는거기 때문에 속성에[i]값을 붙여준다!!
+		$('.day')[i].append("매주"+result+"요일");
+	}
+	
   } );
 </script>
 <meta charset="UTF-8">
@@ -53,7 +81,7 @@ $( document ).ready( function() {
 <h1>예약 변경을 원할 경우 추가/변경을 눌러주세요</h1>
 <!-- <h3>강아지 한마리를 선택하면 전체 강아지의 시간이 '변경' 또는 '삭제' 됩니다^^</h3> -->
 
-	<form action="complete22" method="post">
+	<form action="complete2" method="post">
 		<div>
 			<table>
 				<tr>
@@ -64,13 +92,15 @@ $( document ).ready( function() {
 				</tr>
 				<tr>
 				<c:forEach items="${list}" var="li">
+				<input type="hidden" id="vsr_num" name="vsr_num" value="${li.vsr_num}">
 				<input type="hidden" id="vsr_hour" name ="vsr_hour" value="${li.vsr_hour}">
-					<tr><th>매주${li.vsr_chkin}
+				<input type="hidden" name="vsr_day" id="vsr_day" class="vsr_day" value="${li.vsr_day}">	
+					<tr><th ><div class="day">	
 					<input type="button" onclick="petDeleteOpen(${c_num},${li.vsr_num})" value="x">
-					
+					</div>
 					</th></tr>
 					<tr><td class="hour"></td><td>+${li.vsr_hAdd}시간
-					<input type="button" onclick="location.href='${contextPath}/visit/addForm?vsr_chkin=${li.vsr_chkin}&vsr_hour=${li.vsr_hour}&vsr_hAdd=${li.vsr_hAdd}&c_num=${c_num}&vsr_num=${li.vsr_num}'" value="변경">
+					<input type="button" onclick="location.href='${contextPath}/visit/addForm2?vsr_day=${li.vsr_day}&vsr_hour=${li.vsr_hour}&vsr_hAdd=${li.vsr_hAdd}&c_num=${c_num}&vsr_num=${li.vsr_num}'" value="변경">
 					</td></tr>	
 				</c:forEach>				
 
