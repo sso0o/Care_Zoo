@@ -33,58 +33,58 @@ import com.what.carezoo.model.PetHotelReservation;
 import com.what.carezoo.model.PetHotelRoom;
 import com.what.carezoo.pet.service.PetService;
 
-
 @Controller
 @RequestMapping("/petHotel")
 public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤러
-	
+
 	@Autowired
 	private MemberService mService;
-	
+
 	@Autowired
 	private PetService pService;
 
 	@Autowired
 	private PetHotelService phService;
-	
+
 	@Autowired
 	private PetHotelReservationService phrService;
-	
+
 	private static final String FILE_PATH = "c:/temp/";
-	
-	//펫호텔 정보 가져오기
+
+	// 펫호텔 정보 가져오기
 	@RequestMapping("/petHotel")
 	@ResponseBody
 	public Map<String, Object> getPetHotel(int ph_num) {
 		Map<String, Object> rst = new HashMap<String, Object>();
-		rst.put("ph",phService.getPetHotelbyNum(ph_num));
+		rst.put("ph", phService.getPetHotelbyNum(ph_num));
 		System.out.println(rst);
 		return rst;
-		
+
 	}
 
 	// 펫호텔 목록보기
 	@RequestMapping("/petHotelList")
-	public String showPetHotelList( Model model) {          
-		List<PetHotel> phList = phService.getAllPetHotel();
-		for(int i=0;i<phList.size();i++) {
-			(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
-		}
-		System.out.println(phList);
-		model.addAttribute("phList", phList);
+	public String showPetHotelList(Model model) {
+//		List<PetHotel> phList = phService.getAllPetHotel();
+//		for (int i = 0; i < phList.size(); i++) {
+//			(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
+//		}
+//		System.out.println(phList);
+//		model.addAttribute("phList", phList);
 		return "hotel/petHotelList";
 	}
-	@ResponseBody
-	@RequestMapping("/petHotelListLoading")
-	public List<PetHotel> loadingPetHotelList() {          
-		List<PetHotel> phList = phService.getAllPetHotel();
-		for(int i=0;i<phList.size();i++) {
-			(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
-		}
-		System.out.println(phList);
-//		model.addAttribute("phList", phList);
-		return phList;
-	}
+
+//	@ResponseBody
+//	@RequestMapping("/petHotelListLoading")
+//	public List<PetHotel> loadingPetHotelList() {          
+//		List<PetHotel> phList = phService.getAllPetHotel();
+//		for(int i=0;i<phList.size();i++) {
+//			(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
+//		}
+//		System.out.println(phList);
+////		model.addAttribute("phList", phList);
+//		return phList;
+//	}
 //	   @ResponseBody
 //	   @RequestMapping("/petHotelSearch")
 //	   public List<PetHotel> searchPetHotel(@RequestParam(value="ph_address" ,required = false) ArrayList<String> ph_address, PetHotel ph) {
@@ -106,29 +106,50 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //	      +phList);
 //	      return phList;
 //	   }
-	   @RequestMapping("/petHotelSearch")
-	   public String searchPetHotel(HttpServletRequest request, @RequestParam(value="ph_address" ,required = false) ArrayList<String> ph_address, PetHotel ph,Model model) {
+//	
+	@ResponseBody
+	@RequestMapping("/petHotelListLoading")
+	public List<PetHotel> searchPetHotel(
+			@RequestParam(value = "searchSwitch",  required = false) int switchNumber,
+			@RequestParam(value = "ph_address", required = false) ArrayList<String> ph_address,
+			PetHotel ph,
+			Model model
+			) {
+		System.out.println("여기까지?");
+		System.out.println("swichNumber=====>" + switchNumber);
+		if (switchNumber == 1) {
+//
+			System.out.println("모델:" + ph_address); // 주소
+			System.out.println("ph:" + ph); // 서비스 예약일 반려견 나이 반려견 크기 정보
+			if (ph == null) {
+				ph = new PetHotel();
+			}
+			if (ph_address == null) {
+				ph_address = new ArrayList<String>();
+			}
+			List<PetHotel> phList = phService.searchPetHotel(ph_address, ph);
 
-		   System.out.println("모델:"+ph_address); //주소
-		   System.out.println("ph:"+ph); //서비스 예약일 반려견 나이 반려견 크기 정보
-		   if(ph==null) {         
-			   ph = new PetHotel();
-		   }
-		   if(ph_address==null) {
-			   ph_address = new ArrayList<String>();          
-		   }      
-		   List<PetHotel> phList = phService.searchPetHotel(ph_address,ph);
-		   
-		   for(int i=0;i<phList.size();i++) {
-			   (phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
-		   }
-		   
-		   System.out.println("==============================값"
-				   +phList);
-		   model.addAttribute("phList", phList);
-		   
-		   return "hotel/petHotelList";
-	   }
+			for (int i = 0; i < phList.size(); i++) {
+				(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
+			}
+
+			System.out.println("==============================값" + phList);
+//		   model.addAttribute("phList", phList);
+		   return phList;
+		} else {
+			List<PetHotel> phList = phService.getAllPetHotel();
+			for (int i = 0; i < phList.size(); i++) {
+				(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
+			}
+			System.out.println(phList);
+//			model.addAttribute("phList", phList);
+			return phList;
+		}
+//		return phList;
+
+	}
+
+	
 	
 	@ResponseBody
 	@RequestMapping("/petchk")
@@ -138,7 +159,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		rst.put("pL", pL);
 		return rst;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/phchk")
 	public Map<String, Object> getPh_Name(int ph_num) {
@@ -150,18 +171,18 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
 	@RequestMapping(value = "/petHotelResForm", method = RequestMethod.POST)
-	public String resPetHotelForm(Model m, int ph_num, String phr_chkin, String phr_chkout ) {
+	public String resPetHotelForm(Model m, int ph_num, String phr_chkin, String phr_chkout) {
 		m.addAttribute("chkin", phr_chkin);
 		m.addAttribute("chkout", phr_chkout);
 		m.addAttribute("phnum", ph_num);
 		return "hotel/petHotelResForm";
 	}
-	
+
 	@RequestMapping(value = "/resPetHotel", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean resPetHotel(String str, HttpServletRequest req) {
 		List<PetHotelReservation> phR = new ArrayList<PetHotelReservation>();
-		System.out.println("str -----------"+str);
+		System.out.println("str -----------" + str);
 		JSONArray jArray = new JSONArray(str);
 		System.out.println(jArray);
 		for (int i = 0; i < jArray.length(); i++) {
@@ -178,15 +199,15 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		int addCount = 0;
 		for (PetHotelReservation r : phR) {
 			PetHotelReservation selectResult = phrService.getPetHotelResByResInfo(r);
-			if(selectResult==null) {
+			if (selectResult == null) {
 				boolean rst = phrService.addPetHotelRes(r);
-				if(rst) {
+				if (rst) {
 					addCount += 1;
 				}
 			}
 		}
-		
-		if(addCount == phR.size()) {
+
+		if (addCount == phR.size()) {
 			return true;
 		} else {
 			return false;
@@ -196,28 +217,25 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 상세보기
 	@RequestMapping("/petHotelView")
-	public String showPetHotelView(Model model, 
-			@RequestParam("ph_num") int ph_num, 
-			String phr_chkin, 
+	public String showPetHotelView(Model model, @RequestParam("ph_num") int ph_num, String phr_chkin,
 			String phr_chkout) {
-		PetHotel petHotel = phService.getPetHotelbyNum(ph_num); 
+		PetHotel petHotel = phService.getPetHotelbyNum(ph_num);
 		petHotel.setPh_filesName(phService.getFileList(petHotel.getPh_num()));
 		List<String> filesName = phService.getFileList(ph_num);
-		for (int i=0; i<filesName.size(); i++) {
+		for (int i = 0; i < filesName.size(); i++) {
 			String str = filesName.get(i);
 			System.out.println(str);
 		}
 		List<PetHotelRoom> petHotelRoomList = phService.getAllPetHotelRoom(ph_num);
-		
+
 		model.addAttribute("petHotel", petHotel);
-		model.addAttribute("petHotelRoomList",petHotelRoomList);
-		model.addAttribute("filesName",filesName);
-		model.addAttribute("phComment",phService.selectByPh_num(ph_num));
-		
-		
+		model.addAttribute("petHotelRoomList", petHotelRoomList);
+		model.addAttribute("filesName", filesName);
+		model.addAttribute("phComment", phService.selectByPh_num(ph_num));
+
 		return "hotel/petHotelView";
 	}
-	
+
 	// view에서 Room을 선택했을 때 자세히 띄워줌
 	@ResponseBody
 	@RequestMapping("/petHotelRoomDetail")
@@ -225,28 +243,32 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		PetHotelRoom petHotelRoom = phService.petHotelRoomDetail(phrm_num);
 		return petHotelRoom;
 	}
+
 	@ResponseBody
 	@RequestMapping("/petHotelRoomDateChoice")
-	public List<PetHotelRoom> showPetHotelRoom(String phr_chkin, String phr_chkout,@RequestParam("ph_num") int ph_num) {
-		System.out.println(phr_chkin+phr_chkout+ph_num);
-		
-		
-		List<PetHotelRoom> dateChoice = phService.getHotelRoomByDate(phr_chkin,phr_chkout,ph_num);
-		
+	public List<PetHotelRoom> showPetHotelRoom(String phr_chkin, String phr_chkout,
+			@RequestParam("ph_num") int ph_num) {
+		System.out.println(phr_chkin + phr_chkout + ph_num);
+
+		List<PetHotelRoom> dateChoice = phService.getHotelRoomByDate(phr_chkin, phr_chkout, ph_num);
+
 		System.out.println(dateChoice);
 		return dateChoice;
 	}
+
 	// 펫호텔 키워드로 선택
 	@RequestMapping("/addressKeyword")
-	public String addressKeyworkSelect(String keywork) {		
+	public String addressKeyworkSelect(String keywork) {
 		return null;
-	}	
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/petHotelReservation")
 	public List<PetHotelReservation> makePetHotelRes(@RequestParam("phrm_num") int phrm_num) {
-		
+
 		return phrService.getPetHotelResByPhrm_num(phrm_num);
-	}	
+	}
+
 //	"${contextPath}/image?ph_num=${pethotel.ph_num}&fileName=9eed7ab3-fb5d-451d-84b0-137dc68e5c2e_NAVER.jpg"/></td>	
 	@ResponseBody
 	@RequestMapping(value = "/image")
@@ -262,9 +284,10 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
-				if(in != null) in.close();
+				if (in != null)
+					in.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

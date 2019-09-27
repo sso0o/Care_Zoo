@@ -195,8 +195,12 @@
 					var datepickerEnd = $('.col-dates .pull-right').datepicker(
 							{
 								onClose: function(dateText, inst) { // 날짜 선택 후
+									if($('.col-dates .pull-left').val()==$('.col-dates .pull-right').val()){
+										alert("1박 이상만 가능합니다..");
+										$('.col-dates .pull-left').val("체크인 날짜");
+										$('.col-dates .pull-right').val("체크아웃 날짜");
+									}else{
 									if($('.col-dates .pull-right').val() =="체크아웃 날짜"){
-									
 									}else{
 						            console.log("onClose 실행!!");
 	 						        var start = $('.col-dates .pull-left').datepicker('getDate');
@@ -230,6 +234,7 @@
 		 							var roomSelectBox = $('<select class="rSelect">');
 		 							
 		 							roomSelectBox.on("change",function(){
+		 								currentVal = 0;
 		 								$('.drawResForm').remove();
 		 								
 		 								if ($('.rSelect option:selected').val() == "required") {
@@ -353,6 +358,7 @@
 		 									alert("데이터를 불러오는데 실패했습니다.")
 		 								}
 		 							})
+									}
 									}
 								},
 								afterShow: function (input, inst, td) {

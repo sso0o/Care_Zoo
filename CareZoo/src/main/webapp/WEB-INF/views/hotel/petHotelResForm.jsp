@@ -192,7 +192,10 @@ ul {
 		var datepickerEnd = $('#chkout').datepicker({
 			dateFormat : 'yy-mm-dd',
 			minDate : moment('yy-mm-dd').toDate()
-		});
+		},
+		$('.ui-datepicker').css("display","none");
+		);
+
 		
 		var user_num = <%=session.getAttribute("user_num") %>		
 		$.ajax({
