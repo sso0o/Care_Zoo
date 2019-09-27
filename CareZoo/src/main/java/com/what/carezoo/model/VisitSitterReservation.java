@@ -11,8 +11,29 @@ public class VisitSitterReservation {
 	private String vsr_hour;
 	private String vsr_hAdd;
 	private String vsr_status;
+	private String vsr_totalPrice;
+	private String vsr_attention;
+	private String vsr_contents;
 	
 	
+	public String getVsr_contents() {
+		return vsr_contents;
+	}
+	public void setVsr_contents(String vsr_contents) {
+		this.vsr_contents = vsr_contents;
+	}
+	public String getVsr_attention() {
+		return vsr_attention;
+	}
+	public void setVsr_attention(String vsr_attention) {
+		this.vsr_attention = vsr_attention;
+	}
+	public String getVsr_totalPrice() {
+		return vsr_totalPrice;
+	}
+	public void setVsr_totalPrice(String vsr_totalPrice) {
+		this.vsr_totalPrice = vsr_totalPrice;
+	}
 	public String getVsr_hAdd() {
 		return vsr_hAdd;
 	}
@@ -58,7 +79,9 @@ public class VisitSitterReservation {
 	@Override
 	public String toString() {
 		return "VisitSitterReservation [vsr_num=" + vsr_num + ", c_num=" + c_num + ", vs_num=" + vs_num + ", vsr_chkin="
-				+ vsr_chkin + ", vsr_hour=" + vsr_hour + ", vsr_hAdd=" + vsr_hAdd + ", vsr_status=" + vsr_status + "]";
+				+ vsr_chkin + ", vsr_hour=" + vsr_hour + ", vsr_hAdd=" + vsr_hAdd + ", vsr_status=" + vsr_status
+				+ ", vsr_totalPrice=" + vsr_totalPrice + ", vsr_attention=" + vsr_attention + ", vsr_contents="
+				+ vsr_contents + "]";
 	}
 	
 }

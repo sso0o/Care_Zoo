@@ -16,8 +16,8 @@ public class Pet_DetailService {
 	@Autowired
 	private Pet_DetailDao pdDao;
 	
-	public boolean insertPet_Detail(int vsr_num, int p_num) {
-		if(pdDao.insertPet_Detail(vsr_num, p_num)>0) {
+	public boolean insertPet_Detail(int vsr_num, int p_num, int c_num) {
+		if(pdDao.insertPet_Detail(vsr_num, p_num, c_num)>0) {
 			return true;
 		}
 		return false;
@@ -27,7 +27,9 @@ public class Pet_DetailService {
 		return pdDao.selectByVsr_Num(vsr_num);
 	}
 	
-	
+	public List<Pet_Detail> selectByC_num(int c_num){
+		return pdDao.selectByC_num(c_num);
+	}
 	
 	
 	

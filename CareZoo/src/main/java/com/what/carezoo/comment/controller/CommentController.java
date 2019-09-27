@@ -182,6 +182,7 @@ public class CommentController {
 		return rst;
 	}
 	
+
 	@RequestMapping("/getModalVS")
 	@ResponseBody
 	public Map<String, Object> getModalInfoVS(int num) {
@@ -196,6 +197,7 @@ public class CommentController {
 		rst.put("contact",contact);
 		return rst;
 	}
+
 	
 	@RequestMapping("/getModalC")
 	@ResponseBody

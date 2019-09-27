@@ -8,8 +8,8 @@
 		select visitsitterreservation_seq.nextval from dual
 	</selectKey>
 		insert
-		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status)
-		values (#{vsr_num},#{c_num},0, #{vsr_chkin}, #{vsr_hour}, #{vsr_hAdd}, '예약대기중')
+		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status, vsr_totalPrice, vsr_attention, vsr_contents)
+		values (#{vsr_num},#{c_num},0, #{vsr_chkin}, #{vsr_hour}, #{vsr_hAdd}, '0', '0' ,'0','0')
 	</insert>
 
 	<update id="update" parameterType="VisitSitterReservation">
@@ -20,9 +20,28 @@
 		where vsr_chkin = #{vsr_chkin}
 	</update>
 
-	<update id="updateStatus" parameterType="VisitSitterReservation">
-		update visitsitterreservation
-		set vsr_status = '예약대기중' where vsr_num = #{vsr_num}
+	<update id="updateTotalPrice" parameterType="string">
+	update visitsitterreservation
+	set vsr_totalPrice = #{vsr_totalPrice}
+	<trim prefix="where" prefixOverrides="OR">
+		<if test="list != null">
+			<foreach collection="list" item="item">
+				or vsr_num =#{item}
+			</foreach>
+		</if>
+	</trim>
+	</update>
+	
+	<update id="updateContents" parameterType="string">
+	update visitsitterreservation
+	set vsr_attention = #{vsr_attention}, vsr_contents = #{vsr_contents}
+		<trim prefix="where" prefixOverrides="OR">
+		<if test="list != null">
+			<foreach collection="list" item="item">
+				or vsr_num =#{item}
+			</foreach>
+		</if>
+	</trim>
 	</update>
 	
 	<delete id="delete" parameterType="int">
