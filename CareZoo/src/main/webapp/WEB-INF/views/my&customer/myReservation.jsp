@@ -122,7 +122,7 @@
 				success : function(data) {
 					console.log(data)
 					if(data.vsrList != null){
-						for (var i = 0; i < data.vsrList.length(); i++) {
+						for (var i = 0; i < data.vsrList.length; i++) {
 							var e = {
 								groupId : 'vsr_num',
 								id : data.vsrList[i].vsr_num,

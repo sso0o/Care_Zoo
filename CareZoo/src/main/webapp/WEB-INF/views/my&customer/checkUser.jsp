@@ -41,6 +41,9 @@ $(function() {
 		alert("${msg}");
 	}
 	
+	console.log("p_num : ${p_num}")
+	$("#p_num").val("${p_num}");
+	
 
 })//문서가 로딩되면 실행할 함수
 
@@ -142,6 +145,7 @@ h3{
 		<p>회원정보 수정을 위해 비밀번호를 입력해 주세요</p>
 		<fieldset class="passcheck">
 			<form action="${contextPath }/member/userCheck" method="post">
+				<input type="hidden" name="p_num" id="p_num">
 				<label>비밀번호 입력 : </label>
 				<input type="password" class="form-control" name="pw">
 				<input type="submit" class="btn btn-my" value="확인">

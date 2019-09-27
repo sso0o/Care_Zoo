@@ -243,20 +243,28 @@ public class MemberController {
 		return "my&customer/checkUser";
 	}
 	
-	
+	// 수정 전회원 확인(비밀번호 확인)
 	@RequestMapping(value = "/userCheck", method=RequestMethod.POST)
-	public String userCheck(int num, String pw, Model m) {
+	public String userCheck(int num, String pw, Model m, @RequestParam(defaultValue = "0") int p_num) {
 		Customer c = memberService.getMemberByC_num(num);
+		String url = "";
 		if(c.getC_pass().equals(pw)) {
 			m.addAttribute("customer", c);
-			return "my&customer/modifyUserinfo";
+			if(p_num == 0) {
+				url= "my&customer/modifyUserinfo";				
+			} else {
+				m.addAttribute("pet", pService.selectPet(p_num));
+				url = "my&customer/modifyPetinfo";
+			}
 		} else { 
 			m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
-			return "my&customer/checkUser";
+			url =  "my&customer/checkUser";
 		}
+		
+		return url;
 	}
 	
-	
+	//회원정보 수정
 	@RequestMapping(value = "/modify", method=RequestMethod.POST)
 	public String modifyUser(Customer c, Model m, MultipartHttpServletRequest mtfRequest) {
 		MultipartFile file = mtfRequest.getFile("file");

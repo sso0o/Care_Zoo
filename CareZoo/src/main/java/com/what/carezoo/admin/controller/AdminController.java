@@ -128,19 +128,19 @@ public class AdminController {
 		return "admin/addPetForm";
 	}
 	
-	@RequestMapping(value = "/addPet", method = RequestMethod.POST)
-	public String addPet(Pet p) {
-		Customer c = mService.getMemberByC_num(p.getC_num());
-		String email = c.getC_email();
-		boolean rst = pService.insertPet(p);
-		if(rst) {
-			System.out.println("true");
-		} else {
-			System.out.println("false");
-		}
-		return "redirect:/admin/memberView?c_email="+email;
-	}
-	
+//	@RequestMapping(value = "/addPet", method = RequestMethod.POST)
+//	public String addPet(Pet p) {
+//		Customer c = mService.getMemberByC_num(p.getC_num());
+//		String email = c.getC_email();
+//		boolean rst = pService.insertPet(p);
+//		if(rst) {
+//			System.out.println("true");
+//		} else {
+//			System.out.println("false");
+//		}
+//		return "redirect:/admin/memberView?c_email="+email;
+//	}
+//	
 	@ResponseBody
 	@RequestMapping("/petchk")
 	public Map<String, Object> petchk(int c_num) {
