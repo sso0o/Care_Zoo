@@ -204,7 +204,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 		})
 		
 		//옵션추가 버튼 클릭시
-		$("#addItemBtn").click(function() {
+		$("#addImgBtn").click(function() {
 // 			
 			//파일 선택란을 보여준다.
 			//$("tr#item1").show();
@@ -451,10 +451,9 @@ legend{
 					<div class="imgs_wrap" id="imgs_wrap" >
 						<img id="img" class="img" >
 					</div>
-					<input type="button" class="btn btn-addImg" id="addItemBtn" value="사진수정">
+					<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진수정">
 					<div id="example"></div>
 				</div>
-				
 				<div class="form-group">
 					<label for="address">주소</label><label class="space"></label>
 	<!-- 				<input type="button" onclick="sample4_execDaumPostcode()" class="btn btn-outline-success" value="우편번호 찾기"> -->

@@ -75,6 +75,21 @@ var index = 1;
 
 $(function() {
 	
+	$("#p_num").val("${pet.p_num}");
+	$("#name").val("${pet.p_name}");
+	$("#kind").val("${pet.p_kind}");
+	$("#sex").val("${pet.p_sex}");
+	$("#none_sex").val("${pet.p_none_sex}");
+	$("#weight").val("${pet.p_weight}");
+	$("#birth").val("${pet.p_birth}");
+	$("#notify").val("${pet.p_notify}");
+	if("${pet.p_img}" != ""){
+		$("#img").attr("src","${contextPath}/pet/image?fileName=${pet.p_img}")
+	} else{
+		$("#img").attr("src","${contextPath}/resources/img/dog.jpg")
+	}
+	
+	
 	//옵션추가 버튼 클릭시
 	$("#addImgBtn").click(function() {
 //			
@@ -289,32 +304,29 @@ legend{
 	<br>
 	<br>
 	<div class="content">
-		<h2>펫 등록</h2>
+		<h2>펫 수정</h2>
 		<hr>
-		<form action="${contextPath }/pet/addPet" method="post"  onsubmit="return checkValue()" enctype="multipart/form-data">
+		<form action="${contextPath }/pet/modifyPet" method="post"  onsubmit="return checkValue()" enctype="multipart/form-data">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>">
+			<input type="hidden" name="p_num" id="p_num">
 			<div class="main">
 				<span style="font-size: 12px; float: right;">* 사항은 필수입니다</span><br>
 				<div class="form-group">
 					<label for="name">*이름</label>
-					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="p_name">
+					<input type="text" class="form-control" id="name" name="p_name" >
 				</div>
 				<div class="form-group">
 					<label for="kind">*견종</label>
-					<input type="text" class="form-control" id="kind" placeholder="견종을 입력해 주세요" name="p_kind">
+					<input type="text" class="form-control" id="kind" name="p_kind" readonly="readonly">
 				</div>
 				<div class="form-group">
 					<label for="birth">*생년월일</label>
-					<input type="date" class="form-control" id="birth" name="p_birth">
+					<input type="date" class="form-control" id="birth" name="p_birth" readonly="readonly">
 				</div>
 				<div class="form-group">
 					<label for="sex">*성별</label><label class="space"></label>
-					<select id="sex" name="p_sex" class="form-control" >
-						<option value="" selected="selected">성별</option>
-						<option value="암컷">암컷</option>
-						<option value="수컷">수컷</option>
-					</select>
+					<input type="text" class="form-control" id="sex" name="p_sex" readonly="readonly">
 				</div>
 				<div class="form-group">
 					<label for="none_sex">*중성화</label><label class="space"></label>
@@ -336,17 +348,17 @@ legend{
 				</div>
 				<div class="form-group">
 					<label for="comment">특이사항</label>
-					<textarea class="form-control" name="p_notify" rows="5" id="comment" placeholder="ex) 닭고기 알러지가 있어요, 슬개골이 약해요"></textarea>
+					<textarea class="form-control" name="p_notify" rows="5" id="notify" placeholder="ex) 닭고기 알러지가 있어요, 슬개골이 약해요"></textarea>
 				</div>
 				<div class="form-group imgs">
 					<div class="imgs_wrap" id="imgs_wrap" >
 						<img id="img" class="img" >
 					</div>
-					<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진 등록">
+					<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진 수정">
 					<div id="example"></div>
 				</div>
 				<div class="btnGroup">
-					<input type="submit" class="btn btn-submit" value="가입">
+					<input type="submit" class="btn btn-submit" value="수정">
 					<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">
 				</div>
 			</div>

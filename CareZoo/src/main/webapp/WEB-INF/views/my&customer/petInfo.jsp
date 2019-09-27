@@ -41,39 +41,34 @@
 	}
 	
 	$(function() {
-		
-		$.ajax({
-			url:"${contextPath}/member/getImg",
-			data:{
-				user_num : user_num
-			},
-			dataType: "JSON",
-			success: function(data) {
-				console.log(data)
-				if(data.filename != null){
-					$("#img").attr("src","${contextPath}/member/image?fileName="+data.filename)
-				} else {
-					$("#img").attr("src","${contextPath}/resources/img/user.jpg")
-				}
-				
-			}, error: function() {
-				alert("error")
-			}
-		})
-		
-		console.log("${pL}")
-		if("${pL}" != null){
-			$("#card-name").text("${pL[0].p_name}");
-			$("#card-kind").text("${pL[0].p_kind}(${pL[0].p_sex})");
-			$("#card-birth").text("${pL[0].p_birth}");
-			$("#card-none-sex").text("${pL[0].p_none_sex}");
-			$("#card-weight").text("${pL[0].p_weight}kg");
-		} else{
+
+		console.log("${pL}");
+		if("${pL.size()}" == 0){
+			alert("데이터 없음")
+			$("#card").addClass("show-none");
+			$("#none-card").removeClass("show-none");
 			$("#card-name").text("");
 			$("#card-kind").text("");
 			$("#card-birth").text("");
 			$("#card-none-sex").text("");
 			$("#card-weight").text("");
+			
+		} else{
+			console.log("이미지 : ${pL[0].p_img}")
+			$("#atag").attr("href","${contextPath}/pet/modifyPetInfo?p_num=${pL[0].p_num}")
+			$("#card").removeClass("show-none");
+			$("#none-card").addClass("show-none")
+			$("#card-name").text("${pL[0].p_name}");
+			$("#card-kind").text("${pL[0].p_kind}(${pL[0].p_sex})");
+			$("#card-birth").text("${pL[0].p_birth}");
+			$("#card-none-sex").text("${pL[0].p_none_sex}");
+			$("#card-weight").text("${pL[0].p_weight}");
+			$("#card-notify").text("${pL[0].p_notify}");
+			if("${pL[0].p_img}" != ""){
+				$("#img").attr("src","${contextPath}/pet/image?fileName=${pL[0].p_img}")
+			} else{
+				$("#img").attr("src","${contextPath}/resources/img/dog.jpg")
+			}
 		}
 		
 		
@@ -87,11 +82,19 @@
 				dataType:"JSON",
 				success: function(data) {
 					console.log(data)
+					$("#atag").attr("href","${contextPath}/pet/modifyPetInfo?p_num="+data.petInfo.p_num)
 					$("#card-name").text(data.petInfo.p_name);
 					$("#card-kind").text(data.petInfo.p_kind+"("+data.petInfo.p_sex+")");
 					$("#card-birth").text(data.petInfo.p_birth);
 					$("#card-none-sex").text(data.petInfo.p_none_sex);
-					$("#card-weight").text(data.petInfo.p_weight+"kg");
+					$("#card-weight").text(data.petInfo.p_weight);
+					$("#card-notify").text(data.petInfo.p_notify);
+					if(data.petInfo.p_img != null){
+						$("#img").attr("src","${contextPath}/pet/image?fileName="+data.petInfo.p_img)
+					} else{
+						$("#img").attr("src","${contextPath}/resources/img/dog.jpg")
+					}
+					
 					
 				}, error : function() {
 					alert("펫정보가져오기 에러!")
@@ -118,6 +121,7 @@
 
 .card{
 	margin: 30px auto;
+	width: 350px;
 }
 
 .card-body{
@@ -128,6 +132,7 @@
 	color: #40bf9f;
 	background-color: #fff;
 	border-color: #40bf9f;
+	margin-top: 15px;
 }
 
 .btn-my:hover{
@@ -169,9 +174,25 @@
 	color: white;
 	
 	margin-left: 10px;
-
 }
 
+.show-none{
+	display: none;
+}
+
+.text-dark{
+	line-height: 2.5em;
+}
+
+#none-card{
+	margin: 100px auto;
+}
+
+textarea {
+	width: 300px;
+	border-radius: .125em;
+	
+}
 
 </style>
 <title>petPage</title>
@@ -248,7 +269,7 @@
 				</c:forEach>
 			</select>
 			<hr>
-			<div class="card" style="width: 350px">
+			<div class="card" id="card" >
 				<img class="card-img-top rounded-circle" id="img" alt="Card image">
 				<div class="card-body">
 					<h4 class="card-title" id="card-name"></h4>
@@ -256,8 +277,12 @@
 					<label class="card-label">생년월일</label><p class="card-text text-center" id="card-birth">(생년월일)</p><br>
 					<label class="card-label">중성화</label><p class="card-text text-center" id="card-none-sex">(중성화)</p><br>
 					<label class="card-label">몸무게</label><p class="card-text text-center" id="card-weight">(몸무게)</p><br>
-					<a href="${contextPath }/member/modifyUserInfo" class="btn btn-my" style="text-align: center;">정보 수정</a>
+					<textarea class="card-text" rows="5" cols="15" id="card-notify" placeholder="특이사항"></textarea>
+					<a id="atag" class="btn btn-my" style="text-align: center;">정보 수정</a>
 				</div>
+			</div>
+			<div class="card bg-light text-dark" id="none-card">
+				<div class="card-body">등록된 반려견이 없습니다. <br>반려견을 등록해주세요!</div>
 			</div>
 		</div>
 	</div>
