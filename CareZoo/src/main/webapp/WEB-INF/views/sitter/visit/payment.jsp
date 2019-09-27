@@ -29,7 +29,7 @@ if($("#hAdd").val()=="0"){
 }else if($("#hAdd").val()=="4"){
 	pay = 60000 +"원";
 }
-$("#hdd").append(pay);
+$(".hdd").append(pay);
 
 var total = "";
 if($("#hAdd").val()=="0"){
@@ -133,9 +133,9 @@ $("#totalPay").append(total);
 <form action="reservation10" method="get">
 	<table>
 		<tr>
-			<td><input type="text" name="c_num" value="${c_num}"></td>
+			<td><input type="hidden" name="c_num" value="${c_num}"></td>
 			<td><c:forEach items="${p_num}" var="p">
-					<input type="text" name="p_num" value="${p}">
+					<input type="hidden" name="p_num" value="${p}">
 				</c:forEach></td>
 		</tr>
 		<tr>
@@ -166,19 +166,22 @@ $("#totalPay").append(total);
 			<tr>
 				<th>추가 시간 내역</th>
 				<th>기본 비용</th>
-				<th>이용 횟수</th>
-				<th>추가비 합계</th>
+<!-- 				<th>이용 횟수</th> -->
+<!-- 				<th>추가비 합계</th> -->
 			</tr>
 			<c:forEach items="${vsr_hAddList}" var="li" >
-				<th>+${li.vsr_hAdd}시간</th>
-				<input type="hidden" id="hAdd" value="${li.vsr_hAdd}">
-				<td><div id="hdd"></div></td>
-				<td><div id="count" style="text-align:center"></div></td>
-				<td><div id="totalPay"></div></td>
+			<tr>
+				<th>+${li.vsr_hAdd}시간
+				<input type="hidden" id="hAdd" value="${li.vsr_hAdd}"></th>
+				<td><div id="hdd" class="hdd"></div></td>
+<!-- 				<td><div id="count" style="text-align:center"></div></td> -->
+			</tr>	
 			</c:forEach>
-				
+			<tr>
+				<th>추가 시간 합계</th>
+				<td><div id="totalPay" class="totalPay"></div></td>	
 		
-
+			</tr>
 	</table>
 	<div>
 		<input type="submit" value="확인">

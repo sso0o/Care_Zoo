@@ -148,20 +148,20 @@ public class CommentController {
 		return rst;
 	}
 	
-	@RequestMapping("/getModalVS")
-	@ResponseBody
-	public Map<String, Object> getModalInfoVS(int num) {
-		VisitSitterReservation vsr = vsrService.getVisitSitterResBuVsrnum(num);
-		VisitSitter vs = vsService.getVisitSitterByNum(vsr.getVs_num());
-		String name = vs.getVs_name();
-		String contact = vs.getVs_contact();
-		Double star = commentService.getStarVS(vs.getVs_num());
-		Map<String, Object> rst = new HashMap<String, Object>();
-		rst.put("name",name);
-		rst.put("contact",contact);
-		rst.put("star",star);
-		return rst;
-	}
+//	@RequestMapping("/getModalVS")
+//	@ResponseBody
+//	public Map<String, Object> getModalInfoVS(int num) {
+//		VisitSitterReservation vsr = vsrService.getVisitSitterResBuVsrnum(num);
+//		VisitSitter vs = vsService.getVisitSitterByNum(vsr.getVs_num());
+//		String name = vs.getVs_name();
+//		String contact = vs.getVs_contact();
+//		Double star = commentService.getStarVS(vs.getVs_num());
+//		Map<String, Object> rst = new HashMap<String, Object>();
+//		rst.put("name",name);
+//		rst.put("contact",contact);
+//		rst.put("star",star);
+//		return rst;
+//	}
 	
 	@RequestMapping("/getModalC")
 	@ResponseBody

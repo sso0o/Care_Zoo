@@ -4,11 +4,15 @@
 <insert id="insertPet_Detail" parameterType="int">
 	insert into pet_detail
 	values
-	(#{vsr_num},#{p_num})
+	(#{vsr_num},#{p_num},#{c_num})
 </insert>
 
 <select id="selectByVsr_Num" resultType="pet_detail" parameterType="int">
 	select * from pet_detail where vsr_num = #{vsr_num}
+</select>
+
+<select id="selectByC_num" parameterType="int" resultType="pet_detail">
+	select * from pet_detail where c_num = #{c_num}
 </select>
 <!-- 	<insert id="insertPet_DetailDao" parameterType="pet_detail"> -->
 <!-- 		<selectKey order="BEFORE" keyProperty="pd_num" -->

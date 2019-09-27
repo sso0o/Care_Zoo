@@ -59,13 +59,13 @@ function oneCheckbox1(a){
 	</tr>
 	<tr>
 		<td id="checkContainer">
-			<input type="checkbox" name="pd_week" id="mon" value="월">월
-			<input type="checkbox" name="pd_week" id="tus" value="화">화
-			<input type="checkbox" name="pd_week" id="wen" value="수">수
-			<input type="checkbox" name="pd_week" id="thu" value="목">목
-			<input type="checkbox" name="pd_week" id="fri" value="금">금
-			<input type="checkbox" name="pd_week" id="sat" value="토">토
-			<input type="checkbox" name="pd_week" id="sun" value="일">일
+			<input type="checkbox" name="vsr_chkin" id="mon" value="1">월
+			<input type="checkbox" name="vsr_chkin" id="tus" value="2">화
+			<input type="checkbox" name="vsr_chkin" id="wen" value="3">수
+			<input type="checkbox" name="vsr_chkin" id="thu" value="4">목
+			<input type="checkbox" name="vsr_chkin" id="fri" value="5">금
+			<input type="checkbox" name="vsr_chkin" id="sat" value="6">토
+			<input type="checkbox" name="vsr_chkin" id="sun" value="0">일
 		</td>
 	</tr>
 	<tr>
@@ -73,10 +73,10 @@ function oneCheckbox1(a){
 	</tr>
 	<tr>
 		<td id="checkContainer2">
-			<input type="checkbox" name="pd_hour" id="one" value="9시~12시" onclick="oneCheckbox(this)">9시~12시
-			<input type="checkbox" name="pd_hour" id="two" value="12시~15시" onclick="oneCheckbox(this)">12시~15시
-			<input type="checkbox" name="pd_hour" id="three" value="15시~18시" onclick="oneCheckbox(this)">15시~18시
-			<input type="checkbox" name="pd_hour" id="four" value="18시~21시" onclick="oneCheckbox(this)">18시~21시
+			<input type="checkbox" name="vsr_hour" id="one" value="9" onclick="oneCheckbox(this)">9시~12시
+			<input type="checkbox" name="vsr_hour" id="two" value="12" onclick="oneCheckbox(this)">12시~15시
+			<input type="checkbox" name="vsr_hour" id="three" value="15" onclick="oneCheckbox(this)">15시~18시
+			<input type="checkbox" name="vsr_hour" id="four" value="18" onclick="oneCheckbox(this)">18시~21시
 		</td>
 	</tr>
 	<tr>
@@ -84,11 +84,11 @@ function oneCheckbox1(a){
 	</tr>
 	<tr>
 		<td id="checkContainer3">
-			<input type="checkbox" name="pd_hAdd" id="0" value="없음" onclick="oneCheckbox1(this)">없음
-			<input type="checkbox" name="pd_hAdd" id="1" value="+1시간" onclick="oneCheckbox1(this)">+1시간
-			<input type="checkbox" name="pd_hAdd" id="2" value="+2시간" onclick="oneCheckbox1(this)">+2시간
-			<input type="checkbox" name="pd_hAdd" id="3" value="+3시간" onclick="oneCheckbox1(this)">+3시간
-			<input type="checkbox" name="pd_hAdd" id="4" value="+4시간" onclick="oneCheckbox1(this)">+4시간
+			<input type="checkbox" name="vsr_hAdd" id="0" value="0" onclick="oneCheckbox1(this)">없음
+			<input type="checkbox" name="vsr_hAdd" id="1" value="1" onclick="oneCheckbox1(this)">+1시간
+			<input type="checkbox" name="vsr_hAdd" id="2" value="2" onclick="oneCheckbox1(this)">+2시간
+			<input type="checkbox" name="vsr_hAdd" id="3" value="3" onclick="oneCheckbox1(this)">+3시간
+			<input type="checkbox" name="vsr_hAdd" id="4" value="4" onclick="oneCheckbox1(this)">+4시간
 		</td>
 	</tr>
 </table>

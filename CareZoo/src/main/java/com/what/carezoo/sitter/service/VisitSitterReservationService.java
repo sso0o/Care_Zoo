@@ -1,5 +1,6 @@
 package com.what.carezoo.sitter.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,15 @@ public class VisitSitterReservationService {
 		return false;
 	}
 	
-	public boolean updateStatus(int vsr_num) {
-		VisitSitterReservation list = new VisitSitterReservation();
-		list.setVsr_num(vsr_num);
-		if(vsrDao.updateStatus(list)>0) {
+	public boolean updateTotalPrice(String vsr_totalPrice,ArrayList<Integer> vsr_num) {
+		if(vsrDao.updateTotalPrice(vsr_totalPrice,vsr_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updateContents(String vsr_attention,String vsr_contents,ArrayList<Integer> vsr_num) {
+		if(vsrDao.updateContents(vsr_attention, vsr_contents, vsr_num)>0) {
 			return true;
 		}
 		return false;

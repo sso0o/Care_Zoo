@@ -64,6 +64,7 @@ $( document ).ready( function() {
 				</tr>
 				<tr>
 				<c:forEach items="${list}" var="li">
+				<input type="hidden" name="vsr_num" value="${li.vsr_num}">
 				<input type="hidden" id="vsr_hour" name ="vsr_hour" value="${li.vsr_hour}">
 					<tr><th>${li.vsr_chkin}
 					<input type="button" onclick="petDeleteOpen(${c_num},${li.vsr_num})" value="x">

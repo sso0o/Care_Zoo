@@ -4,6 +4,15 @@ public class Pet_Detail {
 
 	private int vsr_num;
 	private int p_num;
+	private int c_num;
+	
+	
+	public int getC_num() {
+		return c_num;
+	}
+	public void setC_num(int c_num) {
+		this.c_num = c_num;
+	}
 	public int getVsr_num() {
 		return vsr_num;
 	}
@@ -18,7 +27,7 @@ public class Pet_Detail {
 	}
 	@Override
 	public String toString() {
-		return "Pet_Detail [vsr_num=" + vsr_num + ", p_num=" + p_num + "]";
+		return "Pet_Detail [vsr_num=" + vsr_num + ", p_num=" + p_num + ", c_num=" + c_num + "]";
 	}
 
 }
