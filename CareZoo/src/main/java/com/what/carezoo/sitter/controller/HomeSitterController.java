@@ -89,6 +89,22 @@ public class HomeSitterController {
 		model.addAttribute("hslList", hslService.getbySearchingHsl(hsl_address,hsl));
 		return "sitter/home/homeSitterList";
 	}
+	//가정시터 목록 json 보내기
+	@ResponseBody
+	@RequestMapping("/homeSitterSearch")
+	public List<HomeSitterList> homeSitterSearch(@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+		if(hsl==null) {			
+			hsl = new HomeSitterList();
+		}
+		if(hsl_address==null) {
+			hsl_address = new ArrayList<String>(); 			
+		}		
+		System.out.println("모델:"+hsl_address);
+		System.out.println("hsl:"+hsl);
+		System.out.println("값"+hslService.getbySearchingHsl(hsl_address,hsl));
+		List<HomeSitterList>  hslList = hslService.getbySearchingHsl(hsl_address,hsl);
+		return hslList;
+	}
 	// 가정시터 게시글 등록 뷰 보여주기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeHsl(Model model) {
@@ -153,7 +169,17 @@ public class HomeSitterController {
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
 	public String reserveHomeSitter(Model model, int hsl_num, @RequestParam Map<String,Object> params) {
-		System.out.println("123123 : " + hsl_num);
+		System.out.println("예약 : " + hsl_num);
+		System.out.println(params);
+		model.addAttribute("params", params);
+//		System.out.println(hslService.getallHsl(hsl_num));
+//		model.addAttribute("hsr", hsr);
+//		model.addAttribute("hsList", hslService.getallHsl(hsl_num));
+		return "sitter/home/homeSitterReservation";
+	}
+	@RequestMapping(value = "/confirm" , method = RequestMethod.POST)
+	public String confirmHomeSitter(Model model, int hsr_numof_pet, @RequestParam Map<String,Object> params) {
+		System.out.println("확인 : " + hsr_numof_pet);
 		System.out.println(params);
 		model.addAttribute("params", params);
 //		System.out.println(hslService.getallHsl(hsl_num));

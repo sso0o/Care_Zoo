@@ -13,26 +13,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>homeSitterList</title>
 <!-- 가정용 펫시터 리스트 -->
-<!--link for lightslider -->
-<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
-<!-- link for datepicker -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
-<!--  link for DogMate datepicker css -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/>
-<!-- link for navBar -->
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<!-- *필수요소*제이쿼리 -->
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<!-- script for datepicker -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
-<!-- script for navBar -->
-<!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> -->
-<%-- <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>  --%>
+<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" /> <!--이미지 슬라이더  -->
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css"> <!-- 메뉴바 -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' /> <!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' /> <!-- 데이트피커 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet"> <!-- 폰트 -->
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> <!-- 데이트피커 -->
+<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script> <!-- 슬라이드 -->
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> <!-- 메뉴바 -->
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> <!-- 데이트피커 -->
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script> <!-- 데이트피커 -->
 <style type="text/css">
 ul {
 	list-style: none outside none;
@@ -68,6 +62,14 @@ cursor: pointer;
 </style>
 <script type="text/javascript"> 
 $(function () {
+	//네비게이션
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
 	//검색탭
 	var isMenu1 = false;
 	$("#menu_1").on("click", function(){	
@@ -126,31 +128,77 @@ $(function () {
 		dateFormat: 'yy-mm-dd', 
 		minDate: moment('yy-mm-dd').toDate()
 	});
-	//이미지 슬라이더
-	$('.image-gallery').lightSlider({
-		isthumb : false, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
-		gallery : true,
-		item : 1,
-		thumbItem : 9,
-		slideMargin : 0,
-		speed : 1000,
-		pause : 4000,
-		auto : true,
-		loop : true,
-		addClass : $('.clearfix'),
-		onSliderLoad : function() {
-			$('.image-gallery').removeClass('cS-hidden');
-		}
-	});
-	//네비게이션
-	function logoutCheck() {
-		if (confirm("정말 로그아웃?") == true) {
-			location.href = '${contextPath}/logout'
-		} else {
-			return false;
-		}
-	}
+	var breaker = 0;
+	var homeSitterListDiv = $('.homeSitterlist');
+	loadingPage();
+	function loadingPage() {
+		$.ajax({
+			url : "${contextPath}/home/homeSitterSearch",
+			dataType : "JSON",
+			success : function(hslList) {	
+				console.log("성공!");
+				for (i; breaker < 8; i++) {
+					console.log(i);
+					if (breaker < 7) {
+						var homeSitterDiv = $('<div class = "homesitterList" onclick="location.href=\'${contextPath}/home/view?hsl_num='+ hslList[i].HSL_NUM+ '\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
+						var homeSitterDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
+						homeSitterDiv.append(homeSitterDiv2);
+						var itemDiv = $('<div class="item" style="heigth:350;width:350px">');
+						homeSitterDiv2.append(itemDiv);
+						var clearfixDiv = $('<div class="clearfix" style="max-width: 350px;">');
+						itemDiv.append(clearfixDiv);
+						var imagegalleryDiv = $('<ul style="width:350px;">');
+						clearfixDiv.append(imagegalleryDiv);
 	
+						for ( var a in hslList[i].HSL_IMG_FILENAME) {
+							var imgli = $("<li data-thumb='${contextPath}/home/image?fileName="+ hslList[i].HSL_IMG_FILENAME[a]+ "'>");
+							imagegalleryDiv.append(imgli);
+							$("<img style='width: 350px; height: 350px;' src='${contextPath}/home/image?fileName="+ hslList[i].HSL_IMG_FILENAME[a]+ "'/>").appendTo(imgli);
+						}
+	
+						imagegalleryDiv.lightSlider({
+							isthumb : false, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
+							gallery : true,
+							item : 1,
+							thumbItem : 9,
+							slideMargin : 0,
+							speed : 1000,
+							pause : 4000,
+							auto : true,
+							loop : true,
+							addClass : clearfixDiv,
+							onSliderLoad : function() {
+								imagegalleryDiv.removeClass('cS-hidden');
+							}
+						});
+	
+						var aArDiv = $('<div style="">');
+						$('<span>').text(hslList[i].HS_NAME).appendTo(aArDiv);
+						$('<div>'+ hslList[i].HSL_ADDRESS+ hslList[i].HSL_D_ADDRESS+'</div>').appendTo(aArDiv);
+						var totalPrice = $('<div>').text(hslList[i].HSL_PRICE);
+						totalPrice.appendTo(aArDiv);
+						var reviewDiv = $('<div>');
+						$('<span>').text('후기: '+ hslList[i].ph_c_count+ '개 '+ hslList[i].ph_avgStar).appendTo(reviewDiv);
+						reviewDiv.appendTo(aArDiv);
+						aArDiv.appendTo(petHotelDiv);
+						$('.homeSitterlist').append(homeSitterDiv);
+						breaker = breaker + 1;
+					} else {
+						breaker = 0;
+						break;	
+					}
+				}
+			},
+			error : function() {
+				alert("데이터를 불러오는데 실패했습니다.")
+			}
+		})
+	}
+	$(window).scroll(function() { //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+		if ($(window).scrollTop() >= $(document).height()- $(window).height()) {
+			loadingPage();
+		}
+	});	
 });
 	//이미지 띄우기
 	// ajax로 이미지 띄우기 왜냐면 map으로 받으니깐!!!
@@ -222,7 +270,7 @@ $(function () {
 							<td>
 								<table id="maintable" style="width: 100%; height: 30px">
 									<tr>
-										<td id="menu_0" class="td_mainmenubox_Off" style="cursor: hand"><a href="${contextPath}/petHotel/petHotelList">전체</a></td>
+										<td id="menu_0" class="td_mainmenubox_Off" style="cursor: hand"><a href="${contextPath}/home/main">전체</a></td>
 										<td id="menu_1" class="td_mainmenubox_Off" style="cursor: hand"><a href="#">서울</a></td>
 										<td id="menu_2" class="td_mainmenubox_Off" style="cursor: hand"><a href="#">경기</a></td>
 										<td id="menu_3" class="td_mainmenubox_Off" style="cursor: hand"><a href="#">인천</a></td>
@@ -339,36 +387,36 @@ $(function () {
 				</table>
 			</div>
 		</form>
-		<div class="homeSitterlist">
-			<c:forEach var="hslList" items="${hslList}">
-				<div class = "homesitterList" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'"  style="border: 1px solid; margin: 50px; height: 350px;">
-					<div style="width: auto; display: inline-block display:inline; float: left;">
-						<div class="item">
-							<div class="clearfix" style="max-width: 350px;">
-								<ul class="image-gallery" class="gallery list-unstyled cS-hidden">
-									<c:forEach items="${hslList.HSL_IMG_FILENAME}" var="fn">
-										<li data-thumb="${contextPath}/home/image?fileName=${fn}">
-											<img src="${contextPath}/home/image?fileName=${fn}" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'" style="width: 350px; height: 350px;" />										
-										</li>
-									</c:forEach>
-								</ul>
-							</div>
-						</div>
-						<br>
-					</div>
-					<div>
-						<span></span> <br> <a href="${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br>
-						<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div>
-						<div>
-							<fmt:formatNumber value="${hslList.HSL_PRICE}" pattern="#,###" />+
-						</div>
-						<div>
-							후기:${hslList.ph_c_count}개 <br> ${hslList.HS_STAR }
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
+<!-- 		<div class="homeSitterlist"> -->
+<%-- 			<c:forEach var="hslList" items="${hslList}"> --%>
+<%-- 				<div class = "homesitterList" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'"  style="border: 1px solid; margin: 50px; height: 350px;"> --%>
+<!-- 					<div style="width: auto; display: inline-block display:inline; float: left;"> -->
+<!-- 						<div class="item"> -->
+<!-- 							<div class="clearfix" style="max-width: 350px;"> -->
+<!-- 								<ul class="image-gallery" class="gallery list-unstyled cS-hidden"> -->
+<%-- 									<c:forEach items="${hslList.HSL_IMG_FILENAME}" var="fn"> --%>
+<%-- 										<li data-thumb="${contextPath}/home/image?fileName=${fn}"> --%>
+<%-- 											<img src="${contextPath}/home/image?fileName=${fn}" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'" style="width: 350px; height: 350px;" />										 --%>
+<!-- 										</li> -->
+<%-- 									</c:forEach> --%>
+<!-- 								</ul> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<br> -->
+<!-- 					</div> -->
+<!-- 					<div> -->
+<%-- 						<span></span> <br> <a href="${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br> --%>
+<%-- 						<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div> --%>
+<!-- 						<div> -->
+<%-- 							<fmt:formatNumber value="${hslList.HSL_PRICE}" pattern="#,###" />+ --%>
+<!-- 						</div> -->
+<!-- 						<div> -->
+<%-- 							후기:${hslList.ph_c_count}개 <br> ${hslList.HS_STAR } --%>
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</div> -->
 	</div>
 </div>
 </body>                                                  
