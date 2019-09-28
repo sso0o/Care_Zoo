@@ -204,6 +204,7 @@
 									}else{
 						            console.log("onClose 실행!!");
 	 						        var start = $('.col-dates .pull-left').datepicker('getDate');
+	 						        console.log("start:"+start);
 		 					        var end   = $('.col-dates .pull-right').datepicker('getDate');
 		 					        days   = (end - start)/1000;
 		 					        days   = days/60;
@@ -231,7 +232,7 @@
 
 		 							var sForm=$('<div class="selectForm" style="text-align:center">');
 		 	 						$('<label>').text("방: ").appendTo(sForm);
-		 							var roomSelectBox = $('<select class="rSelect">');
+		 							var roomSelectBox = $('<select class="rSelect" name="ph_num">');
 		 							
 		 							roomSelectBox.on("change",function(){
 		 								currentVal = 0;
@@ -269,11 +270,11 @@
 		 			 						PriceAndSize.append('&nbsp;');
 		 									for(var i=0;i<size.length; i++){
 		 										if(size[i]=="소형견"){
-		 			 						$("<option value='"+size[i]+"'>소형견(5kg이하)</option>").appendTo(selectbox);
+		 			 						$("<option value='"+size[i]+"'>소형견(7kg미만)</option>").appendTo(selectbox);
 		 										}else if(size[i]=="중형견"){
-		 			 						$("<option value='"+size[i]+"'>중형견(5~10kg)</option>").appendTo(selectbox);
+		 			 						$("<option value='"+size[i]+"'>중형견(7~15kg)</option>").appendTo(selectbox);
 		 										}else{
-		 			 						$("<option value='"+size[i]+"'>대형견(15kg이상)</option>").appendTo(selectbox);
+		 			 						$("<option value='"+size[i]+"'>대형견(15kg초과)</option>").appendTo(selectbox);
 		 										}
 		 									}
 		 									PriceAndSize.append(selectbox);
@@ -282,7 +283,9 @@
 		 			 						//소형견 대형견 ,로 나눠서 3개로 만든다음에 select으로 만들어야함,,
 		 			 						$('<hr>').appendTo(resForm);
 		 			 						var nightCount=$('<div class="night" style="display:inline-block">');
-		 			 						$('<div class="nightCount" style="text-align:left; float:left">').text(days+"박: ").appendTo(nightCount);
+		 			 						$('<div name="" class="nightCount" style="text-align:left; float:left">').text(days).appendTo(nightCount);
+		 			 						$('<input type="hidden" name="days" value="'+days+'">').appendTo(nightCount);
+		 			 						$('<div class="nightCount" style="text-align:left; float:left">').text("박: ").appendTo(nightCount);
 		 			 						var countPrice = $('<div class="countPrice" style="float:right">');
 		 			 						$('<span class="nightCountPrice">').text(numberWithCommas(data.phrm_price*days)).appendTo(countPrice);
 		 			 						$('<span>').text("원").appendTo(countPrice);
@@ -552,6 +555,16 @@
 		});
 		roomCalendar();
 	});
+	
+
+	function checkValue() {
+		if((<%=session.getAttribute("user_num")%>) =="null"){
+			alert("null임");
+		}
+
+return true;
+	}
+	
 </script>
 <style>
 #map_canvas {
@@ -1046,7 +1059,7 @@ input[type="number"] {
 		</div>
 		<br> <br>
 		<div style="float: left;">
-			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
+			<form action="${contextPath }/petHotel/petHotelResForm" >
 				<div style="padding: 10px; font-size: 15px; width: auto; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px;">
 
 					<div class="col-dates" style="text-align: center;">

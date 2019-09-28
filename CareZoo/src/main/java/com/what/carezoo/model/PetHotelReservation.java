@@ -1,19 +1,33 @@
 package com.what.carezoo.model;
 
 public class PetHotelReservation {
-    private int phr_num;
+	private int phr_num;
 	private int c_num;
 	private int p_num;
 	private int ph_num;
+	private int phrm_num;
+	private int p_count;
 	private String phr_chkin;
 	private String phr_chkout;
 	private String phr_status;
-	
+	public int getP_count() {
+		return p_count;
+	}
+	public void setP_count(int p_count) {
+		this.p_count = p_count;
+	}
 	public int getPhr_num() {
 		return phr_num;
 	}
-	public void setPhr_num(int phr_num) {
-		this.phr_num = phr_num;
+	public void setPhrm_num(int phrm_num) {
+		this.phrm_num = phrm_num;
+	}
+	
+	public int getPhrm_num() {
+		return phrm_num;
+	}
+	public void setPhr_num(int phrm_num) {
+		this.phrm_num = phrm_num;
 	}
 	public int getC_num() {
 		return c_num;
@@ -55,8 +69,8 @@ public class PetHotelReservation {
 	@Override
 	public String toString() {
 		return "PetHotelReservation [phr_num=" + phr_num + ", c_num=" + c_num + ", p_num=" + p_num + ", ph_num="
-				+ ph_num + ", phr_chkin=" + phr_chkin + ", phr_chkout=" + phr_chkout + ", phr_status=" + phr_status
-				+ "]";
+				+ ph_num + ", phrm_num=" + phrm_num + ", p_count=" + p_count + ", phr_chkin=" + phr_chkin
+				+ ", phr_chkout=" + phr_chkout + ", phr_status=" + phr_status + "]";
 	}
 	
 }
