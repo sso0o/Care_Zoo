@@ -7,13 +7,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 필수요소 -->
-<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
 <!-- link for datepicker -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
-<!--  link for DogMate datepicker css -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"><!-- datePicker -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/><!-- datePicker -->
+<link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css'/><!-- dateTimePicker -->
+<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css" type='text/css'>안이쁨 dateTimePicker  -->
+
 <!-- link for navBar -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -21,9 +20,11 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <!-- script for datepicker -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
-<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><!-- datePicker -->
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> <!-- moment.js -->
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script><!-- datePicker -->
+<script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
+<!--  <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>안이쁨 dateTimePicker  -->
 <meta charset="UTF-8">
 <title>homeSitterView</title>
 <!-- 가정집 펫시터 상세내용 -->
@@ -39,7 +40,19 @@ $(function() {
 	    } else {
 	        return [false,"","Booked Out"];
 	    }
-	}	
+	}
+	var pickupTime = $('#pickUpTime').timepicker({
+		minTime:'07:00' ,
+		timeFormat: "HH:mm",
+		maxTime: '22:00',
+		stepMinute: 30		
+	});
+	var takebackTime = $('#takeBackTime').timepicker({
+		minTime:'07:00' ,
+		timeFormat: "HH:mm",
+		maxTime: '22:00',
+		stepMinute: 30
+	});
 	var datepickerStart = $('#checkin').datepicker({
 		beforeShowDay: unavailableD,
 		dateFormat: 'yy-mm-dd', 
@@ -51,6 +64,10 @@ $(function() {
 			} 
 			showDays();
 		}
+// 		minTime:'07:00' ,
+// 		timeFormat: "HH:mm",
+// 		maxTime: '22:00',
+// 		stepMinute: 30
 	});
 	var datepickerEnd = $('#checkout').datepicker({
 		beforeShowDay: unavailableD,
@@ -71,6 +88,37 @@ $(function() {
 			alert("성공")
 			return [true];
 		}
+	});
+	$('#petSize-select').off("change").on("change",function() {
+		console.log("펫사이즈")
+		empdays = document.getElementById('days').value;
+		console.log("petSize-select")
+		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
+			pricePerPetSize = 15000;
+			if(days==0){
+				pricePerDay = 20000;
+				empdays = 1;
+			}else if(days > 0){
+				pricePerDay = 40000;
+				empdays = days;
+			}
+		}else{
+			console.log('대형견');
+			pricePerPetSize = 25000;
+			if(days==0){
+				pricePerDay = 30000;
+				empdays = 1;
+			}else if(days> 0){
+				pricePerDay = 50000;
+				empdays = days;
+			}
+		}
+		calculatePrice(); 
+	});
+	//반려견 추가 당
+	$('#hsr_numof_pet').off("change").on("click", function(){
+		console.log("펫추가")
+		calculatePrice();
 	});
 });
 var days = 0;
@@ -132,61 +180,61 @@ function calculatePrice() {
 	$('#totalpriceInput').val(totalPrice);
 	$('#pricePerPetSize').val(pricePerPetSize);
 	$('#PricePerDay').val(pricePerDay);
-	//펫 크기 당
-	$('#petSize-select').off("change").on("change",function() {
-		empdays = document.getElementById('days').value;
-		console.log("petSize-select")
-		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
-			pricePerPetSize = 15000;
-			if(days==0){
-				pricePerDay = 20000;
-				empdays = 1;
-			}else if(days > 0){
-				pricePerDay = 40000;
-				empdays = days;
-			}
-		}else{
-			console.log('대형견');
-			pricePerPetSize = 25000;
-			if(days==0){
-				pricePerDay = 30000;
-				empdays = 1;
-			}else if(days> 0){
-				pricePerDay = 50000;
-				empdays = days;
-			}
-		}
-		console.log("펫사이즈 : "+pricePerPetSize);
-		console.log("pricePerDay : "+pricePerDay);
-		console.log("empdays ; "+empdays);
-		//
-		totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
-		totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
-		console.log("totalPrice ; "+totalPrice);
-		$('#addPet').empty().append(pricePerPetSize);
-		$('.pricePerDay').empty().append(pricePerDay);
-		$('#totalAddPetPrice').empty().append(totalAddPetPrice);
-		$('#hsr_totalprice').empty().append(totalPrice);
-		$('#totalpriceInput').val(totalPrice);
-		$('#hsr_duringdays').val(days);
-		$('#pricePerPetSize').val(pricePerPetSize);
-		$('#PricePerDay').val(pricePerDay);
-	});
-	//반려견 추가 당
-	$('#hsr_numof_pet').off("change").on("click", function(){
-		console.log("펫추가")
-		totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
-		totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
-		console.log("totalPrice ; "+totalPrice);
-		$('#addPet').empty().append(pricePerPetSize);
-		$('.pricePerDay').empty().append(pricePerDay);
-		$('#totalAddPetPrice').empty().append(totalAddPetPrice);
-		$('#hsr_totalprice').empty().append(totalPrice);
-		$('#totalpriceInput').val(totalPrice);
-		$('#hsr_duringdays').val(days);
-		$('#pricePerPetSize').val(pricePerPetSize);
-		$('#PricePerDay').val(pricePerDay);
-	});
+// 	//펫 크기 당
+// 	$('#petSize-select').off("change").on("change",function() {
+// 		empdays = document.getElementById('days').value;
+// 		console.log("petSize-select")
+// 		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
+// 			pricePerPetSize = 15000;
+// 			if(days==0){
+// 				pricePerDay = 20000;
+// 				empdays = 1;
+// 			}else if(days > 0){
+// 				pricePerDay = 40000;
+// 				empdays = days;
+// 			}
+// 		}else{
+// 			console.log('대형견');
+// 			pricePerPetSize = 25000;
+// 			if(days==0){
+// 				pricePerDay = 30000;
+// 				empdays = 1;
+// 			}else if(days> 0){
+// 				pricePerDay = 50000;
+// 				empdays = days;
+// 			}
+// 		}
+// 		console.log("펫사이즈 : "+pricePerPetSize);
+// 		console.log("pricePerDay : "+pricePerDay);
+// 		console.log("empdays ; "+empdays);
+// 		//
+// 		totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
+// 		totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
+// 		console.log("totalPrice ; "+totalPrice);
+// 		$('#addPet').empty().append(pricePerPetSize);
+// 		$('.pricePerDay').empty().append(pricePerDay);
+// 		$('#totalAddPetPrice').empty().append(totalAddPetPrice);
+// 		$('#hsr_totalprice').empty().append(totalPrice);
+// 		$('#totalpriceInput').val(totalPrice);
+// 		$('#hsr_duringdays').val(days);
+// 		$('#pricePerPetSize').val(pricePerPetSize);
+// 		$('#PricePerDay').val(pricePerDay);
+// 	});
+// 	//반려견 추가 당
+// 	$('#hsr_numof_pet').off("change").on("click", function(){
+// 		console.log("펫추가")
+// 		totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
+// 		totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
+// 		console.log("totalPrice ; "+totalPrice);
+// 		$('#addPet').empty().append(pricePerPetSize);
+// 		$('.pricePerDay').empty().append(pricePerDay);
+// 		$('#totalAddPetPrice').empty().append(totalAddPetPrice);
+// 		$('#hsr_totalprice').empty().append(totalPrice);
+// 		$('#totalpriceInput').val(totalPrice);
+// 		$('#hsr_duringdays').val(days);
+// 		$('#pricePerPetSize').val(pricePerPetSize);
+// 		$('#PricePerDay').val(pricePerDay);
+// 	});
 	return true;
 }
 //네비게이션
@@ -203,7 +251,7 @@ function logoutCheck() {
 <div>
 	<div class="container">
 	    <header>
-	        <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+	        <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 	     
 	        <div class="header_Btn" id="sessioncheck"> 
 	        <sec:authorize access="isAnonymous()">
@@ -259,11 +307,6 @@ function logoutCheck() {
 				<li>$KG부터 모두 가능합니다.</li>
 				<li>${hsList.hsl_pet_age }케어 가능합니다.</li>
 			</ul>
-			<ul>
-				<li>체크인 체크아웃 시간</li>
-				<li>체크인 : ${hsList.hsl_chkin }</li>
-				<li>체크아웃 : ${hsList.hsl_chkout }</li>
-			</ul>
 		</div>
 		<fieldset>
 			<legend>돌보미환경</legend>
@@ -301,9 +344,9 @@ function logoutCheck() {
 					<div>
 						<ul>
 							<li>시작/마침날짜 선택할 수 있도로 누르면 달력 띄우기<br>
-								<input type="text" id="checkin" name="hsr_chkin"><br>
-								<input type="text" id="checkout" name="hsr_chkout"><br>
-								<input type="text" id="days" name="hsr_duringdays" value="0">
+								<input type="text" id="checkin" name="hsr_chkin"> 맡기는 시간 : <input type="text" id="pickUpTime" name="pickUpTime"><br>
+								<input type="text" id="checkout" name="hsr_chkout"> 데리러 오는 시간 : <input type="text" id="takeBackTime" name="takeBackTime"><br>
+								<input type="hidden" id="days" name="hsr_duringdays" value="0">
 							</li>
 							<li><span class="pricePerDay">20000</span>원 
 								<span>
@@ -317,19 +360,19 @@ function logoutCheck() {
 							<li><span id ="DAY">1 day</span> <span class="pricePerDay"> 20000</span>원</li>
 							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li>
 							<li>총 가격 : <span id="hsr_totalprice">20,000</span>원<br>
-							<input type="text" name="hsr_totalprice" id="totalpriceInput">
-							<input type="text" name="pricePerPetSize" id="pricePerPetSize">
-							<input type="text" name="PricePerDay" id="PricePerDay">
-							<input type="text" name="Days" id="Days">
+							<input type="hidden" name="hsr_totalprice" id="totalpriceInput">
+							<input type="hidden" name="pricePerPetSize" id="pricePerPetSize">
+							<input type="hidden" name="PricePerDay" id="PricePerDay">
+							<input type="hidden" name="Days" id="Days">
 							</li>
 						</ul>					
 						<ul>
 							<li><input type="submit" value="예약하기"><input type="reset" value="초기화"></li>
 						</ul>
 					</div>
-					<input type="text" name="c_num" value="<%=session.getAttribute("user_num")%>">
-					<input type="text" name="hsl_num" value="${hsList.hsl_num }">
-					<input type="text" name="hs_num" value="${hsList.hs_num}">
+					<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>">
+					<input type="hidden" name="hsl_num" value="${hsList.hsl_num }">
+					<input type="hidden" name="hs_num" value="${hsList.hs_num}">
 				</form>
 			</fieldset>
 		</div>

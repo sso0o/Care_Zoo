@@ -12,6 +12,7 @@
 <!-- link for datepicker -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/>
+<link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css'/>
 <!--  link for DogMate datepicker css -->
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css'/>
 <!-- link for navBar -->
@@ -24,6 +25,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
+<script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>     
 <meta charset="UTF-8">
 <title>Reservation</title>
 <!-- 가정집 펫시터 예약하기 -->
@@ -36,6 +38,7 @@ function logoutCheck() {
 		return false;
 	}
 }
+
 </script>
 </head>
 <body>
@@ -101,6 +104,10 @@ function logoutCheck() {
 		<input name="hsl_num" value="${params.hsl_num }"> 
 		<input name="c_num" value="<%=session.getAttribute("user_num")%>">
 		<input name="hs_num" value="${params.hs_num}" >
+		<input name="hsr_chkin" value="${params.hsr_chkin}" >
+		<input name="hsr_chkout" value="${params.hsr_chkout}" >
+		<input name="PricePerDay" value="${params.PricePerDay}" >
+		<input name="pricePerPetSize" value="${params.pricePerPetSize}" >
 		<div>
 			<ul>
 				<li>
@@ -118,7 +125,7 @@ function logoutCheck() {
 				<li>
 					<dl>
 						<dt>총 반려견</dt>
-						<dd>${params.hsr_numof_pet+1}<input type="text" value="${params.hsr_numof_pet}+1"></dd>
+						<dd>${params.hsr_numof_pet+1}<input type="text" name="hsr_numof_pet" value="${params.hsr_numof_pet+1}"></dd>
 					</dl>
 				</li>
 			</ul>
@@ -140,7 +147,7 @@ function logoutCheck() {
 				<li>* 메시지 내용은 안전거래 등의 목적으로 회사가 열람, 수집할 수 있습니다.</li>
 			</ul>
 		</div>
-		<textarea placeholder="김수연 돌보미에게 예약요청을 위해 메시지를 남겨주세요." maxlength="4000" id="txtMESSAGE" style="margin: 0px;width: 1099px;height: 126px;"></textarea>
+		<textarea name="hsr_message" placeholder="김수연 돌보미에게 예약요청을 위해 메시지를 남겨주세요." maxlength="4000" id="txtMESSAGE" style="margin: 0px;width: 1099px;height: 126px;"></textarea>
 		<dl>
 			<dt>사전만남 가능 일자를 알려주세요!</dt>
 			<dd>
@@ -152,7 +159,7 @@ function logoutCheck() {
 		<dl>
 			<dt>도그메이트를 이용하시는 이유에 대해 알려주세요!</dt>
 			<dd>
-				<select>
+				<select name="hsr_purpose">
 					<option value="여행">여행</option>
 					<option value="출장">출장</option>
 					<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
