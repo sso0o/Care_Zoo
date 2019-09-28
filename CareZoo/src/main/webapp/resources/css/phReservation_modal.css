@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+.modal-modify {
+	overflow: hidden;
+	z-index: 999;
+	display: none;
+	left: 0;
+	top: 0;
+	position: fixed;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-table {
+	background-color: #fefefe;
+	padding-top: 5px;
+	padding-left: 40px;
+	padding-right: 20px;
+	padding-bottom: 10px; 
+	border : 1px solid #888;
+	width: 550px; /* Could be more or less, depending on screen size */
+	height: 300px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -275px;
+	border: 1px solid #888;
+}
+
+.modal-table th {
+	background-color: #7858a7;
+}
+
+.modal-content.name {
+	color: #555;
+	
+}
+
+.modal-content.name:hover, .modal-content.name:focus{
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-content {
+ 	border: none; 
+	font-size: 20px;
+	line-height:2.5em;
+	width: 95%;	
+	margin-left: 10px;
+	text-align: center;
+}
+
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.review{
+	color: #aaa;
+	float: right;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.close:hover, .close:focus,
+.review:hover, .review:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#modal-address{
+	font-size: 13px;
+	text-align: right;
+	padding-right: 10px;
+	white-space: normal;
+}
