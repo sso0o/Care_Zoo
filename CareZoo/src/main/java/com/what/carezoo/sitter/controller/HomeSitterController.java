@@ -92,28 +92,34 @@ public class HomeSitterController {
 		return "sitter/home/homeSitterList";
 	}
 	//가정시터 목록 json 보내기
-//	@ResponseBody
-//	@RequestMapping("/homeSitterSearch")
-//	public List<HomeSitterList> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
-//		if(switchNumber ==1) {
-//			if(hsl==null) {			
-//				hsl = new HomeSitterList();
-//			}
-//			if(hsl_address==null) {
-//				hsl_address = new ArrayList<String>(); 			
-//			}		
-//			System.out.println("모델:"+hsl_address);
-//			System.out.println("hsl:"+hsl);
-//			System.out.println("값"+hslService.getbySearchingHsl(hsl_address,hsl));
-//			List<HomeSitterList>  hslList = hslService.getbySearchingHsl(hsl_address,hsl);
-//			return hslList;
-//			
-//		}else {
-//			List<HomeSitterList> hslList = hslService.getHsl();
-//			return hslList;
-//		}
-//	
-//	}
+	@RequestMapping("/maain")
+	public String home(Model model) {
+		return "sitter/home/example";
+	}
+	@ResponseBody
+	@RequestMapping("/searchLodagin")
+	public List<HomeSitterList> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+		System.out.println("여기까지?");
+		System.out.println("swichNumber=====>" + switchNumber);
+		if(switchNumber ==1) {
+			if(hsl==null) {			
+				hsl = new HomeSitterList();
+			}
+			if(hsl_address==null) {
+				hsl_address = new ArrayList<String>(); 			
+			}		
+			System.out.println("모델:"+hsl_address);
+			System.out.println("hsl:"+hsl);
+			System.out.println("값"+hslService.getbySearchingHsl(hsl_address,hsl));
+			List<HomeSitterList>  hslList = hslService.getbySearchingHsl(hsl_address,hsl);
+			return hslList;
+			
+		}else {
+			List<HomeSitterList> hslList = hslService.getHsls();
+		
+			return hslList;
+		}
+	}
 	// 가정시터 게시글 등록 뷰 보여주기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeHsl(Model model) {

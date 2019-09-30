@@ -66,6 +66,9 @@ public class HomeSitterListService {
 	public List<Map<String, Object>> getHsl(){
 		return hslDao.selectallHsl();
 	}
+	public List<HomeSitterList> getHsls(){
+		return hslDao.selectHsls();
+	}
 	public String writeFile(MultipartFile file) {
 		String fullName = null;
 		UUID uuid = UUID.randomUUID(); // UUID만들어서 파일이름에 붙여서 저장할 파일명 생성
