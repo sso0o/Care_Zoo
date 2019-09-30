@@ -41,7 +41,7 @@ public class HomeSitterController {
 	private HomeSitterListService hslService;
 	@Autowired
 	private HomeSitterReservationService hsResService;
-	
+
 	//가정시터 회원가입/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@RequestMapping("/join")
 	public String joinHomeSitter(HomeSitter hs, Model model) {
