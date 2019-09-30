@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterList;
 import com.what.carezoo.sitter.service.HomeSitterListService;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
@@ -40,29 +41,18 @@ public class HomeSitterController {
 	private HomeSitterListService hslService;
 	@Autowired
 	private HomeSitterReservationService hsResService;
-	// 가정시터목록보여주는 메인 띄우기
-	@RequestMapping("/main")
-	public String enterHomeSitterMain(Model model) {
-//		model.addAttribute("hslList", hslService.getallHsl());
-		List<Map<String, Object>> hslList = hslService.getHsl();
-//		for(int i=0;i<hslList.size();i++) {
-//			System.out.println("GET"+i+"="+hslList.get(i));
-//		}
-		model.addAttribute("hslList",hslList);
-		return "sitter/home/homeSitterList";
-	}
+
+	//가정시터 회원가입/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@RequestMapping("/join")
-	public String joinHomeSitter() {
-		return "sitter/home/homeSitterJoinForm";
-	}
-	
-	//홈시터 정보 가져오기
-	@RequestMapping("/homeSitter")
-	@ResponseBody
-	public Map<String, Object> getHomeSitter(int hs_num){
-		Map<String, Object> rst = new HashMap<String, Object>();
-		rst.put("hs", hsService.getHomeSitterByNum(hs_num));
-		return rst;
+	public String joinHomeSitter(HomeSitter hs, Model model) {
+//		boolean rst = hsService.joinMember(customer);
+//		if(rst) {
+//			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
+//			return "main";
+//		} else {
+//			return "joinForm";
+//		}
+		return "";
 	}
 	//아이디 유효성 검사
 	@ResponseBody
@@ -76,7 +66,30 @@ public class HomeSitterController {
 		map.put("cnt", count);
 		return map;
 	}
-	// 가정시터 검색목록 가져오기
+	// 가정시터목록보여주는 메인 띄우기
+	@RequestMapping("/main")
+	public String enterHomeSitterMain(Model model) {
+//		model.addAttribute("hslList", hslService.getallHsl());
+		List<Map<String, Object>> hslList = hslService.getHsl();
+//		for(int i=0;i<hslList.size();i++) {
+//			System.out.println("GET"+i+"="+hslList.get(i));
+//		}
+		model.addAttribute("hslList",hslList);
+		return "sitter/home/homeSitterList";
+	}
+	
+	//홈시터 정보 가져오기
+	@RequestMapping("/homeSitter")
+	@ResponseBody
+	public Map<String, Object> getHomeSitter(int hs_num){
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("hs", hsService.getHomeSitterByNum(hs_num));
+		return rst;
+	}
+
+	
+	
+	// 가정시터 검색목록 가져오기/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping("/search")
 	public String searchHS(Model model,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address, HomeSitterList hsl) {
 		if(hsl==null) {			
