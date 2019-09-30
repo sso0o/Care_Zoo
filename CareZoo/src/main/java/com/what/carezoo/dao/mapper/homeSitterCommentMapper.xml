@@ -1,4 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterCommentDao">
+	
+	<insert id="insert" parameterType="homeSitterComment">
+		<selectKey order="BEFORE" keyProperty="hsc_num" resultType="int">
+			select HomeSitterComment_seq.nextval from dual
+		</selectKey>
+		insert
+		into HomeSitterComment (phc_num, phr_num, ph_num, c_num, phc_comment, phc_star, phc_write_date, phc_img)
+		values (PetHotelComment_seq.nextval, #{phr_num}, #{ph_num}, #{c_num}, #{phc_comment}, #{phc_star}, #{phc_write_date}, #{phc_img})
+	</insert>
+
+	<update id="update" parameterType="homeSitterComment">
+		update PetHotelComment
+		set phc_comment = #{phc_comment}
+		where phc_num = #{phc_num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from PetHotelComment where phc_num = #{phc_num}
+	</delete>
+	
+	<select id="selectByHsc_num" parameterType="int" resultType="homeSitterComment">
+		select * 
+		from PetHotelComment
+		where phc_num = #{phc_num}
+	</select>
+	
+	<select id="selectByHs_num" parameterType="int" resultType="homeSitterComment">
+		select *
+		from PetHotelComment phc, customer c 
+		where phc.c_num = c.c_num(+) 
+		and ph_num = #{ph_num}
+	</select>
+	
+	<select id="selectAll" parameterType="int" resultType="homeSitterComment">
+		select *
+		from PetHotelComment
+	</select>
+	
+	<select id="hs_star">
+		select ph.ph_num, ph.ph_name, round(star,1)
+		from pethotel ph left outer join(select PetHotelComment, avg(phc_star) star
+										from PetHotelComment
+										group by ph_num
+										order by ph_num )s
+		on ph.ph_num=s.ph_num;
+		
+	</select>
 </mapper>
