@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,12 @@
 
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
 <!-- 슬라이드 -->
@@ -143,11 +149,7 @@
 			console.log(currentVal);
 			total();
 		}
-		
 
-
-		
-		
 	$(document).on(
 			'ready',
 			function() {
@@ -193,69 +195,64 @@
 								minDate : "+1D",
 							});
 				} else {
-					var datepickerEnd = $('.col-dates .pull-right').datepicker(
-							{
-								onClose: function(dateText, inst) { // 날짜 선택 후
-									if($('.col-dates .pull-left').val()==$('.col-dates .pull-right').val()){
-										alert("1박 이상만 가능합니다..");
-										$('.col-dates .pull-left').val("체크인 날짜");
-										$('.col-dates .pull-right').val("체크아웃 날짜");
-									}else{
-									if($('.col-dates .pull-right').val() =="체크아웃 날짜"){
-									}else{
-						            console.log("onClose 실행!!");
-	 						        var start = $('.col-dates .pull-left').datepicker('getDate');
-	 						        console.log("start:"+start);
-		 					        var end   = $('.col-dates .pull-right').datepicker('getDate');
-		 					        days   = (end - start)/1000;
-		 					        days   = days/60;
-		 					        days   = days/60;
-		 					        days   = days/24;
-		 					        alert(days);
-		 					        $('.nightCount').text(days+"박");
-		 					        
-		 					        $('.selectForm').remove(); // 방 선택 selectBox 보여주기.
-		 					     	  $('.drawResForm').remove();
-		 					        
-		 					       var petHotelNum = $('.ph_num').val();
-		 					       var startDate=$('.col-dates .pull-left').val();
-		 					       var endDate=$('.col-dates .pull-right').val();
-		 							$.ajax({
-		 								url : "${contextPath}/petHotel/petHotelRoomDateChoice",
-		 								data : {
-		 									phr_chkin : startDate,
-		 									phr_chkout : endDate,
-		 									ph_num : petHotelNum
-		 								},
-		 								dataType : "JSON",
-		 								
-		 								success : function(data) {
-
-		 							var sForm=$('<div class="selectForm" style="text-align:center">');
-		 	 						$('<label>').text("방: ").appendTo(sForm);
-		 							var roomSelectBox = $('<select class="rSelect" name="ph_num">');
+					var datepickerEnd = $('.col-dates .pull-right').datepicker({
+						onClose: function(dateText, inst) { // 날짜 선택 후
+							if($('.col-dates .pull-left').val()==$('.col-dates .pull-right').val()){
+								alert("1박 이상만 가능합니다..");
+								$('.col-dates .pull-left').val("체크인 날짜");
+								$('.col-dates .pull-right').val("체크아웃 날짜");
+							}else{
+								if($('.col-dates .pull-right').val() =="체크아웃 날짜"){
+							}else{
+								console.log("onClose 실행!!");
+								var start = $('.col-dates .pull-left').datepicker('getDate');
+	 						    console.log("start:"+start);
+		 					    var end   = $('.col-dates .pull-right').datepicker('getDate');
+		 					    days   = (end - start)/1000;
+		 					    days   = days/60;
+		 					    days   = days/60;
+		 					    days   = days/24;
+		 					    alert(days);
+		 					    $('.nightCount').text(days+"박"); 
+		 					 	$('.selectForm').remove(); // 방 선택 selectBox 보여주기.
+		 					   	$('.drawResForm').remove();
+		 					    var petHotelNum = $('.ph_num').val();
+		 					    var startDate=$('.col-dates .pull-left').val();
+		 					    var endDate=$('.col-dates .pull-right').val();
+		 						$.ajax({
+		 							url : "${contextPath}/petHotel/petHotelRoomDateChoice",
+		 							data : {
+		 								phr_chkin : startDate,
+		 								phr_chkout : endDate,
+		 								ph_num : petHotelNum
+		 							},
+		 							dataType : "JSON",
+		 							success : function(data) {
+			 							var sForm=$('<div class="selectForm" style="text-align:center">');
+			 	 						$('<label>').text("방: ").appendTo(sForm);
+			 							var roomSelectBox = $('<select class="rSelect" name="ph_num">');
 		 							
-		 							roomSelectBox.on("change",function(){
-		 								currentVal = 0;
-		 								$('.drawResForm').remove();
+		 								roomSelectBox.on("change",function(){
+		 									currentVal = 0;
+		 									$('.drawResForm').remove();
 		 								
-		 								if ($('.rSelect option:selected').val() == "required") {
+		 									if ($('.rSelect option:selected').val() == "required") {
 
-		 								} else {
-		 									var roomNum = $('.rSelect option:selected').val();
-		 									$.ajax({
-		 										url : "${contextPath}/petHotel/petHotelRoomDetail",
-		 										data : {
+		 									} else {
+		 										var roomNum = $('.rSelect option:selected').val();
+		 										$.ajax({
+		 											url : "${contextPath}/petHotel/petHotelRoomDetail",
+		 											data : {
 		 											phrm_num : roomNum
-		 										},
-		 										dataType : "JSON",
-		 										success : function(data) {
-											pet_max = (data.phrm_p_max)-(data.rcount); 
-		 									var resForm=$('<div>');
-		 									var PriceAndSize=$('<div class="PriceAndSize" style="text-align:center">');
+		 											},
+		 											dataType : "JSON",
+		 											success : function(data) {
+														pet_max = (data.phrm_p_max)-(data.rcount); 
+		 												var resForm=$('<div>');
+		 												var PriceAndSize=$('<div class="PriceAndSize" style="text-align:center">');
 		 									
-		 									$('<label for="color" style="display:none;">color</label>').appendTo(PriceAndSize);
-		 									resForm.addClass('drawResForm');
+		 												$('<label for="color" style="display:none;">color</label>').appendTo(PriceAndSize);
+		 												resForm.addClass('drawResForm');
 //		 			 						var selectbox = $('<select>');
 		 			 						var size=(data.phrm_pet_size).split(',');
 //		 			 						for(var i=0;i<size.length; i++){
@@ -391,11 +388,8 @@
 			});
 
 	function initialize() {
-
 		var geocoder = new google.maps.Geocoder();
-
 		var addr = '${petHotel.ph_address}';
-
 		var lat = "";
 		var lng = "";
 
@@ -404,14 +398,10 @@
 		},
 
 		function(results, status) {
-
 			if (results != "") {
-
 				var location = results[0].geometry.location;
-
 				lat = location.lat();
 				lng = location.lng();
-
 				var latlng = new google.maps.LatLng(lat, lng);
 				var myOptions = {
 					zoom : 15,
@@ -434,7 +424,6 @@
 	function numberWithCommas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-
 
 	$(function() {
 		initialize();
@@ -745,27 +734,6 @@ ul {
 	background-color: #7858a7;
 }
 
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-	text-align: right;
-}
-
-.review {
-	color: #aaa;
-	float: right;
-	font-size: 20px;
-	font-weight: bold;
-	text-align: center;
-}
-
-.close:hover, .close:focus, .review:hover, .review:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
 
 a.fc-more {
 	font-size: 1px;
@@ -890,6 +858,18 @@ input[type="number"] {
 	opacity: 0;
 	filter: alpha(opacity = 0); /* IE 8 */
 }
+
+.res{
+	position: fixed;
+}
+
+.pull-left, .pull-right{
+	width: 95px;
+	color: #666;
+	text-align: center;
+	border-radius: 4px;
+	font-size: 12px;
+}
 </style>
 
 
@@ -948,148 +928,60 @@ input[type="number"] {
 	<br>
 	<br>
 	<br>
-	<div class="container">
-		<div style="width: 700px; display: inline-block; float: left;">
-			<div>
-
-				<table>
-					<tr>
-						<td>${petHotel.ph_name}</td>
-					</tr>
-					<tr>
-						<td></td>
-					</tr>
-					<tr>
-						<td>
-							<hr width=670px>
-						</td>
-					</tr>
-				</table>
-				<!--             <div style="width: 700px;"> -->
-				<!--                <div class="lazy slider" -->
-				<!--                   style="width: 700px; height: 600px; margin-left: 0;"> -->
-				<%--                   <c:forEach items="${filesName}" var="fn"> --%>
-				<!--                      <div> -->
-				<%--                         <img src="${contextPath}/petHotel/image?fileName=${fn}" --%>
-				<!--                            data-sizes="100vw" data-srcset="" -->
-				<!--                            style="width: 680px; height: 580px;"> -->
-				<!--                      </div> -->
-				<%--                   </c:forEach> --%>
-				<!--                </div> -->
-				<!--             </div> -->
-				<div style="width: 700px;">
-
-					<div class="item">
-						<div class="clearfix" style="max-width: 680px;">
-							<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-								<c:forEach items="${filesName}" var="fn">
-									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li>
-								</c:forEach>
-							</ul>
-						</div>
-					</div>
-
+	<div class="container row">
+		<div class="col-sm-8">
+			<p>${petHotel.ph_name}</p>
+			<hr>
+			<div class="item">
+				<div class="clearfix" style="max-width: 620px;">
+					<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+						<c:forEach items="${filesName}" var="fn">
+							<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 620px; height: 580px;" /></li>
+						</c:forEach>
+					</ul>
 				</div>
-
-				<table>
-					<tr>
-						<td><br></td>
-					</tr>
-					<tr>
-						<td>
-							<hr width=670px>
-						</td>
-					</tr>
-					<tr>
-						<td><br></td>
-					</tr>
-					<tr>
-						<td>가능한 펫 마리수:${petHotel.ph_p_count }
-					</tr>
-					<tr>
-						<td><input type="hidden" id="sample4_postcode" placeholder="우편번호"> 주소:${petHotel.ph_address} <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소"> ${petHotel.ph_d_address }
-					</tr>
-					<tr>
-						<td>
-							<div>
-								<div id="map_canvas"></div>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td><br></td>
-					</tr>
-					<tr>
-						<td>
-							<hr width=670px>
-						</td>
-					</tr>
-					<tr>
-						<td><br></td>
-					</tr>
-					<c:forEach var="phComment" items="${phComment}">
-						<tr>
-							<td>${phComment.c_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${phComment.phc_star}</td>
-						</tr>
-						<tr>
-							<td>${phComment.phc_comment}</td>
-						</tr>
-						<tr>
-						</tr>
-						<tr>
-							<td>${phComment.phc_write_date}</td>
-						</tr>
-						<!--             <p> -->
-						<tr>
-							<td>
-								<hr width=670px>
-							</td>
-						</tr>
-					</c:forEach>
-
-				</table>
-				<div class="demo"></div>
 			</div>
-			<div class="reservation">
-				<div class="reserRequest"></div>
-				<div class="calendar"></div>
+			<div class="row">
+				<div class="col-5">
+					<p>가능한 펫 마리수 : ${petHotel.ph_p_count }</p>
+					<p>주소 : ${petHotel.ph_address} &ensp; ${petHotel.ph_d_address }
+					<p>연락처 : ${petHotel.ph_contact }
+				</div>
+				<div id="map_canvas" class="col-7"></div>
 			</div>
-			<div class="show_map">
-				<div id="map_canvas"></div>
+			<hr>
+			<div class="row" style="margin: 50px auto; line-height: 1.5em;">
+				<c:forEach var="phComment" items="${phComment}">
+					<div class="col-3">
+						<img style="width: 120px; height: 120px">
+					</div>
+					<div class="col-3">
+						<p>${phComment.phc_star}</p>
+						<p><fmt:formatDate value="${phComment.phc_write_date}" pattern="yyyy.MM.dd" /></p>
+					</div>
+					<div class="col-6">${phComment.phc_comment}</div>
+					<hr>
+				</c:forEach>
 			</div>
 		</div>
-		<br> <br>
-		<div style="float: left;">
-			<form action="${contextPath }/petHotel/petHotelResForm" >
-				<div style="padding: 10px; font-size: 15px; width: auto; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px;">
-
+		<div class="col-sm-4">
+			<form action="${contextPath }/petHotel/petHotelResForm">
+				<div style="padding: 10px; font-size: 15px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
 					<div class="col-dates" style="text-align: center;">
-						<label>원하는 날짜를 선택해주세요.</label> <br> <input type="hidden" class="ph_num" name="ph_num" value="${petHotel.ph_num }"> <br> <input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> &nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp; <input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout" style="width: 115px; color: #666666; text-align: center; border-radius: 4px; font-size: 15px;" /> <br style="padding: 20px"> <br>
+						<label>원하는 날짜를 선택해주세요.</label> <br>
+						<input type="hidden" class="ph_num" name="ph_num" value="${petHotel.ph_num }">
+						<br>
+						<input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin" />
+						&nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp;
+						<input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout" />
+						<br style="padding: 20px"> <br>
 					</div>
-
-					<div class="sRoom">
-						<!-- 						<label>방:&nbsp; </label> <select name="roomSelect" class="rSelect"> -->
-						<!-- 							<option value="required">필수선택</option> -->
-						<%-- 							<c:forEach items="${petHotelRoomList}" var="phrl"> --%>
-						<%-- 															<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-						<%-- 								<option value="${phrl.phrm_num}">${phrl.phrm_name}</option> --%>
-						<%-- 							</c:forEach> --%>
-						<!-- 						</select> -->
-					</div>
-					<div class="reservationForm" style="">
-						<!-- 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span> -->
-
-						<!-- 						<hr> -->
-						<!-- 						<span>(시작날짜 마침날짜 계산일)박</span><span>(가격)</span> -->
-						<!-- 						<hr> -->
-						<!-- 						<span>반려견 추가</span><span>(가격)</span> -->
-						<!-- 						<hr> -->
-						<!-- 						<span>총 합계:</span> <span>(총가격)</span> <br> <br> <input type="submit" value="예약하기"> -->
-					</div>
+					<div class="sRoom"></div>
+					<div class="reservationForm" style=""></div>
 				</div>
 			</form>
 			<br>
-			<div class="calendarDiv" style="display: inline-block; padding: 10px; font-size: 15px; width: 300px; border: 1px solid darkgray; margin-left: 30px; border-radius: 4px; text-align: center;">
+			<div class="calendarDiv" style="display: inline-block; padding: 10px; font-size: 15px; border: 1px solid darkgray; border-radius: 4px; text-align: center;">
 				<br> <span style="font-size: 21px;">&nbsp;캘린더 미리보기&nbsp;</span>
 
 				<div class="roomCalendarDiv" style="display: inline-block">
@@ -1099,14 +991,13 @@ input[type="number"] {
 						</c:forEach>
 					</select>
 				</div>
-				<br>
-				<br>
+				<br> <br>
 				<hr>
 				<div id='calendar'></div>
 			</div>
 		</div>
-
 	</div>
+		
 	<div class="container"></div>
 </body>
 </html>
