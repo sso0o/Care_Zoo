@@ -465,7 +465,7 @@
 	document.addEventListener('DOMContentLoaded', function() {
 		var d = new Date();
 		<%=session.getAttribute("c_num")%>
-	var calendarEl = document.getElementById('calendar');
+		var calendarEl = document.getElementById('calendar');
 		var calHeight = 450;
 		calendar = new FullCalendar.Calendar(calendarEl, {
 			plugins : [ 'dayGrid', 'interaction' ],
