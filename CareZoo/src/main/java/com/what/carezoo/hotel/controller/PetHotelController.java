@@ -178,7 +178,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		System.out.println("days: "+days);
 		System.out.println("quantity: "+ quantity+1);
 		System.out.println("phr:"+phr);
-		List<Pet> pL = pService.selectByC_Num(session.getAttribute("",));
+//		List<Pet> pL = pService.selectByC_Num(Integer.parseInt(session.getAttribute("user_num")));
 		m.addAttribute("quantity", quantity+1);
 		m.addAttribute("totalDays", days);
 		m.addAttribute("phr_chkin", phr.getPhr_chkin());
