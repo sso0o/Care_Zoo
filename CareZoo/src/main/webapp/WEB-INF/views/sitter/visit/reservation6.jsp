@@ -9,7 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <script type="text/javascript">
 function oneCheckbox(a){
-	var chk2 = document.getElementsByName("pd_hour");
+	var chk2 = document.getElementsByName("vsr_hour");
 	for(var i =0;i<chk2.length;i++){
 		if(chk2[i] != a){
 			chk2[i].checked = false;
@@ -17,10 +17,18 @@ function oneCheckbox(a){
 	}
 }
 function oneCheckbox1(a){
-	var chk3 = document.getElementsByName("pd_hAdd");
+	var chk3 = document.getElementsByName("vsr_hAdd");
 	for(var i =0;i<chk3.length;i++){
 		if(chk3[i] != a){
 			chk3[i].checked = false;
+		}
+	}
+}
+function oneCheckbox2(a){
+	var chk = document.getElementsByName("vsr_day");
+	for(var i =0;i<chk.length;i++){
+		if(chk[i] != a){
+			chk[i].checked = false;
 		}
 	}
 }
@@ -55,17 +63,17 @@ function oneCheckbox1(a){
 	</c:forEach>
 <table>
 	<tr>
-		<th>요일선택(중복선택 가능)</th>
+		<th>요일선택(중복선택 불가능)</th>
 	</tr>
 	<tr>
 		<td id="checkContainer">
-			<input type="checkbox" name="vsr_day" id="mon" value="1">월
-			<input type="checkbox" name="vsr_day" id="tus" value="2">화
-			<input type="checkbox" name="vsr_day" id="wen" value="3">수
-			<input type="checkbox" name="vsr_day" id="thu" value="4">목
-			<input type="checkbox" name="vsr_day" id="fri" value="5">금
-			<input type="checkbox" name="vsr_day" id="sat" value="6">토
-			<input type="checkbox" name="vsr_day" id="sun" value="0">일
+			<input type="checkbox" name="vsr_day" id="mon" value="1" onclick="oneCheckbox2(this)">월
+			<input type="checkbox" name="vsr_day" id="tus" value="2" onclick="oneCheckbox2(this)">화
+			<input type="checkbox" name="vsr_day" id="wen" value="3" onclick="oneCheckbox2(this)">수
+			<input type="checkbox" name="vsr_day" id="thu" value="4" onclick="oneCheckbox2(this)">목
+			<input type="checkbox" name="vsr_day" id="fri" value="5" onclick="oneCheckbox2(this)">금
+			<input type="checkbox" name="vsr_day" id="sat" value="6" onclick="oneCheckbox2(this)">토
+			<input type="checkbox" name="vsr_day" id="sun" value="0" onclick="oneCheckbox2(this)">일
 		</td>
 	</tr>
 	<tr>

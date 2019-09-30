@@ -12,16 +12,16 @@
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script >
+
 $(function(){
 	
 	$("#cal").datepicker({
+		 
 		dateFormat:'yy-mm-dd',
 		minDate:0,
 		regional:"ko",
  		beforeShowDay: function(date){
 			//선택한 요일 값 가져오기..
-
-			
 			var day = date.getDay();
 			var result = false;
 			$(".vsr_day").each(function(){
@@ -43,7 +43,10 @@ $(function(){
 //				}
 			
 //				$("#week").prop('value', dateVal);
-			//for(var i=0;;i)
+			console.log("dddddddd"+dateVal);
+		
+
+			
 			//인풋요소 생성
 			//있는지 확인하고 없으면 추가 
 			//있는지 확인하고 있으면 삭제
@@ -53,17 +56,72 @@ $(function(){
 				tmpDate.remove();
 			}else{
 				var selDate = $("<input type='text' name ='vsr_chkin'>").val(dateVal);
-				//id값을 dateVal값으로 유일값으로 다르게 준다
 				selDate.attr("id",dateVal);
 				selDate.attr("value",dateVal);
+				
+					var date = new Date(dateVal);
+					console.log("date:"+date);
+					var newdate = new Date(date);
+					console.log("newdate:"+newdate); 
+					date.setDate(newdate.getDate()+7);
+					console.log("result"+date.toDateString());
+					var result = new Date(); 
+					result = getFormatDate(date);
+					console.log(result);
+					
+					
+				var test = $("<input type='text' name ='vsr_chkin'>").val(result);
+				//id값을 dateVal값으로 유일값으로 다르게 준다
+				
+				test.attr("id",result);
+				test.attr("value",result);
+				
+				var date2 = new Date(date);
+				var newdate2 = new Date(date2);
+				date2.setDate(newdate2.getDate()+7);
+				var result2 = new Date(); 
+				result2 = getFormatDate(date2);
+				
+				var test2 = $("<input type='text' name ='vsr_chkin'>").val(result2);
+				test2.attr("id",result2);
+				test2.attr("value",result2);
+				
+				var date3 = new Date(date2);
+				var newdate3 = new Date(date3);
+				date3.setDate(newdate3.getDate()+7);
+				var result3 = new Date(); 
+				result3 = getFormatDate(date3);
+				
+				var test3 = $("<input type='text' name ='vsr_chkin'>").val(result3);
+				test3.attr("id",result3);
+				test3.attr("value",result3);
+				
 				$("#cal").append(selDate);
+				$("#cal").append(test);
+				$("#cal").append(test2);
+				$("#cal").append(test3);
 			}
 			
 		
 			
 		}
 	});
+	
 });
+//yyy-mm-dd형식으로 바꾸는 함수
+function getFormatDate(date)
+{ var year = date.getFullYear();
+//yyyy 
+var month = (1 + date.getMonth()); 
+//M 
+month = month >= 10 ? month : '0' + month; 
+//month 두자리로 저장 
+var day = date.getDate(); 
+//d 
+day = day >= 10 ? day : '0' + day; 
+//day 두자리로 저장
+return year + '-' + month + '-' + day; }
+
 
 
 
@@ -85,6 +143,10 @@ $(function(){
 	</c:forEach>
 	<c:forEach items="${vsr_num}" var="vsr_num">
 		<input type="hidden" name="vsr_num" value="${vsr_num}">
+	</c:forEach>
+	<c:forEach items="${list}" var="li">
+		<input type="hidden" value="${li.vsr_hour}" name="vsr_hour">
+		<input type="hidden" value="${li.vsr_hAdd}" name="vsr_hAdd">
 	</c:forEach>
 	<!-- 달력 -->	
 	<div id="cal"></div><!-- input value로 줘서 넘기기.. vsr_num -->

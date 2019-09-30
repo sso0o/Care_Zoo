@@ -75,6 +75,19 @@
 		where vsr_num = #{vsr_num}
 	</delete>
 
+	<delete id="deleteByListVsrNum" parameterType="int">
+		delete from
+		visitsitterreservation 
+		<trim prefix="where" prefixOverrides="OR">
+		<if test="list != null">
+			<foreach collection="list" item="item">
+				or vsr_num =#{item}
+			</foreach>
+		</if>
+	</trim>
+	</delete>
+
+
 	<select id="selectByVsrnum" parameterType="int" resultType="VisitSitterReservation">
 		select *
 		from visitsitterreservation

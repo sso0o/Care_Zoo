@@ -95,7 +95,7 @@ $("#totalPay").append(total);
 	
 	//vsr_chkin
 	var jsonData2 = ${list2};
-	console.log(jsonData2);
+	console.log("total1"+jsonData2);
 // 	str2="";
 // 	for(i in jsonData2){
 // 		str2 += i== jsonData2.length-1 

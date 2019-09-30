@@ -36,10 +36,10 @@ $(function(){
 	console.log(result);
 	
 	var totalResult = Number(result)*Number(chkin);
-	console.log(totalResult);
-	$("#totalPay").append("<input type='hidden' name='vsr_totalPrice' value='"+result+"'>"+result+"원");
-	
-	
+	console.log("total:"+totalResult);
+	$("#totalPay").append(result+"원");
+	$("#result").append("<input type='hidden' name='vsr_totalPrice' value='"+totalResult+"'>"+totalResult+"원");
+
 });
 
 </script>
@@ -52,7 +52,7 @@ $(function(){
 		<tr>
 			<td><input type="hidden" name="c_num" value="${c_num}"></td>
 			<td><c:forEach items="${p_num}" var="p" >
-					<input type="text" name="p_num" value="${p}" name="p_num">
+					<input type="hidden" name="p_num" value="${p}" name="p_num">
 				</c:forEach></td>
 			<td><c:forEach items="${vsr_hAddList}" var="li" >
 				<input type="hidden" id="hAdd" class="hAdd" value="${li.vsr_hAdd}">
@@ -73,6 +73,10 @@ $(function(){
 		<tr>
 			<th>결제 예정 금액(1박 기준)</th>
 			<td><div id="totalPay"></div></td>
+		</tr>
+		<tr>
+			<th>총 결제 금액</th>
+			<td><div id="result"></div></td>
 		</tr>
 	</table>
 	<input type="submit" value="예약완료하기">

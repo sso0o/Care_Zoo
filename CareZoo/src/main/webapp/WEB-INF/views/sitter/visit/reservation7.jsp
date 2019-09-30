@@ -87,7 +87,7 @@ $( document ).ready( function() {
 				<tr>
 					<td><input type="hidden" name="c_num" value="${c_num}"> 
 					<c:forEach items="${p_num}" var="pn">
-						<input type="text" name="p_num" value="${pn}">
+						<input type="hidden" name="p_num" value="${pn}">
 					</c:forEach></td>
 				</tr>
 				<tr>
