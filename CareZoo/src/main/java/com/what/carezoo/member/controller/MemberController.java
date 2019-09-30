@@ -161,7 +161,7 @@ public class MemberController {
 	@RequestMapping(value="/myReservation",method=RequestMethod.GET)
 	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
 	public String myReservation() {
-		return "my&customer/myReservation";
+		return "my&customer/myReservation_cus";
 	}
 	
 	//펫정보 페이지
