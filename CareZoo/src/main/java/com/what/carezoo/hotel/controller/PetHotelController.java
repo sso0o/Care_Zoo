@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -107,6 +109,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //	      return phList;
 //	   }
 //	
+	//호텔리스트 스크롤 내리면 로딩되는 ajax
 	@ResponseBody
 	@RequestMapping("/petHotelListLoading")
 	public List<PetHotel> searchPetHotel(
@@ -148,7 +151,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //		return phList;
 
 	}
-
+	
 	
 	
 	@ResponseBody
@@ -171,11 +174,11 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
 	@RequestMapping(value = "/petHotelResForm")
-	public String resPetHotelForm(Model m, PetHotelReservation phr, String days, @RequestParam("quantity") int quantity) {
+	public String resPetHotelForm(HttpSession session,Model m, PetHotelReservation phr, String days, @RequestParam("quantity") int quantity) {
 		System.out.println("days: "+days);
 		System.out.println("quantity: "+ quantity+1);
-		System.out.println("phr:"+phr
-				);
+		System.out.println("phr:"+phr);
+		List<Pet> pL = pService.selectByC_Num(session.getAttribute("",));
 		m.addAttribute("quantity", quantity+1);
 		m.addAttribute("totalDays", days);
 		m.addAttribute("phr_chkin", phr.getPhr_chkin());
@@ -184,6 +187,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return "hotel/petHotelResForm";
 	}
 
+	//
 	@RequestMapping(value = "/resPetHotel", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean resPetHotel(String str, HttpServletRequest req) {

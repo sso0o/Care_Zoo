@@ -97,13 +97,14 @@
 		if(currentVal == 0){
 			
 		}else{
-			 $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()).replace(",","")*(currentVal)));
+			 $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()*1).replace(/,/gi, "")*(currentVal)));
 		}
 	}
 	
 	
 	function total(){
-		$('.totalPrice').text(numberWithCommas((($('.nightCountPrice').text()).replace(",","")*1)+(($('.petAddPrice').text()).replace(",","")*1)));
+		$('.totalPrice').text(numberWithCommas((($('.nightCountPrice').text()).replace(/,/gi, "")*1)+(($('.petAddPrice').text()).replace(/,/gi, "")*1)));
+	console.log($('.totalPrice').text());
 	}
 	
 	function incrementValue(e) {
@@ -119,8 +120,8 @@
 		  } else {
 		    parent.find('input[name=' + fieldName + ']').val(0);
 		  } 
-		  $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()).replace(",","")*(currentVal)));
-
+		  $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)));
+		  console.log("add"+(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)))
 			total();
 		}
 		console.log(currentVal);
@@ -137,8 +138,8 @@
 		  } else {
 		    parent.find('input[name=' + fieldName + ']').val(0);
 		  }
-		  $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()).replace(",","")*(currentVal)));
-
+		  $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)));
+			console.log("minus"+(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)))
 			console.log(currentVal);
 			total();
 		}
