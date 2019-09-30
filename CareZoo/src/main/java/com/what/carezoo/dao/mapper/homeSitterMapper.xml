@@ -5,19 +5,18 @@
 		<selectKey order="BEFORE" keyProperty="hs_num" resultType="int">
 			select hs_num_seq.nextval from dual
 		</selectKey>
-		insert into homesitter(hs_name,hs_sex,hs_birth,hs_contact,hs_address,hs_d_address,hs_job,hs_p_count,hs_e_address,hs_pass,hs_pass_chk,hs_regi_date)
-		values (#{hs_name}, #{hs_sex}, #{hs_birth}, #{hs_contact}, #{hs_address}, #{hs_d_address}, #{hs_job}, #{hs_p_count}, #{hs_e_address}, #{hs_pass}, #{hs_pass_chk}, sysdate )
+		insert into homesitter(hs_name,hs_sex,hs_birth,hs_contact,hs_address,hs_d_address,hs_job,hs_e_address,hs_pass,hs_pass_chk,hs_regi_date)
+		values (#{hs_name}, #{hs_sex}, #{hs_birth}, #{hs_contact}, #{hs_address}, #{hs_d_address}, #{hs_job}, #{hs_e_address}, #{hs_pass}, #{hs_pass_chk}, sysdate )
 	</insert>
 	
 	<update id="updateHomeSitter" parameterType="homesitter">
 		update homesitter 
-		set hs_name = #{hs_name}
-		    hs_birth = #{hs_birth}
-		   	hs_contact = #{hs_contact}
-		    hs_address = #{hs_address}
-		    hs_d_address = #{hs_d_address}
-		    hs_job = #{hs_job}
-		    hs_p_count = #{hs_p_count}
+		set hs_name = #{hs_name},
+		    hs_birth = #{hs_birth},
+		   	hs_contact = #{hs_contact},
+		    hs_address = #{hs_address},
+		    hs_d_address = #{hs_d_address},
+		    hs_job = #{hs_job},
 		    hs_e_address = #{hs_e_address}
 		where hs_num = #{hs_num}
 	</update>
