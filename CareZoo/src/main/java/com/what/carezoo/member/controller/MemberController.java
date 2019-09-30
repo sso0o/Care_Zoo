@@ -90,8 +90,29 @@ public class MemberController {
 	//회원가입 폼
 	@RequestMapping(value="/joinForm", method=RequestMethod.GET)
 	public String joinForm() {
-		return "joinForm";
+		return "joinFormMain";
 	}
+	
+	//고객 회원가입
+	@RequestMapping("/joinCustomer")
+	public String joinFormCus() {
+		return "joinForm_customer";
+	}
+	
+	
+	
+	//가정시터 회원가입
+	@RequestMapping("/joinHome")
+	public String joinFormHome() {
+		return "joinForm_homeSitter";
+	}
+	
+	//홈시터 회원가입
+	@RequestMapping("/joinVisit")
+	public String joinFormVisit() {
+		return "joinForm_visitSitter";
+	}
+	
 	
 	//회원가입
 	@RequestMapping(value="/join", method=RequestMethod.POST)
@@ -140,7 +161,7 @@ public class MemberController {
 	@RequestMapping(value="/myReservation",method=RequestMethod.GET)
 	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
 	public String myReservation() {
-		return "my&customer/myReservation";
+		return "my&customer/myReservation_cus";
 	}
 	
 	//펫정보 페이지
