@@ -170,11 +170,17 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	}
 
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
-	@RequestMapping(value = "/petHotelResForm", method = RequestMethod.POST)
-	public String resPetHotelForm(Model m, int ph_num, String phr_chkin, String phr_chkout) {
-		m.addAttribute("chkin", phr_chkin);
-		m.addAttribute("chkout", phr_chkout);
-		m.addAttribute("phnum", ph_num);
+	@RequestMapping(value = "/petHotelResForm")
+	public String resPetHotelForm(Model m, PetHotelReservation phr, String days, @RequestParam("quantity") int quantity) {
+		System.out.println("days: "+days);
+		System.out.println("quantity: "+ quantity+1);
+		System.out.println("phr:"+phr
+				);
+		m.addAttribute("quantity", quantity+1);
+		m.addAttribute("totalDays", days);
+		m.addAttribute("phr_chkin", phr.getPhr_chkin());
+		m.addAttribute("phr_chkout", phr.getPhr_chkout());
+		phrService.getPetHotelResByPhrm_num(phr.getPhrm_num());
 		return "hotel/petHotelResForm";
 	}
 

@@ -136,11 +136,12 @@ $(function(){
 	
 
 <form action="adds" method="post">
-	<input type="text" value="${vsr_num}" name="vsr_num">
+	<input type="text" value="${vsr_count}" name="vsr_count">
+	<input type="hidden" value="${vsr_num}" name="vsr_num">
 	<input type="hidden" value="${vsr_chkin}" name="vsr_chkin" id="vsr_chkin">
 	<input type="hidden" value="${c_num}" name="c_num">
 	<c:forEach items="${p_num}" var="pn">
-	<input type="text" name="p_num" value="${pn}">
+	<input type="hidden" name="p_num" value="${pn}">
 	</c:forEach>
 		<table>
 			<tr>

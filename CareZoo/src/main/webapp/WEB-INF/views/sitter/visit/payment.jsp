@@ -14,7 +14,8 @@ th{
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <script type="text/javascript">
 $(function(){
-	var maxCount=${p_num}.length;
+	var maxCount=$("input[name=p_num]").length;
+	console.log("count"+maxCount);
 $("#count").append(maxCount);
 
 var pay = "";
@@ -65,10 +66,10 @@ $("#totalPay").append(total);
 		dataType:"json",
 		success:function(data){
 			console.log(data);
-				var max = ${p_num}.length-1;
+				var max = $("input[name=p_num]").length-1;
 				 var total = 28000+(5000*max)+"원";	
 				 $("#total").append(total);
-				 	for(var i =0;i<${p_num}.length;i++){
+				 	for(var i =0;i<$("input[name=p_num]").length;i++){
 			 		if(i>0){
 			 			var str = $("<tr><th>한마리 추가</th> <td>5000원</td></tr>");
 			 			($("#add").append(str))*i;
@@ -109,7 +110,7 @@ $("#totalPay").append(total);
 		success:function(data){
 			console.log(data);
 
-				var max = ${p_num}.length-1;
+				var max = $("input[name=p_num]").length-1;
 				 var total1 = 28000+(5000*max)+"원";	
 					$.each(data,function(key,value){
 						console.log(value);
@@ -130,9 +131,11 @@ $("#totalPay").append(total);
 <title>요금 세부 정보</title>
 </head>
 <body>
-<form action="reservation10" method="get">
+<form action="reservation10" method="post">
+<h2>요금 상세 내역</h2>
 	<table>
 		<tr>
+			<td><input type="hidden" name="vsr_count" value="${vsr_count}"></td>
 			<td><input type="hidden" name="c_num" value="${c_num}"></td>
 			<td><c:forEach items="${p_num}" var="p">
 					<input type="hidden" name="p_num" value="${p}">

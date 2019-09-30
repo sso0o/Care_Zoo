@@ -11,13 +11,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1"> <!--부트스트랩-->
 <title>homeSitterList</title>
 <!-- 가정용 펫시터 리스트 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"><!--부트스트랩-->
 <link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" /> <!--이미지 슬라이더  -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css"> <!-- 메뉴바 -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> <!-- 데이트피커 -->
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' /> <!-- 데이트피커 -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' /> <!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/jquery-ui-timepicker-addon.css' />
+<%-- <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' /> <!-- 데이트피커 --> --%>
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet"> <!-- 폰트 -->
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -27,6 +30,8 @@
 <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> <!-- 메뉴바 -->
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> <!-- 데이트피커 -->
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script> <!-- 데이트피커 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script><!--부트스트랩-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script><!--부트스트랩-->
 <style type="text/css">
 ul {
 	list-style: none outside none;
@@ -61,6 +66,8 @@ cursor: pointer;
 }
 </style>
 <script type="text/javascript"> 
+var i = 0;
+var searchSwitch = 0;
 $(function () {
 	//네비게이션
 	function logoutCheck() {
@@ -130,7 +137,9 @@ $(function () {
 	});
 	var breaker = 0;
 	var homeSitterListDiv = $('.homeSitterlist');
-	loadingPage();
+	$("#replyForm").on("submit", function() {
+		loadingPage();
+	});
 	function loadingPage() {
 		$.ajax({
 			url : "${contextPath}/home/homeSitterSearch",
@@ -210,7 +219,7 @@ $(function () {
 	<div>
 		<div class="container">
 	        <header>
-	            <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+	            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 	         
 	            <div class="header_Btn" id="sessioncheck"> 
 	            <sec:authorize access="isAnonymous()">
@@ -259,7 +268,7 @@ $(function () {
 	<br>
 	<br>
 	<div>
-		<form action="${contextPath }/home/search">
+		<form action="/home/search" method="get">
 			<!-- 지역 검색 -->
 			<div>
 					<table style="width: 420px;">
@@ -387,36 +396,36 @@ $(function () {
 				</table>
 			</div>
 		</form>
-<!-- 		<div class="homeSitterlist"> -->
-<%-- 			<c:forEach var="hslList" items="${hslList}"> --%>
-<%-- 				<div class = "homesitterList" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'"  style="border: 1px solid; margin: 50px; height: 350px;"> --%>
-<!-- 					<div style="width: auto; display: inline-block display:inline; float: left;"> -->
-<!-- 						<div class="item"> -->
-<!-- 							<div class="clearfix" style="max-width: 350px;"> -->
-<!-- 								<ul class="image-gallery" class="gallery list-unstyled cS-hidden"> -->
-<%-- 									<c:forEach items="${hslList.HSL_IMG_FILENAME}" var="fn"> --%>
-<%-- 										<li data-thumb="${contextPath}/home/image?fileName=${fn}"> --%>
-<%-- 											<img src="${contextPath}/home/image?fileName=${fn}" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'" style="width: 350px; height: 350px;" />										 --%>
-<!-- 										</li> -->
-<%-- 									</c:forEach> --%>
-<!-- 								</ul> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<br> -->
-<!-- 					</div> -->
-<!-- 					<div> -->
-<%-- 						<span></span> <br> <a href="${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br> --%>
-<%-- 						<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div> --%>
-<!-- 						<div> -->
-<%-- 							<fmt:formatNumber value="${hslList.HSL_PRICE}" pattern="#,###" />+ --%>
-<!-- 						</div> -->
-<!-- 						<div> -->
-<%-- 							후기:${hslList.ph_c_count}개 <br> ${hslList.HS_STAR } --%>
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<%-- 			</c:forEach> --%>
-<!-- 		</div> -->
+		<div class="homeSitterlist">
+			<c:forEach var="hslList" items="${hslList}">
+				<div class = "homesitterList" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'"  style="border: 1px solid; margin: 50px; height: 350px;">
+					<div style="width: auto; display: inline-block display:inline; float: left;">
+						<div class="item">
+							<div class="clearfix" style="max-width: 350px;">
+								<ul class="image-gallery" class="gallery list-unstyled cS-hidden">
+									<c:forEach items="${hslList.HSL_IMG_FILENAME}" var="fn">
+										<li data-thumb="${contextPath}/home/image?fileName=${fn}">
+											<img src="${contextPath}/home/image?fileName=${fn}" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'" style="width: 350px; height: 350px;" />										
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+						<br>
+					</div>
+					<div>
+						<span></span> <br> <a href="${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br>
+						<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div>
+						<div>
+							<fmt:formatNumber value="${hslList.HSL_PRICE}" pattern="#,###" />+
+						</div>
+						<div>
+							후기:${hslList.ph_c_count}개 <br> ${hslList.HS_STAR }
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
 	</div>
 </div>
 </body>                                                  

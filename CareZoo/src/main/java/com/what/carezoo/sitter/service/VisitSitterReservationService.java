@@ -22,12 +22,25 @@ public class VisitSitterReservationService {
 		return false;
 	}
 	
-	public boolean updateVisitSitterReservation(String vsr_hour,String vsr_hAdd,String vsr_chkin) {
+	public boolean updateVisitSitterReservation(String vsr_hour,String vsr_hAdd,String vsr_chkin,int vsr_count) {
 		VisitSitterReservation list = new VisitSitterReservation();
 		list.setVsr_hAdd(vsr_hAdd);
 		list.setVsr_hour(vsr_hour);
 		list.setVsr_chkin(vsr_chkin);
+		list.setVsr_count(vsr_count);
 		if(vsrDao.update(list)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updateVisitSitterReservation2(String vsr_hour,String vsr_hAdd,String vsr_day,int vsr_count) {
+		VisitSitterReservation list = new VisitSitterReservation();
+		list.setVsr_hAdd(vsr_hAdd);
+		list.setVsr_hour(vsr_hour);
+		list.setVsr_day(vsr_day);
+		list.setVsr_count(vsr_count);
+		if(vsrDao.update2(list)>0) {
 			return true;
 		}
 		return false;
@@ -47,6 +60,21 @@ public class VisitSitterReservationService {
 		return false;
 	}
 	
+	public boolean updateVsr_Chkin(String vsr_chkin,ArrayList<Integer> vsr_num) {
+		if(vsrDao.updateVsr_Chkin(vsr_chkin, vsr_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean updateVsrCount(int c_num) {
+		if(vsrDao.updateVsrCount(c_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 	public boolean deleteVisitSitterReservation(int vsr_num) {
 		if(vsrDao.delete(vsr_num)>0) {
 			return true;
@@ -54,8 +82,12 @@ public class VisitSitterReservationService {
 		return false;
 	}
 	
-	public VisitSitterReservation getVisitSitterResByVsrnum(int vsr_num) {
+	public List<VisitSitterReservation> getVisitSitterResByVsrnum(int vsr_num) {
 		return vsrDao.selectByVsrnum(vsr_num);
+	}
+	
+	public List<VisitSitterReservation> selectByVsrnumbers(ArrayList<Integer> vsr_num){
+		return vsrDao.selectByVsrnumbers(vsr_num);
 	}
 	
 	
@@ -70,6 +102,10 @@ public class VisitSitterReservationService {
 	
 	public List<VisitSitterReservation> getAllVisitSitterRes() {
 		return vsrDao.selectAll();
+	}
+	
+	public List<VisitSitterReservation> selectByVsrCount(int vsr_count){
+		return vsrDao.selectByVsrCount(vsr_count);
 	}
 
 }

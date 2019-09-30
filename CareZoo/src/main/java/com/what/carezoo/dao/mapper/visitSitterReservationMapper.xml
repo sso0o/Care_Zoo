@@ -8,8 +8,8 @@
 		select visitsitterreservation_seq.nextval from dual
 	</selectKey>
 		insert
-		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status, vsr_totalPrice, vsr_attention, vsr_contents)
-		values (#{vsr_num},#{c_num},0, #{vsr_chkin}, #{vsr_hour}, #{vsr_hAdd}, '0', '0' ,'0','0')
+		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status, vsr_totalPrice, vsr_attention, vsr_contents,vsr_day,vsr_count)
+		values (#{vsr_num},#{c_num},0, #{vsr_chkin}, #{vsr_hour}, #{vsr_hAdd}, '0', '0' ,'0','0',#{vsr_day},'0')
 	</insert>
 
 	<update id="update" parameterType="VisitSitterReservation">
@@ -17,7 +17,15 @@
 		set 
 		vsr_hour = #{vsr_hour},
 		vsr_hAdd = #{vsr_hAdd}
-		where vsr_chkin = #{vsr_chkin}
+		where vsr_chkin = #{vsr_chkin} and vsr_count =#{vsr_count}
+	</update>
+	
+	<update id="update2" parameterType="VisitSitterReservation">
+		update visitsitterreservation
+		set 
+		vsr_hour = #{vsr_hour},
+		vsr_hAdd = #{vsr_hAdd}
+		where vsr_day = #{vsr_day} and vsr_count =#{vsr_count}
 	</update>
 
 	<update id="updateTotalPrice" parameterType="string">
@@ -44,6 +52,23 @@
 	</trim>
 	</update>
 	
+	<update id="updateVsr_Chkin" parameterType="string">
+		update visitsitterreservation
+	set vsr_chkin = #{vsr_chkin}
+		<trim prefix="where" prefixOverrides="OR">
+		<if test="list != null">
+			<foreach collection="list" item="item">
+				or vsr_num =#{item}
+			</foreach>
+		</if>
+	</trim>
+	</update>
+	
+	<update id="updateVsrCount" parameterType="int">
+		update visitsitterreservation
+		set vsr_count = vsr_count +1 where c_num = #{c_num}
+	</update>
+	
 	<delete id="delete" parameterType="int">
 		delete from
 		visitsitterreservation
@@ -55,6 +80,18 @@
 		from visitsitterreservation
 		where vsr_num = #{vsr_num}
 	</select>
+
+	<select id="selectByVsrnumbers" parameterType="int" resultType="VisitSitterReservation">
+		select * from visitsitterreservation
+		<trim prefix="where" prefixOverrides="OR">
+		<if test="list != null">
+			<foreach collection="list" item="item">
+				or vsr_num =#{item}
+			</foreach>
+		</if>
+	</trim>
+	</select>
+
 
 	<select id="selectByCnum" parameterType="int" resultType="VisitSitterReservation">
 		select *
@@ -68,6 +105,9 @@
 		where vs_num = #{vs_num}
 	</select>
 
+	<select id="selectByVsrCount" parameterType="int" resultType="VisitSitterReservation">
+		select * from visitsitterreservation where vsr_count = #{vsr_count}
+	</select>
 
 	<select id="selectAll" resultType="VisitSitterReservation">
 		select *

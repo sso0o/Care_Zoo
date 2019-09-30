@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -90,21 +92,28 @@ public class HomeSitterController {
 		return "sitter/home/homeSitterList";
 	}
 	//가정시터 목록 json 보내기
-	@ResponseBody
-	@RequestMapping("/homeSitterSearch")
-	public List<HomeSitterList> homeSitterSearch(@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
-		if(hsl==null) {			
-			hsl = new HomeSitterList();
-		}
-		if(hsl_address==null) {
-			hsl_address = new ArrayList<String>(); 			
-		}		
-		System.out.println("모델:"+hsl_address);
-		System.out.println("hsl:"+hsl);
-		System.out.println("값"+hslService.getbySearchingHsl(hsl_address,hsl));
-		List<HomeSitterList>  hslList = hslService.getbySearchingHsl(hsl_address,hsl);
-		return hslList;
-	}
+//	@ResponseBody
+//	@RequestMapping("/homeSitterSearch")
+//	public List<HomeSitterList> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+//		if(switchNumber ==1) {
+//			if(hsl==null) {			
+//				hsl = new HomeSitterList();
+//			}
+//			if(hsl_address==null) {
+//				hsl_address = new ArrayList<String>(); 			
+//			}		
+//			System.out.println("모델:"+hsl_address);
+//			System.out.println("hsl:"+hsl);
+//			System.out.println("값"+hslService.getbySearchingHsl(hsl_address,hsl));
+//			List<HomeSitterList>  hslList = hslService.getbySearchingHsl(hsl_address,hsl);
+//			return hslList;
+//			
+//		}else {
+//			List<HomeSitterList> hslList = hslService.getHsl();
+//			return hslList;
+//		}
+//	
+//	}
 	// 가정시터 게시글 등록 뷰 보여주기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeHsl(Model model) {
@@ -168,10 +177,11 @@ public class HomeSitterController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
-	public String reserveHomeSitter(Model model, int hsl_num, @RequestParam Map<String,Object> params) {
+	public String reserveHomeSitter(HttpSession session, Model model, int hsl_num, @RequestParam Map<String,Object> params) {
 		System.out.println("예약 : " + hsl_num);
 		System.out.println(params);
-		model.addAttribute("params", params);
+		session.setAttribute("params", params);
+//		model.addAttribute("params", params);
 //		System.out.println(hslService.getallHsl(hsl_num));
 //		model.addAttribute("hsr", hsr);
 //		model.addAttribute("hsList", hslService.getallHsl(hsl_num));

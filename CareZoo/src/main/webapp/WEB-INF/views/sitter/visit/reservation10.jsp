@@ -52,7 +52,7 @@ $(function(){
 		<tr>
 			<td><input type="hidden" name="c_num" value="${c_num}"></td>
 			<td><c:forEach items="${p_num}" var="p" >
-					<input type="hidden" name="p_num" value="${p}" name="p_num">
+					<input type="text" name="p_num" value="${p}" name="p_num">
 				</c:forEach></td>
 			<td><c:forEach items="${vsr_hAddList}" var="li" >
 				<input type="hidden" id="hAdd" class="hAdd" value="${li.vsr_hAdd}">
@@ -73,11 +73,6 @@ $(function(){
 		<tr>
 			<th>결제 예정 금액(1박 기준)</th>
 			<td><div id="totalPay"></div></td>
-		</tr>
-		<tr>
-			<td>
-			<input type="button" onclick="location.href='${contextPath}/visit/payment?c_num=${c_num}'" value="요금 세부 정보 보기">
-			</td>
 		</tr>
 	</table>
 	<input type="submit" value="예약완료하기">
