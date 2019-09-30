@@ -628,4 +628,11 @@ public class VisitSitterController{
 		return "sitter/visit/reservation8";
 	}
 
+	///////////////////////////////////////////////////////////////////////////////
+	//VisitSitter MyPage
+	@RequestMapping(value="join",method=RequestMethod.POST)
+	public String vsJoinForm() {
+		return "visit/sitter/joinForm";
+	}
+	
 }
