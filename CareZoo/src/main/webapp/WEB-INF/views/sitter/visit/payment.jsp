@@ -131,12 +131,14 @@ $("#totalPay").append(total);
 <title>요금 세부 정보</title>
 </head>
 <body>
-<form action="reservation10" method="get">
+<form action="reservation10" method="post">
+<h2>요금 상세 내역</h2>
 	<table>
 		<tr>
+			<td><input type="hidden" name="vsr_count" value="${vsr_count}"></td>
 			<td><input type="hidden" name="c_num" value="${c_num}"></td>
 			<td><c:forEach items="${p_num}" var="p">
-					<input type="text" name="p_num" value="${p}">
+					<input type="hidden" name="p_num" value="${p}">
 				</c:forEach></td>
 		</tr>
 		<tr>
