@@ -81,15 +81,15 @@ public class VisitSitterReservationService {
 		}
 		return false;
 	}
-	
+
 	public boolean deleteByListVsrNum(ArrayList<Integer> vsr_num) {
 		if(vsrDao.deleteByListVsrNum(vsr_num)>0) {
 			return true;
 		}
 		return false;
 	}
-	
-	public List<VisitSitterReservation> getVisitSitterResByVsrnum(int vsr_num) {
+
+	public VisitSitterReservation getVisitSitterResByVsrnum(int vsr_num) {
 		return vsrDao.selectByVsrnum(vsr_num);
 	}
 	
