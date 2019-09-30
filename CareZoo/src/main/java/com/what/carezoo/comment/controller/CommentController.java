@@ -27,12 +27,14 @@ import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterComment;
 import com.what.carezoo.model.HomeSitterReservation;
+import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelComment;
 import com.what.carezoo.model.PetHotelReservation;
 import com.what.carezoo.model.ViSitSitterComment;
 import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
+import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
 import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.VisitSitterReservationService;
@@ -43,6 +45,9 @@ import com.what.carezoo.sitter.service.VisitSitterService;
 public class CommentController {
 	
 	private static final String FILE_PATH = "c:/temp/";
+	
+	@Autowired
+	private PetService pService;
 	
 	@Autowired
 	private HomeSitterService hsService;
@@ -206,10 +211,12 @@ public class CommentController {
 		String name = c.getC_name();
 		String contact = c.getC_contact();
 		String address = c.getC_address()+c.getC_d_address();
+		List<Pet> pList	= pService.selectByC_Num(c.getC_num());
 		Map<String, Object> rst = new HashMap<String, Object>();
 		rst.put("name",name);
 		rst.put("contact",contact);
 		rst.put("address",address);
+		rst.put("pList",pList);
 		return rst;
 	}
 	

@@ -51,18 +51,15 @@ public class SitterMainController {
 		Map<String, Object> rst = new HashMap<String, Object>();
 		List<HomeSitterReservation> hsr = hsrService.getHomeSitterResByHSnum(hs_num);
 		List<Customer> cList = new ArrayList<Customer>();
-		List<Pet> pList = new ArrayList<Pet>();
 		System.out.println("hsr : "+hsr);
 		if(hsr != null) {
 			for (int i = 0; i < hsr.size(); i++) {
 				Customer c = mService.getMemberByC_num(hsr.get(i).getC_num());
 				cList.add(c);
-				Pet p = pService.selectPet(hsr.get(i).getP_num());
-				pList.add(p);
 			}
 			rst.put("hsrList", hsr);
 			rst.put("cList", cList);
-			rst.put("pList",pList);
+
 		}
 		
 		return rst;
