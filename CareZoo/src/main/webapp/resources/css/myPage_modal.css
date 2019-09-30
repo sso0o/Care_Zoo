@@ -33,8 +33,12 @@
 	background-color: #7858a7;
 }
 
-.modal-content.name {
+.modal-content.name, .modal-content.contact,
+.modal-content.star, .modal-content.address
+  {
 	color: #555;
+	border: none;
+	width: 95%
 	
 }
 
@@ -51,6 +55,7 @@
 	width: 95%;	
 	margin-left: 10px;
 	text-align: center;
+	
 }
 
 .close {
@@ -59,6 +64,8 @@
 	font-size: 28px;
 	font-weight: bold;
 	text-align: right;
+	margin-top: 15px;
+	margin-right: 15px;
 }
 
 .review{
@@ -67,6 +74,8 @@
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
+	margin-right: 15px;
+    margin-bottom: 15px;
 }
 
 .close:hover, .close:focus,

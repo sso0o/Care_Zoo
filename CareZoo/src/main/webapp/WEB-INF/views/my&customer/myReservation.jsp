@@ -37,6 +37,12 @@
 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 <script>
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
@@ -130,7 +136,8 @@
 								end : data.vsrList[i].vsr_chkout,
 								title : '방문시터예약',
 								description : '이거슨 방문시터',
-								color : 'rgba(0, 0, 120, 0.6)'
+								color : 'rgba(0, 0, 120, 0.6)',
+								textColor: "white"
 							}
 							calendar.addEvent(e)
 							calendar.render();
@@ -146,7 +153,8 @@
 								end : data.hsrList[i].hsr_chkout,
 								title : '가정시터 예약',
 								description : data.hsInfo[i].hs_name,
-								color : 'rgba(0, 120, 0, 0.6)'
+								color : 'rgba(0, 120, 0, 0.6)',
+								textColor: "white"
 							}
 							calendar.addEvent(e)
 							calendar.render();
@@ -162,7 +170,8 @@
 								end : data.phrList[i].phr_chkout+'T11:00',
 								title : data.phInfo[i].ph_name,
 								description : data.pet[i].p_name,
-								color : 'rgba(200, 0, 0, 0.6)'
+								color : 'rgba(200, 0, 0, 0.6)',
+								textColor: "white"
 							}
 							calendar.addEvent(e)
 							calendar.render();
@@ -193,7 +202,8 @@
 							end : data.hsrList[i].hsr_chkout,
 							title : data.cList[i].c_name+' 보호자',
 							description : data.pList[i].p_name+" *"+data.hsrList[i].hsr_status,
-							color : 'rgba(0, 0, 120, 0.6)'
+							color : 'rgba(0, 0, 120, 0.6)',
+							textColor: "white"
 						}
 						calendar.addEvent(e)
 						calendar.render();
@@ -223,7 +233,8 @@
 							end : data.vsrList[i].vsr_chkout,
 							title : data.cList[i].c_name,
 							description : "*"+data.vsrList[i].vsr_status,
-							color : 'rgba(0, 0, 120, 0.6)'
+							color : 'rgba(0, 0, 120, 0.6)',
+							textColor: "white"
 						}
 						calendar.addEvent(e)
 						calendar.render();
@@ -274,7 +285,8 @@
 				start : '2019-09-17',
 				end: '2019-09-17',
 				description : 'test',
-				title: 'test'
+				title: 'test',
+				textColor: "white"
 			}
 			calendar.addEvent(iiii);
 			calendar.render();
@@ -361,10 +373,10 @@
 	function myResList(checkDate) {
 		console.log("function : "+checkDate);
 		console.log("function : "+user_numtype);
-		var showEvent = $("#showEvent");
+		var showDiv = $("#showDiv");
 		$("#legend").text(checkDate);
 
-		showEvent.children("p").remove();
+		showDiv.children("p").remove();
 		$.ajax({
 			url : "${contextPath}/member/myReservationCustomer",
 			data: {
@@ -372,11 +384,12 @@
 			},
 			dataType: "JSON",
 			success: function(data) {
+			console.log(data);
 				if(data.vsrList != null){
 					for (var i = 0; i < data.vsrList.length; i++) {
 						if(data.vsrList[i].vsr_chkin<=checkDate && checkDate <=data.vsrList[i].vsr_chkout){
 							var pTag = "<p>"+data.vsInfo[i].vs_name+"  "+data.vsInfo.vs_contact+" "+data.vsrList.vsr_status+"</p>";
-							showEvent.append(pTag);	
+							showDiv.append(pTag);	
 						}	
 					}
 				}
@@ -385,7 +398,7 @@
 					for (var i = 0; i < data.hsrList.length; i++) {
 						if(data.hsrList[i].hsr_chkin<=checkDate && checkDate <=data.hsrList[i].hsr_chkout){
 							var pTag = "<p>"+data.hsInfo[i].hs_name+"  "+data.hsInfo.hs_contact+" "+data.hsrList.hsr_status+"</p>";
-							showEvent.append(pTag);
+							showDiv.append(pTag);
 						}
 					}
 				}
@@ -393,14 +406,35 @@
 				if(data.phrList != null){
 					for (var i = 0; i < data.phrList.length; i++) {
 						if(data.phrList[i].phr_chkin <= checkDate && checkDate <= data.phrList[i].phr_chkout){
-							var pTag = "<p>"+data.phInfo[i].ph_name+"  "+data.phInfo.ph_contact+" "+data.phrList.phr_status+"</p>";
-							showEvent.append(pTag);
+							var pTag1 = "<p class='col'>"+data.phInfo[i].ph_name+"</p>";
+							var pTag2 = "<p class='col'>"+data.phInfo[i].ph_contact+"</p>";
+							showDiv.append(pTag1);
+							showDiv.append(pTag2);
+							var pTag3;
+							switch (data.phrList[i].phr_status){
+							case '0': pTag3 = "<p class='col'>예약 신청</p>";
+									break;
+							case '1': pTag3 = "<p class='col'>예약 거절</p>";
+									break;
+							case '2': pTag3 = "<p class='col'>결제 대기</p>";
+									 var pTag4 = "<p class='col'><a id='payMent' class='btn my-btn'>결제 하기</a></p>";
+									 showDiv.append(pTag3);
+									 showDiv.append(pTag4);
+									break;
+							case '3': pTag3 = "<p class='col'>결제 완료</p>";
+									break;
+							case '4': pTag3 = "<p class='col'>사용 완료</p>";
+									break;
+									
+							default: pTag3 = "<p class='col'></p>";
+									break;
+							}
+							
+							
 						}
 					}
 				}
-				
 
-				
 			},
 			error: function() {
 				
@@ -428,6 +462,38 @@
 	width: 900px;
 	margin: 0 auto;
 }
+
+.fieldset{
+	border: 1px solid #888;
+	border-radius: .125em;
+	margin: 20px auto;
+	padding: 20px;
+}
+
+.fieldset legend{
+	max-width: 400px;
+	width: auto;
+}
+
+.col{
+	text-align: center;
+}
+
+
+.my-btn{
+	border: 1px solid #40bf9f;
+	color: #40bf9f;
+}
+
+
+
+.my-btn:hover, .my-btn:focus{
+	border: 1px solid #40bf9f;
+	color: white;
+	background-color: #40bf9f;
+	cursor: pointer;
+}
+
 
 </style>
 <title>mypage</title>
@@ -494,15 +560,18 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
 	<div class="container">
-		
+		<h2>내 정보</h2>
+		<hr>
 		<div id='calendar'></div>
 		<div class="content">
-			<fieldset id="showEvent">
+			<fieldset id="showEvent" class="fieldset">
 				<legend style="text-align: center;" id="legend">여기에 선택한 날짜의 예약이 나옴</legend>
-<!-- 					<p id="p1">1</p> -->
-<!-- 					<p>1</p> -->
-<!-- 					<p>1</p> -->
+					<div class="row" id="showDiv">
+						
+					</div>
 			</fieldset>
 		</div>
 		<div>
@@ -517,7 +586,7 @@
 	<footer>
 		<div>durlsms footer</div>
 	</footer>
-	<!-- ///////////////////////////////////////////////////////////////사이드 메뉴-->
+
 	
 
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
@@ -538,7 +607,8 @@
 			</tr>
 			<tr>
 				<td rowspan="3" style="width: 150px">
-					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle;">
+					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle;
+					margin-left: 15px;">
 				</td>
 				<td colspan="2">
 					<a id="atag"><input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly"></a>
@@ -546,11 +616,11 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="text" class="modal-content" name="modal-contact" id="modal-contact" value="" readonly="readonly">
+					<input type="text" class="modal-content contact" name="modal-contact" id="modal-contact" value="" readonly="readonly">
 				</td>
 			</tr>
 			<tr class="starTr" id="starTr" >
-				<td style="padding-left: 30px; width: 170px;">
+				<td style="padding-left: 15px; width: 170px;">
 					<span id="starRev" class="starRev"> 
 						<span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> 
 						<span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4"  title="2">별2_오른쪽</span> 
@@ -560,13 +630,13 @@
 					</span>
 				</td>
 				<td>
-					<input type="text" class="modal-content" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
+					<input type="text" class="modal-content star" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
 					
 				</td>
 			</tr>
 			<tr class="addressTr" id="addressTr">
 				<td colspan="3">
-					<p class="modal-content" id="modal-address"></p>
+					<p class="modal-content address" id="modal-address"></p>
 				</td>
 			</tr>
 			<tr id="reviewTr">
