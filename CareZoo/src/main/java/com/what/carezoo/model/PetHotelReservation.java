@@ -10,24 +10,11 @@ public class PetHotelReservation {
 	private String phr_chkin;
 	private String phr_chkout;
 	private String phr_status;
-	public int getP_count() {
-		return p_count;
-	}
-	public void setP_count(int p_count) {
-		this.p_count = p_count;
-	}
 	public int getPhr_num() {
 		return phr_num;
 	}
-	public void setPhrm_num(int phrm_num) {
-		this.phrm_num = phrm_num;
-	}
-	
-	public int getPhrm_num() {
-		return phrm_num;
-	}
-	public void setPhr_num(int phrm_num) {
-		this.phrm_num = phrm_num;
+	public void setPhr_num(int phr_num) {
+		this.phr_num = phr_num;
 	}
 	public int getC_num() {
 		return c_num;
@@ -35,7 +22,6 @@ public class PetHotelReservation {
 	public void setC_num(int c_num) {
 		this.c_num = c_num;
 	}
-	
 	public int getP_num() {
 		return p_num;
 	}
@@ -47,6 +33,18 @@ public class PetHotelReservation {
 	}
 	public void setPh_num(int ph_num) {
 		this.ph_num = ph_num;
+	}
+	public int getPhrm_num() {
+		return phrm_num;
+	}
+	public void setPhrm_num(int phrm_num) {
+		this.phrm_num = phrm_num;
+	}
+	public int getP_count() {
+		return p_count;
+	}
+	public void setP_count(int p_count) {
+		this.p_count = p_count;
 	}
 	public String getPhr_chkin() {
 		return phr_chkin;
@@ -68,9 +66,9 @@ public class PetHotelReservation {
 	}
 	@Override
 	public String toString() {
-		return "PetHotelReservation [phr_num=" + phr_num + ", c_num=" + c_num + ", p_num=" + p_num + ", ph_num="
-				+ ph_num + ", phrm_num=" + phrm_num + ", p_count=" + p_count + ", phr_chkin=" + phr_chkin
-				+ ", phr_chkout=" + phr_chkout + ", phr_status=" + phr_status + "]";
+		return "PetHotelReservation [phr_num=" + phr_num + ", c_num=" + c_num + ", p_num=" + p_num + ", ph_num=" + ph_num + ", phrm_num=" + phrm_num + ", p_count=" + p_count + ", phr_chkin=" + phr_chkin + ", phr_chkout=" + phr_chkout
+				+ ", phr_status=" + phr_status + "]";
 	}
+	
 	
 }

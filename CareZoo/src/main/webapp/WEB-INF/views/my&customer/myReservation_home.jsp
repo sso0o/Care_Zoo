@@ -112,7 +112,7 @@
 				$("#groupid").val(info.event.groupId)
 				$("#number").val(info.event.id)
 				
-				modalOpen();
+				modalOpen(info.event.id);
 			}
 
 		});
@@ -132,7 +132,7 @@
 						start : data.hsrList[i].hsr_chkin,
 						end : data.hsrList[i].hsr_chkout,
 						title : data.cList[i].c_name+' 보호자',
-						description : data.pList[i].p_name+" *"+data.hsrList[i].hsr_status,
+						description : data.hsrList[i].hsr_status,
 						color : 'rgba(0, 0, 120, 0.6)',
 						textColor: "white"
 					}
@@ -148,57 +148,23 @@
 
 	});
 	
-	function modalOpen() {
+	//홈시터는 고객의 정보 가져오게
+	function modalOpen(num) {
 		console.log($("#groupid").val()+"=="+$("#number").val())
-		var urll = "getModalHS";
-
+		var urll = "getModalC";
 		console.log(urll)
-		
 		$.ajax({
 			url: "${contextPath}/comment/"+urll ,
 			data:{
-				num: $("#number").val()
+				num: num
 			},
 			dataTpe:"JSON",
 			success: function(data) {
 				console.log(data)				
 				$("#modal-name").val(data.name);
 				$("#modal-contact").val(data.contact);
-				if(data.star != null){
-					$("#starTr").show();
-					$("#modal-star").val(data.star+"점");
-				} else{
-					$("#starTr").hide();
-					$("#reviewTr").hide();
-				}
-				rstnum = data.number;
-				if(data.fileName != null){
-					$("#modal-img").attr("src","${contextPath}/comment/image?fileName="+data.filename)
-				} else{
-					$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg")
-				}
-				var rststar = parseInt(data.star /0.5) 
-				console.log(rststar)
-				$("#star"+rststar).addClass('on').prevAll('span').addClass('on');
-				
-				if(data.address != null){
-					$("#addressTr").show();
-					document.getElementById("modal-address").innerHTML=(data.address);
-				} else{
-					$("#addressTr").hide();
-				}
-				
-				
-				$("#atag").on('click', function() {
-					if($("#groupid").val()=="phr_num"){
-						$("#atag").attr('href',"${contextPath}/petHotel/petHotelView?ph_num="+rstnum)
-					} else if($("#groupid").val()=="hsr_num"){
-						////여기 채우기ㅣㅣㅣ**********************************************
-					}else if($("#groupid").val()=="vsr_num"){
-						////여기 채우기ㅣㅣㅣ**********************************************
-					}
-				})
-				
+
+
 			},error: function() {
 	
 			}
@@ -209,12 +175,10 @@
 		//모달창 닫기 전에 데이터 초기화
 		$("#modal-close").on("click", function() {
 			$("#reply-modal").hide();
-			$("#starRev").children('span').removeClass('on');
+
 			$("#modal-name").val("");
 			$("#modal-contact").val("");
-			$("#modal-star").val("");
-			$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
-			document.getElementById("modal-address").innerHTML=("");
+
 		});
 	}
 	
@@ -360,8 +324,7 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
+
 	<div class="container">
 		<h2>내 정보</h2>
 		<hr>
@@ -391,9 +354,6 @@
 
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
 	<div class="modal-modify" id="reply-modal">
-		<!-- css 적용 하기 위한 경우 class -->
-
-		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
 		<table class="modal-table" id="modal-table">
 			<tr height="10px">
 				<td>
@@ -407,8 +367,7 @@
 			</tr>
 			<tr>
 				<td rowspan="3" style="width: 150px">
-					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle;
-					margin-left: 15px;">
+					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle; margin-left: 15px;">
 				</td>
 				<td colspan="2">
 					<a id="atag"><input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly"></a>
@@ -419,28 +378,10 @@
 					<input type="text" class="modal-content contact" name="modal-contact" id="modal-contact" value="" readonly="readonly">
 				</td>
 			</tr>
-			<tr class="starTr" id="starTr" >
-				<td style="padding-left: 15px; width: 170px;">
-					<span id="starRev" class="starRev"> 
-						<span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> 
-						<span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4"  title="2">별2_오른쪽</span> 
-						<span class="starR1" id="star5" title="2.5">별3_왼쪽</span> <span class="starR2" id="star6" title="3">별3_오른쪽</span> 
-						<span class="starR1" id="star7" title="3.5">별4_왼쪽</span> <span class="starR2" id="star8" title="4">별4_오른쪽</span> 
-						<span class="starR1" id="star9" title="4.5">별5_왼쪽</span> <span class="starR2" id="star10" title="5">별5_오른쪽</span>
-					</span>
-				</td>
-				<td>
-					<input type="text" class="modal-content star" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
-					
-				</td>
-			</tr>
 			<tr class="addressTr" id="addressTr">
 				<td colspan="3">
 					<p class="modal-content address" id="modal-address"></p>
 				</td>
-			</tr>
-			<tr id="reviewTr">
-				<td colspan="3" style="text-align: center"><span class="review" id="modal-review">후기등록</span>
 			</tr>
 		</table>
 
