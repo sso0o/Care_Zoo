@@ -66,7 +66,7 @@ $( document ).ready( function() {
 				</tr>
 				<tr>
 				<c:forEach items="${list}" var="li">
-				<input type="text" name="vsr_count" value="${li.vsr_count}">
+				<input type="hidden" name="vsr_count" value="${li.vsr_count}">
 				<input type="hidden" name="vsr_num" value="${li.vsr_num}">
 				<input type="hidden" id="vsr_hour" name ="vsr_hour" value="${li.vsr_hour}">
 					<tr><th>${li.vsr_chkin}

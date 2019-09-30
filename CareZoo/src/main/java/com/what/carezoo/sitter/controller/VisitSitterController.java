@@ -414,6 +414,7 @@ public class VisitSitterController{
 				model.addAttribute("list", jsonStr);
 				
 				Map<String, Object> dd = new HashMap<String, Object>();
+				System.out.println(vsrService.selectByVsrCount(vsr_count).size());
 				for(int i =0;i<vsrService.selectByVsrCount(vsr_count).size();i++) {
 					dd.put("vsr_chkin"+i, vsrService.selectByVsrCount(vsr_count).get(i).getVsr_chkin());
 				}
@@ -590,26 +591,41 @@ public class VisitSitterController{
 				model.addAttribute("vsr_num", vsr_num);
 				model.addAttribute("vsr_day", vsr_day);
 				model.addAttribute("vsr_count", vsr_count);
+				model.addAttribute("list", vsrService.selectByVsrCount(vsr_count));
+				
 		return "sitter/visit/calendal";
 	}
 	
 	//시작날자 정함
 	@RequestMapping(value="getDate",method=RequestMethod.POST)
 	public String reservation8Form(Model model,int c_num,@RequestParam() ArrayList<Integer> p_num,@RequestParam() ArrayList<Integer> vsr_num,
-			String vsr_chkin, int vsr_count) {
+			String vsr_chkin, int vsr_count,String vsr_day,String vsr_hour,String vsr_hAdd) {
 		//chkin 날자  update 해줘야함...
-		System.out.println(vsr_num);
-		System.out.println(p_num);
-		System.out.println("getDate: "+vsrService.updateVsr_Chkin(vsr_chkin, vsr_num));
-		vsrService.updateVsr_Chkin(vsr_chkin, vsr_num);
+		System.out.println("getDate,vsr_num: "+vsr_num);
+		System.out.println("vsr_chkin: "+vsr_chkin);
+		System.out.println("vsr_day: "+vsr_day);
+		System.out.println("vsr_count: "+vsr_count);
+		System.out.println("p_num: "+p_num);
+		String[] tempVsr_chkin = vsr_chkin.split(",");
+
+		VisitSitterReservation vsr = new VisitSitterReservation();
+		for(int i=0;i<tempVsr_chkin.length;i++) {
+			
+			vsr.setC_num(c_num);
+			vsr.setVsr_chkin(tempVsr_chkin[i]);
+			vsr.setVsr_hAdd(vsr_hAdd);
+			vsr.setVsr_hour(vsr_hour);
+			vsr.setVsr_day(vsr_day);
+			vsr.setVsr_count(vsr_count);
+		vsrService.insertVisitSitterReservation(vsr);
+		}
+		vsrService.updateVsrCount(c_num);
+		vsrService.deleteByListVsrNum(vsr_num);
 		model.addAttribute("c_num", c_num);
 		model.addAttribute("p_num", p_num);
 		model.addAttribute("vsr_num", vsr_num);
 		model.addAttribute("vsr_count", vsr_count);
 		return "sitter/visit/reservation8";
 	}
-	
-	
-	
 
 }
