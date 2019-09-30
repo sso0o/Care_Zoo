@@ -8,12 +8,14 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 //삭제버튼 클릭했을 때 작동되는 함수
-function petDeleteOpen(c_num,vsr_num){	
+function petDeleteOpen(c_num,vsr_num,vsr_count){	
 			var c_num = c_num;
 			var vsr_num = vsr_num;
+			var vsr_count =vsr_count;
 			
 			console.log(c_num);
 			console.log(vsr_num);
+			console.log(vsr_count);
 			
 			//삭제로직 실행
 			$.ajax({
@@ -25,7 +27,7 @@ function petDeleteOpen(c_num,vsr_num){
 					if(result){
 						alert("삭제완료");
 						//삭제되고 남은 pd_hAdd를 보여줘야하잔하....
-						location.href="${contextPath}/visit/complete11?c_num="+c_num+"&vsr_num="+vsr_num;
+						location.href="${contextPath}/visit/complete11?c_num="+c_num+"&vsr_num="+vsr_num+"&vsr_count="+vsr_count;
 					}else{
 						alert("삭제실패");
 					}
@@ -64,14 +66,15 @@ $( document ).ready( function() {
 				</tr>
 				<tr>
 				<c:forEach items="${list}" var="li">
+				<input type="text" name="vsr_count" value="${li.vsr_count}">
 				<input type="hidden" name="vsr_num" value="${li.vsr_num}">
 				<input type="hidden" id="vsr_hour" name ="vsr_hour" value="${li.vsr_hour}">
 					<tr><th>${li.vsr_chkin}
-					<input type="button" onclick="petDeleteOpen(${c_num},${li.vsr_num})" value="x">
+					<input type="button" onclick="petDeleteOpen(${c_num},${li.vsr_num},${li.vsr_count})" value="x">
 					
 					</th></tr>
 					<tr><td class="hour"></td><td>+${li.vsr_hAdd}시간
-					<input type="button" onclick="location.href='${contextPath}/visit/addForm?vsr_chkin=${li.vsr_chkin}&vsr_hour=${li.vsr_hour}&vsr_hAdd=${li.vsr_hAdd}&c_num=${c_num}&vsr_num=${li.vsr_num}'" value="변경">
+					<input type="button" onclick="location.href='${contextPath}/visit/addForm?vsr_chkin=${li.vsr_chkin}&vsr_hour=${li.vsr_hour}&vsr_hAdd=${li.vsr_hAdd}&c_num=${c_num}&vsr_num=${li.vsr_num}&vsr_count=${li.vsr_count}'" value="변경">
 					</td></tr>	
 				</c:forEach>				
 
