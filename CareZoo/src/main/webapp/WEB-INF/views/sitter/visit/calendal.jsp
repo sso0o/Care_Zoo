@@ -74,6 +74,7 @@ $(function(){
 <body>
 <h3></h3>
 <form action="getDate" method="post">
+	<input type="hidden" name="vsr_count" value="${vsr_count}">
 	<input type="hidden" name="c_num" value="${c_num}">
 	<c:forEach items="${p_num}" var="p">
 		<input type="hidden" name="p_num" value="${p}">

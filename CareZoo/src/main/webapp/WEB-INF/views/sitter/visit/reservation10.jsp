@@ -74,11 +74,6 @@ $(function(){
 			<th>결제 예정 금액(1박 기준)</th>
 			<td><div id="totalPay"></div></td>
 		</tr>
-		<tr>
-			<td>
-			<input type="button" onclick="location.href='${contextPath}/visit/payment?c_num=${c_num}'" value="요금 세부 정보 보기">
-			</td>
-		</tr>
 	</table>
 	<input type="submit" value="예약완료하기">
 </form>	
