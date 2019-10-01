@@ -41,6 +41,7 @@ function logoutCheck() {
 	} else {
 		return false;
 	}
+
 }
 
 </script>
@@ -111,20 +112,20 @@ function logoutCheck() {
 		<input type="hidden"  name="hs_num" value="${params.hs_num}" >
 		<input type="hidden"  name="hsr_chkin" value="${params.hsr_chkin}" >
 		<input type="hidden"  name="hsr_chkout" value="${params.hsr_chkout}" >
-		<input type="hidden"  name="PricePerDay" value="${params.PricePerDay}" >
-		<input type="hidden"  name="pricePerPetSize" value="${params.pricePerPetSize}" >
+		<input type="hidden"  name="hsr_priceperday" value="${params.hsr_priceperday}" >
+		<input type="hidden"  name="hsr_pricePerPetSize" value="${params.pricePerPetSize}" >
 		<div>
 			<ul>
 				<li>
 					<dl>
 						<dt>체크인</dt>
-						<dd id="checkIn">${params.hsr_chkin}</dd>
+						<dd id="checkIn">${params.hsr_chkin} / ${params.hsr_dropoff_time}</dd>
 					</dl>
 				</li>
 				<li>
 					<dl>
 						<dt>체크아웃</dt>
-						<dd id="checkOut">${params.hsr_chkout}</dd>
+						<dd id="checkOut">${params.hsr_chkout} / ${params.hsr_pickup_time}</dd>
 					</dl>
 				</li>
 				<li>

@@ -342,7 +342,7 @@ $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리�
 						<td><input type="checkbox" name="hsl_address" id="state25" value="중랑구">중랑구</td>
 					</tr>
 					<tr>
-						<td>
+						<td>63
 							<button type="submit" class="search">검색</button>
 							<button type="reset">초기화</button>
 						</td>

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -196,7 +197,7 @@ public class HomeSitterController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
-	public String reserveHomeSitter(HttpSession session, Model model, int hsl_num, @RequestParam Map<String,Object> params) {
+	public String reserveHomeSitter(HttpSession session,HttpServletRequest request, Model model, int hsl_num, @RequestParam Map<String,Object> params) {
 		System.out.println("예약 : " + hsl_num);
 		System.out.println(params);
 		session.setAttribute("params", params);
