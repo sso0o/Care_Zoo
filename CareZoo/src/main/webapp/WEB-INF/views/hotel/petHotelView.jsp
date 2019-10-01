@@ -786,7 +786,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 .input-group {
 	clear: both;
-	margin: 15px 0;
+	margin: 10px 0;
 	position: relative;
 }
 
