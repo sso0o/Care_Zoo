@@ -177,69 +177,18 @@ function showDays() {
 function calculatePrice() {
 	totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
 	totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
+	pricePerDays = (pricePerDay*empdays);
+	console.log("pricePerDays :"+pricePerDays);
 	console.log("totalPrice ; "+totalPrice);
 	$('#addPet').empty().append(pricePerPetSize);
-	$('.pricePerDay').empty().append(pricePerDay);
+	$('#pricePerDay').empty().append(pricePerDay);
+	$('.pricePerDays').empty().append(pricePerDays);
 	$('#totalAddPetPrice').empty().append(totalAddPetPrice);
 	$('#hsr_totalprice').empty().append(totalPrice);
 	$('#totalpriceInput').val(totalPrice);
 	$('#pricePerPetSize').val(pricePerPetSize);
 	$('#hsr_priceperday').val(pricePerDay);
-// 	//펫 크기 당
-// 	$('#petSize-select').off("change").on("change",function() {
-// 		empdays = document.getElementById('days').value;
-// 		console.log("petSize-select")
-// 		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
-// 			pricePerPetSize = 15000;
-// 			if(days==0){
-// 				pricePerDay = 20000;
-// 				empdays = 1;
-// 			}else if(days > 0){
-// 				pricePerDay = 40000;
-// 				empdays = days;
-// 			}
-// 		}else{
-// 			console.log('대형견');
-// 			pricePerPetSize = 25000;
-// 			if(days==0){
-// 				pricePerDay = 30000;
-// 				empdays = 1;
-// 			}else if(days> 0){
-// 				pricePerDay = 50000;
-// 				empdays = days;
-// 			}
-// 		}
-// 		console.log("펫사이즈 : "+pricePerPetSize);
-// 		console.log("pricePerDay : "+pricePerDay);
-// 		console.log("empdays ; "+empdays);
-// 		//
-// 		totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
-// 		totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
-// 		console.log("totalPrice ; "+totalPrice);
-// 		$('#addPet').empty().append(pricePerPetSize);
-// 		$('.pricePerDay').empty().append(pricePerDay);
-// 		$('#totalAddPetPrice').empty().append(totalAddPetPrice);
-// 		$('#hsr_totalprice').empty().append(totalPrice);
-// 		$('#totalpriceInput').val(totalPrice);
-// 		$('#hsr_duringdays').val(days);
-// 		$('#pricePerPetSize').val(pricePerPetSize);
-// 		$('#PricePerDay').val(pricePerDay);
-// 	});
-// 	//반려견 추가 당
-// 	$('#hsr_numof_pet').off("change").on("click", function(){
-// 		console.log("펫추가")
-// 		totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
-// 		totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
-// 		console.log("totalPrice ; "+totalPrice);
-// 		$('#addPet').empty().append(pricePerPetSize);
-// 		$('.pricePerDay').empty().append(pricePerDay);
-// 		$('#totalAddPetPrice').empty().append(totalAddPetPrice);
-// 		$('#hsr_totalprice').empty().append(totalPrice);
-// 		$('#totalpriceInput').val(totalPrice);
-// 		$('#hsr_duringdays').val(days);
-// 		$('#pricePerPetSize').val(pricePerPetSize);
-// 		$('#PricePerDay').val(pricePerDay);
-// 	});
+	$('.pricePerDays').val(pricePerDays);
 	return true;
 }
 //네비게이션
@@ -357,7 +306,7 @@ function logoutCheck() {
 								데리러 오는 시간 : <input type="text" id="hsr_pickup_time" name="hsr_pickup_time"><br>
 								<input type="hidden" id="days" name="hsr_duringdays" value="0">
 							</li>
-							<li><span class="pricePerDay">20000</span>원 
+							<li><span id="pricePerDay">20000</span>원 
 								<span>
 									<select id="petSize-select" name="hsl_size" data-width="130px">
 										<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option>
@@ -366,13 +315,9 @@ function logoutCheck() {
 								</span>
 							</li>
 							<li>반려견 추가 당 <span id="addPet">15000</span>원</li>
-							<li><span id ="DAY">1 day</span> <span class="pricePerDay"> 20000</span>원</li>
+							<li><span id ="DAY">1 day</span> <span class="pricePerDays"> 20000</span>원</li>
 							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li>
 							<li>총 가격 : <span id="hsr_totalprice">20,000</span>원<br>
-								<input type="hidden" name="hsr_totalprice" id="totalpriceInput">
-								<input type="hidden" name="pricePerPetSize" id="pricePerPetSize">
-								<input type="hidden" name="hsr_priceperday" id="hsr_priceperday">
-								<input type="hidden" name="Days" id="Days"><!-- 이거 확인하기(삭제해도 괜찮은지....)-->
 							</li>
 						</ul>					
 						<ul>
@@ -382,6 +327,11 @@ function logoutCheck() {
 					<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>">
 					<input type="hidden" name="hsl_num" value="${hsList.hsl_num }">
 					<input type="hidden" name="hs_num" value="${hsList.hs_num}">
+					<input type="hidden" name="hsr_totalprice" id="totalpriceInput">
+					<input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize">
+					<input type="hidden" name="hsr_priceperday" id="hsr_priceperday">
+					<input type="hidden" name="hsr_pricePerDays" class="pricePerDays">
+					<input type="text" name="hsr_days" id="Days"><!-- 이거 확인하기(삭제해도 괜찮은지....)-->
 				</form>
 			</fieldset>
 		</div>
