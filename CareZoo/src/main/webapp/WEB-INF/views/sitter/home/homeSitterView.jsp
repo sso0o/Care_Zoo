@@ -19,10 +19,15 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"><!-- 부트스트랩 -->
+<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
+<!-- 슬라이드 -->
 <!-- *필수요소*제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <!-- script for datepicker -->
+<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
+<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
+<!-- 슬라이더 -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><!-- datePicker -->
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> <!-- moment.js -->
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script><!-- datePicker -->
@@ -33,6 +38,118 @@
 
 <title>homeSitterView</title>
 <!-- 가정집 펫시터 상세내용 -->
+<style type="text/css">
+/* light slider*/
+ul {
+	list-style: none outside none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.demo .item {
+	margin-bottom: 60px;
+}
+
+.content-slider li {
+	background-color: #ed3020;
+	text-align: center;
+	color: #FFF;
+}
+
+.content-slider h3 {
+	margin: 0;
+	padding: 70px 0;
+}
+
+.demo {
+	width: 800px;
+}
+
+/*input number*/
+.number-input input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.number-input input[type=number]::-webkit-inner-spin-button,
+.number-input input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  margin-bottom: 3rem;
+}
+
+.number-input button {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  text-align: center;
+}
+
+.number-input.number-input {
+  border: 1px solid #ced4da;
+  width: 10rem;
+  border-radius: .25rem;
+}
+
+.number-input.number-input button {
+  width: 2rem;
+  height: .7rem;
+}
+
+.number-input.number-input button.minus {
+  padding-left: 10px;
+}
+
+.number-input.number-input button:before,
+.number-input.number-input button:after {
+  width: .7rem;
+  background-color: #495057;
+}
+
+.number-input.number-input input[type=number] {
+  max-width: 4rem;
+  padding: .5rem;
+  border: 1px solid #ced4da;
+  border-width: 0 1px;
+  font-size: 1rem;
+  height: 2rem;
+  color: #495057;
+}
+
+@media not all and (min-resolution:.001dpcm) {
+  @supports (-webkit-appearance: none) and (stroke-color:transparent) {
+
+    .number-input.def-number-input.safari_only button:before,
+    .number-input.def-number-input.safari_only button:after {
+      margin-top: -.3rem;
+    }
+  }
+}
+</style>
 <script type="text/javascript">
 $(function() {	
 	calculatePrice();
@@ -199,6 +316,24 @@ function logoutCheck() {
 		return false;
 	}
 }
+$(function() {
+	$("#content-slider").lightSlider({
+		loop : true,
+		keyPress : true
+	});
+	$('#image-gallery').lightSlider({
+		isthumb : false,
+		gallery : true,
+		item : 1,
+		thumbItem : 8,
+		slideMargin : 0,
+		speed : 1000,
+		loop : true,
+		onSliderLoad : function() {
+			$('#image-gallery').removeClass('cS-hidden');
+		}
+	});
+})
 </script>
 </head>
 <body>
@@ -256,7 +391,32 @@ function logoutCheck() {
 <!-- 		여기다 내용을 작성하시면 됩니다 -->
 <div class="container">
 	<div  style="width: 750px; display: inline-block; float: left;">
-		<div>이미지 올리기</div>
+	<div>이미지 올리기</div>
+<%-- 	<div>${hsList }</div> --%>
+<%-- 	<div>lllll${hsList.hsl_img_filesname}</div> --%>
+		<div class="demo">
+			<div class="item">
+				<div class="clearfix" style="width: 700px; height:402px ">
+					<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-4.jpg">
+							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-4.jpg" style="width: 700px; height:402px "/>
+						</li>
+						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-3.jpg">
+							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-3.jpg" style="width: 700px; height:402px " />
+						</li>
+						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-1.jpg">
+							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-1.jpg" style="width: 700px; height:402px "/>
+						</li>
+<%-- 					<c:forEach items="${hsList}" var="img"> --%>
+<%-- 						<li data-thumb="${contextPath}/home/image?fileName=${img.hsl_img_filesname}"> --%>
+<%-- 							<img src="${contextPath}/home/image?fileName=${img.hsl_img_filesname}" style="width: 700px; height:402px "/>										 --%>
+<!-- 						</li> -->
+<%-- 					</c:forEach> --%>
+					</ul>
+				</div>
+			</div>	
+		</div>
+		<br><br>
 		<div>
 			<ul>
 				<li>돌봄 가능한 강아지 크기&나이</li>
@@ -316,7 +476,16 @@ function logoutCheck() {
 							</li>
 							<li>반려견 추가 당 <span id="addPet">15000</span>원</li>
 							<li><span id ="DAY">1 day</span> <span class="pricePerDays"> 20000</span>원</li>
-							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li>
+<!-- 							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li> -->
+							<li>
+								반려견 추가
+								<span class="def-number-input number-input safari_only">
+ 								  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+								  <input type="number" class="quantity" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0">
+								  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</span>
+								<span id="totalAddPetPrice">0</span>원
+							</li>
 							<li>총 가격 : <span id="hsr_totalprice">20,000</span>원<br>
 							</li>
 						</ul>					
