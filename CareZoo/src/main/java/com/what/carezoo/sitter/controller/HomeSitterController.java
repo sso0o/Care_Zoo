@@ -11,10 +11,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.MailDateFormat;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.sun.activation.registries.MailcapFile;
+import com.what.carezoo.admin.service.MailAuth;
 import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterList;
 import com.what.carezoo.sitter.service.HomeSitterListService;
@@ -41,7 +49,17 @@ public class HomeSitterController {
 	private HomeSitterListService hslService;
 	@Autowired
 	private HomeSitterReservationService hsResService;
-
+	@RequestMapping("/maiin")
+	public String meSitter() {
+//		boolean rst = hsService.joinMember(customer);
+//		if(rst) {
+//			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
+//			return "main";
+//		} else {
+//			return "joinForm";
+//		}
+		return "sitter/home/example";
+	}
 	//가정시터 회원가입/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	@RequestMapping("/join")
 	public String joinHomeSitter(HomeSitter hs, Model model) {
@@ -70,11 +88,12 @@ public class HomeSitterController {
 	@RequestMapping("/main")
 	public String enterHomeSitterMain(Model model) {
 //		model.addAttribute("hslList", hslService.getallHsl());
-		List<Map<String, Object>> hslList = hslService.getHsl();
+//		List<Map<String, Object>> hslList = hslService.getHsl();
 //		for(int i=0;i<hslList.size();i++) {
+//			System.out.println("=======================");
 //			System.out.println("GET"+i+"="+hslList.get(i));
 //		}
-		model.addAttribute("hslList",hslList);
+//		model.addAttribute("hslList",hslList);
 		return "sitter/home/homeSitterList";
 	}
 	
@@ -91,7 +110,9 @@ public class HomeSitterController {
 	
 	// 가정시터 검색목록 가져오기/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	@RequestMapping("/search")
-	public String searchHS(Model model,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address, HomeSitterList hsl) {
+	public String searchHS(Model model,
+			@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address, 
+			HomeSitterList hsl) {
 		if(hsl==null) {			
 			hsl = new HomeSitterList();
 		}
@@ -105,13 +126,13 @@ public class HomeSitterController {
 		return "sitter/home/homeSitterList";
 	}
 	//가정시터 목록 json 보내기
-	@RequestMapping("/maain")
-	public String home(Model model) {
-		return "sitter/home/example";
-	}
 	@ResponseBody
-	@RequestMapping("/searchLodagin")
-	public List<HomeSitterList> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+	@RequestMapping("/listLoad")
+	public List<HomeSitterList> homeSitterSearch(
+			@RequestParam(value = "searchSwitch",  required = false) int switchNumber,
+			@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,
+			HomeSitterList hsl) {
+		System.out.println(hsl);
 		System.out.println("여기까지?");
 		System.out.println("swichNumber=====>" + switchNumber);
 		if(switchNumber ==1) {
@@ -125,11 +146,19 @@ public class HomeSitterController {
 			System.out.println("hsl:"+hsl);
 			System.out.println("값"+hslService.getbySearchingHsl(hsl_address,hsl));
 			List<HomeSitterList>  hslList = hslService.getbySearchingHsl(hsl_address,hsl);
+			for (int i = 0; i < hslList.size(); i++) {
+				(hslList.get(i)).setHsl_img_filesname(hslService.getFileList((hslList.get(i)).getHsl_num()));
+			}
+			System.out.println("0:"+hslList);
 			return hslList;
 			
 		}else {
-			List<HomeSitterList> hslList = hslService.getHsls();
-		
+			List<HomeSitterList> hslList = hslService.getHsls();		
+			for (int i = 0; i < hslList.size(); i++) {
+				(hslList.get(i)).setHsl_img_filesname(hslService.getFileList((hslList.get(i)).getHsl_num()));
+				System.out.println("이미지:"+hslList.get(i).getHsl_img_filesname());
+			}
+			System.out.println("1:"+hslList);
 			return hslList;
 		}
 	}
@@ -179,7 +208,10 @@ public class HomeSitterController {
 //	@Secured("CUSTOMER")
 	@RequestMapping("/view")
 	public String enterHomeSitterView(Model model, int hsl_num) {
-		model.addAttribute("hsList", hslService.getHomeSitterByHsl_Num(hsl_num));
+		HomeSitterList hsList = hslService.getHomeSitterByHsl_Num(hsl_num);
+		hsList.setHsl_img_filesname(hslService.getFileList(hsl_num));
+		System.out.println(hsList);
+		model.addAttribute("hsList", hsList);
 		return "sitter/home/homeSitterView";
 	}
 	//홈시터 예약페이지

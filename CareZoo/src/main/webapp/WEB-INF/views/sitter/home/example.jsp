@@ -1,10 +1,124 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+/* light slider*/
+ul {
+	list-style: none outside none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.demo .item {
+	margin-bottom: 60px;
+}
+
+.content-slider li {
+	background-color: #ed3020;
+	text-align: center;
+	color: #FFF;
+}
+
+.content-slider h3 {
+	margin: 0;
+	padding: 70px 0;
+}
+
+.demo {
+	width: 800px;
+}
+
+/*input number*/
+.number-input input[type="number"] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.number-input input[type=number]::-webkit-inner-spin-button,
+.number-input input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.number-input {
+  margin-bottom: 3rem;
+}
+
+.number-input button {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+}
+
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.number-input button.plus:after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.number-input input[type=number] {
+  text-align: center;
+}
+
+.number-input.number-input {
+  border: 1px solid #ced4da;
+  width: 10rem;
+  border-radius: .25rem;
+}
+
+.number-input.number-input button {
+  width: 2.6rem;
+  height: .7rem;
+}
+
+.number-input.number-input button.minus {
+  padding-left: 10px;
+}
+
+.number-input.number-input button:before,
+.number-input.number-input button:after {
+  width: .7rem;
+  background-color: #495057;
+}
+
+.number-input.number-input input[type=number] {
+  max-width: 4rem;
+  padding: .5rem;
+  border: 1px solid #ced4da;
+  border-width: 0 1px;
+  font-size: 1rem;
+  height: 2rem;
+  color: #495057;
+}
+
+@media not all and (min-resolution:.001dpcm) {
+  @supports (-webkit-appearance: none) and (stroke-color:transparent) {
+
+    .number-input.def-number-input.safari_only button:before,
+    .number-input.def-number-input.safari_only button:after {
+      margin-top: -.3rem;
+    }
+  }
+}
+</style>
 <script type="text/javascript">
 var i = 0;
 var searchSwitch = 0;
@@ -42,6 +156,7 @@ $(function() {
 	var breaker = 0; 
 	function ajaxSucessLoading(hslList){
 		console.log("성겅!");
+		console.log(hslList);
 		for(i;breaker<8;i++){
 			console.log(i);
 			if(breaker <7){		
@@ -105,7 +220,41 @@ $(function() {
 </script>
 </head>
 <body>
-	<div class="homeSitterlist">
+<div class="def-number-input number-input safari_only">
+ 								  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+<!-- 								  <input class="quantity" min="0" name="quantity" value="1" type="number"> -->
+								  <input type="number" class="quantity" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0">
+								  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+								</div>
+		<div class="homeSitterlist">
+		<c:forEach var="hslList" items="${hslList}">
+			<div class = "homesitter" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'"  style="border: 1px solid; margin: 50px; height: 350px;">
+				<div style="width: auto; display: inline-block display:inline; float: left;">
+					<div class="item">
+						<div class="clearfix" style="max-width: 350px;">
+							<ul class="image-gallery" class="gallery list-unstyled cS-hidden">
+								<c:forEach items="${hslList.HSL_IMG_FILENAME}" var="fn">
+									<li data-thumb="${contextPath}/home/image?fileName=${fn}">
+										<img alt="사진이 엄슴" src="${contextPath}/home/image?fileName=${fn}" onclick="location.href='${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}'" style="width: 350px; height: 350px;" />										
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+					<br>
+				</div>
+				<div>
+					<span></span> <br> <a href="${contextPath}/home/view?hsl_num=${hslList.HSL_NUM}">${hslList.HS_NAME }</a><br>
+					<div>${hslList.HSL_ADDRESS}${hslList.HSL_D_ADDRESS}</div>
+					<div>
+						<fmt:formatNumber value="${hslList.HSL_PRICE}" pattern="#,###" />+
+					</div>
+					<div>
+						후기:${hslList.ph_c_count}개 <br> ${hslList.HS_STAR }
+					</div>
+				</div>
+			</div>
+		</c:forEach>
 	</div>
 </body>
 </html>

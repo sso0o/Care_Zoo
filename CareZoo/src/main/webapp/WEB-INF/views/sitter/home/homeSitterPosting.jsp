@@ -59,7 +59,6 @@ $(function(){
 		$("#file" + (parseInt(index))).on("change",
 				handleImgFileSelect);
 		console.log(index);
-
 		index++;
 	});
 	// 이미지 정보들을 담을 배열
@@ -185,31 +184,33 @@ $(function(){
 </div>	
 <!-- 칸 띄우기 위함 -->
 <br><br><br><br><br>
-<div>
+<div class="container">
+게시글을 올리기 위해 상세 내용을 입력해 주세요 
+<a href=""> </a>
 	<form action="${contextPath }/home/write" method="post" enctype="multipart/form-data">
 		<h1>가정용펫시터 글 등록페이지</h1>
 		<table>
 			<tr>
 				<th>글제목**</th>
-				<td></td>
+				<td><input type="text"></td>
 			</tr>
 			<tr>
 				<th>글내용**</th>
 				<td>
 					Q. 왜 도그메이트 펫시터를 하게 되었나요?
-					<textarea rows="5" cols="10"></textarea>
+					<input type="text">
 				</td>
 				<td>
 					Q. 반려견을 키운 경험에 대해 알려주세요. 현재 반려견을 키우고 계시다면 자세히 소개해주세요!
-					<textarea rows="5" cols="10"></textarea>
+					<input type="text">
 				</td>
 				<td>
 					Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 약속드립니다.
-					<textarea rows="5" cols="10"></textarea>
+					<input type="text">
 				</td>
 				<td>
 					※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
-					<textarea rows="5" cols="10"></textarea>
+					<input type="text">
 				</td>
 			</tr>
 			<tr>
@@ -225,9 +226,15 @@ $(function(){
 			</tr>
 			<tr>
 				<th>펫을 돌볼 수 있는 날짜를 선택해 주세요**</th>
-				<td><input type="text" name="hsl_service_type" value="24시간돌봄"></td>
+				<td>
+					<select name="hsl_service_type">
+						<option title="24시간 돌봄" value="24시간돌봄">24시간 돌봄</option>
+						<option title="데이케어" value="데이케어">데이케어</option>
+					</select>			
+				</td>
 			</tr>
 			<tr>
+				<td>여기는 disable date 로 받기</td>
 				<th>체크인 가능 시간의 범위를 지정해 주세요</th>
 				<td><input type="date" name="hsl_chkin"></td>
 			</tr>
@@ -237,14 +244,36 @@ $(function(){
 			</tr>
 			<tr>
 				<th>돌봄 가능한 강아지의 크기를 선택해 주세요</th>
-				<td><input type="text" name="hsl_size" value="소형견"></td>
+				<td>
+					<select name="hsl_size" data-width="130px">
+						<option value="" selected disabled hidden>==선택하세요==</option>
+						<option title="s" value="소형견">소형견 (0~4.9kg)</option>
+						<option title="m" value="중형견">중형견 (5~14.9kg)</option>
+						<option title="l" value="대형견">대형견 (15kg 이상)</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<th>돌봄 가능한 강아지의 나이를 선택해 주세요</th>
-				<td><input type="text" name="hsl_pet_age" value="강아지"></td>
+				<td>
+					<select name="hsl_pet_age" data-width="130px">
+						<option value="" selected disabled hidden>==선택하세요==</option>
+						<option title="puppy" value="강아지">강아지 (1살 이하)</option>
+						<option title="dog" value="성견">성견 (2~6살)</option>
+						<option title="agedDog" value="노령견">노령견 (7살 이상)</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
 				<th>현재 키우고 있는 펫 크기를 선택해주세요</th>
+				<td>
+					<select name="" data-width="130px">
+						<option value="" selected disabled hidden>==선택하세요==</option>
+						<option title="s" value="소형견">소형견 (0~4.9kg)</option>
+						<option title="m" value="중형견">중형견 (5~14.9kg)</option>
+						<option title="l" value="대형견">대형견 (15kg 이상)</option>
+					</select>
+				</td>
 			</tr>
 		</table>
 		<h1>돌봄 환경에 대해 자세히 알려주세요</h1>
