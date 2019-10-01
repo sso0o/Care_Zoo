@@ -632,21 +632,31 @@ ul {
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
+	
 	<div class="container" >
+	<div style="text-align: left;">	<label style="font-size:25px">예약페이지</label>
+<hr style="">
+</div>
 		<div
-			style="margin: 100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;">
+			style="margin-top: 50px;margin-right:100px;margin-left:100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;border-color:#40bf9f">
 <div style="text-align: center">
+
 			<div style="font-size: 20px; display: inline-block">
 				<div
-					style="text-align: left; float: left; border: 1px solid darkgray; border-radius: 4px; padding: 15px; margin-right: 50px">
+					style="text-align: left; float: left; border: 1px solid darkgray; border-radius: 4px; padding: 15px;;border-color:#40bf9f">
 					<label style="font-weight: bold;">체크인: </label>&nbsp;<label
 						class="chkin">${phr_chkin} </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<label style="font-weight: bold">체크아웃: </label>&nbsp;<label
 						class="chkout">${phr_chkout }&nbsp;&nbsp;</label> &nbsp;&nbsp; <label
 						class="totalDays" style="">(총 ${totalDays}박)</label>&nbsp;&nbsp;
 				</div>
+				&nbsp;
+				<label style="font-size:40px">&</label>
+				&nbsp;
 				<div
-					style="text-align: left; float: left; border: 1px solid darkgray; border-radius: 4px; padding: 15px;">
+					style="text-align: left; display:inline-block; border: 1px solid darkgray; border-radius: 4px; padding: 15px;border-color:#40bf9f">
 					<label class="totalDays" style="float: right">반려견
 						${quantity} 마리</label>
 				</div>
@@ -657,18 +667,18 @@ ul {
 				<br>
 				<div class="PriceAndSize" style="">
 					<div
-						style="width: 400px; margin-left: 160px; border: 1px solid; border-radius: 4px; padding: 30px; height: auto;">
+						style="width: 400px; margin-left: 160px; border: 1px solid; border-radius: 4px; padding: 30px; height: auto;font-size: 18px;border-color:#40bf9f">
 				<div>
-					<button class="pSmodalButton">펫선택</button>
+					<button class="pSmodalButton">반려견 선택</button>
 				</div>
 				<br>
-				<div class="petList"></div>
+				<div class="petList"  style="font-size: 20px"></div>
 						<br>
 						<div class="night" style="display: inline-block; width: 350px">
 							<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원
-								X ${totalDays}</div>
+								X ${totalDays}박</div>
 							<div class="countPrice" style="float: right">
-								<span class="nightCountPrice">${nightCountValue }</span>
+								<span class="nightCountPrice">${nightCountValue }원</span>
 							</div>
 						</div>
 						<hr style="width: 400px">
@@ -676,7 +686,7 @@ ul {
 							<div class="nightCount" style="text-align: left; float: left">반려견
 								추가</div>
 							<div class="countPrice" style="float: right">
-								<span class="nightCountPrice">${petAddValue }</span>
+								<span class="nightCountPrice">${petAddValue }원</span>
 							</div>
 						</div>
 						<hr style="width: 400px">
@@ -684,7 +694,7 @@ ul {
 							<div class="nightCount" style="text-align: left; float: left">총
 							</div>
 							<div class="countPrice" style="float: right">
-								<span class="nightCountPrice">${totalValue }</span>
+								<span class="nightCountPrice">${totalValue }원</span>
 							</div>
 						</div>
 					</div>
@@ -702,16 +712,16 @@ ul {
 					고객센터로 연락주세요.)</li>
 				<li>* 사전만남은 예약 완료 후 진행하실 수 있으며, 환불은 예약 3일전까지 100% 가능합니다.</li>
 				<li>* 개인 연락처를 공유하지마세요. 예약이 완료되면 돌보미의 연락처를 확인하실 수 있습니다.</li>
-				<li>* 메시지 내용은 안전거래 등의 목적으로 회사가 열람, 수집할 수 있습니다.</li>
+				<li>* 메시지 내용은 안전거래 등의 목적으로 회사가 열람, 수집할 수 있습니다.<br><br></li>
 			</ul>
 		</div>
 		<textarea name="hsr_message"
-			placeholder="김수연 돌보미에게 예약요청을 위해 메시지를 남겨주세요." maxlength="4000"
+			placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000"
 			id="txtMESSAGE" style="margin: 0px; width: 700px; height: 126px;"></textarea>
 			<br>
 		<div>
 			<div style="margin-bottom:15px">도그메이트를 이용하시는 이유에 대해 알려주세요!</div>
-			<div>
+			<div style="margin-bottom:15px">
 				<select name="hsr_purpose">
 					<option value="여행">여행</option>
 					<option value="출장">출장</option>
@@ -731,7 +741,7 @@ ul {
 			<br>
 			<hr>
 			<div>
-				<button id="btnSubmit">예약요청</button>
+				<button id="btnSubmit" class="btn btn-my" >예약요청</button>
 			</div>
 		</div>
 
