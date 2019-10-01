@@ -46,13 +46,13 @@ $(function() {
 	        return [false,"","Booked Out"];
 	    }
 	}
-	var pickupTime = $('#pickUpTime').timepicker({
+	var pickupTime = $('#hsr_dropoff_time').timepicker({
 		minTime:'07:00' ,
 		timeFormat: "HH:mm",
 		maxTime: '22:00',
 		stepMinute: 30		
 	});
-	var takebackTime = $('#takeBackTime').timepicker({
+	var takebackTime = $('#hsr_pickup_time').timepicker({
 		minTime:'07:00' ,
 		timeFormat: "HH:mm",
 		maxTime: '22:00',
@@ -184,7 +184,7 @@ function calculatePrice() {
 	$('#hsr_totalprice').empty().append(totalPrice);
 	$('#totalpriceInput').val(totalPrice);
 	$('#pricePerPetSize').val(pricePerPetSize);
-	$('#PricePerDay').val(pricePerDay);
+	$('#hsr_priceperday').val(pricePerDay);
 // 	//펫 크기 당
 // 	$('#petSize-select').off("change").on("change",function() {
 // 		empdays = document.getElementById('days').value;
@@ -352,9 +352,9 @@ function logoutCheck() {
 						<ul>
 							<li>시작/마침날짜 달력 <br>
 								<input type="text" id="checkin" name="hsr_chkin"><br> 
-								맡기는 시간 : <input type="text" id="pickUpTime" name="pickUpTime"><br>
+								맡기는 시간 : <input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time"><br>
 								<input type="text" id="checkout" name="hsr_chkout"><br> 
-								데리러 오는 시간 : <input type="text" id="takeBackTime" name="takeBackTime"><br>
+								데리러 오는 시간 : <input type="text" id="hsr_pickup_time" name="hsr_pickup_time"><br>
 								<input type="hidden" id="days" name="hsr_duringdays" value="0">
 							</li>
 							<li><span class="pricePerDay">20000</span>원 
@@ -369,10 +369,10 @@ function logoutCheck() {
 							<li><span id ="DAY">1 day</span> <span class="pricePerDay"> 20000</span>원</li>
 							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li>
 							<li>총 가격 : <span id="hsr_totalprice">20,000</span>원<br>
-							<input type="hidden" name="hsr_totalprice" id="totalpriceInput">
-							<input type="hidden" name="pricePerPetSize" id="pricePerPetSize">
-							<input type="hidden" name="PricePerDay" id="PricePerDay">
-							<input type="hidden" name="Days" id="Days">
+								<input type="hidden" name="hsr_totalprice" id="totalpriceInput">
+								<input type="hidden" name="pricePerPetSize" id="pricePerPetSize">
+								<input type="hidden" name="hsr_priceperday" id="hsr_priceperday">
+								<input type="hidden" name="Days" id="Days"><!-- 이거 확인하기(삭제해도 괜찮은지....)-->
 							</li>
 						</ul>					
 						<ul>
