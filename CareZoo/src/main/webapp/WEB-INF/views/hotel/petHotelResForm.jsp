@@ -114,6 +114,11 @@ footer {
 	min-height: 200px;
 }
 
+.modal-table {
+	height: auto;
+	margin-top: -300px;
+}
+
 .review .fieldview legend {
 	background: #40bf9f;
 	color: #fff;
@@ -158,123 +163,173 @@ ul {
 	width: 800px;
 }
 
-    .inputGroup {
-    font-family: "Fira Sans", sans-serif;
-  background-color: cornsilk;
-  display: block;
-  margin: 10px 0;
-  position: relative;
+.inputGroup {
+	font-family: "Fira Sans", sans-serif;
+	background-color: cornsilk;
+	display: block;
+	margin: 10px 0;
+	position: relative;
 }
+
 .inputGroup label {
-  padding: 12px 30px;
-  width: 100%;
-  display: block;
-  text-align: left;
-  color: #3c454c;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
-  transition: color 200ms ease-in;
-  overflow: hidden;
+	padding: 12px 30px;
+	width: 100%;
+	display: block;
+	text-align: left;
+	color: #3c454c;
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	transition: color 200ms ease-in;
+	overflow: hidden;
 }
+
 .inputGroup label:before {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  content: "";
-  background-color: #40bf9f;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);
-          transform: translate(-50%, -50%) scale3d(1, 1, 1);
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  z-index: -1;
-     box-sizing: inherit;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	content: "";
+	background-color: #40bf9f;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);
+	transform: translate(-50%, -50%) scale3d(1, 1, 1);
+	transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+	opacity: 0;
+	z-index: -1;
+	box-sizing: inherit;
 }
+
 .inputGroup label:after {
-  width: 40px;
-  height: 40px;
-  content: "";
-  border: 2px solid #d1d7dc;
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
-  background-repeat: no-repeat;
-  background-position: 6px 6px;
-  border-radius: 50%;
-  z-index: 2;
-  position: absolute;
-  right: 30px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  cursor: pointer;
-  transition: all 200ms ease-in;
-    
+	width: 40px;
+	height: 40px;
+	content: "";
+	border: 2px solid #d1d7dc;
+	background-color: #fff;
+	background-image:
+		url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+	background-repeat: no-repeat;
+	background-position: 6px 6px;
+	border-radius: 50%;
+	z-index: 2;
+	position: absolute;
+	right: 30px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	cursor: pointer;
+	transition: all 200ms ease-in;
 }
+
 .inputGroup input:checked ~ label {
-  color: #fff;
+	color: #fff;
 }
+
 .inputGroup input:checked ~ label:before {
-  -webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
-          transform: translate(-50%, -50%) scale3d(56, 56, 1);
-  opacity: 1;
-     box-sizing: inherit;
+	-webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
+	transform: translate(-50%, -50%) scale3d(56, 56, 1);
+	opacity: 1;
+	box-sizing: inherit;
 }
+
 .inputGroup input:checked ~ label:after {
-  background-color: #54e0c7;
-  border-color: #54e0c7;
-     box-sizing: inherit;
+	background-color: #54e0c7;
+	border-color: #54e0c7;
+	box-sizing: inherit;
 }
+
 .inputGroup input {
-  width: 32px;
-  height: 32px;
-  order: 1;
-  z-index: 2;
-  position: absolute;
-  right: 30px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  cursor: pointer;
-  visibility: hidden;
+	width: 32px;
+	height: 32px;
+	order: 1;
+	z-index: 2;
+	position: absolute;
+	right: 30px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	cursor: pointer;
+	visibility: hidden;
 }
 
 .radioForm {
-  padding: 0 16px;
-  max-width: 550px;
-  margin: 50px auto;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 36px;
-}
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+	padding: 0 16px;
+	max-width: 550px;
+	margin: 50px auto;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 36px;
 }
 
-    .modal-modify{
-        box-sizing: border-box;
-    }
+*, *::before, *::after {
+	box-sizing: inherit;
+}
 
+.modal-modify {
+	box-sizing: border-box;
+}
 </style>
 
 <script type="text/javascript">
 
-
+// //=========펫선택=====================================
+// function petSelect(){
+// 	// 화면에서 지우기
+// 		$("#reply-modal").hide();
+// 		$("#starRev").children('span').removeClass('on');
+// 		$("#modal-name").val("");
+// 		$("#modal-contact").val("");
+// 		$("#modal-star").val("");
+// 		$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
+// 	//=====================
+//         var radioName = $('input[name="radio"]:checked');
+//         radioId= radioName.attr('id');
+// 	    var rasioNm = $("label[for='"+radioId+"']").text();
+// 	    petLoading();
+// 	alert(rasioNm);
+// }
 
 	$(function() {
+		
+		alert($("label[class=petCount]").length);
 // 			initialize();
 		var paramsArr = [];
-		
-		
-		//=========모달!!=============================================
+		function petLoading(){
+		}
+
+		// //=========펫선택버튼=========
+		$('.petSelectButton').click(function() {
+			if($('input[name="radio"]:checked').val() ==null){
+				alert("펫을 선택해주세요.");
+			}else{
+				// 화면에서 지우기
+				$("#reply-modal").hide();
+				$("#starRev").children('span').removeClass('on');
+				$("#modal-name").val("");
+				$("#modal-contact").val("");
+				$("#modal-star").val("");
+				$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
+			//=====================
+				
+		        var radioName = $('input[name="radio"]:checked');
+		        radioId= radioName.attr('id');
+			    var rasioNm = $("label[for='"+radioId+"']").text();
+				$('.petInfo').text(rasioNm);
+				$('<label class="petCount">'+rasioNm+'</label>').appendTo($('.petList'));
+				$('<br>').appendTo($('.petList'));
+			}
+		});
+// 		=========모달!!=============================================
 			$('.pSmodalButton').click(function() {
-				modalOpen();
+				if($("label[class=petCount]").length<($('.quantity').val()*1)){
+				modalOpen();					
+				}else{
+					alert(($('.quantity').val()*1)+"마리만 선택할 수 있습니다.");
+				}
 			});
-			
+			//나이 구하기
+
 			function modalOpen() {
 				console.log($("#groupid").val()+"=="+$("#number").val())
 				var urll = "";
@@ -538,7 +593,7 @@ ul {
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication
 							property="principal" /></label>
-							
+
 					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
@@ -578,76 +633,110 @@ ul {
 	<br>
 	<br>
 	<br>
-	<div class="container">
-		<fieldset style="margin: 90px">
-			<legend>상세예약정보</legend>
+	<div class="container" style="text-align: center">
+		<div
+			style="margin: 100px; border: 2px solid darkgray; padding: 30px; border-radius: 4px;">
 
-			
-			<div style="font-weight: bold">
-				펫선택: &nbsp;
-				<button class="pSmodalButton">+</button>
+			<div style="font-size: 20px; display: inline-block">
+				<div
+					style="text-align: left; float: left; border: 1px solid darkgray; border-radius: 4px;">
+					<label style="font-weight: bold;">체크인: </label>&nbsp; <label
+						class="chkin">${phr_chkin} </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<label style="font-weight: bold">체크아웃: </label>&nbsp;<label
+						class="chkout">${phr_chkout }&nbsp;&nbsp;</label>
+				</div>
+&nbsp;&nbsp;&nbsp;&nbsp;
+				(총 <label class="totalDays" style="color:">${totalDays}</label>박)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label class="totalDays" style="float: right">반려견
+					${quantity} 마리</label>
 			</div>
-			<div style="color: red;">※기존에 선택한 펫의 무게보다 더 높을 시 요금이 추가청구 될 수
-				있습니다.</div>
-			<div style="font-weight: bold">호텔명: &nbsp;</div>
-			<div>
-				<label style="font-weight: bold">체크인: </label>&nbsp;
-				<label class="chkin">${phr_chkin }</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
-					style="font-weight: bold">체크아웃: </label>&nbsp;<label class="chkout">${phr_chkout }&nbsp;&nbsp;</label>(총
-				<label class="totalDays" style="color:">${totalDays}</label>박)
+			<br>
+			<br>
+			<div class="petAddForm">
+				<div>
+
+					<button class="pSmodalButton">펫선택</button>
+
+					&nbsp;
+					<%-- 					최대 ${quantity}마리 선택할 수 있습니다. --%>
+					<!-- 				<label class="petInfo"></label> -->
+				</div>
+					<br>
+				<div class="petList"></div>
+				<br>
+				<div class="PriceAndSize" style="">
+						<div style="width: 400px;margin-left: 200px;">
+		
+
+					<div class="night" style="display: inline-block; width: 350px">
+						<div class="nightCount" style="text-align: left; float: left">asdsa
+						</div>
+						<div class="countPrice" style="float: right">
+							<span class="nightCountPrice">sadsad</span>
+						</div>
+					</div>
+						<hr style="width:400px">
+					<div class="night" style="display: inline-block; width: 350px">
+						<div class="nightCount" style="text-align: left; float: left">asdsa
+						</div>
+						<div class="countPrice" style="float: right">
+							<span class="nightCountPrice">sadsad</span>
+						</div>
+					</div>
+						<hr style="width:400px">
+					<div class="night" style="display: inline-block;width: 350px">
+						<div class="nightCount" style="text-align: left; float: left">asdsa
+						</div>
+						<div class="countPrice" style="float: right">
+							<span class="nightCountPrice">sadsad</span>
+						</div>
+					</div>
+						<hr style="width:400px">
+					<div class="night" style="display: inline-block; width: 350px">
+						<div class="nightCount" style="text-align: left; float: left">asdsa
+						</div>
+						<div class="countPrice" style="float: right">
+							<span class="nightCountPrice">sadsad</span>
+						</div>
+					</div>
+					
+					</div>
+				</div>
 			</div>
+
+			<%-- 			<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
+
+
+
 			<hr>
-
-			
-		</fieldset>
-		<div>
+					<div>
+			<button id="btnSubmit">예약요청</button>
 		</div>
-		<div>
-			<fieldset>
-				<legend>예약 확인</legend>
-
-				<table id="rst" style="width: 600px">
-					<tr>
-						<th>펫</th>
-						<th>호텔명</th>
-						<th>체크인</th>
-						<th>체크아웃</th>
-						<th>삭제</th>
-					</tr>
-				</table>
-			</fieldset>
-			<button id="btnSubmit">제출</button>
 		</div>
-	</div>
 
 
+		<!-- ///////////////////////////////////////////////////////////////모달 -->
+		<div class="modal-modify" id="reply-modal">
+			<!-- css 적용 하기 위한 경우 class -->
 
-	<!-- ///////////////////////////////////////////////////////////////모달 -->
-	<div class="modal-modify" id="reply-modal">
-		<!-- css 적용 하기 위한 경우 class -->
-
-		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-		<div class="modal-table" id="modal-table">
-			<div class="close" id="modal-close">&times;</div>
-			<div class="radioForm">
-
-				<div class="inputGroup">
-					<input id="radio1" name="radio" type="radio" /> <label
-						for="radio1">Yes</label>
-				</div>
-				<div class="inputGroup">
-					<input id="radio2" name="radio" type="radio" /> <label
-						for="radio2">No</label>
-				
+			<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
+			<div class="modal-table" id="modal-table">
+				<div class="close" id="modal-close">&times;</div>
+				<div class="radioForm">
+					<c:forEach items="${petList}" var="pL" varStatus="pLstatus">
+						<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+						<input type="hidden" value="${pL.p_num}">
+						<input type="hidden" value="${quantity}" class="quantity">
+						<div class="inputGroup">
+							<input id="radio${pLstatus.count}" name="radio" type="radio" />
+							<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name}
+								${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label>
+						</div>
+					</c:forEach>
+					<input type="button" value="선택" class="petSelectButton">
 				</div>
 			</div>
 		</div>
-
 	</div>
-
-
-
-
-
 </body>
 </html>
