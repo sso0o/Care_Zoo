@@ -292,7 +292,6 @@ ul {
 
 	$(function() {
 		
-		alert($("label[class=petCount]").length);
 // 			initialize();
 		var paramsArr = [];
 		function petLoading(){
@@ -633,85 +632,107 @@ ul {
 	<br>
 	<br>
 	<br>
-	<div class="container" style="text-align: center">
+	<div class="container" >
 		<div
-			style="margin: 100px; border: 2px solid darkgray; padding: 30px; border-radius: 4px;">
-
+			style="margin: 100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;">
+<div style="text-align: center">
 			<div style="font-size: 20px; display: inline-block">
 				<div
-					style="text-align: left; float: left; border: 1px solid darkgray; border-radius: 4px;">
-					<label style="font-weight: bold;">체크인: </label>&nbsp; <label
+					style="text-align: left; float: left; border: 1px solid darkgray; border-radius: 4px; padding: 15px; margin-right: 50px">
+					<label style="font-weight: bold;">체크인: </label>&nbsp;<label
 						class="chkin">${phr_chkin} </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<label style="font-weight: bold">체크아웃: </label>&nbsp;<label
-						class="chkout">${phr_chkout }&nbsp;&nbsp;</label>
+						class="chkout">${phr_chkout }&nbsp;&nbsp;</label> &nbsp;&nbsp; <label
+						class="totalDays" style="">(총 ${totalDays}박)</label>&nbsp;&nbsp;
 				</div>
-&nbsp;&nbsp;&nbsp;&nbsp;
-				(총 <label class="totalDays" style="color:">${totalDays}</label>박)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label class="totalDays" style="float: right">반려견
-					${quantity} 마리</label>
+				<div
+					style="text-align: left; float: left; border: 1px solid darkgray; border-radius: 4px; padding: 15px;">
+					<label class="totalDays" style="float: right">반려견
+						${quantity} 마리</label>
+				</div>
 			</div>
-			<br>
-			<br>
+			<br> <br>
 			<div class="petAddForm">
-				<div>
 
-					<button class="pSmodalButton">펫선택</button>
-
-					&nbsp;
-					<%-- 					최대 ${quantity}마리 선택할 수 있습니다. --%>
-					<!-- 				<label class="petInfo"></label> -->
-				</div>
-					<br>
-				<div class="petList"></div>
 				<br>
 				<div class="PriceAndSize" style="">
-						<div style="width: 400px;margin-left: 200px;">
-		
-
-					<div class="night" style="display: inline-block; width: 350px">
-						<div class="nightCount" style="text-align: left; float: left">asdsa
+					<div
+						style="width: 400px; margin-left: 160px; border: 1px solid; border-radius: 4px; padding: 30px; height: auto;">
+				<div>
+					<button class="pSmodalButton">펫선택</button>
+				</div>
+				<br>
+				<div class="petList"></div>
+						<br>
+						<div class="night" style="display: inline-block; width: 350px">
+							<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원
+								X ${totalDays}</div>
+							<div class="countPrice" style="float: right">
+								<span class="nightCountPrice">${nightCountValue }</span>
+							</div>
 						</div>
-						<div class="countPrice" style="float: right">
-							<span class="nightCountPrice">sadsad</span>
+						<hr style="width: 400px">
+						<div class="night" style="display: inline-block; width: 350px">
+							<div class="nightCount" style="text-align: left; float: left">반려견
+								추가</div>
+							<div class="countPrice" style="float: right">
+								<span class="nightCountPrice">${petAddValue }</span>
+							</div>
 						</div>
-					</div>
-						<hr style="width:400px">
-					<div class="night" style="display: inline-block; width: 350px">
-						<div class="nightCount" style="text-align: left; float: left">asdsa
+						<hr style="width: 400px">
+						<div class="night" style="display: inline-block; width: 350px">
+							<div class="nightCount" style="text-align: left; float: left">총
+							</div>
+							<div class="countPrice" style="float: right">
+								<span class="nightCountPrice">${totalValue }</span>
+							</div>
 						</div>
-						<div class="countPrice" style="float: right">
-							<span class="nightCountPrice">sadsad</span>
-						</div>
-					</div>
-						<hr style="width:400px">
-					<div class="night" style="display: inline-block;width: 350px">
-						<div class="nightCount" style="text-align: left; float: left">asdsa
-						</div>
-						<div class="countPrice" style="float: right">
-							<span class="nightCountPrice">sadsad</span>
-						</div>
-					</div>
-						<hr style="width:400px">
-					<div class="night" style="display: inline-block; width: 350px">
-						<div class="nightCount" style="text-align: left; float: left">asdsa
-						</div>
-						<div class="countPrice" style="float: right">
-							<span class="nightCountPrice">sadsad</span>
-						</div>
-					</div>
-					
 					</div>
 				</div>
 			</div>
-
+</div>
 			<%-- 			<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
-
-
-
-			<hr>
-					<div>
-			<button id="btnSubmit">예약요청</button>
+<br>
+<br>
+		<div>
+			<h4>예약요청 전 꼭 확인해주세요!</h4>
+			<ul>
+				<li>* 예약을 위해 강아지에 대한 내용을 돌보미에게 상세히 적어주세요.</li>
+				<li>* 예약완료를 위해 돌보미의 결제요청 후 2시간 이내로 입금해주셔야합니다. (늦어질 경우 도그메이트
+					고객센터로 연락주세요.)</li>
+				<li>* 사전만남은 예약 완료 후 진행하실 수 있으며, 환불은 예약 3일전까지 100% 가능합니다.</li>
+				<li>* 개인 연락처를 공유하지마세요. 예약이 완료되면 돌보미의 연락처를 확인하실 수 있습니다.</li>
+				<li>* 메시지 내용은 안전거래 등의 목적으로 회사가 열람, 수집할 수 있습니다.</li>
+			</ul>
 		</div>
+		<textarea name="hsr_message"
+			placeholder="김수연 돌보미에게 예약요청을 위해 메시지를 남겨주세요." maxlength="4000"
+			id="txtMESSAGE" style="margin: 0px; width: 700px; height: 126px;"></textarea>
+			<br>
+		<div>
+			<div style="margin-bottom:15px">도그메이트를 이용하시는 이유에 대해 알려주세요!</div>
+			<div>
+				<select name="hsr_purpose">
+					<option value="여행">여행</option>
+					<option value="출장">출장</option>
+					<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
+					<option value="집안행사">집안행사</option>
+					<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기 위해</option>
+					<option value="기타">기타</option>
+				</select>
+			</div>
+		</div>
+		<ul>
+			<li>요청 시 잘못된 정보를 전달할 경우 이로인해 발생되는 문제에 대한 책임은 의뢰인 본인에게 있습니다.</li>
+			<li>'예약 요청'을 클릭하면 서비스 총액을 지불하는 것과 서비스 약관, 환불정책에 동의하는 것입니다.</li>
+			<li>돌보미가 예약 요청을 수락해야 결제를 진행 할 수 있으며, 24시간 이내에 돌보미가 요청에 대한 응답을 할
+				것 입니다.</li>
+		</ul>
+			<br>
+			<hr>
+			<div>
+				<button id="btnSubmit">예약요청</button>
+			</div>
 		</div>
 
 

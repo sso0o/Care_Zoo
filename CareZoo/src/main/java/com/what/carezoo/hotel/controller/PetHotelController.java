@@ -182,34 +182,41 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			PetHotelReservation phr,
 			String days, 
 			@RequestParam("quantity") int quantity,
-			@RequestParam("oneNightValue") int oneNightPrice,
-			@RequestParam("nightCountValue") int nightCountValue
-//			@RequestParam("phrm_num") int phrm_num
+			@RequestParam("oneNightValue") String oneNightValue,
+			@RequestParam("nightCountValue") String nightCountValue,
+			@RequestParam("petAddValue") String petAddValue,
+			@RequestParam("totalValue") String totalValue,
+			@RequestParam("phrm_num") int phrm_num
 			) {
 //		System.out.println("days: "+days);
 //		System.out.println("quantity: "+ quantity+1);
 //		System.out.println("phr:"+phr);
 //		System.out.println(session.getAttribute("user_num"));
-//		int c_num =(Integer) session.getAttribute("user_num");
-//		PetHotelRoom phrm= phService.petHotelRoomDetail(phrm_num);
-		System.out.println("oneNightPrice"+oneNightPrice);
+		PetHotelRoom phrm= phService.petHotelRoomDetail(phrm_num);
+		System.out.println("oneNightPrice"+oneNightValue);
 		System.out.println("nightCountPrice"+nightCountValue);
+		System.out.println("petAddValue"+petAddValue);
+		System.out.println("totalValue"+totalValue);
 		List<Pet> pL = pService.selectByC_Num((Integer) session.getAttribute("user_num"));
 //		System.out.println(pL);
-//		PetHotel ph = phService.getPetHotelbyNum(phrm.getPh_num());
+		PetHotel ph = phService.getPetHotelbyNum(phrm.getPh_num());
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		for(int i=0;i<pL.size();i++) {
 			int age = year-Integer.parseInt(((pL.get(i)).getP_birth()).substring(0,4));
 			(pL.get(i)).setAge(age+1);
 			System.out.println(age);
 		}
-//		m.addAttribute("ph",ph);
-//		m.addAttribute("phrm",phrm);
+		m.addAttribute("ph",ph);
+		m.addAttribute("phrm",phrm);
 		m.addAttribute("quantity", quantity+1);
 		m.addAttribute("totalDays", days);
 		m.addAttribute("phr_chkin", phr.getPhr_chkin());
 		m.addAttribute("phr_chkout", phr.getPhr_chkout());
 		m.addAttribute("petList", pL);
+		m.addAttribute("oneNightValue", oneNightValue);
+		m.addAttribute("nightCountValue", nightCountValue);
+		m.addAttribute("petAddValue", petAddValue);
+		m.addAttribute("totalValue", totalValue);
 		phrService.getPetHotelResByPhrm_num(phr.getPhrm_num());
 		return "hotel/petHotelResForm";
 	}
