@@ -82,7 +82,7 @@ public class VisitSitterReservationService {
 		return false;
 	}
 	
-	public List<VisitSitterReservation> getVisitSitterResByVsrnum(int vsr_num) {
+	public VisitSitterReservation getVisitSitterResByVsrnum(int vsr_num) {
 		return vsrDao.selectByVsrnum(vsr_num);
 	}
 	

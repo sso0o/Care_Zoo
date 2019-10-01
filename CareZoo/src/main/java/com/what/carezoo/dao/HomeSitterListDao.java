@@ -13,7 +13,10 @@ public interface HomeSitterListDao {
 	public int deleteHsl(int hsl_num);
 	public HomeSitterList selectOnebyHsl_num(int hsl_num);
 	public Map<String, Object> selectHsl(int hsl_num);	
-	public List<Map<String, Object>> selectallHsl();	
+	public List<Map<String, Object>> selectallHsl();
+	
+	public List<HomeSitterList> selectHsls();
+	
 	public List<HomeSitterList> selectAllHsl(@Param("list")List<String> hsl_address, @Param("hsl")HomeSitterList hsl);
 	public int insertFile(Map<String,Object> param);
 	public String selectFileName(int hsl_num);

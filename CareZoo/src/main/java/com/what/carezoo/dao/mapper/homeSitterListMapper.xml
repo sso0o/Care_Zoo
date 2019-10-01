@@ -62,6 +62,13 @@
 		LEFT OUTER JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
 		where hsli.hsl_num = #{hsl_num}
 	</select>
+	<select id="selectHsls" resultType="homeSitterList">
+		select *
+		from homesitterlist hsl,  homesitter  hs, homesittercomment hsc
+		where hsl.hs_num = hs.hs_num (+)
+		and hs.hs_num = hsc.hs_num(+)
+		order by hs.hs_num
+	</select>
 	<select id="selectallHsl" resultType="map">
 		SELECT * 
 		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num

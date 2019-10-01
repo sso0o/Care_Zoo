@@ -37,6 +37,12 @@
 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 
 <script>
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
@@ -106,309 +112,99 @@
 				$("#groupid").val(info.event.groupId)
 				$("#number").val(info.event.id)
 				
-				modalOpen();
+				modalOpen(info.event.id);
 			}
 
 		});
-		
-		if(user_numtype.indexOf("c_num") != -1){
-			// 캘린더에 내 예약 추가(고객)
-			$.ajax({
-				url : "${contextPath}/member/myReservationCustomer",
-				data : {
-					c_num : num
-				},
-				dataType : "JSON",
-				success : function(data) {
-					console.log(data)
-					if(data.vsrList != null){
-						for (var i = 0; i < data.vsrList.length; i++) {
-							var e = {
-								groupId : 'vsr_num',
-								id : data.vsrList[i].vsr_num,
-								start : data.vsrList[i].vsr_chkin,
-								end : data.vsrList[i].vsr_chkout,
-								title : '방문시터예약',
-								description : '이거슨 방문시터',
-								color : 'rgba(0, 0, 120, 0.6)'
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
-					
-					}
-					if(data.hsrList != null){
-						for (var i = 0; i < data.hsrList.length; i++) {
-							var e = {
-								groupId : 'hsr_num',
-								id : data.hsrList[i].hsr_num,
-								start : data.hsrList[i].hsr_chkin,
-								end : data.hsrList[i].hsr_chkout,
-								title : '가정시터 예약',
-								description : data.hsInfo[i].hs_name,
-								color : 'rgba(0, 120, 0, 0.6)'
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
-					}
-					
-					if(data.phrList != null){
-						for (var i = 0; i < data.phrList.length; i++) {
-							var e = {
-								groupId : 'phr_num',
-								id : data.phrList[i].phr_num,
-								start : data.phrList[i].phr_chkin+'T13:00',
-								end : data.phrList[i].phr_chkout+'T11:00',
-								title : data.phInfo[i].ph_name,
-								description : data.pet[i].p_name,
-								color : 'rgba(200, 0, 0, 0.6)'
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
-					}
-					
-					
-				},
-				error : function() {
-					alert("데이터를 불러오는데 실패했습니다.")
-				}
-			})
-		} else if(user_numtype.indexOf("hs_num") != -1){ //홈시터
-			
-			// 캘린더에 내 예약 추가(홈시터)
-			$.ajax({
-				url : "${contextPath}/sitter/myReservationHS",
-				data : {
-					hs_num : num
-				},
-				dataType : "JSON",
-				success : function(data) {
-					for(var i = 0; i<data.hsrList.length; i++){
-						var e = {
-							groupId : 'c_num',
-							id : data.hsrList[i].c_num,
-							start : data.hsrList[i].hsr_chkin,
-							end : data.hsrList[i].hsr_chkout,
-							title : data.cList[i].c_name+' 보호자',
-							description : data.pList[i].p_name+" *"+data.hsrList[i].hsr_status,
-							color : 'rgba(0, 0, 120, 0.6)'
-						}
-						calendar.addEvent(e)
-						calendar.render();
-					}
 
-				},
-				error : function() {
-					alert("데이터를 불러오는데 실패했습니다.")
-				}
-			})
-			
-		} else if(user_numtype.indexOf("vs_num") != -1){ //방문시터
-			// 캘린더에 내 예약 추가(방문시터)
-			$.ajax({
-				url : "${contextPath}/sitter/myReservationVS",
-				data : {
-					vs_num : num
-				},
-				dataType : "JSON",
-				success : function(data) {
-					console.log(data.cList[0].c_name)
-					for(var i = 0; i<data.vsrList.length; i++){
-						var e = {
-							groupId : 'c_num',
-							id : data.vsrList[i].c_num,
-							start : data.vsrList[i].vsr_chkin,
-							end : data.vsrList[i].vsr_chkout,
-							title : data.cList[i].c_name,
-							description : "*"+data.vsrList[i].vsr_status,
-							color : 'rgba(0, 0, 120, 0.6)'
-						}
-						calendar.addEvent(e)
-						calendar.render();
-					}
-
-				},
-				error : function() {
-					alert("데이터를 불러오는데 실패했습니다.")
-				}
-			})
-		} else{ //관리자
-			
-		}
-		
-		// 후기등록 버튼 눌렀을때 실행할 함수
-		$("#modal-review").on("click", function() {
-			if(d>eee){
-				$.ajax({
-					url:"${contextPath}/comment/commentchk" ,
-					data:{
-						groupId : $("#groupid").val(),
-						id : $("#number").val()
-					},
-					dataType : "JSON",
-					success: function(data) {
-						if(data){
-							if($("#groupid").val()=="phr_num"){
-								location.href='${contextPath}/comment/phCommentForm?phr_num='+$("#number").val();
-							} else if($("#groupid").val()=="hsr_num"){
-								location.href='${contextPath}/comment/hsCommentForm?hsr_num='+$("#number").val();
-							}else if($("#groupid").val()=="vsr_num"){
-								location.href='${contextPath}/comment/vsCommentForm?vsr_num='+$("#number").val();
-							}		
-						} else{
-							alert("이미 후기를 작성하셨습니다 :)")
-						}
-					},error: function() {
-						alert("오류");
-					}
-				})
-			
-			} else{
-				alert("조건을 갖추지 못하였습니다 :/")
-			}
-		});
-	
-		var iiii = {
-				start : '2019-09-17',
-				end: '2019-09-17',
-				description : 'test',
-				title: 'test'
-			}
-			calendar.addEvent(iiii);
-			calendar.render();
-
-	});
-	
-	function modalOpen() {
-		console.log($("#groupid").val()+"=="+$("#number").val())
-		var urll = "";
-		if($("#groupid").val()=="phr_num"){
-			urll = "getModalPH";
-		} else if($("#groupid").val()=="hsr_num"){
-			urll = "getModalHS";
-		}else if($("#groupid").val()=="vsr_num"){
-			urll = "getModalVS";
-		} else if($("#groupid").val()=="c_num"){
-			urll = "getModalC";
-		}
-		console.log(urll)
-		
-		$.ajax({
-			url: "${contextPath}/comment/"+urll ,
-			data:{
-				num: $("#number").val()
+	$.ajax({
+			url : "${contextPath}/sitter/myReservationVS",
+			data : {
+				vs_num : num
 			},
-			dataTpe:"JSON",
-			success: function(data) {
-				console.log(data)				
-				$("#modal-name").val(data.name);
-				$("#modal-contact").val(data.contact);
-				if(data.star != null){
-					$("#starTr").show();
-					$("#modal-star").val(data.star+"점");
-				} else{
-					$("#starTr").hide();
-					$("#reviewTr").hide();
-				}
-				rstnum = data.number;
-				if(data.fileName != null){
-					$("#modal-img").attr("src","${contextPath}/comment/image?fileName="+data.filename)
-				} else{
-					$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg")
-				}
-				var rststar = parseInt(data.star /0.5) 
-				console.log(rststar)
-				$("#star"+rststar).addClass('on').prevAll('span').addClass('on');
-				
-				if(data.address != null){
-					$("#addressTr").show();
-					document.getElementById("modal-address").innerHTML=(data.address);
-				} else{
-					$("#addressTr").hide();
-				}
-				
-				
-				$("#atag").on('click', function() {
-					if($("#groupid").val()=="phr_num"){
-						$("#atag").attr('href',"${contextPath}/petHotel/petHotelView?ph_num="+rstnum)
-					} else if($("#groupid").val()=="hsr_num"){
-						////여기 채우기ㅣㅣㅣ**********************************************
-					}else if($("#groupid").val()=="vsr_num"){
-						////여기 채우기ㅣㅣㅣ**********************************************
+			dataType : "JSON",
+			success : function(data) {
+				console.log(data.cList[0].c_name)
+				for (var i = 0; i < data.vsrList.length; i++) {
+					var e = {
+						groupId : 'c_num',
+						id : data.vsrList[i].c_num,
+						start : data.vsrList[i].vsr_chkin,
+						end : data.vsrList[i].vsr_chkout,
+						title : data.cList[i].c_name,
+						description : "*" + data.vsrList[i].vsr_status,
+						color : 'rgba(0, 0, 120, 0.6)',
+						textColor : "white"
 					}
-				})
-				
-			},error: function() {
-	
+					calendar.addEvent(e)
+					calendar.render();
+				}
+
+			},
+			error : function() {
+				alert("데이터를 불러오는데 실패했습니다.")
 			}
 		})
-		
+
+	});
+
+	//고객정보가 모달에 있어야함
+	function modalOpen(num) {
+		var urll = "getModalC";
+		console.log(urll)
+
+		$.ajax({
+			url : "${contextPath}/comment/" + urll,
+			data : {
+				num : num
+			},
+			dataTpe : "JSON",
+			success : function(data) {
+				console.log(data)
+				$("#modal-name").val(data.name);
+				$("#modal-contact").val(data.contact);
+
+			},
+			error : function() {
+			}
+		})
+
 		$("#reply-modal").show();
 
 		$("#modal-close").on("click", function() {
 			$("#reply-modal").hide();
-			$("#starRev").children('span').removeClass('on');
 			$("#modal-name").val("");
 			$("#modal-contact").val("");
-			$("#modal-star").val("");
-			$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
-			document.getElementById("modal-address").innerHTML=("");
+			$("#modal-img").attr("src", "${contextPath}/resources/img/user.jpg");
+			document.getElementById("modal-address").innerHTML = ("");
 		});
 	}
-	
+
 	function myResList(checkDate) {
-		console.log("function : "+checkDate);
-		console.log("function : "+user_numtype);
-		var showEvent = $("#showEvent");
+		console.log("function : " + checkDate);
+		console.log("function : " + user_numtype);
+		var showDiv = $("#showDiv");
 		$("#legend").text(checkDate);
 
-		showEvent.children("p").remove();
-		$.ajax({
-			url : "${contextPath}/member/myReservationCustomer",
-			data: {
-				c_num:user_num,
-			},
-			dataType: "JSON",
-			success: function(data) {
-				if(data.vsrList != null){
-					for (var i = 0; i < data.vsrList.length; i++) {
-						if(data.vsrList[i].vsr_chkin<=checkDate && checkDate <=data.vsrList[i].vsr_chkout){
-							var pTag = "<p>"+data.vsInfo[i].vs_name+"  "+data.vsInfo.vs_contact+" "+data.vsrList.vsr_status+"</p>";
-							showEvent.append(pTag);	
-						}	
-					}
-				}
-				
-				if(data.hsrList != null){
-					for (var i = 0; i < data.hsrList.length; i++) {
-						if(data.hsrList[i].hsr_chkin<=checkDate && checkDate <=data.hsrList[i].hsr_chkout){
-							var pTag = "<p>"+data.hsInfo[i].hs_name+"  "+data.hsInfo.hs_contact+" "+data.hsrList.hsr_status+"</p>";
-							showEvent.append(pTag);
-						}
-					}
-				}
-				
-				if(data.phrList != null){
-					for (var i = 0; i < data.phrList.length; i++) {
-						if(data.phrList[i].phr_chkin <= checkDate && checkDate <= data.phrList[i].phr_chkout){
-							var pTag = "<p>"+data.phInfo[i].ph_name+"  "+data.phInfo.ph_contact+" "+data.phrList.phr_status+"</p>";
-							showEvent.append(pTag);
-						}
-					}
-				}
-				
-
-				
-			},
-			error: function() {
-				
-			}
-		})
+		showDiv.children("p").remove();
 		
-	}
+	$.ajax({
+		url : "",
+		data : {
+			
+		},
+		dataType : "JSON",
+		success : function(data) {
+			console.log(data);
+			
 
+		},
+		error : function() {
+
+		}
+	})
+
+}
 </script>
 <style>
 
@@ -428,6 +224,38 @@
 	width: 900px;
 	margin: 0 auto;
 }
+
+.fieldset{
+	border: 1px solid #888;
+	border-radius: .125em;
+	margin: 20px auto;
+	padding: 20px;
+}
+
+.fieldset legend{
+	max-width: 400px;
+	width: auto;
+}
+
+.col{
+	text-align: center;
+}
+
+
+.my-btn{
+	border: 1px solid #40bf9f;
+	color: #40bf9f;
+}
+
+
+
+.my-btn:hover, .my-btn:focus{
+	border: 1px solid #40bf9f;
+	color: white;
+	background-color: #40bf9f;
+	cursor: pointer;
+}
+
 
 </style>
 <title>mypage</title>
@@ -494,15 +322,18 @@
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
 	<div class="container">
-		
+		<h2>내 정보</h2>
+		<hr>
 		<div id='calendar'></div>
 		<div class="content">
-			<fieldset id="showEvent">
+			<fieldset id="showEvent" class="fieldset">
 				<legend style="text-align: center;" id="legend">여기에 선택한 날짜의 예약이 나옴</legend>
-<!-- 					<p id="p1">1</p> -->
-<!-- 					<p>1</p> -->
-<!-- 					<p>1</p> -->
+					<div class="row" id="showDiv">
+						
+					</div>
 			</fieldset>
 		</div>
 		<div>
@@ -517,7 +348,7 @@
 	<footer>
 		<div>durlsms footer</div>
 	</footer>
-	<!-- ///////////////////////////////////////////////////////////////사이드 메뉴-->
+
 	
 
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
@@ -538,7 +369,8 @@
 			</tr>
 			<tr>
 				<td rowspan="3" style="width: 150px">
-					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle;">
+					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle;
+					margin-left: 15px;">
 				</td>
 				<td colspan="2">
 					<a id="atag"><input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly"></a>
@@ -546,11 +378,11 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="text" class="modal-content" name="modal-contact" id="modal-contact" value="" readonly="readonly">
+					<input type="text" class="modal-content contact" name="modal-contact" id="modal-contact" value="" readonly="readonly">
 				</td>
 			</tr>
 			<tr class="starTr" id="starTr" >
-				<td style="padding-left: 30px; width: 170px;">
+				<td style="padding-left: 15px; width: 170px;">
 					<span id="starRev" class="starRev"> 
 						<span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> 
 						<span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4"  title="2">별2_오른쪽</span> 
@@ -560,13 +392,13 @@
 					</span>
 				</td>
 				<td>
-					<input type="text" class="modal-content" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
+					<input type="text" class="modal-content star" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
 					
 				</td>
 			</tr>
 			<tr class="addressTr" id="addressTr">
 				<td colspan="3">
-					<p class="modal-content" id="modal-address"></p>
+					<p class="modal-content address" id="modal-address"></p>
 				</td>
 			</tr>
 			<tr id="reviewTr">
