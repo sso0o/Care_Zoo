@@ -34,6 +34,7 @@
 	height: 288px;
 	padding: .2em .2em 0;
 	display: none;
+	height: auto;
 }
 
 .ui-datepicker .ui-datepicker-header {
