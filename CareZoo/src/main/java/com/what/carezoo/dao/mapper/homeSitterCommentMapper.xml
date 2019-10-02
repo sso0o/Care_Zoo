@@ -29,9 +29,9 @@
 	
 	<select id="selectByHs_num" parameterType="int" resultType="homeSitterComment">
 		select *
-		from PetHotelComment phc, customer c 
-		where phc.c_num = c.c_num(+) 
-		and ph_num = #{ph_num}
+		from homesittercomment hsc, customer c 
+		where hsc.c_num = c.c_num(+) 
+		and hs_num = 1;
 	</select>
 	
 	<select id="selectAll" parameterType="int" resultType="homeSitterComment">
@@ -39,13 +39,10 @@
 		from PetHotelComment
 	</select>
 	
-	<select id="hs_star">
-		select ph.ph_num, ph.ph_name, round(star,1)
-		from pethotel ph left outer join(select PetHotelComment, avg(phc_star) star
-										from PetHotelComment
-										group by ph_num
-										order by ph_num )s
-		on ph.ph_num=s.ph_num;
-		
+	<select id="hs_star" parameterType="int" resultType="double">
+		 select hs.hs_num, hs.hs_name, round(star,1)
+		 from homesitter hs left outer join (select hs_num , avg(hsc_star) star from homesittercomment group by hs_num order by hs_num ) hsc
+		 on hs.hs_num=hsc.hs_num
+		 where hsc.hs_num = #{hs_num}   		
 	</select>
 </mapper>

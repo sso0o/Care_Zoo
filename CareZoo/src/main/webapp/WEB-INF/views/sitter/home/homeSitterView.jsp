@@ -238,7 +238,7 @@ $(function() {
 		calculatePrice(); 
 	});
 	//반려견 추가 당
-	$('#hsr_numof_pet').off("change").on("click", function(){
+	$('#hsr_numof_pet').change(function(){
 		console.log("펫추가")
 		calculatePrice();
 	});
@@ -292,6 +292,7 @@ function showDays() {
     return true;
 }
 function calculatePrice() {
+	console.log(document.getElementById('hsr_numof_pet').value)
 	totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
 	totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
 	pricePerDays = (pricePerDay*empdays);
@@ -476,16 +477,16 @@ $(function() {
 							</li>
 							<li>반려견 추가 당 <span id="addPet">15000</span>원</li>
 							<li><span id ="DAY">1 day</span> <span class="pricePerDays"> 20000</span>원</li>
-<!-- 							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li> -->
-							<li>
-								반려견 추가
-								<span class="def-number-input number-input safari_only">
- 								  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-								  <input type="number" class="quantity" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0">
-								  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
-								</span>
-								<span id="totalAddPetPrice">0</span>원
-							</li>
+							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li>
+<!-- 							<li> -->
+<!-- 								반려견 추가 -->
+<!-- 								<span class="def-number-input number-input safari_only"> -->
+<!--  								  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"  type="button"></button> -->
+<!-- 								  	<input type="number" class="quantity" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" > -->
+<!-- 								  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"  type="button"></button> -->
+<!-- 								</span> -->
+<!-- 								<span id="totalAddPetPrice">0</span>원 -->
+<!-- 							</li> -->
 							<li>총 가격 : <span id="hsr_totalprice">20,000</span>원<br>
 							</li>
 						</ul>					
