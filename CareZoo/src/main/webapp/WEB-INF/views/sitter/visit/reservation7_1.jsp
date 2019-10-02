@@ -96,6 +96,14 @@ $( document ).ready( function() {
 	width: 200px;
 	font-weight: bold;
 }
+.btn-cancle, .btn-add{
+	background-color: white;
+	color: #40bf9f;
+	border-color:#40bf9f;
+	margin: 15px;
+	width: 50;
+	font-weight: bold;
+}
 </style>
 <meta charset="UTF-8">
 <title>예약내용 확인 폼</title>
@@ -160,35 +168,43 @@ $( document ).ready( function() {
 <h1>예약 변경을 원할 경우 추가/변경을 눌러주세요</h1>
 <!-- <h3>강아지 한마리를 선택하면 전체 강아지의 시간이 '변경' 또는 '삭제' 됩니다^^</h3> -->
 
-	<form action="complete22" method="post">
-		<div>
-			<table class="table table-striped table-bordered table-hover">
-				<tr>
-					<td><input type="hidden" name="c_num" value="${c_num}"> 
-					<c:forEach items="${p_num}" var="pn">
-						<input type="hidden" name="p_num" value="${pn}">
-					</c:forEach></td>
-				</tr>
-				<tr>
-				<c:forEach items="${list}" var="li">
-				<input type="hidden" name="vsr_count" value="${li.vsr_count}">
-				<input type="hidden" name="vsr_num" value="${li.vsr_num}">
-				<input type="hidden" id="vsr_hour" name ="vsr_hour" class ="vsr_hour" value="${li.vsr_hour}">
-					<tr><th>${li.vsr_chkin}
-					<input type="button" onclick="petDeleteOpen(${c_num},${li.vsr_num},${li.vsr_count})" value="x">
-					
-					</th></tr>
-					<tr><td class="hour"></td><td>+${li.vsr_hAdd}시간
-					<input type="button" onclick="location.href='${contextPath}/visit/addForm?vsr_chkin=${li.vsr_chkin}&vsr_hour=${li.vsr_hour}&vsr_hAdd=${li.vsr_hAdd}&c_num=${c_num}&vsr_num=${li.vsr_num}&vsr_count=${li.vsr_count}'" value="변경">
-					</td></tr>	
-				</c:forEach>				
+		<form action="complete22" method="post">
 
-			</table>
-		</div>
-		<div>
-			<input type="submit" class="btn btn-chk" value="다음">
-		</div>
-	</form>
+			<input type="hidden" name="c_num" value="${c_num}">
+			<c:forEach items="${p_num}" var="pn">
+				<input type="hidden" name="p_num" value="${pn}">
+			</c:forEach>
+
+			<div>
+				<table class="table table-striped table-bordered table-hover">
+
+					<tr>
+						<c:forEach items="${list}" var="li">
+							<input type="hidden" name="vsr_count" value="${li.vsr_count}">
+							<input type="hidden" name="vsr_num" value="${li.vsr_num}">
+							<input type="hidden" id="vsr_hour" name="vsr_hour"
+								class="vsr_hour" value="${li.vsr_hour}">
+							<tr>
+								<th colspan="2">${li.vsr_chkin}<input type="button" class="btn btn-cancle"
+									onclick="petDeleteOpen(${c_num},${li.vsr_num},${li.vsr_count})"
+									value="x">
+
+								</th>
+							</tr>
+							<tr>
+								<td class="hour"></td>
+								<td>+${li.vsr_hAdd}시간 <input type="button" class="btn btn-add"
+									onclick="location.href='${contextPath}/visit/addForm?vsr_chkin=${li.vsr_chkin}&vsr_hour=${li.vsr_hour}&vsr_hAdd=${li.vsr_hAdd}&c_num=${c_num}&vsr_num=${li.vsr_num}&vsr_count=${li.vsr_count}'"
+									value="변경">
+								</td>
+							</tr>
+						</c:forEach>
+				</table>
+			</div>
+			<div>
+				<input type="submit" class="btn btn-chk" value="다음">
+			</div>
+		</form>
 	</div>
 	       
 </body>

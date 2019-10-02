@@ -99,7 +99,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 		    multidate: true,
 		    format: "yyyy-mm-dd",
 
-		})
+		}).datepicker('show');
 	});
 </script>
 
@@ -140,7 +140,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 // 						}else{
 // 							//$(this).find('.ui-datepicker td span, .ui-datepicker td a').css("background-color", "gray");
 // 							//$(".ui-state-default ui-state-active").css("background-color", "gray");
-// 							var selDate = $("<input type='text' class='vsr_chkin' name ='vsr_chkin'>").val(dateVal);
+// 							
 // 							//id값을 dateVal값으로 유일값으로 다르게 준다
 // 							selDate.attr("id",dateVal);
 // 							selDate.attr("value",dateVal);
