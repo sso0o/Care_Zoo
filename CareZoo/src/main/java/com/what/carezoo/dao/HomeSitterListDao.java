@@ -21,4 +21,7 @@ public interface HomeSitterListDao {
    public int insertFile(Map<String,Object> param);
    public String selectFileName(int hsl_num);
    public List<String> selectFileList(int hsl_num);
+   
+   // 가격
+   public Map<String, Object> getHsPrice(Map<String, Object> params);  
 }

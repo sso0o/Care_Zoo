@@ -149,6 +149,16 @@ ul {
     }
   }
 }
+/* <!-- datepicke 달력이모지--> */
+.cal {
+  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+}
+/* .cal::-webkit-inner-spin-button { */
+/*   display: none; */
+/* } */
+/* .cal::-webkit-calendar-picker-indicator { */
+/*   opacity: 0; */
+/* } */
 </style>
 <script type="text/javascript">
 $(function() {	
@@ -164,12 +174,14 @@ $(function() {
 	    }
 	}
 	var pickupTime = $('#hsr_dropoff_time').timepicker({
+		format: 'LT',
 		minTime:'07:00' ,
 		timeFormat: "HH:mm",
 		maxTime: '22:00',
 		stepMinute: 30		
 	});
 	var takebackTime = $('#hsr_pickup_time').timepicker({
+		format: 'LT',
 		minTime:'07:00' ,
 		timeFormat: "HH:mm",
 		maxTime: '22:00',
@@ -335,6 +347,7 @@ $(function() {
 		}
 	});
 })
+
 </script>
 </head>
 <body>
@@ -456,16 +469,17 @@ $(function() {
 	<div style="width: 293px; display: inline-block; float: left;">
 		<div>
 			<fieldset>
-				<legend>예약을 원하는 날짜와 시간을 선택해주세요</legend>
 				<form action="reserve" method="post" >
 					<div>
 						<ul>
-							<li>시작/마침날짜 달력 <br>
-								<input type="text" id="checkin" name="hsr_chkin"><br> 
-								맡기는 시간 : <input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time"><br>
-								<input type="text" id="checkout" name="hsr_chkout"><br> 
-								데리러 오는 시간 : <input type="text" id="hsr_pickup_time" name="hsr_pickup_time"><br>
-								<input type="hidden" id="days" name="hsr_duringdays" value="0">
+							<li>
+								예약을 원하는 날짜와 시간을 선택해주세요.<br>
+								<input type="text" id="checkin" name="hsr_chkin"  class="cal" placeholder="시작일" style="width: 143px;">
+								<input type="text" id="checkout" name="hsr_chkout"  class="cal" placeholder="마침일" style="width: 143px;">
+							</li>
+							<li>
+								시작 시간 : <input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time"><br>
+								종료 시간 : <input type="text" id="hsr_pickup_time" name="hsr_pickup_time"><br>
 							</li>
 							<li><span id="pricePerDay">20000</span>원 
 								<span>
@@ -501,6 +515,7 @@ $(function() {
 					<input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize">
 					<input type="hidden" name="hsr_priceperday" id="hsr_priceperday">
 					<input type="hidden" name="hsr_pricePerDays" class="pricePerDays">
+					<input type="hidden" id="days" name="hsr_duringdays" value="0">
 					<input type="text" name="hsr_days" id="Days"><!-- 이거 확인하기(삭제해도 괜찮은지....)-->
 				</form>
 			</fieldset>
