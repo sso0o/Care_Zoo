@@ -1,6 +1,7 @@
 package com.what.carezoo.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.ibatis.annotations.Param;
@@ -22,7 +23,12 @@ public interface Pet_DetailDao {
 //	//update - pd_hour, pd_hAdd
 //	public int updatePet_Detail(@Param("pd_hour")String pd_hour,@Param("pd_hAdd")String pd_hAdd,@Param("pd_week")String pd_week);
 	
-	public int insertPet_Detail(@Param("vsr_num")int vsr_num,@Param("p_num")int p_num,@Param("c_num")int c_num);
+	public int insertPet_Detail(@Param("vsr_num")int vsr_num, @Param("p_num")int p_num, @Param("c_num")int c_num);
 	public List<Pet_Detail> selectByVsr_Num(int vsr_num);
 	public List<Pet_Detail> selectByC_num(int c_num);
+	
+	public List<Map<String, Object>> getVsrInfo0(int vsr_num);
+	
+	
+//	public int petCountGroupResNum(int vsr_num);
 }

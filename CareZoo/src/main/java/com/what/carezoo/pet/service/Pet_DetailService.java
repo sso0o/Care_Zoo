@@ -1,6 +1,7 @@
 package com.what.carezoo.pet.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class Pet_DetailService {
 	
 	public List<Pet_Detail> selectByC_num(int c_num){
 		return pdDao.selectByC_num(c_num);
+	}
+	
+	public List<Map<String, Object>> getResInfo(int vsr_num) {
+		return pdDao.getVsrInfo0(vsr_num);
 	}
 	
 	

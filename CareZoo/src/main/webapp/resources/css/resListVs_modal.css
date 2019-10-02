@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.modal-modify {
+	overflow: hidden;
+	z-index: 999;
+	display: none;
+	left: 0;
+	top: 0;
+	position: fixed;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.mmmmm {
+	background-color: #fefefe;
+	padding: 15px;
+	border : 1px solid #888;
+	width: 550px; /* Could be more or less, depending on screen size */
+	height: 300px;
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	margin-top: -150px;
+	margin-left: -275px;
+	border-radius: .125em;
+}
+
+.nnnnn {
+	background-color: #fefefe;
+	padding: 15px;
+	border : 1px solid #888;
+	width: 550px; /* Could be more or less, depending on screen size */
+	height: 300px;
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	margin-top: -150px;
+	margin-left: -275px;
+	border-radius: .125em;
+}

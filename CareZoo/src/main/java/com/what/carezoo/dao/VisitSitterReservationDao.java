@@ -2,6 +2,7 @@ package com.what.carezoo.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -24,5 +25,10 @@ public interface VisitSitterReservationDao {
 //	public VisitSitterReservation selectByResInfo(VisitSitterReservation vsr);
 	public List<VisitSitterReservation> selectByVsrCount(int vsr_count);
 	public List<VisitSitterReservation> selectAll();
+	
+	public List<VisitSitterReservation>getVsrByStatus0();
+	public List<VisitSitterReservation>getVsrByStatus0Day();
+	
+	public int acceptVsr(Map<String, Object> param);
 
 }

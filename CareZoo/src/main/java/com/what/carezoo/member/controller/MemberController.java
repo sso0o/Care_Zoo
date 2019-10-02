@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,6 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	@Autowired
-	private SitterService sService;
 	
 	@Autowired
 	private HomeSitterReservationService hsrService;
@@ -150,13 +149,23 @@ public class MemberController {
 		return "mainLogin";
 	}
 	
-	//마이페이지
+	//마이페이지()
 	@RequestMapping(value="/myPage",method=RequestMethod.GET)
 	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
-	public String myPageForm() {
-		return "my&customer/userInfo";
+	public String myPageForm(HttpSession session) {
+		String type = (String) session.getAttribute("user_numtype");
+		if(type.equals("vs_num")) {
+			return "sitter/visitInfo";
+		} else if(type.equals("hs_num")) {
+			return "sitter/homeInfo";
+		} else if(type.equals("c_num")){
+			return "my&customer/userInfo";			
+		}
+		return "main";
 	}
-	
+
+
+
 	//예약현황페이지
 	@RequestMapping(value="/myReservation",method=RequestMethod.GET)
 	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
@@ -212,8 +221,7 @@ public class MemberController {
 		List<HomeSitterReservation> hsrList = hsrService.getHomeSitterResByCnum(c_num);
 		List<VisitSitterReservation> vsrList = vsrService.getVisitSitterResByCnum(c_num);
 		List<PetHotelReservation> phrList = phrService.getPetHotelResByCnum(c_num);
-
-		
+		System.out.println(phrList);
 		if(hsrList.size()>0) {
 			List<HomeSitter> hs = new ArrayList<HomeSitter>();
 			for (HomeSitterReservation hsr : hsrList) {
@@ -240,6 +248,7 @@ public class MemberController {
 			for (PetHotelReservation phr : phrList) {
 				PetHotel p = phService.getPetHotelbyNum(phr.getPh_num());
 				Pet pp = pService.selectPet(phr.getP_num());
+				System.out.println(pp);
 				ph.add(p);
 				pet.add(pp);
 			}
