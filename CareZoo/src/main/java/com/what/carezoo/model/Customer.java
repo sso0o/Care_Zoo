@@ -15,7 +15,7 @@ public class Customer {
 //	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private String c_birth;
 	private String c_contact;
-
+	private String c_email_key;
 	public int getC_num() {
 		return c_num;
 	}
@@ -70,13 +70,17 @@ public class Customer {
 	public void setC_contact(String c_contact) {
 		this.c_contact = c_contact;
 	}
+	public String getC_email_key() {
+		return c_email_key;
+	}
+	public void setC_email_key(String c_email_key) {
+		this.c_email_key = c_email_key;
+	}
 	@Override
 	public String toString() {
 		return "Customer [c_num=" + c_num + ", c_name=" + c_name + ", c_email=" + c_email + ", c_pass=" + c_pass
 				+ ", c_address=" + c_address + ", c_d_address=" + c_d_address + ", c_sex=" + c_sex + ", c_birth="
-				+ c_birth + ", c_contact=" + c_contact + "]";
+				+ c_birth + ", c_contact=" + c_contact + ", c_email_key=" + c_email_key + "]";
 	}
-
 	
-
 }
