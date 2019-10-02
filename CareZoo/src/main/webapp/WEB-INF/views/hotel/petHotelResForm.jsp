@@ -17,7 +17,15 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css'
@@ -42,7 +50,11 @@
 	type="text/javascript"></script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/index.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js">
 
+
+</script>
 
 <style>
 #map_canvas {
@@ -269,6 +281,18 @@ ul {
 .modal-modify {
 	box-sizing: border-box;
 }
+
+.btn-my {
+	color: #40bf9f;
+	background-color: #fff;
+	border-color: #40bf9f;
+}
+
+.btn-my:hover {
+	color: #fff;
+	background-color: #40bf9f;
+	border-color: #40bf9f;
+}
 </style>
 
 <script type="text/javascript">
@@ -290,8 +314,44 @@ ul {
 // 	alert(rasioNm);
 // }
 
+
+
+
 	$(function() {
+		console.log("먀먕?"+$('.totalValue').val());
+		console.log("먀먕?text:"+$('.totalValue').text().replace(/,/gi, ""));
 		
+		$("#check_module").click(function () {
+
+			IMP.init('imp94354183');
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '주문명:결제테스트',
+// 			    amount : $('.totalValue').text().replace(/,/gi, "")*1,
+			    amount : 100,
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울특별시 강남구 삼성동',
+			    buyer_postcode : '123-456',
+			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			}, function(rsp) {
+				//qweqweqwewq
+			    if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			});
+			});
 // 			initialize();
 		var paramsArr = [];
 		function petLoading(){
@@ -315,18 +375,26 @@ ul {
 		        radioId= radioName.attr('id');
 			    var rasioNm = $("label[for='"+radioId+"']").text();
 				$('.petInfo').text(rasioNm);
-				$('<label class="petCount">'+rasioNm+'</label>').appendTo($('.petList'));
-				$('<br>').appendTo($('.petList'));
+				$('<br>').appendTo($('.petAddForm'));
+				$('<label class="petCount" style="font-size:19px;border-bottom:1px solid;">'+rasioNm+'</label>').appendTo($('.petAddForm'));
+				$('<br>').appendTo($('.petAddForm'));
 			}
 		});
 // 		=========모달!!=============================================
-			$('.pSmodalButton').click(function() {
+			$('#selectPetModal').click(function() {
 				if($("label[class=petCount]").length<($('.quantity').val()*1)){
 				modalOpen();					
 				}else{
 					alert(($('.quantity').val()*1)+"마리만 선택할 수 있습니다.");
 				}
 			});
+// 			function pSmodalButton(){
+// 				if($("label[class=petCount]").length<($('.quantity').val()*1)){
+// 					modalOpen();					
+// 					}else{
+// 						alert(($('.quantity').val()*1)+"마리만 선택할 수 있습니다.");
+// 					}
+// 			}
 			//나이 구하기
 
 			function modalOpen() {
@@ -573,6 +641,10 @@ ul {
 		})();
 		table.append(tr);
 	}
+
+	function close() {
+		alert("ss");
+	}
 </script>
 
 <title>petHotelResForm</title>
@@ -634,116 +706,126 @@ ul {
 	<br>
 	<br>
 	<br>
-	
-	<div class="container" >
-	<div style="text-align: left;">	<label style="font-size:25px">예약페이지</label>
-<hr style="">
-</div>
+
+	<div class="container">
+		<div style="text-align: left;">
+			<label style="font-size: 25px">예약페이지</label>
+			<hr style="">
+		</div>
 		<div
-			style="margin-top: 50px;margin-right:100px;margin-left:100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;border-color:#40bf9f">
-<div style="text-align: center">
+			style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 1px solid darkgray; padding: 50px; border-radius: 4px;">
+			<div style="text-align: center">
 
-			<div style="font-size: 20px; display: inline-block">
-				<div
-					style="text-align: left; float: left; border: 1px solid darkgray; border-radius: 4px; padding: 15px;;border-color:#40bf9f">
-					<label style="font-weight: bold;">체크인: </label>&nbsp;<label
-						class="chkin">${phr_chkin} </label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<label style="font-weight: bold">체크아웃: </label>&nbsp;<label
-						class="chkout">${phr_chkout }&nbsp;&nbsp;</label> &nbsp;&nbsp; <label
-						class="totalDays" style="">(총 ${totalDays}박)</label>&nbsp;&nbsp;
-				</div>
-				&nbsp;
-				<label style="font-size:40px">&</label>
-				&nbsp;
-				<div
-					style="text-align: left; display:inline-block; border: 1px solid darkgray; border-radius: 4px; padding: 15px;border-color:#40bf9f">
-					<label class="totalDays" style="float: right">반려견
-						${quantity} 마리</label>
-				</div>
-			</div>
-			<br> <br>
-			<div class="petAddForm">
 
-				<br>
-				<div class="PriceAndSize" style="">
-					<div
-						style="width: 400px; margin-left: 160px; border: 1px solid; border-radius: 4px; padding: 30px; height: auto;font-size: 18px;border-color:#40bf9f">
-				<div>
-					<button class="pSmodalButton">반려견 선택</button>
-				</div>
-				<br>
-				<div class="petList"  style="font-size: 20px"></div>
-						<br>
-						<div class="night" style="display: inline-block; width: 350px">
-							<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원
-								X ${totalDays}박</div>
-							<div class="countPrice" style="float: right">
-								<span class="nightCountPrice">${nightCountValue }원</span>
+				<div class="petAddForm">
+
+					<div class="PriceAndSize" style="">
+						<div
+							style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
+							<div
+								style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 55px">
+								<div
+									style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
+
+									<label style="font-weight: bold;">체크인: </label>&nbsp;<label
+										class="chkin">${phr_chkin} </label>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label style="font-weight: bold">체크아웃:
+									</label>&nbsp;<label class="chkout">${phr_chkout }&nbsp;&nbsp;</label>
+									&nbsp;&nbsp; <label class="totalDays" style="">(총
+										${totalDays}박)</label>&nbsp;&nbsp;
+								</div>
+								&nbsp; <label
+									style="font-size: 30px; padding-bottom: 20px; position: relative; top: -10px;">&</label>
+								&nbsp;
+								<div
+									style="text-align: left; display: inline-block; padding-top: 10px; padding-right: 5px; padding-left: 10px; border-color: #40bf9f">
+									<label class="totalDays" style="float: right">반려견
+										${quantity} 마리</label>
+								</div>
 							</div>
-						</div>
-						<hr style="width: 400px">
-						<div class="night" style="display: inline-block; width: 350px">
-							<div class="nightCount" style="text-align: left; float: left">반려견
-								추가</div>
-							<div class="countPrice" style="float: right">
-								<span class="nightCountPrice">${petAddValue }원</span>
+
+							<br>
+							<div class="petList" style="font-size: 20px"></div>
+							<br>
+							<div class="night" style="display: inline-block; width: 600px">
+								<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원
+									X ${totalDays}박</div>
+								<div class="countPrice" style="float: right">
+									<span class="nightCountPrice">${nightCountValue }원</span>
+								</div>
 							</div>
-						</div>
-						<hr style="width: 400px">
-						<div class="night" style="display: inline-block; width: 350px">
-							<div class="nightCount" style="text-align: left; float: left">총
+							<hr style="width: 680px">
+							<div class="night" style="display: inline-block; width: 600px">
+								<div class="nightCount" style="text-align: left; float: left">반려견
+									추가</div>
+								<div class="countPrice" style="float: right">
+									<span class="petAddValue">${petAddValue }원</span>
+								</div>
 							</div>
-							<div class="countPrice" style="float: right">
-								<span class="nightCountPrice">${totalValue }원</span>
+							<hr style="width: 680px">
+							<div class="night" style="display: inline-block; width: 600px">
+								<div class="nightCount" style="text-align: left; float: left">총
+								</div>
+								<div class="countPrice" style="float: right">
+									<span class="totalValue">${totalValue }</span>원
+								</div>
 							</div>
 						</div>
 					</div>
+					<div style>
+						<button class="btn btn-my" id="selectPetModal">반려견 선택</button>
+					</div>
+
 				</div>
 			</div>
-</div>
-			<%-- 			<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
-<br>
-<br>
-		<div>
-			<h4>예약요청 전 꼭 확인해주세요!</h4>
-			<ul>
-				<li>* 예약을 위해 강아지에 대한 내용을 돌보미에게 상세히 적어주세요.</li>
-				<li>* 예약완료를 위해 돌보미의 결제요청 후 2시간 이내로 입금해주셔야합니다. (늦어질 경우 도그메이트
-					고객센터로 연락주세요.)</li>
-				<li>* 사전만남은 예약 완료 후 진행하실 수 있으며, 환불은 예약 3일전까지 100% 가능합니다.</li>
-				<li>* 개인 연락처를 공유하지마세요. 예약이 완료되면 돌보미의 연락처를 확인하실 수 있습니다.</li>
-				<li>* 메시지 내용은 안전거래 등의 목적으로 회사가 열람, 수집할 수 있습니다.<br><br></li>
-			</ul>
+			<%--<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
+
 		</div>
-		<textarea name="hsr_message"
-			placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000"
-			id="txtMESSAGE" style="margin: 0px; width: 700px; height: 126px;"></textarea>
-			<br>
-		<div>
-			<div style="margin-bottom:15px">도그메이트를 이용하시는 이유에 대해 알려주세요!</div>
-			<div style="margin-bottom:15px">
-				<select name="hsr_purpose">
-					<option value="여행">여행</option>
-					<option value="출장">출장</option>
-					<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
-					<option value="집안행사">집안행사</option>
-					<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기 위해</option>
-					<option value="기타">기타</option>
-				</select>
-			</div>
-		</div>
-		<ul>
-			<li>요청 시 잘못된 정보를 전달할 경우 이로인해 발생되는 문제에 대한 책임은 의뢰인 본인에게 있습니다.</li>
-			<li>'예약 요청'을 클릭하면 서비스 총액을 지불하는 것과 서비스 약관, 환불정책에 동의하는 것입니다.</li>
-			<li>돌보미가 예약 요청을 수락해야 결제를 진행 할 수 있으며, 24시간 이내에 돌보미가 요청에 대한 응답을 할
-				것 입니다.</li>
-		</ul>
-			<br>
-			<hr>
+		<br>
+
+		<div
+			style="margin-top: 50px; margin-right: 100px; margin-left: 100px;">
 			<div>
-				<button id="btnSubmit" class="btn btn-my" >예약요청</button>
+				<h4>예약요청 전 꼭 확인해주세요!</h4>
+				<ul>
+					<li>* 예약을 위해 강아지에 대한 내용을 상세히 적어주세요.</li>
+					<li>* 환불은 예약 3일전까지 100% 가능합니다.</li>
+				</ul>
+				<br>
 			</div>
+			<textarea name="hsr_message" placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요."
+				maxlength="4000" id="txtMESSAGE"
+				style="margin: 0px; width: 700px; height: 126px;"></textarea>
+			<br>
+			<div>
+				<div style="margin-bottom: 15px">맡겨주를 이용하시는 이유에 대해 알려주세요!</div>
+				<div style="margin-bottom: 15px">
+					<select name="hsr_purpose">
+						<option value="여행">여행</option>
+						<option value="출장">출장</option>
+						<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
+						<option value="집안행사">집안행사</option>
+						<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기 위해</option>
+						<option value="기타">기타</option>
+					</select>
+				</div>
+			</div>
+			<ul>
+				<li>요청 시 잘못된 정보를 전달할 경우 이로인해 발생되는 문제에 대한 책임은 의뢰인 본인에게 있습니다.</li>
+				<li>'예약 요청'을 클릭하면 서비스 총액을 지불하는 것과 서비스 약관, 환불정책에 동의하는 것입니다.</li>
+				<li>돌보미가 예약 요청을 수락해야 결제를 진행 할 수 있으며, 24시간 이내에 돌보미가 요청에 대한 응답을 할
+					것 입니다.</li>
+			</ul>
+			<br>
+			<br>
+			<div style="text-align: center">
+						<button class="btn btn-my" id="check_module"style="text-align: center;font-size:23px;padding-left:40px;padding-right:40px">결제하기</button>
+			</div>
+
+
 		</div>
+
+		<br> <br> <br> <br>
 
 
 		<!-- ///////////////////////////////////////////////////////////////모달 -->
@@ -769,5 +851,9 @@ ul {
 			</div>
 		</div>
 	</div>
+
+
+
+
 </body>
 </html>
