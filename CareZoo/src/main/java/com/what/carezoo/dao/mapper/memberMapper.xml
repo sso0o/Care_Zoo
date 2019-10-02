@@ -5,7 +5,7 @@
 		<selectKey order="BEFORE" keyProperty="c_num" resultType="int">
 			select customer_seq.nextval from dual
 		</selectKey>
-		insert into customer
+		insert into customer(c_num,c_name,c_email,c_pass,c_address,c_d_address,c_sex,c_birth,c_contact)
 		values(#{c_num},#{c_name},#{c_email},#{c_pass},#{c_address},#{c_d_address},#{c_sex},#{c_birth},#{c_contact})
 	</insert>
 	
@@ -54,4 +54,11 @@
 		where c_num = #{c_num}
 	</update>
 	
+	<!-- 자바 메일 - 이메일 인증하기 -->
+	<insert id="GetKey" parameterType="map">
+		update customer set c_email_key = #{c_email_key} where c_email = #{c_email}
+	</insert>
+	<update id="alter_cKey" parameterType="map">
+		update customer set c_email_key = 'Y' where c_email = #{c_email} and  c_email_key = #{c_email_key}
+	</update>
 </mapper>

@@ -98,7 +98,7 @@ function logoutCheck() {
 <!-- 		여기다 내용을 작성하시면 됩니다 -->
 <div class="container">
 
-
+${hsr }
 
 </div>
 	

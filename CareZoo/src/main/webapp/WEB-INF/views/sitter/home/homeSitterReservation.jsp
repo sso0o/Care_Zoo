@@ -137,7 +137,7 @@ function logoutCheck() {
 			</ul>
 			<h2>예약내역 상세보기</h2>
 			<dl>
-				<dt><fmt:formatNumber value="${params.PricePerDay }" pattern="#,###" />원 X ${params.Days}</dt>
+				<dt><fmt:formatNumber value="${params.hsr_priceperday }" pattern="#,###" />원 X ${params.Days}</dt>
 				<dd>반려견 추가(<fmt:formatNumber value="${params.pricePerPetSize }" pattern="#,###" />원) X ${params.hsr_numof_pet}마리 X ${params.Days}</dd>			
 				<dt>최종금액</dt>
 				<dd><fmt:formatNumber value="${params.hsr_totalprice}" pattern="#,###" />원</dd>

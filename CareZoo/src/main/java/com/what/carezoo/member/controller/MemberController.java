@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
+import com.what.carezoo.member.service.MemberMailSendService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.HomeSitter;
@@ -51,6 +52,9 @@ import com.what.carezoo.sitter.service.VisitSitterService;
 public class MemberController {
 	
 	private static final String FILE_PATH = "c:/temp/";
+	
+	@Autowired
+	private MemberMailSendService mailsender;
 	
 	@Autowired
 	private MemberService memberService;
@@ -113,19 +117,46 @@ public class MemberController {
 		return "joinForm_visitSitter";
 	}
 	
-	
 	//회원가입
+//	@RequestMapping(value="/join", method=RequestMethod.POST)
+//	public String join(Customer customer, Model m) {
+//			//회원가입 메서드
+//		boolean rst = memberService.joinMember(customer);
+//		if(rst) {
+//			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
+//			return "main";
+//		} else {
+//			return "joinForm";
+//		}
+//	}
+	//이메일 인증 보내기 메서드
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(Customer customer, Model m) {
-		boolean rst = memberService.joinMember(customer);
-		if(rst) {
-			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
+	public String join(Customer customer, Model m,HttpServletRequest request) {
+		//회원가입 메서드
+		boolean result = memberService.joinMember(customer);
+		if(result) {					
+			//인증메일 보내기 메서드 		
+			mailsender.mailSendWithMemberKey(customer.getC_email(),customer.getC_name(), request);
+			m.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인후 로그인 해주세요 :)");	
 			return "main";
-		} else {
-			return "joinForm";
-		}
-
-}
+		} 
+		return "joinForm";
+	}
+	// e-mail 인증 컨트롤러
+	@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
+	public String key_alterConfirm(Customer customer, Model m
+			, String c_email, String c_email_key
+			) {
+		System.out.println("이거 메일 인증 커느롤러"+mailsender.alter_userKey_service(customer.getC_email(), customer.getC_email_key())); // mailsender의 경우 @Autowired
+		
+		if(mailsender.alter_userKey_service(customer.getC_email(), customer.getC_email_key())>0) {
+			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
+			m.addAttribute("url", "loginForm");
+//		return "성공페이지로 보내기";
+			return "loginForm";
+		} 
+		return "main";
+	}
 	//아이디 유효성 검사
 	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	@ResponseBody
@@ -257,8 +288,7 @@ public class MemberController {
 	public String qnaForm() {
 		return "my&customer/qnaForm";	
 	}
-	
-	
+		
 	@RequestMapping("/modifyUserInfo")
 	public String modifyUserInfo() {
 		return "my&customer/checkUser";
