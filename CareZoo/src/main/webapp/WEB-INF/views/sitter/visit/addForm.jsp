@@ -136,7 +136,7 @@ $(function(){
 	
 
 <form action="adds" method="post">
-	<input type="text" value="${vsr_count}" name="vsr_count">
+	<input type="hidden" value="${vsr_count}" name="vsr_count">
 	<input type="hidden" value="${vsr_num}" name="vsr_num">
 	<input type="hidden" value="${vsr_chkin}" name="vsr_chkin" id="vsr_chkin">
 	<input type="hidden" value="${c_num}" name="c_num">

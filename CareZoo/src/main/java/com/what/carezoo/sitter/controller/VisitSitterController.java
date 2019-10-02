@@ -78,33 +78,6 @@ public class VisitSitterController{
 		rst.put("vs", vsService.getVisitSitterByNum(vs_num));
 		return rst;
 	}
-	
-	
-//	@RequestMapping(value="/join", method=RequestMethod.POST)
-//	public String join(Customer customer,Model model) {
-//		if(customer.getC_address() != null & customer.getC_birth() !=null
-//				& customer.getC_contact() != null & customer.getC_d_address() != null 
-//				& customer.getC_e_address() !=null & customer.getC_email() !=null 
-//				& customer.getC_name()!=null & customer.getC_pass() !=null 
-//				& customer.getC_pass_chk() !=null	& customer.getC_sex() != null) {
-//			boolean result =memberService.joinMember(customer);
-//			//loginForm -> /member/loginForm 으로 가버리기 때문에 contextPath가 필요하다.
-//			if(result) {
-//				model.addAttribute("c_num", memberService.getMemberByEmail(customer.getC_email()).getC_num());
-//				return "sitter/visit/reservation2";
-//			}
-//			String msg ="비밀번호 일치 여부를 확인해 주세요";
-//			String url = "join";
-//			model.addAttribute("msg", msg);
-//			model.addAttribute("url", url);
-//			return "result";
-//		}
-//		String msg ="빈칸이 있는지 확인해 주세요";
-//		String url = "join";
-//		model.addAttribute("msg", msg);
-//		model.addAttribute("url", url);
-//		return "result";
-//	}
 
 	//일반돌봄신청
 	@RequestMapping(value="nomalapply",method=RequestMethod.GET)
@@ -226,6 +199,7 @@ public class VisitSitterController{
 	@RequestMapping(value="complete11",method=RequestMethod.POST)
 	public  String reservation7_1Form(@RequestParam ArrayList<Integer> p_num,
 			int c_num,String vsr_chkin, String vsr_hour, String vsr_hAdd, Model model) {
+		System.out.println("complete11,vsr_chkin: "+vsr_chkin);
 		//문자열 조각내기
 		String[] tempVsr_chkin = vsr_chkin.split(",");
 		//visitReservation, pet_detail 동시에 저장!
@@ -240,7 +214,7 @@ public class VisitSitterController{
 			vsr.setVsr_hour(vsr_hour);
 			
 			if(vsr.getVsr_day()==null) {
-				vsr.setVsr_day("0");
+				vsr.setVsr_day("7");
 			}
 		vsrService.insertVisitSitterReservation(vsr);
 		vsr_num.add(vsr.getVsr_num());
@@ -294,10 +268,14 @@ public class VisitSitterController{
 	@RequestMapping(value="adds", method=RequestMethod.POST)
 	public String hAdd(String vsr_chkin, String vsr_hour, String vsr_hAdd, int vsr_num, 
 			@RequestParam ArrayList<Integer> p_num,int c_num,Model model,int vsr_count) {
+		System.out.println("adds,p_num: "+p_num);
+		System.out.println(vsr_hour);
+		System.out.println(vsr_hAdd);
+		System.out.println(vsr_chkin);
+		System.out.println("=============:"+vsr_count);
 		//update 하고, complete11(redirect)
 		System.out.println(vsrService.updateVisitSitterReservation(vsr_hour,vsr_hAdd,vsr_chkin,vsr_count));
 		vsrService.updateVisitSitterReservation(vsr_hour,vsr_hAdd,vsr_chkin,vsr_count);
-		System.out.println(p_num);
 		model.addAttribute("c_num", c_num);
 		model.addAttribute("vsr_num", vsr_num);
 		model.addAttribute("vsr_count", vsr_count);

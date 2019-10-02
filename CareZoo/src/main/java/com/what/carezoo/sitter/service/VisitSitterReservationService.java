@@ -24,8 +24,12 @@ public class VisitSitterReservationService {
 	
 	public boolean updateVisitSitterReservation(String vsr_hour,String vsr_hAdd,String vsr_chkin,int vsr_count) {
 		VisitSitterReservation list = new VisitSitterReservation();
-		list.setVsr_hAdd(vsr_hAdd);
+		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+vsr_hour);
+		System.out.println((vsr_hAdd));
+		System.out.println(vsr_chkin);
+		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+vsr_count);
 		list.setVsr_hour(vsr_hour);
+		list.setVsr_hAdd(vsr_hAdd);
 		list.setVsr_chkin(vsr_chkin);
 		list.setVsr_count(vsr_count);
 		if(vsrDao.update(list)>0) {
