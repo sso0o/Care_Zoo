@@ -149,7 +149,7 @@ $(function() {
 	            async: true,
 	            type : 'POST',
 	            data : {c_email : c_email},
-	            url : "${contextPath}/member/idCheck",
+	            url : "${contextPath}/member/idCheck2",
 	            dataType : "json",
 	            success : function(data) {
 	                if (data.cnt > 0) {   

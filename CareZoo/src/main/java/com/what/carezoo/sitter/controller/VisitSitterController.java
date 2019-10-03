@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.what.carezoo.member.service.MemberService;
-import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
@@ -611,7 +610,7 @@ public class VisitSitterController {
 	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<Object, Object> idCheck(String vs_email) {
-		System.out.println(vs_email);
+		System.out.println("vs_email: "+vs_email);
 		int count = 0;
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		count = vsService.userIdCheck(vs_email);

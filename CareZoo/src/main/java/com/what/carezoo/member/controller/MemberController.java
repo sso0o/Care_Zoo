@@ -127,7 +127,7 @@ public class MemberController {
 
 }
 	//아이디 유효성 검사
-	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
+	@RequestMapping(value="/idCheck2", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<Object, Object> idCheck(String c_email) {
 		System.out.println(c_email);
