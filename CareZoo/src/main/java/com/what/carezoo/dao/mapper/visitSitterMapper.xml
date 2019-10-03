@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.VisitSitterDao">
+	<insert id="insertVisitSitter" parameterMap="visitsitter">
+		<selectKey order="BEFORE" keyProperty="vs_num" resultType="int">
+			select visitsitter_seq.nextval from dual
+		</selectKey>
+			insert into visitsitter
+			values(#{vs_num},#{vs_name},#{vs_sex},#{vs_birth},#{vs_contact},#{vs_address},#{vs_email},#{vs_pass},#{vs_img},#{vs_d_address})
+	</insert>
+	
 	
 	<select id="selectOneByNum" parameterType="int" resultType="visitsitter">
 		select * from visitsitter
@@ -16,5 +24,8 @@
 		select *
 		from visitsitter
 	</select>
-	
+
+	<select id="userIdCheck" parameterType="string" resultType="Integer">
+		select count(*) from visitsitter where vs_email = #{vs_email}
+	</select>
 </mapper>

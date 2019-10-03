@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.what.carezoo.member.service.MemberService;
+import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
+import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.pet.service.Pet_DetailService;
@@ -605,9 +607,30 @@ public class VisitSitterController {
 
 	///////////////////////////////////////////////////////////////////////////////
 	// VisitSitter MyPage
-	@RequestMapping(value = "join", method = RequestMethod.POST)
-	public String vsJoinForm() {
-		return "visit/sitter/joinForm";
+	//아이디 유효성 검사
+	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<Object, Object> idCheck(String vs_email) {
+		System.out.println(vs_email);
+		int count = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		count = vsService.userIdCheck(vs_email);
+		System.out.println("count: "+count);
+		map.put("cnt", count);
+		return map;
 	}
+	
+	//회원가입
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String join(VisitSitter visitsitter, Model m) {
+		boolean rst = vsService.joinVisitSitter(visitsitter);
+		if(rst) {
+			m.addAttribute("msg", "방문시터가입이 완료되었습니다! 로그인을 해 주세요:)");
+			return "main";
+		} else {
+			return "joinForm";
+		}
 
+}
+	
 }

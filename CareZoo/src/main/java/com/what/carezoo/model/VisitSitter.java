@@ -1,34 +1,23 @@
 package com.what.carezoo.model;
 
-import java.sql.Date;
-
 public class VisitSitter {
 
 	private int vs_num;
-	private int vsr_num;
 	private String vs_name;
 	private String vs_sex;
 	private String vs_birth;
 	private String vs_contact;
 	private String vs_address;
-	private String vs_job;
-	private double vs_star;
-	private String vs_comment;
+	private String vs_d_address;
 	private String vs_img;
 	private String vs_email;
-	private String vs_e_address;
 	private String vs_pass;
+	
 	public int getVs_num() {
 		return vs_num;
 	}
 	public void setVs_num(int vs_num) {
 		this.vs_num = vs_num;
-	}
-	public int getVsr_num() {
-		return vsr_num;
-	}
-	public void setVsr_num(int vsr_num) {
-		this.vsr_num = vsr_num;
 	}
 	public String getVs_name() {
 		return vs_name;
@@ -60,24 +49,7 @@ public class VisitSitter {
 	public void setVs_address(String vs_address) {
 		this.vs_address = vs_address;
 	}
-	public String getVs_job() {
-		return vs_job;
-	}
-	public void setVs_job(String vs_job) {
-		this.vs_job = vs_job;
-	}
-	public double getVs_star() {
-		return vs_star;
-	}
-	public void setVs_star(double vs_star) {
-		this.vs_star = vs_star;
-	}
-	public String getVs_comment() {
-		return vs_comment;
-	}
-	public void setVs_comment(String vs_comment) {
-		this.vs_comment = vs_comment;
-	}
+
 	public String getVs_img() {
 		return vs_img;
 	}
@@ -90,24 +62,26 @@ public class VisitSitter {
 	public void setVs_email(String vs_email) {
 		this.vs_email = vs_email;
 	}
-	public String getVs_e_address() {
-		return vs_e_address;
-	}
-	public void setVs_e_address(String vs_e_address) {
-		this.vs_e_address = vs_e_address;
-	}
+
 	public String getVs_pass() {
 		return vs_pass;
 	}
 	public void setVs_pass(String vs_pass) {
 		this.vs_pass = vs_pass;
 	}
+	
+	public String getVs_d_address() {
+		return vs_d_address;
+	}
+	public void setVs_d_address(String vs_d_address) {
+		this.vs_d_address = vs_d_address;
+	}
 	@Override
 	public String toString() {
-		return "VisitSitter [vs_num=" + vs_num + ", vsr_num=" + vsr_num + ", vs_name=" + vs_name + ", vs_sex=" + vs_sex
-				+ ", vs_birth=" + vs_birth + ", vs_contact=" + vs_contact + ", vs_address=" + vs_address + ", vs_job="
-				+ vs_job + ", vs_star=" + vs_star + ", vs_comment=" + vs_comment + ", vs_img=" + vs_img + ", vs_email="
-				+ vs_email + ", vs_e_address=" + vs_e_address + ", vs_pass=" + vs_pass + "]";
+		return "VisitSitter [vs_num=" + vs_num + ", vs_name=" + vs_name + ", vs_sex=" + vs_sex
+				+ ", vs_birth=" + vs_birth + ", vs_contact=" + vs_contact + ", vs_address=" + vs_address
+				+ ", vs_d_address=" + vs_d_address + ", vs_img=" + vs_img + ", vs_email=" + vs_email + ", vs_pass="
+				+ vs_pass + "]";
 	}
 	
 }

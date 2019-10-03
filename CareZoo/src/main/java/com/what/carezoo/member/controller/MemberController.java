@@ -107,7 +107,7 @@ public class MemberController {
 		return "joinForm_homeSitter";
 	}
 	
-	//홈시터 회원가입
+	//방문시터 회원가입
 	@RequestMapping("/joinVisit")
 	public String joinFormVisit() {
 		return "joinForm_visitSitter";
