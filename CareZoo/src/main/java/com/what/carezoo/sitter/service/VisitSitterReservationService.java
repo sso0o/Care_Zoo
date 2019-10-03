@@ -134,6 +134,16 @@ public class VisitSitterReservationService {
 		return false;
 	}
 	
+	//내 예약 가져오기(일반)
+	public List<Map<String, Object>> getMyResDay7(int vs_num) {
+		List<Map<String, Object>> rst = vsrDao.getMyResDay7(vs_num);
+		return rst;
+	}
+	
+	public List<Map<String, Object>> getMyResDay0_6(int vs_num) {
+		List<Map<String, Object>> rst = vsrDao.getMyResDay0_6(vs_num);
+		return rst;
+	}
 	
 
 }

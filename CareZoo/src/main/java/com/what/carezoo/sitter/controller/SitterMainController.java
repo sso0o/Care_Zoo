@@ -51,9 +51,6 @@ public class SitterMainController {
 	
 	@Autowired
 	private HomeSitterService hsService;
-
-	
-
 	
 	@Autowired
 	private MemberService mService;
@@ -91,23 +88,20 @@ public class SitterMainController {
 		return rst;
 	}
 	
+	//예약현황에서 방문시터의 모든 예약정보 가져오기(정기랑 일반 구분)
 	@RequestMapping(value = "/myReservationVS", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> getMyReservationVS(int vs_num) {
-		Map<String, Object> rst = new HashMap<String, Object>();
-		List<VisitSitterReservation> vsr = vsrService.getVisitSitterResByVSnum(vs_num);
-		List<Customer> cList = new ArrayList<Customer>();
-		System.out.println("vsr : "+vsr);
-		if(vsr != null) {
-			for (int i = 0; i < vsr.size(); i++) {
-				Customer c = mService.getMemberByC_num(vsr.get(i).getC_num());
-				cList.add(c);	
-			}
-			rst.put("vsrList", vsr);
-			rst.put("cList", cList);
-		}
+		List<Map<String, Object>> rst1 = vsrService.getMyResDay7(vs_num);
+		List<Map<String, Object>> rst2 = vsrService.getMyResDay0_6(vs_num);
 		
+		Map<String, Object> rst = new HashMap<String, Object>();
+		
+		rst.put("rst1",rst1);
+		rst.put("rst2",rst2);
+	
 		return rst;
+		
 	}
 	
 	//vs정보 가져오기(ajax)
@@ -235,20 +229,12 @@ public class SitterMainController {
 	@RequestMapping("/getVsrStatus0")
 	public String getVsrList(Model m) {
 		
+		//일반
+		List<Map<String, Object>> rst1 = pdService.getResInfo7();
+		//정기
+		List<Map<String, Object>> rst2 = pdService.getResInfo0_6();
+
 		
-		List<List<Map<String, Object>>> rst1 = new ArrayList<List<Map<String,Object>>>();
-		for (VisitSitterReservation vsr : vsrList1) {
-			rst1.add(pdService.getResInfo(vsr.getVsr_num()));
-		}
-		
-		List<List<Map<String, Object>>> rst2 = new ArrayList<List<Map<String,Object>>>();
-		for (VisitSitterReservation vsr : vsrList2) {
-			rst2.add(pdService.getResInfo(vsr.getVsr_num()));
-		}
-//		System.out.println("==============================================");
-//		System.out.println(rst1);
-//		System.out.println("==============================================");
-//		System.out.println(rst2);
 		m.addAttribute("rst1", rst1);
 		m.addAttribute("rst2", rst2);
 
@@ -311,6 +297,7 @@ public class SitterMainController {
 		return rst;	
 	}
 	
+	
 	@RequestMapping("/acceptVsr")
 	public String acceptVsr(HttpSession session, Model m, int vsr_num) {
 		int vs_num = (Integer)session.getAttribute("user_num");
@@ -323,6 +310,12 @@ public class SitterMainController {
 			return "sitter/reservationListVs";
 		}
 		
+	}
+	
+	//방문시터 예약현황 페이지
+	@RequestMapping("/myReservationVs_Page")
+	public String myResPageVS() {
+		return "sitter/myReservation_visit";
 	}
 
 }

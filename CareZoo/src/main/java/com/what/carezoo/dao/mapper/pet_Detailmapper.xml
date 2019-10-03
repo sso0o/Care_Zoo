@@ -21,25 +21,30 @@
 	GROUP BY vsr_num
 </select>
 
-<select id="getVsrInfo0" parameterType="int" resultType="map">
-	select pd.vsr_num , pd.c_num, pd.p_num,
-			vsr.vsr_chkin, vsr.vsr_hour, vsr.vsr_hadd, vsr.vsr_attention, vsr.vsr_contents, vsr.vsr_day,
-			p.p_name, p.p_kind, p.p_sex, p.p_birth, p.p_none_sex, p.p_notify, p.p_img, p.p_weight,
-			c.c_address, c.c_d_address, c.c_contact,
-			pdd.petcount
-	from pet_detail pd ,
-		pet p ,
-		customer c,
-		visitsitterreservation vsr,
-		(select vsr_num, count(*) as petCount
-		from pet_detail
-		group by vsr_num) pdd
+<select id="getVsrInfo7" resultType="map">
+	SELECT vsr.vsr_num, c.c_num, pd.petcount, vsr.vsr_chkin, vsr.vsr_hour,vsr.vsr_hadd, c.c_address, c.c_d_address
+	FROM VisitSitterReservation vsr,
+		(select vsr_num,c_num, count(*) petCount
+			from pet_detail
+			group by vsr_num,c_num
+			order by vsr_num desc) pd,
+		Customer c
 	where vsr.vsr_day = 7
 	and vsr.vsr_num = pd.vsr_num
-	and pd.p_num = p.p_num
 	and pd.c_num = c.c_num
-	and pd.vsr_num =pdd.vsr_num
-	ORDER BY vsr_num;
+</select>
+
+<select id="getVsrInfo0_6" resultType="map">
+	SELECT vsr.vsr_num, c.c_num, pd.petcount, vsr.vsr_day, vsr.vsr_chkin, vsr.vsr_hour, vsr.vsr_hadd, c.c_address, c.c_d_address
+	FROM VisitSitterReservation vsr,
+		(select vsr_num,c_num, count(*) petCount
+			from pet_detail
+			group by vsr_num,c_num
+			order by vsr_num desc) pd,
+		Customer c
+	where vsr.vsr_day between 0 and 6
+	and vsr.vsr_num = pd.vsr_num
+	and pd.c_num = c.c_num
 </select>
 <!-- 	<insert id="insertPet_DetailDao" parameterType="pet_detail"> -->
 <!-- 		<selectKey order="BEFORE" keyProperty="pd_num" -->

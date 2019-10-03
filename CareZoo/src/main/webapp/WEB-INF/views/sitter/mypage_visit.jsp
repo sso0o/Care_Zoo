@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-
+<link rel='stylesheet' href='${contextPath}/resources/css/sideMenu.css' />
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 
 <script type="text/javascript">

@@ -153,7 +153,7 @@
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
 						<li><a href="${contextPath}/sitter/getVsrStatus0">신청 목록</a></li>
-						<li><a href="${contextPath}/sitter/myReservationVs">예약상황 보기</a></li>
+						<li><a href="${contextPath}/sitter/myReservationVs_Page">예약상황 보기</a></li>
 					</ul>
 				</div>
 			</div>

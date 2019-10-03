@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -59,11 +60,13 @@
 	}
 	
 	$(function() {
+// 		console.log(d)
 		console.log("numtype : "+user_numtype)
 		console.log("name : "+user_name)
 		console.log("num : "+user_num)
-	})//문서가 로딩되면 실행할 함수
-	
+		
+// 		$("#legend").text(value)
+	})
 
 	document.addEventListener('DOMContentLoaded', function() {
 		
@@ -114,9 +117,14 @@
 				
 				modalOpen(info.event.id);
 			}
+			
+			
 
 		});
+		
+		calendar.render();
 
+// 		이벤트 추가
 	$.ajax({
 			url : "${contextPath}/sitter/myReservationVS",
 			data : {
@@ -124,20 +132,35 @@
 			},
 			dataType : "JSON",
 			success : function(data) {
-				console.log(data.cList[0].c_name)
-				for (var i = 0; i < data.vsrList.length; i++) {
+				console.log(data.rst1)
+				console.log(data.rst2)
+				
+				for(var i= 0; i<data.rst1.length; i++){
 					var e = {
 						groupId : 'c_num',
-						id : data.vsrList[i].c_num,
-						start : data.vsrList[i].vsr_chkin,
-						end : data.vsrList[i].vsr_chkout,
-						title : data.cList[i].c_name,
-						description : "*" + data.vsrList[i].vsr_status,
-						color : 'rgba(0, 0, 120, 0.6)',
-						textColor : "white"
+ 						id : data.rst1[i].C_NUM,
+ 						start : data.rst1[i].VSR_CHKIN,
+ 						title : data.rst1[i].C_NAME,
+ 						description : "*" + data.rst1[i].VSR_STATUS,
+ 						color : 'rgba(0, 0, 120, 0.6)',
+ 						textColor : "white"
 					}
 					calendar.addEvent(e)
-					calendar.render();
+ 					calendar.render();
+				}
+
+				for(var i= 0; i<data.rst2.length; i++){
+					var e = {
+						groupId : 'c_num',
+ 						id : data.rst2[i].C_NUM,
+ 						start : data.rst2[i].VSR_CHKIN,
+ 						title : data.rst2[i].C_NAME,
+ 						description : "*" + data.rst2[i].VSR_STATUS,
+ 						color : 'rgba(120, 0, 0, 0.6)',
+ 						textColor : "white"
+					}
+					calendar.addEvent(e)
+ 					calendar.render();
 				}
 
 			},
@@ -188,21 +211,21 @@
 
 		showDiv.children("p").remove();
 		
-	$.ajax({
-		url : "",
-		data : {
+// 	$.ajax({
+// 		url : "",
+// 		data : {
 			
-		},
-		dataType : "JSON",
-		success : function(data) {
-			console.log(data);
+// 		},
+// 		dataType : "JSON",
+// 		success : function(data) {
+// 			console.log(data);
 			
 
-		},
-		error : function() {
+// 		},
+// 		error : function() {
 
-		}
-	})
+// 		}
+// 	})
 
 }
 </script>
@@ -273,7 +296,7 @@
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
 						<li><a href="${contextPath}/sitter/getVsrStatus0">신청 목록</a></li>
-						<li><a href="${contextPath}/sitter/myReservationVs">예약상황 보기</a></li>
+						<li><a href="${contextPath}/sitter/myReservationVs_Page">예약상황 보기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -330,7 +353,7 @@
 		<div id='calendar'></div>
 		<div class="content">
 			<fieldset id="showEvent" class="fieldset">
-				<legend style="text-align: center;" id="legend">여기에 선택한 날짜의 예약이 나옴</legend>
+				<legend style="text-align: center;" id="legend"><fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/></legend>
 					<div class="row" id="showDiv">
 						
 					</div>
@@ -341,12 +364,9 @@
 		</div>
 
 	</div>
-	
 
-	
-	
 	<footer>
-		<div>durlsms footer</div>
+		<div>footer</div>
 	</footer>
 
 	
@@ -358,14 +378,7 @@
 		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
 		<table class="modal-table" id="modal-table">
 			<tr height="10px">
-				<td>
-					<input type="hidden" name="groupid" id="groupid">
-				</td>
-				<td>
-					<input type="hidden" name="number" id="number">
-				</td>
-				<td class="close" id="modal-close">&times;</td>
-
+				<td colspan="3" class="close" id="modal-close">&times;</td>
 			</tr>
 			<tr>
 				<td rowspan="3" style="width: 150px">
@@ -373,7 +386,7 @@
 					margin-left: 15px;">
 				</td>
 				<td colspan="2">
-					<a id="atag"><input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly"></a>
+					<input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
@@ -381,28 +394,10 @@
 					<input type="text" class="modal-content contact" name="modal-contact" id="modal-contact" value="" readonly="readonly">
 				</td>
 			</tr>
-			<tr class="starTr" id="starTr" >
-				<td style="padding-left: 15px; width: 170px;">
-					<span id="starRev" class="starRev"> 
-						<span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> 
-						<span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4"  title="2">별2_오른쪽</span> 
-						<span class="starR1" id="star5" title="2.5">별3_왼쪽</span> <span class="starR2" id="star6" title="3">별3_오른쪽</span> 
-						<span class="starR1" id="star7" title="3.5">별4_왼쪽</span> <span class="starR2" id="star8" title="4">별4_오른쪽</span> 
-						<span class="starR1" id="star9" title="4.5">별5_왼쪽</span> <span class="starR2" id="star10" title="5">별5_오른쪽</span>
-					</span>
-				</td>
-				<td>
-					<input type="text" class="modal-content star" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
-					
-				</td>
-			</tr>
 			<tr class="addressTr" id="addressTr">
 				<td colspan="3">
 					<p class="modal-content address" id="modal-address"></p>
 				</td>
-			</tr>
-			<tr id="reviewTr">
-				<td colspan="3" style="text-align: center"><span class="review" id="modal-review">후기등록</span>
 			</tr>
 		</table>
 

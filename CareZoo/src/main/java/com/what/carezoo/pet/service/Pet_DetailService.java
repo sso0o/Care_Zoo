@@ -32,10 +32,12 @@ public class Pet_DetailService {
 		return pdDao.selectByC_num(c_num);
 	}
 	
-	public List<Map<String, Object>> getResInfo(int vsr_num) {
-		return pdDao.getVsrInfo0(vsr_num);
+	public List<Map<String, Object>> getResInfo7() {
+		return pdDao.getVsrInfo7();
 	}
-	
+	public List<Map<String, Object>> getResInfo0_6() {
+		return pdDao.getVsrInfo0_6();
+	}
 	
 	
 //	public boolean insertPet_Detail(Pet_Detail pd) {

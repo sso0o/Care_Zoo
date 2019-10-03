@@ -30,5 +30,8 @@ public interface VisitSitterReservationDao {
 	public List<VisitSitterReservation>getVsrByStatus0Day();
 	
 	public int acceptVsr(Map<String, Object> param);
+	
+	public List<Map<String, Object>> getMyResDay7(int vs_num);
+	public List<Map<String, Object>> getMyResDay0_6(int vs_num);
 
 }

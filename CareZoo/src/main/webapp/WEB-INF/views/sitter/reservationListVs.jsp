@@ -22,6 +22,7 @@
 
 <link rel='stylesheet' href='${contextPath}/resources/css/resListVs_modal.css' />
 
+<link rel='stylesheet' href='${contextPath}/resources/css/sideMenu.css' />
 
 <!-- 선택요소 -->
 <!-- 부트스트랩 -->
@@ -45,6 +46,7 @@
 	$(function() { //문서가 로딩되면 실행할 함수
 		
 // 		console.log("${rst1 }")
+// 		console.log("${rst2 }")
 		
 	})
 	
@@ -153,6 +155,16 @@
 	.cl{
 		line-height: 1.5em;
 	}
+	
+	.tt{
+		font-size: 11px;
+	}
+	
+	.col, .col-1, .col-2, .col-3, .col-4, .col-5,
+	.col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+		text-align: center;
+		
+	}
 
 </style>
 
@@ -160,6 +172,21 @@
 <title>Insert title here</title>
 </head>
 <body>
+<input type="checkbox" id="menuicon">
+			<label for="menuicon">
+				<span></span>
+				<span></span>
+				<span></span>
+			</label>
+			<div class="sidebar">
+				<div>
+					<ul>
+						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
+						<li><a href="${contextPath}/sitter/getVsrStatus0">신청 목록</a></li>
+						<li><a href="${contextPath}/sitter/myReservationVs_Page">예약상황 보기</a></li>
+					</ul>
+				</div>
+			</div>
 <div class="container">
 		<header>
 			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
@@ -211,40 +238,40 @@
 	<hr>
 	<p>일반 방문시터</p>
 	<div class="row">
-		<p class="col-7">주소</p>
-		<p class="col-1">마리수</p>
-		<p class="col-1">시작시간</p>
-		<p class="col-1">종료시간</p>
-		<p class="col-2">예약일</p>
-<%-- 	<c:forEach items="${rst1 }" var="vsr" > --%>
-<%-- 		<c:forEach items="${vsr}" var ="v"> --%>
-			
-<%-- 		</c:forEach> --%>
-<%-- 		<p class="col-7">${vsr.c_address}</p> --%>
-<%-- 		<p class="col-1">${vsr.count}마리</p> --%>
-<%-- 		<p class="col-1">${vsr.hour}시</p> --%>
-<%-- 		<p class="col-1">${vsr.endhour}시</p> --%>
-<%-- 		<p class="col-2">${vsr.chkin}</p> --%>
-<%-- 	</c:forEach> --%>
+		<p class="col-6 tt">주소</p>
+		<p class="col-1 tt">마리수</p>
+		<p class="col-1 tt">시작시간</p>
+		<p class="col-1 tt">종료시간</p>
+		<p class="col-2 tt">예약일</p>
+		<p class="col-1 tt">정보</p>
+	<c:forEach items="${rst1 }" var="vsr" >
+		<p class="col-6" style="height: 2.5em">${vsr.C_ADDRESS}&nbsp;${vsr.C_D_ADDRESS}</p>
+		<p class="col-1">${vsr.PETCOUNT}마리</p>
+		<p class="col-1">${vsr.VSR_HOUR}시</p>
+		<p class="col-1">${vsr.VSR_HOUR+vsr.VSR_HADD+3}시</p>
+		<p class="col-2">${vsr.VSR_CHKIN}</p>
+		<p class="col-1" onclick="modalOpen(this)" title="${vsr.VSR_NUM}">보기</p>
+	</c:forEach>
 	</div>
 	<hr>
 	<p>정기 방문시터</p>
 	<div class="row">
-		<p class="col-6">주소</p>
-		<p class="col-1">마리수</p>
-		<p class="col-1">시작시간</p>
-		<p class="col-1">종료시간</p>
-		<p class="col-2">예약일</p>
-		<p class="col-1">정보</p>
-<%-- 	<c:forEach items="${rst2 }" var="vsr1"> --%>
-<%-- 		<p class="col-6" style="height: 2.5em">${vsr1.address}</p> --%>
-<%-- 		<p class="col-1">${vsr1.count}마리</p> --%>
-<%-- 		<p class="col-1">${vsr1.hour}시</p> --%>
-<%-- 		<p class="col-1">${vsr1.endhour}시</p> --%>
-<%-- 		<p class="col-2">${vsr1.chkin}</p> --%>
-<%-- 		<p class="col-1" onclick="modalOpen(this)" title="${vsr1.vsr.vsr_num}">보기</p> --%>
-<!-- 		<hr class="col-12"> -->
-<%-- 	</c:forEach> --%>
+		<p class="col-6 tt">주소</p>
+		<p class="col-1 tt">마리수</p>
+		<p class="col-1 tt">시작시간</p>
+		<p class="col-1 tt">종료시간</p>
+		<p class="col-2 tt">예약일</p>
+		<p class="col-1 tt">정보</p>
+		
+	<c:forEach items="${rst2 }" var="vsr1">
+		<p class="col-6" style="height: 2.5em">${vsr1.C_ADDRESS}&nbsp;${vsr1.C_D_ADDRESS}</p>
+		<p class="col-1">${vsr1.PETCOUNT}마리</p>
+		<p class="col-1">${vsr1.VSR_HOUR}시</p>
+		<p class="col-1">${vsr1.VSR_HOUR + vsr1.VSR_HADD+3}시</p>
+		<p class="col-2">${vsr1.VSR_CHKIN}</p>
+		<p class="col-1" onclick="modalOpen(this)" title="${vsr1.VSR_NUM}">보기</p>
+		<hr>
+	</c:forEach>
 	</div>
 	
 </div>
