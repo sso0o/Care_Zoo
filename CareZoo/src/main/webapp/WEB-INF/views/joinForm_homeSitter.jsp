@@ -16,70 +16,76 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-
+<!-- 다음 주소 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<!-- link for datepicker -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"><!-- datePicker -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/><!-- datePicker -->
+<link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css'/><!-- dateTimePicker -->
+<!-- script for datepicker -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><!-- datePicker -->
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> <!-- moment.js -->
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script><!-- datePicker -->
+<script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
 
 <script>
-	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-	function getAddress() {
-		new daum.Postcode(
-				{
-					oncomplete : function(data) {
-						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+function getAddress() {
+	new daum.Postcode({
+		oncomplete : function(data) {
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-						// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-						var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-						var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+			// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+			// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+			var extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
-						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-							extraRoadAddr += data.bname;
-						}
-						// 건물명이 있고, 공동주택일 경우 추가한다.
-						if (data.buildingName !== '' && data.apartment === 'Y') {
-							extraRoadAddr += (extraRoadAddr !== '' ? ', '
-									+ data.buildingName : data.buildingName);
-						}
-						// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-						if (extraRoadAddr !== '') {
-							extraRoadAddr = ' (' + extraRoadAddr + ')';
-						}
-						// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-						if (fullRoadAddr !== '') {
-							fullRoadAddr += extraRoadAddr;
-						}
+			// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+			// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+			if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+				extraRoadAddr += data.bname;
+			}
+			// 건물명이 있고, 공동주택일 경우 추가한다.
+			if (data.buildingName !== '' && data.apartment === 'Y') {
+				extraRoadAddr += (extraRoadAddr !== '' ? ', '
+						+ data.buildingName : data.buildingName);
+			}
+			// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			if (extraRoadAddr !== '') {
+				extraRoadAddr = ' (' + extraRoadAddr + ')';
+			}
+			// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+			if (fullRoadAddr !== '') {
+				fullRoadAddr += extraRoadAddr;
+			}
 
-						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-// 						document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
-						document.getElementById('address').value = fullRoadAddr;
-						document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
+			// 우편번호와 주소 정보를 해당 필드에 넣는다.
+				//document.getElementById('sample4_postcode').value = data.zonecode; //5자리 새우편번호 사용
+			document.getElementById('address').value = fullRoadAddr;
+			document.getElementById('sample4_jibunAddress').value = data.jibunAddress;
 
-						// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-						if (data.autoRoadAddress) {
-							//예상되는 도로명 주소에 조합형 주소를 추가한다.
-							var expRoadAddr = data.autoRoadAddress
-									+ extraRoadAddr;
-							document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
-									+ expRoadAddr + ')';
+			// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+			if (data.autoRoadAddress) {
+				//예상되는 도로명 주소에 조합형 주소를 추가한다.
+				var expRoadAddr = data.autoRoadAddress
+						+ extraRoadAddr;
+				document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
+						+ expRoadAddr + ')';
 
-						} else if (data.autoJibunAddress) {
-							var expJibunAddr = data.autoJibunAddress;
-							document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
-									+ expJibunAddr + ')';
+			} else if (data.autoJibunAddress) {
+				var expJibunAddr = data.autoJibunAddress;
+				document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
+						+ expJibunAddr + ')';
 
-						} else {
-							document.getElementById('guide').innerHTML = '';
-						}
-					}
-				}).open();
-	}
+			} else {
+				document.getElementById('guide').innerHTML = '';
+			}
+		}
+	}).open();
+}
 </script>
 <script type="text/javascript">
-
 function logoutCheck() {
 	if (confirm("정말 로그아웃?") == true) {
 		location.href = '${contextPath}/logout'
@@ -87,7 +93,6 @@ function logoutCheck() {
 		return false;
 	}
 }
-
 function cancleCheck() {
 	if (confirm("취소하시면 작성한 양식이 날라갑니다.\n그래도 취소하시겠습니까?") == true) {
 		location.href = '${contextPath}'
@@ -95,8 +100,6 @@ function cancleCheck() {
 		return false;
 	}
 }
-
-
 function checkValue() {
 	if($("#email").val() ==""){
 		alert("아이디(이메일)을 입력해주세요");
@@ -136,10 +139,8 @@ function checkValue() {
 	if($("#contact").val() ==""){
 		alert("연락처를 입력해주세요");
 		return false;
-	}
-	
+	}	
 }
-
 var index = 1;
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
 $(function() {
@@ -166,8 +167,7 @@ $(function() {
 	                    
 	                }
 	            },
-	            error : function(error) {
-	                
+	            error : function(error) {	                
 	                alert("error : " + error);
 	            }
 	        });
@@ -175,16 +175,12 @@ $(function() {
 			$("#idchk_val").removeClass('green');
         	$("#idchk_val").addClass('red');
         	$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
-		}
-		
+		}		
 	}); //email체크함수
 	
 	$("#pw2").change(function() {
 		var pw = $("#pw").val(); 
-		var pw2 = $("#pw2").val(); 
-// 		console.log(pw)
-// 		console.log(pw2)
-		
+		var pw2 = $("#pw2").val(); 		
 		if(pw==pw2 ){
 			$("#pwchk_val").removeClass('red');
         	$("#pwchk_val").addClass('green');
@@ -193,11 +189,22 @@ $(function() {
 			$("#pwchk_val").removeClass('green');
         	$("#pwchk_val").addClass('red');
         	$("#pwchk_val").text("비밀번호가 다릅니다!")
-		}
-		
+		}		
 	});//pw체크함수
 	
-	
+	//Disable date & time
+	$('#startTime').timepicker({
+		minTime:'07:00' ,
+		timeFormat: "HH:mm",
+		maxTime: '22:00',
+		stepMinute: 30
+    });
+	$('#endTime').timepicker({
+		minTime:'07:00' ,
+		timeFormat: "HH:mm",
+		maxTime: '22:00',
+		stepMinute: 30
+    });
 });
 
 
@@ -359,10 +366,11 @@ legend{
 						<option value="2">남자</option>
 					</select>
 				</div>
-				<div class="form-group">
-					<label for="hs_job">직업</label>
-					<input type="text" class="form-control" id="job" name="hs_job" placeholder="현재 직업을 입력해주세요" >
-				</div>
+				<!-- ****시터 직업 삭제함**** -->
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="hs_job">직업</label> -->
+<!-- 					<input type="text" class="form-control" id="job" name="hs_job" placeholder="현재 직업을 입력해주세요" > -->
+<!-- 				</div> -->
 				<div class="form-group">
 					<label for="address">주소</label><label class="space"></label>
 	<!-- 				<input type="button" onclick="sample4_execDaumPostcode()" class="btn btn-outline-success" value="우편번호 찾기"> -->
@@ -380,6 +388,96 @@ legend{
 					<input type="button" class="form-control auth" value="인증번호 확인">
 					</div>
 				</div>
+				<p>
+					<sub>정보 확인 후 예약을 위한 게시글을 올려드립니다. <br>
+					아래 더보기를 눌러 게시글 등록을 위한 정보를 입력해 주세요.</sub><br><br>
+					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+					더보기  
+					</button>
+				</p>
+				<div class="collapse" id="collapseExample">
+					<div class="card card-body">
+					예시********************************
+						<div class="form-group">
+							<label for="hs_birth">생년월일*</label>
+							<input type="text" class="form-control" id="birth" name="hs_birth">
+						</div>
+						<div class="form-group">
+							<label for="hs_sex">성별*</label><label class="space"></label>
+							<select id="sex" name="hs_sex" class="form-control" >
+								<option value="" selected="selected">성별</option>
+								<option value="1">여자</option>
+								<option value="2">남자</option>
+							</select>
+						</div>					 
+					 
+					****************************************** 					 
+						<div class="form-group">
+							<label for="hsl_title">글제목</label>
+							<input type="text" class="form-control" id="title" name="hsl_title">
+						</div>
+						<div class="form-group">
+							<label for="hsl_comment">글내용</label>
+							<textarea class="form-control" id="title" name="hsl_comment" style="resize: none;" rows="8" >
+Q. 왜 도그메이트 펫시터를 하게 되었나요? 
+Q. 반려견을 키운 경험에 대해 알려주세요. 현재 반려견을 키우고 계시다면 자세히 소개해주세요! 
+Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 약속드립니다. 
+※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
+							</textarea>
+						</div>
+						<div class="form-group">
+							<label for="hsl_title">글제목</label>
+							<input type="text" class="form-control" id="title" name="hsl_title">
+						</div>
+						<div class="form-group">
+							<label for="hsl_title">글제목</label>
+							<input type="text" class="form-control" id="title" name="hsl_title">
+						</div>
+						<div class="form-group">
+							<label for="hsl_title">글제목</label>
+							<input type="text" class="form-control" id="title" name="hsl_title">
+						</div>
+						<div class="form-group">
+							<label for="hsl_title">글제목</label>
+							<input type="text" class="form-control" id="title" name="hsl_title">
+						</div>
+						<div class="form-group">
+							<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.</label><br>							
+							<span>24시간 돌봄(하루 이상)</span><input style="width: fit-content;" type="checkbox" class="form-control" id="serviceType" name="hsl_service_type" value="24시간돌봄">
+							<span>데이케어(하루 미만)</span><input style="width: fit-content;" type="checkbox" class="form-control" id="serviceType" name="hsl_service_type" value="데이케어">
+						</div>	
+						<div class="form-group">
+							<label for="hsl_chkin_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
+							<input type="text" class="form-control" id="startTime" name="hsl_chkin_str_time">
+						</div>
+						<div class="form-group">
+							<label for="hsl_chkout_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
+							<input type="text" class="form-control" id="endTime" name="hsl_chkout_str_time">
+						</div>
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					</div>
+				</div>	
 				<div class="btnGroup">
 					<input type="submit" class="btn btn-submit" value="가입">
 					<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">

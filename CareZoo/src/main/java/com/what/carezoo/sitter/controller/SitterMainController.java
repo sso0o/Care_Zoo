@@ -84,5 +84,8 @@ public class SitterMainController {
 		return rst;
 	}
 
-
+	@RequestMapping("/main")
+	public String enterSitterMain(){
+		return "sitter/sitterMain";
+	}
 }
