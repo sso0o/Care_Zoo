@@ -442,9 +442,17 @@ Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 �
 							<input type="text" class="form-control" id="title" name="hsl_title">
 						</div>
 						<div class="form-group">
-							<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.</label><br>							
-							<span>24시간 돌봄(하루 이상)</span><input style="width: fit-content;" type="checkbox" class="form-control" id="serviceType" name="hsl_service_type" value="24시간돌봄">
-							<span>데이케어(하루 미만)</span><input style="width: fit-content;" type="checkbox" class="form-control" id="serviceType" name="hsl_service_type" value="데이케어">
+							<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.</label>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="checkbox" class="form-check-input" value="24시간돌봄" name="hsl_service_type" >24시간 돌봄(하루 이상)
+							  </label>
+							</div>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="checkbox" class="form-check-input" value="데이케어" name="hsl_service_type" >데이케어(하루 미만)
+							  </label>
+							</div>
 						</div>	
 						<div class="form-group">
 							<label for="hsl_chkin_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
@@ -454,9 +462,82 @@ Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 �
 							<label for="hsl_chkout_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
 							<input type="text" class="form-control" id="endTime" name="hsl_chkout_str_time">
 						</div>
-					 
-					 
-					 
+						<div class="form-group">
+							<label for="hsl_size">돌봄 가능한 강아지의 크기를 선택해 주세요.</label>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="checkbox" class="form-check-input" value="소형견" name="hsl_size" >소형견 (0~4.9kg)
+							  </label>
+							</div>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="checkbox" class="form-check-input" value="중형견" name="hsl_size" >중형견 (5~14.9kg)
+							  </label>
+							</div>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="checkbox" class="form-check-input" value="대형견" name="hsl_size" >대형견 (15kg 이상)
+							  </label>
+							</div>
+						</div>	
+					 	<h6><mark>돌봄 환경에 대해 자세히 알려주세요</mark></h6>
+					 	<div class="form-group">
+							<label for="hsl_size">돌봄공간</label>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio">Option 1
+							  </label>
+							</div>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio">Option 2
+							  </label>
+							</div>
+							<div class="form-check disabled">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio" disabled>Option 3
+							  </label>
+							</div>
+						</div>
+					 	<div class="form-group">
+							<label for="hsl_size">마당이 있나요? </label>
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio">Option 1
+							  </label>
+							</div>
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio">Option 2
+							  </label>
+							</div>
+						</div>	
+					 	<div class="form-group">
+							<label for="hsl_size">14세 미만의 아동이 함께 거주하고 있나요? </label>
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio">Option 1
+							  </label>
+							</div>
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio">Option 2
+							  </label>
+							</div>
+						</div>
+					 	<div class="form-group">
+							<label for="hsl_size">다른 가족이 함께 거주하고 있나요? </label>
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio">Option 1
+							  </label>
+							</div>
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="optradio">Option 2
+							  </label>
+							</div>
+						</div>
 					 
 					 
 					 
