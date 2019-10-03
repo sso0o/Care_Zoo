@@ -984,7 +984,7 @@ input[type="number"] {
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<form action="${contextPath }/petHotel/petHotelResForm">
+			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
 				<div style="padding: 10px; font-size: 15px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
 					<div class="col-dates" style="text-align: center;">
 						<label>원하는 날짜를 선택해주세요.</label> <br>

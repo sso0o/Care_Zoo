@@ -175,8 +175,14 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return rst;
 	}
 
+	@RequestMapping(value = "/paySuccess")
+	public String payCompleteForm() {
+		return "hotel/payComplete";
+	}
+	
+	
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
-	@RequestMapping(value = "/petHotelResForm")
+	@RequestMapping(value = "/petHotelResForm" , method = RequestMethod.POST)
 	public String resPetHotelForm(HttpSession session,
 			Model m, 
 			PetHotelReservation phr,

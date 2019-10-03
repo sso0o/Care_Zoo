@@ -318,9 +318,6 @@ ul {
 
 
 	$(function() {
-		console.log("먀먕?"+$('.totalValue').val());
-		console.log("먀먕?text:"+$('.totalValue').text().replace(/,/gi, ""));
-		
 		$("#check_module").click(function () {
 
 			IMP.init('imp94354183');
@@ -336,7 +333,7 @@ ul {
 			    buyer_tel : '010-1234-5678',
 			    buyer_addr : '서울특별시 강남구 삼성동',
 			    buyer_postcode : '123-456',
-			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
+			    m_redirect_url : 'http://localhost:8081/carezoo/petHotel/paySuccess'
 			}, function(rsp) {
 				//qweqweqwewq
 			    if ( rsp.success ) {
@@ -706,150 +703,152 @@ ul {
 	<br>
 	<br>
 	<br>
-
 	<div class="container">
-		<div style="text-align: left;">
-			<label style="font-size: 25px">예약페이지</label>
-			<hr style="">
-		</div>
-		<div
-			style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 1px solid darkgray; padding: 50px; border-radius: 4px;">
-			<div style="text-align: center">
-
-
-				<div class="petAddForm">
-
-					<div class="PriceAndSize" style="">
-						<div
-							style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
+		<form>
+			<div style="text-align: left;">
+				<label style="font-size: 25px">예약페이지</label>
+				<hr style="">
+			</div>
+			<div
+				style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 1px solid darkgray; padding: 50px; border-radius: 4px;">
+				<div style="text-align: center">
+					<div class="petAddForm">
+						<div class="PriceAndSize" style="">
 							<div
-								style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 55px">
+								style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
 								<div
-									style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
+									style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 55px">
+									<div
+										style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
 
-									<label style="font-weight: bold;">체크인: </label>&nbsp;<label
-										class="chkin">${phr_chkin} </label>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label style="font-weight: bold">체크아웃:
-									</label>&nbsp;<label class="chkout">${phr_chkout }&nbsp;&nbsp;</label>
-									&nbsp;&nbsp; <label class="totalDays" style="">(총
-										${totalDays}박)</label>&nbsp;&nbsp;
+										<label style="font-weight: bold;">체크인: </label>&nbsp;<label
+											class="chkin">${phr_chkin} </label>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
+											style="font-weight: bold">체크아웃: </label>&nbsp;<label
+											class="chkout">${phr_chkout }&nbsp;&nbsp;</label>
+										&nbsp;&nbsp; <label class="totalDays" style="">(총
+											${totalDays}박)</label>&nbsp;&nbsp;
+									</div>
+									&nbsp; <label
+										style="font-size: 30px; padding-bottom: 20px; position: relative; top: -10px;">&</label>
+									&nbsp;
+									<div
+										style="text-align: left; display: inline-block; padding-top: 10px; padding-right: 5px; padding-left: 10px; border-color: #40bf9f">
+										<label class="totalDays" style="float: right">반려견
+											${quantity} 마리</label>
+									</div>
 								</div>
-								&nbsp; <label
-									style="font-size: 30px; padding-bottom: 20px; position: relative; top: -10px;">&</label>
-								&nbsp;
-								<div
-									style="text-align: left; display: inline-block; padding-top: 10px; padding-right: 5px; padding-left: 10px; border-color: #40bf9f">
-									<label class="totalDays" style="float: right">반려견
-										${quantity} 마리</label>
-								</div>
-							</div>
 
-							<br>
-							<div class="petList" style="font-size: 20px"></div>
-							<br>
-							<div class="night" style="display: inline-block; width: 600px">
-								<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원
-									X ${totalDays}박</div>
-								<div class="countPrice" style="float: right">
-									<span class="nightCountPrice">${nightCountValue }원</span>
+								<br>
+								<div class="petList" style="font-size: 20px"></div>
+								<br>
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원
+										X ${totalDays}박</div>
+									<div class="countPrice" style="float: right">
+										<span class="nightCountPrice">${nightCountValue }원</span>
+									</div>
 								</div>
-							</div>
-							<hr style="width: 680px">
-							<div class="night" style="display: inline-block; width: 600px">
-								<div class="nightCount" style="text-align: left; float: left">반려견
-									추가</div>
-								<div class="countPrice" style="float: right">
-									<span class="petAddValue">${petAddValue }원</span>
+								<hr style="width: 680px">
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left">반려견
+										추가</div>
+									<div class="countPrice" style="float: right">
+										<span class="petAddValue">${petAddValue }원</span>
+									</div>
 								</div>
-							</div>
-							<hr style="width: 680px">
-							<div class="night" style="display: inline-block; width: 600px">
-								<div class="nightCount" style="text-align: left; float: left">총
-								</div>
-								<div class="countPrice" style="float: right">
-									<span class="totalValue">${totalValue }</span>원
+								<hr style="width: 680px">
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left">총
+									</div>
+									<div class="countPrice" style="float: right">
+										<span class="totalValue">${totalValue }</span>원
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div style>
-						<button class="btn btn-my" id="selectPetModal">반려견 선택</button>
-					</div>
+						<div>
+						<input type="button" class="btn btn-my" id="selectPetModal"  value="반려견 선택">
+<!-- 							<button class="btn btn-my" id="selectPetModal">반려견 선택</button> -->
+						</div>
 
+					</div>
 				</div>
+				<%--<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
+
 			</div>
-			<%--<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
+			<br>
 
-		</div>
-		<br>
-
-		<div
-			style="margin-top: 50px; margin-right: 100px; margin-left: 100px;">
-			<div>
-				<h4>예약요청 전 꼭 확인해주세요!</h4>
-				<ul>
-					<li>* 예약을 위해 강아지에 대한 내용을 상세히 적어주세요.</li>
-					<li>* 환불은 예약 3일전까지 100% 가능합니다.</li>
-				</ul>
+			<div
+				style="margin-top: 50px; margin-right: 100px; margin-left: 100px;">
+				<div
+					style="margin: 40px 0 0; padding: 25px; background-color: #f5f5f5; border-top: solid 1px #dfdfdf; line-height: 1.6;">
+					<h4>예약요청 전 꼭 확인해주세요!</h4>
+					<ul>
+						<li>* 예약을 위해 강아지에 대한 내용을 상세히 적어주세요.</li>
+						<li>* 환불은 예약 3일전까지 100% 가능합니다.</li>
+						<li>* 요금이 맞는지 확인해 주세요.</li>
+					</ul>
+					<br>
+				</div>
+				<textarea name="hsr_message"
+					placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000"
+					id="txtMESSAGE" style="margin: 0px; width: 99.4%; height: 126px;"></textarea>
 				<br>
+				<br>
+				<div>
+					<div style="margin-bottom: 15px">맡겨주를 이용하시는 이유에 대해 알려주세요!</div>
+					<div style="margin-bottom: 15px">
+						<select name="hsr_purpose">
+							<option value="여행">여행</option>
+							<option value="출장">출장</option>
+							<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
+							<option value="집안행사">집안행사</option>
+							<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기
+								위해</option>
+							<option value="기타">기타</option>
+						</select>
+					</div>
+				</div>
+				<ul>
+					<li>※요청 시 잘못된 정보를 전달할 경우 이로인해 발생되는 문제에 대한 책임은 의뢰인 본인에게 있습니다.</li>
+					<li>※'예약 요청'을 클릭하면 서비스 총액을 지불하는 것과 서비스 약관, 환불정책에 동의하는 것입니다.</li>
+				</ul>
+				<br> <br>
+				<div style="text-align: center">
+					<input type="submit" class="btn btn-my" id="check_module"
+						style="text-align: center; font-size: 23px; padding-left: 40px; padding-right: 40px" value="결제하기">
+				</div>
+
+
 			</div>
-			<textarea name="hsr_message" placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요."
-				maxlength="4000" id="txtMESSAGE"
-				style="margin: 0px; width: 700px; height: 126px;"></textarea>
-			<br>
-			<div>
-				<div style="margin-bottom: 15px">맡겨주를 이용하시는 이유에 대해 알려주세요!</div>
-				<div style="margin-bottom: 15px">
-					<select name="hsr_purpose">
-						<option value="여행">여행</option>
-						<option value="출장">출장</option>
-						<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
-						<option value="집안행사">집안행사</option>
-						<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기 위해</option>
-						<option value="기타">기타</option>
-					</select>
+</form>
+			<br> <br> <br> <br>
+
+
+			<!-- ///////////////////////////////////////////////////////////////모달 -->
+			<div class="modal-modify" id="reply-modal">
+				<!-- css 적용 하기 위한 경우 class -->
+
+				<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
+				<div class="modal-table" id="modal-table">
+					<div class="close" id="modal-close">&times;</div>
+					<div class="radioForm">
+						<c:forEach items="${petList}" var="pL" varStatus="pLstatus">
+							<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+							<input type="hidden" value="${pL.p_num}">
+							<input type="hidden" value="${quantity}" class="quantity">
+							<div class="inputGroup">
+								<input id="radio${pLstatus.count}" name="radio" type="radio" />
+								<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name}
+									${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label>
+							</div>
+						</c:forEach>
+						<input type="button" value="선택" class="petSelectButton">
+					</div>
 				</div>
 			</div>
-			<ul>
-				<li>요청 시 잘못된 정보를 전달할 경우 이로인해 발생되는 문제에 대한 책임은 의뢰인 본인에게 있습니다.</li>
-				<li>'예약 요청'을 클릭하면 서비스 총액을 지불하는 것과 서비스 약관, 환불정책에 동의하는 것입니다.</li>
-				<li>돌보미가 예약 요청을 수락해야 결제를 진행 할 수 있으며, 24시간 이내에 돌보미가 요청에 대한 응답을 할
-					것 입니다.</li>
-			</ul>
-			<br>
-			<br>
-			<div style="text-align: center">
-						<button class="btn btn-my" id="check_module"style="text-align: center;font-size:23px;padding-left:40px;padding-right:40px">결제하기</button>
-			</div>
-
-
-		</div>
-
-		<br> <br> <br> <br>
-
-
-		<!-- ///////////////////////////////////////////////////////////////모달 -->
-		<div class="modal-modify" id="reply-modal">
-			<!-- css 적용 하기 위한 경우 class -->
-
-			<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-			<div class="modal-table" id="modal-table">
-				<div class="close" id="modal-close">&times;</div>
-				<div class="radioForm">
-					<c:forEach items="${petList}" var="pL" varStatus="pLstatus">
-						<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-						<input type="hidden" value="${pL.p_num}">
-						<input type="hidden" value="${quantity}" class="quantity">
-						<div class="inputGroup">
-							<input id="radio${pLstatus.count}" name="radio" type="radio" />
-							<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name}
-								${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label>
-						</div>
-					</c:forEach>
-					<input type="button" value="선택" class="petSelectButton">
-				</div>
-			</div>
-		</div>
+		
 	</div>
 
 
