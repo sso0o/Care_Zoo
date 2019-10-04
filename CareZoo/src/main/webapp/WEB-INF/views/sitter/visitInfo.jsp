@@ -25,8 +25,6 @@
 </style>
 
 
-
-
 <script>
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
 	var user_num = "<%=session.getAttribute("user_num")%>"

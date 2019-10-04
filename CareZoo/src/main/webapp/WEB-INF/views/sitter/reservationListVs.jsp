@@ -300,8 +300,6 @@
 		<hr>
 	</c:forEach>
 	</div>
-	
-	
 </div>
 		
 </div>
