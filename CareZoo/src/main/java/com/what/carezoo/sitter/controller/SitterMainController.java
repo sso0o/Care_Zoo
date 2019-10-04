@@ -148,9 +148,6 @@ public class SitterMainController {
 		System.out.println("rst : "+rst);
 		return rst;
 	}
-	
-	
-	
 
 	@RequestMapping("/modifySitterInfo")
 	public String modifySitterInfo() {
