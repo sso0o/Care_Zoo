@@ -31,7 +31,7 @@
 	var user_name = "<%=session.getAttribute("user_name")%>"
 	var d = new Date();
 	
-	alert("방문시터");
+// 	alert("방문시터");
 	
 	function logoutCheck() {
 		if (confirm("정말 로그아웃?") == true) {

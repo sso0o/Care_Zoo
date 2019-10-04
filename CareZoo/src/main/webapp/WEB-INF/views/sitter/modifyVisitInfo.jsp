@@ -140,7 +140,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 			return false;
 		}
 		
-		if($("#contact").val() != "${customer.c_contact}"){
+		if($("#contact").val() != "${vs.vs_contact}"){
 			alert("번호 인증을 해주세요");
 			return false;
 		}

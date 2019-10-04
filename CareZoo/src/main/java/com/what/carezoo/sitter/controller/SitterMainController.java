@@ -137,7 +137,7 @@ public class SitterMainController {
 		System.out.println("vs넘어오나");
 		System.out.println(vs_num);
 		Map<String, Object> rst = new HashMap<String, Object>();
-		String filename = mService.getImage(vs_num);
+		String filename = vsService.getImage(vs_num);
 		rst.put("filename", filename);
 		System.out.println("rst : "+rst);
 		return rst;
@@ -169,6 +169,7 @@ public class SitterMainController {
 		if (type.equals("vs_num")) {
 			VisitSitter vs = vsService.getVisitSitterByNum(num);
 			if(vs.getVs_pass().equals(pw)) {
+				m.addAttribute("vs", vs);
 				url =  "sitter/modifyVisitInfo";
 			} else {
 				m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
@@ -190,8 +191,19 @@ public class SitterMainController {
 	//회원정보 수정vs
 	@RequestMapping(value = "/modifyVs", method = RequestMethod.POST)
 	public String modifyVs(VisitSitter vs, Model m, MultipartHttpServletRequest mtfRequest) {
-		
-		return null;
+		MultipartFile file = mtfRequest.getFile("file");
+		System.out.println("file : " + file);
+		System.out.println("vs : "+vs);
+		boolean rst = vsService.modifyUser(vs, file);
+		if(rst) {
+			m.addAttribute("vs", vs);
+			m.addAttribute("msg", "회원정보를 수정하였습니다");
+			return "sitter/visitInfo";
+		} else {
+			m.addAttribute("vs", vs);
+			m.addAttribute("msg", "회원정보 수정 실패!");
+			return "sitter/modifyVisitInfo";
+		}
 	}
 	
 	//회원정보 수정hs
