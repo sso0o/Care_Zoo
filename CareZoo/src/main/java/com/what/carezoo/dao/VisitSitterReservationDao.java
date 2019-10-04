@@ -19,6 +19,7 @@ public interface VisitSitterReservationDao {
 	public int updateVsrCount(int c_num);
 	public int delete(int vsr_num);
 	public VisitSitterReservation selectByVsrnum(int vsr_num);
+	public int selectByVsrnum0_6(Map<String, Object> param);
 	public List<VisitSitterReservation> selectByVsrnumbers(@Param("list")ArrayList<Integer> vsr_num);
 	public List<VisitSitterReservation> selectByCnum(int c_num);
 	public List<VisitSitterReservation> selectByVSnum(int vs_num);
@@ -32,7 +33,8 @@ public interface VisitSitterReservationDao {
 	public List<VisitSitterReservation> checkDate7(@Param("vs_num")int vs_num, @Param("vsr_chkin")String vsr_chkin);
 	public List<VisitSitterReservation> checkDate0_6(@Param("vs_num")int vs_num, @Param("a")String vsr_chkin,@Param("b")String b,@Param("c")String c, @Param("d")String d);
 	
-	public int acceptVsr(Map<String, Object> param);
+	public int acceptVsr7(Map<String, Object> param);
+	public int acceptVsr0_6(Map<String, Object> param);
 	
 	public List<Map<String, Object>> getMyResDay7(int vs_num);
 	public List<Map<String, Object>> getMyResDay0_6(int vs_num);

@@ -80,6 +80,14 @@
 		from VisitSitterReservation
 		where vsr_num = #{vsr_num}
 	</select>
+	
+	<select id="selectByVsrnum0_6" parameterType="map" resultType="int">
+	select max(vs_num)as a
+	from visitsitterreservation
+	where vsr_num in (#{a},#{b},#{c},#{d})
+	group by vs_num
+	</select>
+
 
 	<select id="selectByVsrnumbers" parameterType="int" resultType="VisitSitterReservation">
 		select * from VisitSitterReservation
@@ -137,15 +145,20 @@
 		and vsr_chkin in (#{a},#{b},#{c},#{d})
 	</select>
 	
+
 	
-	
-	
-	
-	<update id="acceptVsr" parameterType="map">
+	<update id="acceptVsr7" parameterType="map">
 		update VisitSitterReservation
 		set vsr_status = 2,
 		vs_num = #{vs_num}
 		where vsr_num = #{vsr_num}
+	</update>
+	
+	<update id="acceptVsr0_6" parameterType="map">
+		update VisitSitterReservation
+		set vsr_status = 2,
+		vs_num = #{vs_num}
+		where vsr_num in (#{a}, #{b},#{c},#{d} )
 	</update>
 	
 	<select id="getMyResDay7" parameterType="int" resultType="map">

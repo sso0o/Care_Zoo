@@ -126,25 +126,39 @@ public class VisitSitterReservationService {
 	}
 	
 	//정기
-//	public int checkDate0_6(int vs_num, int vsr_chkin, b, c, d) {
-//		List<VisitSitterReservation> list = vsrDao.checkDate0_6(vs_num, vsr_chkin, b, c, d);
-//		return list.size();
-//	}
+	public int checkDate0_6(int vs_num, String vsr_chkin,String b,String c,String d) {
+		List<VisitSitterReservation> list = vsrDao.checkDate0_6(vs_num, vsr_chkin, b, c, d);
+		return list.size();
+	}
 	
 	
 	//예약 수락(일반)
-	public boolean acceptVsr(int vs_num, int vsr_num) {
+	public boolean acceptVsr7(int vs_num, int vsr_num) {
 		int rst = 0;
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("vsr_num", vsr_num);
 		param.put("vs_num", vs_num);
 		if(vsrDao.selectByVsrnum(vsr_num).getVs_num() == 0) {			
-			rst = vsrDao.acceptVsr(param);
+			rst = vsrDao.acceptVsr7(param);
 		}
 		if(rst>0) {
 			return true;
 		}
 		
+		return false;
+	}
+	
+	//예약 수락 (정기)
+	public boolean acceptVsr0_6(int vs_num, int a, int b, int c, int d) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("vs_num",vs_num);
+		param.put("a",a);
+		param.put("b",b);
+		param.put("c",c);
+		param.put("d",d);
+		if(vsrDao.selectByVsrnum0_6(param)==0 && vsrDao.acceptVsr0_6(param)==4) {
+			return true;
+		}
 		return false;
 	}
 	
