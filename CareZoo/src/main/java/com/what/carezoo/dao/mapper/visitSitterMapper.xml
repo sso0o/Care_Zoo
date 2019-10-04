@@ -10,11 +10,21 @@
 			values(#{vs_num},#{vs_name},#{vs_sex},#{vs_birth},#{vs_contact},#{vs_address},#{vs_email},#{vs_pass},#{vs_d_address})
 	</insert>
 	
+	
 	<update id="updateVisitSitterFile" parameterType="map">		
 		update visitsitter
 		set vs_img = #{vs_img}
 		where vs_num = #{vs_num}
 		
+	</update>
+	
+	<update id="updateVisitSitter" parameterType="visitsitter">
+		update visitsitter
+			set vs_contact = #{vs_contact},
+				vs_address = #{vs_address},
+				vs_d_address = #{vs_d_address},
+				vs_pass = #{vs_pass}
+			where vs_num = #{vs_num}
 	</update>
 	
 	<select id="selectOneByNum" parameterType="int" resultType="visitsitter">
@@ -34,5 +44,9 @@
 
 	<select id="userIdCheck" parameterType="string" resultType="Integer">
 		select count(*) from visitsitter where vs_email = #{vs_email}
+	</select>
+	
+	<select id="selectFile" parameterType="int" resultType="string">
+		select vs_img from visitsitter where vs_num = #{vs_num}
 	</select>
 </mapper>

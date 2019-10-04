@@ -102,4 +102,33 @@ public class VisitSitterService {
 		// 3. 만든 파일 이름 반환
 		return fullName;
 	}
+	
+	public String getImage(int vs_num) {
+		return vsDao.selectFile(vs_num);
+	}
+	
+	//정보 수정
+	public boolean modifyUser(VisitSitter vs, MultipartFile file) {
+		System.out.println("여기로 넘어오닝?");
+		if(vsDao.updateVisitSitter(vs)>0) {
+			System.out.println("여긴??");
+			if(file == null) {
+				return true;				
+			} else {
+				String fullName = writeFile(file);
+				System.out.println("fullname : "+fullName);
+				Map<String, Object> fileParam = new HashMap<String, Object>();
+				fileParam.put("vs_num", vs.getVs_num());
+				fileParam.put("vs_img", fullName);
+				if(getImage(vs.getVs_num()) != null) {
+					if(vsDao.updateVisitSitterFile(fileParam)>0) {
+						return true;
+					} 
+				}
+			}
+		}
+		return false;
+	}
+	
+	
 }
