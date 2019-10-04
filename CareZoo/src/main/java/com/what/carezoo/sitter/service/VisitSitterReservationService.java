@@ -119,6 +119,20 @@ public class VisitSitterReservationService {
 		return vsrDao.getVsrByStatus0Day();
 	}
 	
+	//중복예약 체크(일반)
+	public int checkDate7(int vs_num, String vsr_chkin) {
+		List<VisitSitterReservation> list = vsrDao.checkDate7(vs_num, vsr_chkin);
+		return list.size();
+	}
+	
+	//정기
+	public int checkDate0_6(int vs_num, int vsr_chkin, b, c, d) {
+		List<VisitSitterReservation> list = vsrDao.checkDate0_6(vs_num, vsr_chkin, b, c, d);
+		return list.size();
+	}
+	
+	
+	//예약 수락(일반)
 	public boolean acceptVsr(int vs_num, int vsr_num) {
 		int rst = 0;
 		Map<String, Object> param = new HashMap<String, Object>();

@@ -121,6 +121,26 @@
 		select * from VisitSitterReservation where vsr_status='0' and vsr_day between 0 and 6
 	</select>
 	
+	
+	
+	<select id="checkDate7" parameterType="int" resultType="VisitSitterReservation">
+		select *
+		from VisitSitterReservation
+		where vs_num = #{vs_num}
+		and vsr_chkin = #{vsr_chkin}
+	</select>
+	
+	<select id="checkDate0_6" parameterType="int" resultType="VisitSitterReservation">
+		select *
+		from VisitSitterReservation
+		where vs_num = #{vs_num}
+		and vsr_chkin in (#{a},#{b},#{c},#{d})
+	</select>
+	
+	
+	
+	
+	
 	<update id="acceptVsr" parameterType="map">
 		update VisitSitterReservation
 		set vsr_status = 2,
