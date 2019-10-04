@@ -257,19 +257,46 @@
 	<p>정기 방문시터</p>
 	<div class="row">
 		<p class="col-6 tt">주소</p>
-		<p class="col-1 tt">마리수</p>
+		<p class="col-1 tt">요일</p>
 		<p class="col-1 tt">시작시간</p>
 		<p class="col-1 tt">종료시간</p>
-		<p class="col-2 tt">예약일</p>
+		<p class="col-1 tt">시작일</p>
+		<p class="col-1 tt">종료일</p>
 		<p class="col-1 tt">정보</p>
 		
 	<c:forEach items="${rst2 }" var="vsr1">
 		<p class="col-6" style="height: 2.5em">${vsr1.C_ADDRESS}&nbsp;${vsr1.C_D_ADDRESS}</p>
-		<p class="col-1">${vsr1.PETCOUNT}마리</p>
+		<c:choose>
+			<c:when test="${vsr1.VSR_DAY == 0}">
+				<p class="col-1">일</p>
+			</c:when>
+			<c:when test="${vsr1.VSR_DAY == 1}">
+				<p class="col-1">월</p>
+			</c:when>
+			<c:when test="${vsr1.VSR_DAY == 2}">
+				<p class="col-1">화</p>
+			</c:when>
+			<c:when test="${vsr1.VSR_DAY == 3}">
+				<p class="col-1">수</p>
+			</c:when>
+			<c:when test="${vsr1.VSR_DAY == 4}">
+				<p class="col-1">목</p>
+			</c:when>
+			<c:when test="${vsr1.VSR_DAY == 5}">
+				<p class="col-1">금</p>
+			</c:when>
+			<c:when test="${vsr1.VSR_DAY == 6}">
+				<p class="col-1">토</p>
+			</c:when>
+			<c:otherwise>
+				<p class="col-1">?</p>
+			</c:otherwise>
+		</c:choose>
 		<p class="col-1">${vsr1.VSR_HOUR}시</p>
 		<p class="col-1">${vsr1.VSR_HOUR + vsr1.VSR_HADD+3}시</p>
-		<p class="col-2">${vsr1.VSR_CHKIN}</p>
-		<p class="col-1" onclick="modalOpen(this)" title="${vsr1.VSR_NUM}">보기</p>
+		<p class="col-1">${vsr1.STARTDAY}</p>
+		<p class="col-1">${vsr1.ENDDAY}</p>
+		<p class="col-1" onclick="modalOpen(this)" title="${vsr1.A}">보기</p>
 		<hr>
 	</c:forEach>
 	</div>
@@ -282,6 +309,9 @@
 	<div class="row mmmmm" id="vsrInfo">
 		<p class="col-12 cl" style="text-align: right;">
 			<input type="hidden" name="vsr_num" id="vsr_num">
+			<input type="hidden" name="b" id="b">
+			<input type="hidden" name="c" id="c">
+			<input type="hidden" name="d" id="d">
 			<button type="button" class="close">&times;</button>
 		</p>
 
