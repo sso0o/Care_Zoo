@@ -17,7 +17,15 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel='stylesheet' type='text/css'
@@ -42,7 +50,11 @@
 	type="text/javascript"></script>
 <script type="text/javascript"
 	src="${contextPath}/resources/js/index.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js">
 
+
+</script>
 
 <style>
 #map_canvas {
@@ -114,6 +126,11 @@ footer {
 	min-height: 200px;
 }
 
+.modal-table {
+	height: auto;
+	margin-top: -300px;
+}
+
 .review .fieldview legend {
 	background: #40bf9f;
 	color: #fff;
@@ -158,123 +175,225 @@ ul {
 	width: 800px;
 }
 
-    .inputGroup {
-    font-family: "Fira Sans", sans-serif;
-  background-color: cornsilk;
-  display: block;
-  margin: 10px 0;
-  position: relative;
+.inputGroup {
+	font-family: "Fira Sans", sans-serif;
+	background-color: cornsilk;
+	display: block;
+	margin: 10px 0;
+	position: relative;
 }
+
 .inputGroup label {
-  padding: 12px 30px;
-  width: 100%;
-  display: block;
-  text-align: left;
-  color: #3c454c;
-  cursor: pointer;
-  position: relative;
-  z-index: 2;
-  transition: color 200ms ease-in;
-  overflow: hidden;
+	padding: 12px 30px;
+	width: 100%;
+	display: block;
+	text-align: left;
+	color: #3c454c;
+	cursor: pointer;
+	position: relative;
+	z-index: 2;
+	transition: color 200ms ease-in;
+	overflow: hidden;
 }
+
 .inputGroup label:before {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  content: "";
-  background-color: #40bf9f;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);
-          transform: translate(-50%, -50%) scale3d(1, 1, 1);
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  z-index: -1;
-     box-sizing: inherit;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	content: "";
+	background-color: #40bf9f;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%) scale3d(1, 1, 1);
+	transform: translate(-50%, -50%) scale3d(1, 1, 1);
+	transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+	opacity: 0;
+	z-index: -1;
+	box-sizing: inherit;
 }
+
 .inputGroup label:after {
-  width: 40px;
-  height: 40px;
-  content: "";
-  border: 2px solid #d1d7dc;
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
-  background-repeat: no-repeat;
-  background-position: 6px 6px;
-  border-radius: 50%;
-  z-index: 2;
-  position: absolute;
-  right: 30px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  cursor: pointer;
-  transition: all 200ms ease-in;
-    
+	width: 40px;
+	height: 40px;
+	content: "";
+	border: 2px solid #d1d7dc;
+	background-color: #fff;
+	background-image:
+		url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+	background-repeat: no-repeat;
+	background-position: 6px 6px;
+	border-radius: 50%;
+	z-index: 2;
+	position: absolute;
+	right: 30px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	cursor: pointer;
+	transition: all 200ms ease-in;
 }
+
 .inputGroup input:checked ~ label {
-  color: #fff;
+	color: #fff;
 }
+
 .inputGroup input:checked ~ label:before {
-  -webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
-          transform: translate(-50%, -50%) scale3d(56, 56, 1);
-  opacity: 1;
-     box-sizing: inherit;
+	-webkit-transform: translate(-50%, -50%) scale3d(56, 56, 1);
+	transform: translate(-50%, -50%) scale3d(56, 56, 1);
+	opacity: 1;
+	box-sizing: inherit;
 }
+
 .inputGroup input:checked ~ label:after {
-  background-color: #54e0c7;
-  border-color: #54e0c7;
-     box-sizing: inherit;
+	background-color: #54e0c7;
+	border-color: #54e0c7;
+	box-sizing: inherit;
 }
+
 .inputGroup input {
-  width: 32px;
-  height: 32px;
-  order: 1;
-  z-index: 2;
-  position: absolute;
-  right: 30px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  cursor: pointer;
-  visibility: hidden;
+	width: 32px;
+	height: 32px;
+	order: 1;
+	z-index: 2;
+	position: absolute;
+	right: 30px;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	cursor: pointer;
+	visibility: hidden;
 }
 
 .radioForm {
-  padding: 0 16px;
-  max-width: 550px;
-  margin: 50px auto;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 36px;
-}
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
+	padding: 0 16px;
+	max-width: 550px;
+	margin: 50px auto;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 36px;
 }
 
-    .modal-modify{
-        box-sizing: border-box;
-    }
+*, *::before, *::after {
+	box-sizing: inherit;
+}
 
+.modal-modify {
+	box-sizing: border-box;
+}
+
+.btn-my {
+	color: #40bf9f;
+	background-color: #fff;
+	border-color: #40bf9f;
+}
+
+.btn-my:hover {
+	color: #fff;
+	background-color: #40bf9f;
+	border-color: #40bf9f;
+}
 </style>
 
 <script type="text/javascript">
 
+// //=========펫선택=====================================
+// function petSelect(){
+// 	// 화면에서 지우기
+// 		$("#reply-modal").hide();
+// 		$("#starRev").children('span').removeClass('on');
+// 		$("#modal-name").val("");
+// 		$("#modal-contact").val("");
+// 		$("#modal-star").val("");
+// 		$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
+// 	//=====================
+//         var radioName = $('input[name="radio"]:checked');
+//         radioId= radioName.attr('id');
+// 	    var rasioNm = $("label[for='"+radioId+"']").text();
+// 	    petLoading();
+// 	alert(rasioNm);
+// }
+
+
 
 
 	$(function() {
+		$("#check_module").click(function () {
+
+			IMP.init('imp94354183');
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '주문명:결제테스트',
+// 			    amount : $('.totalValue').text().replace(/,/gi, "")*1,
+			    amount : 100,
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울특별시 강남구 삼성동',
+			    buyer_postcode : '123-456',
+			    m_redirect_url : 'http://localhost:8081/carezoo/petHotel/paySuccess'
+			}, function(rsp) {
+				//qweqweqwewq
+			    if ( rsp.success ) {
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
+			    } else {
+			        var msg = '결제에 실패하였습니다.';
+			        msg += '에러내용 : ' + rsp.error_msg;
+			    }
+			    alert(msg);
+			});
+			});
 // 			initialize();
 		var paramsArr = [];
-		
-		
-		//=========모달!!=============================================
-			$('.pSmodalButton').click(function() {
-				modalOpen();
+		function petLoading(){
+		}
+
+		// //=========펫선택버튼=========
+		$('.petSelectButton').click(function() {
+			if($('input[name="radio"]:checked').val() ==null){
+				alert("펫을 선택해주세요.");
+			}else{
+				// 화면에서 지우기
+				$("#reply-modal").hide();
+				$("#starRev").children('span').removeClass('on');
+				$("#modal-name").val("");
+				$("#modal-contact").val("");
+				$("#modal-star").val("");
+				$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
+			//=====================
+				
+		        var radioName = $('input[name="radio"]:checked');
+		        radioId= radioName.attr('id');
+			    var rasioNm = $("label[for='"+radioId+"']").text();
+				$('.petInfo').text(rasioNm);
+				$('<br>').appendTo($('.petAddForm'));
+				$('<label class="petCount" style="font-size:19px;border-bottom:1px solid;">'+rasioNm+'</label>').appendTo($('.petAddForm'));
+				$('<br>').appendTo($('.petAddForm'));
+			}
+		});
+// 		=========모달!!=============================================
+			$('#selectPetModal').click(function() {
+				if($("label[class=petCount]").length<($('.quantity').val()*1)){
+				modalOpen();					
+				}else{
+					alert(($('.quantity').val()*1)+"마리만 선택할 수 있습니다.");
+				}
 			});
-			
+// 			function pSmodalButton(){
+// 				if($("label[class=petCount]").length<($('.quantity').val()*1)){
+// 					modalOpen();					
+// 					}else{
+// 						alert(($('.quantity').val()*1)+"마리만 선택할 수 있습니다.");
+// 					}
+// 			}
+			//나이 구하기
+
 			function modalOpen() {
 				console.log($("#groupid").val()+"=="+$("#number").val())
 				var urll = "";
@@ -519,6 +638,10 @@ ul {
 		})();
 		table.append(tr);
 	}
+
+	function close() {
+		alert("ss");
+	}
 </script>
 
 <title>petHotelResForm</title>
@@ -538,7 +661,7 @@ ul {
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication
 							property="principal" /></label>
-							
+
 					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
@@ -578,73 +701,155 @@ ul {
 	<br>
 	<br>
 	<br>
+	<br>
+	<br>
 	<div class="container">
-		<fieldset style="margin: 90px">
-			<legend>상세예약정보</legend>
-
-			
-			<div style="font-weight: bold">
-				펫선택: &nbsp;
-				<button class="pSmodalButton">+</button>
+		<form>
+			<div style="text-align: left;">
+				<label style="font-size: 25px">예약페이지</label>
+				<hr style="">
 			</div>
-			<div style="color: red;">※기존에 선택한 펫의 무게보다 더 높을 시 요금이 추가청구 될 수
-				있습니다.</div>
-			<div style="font-weight: bold">호텔명: &nbsp;</div>
-			<div>
-				<label style="font-weight: bold">체크인: </label>&nbsp;
-				<label class="chkin">${phr_chkin }</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
-					style="font-weight: bold">체크아웃: </label>&nbsp;<label class="chkout">${phr_chkout }&nbsp;&nbsp;</label>(총
-				<label class="totalDays" style="color:">${totalDays}</label>박)
-			</div>
-			<hr>
+			<div
+				style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 1px solid darkgray; padding: 50px; border-radius: 4px;">
+				<div style="text-align: center">
+					<div class="petAddForm">
+						<div class="PriceAndSize" style="">
+							<div
+								style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
+								<div
+									style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 55px">
+									<div
+										style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
 
-			
-		</fieldset>
-		<div>
-		</div>
-		<div>
-			<fieldset>
-				<legend>예약 확인</legend>
+										<label style="font-weight: bold;">체크인: </label>&nbsp;<label
+											class="chkin">${phr_chkin} </label>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
+											style="font-weight: bold">체크아웃: </label>&nbsp;<label
+											class="chkout">${phr_chkout }&nbsp;&nbsp;</label>
+										&nbsp;&nbsp; <label class="totalDays" style="">(총
+											${totalDays}박)</label>&nbsp;&nbsp;
+									</div>
+									&nbsp; <label
+										style="font-size: 30px; padding-bottom: 20px; position: relative; top: -10px;">&</label>
+									&nbsp;
+									<div
+										style="text-align: left; display: inline-block; padding-top: 10px; padding-right: 5px; padding-left: 10px; border-color: #40bf9f">
+										<label class="totalDays" style="float: right">반려견
+											${quantity} 마리</label>
+									</div>
+								</div>
 
-				<table id="rst" style="width: 600px">
-					<tr>
-						<th>펫</th>
-						<th>호텔명</th>
-						<th>체크인</th>
-						<th>체크아웃</th>
-						<th>삭제</th>
-					</tr>
-				</table>
-			</fieldset>
-			<button id="btnSubmit">제출</button>
-		</div>
-	</div>
+								<br>
+								<div class="petList" style="font-size: 20px"></div>
+								<br>
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원
+										X ${totalDays}박</div>
+									<div class="countPrice" style="float: right">
+										<span class="nightCountPrice">${nightCountValue }원</span>
+									</div>
+								</div>
+								<hr style="width: 680px">
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left">반려견
+										추가</div>
+									<div class="countPrice" style="float: right">
+										<span class="petAddValue">${petAddValue }원</span>
+									</div>
+								</div>
+								<hr style="width: 680px">
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left">총
+									</div>
+									<div class="countPrice" style="float: right">
+										<span class="totalValue">${totalValue }</span>원
+									</div>
+								</div>
+							</div>
+						</div>
+						<div>
+						<input type="button" class="btn btn-my" id="selectPetModal"  value="반려견 선택">
+<!-- 							<button class="btn btn-my" id="selectPetModal">반려견 선택</button> -->
+						</div>
 
-
-
-	<!-- ///////////////////////////////////////////////////////////////모달 -->
-	<div class="modal-modify" id="reply-modal">
-		<!-- css 적용 하기 위한 경우 class -->
-
-		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-		<div class="modal-table" id="modal-table">
-			<div class="close" id="modal-close">&times;</div>
-			<div class="radioForm">
-
-				<div class="inputGroup">
-					<input id="radio1" name="radio" type="radio" /> <label
-						for="radio1">Yes</label>
+					</div>
 				</div>
-				<div class="inputGroup">
-					<input id="radio2" name="radio" type="radio" /> <label
-						for="radio2">No</label>
-				
+				<%--<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
+
+			</div>
+			<br>
+
+			<div
+				style="margin-top: 50px; margin-right: 100px; margin-left: 100px;">
+				<div
+					style="margin: 40px 0 0; padding: 25px; background-color: #f5f5f5; border-top: solid 1px #dfdfdf; line-height: 1.6;">
+					<h4>예약요청 전 꼭 확인해주세요!</h4>
+					<ul>
+						<li>* 예약을 위해 강아지에 대한 내용을 상세히 적어주세요.</li>
+						<li>* 환불은 예약 3일전까지 100% 가능합니다.</li>
+						<li>* 요금이 맞는지 확인해 주세요.</li>
+					</ul>
+					<br>
+				</div>
+				<textarea name="hsr_message"
+					placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000"
+					id="txtMESSAGE" style="margin: 0px; width: 99.4%; height: 126px;"></textarea>
+				<br>
+				<br>
+				<div>
+					<div style="margin-bottom: 15px">맡겨주를 이용하시는 이유에 대해 알려주세요!</div>
+					<div style="margin-bottom: 15px">
+						<select name="hsr_purpose">
+							<option value="여행">여행</option>
+							<option value="출장">출장</option>
+							<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
+							<option value="집안행사">집안행사</option>
+							<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기
+								위해</option>
+							<option value="기타">기타</option>
+						</select>
+					</div>
+				</div>
+				<ul>
+					<li>※요청 시 잘못된 정보를 전달할 경우 이로인해 발생되는 문제에 대한 책임은 의뢰인 본인에게 있습니다.</li>
+					<li>※'예약 요청'을 클릭하면 서비스 총액을 지불하는 것과 서비스 약관, 환불정책에 동의하는 것입니다.</li>
+				</ul>
+				<br> <br>
+				<div style="text-align: center">
+					<input type="submit" class="btn btn-my" id="check_module"
+						style="text-align: center; font-size: 23px; padding-left: 40px; padding-right: 40px" value="결제하기">
+				</div>
+
+
+			</div>
+</form>
+			<br> <br> <br> <br>
+
+
+			<!-- ///////////////////////////////////////////////////////////////모달 -->
+			<div class="modal-modify" id="reply-modal">
+				<!-- css 적용 하기 위한 경우 class -->
+
+				<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
+				<div class="modal-table" id="modal-table">
+					<div class="close" id="modal-close">&times;</div>
+					<div class="radioForm">
+						<c:forEach items="${petList}" var="pL" varStatus="pLstatus">
+							<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+							<input type="hidden" value="${pL.p_num}">
+							<input type="hidden" value="${quantity}" class="quantity">
+							<div class="inputGroup">
+								<input id="radio${pLstatus.count}" name="radio" type="radio" />
+								<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name}
+									${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label>
+							</div>
+						</c:forEach>
+						<input type="button" value="선택" class="petSelectButton">
+					</div>
 				</div>
 			</div>
-		</div>
-
+		
 	</div>
-
 
 
 

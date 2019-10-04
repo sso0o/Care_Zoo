@@ -116,138 +116,74 @@
 			}
 
 		});
-		
-		if(user_numtype.indexOf("c_num") != -1){
-			// 캘린더에 내 예약 추가(고객)
-			$.ajax({
-				url : "${contextPath}/member/myReservationCustomer",
-				data : {
-					c_num : num
-				},
-				dataType : "JSON",
-				success : function(data) {
-					console.log(data)
-					if(data.vsrList != null){
-						for (var i = 0; i < data.vsrList.length; i++) {
-							var e = {
-								groupId : 'vsr_num',
-								id : data.vsrList[i].vsr_num,
-								start : data.vsrList[i].vsr_chkin,
-								end : data.vsrList[i].vsr_chkout,
-								title : '방문시터예약',
-								description : '이거슨 방문시터',
-								color : 'rgba(0, 0, 120, 0.6)',
-								textColor: "white"
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
-					
-					}
-					if(data.hsrList != null){
-						for (var i = 0; i < data.hsrList.length; i++) {
-							var e = {
-								groupId : 'hsr_num',
-								id : data.hsrList[i].hsr_num,
-								start : data.hsrList[i].hsr_chkin,
-								end : data.hsrList[i].hsr_chkout,
-								title : '가정시터 예약',
-								description : data.hsInfo[i].hs_name,
-								color : 'rgba(0, 120, 0, 0.6)',
-								textColor: "white"
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
-					}
-					
-					if(data.phrList != null){
-						for (var i = 0; i < data.phrList.length; i++) {
-							var e = {
-								groupId : 'phr_num',
-								id : data.phrList[i].phr_num,
-								start : data.phrList[i].phr_chkin+'T13:00',
-								end : data.phrList[i].phr_chkout+'T11:00',
-								title : data.phInfo[i].ph_name,
-								description : data.pet[i].p_name,
-								color : 'rgba(200, 0, 0, 0.6)',
-								textColor: "white"
-							}
-							calendar.addEvent(e)
-							calendar.render();
-						}
-					}
-					
-					
-				},
-				error : function() {
-					alert("데이터를 불러오는데 실패했습니다.")
-				}
-			})
-		} else if(user_numtype.indexOf("hs_num") != -1){ //홈시터
-			
-			// 캘린더에 내 예약 추가(홈시터)
-			$.ajax({
-				url : "${contextPath}/sitter/myReservationHS",
-				data : {
-					hs_num : num
-				},
-				dataType : "JSON",
-				success : function(data) {
-					for(var i = 0; i<data.hsrList.length; i++){
-						var e = {
-							groupId : 'c_num',
-							id : data.hsrList[i].c_num,
-							start : data.hsrList[i].hsr_chkin,
-							end : data.hsrList[i].hsr_chkout,
-							title : data.cList[i].c_name+' 보호자',
-							description : data.pList[i].p_name+" *"+data.hsrList[i].hsr_status,
-							color : 'rgba(0, 0, 120, 0.6)',
-							textColor: "white"
-						}
-						calendar.addEvent(e)
-						calendar.render();
-					}
 
-				},
-				error : function() {
-					alert("데이터를 불러오는데 실패했습니다.")
-				}
-			})
-			
-		} else if(user_numtype.indexOf("vs_num") != -1){ //방문시터
-			// 캘린더에 내 예약 추가(방문시터)
-			$.ajax({
-				url : "${contextPath}/sitter/myReservationVS",
-				data : {
-					vs_num : num
-				},
-				dataType : "JSON",
-				success : function(data) {
-					console.log(data.cList[0].c_name)
-					for(var i = 0; i<data.vsrList.length; i++){
+		// 캘린더에 내 예약 추가(고객)
+		$.ajax({
+			url : "${contextPath}/member/myReservationCustomer",
+			data : {
+				c_num : num
+			},
+			dataType : "JSON",
+			success : function(data) {
+				console.log(data)
+				if(data.vsrList != null){
+					for (var i = 0; i < data.vsrList.length; i++) {
 						var e = {
-							groupId : 'c_num',
-							id : data.vsrList[i].c_num,
+							groupId : 'vsr_num',
+							id : data.vsrList[i].vsr_num,
 							start : data.vsrList[i].vsr_chkin,
 							end : data.vsrList[i].vsr_chkout,
-							title : data.cList[i].c_name,
-							description : "*"+data.vsrList[i].vsr_status,
+							title : '방문시터예약',
+							description : '이거슨 방문시터',
 							color : 'rgba(0, 0, 120, 0.6)',
 							textColor: "white"
 						}
 						calendar.addEvent(e)
 						calendar.render();
 					}
-
-				},
-				error : function() {
-					alert("데이터를 불러오는데 실패했습니다.")
+				
 				}
-			})
-		} else{ //관리자
-			
-		}
+				if(data.hsrList != null){
+					for (var i = 0; i < data.hsrList.length; i++) {
+						var e = {
+							groupId : 'hsr_num',
+							id : data.hsrList[i].hsr_num,
+							start : data.hsrList[i].hsr_chkin,
+							end : data.hsrList[i].hsr_chkout,
+							title : '가정시터 예약',
+							description : data.hsInfo[i].hs_name,
+							color : 'rgba(0, 120, 0, 0.6)',
+							textColor: "white"
+						}
+						calendar.addEvent(e)
+						calendar.render();
+					}
+				}
+				
+				if(data.phrList != null){
+					for (var i = 0; i < data.phrList.length; i++) {
+						var e = {
+							groupId : 'phr_num',
+							id : data.phrList[i].phr_num,
+							start : data.phrList[i].phr_chkin+'T13:00',
+							end : data.phrList[i].phr_chkout+'T11:00',
+							title : data.phInfo[i].ph_name,
+							description : data.pet[i].p_name,
+							color : 'rgba(200, 0, 0, 0.6)',
+							textColor: "white"
+						}
+						calendar.addEvent(e)
+						calendar.render();
+					}
+				}
+				
+				
+			},
+			error : function() {
+				alert("데이터를 불러오는데 실패했습니다.")
+			}
+		})
+	
 		
 		// 후기등록 버튼 눌렀을때 실행할 함수
 		$("#modal-review").on("click", function() {
@@ -591,9 +527,6 @@
 
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
 	<div class="modal-modify" id="reply-modal">
-		<!-- css 적용 하기 위한 경우 class -->
-
-		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
 		<table class="modal-table" id="modal-table">
 			<tr height="10px">
 				<td>
@@ -607,8 +540,7 @@
 			</tr>
 			<tr>
 				<td rowspan="3" style="width: 150px">
-					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle;
-					margin-left: 15px;">
+					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle; margin-left: 15px;">
 				</td>
 				<td colspan="2">
 					<a id="atag"><input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly"></a>
@@ -619,19 +551,14 @@
 					<input type="text" class="modal-content contact" name="modal-contact" id="modal-contact" value="" readonly="readonly">
 				</td>
 			</tr>
-			<tr class="starTr" id="starTr" >
+			<tr class="starTr" id="starTr">
 				<td style="padding-left: 15px; width: 170px;">
-					<span id="starRev" class="starRev"> 
-						<span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> 
-						<span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4"  title="2">별2_오른쪽</span> 
-						<span class="starR1" id="star5" title="2.5">별3_왼쪽</span> <span class="starR2" id="star6" title="3">별3_오른쪽</span> 
-						<span class="starR1" id="star7" title="3.5">별4_왼쪽</span> <span class="starR2" id="star8" title="4">별4_오른쪽</span> 
-						<span class="starR1" id="star9" title="4.5">별5_왼쪽</span> <span class="starR2" id="star10" title="5">별5_오른쪽</span>
+					<span id="starRev" class="starRev"> <span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> <span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4" title="2">별2_오른쪽</span> <span class="starR1" id="star5" title="2.5">별3_왼쪽</span> <span class="starR2" id="star6" title="3">별3_오른쪽</span> <span class="starR1" id="star7" title="3.5">별4_왼쪽</span> <span class="starR2" id="star8" title="4">별4_오른쪽</span> <span class="starR1" id="star9" title="4.5">별5_왼쪽</span> <span class="starR2" id="star10" title="5">별5_오른쪽</span>
 					</span>
 				</td>
 				<td>
 					<input type="text" class="modal-content star" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
-					
+
 				</td>
 			</tr>
 			<tr class="addressTr" id="addressTr">
@@ -640,7 +567,8 @@
 				</td>
 			</tr>
 			<tr id="reviewTr">
-				<td colspan="3" style="text-align: center"><span class="review" id="modal-review">후기등록</span>
+				<td colspan="3" style="text-align: center">
+					<span class="review" id="modal-review">후기등록</span>
 			</tr>
 		</table>
 

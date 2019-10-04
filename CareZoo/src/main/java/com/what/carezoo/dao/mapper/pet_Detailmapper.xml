@@ -14,6 +14,38 @@
 <select id="selectByC_num" parameterType="int" resultType="pet_detail">
 	select * from pet_detail where c_num = #{c_num}
 </select>
+
+<select id="petCountGroupResNum" parameterType="int" resultType="int">
+	select vsr_num , count(*) as count
+	from pet_detail
+	GROUP BY vsr_num
+</select>
+
+<select id="getVsrInfo7" resultType="map">
+	SELECT vsr.vsr_num, c.c_num, pd.petcount, vsr.vsr_chkin, vsr.vsr_hour,vsr.vsr_hadd, c.c_address, c.c_d_address
+	FROM VisitSitterReservation vsr,
+		(select vsr_num,c_num, count(*) petCount
+			from pet_detail
+			group by vsr_num,c_num
+			order by vsr_num desc) pd,
+		Customer c
+	where vsr.vsr_day = 7
+	and vsr.vsr_num = pd.vsr_num
+	and pd.c_num = c.c_num
+	order by vsr.vsr_num desc
+</select>
+
+<select id="getVsrInfo0_6" resultType="map">
+	select vsr.*, c.c_address, c.c_d_address
+	from customer c,
+		(select c_num,min(vsr_num)a, max(vsr_num)b, min(vsr_chkin)startday, max(vsr_chkin)endday, vsr_hour, vsr_hadd, vsr_day
+		from visitsitterreservation
+		where vsr_day between 0 and 6
+		having count(*) = 4
+		group by c_num ,vsr_count, vsr_hour, vsr_hadd, vsr_day)vsr
+	where vsr.c_num = c.c_num
+	order by b desc
+</select>
 <!-- 	<insert id="insertPet_DetailDao" parameterType="pet_detail"> -->
 <!-- 		<selectKey order="BEFORE" keyProperty="pd_num" -->
 <!-- 			resultType="int"> -->

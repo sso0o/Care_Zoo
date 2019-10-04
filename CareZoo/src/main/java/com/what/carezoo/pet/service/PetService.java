@@ -119,7 +119,7 @@ public class PetService {
 		return fullName;
 	}
 	
-	public String  getImage(int num) {
-		return petDao.selectFile(num);
+	public String  getImage(int p_num) {
+		return petDao.selectFile(p_num);
 	}
 }

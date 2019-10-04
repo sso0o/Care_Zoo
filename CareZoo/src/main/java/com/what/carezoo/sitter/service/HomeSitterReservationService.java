@@ -14,10 +14,16 @@ public class HomeSitterReservationService {
 	@Autowired
 	private HomeSitterReservationDao hsrDao;
 	
+	public boolean writeHomeSitterRes(HomeSitterReservation hsr) {
+		if(hsrDao.insert(hsr) >0 ) {
+			return true;
+		}
+		return false;
+	}
+	
 	public HomeSitterReservation getHomeSitterResByHsrnum(int hsr_num) {
 		return hsrDao.selectByHsrnum(hsr_num);
 	}
-	
 	
 	public List<HomeSitterReservation> getHomeSitterResByCnum(int c_num){
 		return hsrDao.selectByCnum(c_num);
@@ -26,7 +32,6 @@ public class HomeSitterReservationService {
 	public List<HomeSitterReservation> getHomeSitterResByHSnum(int hs_num){
 		return hsrDao.selectByHSnum(hs_num);
 	}
-	
 	
 	public List<HomeSitterReservation> getAllHomeSitterRes() {
 		return hsrDao.selectAll();

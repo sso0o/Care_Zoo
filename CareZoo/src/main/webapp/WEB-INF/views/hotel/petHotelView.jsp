@@ -86,31 +86,41 @@
 		var sizeL=l;
 		if ($('.sizeSelect option:selected').val() == "소형견") {
 		$('.oneNightPrice').text(numberWithCommas(s));
+		$('.oneNightValue').val(numberWithCommas(s));
 		$('.nightCountPrice').text(numberWithCommas(days*s));
+		$('.nightCountValue').val(numberWithCommas(days*s));
 		}else if($('.sizeSelect option:selected').val() == "중형견"){
 			$('.oneNightPrice').text(numberWithCommas(m));
+			$('.oneNightValue').val(numberWithCommas(m));
 		$('.nightCountPrice').text(numberWithCommas(days*m));
+		$('.nightCountValue').val(numberWithCommas(days*m));
 		}else{
 			$('.oneNightPrice').text(numberWithCommas(l));
+			$('.oneNightValue').val(numberWithCommas(l));
 		$('.nightCountPrice').text(numberWithCommas(days*l));
+		$('.nightCountValue').val(numberWithCommas(days*l));
 		}
-		$('.nightCount').text(days+"박: ");
+		  if($('.nightCount').text() == ""){
+		      $('.nightCount').text(days+"박: ");
+		      }
 		sizeAndCountPrice();
 		total();
 	}
 
-	function sizeAndCountPrice(){
-		if(currentVal == 0){
-			
-		}else{
-			 $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()*1).replace(/,/gi, "")*(currentVal)));
-		}
-	}
+	   function sizeAndCountPrice(){
+		      if(currentVal == 0){
+		      }else{
+		           $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)));
+		           $('.petAddValue').val(numberWithCommas(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)));
+		      }
+		   }
 	
 	
 	function total(){
 		$('.totalPrice').text(numberWithCommas((($('.nightCountPrice').text()).replace(/,/gi, "")*1)+(($('.petAddPrice').text()).replace(/,/gi, "")*1)));
-	console.log($('.totalPrice').text());
+		$('.totalPrice').val(numberWithCommas((($('.nightCountPrice').text()).replace(/,/gi, "")*1)+(($('.petAddPrice').text()).replace(/,/gi, "")*1)));
+		$('.totalValue').val(numberWithCommas((($('.nightCountPrice').text()).replace(/,/gi, "")*1)+(($('.petAddPrice').text()).replace(/,/gi, "")*1)));
+		console.log("totalValue:"+$('.totalPrice').val());
 	}
 	
 	function incrementValue(e) {
@@ -127,6 +137,7 @@
 		    parent.find('input[name=' + fieldName + ']').val(0);
 		  } 
 		  $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)));
+		  $('.petAddValue').val(numberWithCommas(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)));
 		  console.log("add"+(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)))
 			total();
 		}
@@ -145,6 +156,7 @@
 		    parent.find('input[name=' + fieldName + ']').val(0);
 		  }
 		  $('.petAddPrice').text(numberWithCommas(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)));
+		  $('.petAddValue').val(numberWithCommas(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)));
 			console.log("minus"+(($('.nightCountPrice').text()).replace(/,/gi, "")*(currentVal)))
 			console.log(currentVal);
 			total();
@@ -230,7 +242,7 @@
 		 							success : function(data) {
 			 							var sForm=$('<div class="selectForm" style="text-align:center">');
 			 	 						$('<label>').text("방: ").appendTo(sForm);
-			 							var roomSelectBox = $('<select class="rSelect" name="ph_num">');
+			 	 						var roomSelectBox = $('<select class="rSelect" name="phrm_num">');
 		 							
 		 								roomSelectBox.on("change",function(){
 		 									currentVal = 0;
@@ -262,6 +274,7 @@
 											$('<br>').appendTo(resForm);
 		 									var selectbox = $('<select class="sizeSelect" style="text-align:center" onchange="sizePriceSetter('+data.phrm_price+','+data.phrm_m_price+','+data.phrm_l_price+')">');
 		 			 						$('<label class="oneNightPrice" style="text-align:center;font-size:20px">').text(numberWithCommas(data.phrm_price)).appendTo(PriceAndSize);
+		 			 						$('<input type="hidden" class="oneNightValue" name="oneNightValue" value="'+numberWithCommas(data.phrm_price)+'">').appendTo(PriceAndSize);
 		 			 						PriceAndSize.append('&nbsp;');
 		 			 						PriceAndSize.append('&nbsp;');
 		 			 						PriceAndSize.append('&nbsp;');
@@ -284,9 +297,11 @@
 		 			 						$('<div name="" class="nightCount" style="text-align:left; float:left">').text(days).appendTo(nightCount);
 		 			 						$('<input type="hidden" name="days" value="'+days+'">').appendTo(nightCount);
 		 			 						$('<div class="nightCount" style="text-align:left; float:left">').text("박: ").appendTo(nightCount);
+		 			 						
 		 			 						var countPrice = $('<div class="countPrice" style="float:right">');
 		 			 						$('<span class="nightCountPrice">').text(numberWithCommas(data.phrm_price*days)).appendTo(countPrice);
 		 			 						$('<span>').text("원").appendTo(countPrice);
+		 			 						$('<input type="hidden" class="nightCountValue" name="nightCountValue" value="'+numberWithCommas(data.phrm_price*days)+'">').appendTo(countPrice);
 		 			 						
 		 			 						resForm.append(nightCount);
 		 			 						resForm.append(countPrice);
@@ -313,6 +328,8 @@
 		 			 						var petCountPrice = $('<div class="petCountPrice" style="float:right;height:66px;display:flex;">');
 		 			 						//추가하는거
 		 			 						$('<span class="petAddPrice" style="margin-top:30px;">').text("0").appendTo(petCountPrice);
+		 			 						$('<input type="hidden" class="petAddValue" name="petAddValue" value="0">').appendTo(petCountPrice);
+		 			 						
 		 			 						$('<span style="margin-top:30px;">').text("원").appendTo(petCountPrice);
 		 			 						petCount.append(pmButtonDiv);
 		 			 						resForm.append(petCount);
@@ -326,6 +343,8 @@
 		 			 						var totalPrice = $('<div class="totalPriceDiv" style="float:right">');
 		 			 						$('<span class="totalPrice">').text(numberWithCommas(data.phrm_price*days)).appendTo(totalPrice);
 		 			 						$('<span>').text("원").appendTo(totalPrice);
+		 			 						$('<input type="hidden" class="totalValue" name="totalValue" value="'+numberWithCommas(data.phrm_price*days)+'">').appendTo(totalPrice);
+		 			 						
 		 			 						resForm.append(total);
 		 			 						resForm.append(totalPrice);
 		 			 						
@@ -767,7 +786,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 .input-group {
 	clear: both;
-	margin: 15px 0;
+	margin: 10px 0;
 	position: relative;
 }
 
@@ -965,7 +984,7 @@ input[type="number"] {
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<form action="${contextPath }/petHotel/petHotelResForm">
+			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
 				<div style="padding: 10px; font-size: 15px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
 					<div class="col-dates" style="text-align: center;">
 						<label>원하는 날짜를 선택해주세요.</label> <br>

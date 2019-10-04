@@ -1,7 +1,9 @@
 package com.what.carezoo.sitter.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -118,5 +120,55 @@ public class VisitSitterReservationService {
 	public List<VisitSitterReservation> selectByVsrCount(int vsr_count){
 		return vsrDao.selectByVsrCount(vsr_count);
 	}
+	
+	//일반예약 가져오기(수락 전)
+	public List<VisitSitterReservation> getVsrByStatus0(){
+		return vsrDao.getVsrByStatus0();
+	}
+	//정기예약 가져오기(수락 전)
+	public List<VisitSitterReservation> getVsrByStatus0Day(){
+		return vsrDao.getVsrByStatus0Day();
+	}
+	
+	//중복예약 체크(일반)
+	public int checkDate7(int vs_num, String vsr_chkin) {
+		List<VisitSitterReservation> list = vsrDao.checkDate7(vs_num, vsr_chkin);
+		return list.size();
+	}
+	
+	//정기
+//	public int checkDate0_6(int vs_num, int vsr_chkin, b, c, d) {
+//		List<VisitSitterReservation> list = vsrDao.checkDate0_6(vs_num, vsr_chkin, b, c, d);
+//		return list.size();
+//	}
+	
+	
+	//예약 수락(일반)
+	public boolean acceptVsr(int vs_num, int vsr_num) {
+		int rst = 0;
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("vsr_num", vsr_num);
+		param.put("vs_num", vs_num);
+		if(vsrDao.selectByVsrnum(vsr_num).getVs_num() == 0) {			
+			rst = vsrDao.acceptVsr(param);
+		}
+		if(rst>0) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	//내 예약 가져오기(일반)
+	public List<Map<String, Object>> getMyResDay7(int vs_num) {
+		List<Map<String, Object>> rst = vsrDao.getMyResDay7(vs_num);
+		return rst;
+	}
+	
+	public List<Map<String, Object>> getMyResDay0_6(int vs_num) {
+		List<Map<String, Object>> rst = vsrDao.getMyResDay0_6(vs_num);
+		return rst;
+	}
+	
 
 }

@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -172,17 +175,54 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return rst;
 	}
 
+	@RequestMapping(value = "/paySuccess")
+	public String payCompleteForm() {
+		return "hotel/payComplete";
+	}
+	
+	
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
-	@RequestMapping(value = "/petHotelResForm")
-	public String resPetHotelForm(HttpSession session,Model m, PetHotelReservation phr, String days, @RequestParam("quantity") int quantity) {
-		System.out.println("days: "+days);
-		System.out.println("quantity: "+ quantity+1);
-		System.out.println("phr:"+phr);
-//		List<Pet> pL = pService.selectByC_Num(Integer.parseInt(session.getAttribute("user_num")));
+	@RequestMapping(value = "/petHotelResForm" , method = RequestMethod.POST)
+	public String resPetHotelForm(HttpSession session,
+			Model m, 
+			PetHotelReservation phr,
+			String days, 
+			@RequestParam("quantity") int quantity,
+			@RequestParam("oneNightValue") String oneNightValue,
+			@RequestParam("nightCountValue") String nightCountValue,
+			@RequestParam("petAddValue") String petAddValue,
+			@RequestParam("totalValue") String totalValue,
+			@RequestParam("phrm_num") int phrm_num
+			) {
+//		System.out.println("days: "+days);
+//		System.out.println("quantity: "+ quantity+1);
+//		System.out.println("phr:"+phr);
+//		System.out.println(session.getAttribute("user_num"));
+		PetHotelRoom phrm= phService.petHotelRoomDetail(phrm_num);
+		System.out.println("oneNightPrice"+oneNightValue);
+		System.out.println("nightCountPrice"+nightCountValue);
+		System.out.println("petAddValue"+petAddValue);
+		System.out.println("totalValue"+totalValue);
+		List<Pet> pL = pService.selectByC_Num((Integer) session.getAttribute("user_num"));
+//		System.out.println(pL);
+		PetHotel ph = phService.getPetHotelbyNum(phrm.getPh_num());
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		for(int i=0;i<pL.size();i++) {
+			int age = year-Integer.parseInt(((pL.get(i)).getP_birth()).substring(0,4));
+			(pL.get(i)).setAge(age+1);
+			System.out.println(age);
+		}
+		m.addAttribute("ph",ph);
+		m.addAttribute("phrm",phrm);
 		m.addAttribute("quantity", quantity+1);
 		m.addAttribute("totalDays", days);
 		m.addAttribute("phr_chkin", phr.getPhr_chkin());
 		m.addAttribute("phr_chkout", phr.getPhr_chkout());
+		m.addAttribute("petList", pL);
+		m.addAttribute("oneNightValue", oneNightValue);
+		m.addAttribute("nightCountValue", nightCountValue);
+		m.addAttribute("petAddValue", petAddValue);
+		m.addAttribute("totalValue", totalValue);
 		phrService.getPetHotelResByPhrm_num(phr.getPhrm_num());
 		return "hotel/petHotelResForm";
 	}

@@ -7,11 +7,20 @@ public class HomeSitterReservation {
 	private int hs_num;
 	private String hsr_chkin;
 	private String hsr_chkout;
-	private String hsr_hour;
 	private String hsr_status;
 	private int hsr_numof_pet;
 	private int p_num;
 	private int hsr_totalprice;
+	private String hsr_duringdays;
+	private String hsr_purpose;
+	private String hsr_message;
+	private String hsr_write_date;
+	private String hsr_pickup_time;
+	private String hsr_dropoff_time;
+	private String hsr_priceperday;
+	private String hsr_priceperpetsize;
+	private String hsr_priceperdays;
+	private String hsr_days;
 	public int getHsr_num() {
 		return hsr_num;
 	}
@@ -42,19 +51,12 @@ public class HomeSitterReservation {
 	public void setHsr_chkout(String hsr_chkout) {
 		this.hsr_chkout = hsr_chkout;
 	}
-	public String getHsr_hour() {
-		return hsr_hour;
-	}
-	public void setHsr_hour(String hsr_hour) {
-		this.hsr_hour = hsr_hour;
-	}
 	public String getHsr_status() {
 		return hsr_status;
 	}
 	public void setHsr_status(String hsr_status) {
 		this.hsr_status = hsr_status;
 	}
-
 	public int getHsr_numof_pet() {
 		return hsr_numof_pet;
 	}
@@ -73,11 +75,75 @@ public class HomeSitterReservation {
 	public void setHsr_totalprice(int hsr_totalprice) {
 		this.hsr_totalprice = hsr_totalprice;
 	}
+	public String getHsr_duringdays() {
+		return hsr_duringdays;
+	}
+	public void setHsr_duringdays(String hsr_duringdays) {
+		this.hsr_duringdays = hsr_duringdays;
+	}
+	public String getHsr_purpose() {
+		return hsr_purpose;
+	}
+	public void setHsr_purpose(String hsr_purpose) {
+		this.hsr_purpose = hsr_purpose;
+	}
+	public String getHsr_message() {
+		return hsr_message;
+	}
+	public void setHsr_message(String hsr_message) {
+		this.hsr_message = hsr_message;
+	}
+	public String getHsr_write_date() {
+		return hsr_write_date;
+	}
+	public void setHsr_write_date(String hsr_write_date) {
+		this.hsr_write_date = hsr_write_date;
+	}
+	public String getHsr_pickup_time() {
+		return hsr_pickup_time;
+	}
+	public void setHsr_pickup_time(String hsr_pickup_time) {
+		this.hsr_pickup_time = hsr_pickup_time;
+	}
+	public String getHsr_dropoff_time() {
+		return hsr_dropoff_time;
+	}
+	public void setHsr_dropoff_time(String hsr_dropoff_time) {
+		this.hsr_dropoff_time = hsr_dropoff_time;
+	}
+	public String getHsr_priceperday() {
+		return hsr_priceperday;
+	}
+	public void setHsr_priceperday(String hsr_priceperday) {
+		this.hsr_priceperday = hsr_priceperday;
+	}
+	public String getHsr_priceperpetsize() {
+		return hsr_priceperpetsize;
+	}
+	public void setHsr_priceperpetsize(String hsr_priceperpetsize) {
+		this.hsr_priceperpetsize = hsr_priceperpetsize;
+	}
+	public String getHsr_priceperdays() {
+		return hsr_priceperdays;
+	}
+	public void setHsr_priceperdays(String hsr_priceperdays) {
+		this.hsr_priceperdays = hsr_priceperdays;
+	}
+	public String getHsr_days() {
+		return hsr_days;
+	}
+	public void setHsr_days(String hsr_days) {
+		this.hsr_days = hsr_days;
+	}
 	@Override
 	public String toString() {
-
 		return "HomeSitterReservation [hsr_num=" + hsr_num + ", c_num=" + c_num + ", hs_num=" + hs_num + ", hsr_chkin="
-				+ hsr_chkin + ", hsr_chkout=" + hsr_chkout + ", hsr_hour=" + hsr_hour + ", hsr_status=" + hsr_status
-				+ ", hsr_numof_pet=" + hsr_numof_pet + ", p_num=" + p_num + ", hsr_totalprice=" + hsr_totalprice + "]";
+				+ hsr_chkin + ", hsr_chkout=" + hsr_chkout + ", hsr_status=" + hsr_status + ", hsr_numof_pet="
+				+ hsr_numof_pet + ", p_num=" + p_num + ", hsr_totalprice=" + hsr_totalprice + ", hsr_duringdays="
+				+ hsr_duringdays + ", hsr_purpose=" + hsr_purpose + ", hsr_message=" + hsr_message + ", hsr_write_date="
+				+ hsr_write_date + ", hsr_pickup_time=" + hsr_pickup_time + ", hsr_dropoff_time=" + hsr_dropoff_time
+				+ ", hsr_priceperday=" + hsr_priceperday + ", hsr_priceperpetsize=" + hsr_priceperpetsize
+				+ ", hsr_priceperdays=" + hsr_priceperdays + ", hsr_days=" + hsr_days + "]";
 	}
+	
 }

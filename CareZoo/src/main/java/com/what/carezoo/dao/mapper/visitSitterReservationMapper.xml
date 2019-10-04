@@ -8,12 +8,12 @@
 		select visitsitterreservation_seq.nextval from dual
 	</selectKey>
 		insert
-		into visitsitterreservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status, vsr_totalPrice, vsr_attention, vsr_contents,vsr_day,vsr_count)
+		into VisitSitterReservation (vsr_num, c_num, vs_num, vsr_chkin, vsr_hour, vsr_hAdd, vsr_status, vsr_totalPrice, vsr_attention, vsr_contents,vsr_day,vsr_count)
 		values (#{vsr_num},#{c_num},0, #{vsr_chkin}, #{vsr_hour}, #{vsr_hAdd}, '0', '0' ,'0','0',#{vsr_day},'0')
 	</insert>
 
 	<update id="update" parameterType="VisitSitterReservation">
-		update visitsitterreservation
+		update VisitSitterReservation
 		set 
 		vsr_hour = #{vsr_hour},
 		vsr_hAdd = #{vsr_hAdd}
@@ -21,7 +21,7 @@
 	</update>
 	
 	<update id="update2" parameterType="VisitSitterReservation">
-		update visitsitterreservation
+		update VisitSitterReservation
 		set 
 		vsr_hour = #{vsr_hour},
 		vsr_hAdd = #{vsr_hAdd}
@@ -29,7 +29,7 @@
 	</update>
 
 	<update id="updateTotalPrice" parameterType="string">
-	update visitsitterreservation
+	update VisitSitterReservation
 	set vsr_totalPrice = #{vsr_totalPrice}
 	<trim prefix="where" prefixOverrides="OR">
 		<if test="list != null">
@@ -41,7 +41,7 @@
 	</update>
 	
 	<update id="updateContents" parameterType="string">
-	update visitsitterreservation
+	update VisitSitterReservation
 	set vsr_attention = #{vsr_attention}, vsr_contents = #{vsr_contents}
 		<trim prefix="where" prefixOverrides="OR">
 		<if test="list != null">
@@ -53,7 +53,7 @@
 	</update>
 	
 	<update id="updateVsr_Chkin" parameterType="string">
-		update visitsitterreservation
+		update VisitSitterReservation
 	set vsr_chkin = #{vsr_chkin}
 		<trim prefix="where" prefixOverrides="OR">
 		<if test="list != null">
@@ -65,13 +65,13 @@
 	</update>
 	
 	<update id="updateVsrCount" parameterType="int">
-		update visitsitterreservation
+		update VisitSitterReservation
 		set vsr_count = vsr_count +1 where c_num = #{c_num}
 	</update>
 	
 	<delete id="delete" parameterType="int">
 		delete from
-		visitsitterreservation
+		VisitSitterReservation
 		where vsr_num = #{vsr_num}
 	</delete>
 
@@ -90,12 +90,12 @@
 
 	<select id="selectByVsrnum" parameterType="int" resultType="VisitSitterReservation">
 		select *
-		from visitsitterreservation
+		from VisitSitterReservation
 		where vsr_num = #{vsr_num}
 	</select>
 
 	<select id="selectByVsrnumbers" parameterType="int" resultType="VisitSitterReservation">
-		select * from visitsitterreservation
+		select * from VisitSitterReservation
 		<trim prefix="where" prefixOverrides="OR">
 		<if test="list != null">
 			<foreach collection="list" item="item">
@@ -108,22 +108,86 @@
 
 	<select id="selectByCnum" parameterType="int" resultType="VisitSitterReservation">
 		select *
-		from visitsitterreservation
+		from VisitSitterReservation
 		where c_num = #{c_num}
 	</select>
 	
 	<select id="selectByVSnum" parameterType="int" resultType="VisitSitterReservation">
 		select *
-		from visitsitterreservation
+		from VisitSitterReservation
 		where vs_num = #{vs_num}
 	</select>
 
 	<select id="selectByVsrCount" parameterType="int" resultType="VisitSitterReservation">
-		select * from visitsitterreservation where vsr_count = #{vsr_count}
+		select * from VisitSitterReservation where vsr_count = #{vsr_count}
 	</select>
 
 	<select id="selectAll" resultType="VisitSitterReservation">
 		select *
-		from visitsitterreservation
+		from VisitSitterReservation
+	</select>
+	
+	<select id="getVsrByStatus0" resultType="VisitSitterReservation">
+		select * from VisitSitterReservation where vsr_status='0' and vsr_day =7
+	</select>
+	<select id="getVsrByStatus0Day" resultType="VisitSitterReservation">
+		select * from VisitSitterReservation where vsr_status='0' and vsr_day between 0 and 6
+	</select>
+	
+	
+	
+	<select id="checkDate7" parameterType="int" resultType="VisitSitterReservation">
+		select *
+		from VisitSitterReservation
+		where vs_num = #{vs_num}
+		and vsr_chkin = #{vsr_chkin}
+	</select>
+	
+	<select id="checkDate0_6" parameterType="int" resultType="VisitSitterReservation">
+		select *
+		from VisitSitterReservation
+		where vs_num = #{vs_num}
+		and vsr_chkin in (#{a},#{b},#{c},#{d})
+	</select>
+	
+	
+	
+	
+	
+	<update id="acceptVsr" parameterType="map">
+		update VisitSitterReservation
+		set vsr_status = 2,
+		vs_num = #{vs_num}
+		where vsr_num = #{vsr_num}
+	</update>
+	
+	<select id="getMyResDay7" parameterType="int" resultType="map">
+		select vsrt.*, c.c_name
+		from customer c,
+			(select vsr.vsr_num, vsr.c_num, vsr.vsr_status, vsr.vsr_chkin, vsr.vsr_hour, vsr.vsr_hadd
+			from visitsitterreservation vsr,
+				(select vsr_num,c_num, count(*) petCount
+				from pet_detail
+				group by vsr_num,c_num
+				order by vsr_num desc) pd
+			where vsr.vsr_num = pd.vsr_num
+			and vsr.vsr_day = 7
+			and vsr.vs_num =#{vs_num})vsrt
+		where c.c_num = vsrt.c_num
+	</select>
+	
+	<select id="getMyResDay0_6" parameterType="int" resultType="map">
+		select vsrt.*, c.c_name
+		from customer c,
+			(select vsr.vsr_num, vsr.c_num, vsr.vsr_status, vsr.vsr_chkin, vsr.vsr_hour, vsr.vsr_hadd
+			from visitsitterreservation vsr,
+				(select vsr_num,c_num, count(*) petCount
+				from pet_detail
+				group by vsr_num,c_num
+				order by vsr_num desc) pd
+			where vsr.vsr_num = pd.vsr_num
+			and vsr.vsr_day between 0 and 6
+			and vsr.vs_num =#{vs_num})vsrt
+		where c.c_num = vsrt.c_num
 	</select>
 </mapper>

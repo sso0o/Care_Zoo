@@ -12,7 +12,14 @@ public class Pet {
 	private String p_none_sex;
 	private String p_img;
 	private String p_notify;
+	private int age;
 	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
 	public int getP_num() {
 		return p_num;
 	}
@@ -76,9 +83,9 @@ public class Pet {
 	}
 	@Override
 	public String toString() {
-		return "Pet [p_num=" + p_num + ", c_num=" + c_num + ", p_kind=" + p_kind + ", p_name="
-				+ p_name + ", p_sex=" + p_sex + ", p_birth=" + p_birth + ", p_weight=" + p_weight + ", p_none_sex="
-				+ p_none_sex + ", p_img=" + p_img + ", p_notify=" + p_notify + "]";
+		return "Pet [p_num=" + p_num + ", c_num=" + c_num + ", p_kind=" + p_kind + ", p_name=" + p_name + ", p_sex="
+				+ p_sex + ", p_birth=" + p_birth + ", p_weight=" + p_weight + ", p_none_sex=" + p_none_sex + ", p_img="
+				+ p_img + ", p_notify=" + p_notify + ", age=" + age + "]";
 	}
 
 	
