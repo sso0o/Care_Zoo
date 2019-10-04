@@ -126,10 +126,10 @@ public class VisitSitterReservationService {
 	}
 	
 	//정기
-	public int checkDate0_6(int vs_num, int vsr_chkin, b, c, d) {
-		List<VisitSitterReservation> list = vsrDao.checkDate0_6(vs_num, vsr_chkin, b, c, d);
-		return list.size();
-	}
+//	public int checkDate0_6(int vs_num, int vsr_chkin, b, c, d) {
+//		List<VisitSitterReservation> list = vsrDao.checkDate0_6(vs_num, vsr_chkin, b, c, d);
+//		return list.size();
+//	}
 	
 	
 	//예약 수락(일반)

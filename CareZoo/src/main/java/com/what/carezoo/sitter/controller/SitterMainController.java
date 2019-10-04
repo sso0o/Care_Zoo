@@ -298,34 +298,34 @@ public class SitterMainController {
 	}
 	
 	
-	@RequestMapping("/acceptVsr")
-	public String acceptVsr(HttpSession session, Model m, int vsr_num, @RequestParam(required = false) int b, @RequestParam(required = false) int c, @RequestParam(required = false) int d) {
-		int vs_num = (Integer)session.getAttribute("user_num");
-		System.out.println("vs_num : "+vs_num);
-		//일반
-		if(b == 0 && c==0 && d ==0) {
-			//그날 내가 예약있는지부터 확인
-			String resDate = vsrService.getVisitSitterResByVsrnum(vsr_num).getVsr_chkin();
-			if(vsrService.checkDate(vs_num, resDate)==0 && vsrService.acceptVsr(vs_num,vsr_num)) {
-				m.addAttribute("msg", "수락이 완료되었습니다!");
-				return "sitter/myReservation_visit";
-			} else {
-				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
-				return "sitter/reservationListVs";
-			}
-			
-		} else {//정기
-			//내가 예약 가지고있는지부터 확인
-			String[] resDate = {vsrService.getVisitSitterResByVsrnum(vsr_num).getVsr_chkin(),
-			                        vsrService.getVisitSitterResByVsrnum(b).getVsr_chkin(),
-			                        vsrService.getVisitSitterResByVsrnum(c).getVsr_chkin(),
-			                        vsrService.getVisitSitterResByVsrnum(d).getVsr_chkin()};
-			vsrService.acceptVsr(vs_num,vsr_num);
-			
-		}
-		
-		
-	}
+//	@RequestMapping("/acceptVsr")
+//	public String acceptVsr(HttpSession session, Model m, int vsr_num, @RequestParam(required = false) int b, @RequestParam(required = false) int c, @RequestParam(required = false) int d) {
+//		int vs_num = (Integer)session.getAttribute("user_num");
+//		System.out.println("vs_num : "+vs_num);
+//		//일반
+//		if(b == 0 && c==0 && d ==0) {
+//			//그날 내가 예약있는지부터 확인
+//			String resDate = vsrService.getVisitSitterResByVsrnum(vsr_num).getVsr_chkin();
+//			if(vsrService.checkDate(vs_num, resDate)==0 && vsrService.acceptVsr(vs_num,vsr_num)) {
+//				m.addAttribute("msg", "수락이 완료되었습니다!");
+//				return "sitter/myReservation_visit";
+//			} else {
+//				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
+//				return "sitter/reservationListVs";
+//			}
+//			
+//		} else {//정기
+//			//내가 예약 가지고있는지부터 확인
+//			String[] resDate = {vsrService.getVisitSitterResByVsrnum(vsr_num).getVsr_chkin(),
+//			                        vsrService.getVisitSitterResByVsrnum(b).getVsr_chkin(),
+//			                        vsrService.getVisitSitterResByVsrnum(c).getVsr_chkin(),
+//			                        vsrService.getVisitSitterResByVsrnum(d).getVsr_chkin()};
+//			vsrService.acceptVsr(vs_num,vsr_num);
+//			
+//		}
+//		
+//		
+//	}
 	
 	//방문시터 예약현황 페이지
 	@RequestMapping("/myReservationVs_Page")
