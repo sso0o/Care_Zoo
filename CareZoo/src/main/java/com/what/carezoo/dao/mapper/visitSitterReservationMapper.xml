@@ -135,14 +135,19 @@
 		from VisitSitterReservation
 	</select>
 	
-	<select id="getVsrByStatus0" resultType="VisitSitterReservation">
+	<select id="getVsrByStatus7" resultType="VisitSitterReservation">
 		select * from VisitSitterReservation where vsr_status='0' and vsr_day =7
 	</select>
-	<select id="getVsrByStatus0Day" resultType="VisitSitterReservation">
+	<select id="getVsrByStatus0_6" resultType="VisitSitterReservation">
 		select * from VisitSitterReservation where vsr_status='0' and vsr_day between 0 and 6
 	</select>
 	
-	
+	<select id="getVsrGroup" parameterType="int" resultType="int">
+		select vsr_num
+		from VisitSitterReservation
+		where c_num = #{c_num}
+		and vsr_count = #{vsr_count}
+	</select>
 	
 	<select id="checkDate7" parameterType="int" resultType="VisitSitterReservation">
 		select *

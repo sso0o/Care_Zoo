@@ -61,6 +61,23 @@
 		$("#vsr_num").val(num);
 		
 		$.ajax({
+			url:"${contextPath}/sitter/vsrGroup",
+			data:{
+				num:num
+			},
+			dataType:"JSON",
+			success: function(data) {
+				if(data.rst.length>0){
+					
+				}
+			},
+			error: function() {
+				alert("error");	
+			}
+			
+		})
+		
+		$.ajax({
 			url:"${contextPath}/sitter/getVSRInfo",
 			data:{
 				vsr_num:num
@@ -117,7 +134,11 @@
 	function booking() {
 		var num = $("#vsr_num").val()
 		if(confirm("신청된 예약을 수락하시겠습니까?") ==  true){
-			location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num;
+			if($("#b").val() == null && $("#c").val() == null && $("#d").val() == null){
+				location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num;
+			} else{
+				location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num+'&&b='$("#b").val()+'&&c='+$("#c").val()+'&&d='+$("#d").val();
+			}
 			
 		} else{
 			return false;

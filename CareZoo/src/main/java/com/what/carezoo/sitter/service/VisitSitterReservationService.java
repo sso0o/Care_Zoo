@@ -123,11 +123,15 @@ public class VisitSitterReservationService {
 	
 	//일반예약 가져오기(수락 전)
 	public List<VisitSitterReservation> getVsrByStatus0(){
-		return vsrDao.getVsrByStatus0();
+		return vsrDao.getVsrByStatus7();
 	}
 	//정기예약 가져오기(수락 전)
 	public List<VisitSitterReservation> getVsrByStatus0Day(){
-		return vsrDao.getVsrByStatus0Day();
+		return vsrDao.getVsrByStatus0_6();
+	}
+	
+	public int[] getVsrGroup(int c_num, int vsr_count) {
+		return vsrDao.getVsrGroup(c_num, vsr_count);
 	}
 	
 	//중복예약 체크(일반)
@@ -136,7 +140,7 @@ public class VisitSitterReservationService {
 		return list.size();
 	}
 	
-	//정기
+	//중복예약 체크(정기)
 	public int checkDate0_6(int vs_num, String vsr_chkin,String b,String c,String d) {
 		List<VisitSitterReservation> list = vsrDao.checkDate0_6(vs_num, vsr_chkin, b, c, d);
 		return list.size();

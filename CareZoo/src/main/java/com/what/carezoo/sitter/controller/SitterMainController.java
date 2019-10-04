@@ -252,6 +252,24 @@ public class SitterMainController {
 
 	}
 	
+	//정기묶음 예약점 가져오기
+	@RequestMapping("/vsrGroup")
+	@ResponseBody
+	public Map<String, Object> vsrGroup(int num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(num);
+		int c_num = vsr.getC_num();
+		int vsr_count = vsr.getVsr_count();
+		int[] list = vsrService.getVsrGroup(c_num, vsr_count);
+		for (int i = 0; i < list.length; i++) {
+			if(list[i] != num) {
+				rst.put(""+i+"", list[i]);
+			}
+		}
+		
+		return rst;
+	}
+	
 	@RequestMapping("/getVSRInfo")
 	@ResponseBody
 	public Map<String, Object> getVSRInfo(int vsr_num) {
