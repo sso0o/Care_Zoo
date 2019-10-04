@@ -1,6 +1,7 @@
 package com.what.carezoo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.what.carezoo.model.VisitSitter;
 
@@ -16,4 +17,5 @@ public interface VisitSitterDao {
 	public List<VisitSitter> selectAllVisitSitter();
 /////////////
 	public int userIdCheck(String vs_email);
+	public int updateVisitSitterFile(Map<String, Object> param);
 }

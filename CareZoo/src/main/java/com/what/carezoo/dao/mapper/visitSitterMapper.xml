@@ -6,9 +6,16 @@
 			select visitsitter_seq.nextval from dual
 		</selectKey>
 			insert into visitsitter
-			values(#{vs_num},#{vs_name},#{vs_sex},#{vs_birth},#{vs_contact},#{vs_address},#{vs_email},#{vs_pass},#{vs_img},#{vs_d_address})
+			(vs_num,vs_name,vs_sex,vs_birth,vs_contact,vs_address,vs_email,vs_pass,vs_d_address)
+			values(#{vs_num},#{vs_name},#{vs_sex},#{vs_birth},#{vs_contact},#{vs_address},#{vs_email},#{vs_pass},#{vs_d_address})
 	</insert>
 	
+	<update id="updateVisitSitterFile" parameterType="map">		
+		update visitsitter
+		set vs_img = #{vs_img}
+		where vs_num = #{vs_num}
+		
+	</update>
 	
 	<select id="selectOneByNum" parameterType="int" resultType="visitsitter">
 		select * from visitsitter

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,19 +88,39 @@ public class VisitSitterController {
 		return "sitter/visit/reservation3";
 	}
 
-	// 펫등록
+	// 펫등록(일반)
 	@RequestMapping(value = "petjoin", method = RequestMethod.POST)
-	public String petjoin(Model model, Pet pet, int c_num) {
+	public String petjoin(Model model, Pet pet, int c_num,MultipartHttpServletRequest mtfReq){
+		//이미지 uuid가져오기
+		MultipartFile file = mtfReq.getFile("file");
+		System.out.println("일반,petjoin,file: "+file);
+		
+		String msg = "등록 실패";
+		String url = "nomalapply?c_num=" + c_num;
+			if (petService.insertPetFile(pet, file)) {
+				msg = "등록성공";
+				url = "petList1?c_num=" + c_num;
+			}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		model.addAttribute("c_num", c_num);
+
+		return "result";
+	}
+	
+	// 펫등록(정기)
+	@RequestMapping(value = "petjoin2", method = RequestMethod.POST)
+	public String petjoin2(Model model, Pet pet, int c_num, MultipartHttpServletRequest mtfReq) {
+		//이미지 uuid가져오기
+		MultipartFile file = mtfReq.getFile("file");
+		System.out.println("정기,petjoin2,file: "+file);
+				
 		String msg = "등록 실패";
 		String url = "apply?c_num=" + c_num;
-		if (pet.getC_num() != 0 & pet.getP_birth() != null & pet.getP_img() != null & pet.getP_kind() != null
-				& pet.getP_name() != null & pet.getP_none_sex() != null & pet.getP_notify() != null
-				& pet.getP_sex() != null & pet.getP_weight() != null) {
-			if (petService.insertPet(pet)) {
+			if (petService.insertPetFile(pet, file)) {
 				msg = "등록성공";
 				url = "petList?c_num=" + c_num;
 			}
-		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		model.addAttribute("c_num", c_num);
@@ -463,6 +485,7 @@ public class VisitSitterController {
 	@RequestMapping(value = "complete1", method = RequestMethod.POST)
 	public String reservation7Form(Model model, int c_num, @RequestParam() ArrayList<Integer> p_num, String vsr_day,
 			String vsr_hour, String vsr_hAdd) {
+		System.out.println("정기,complete,p_num: "+p_num);
 		// 문자열 조각내기
 		String[] tempVsr_day = vsr_day.split(",");
 		// visitReservation, pet_detail 동시에 저장!
@@ -482,11 +505,14 @@ public class VisitSitterController {
 				vsr.setVsr_chkin("0");
 			}
 			vsrService.insertVisitSitterReservation(vsr);
+			System.out.println(vsr.getVsr_num());
 			vsr_num.add(vsr.getVsr_num());
-			// pet_detail저장
-			for (int j = 0; j < p_num.size(); j++) {
-				pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
-			}
+
+		}
+		
+		// pet_detail저장
+		for (int j = 0; j < p_num.size(); j++) {
+			pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
 		}
 		// count 업로드!!
 		vsrService.updateVsrCount(c_num);
@@ -621,11 +647,14 @@ public class VisitSitterController {
 	
 	//회원가입
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(VisitSitter visitsitter, Model m) {
-		boolean rst = vsService.joinVisitSitter(visitsitter);
+	public String join(VisitSitter vs, Model m, MultipartHttpServletRequest mtfReq) {
+		//이미지 uuid가져오기
+		MultipartFile file = mtfReq.getFile("file");
+		System.out.println("일반,petjoin,file: "+file);
+		boolean rst = vsService.insertVisitSitterFile(vs, file);
 		if(rst) {
 			m.addAttribute("msg", "방문시터가입이 완료되었습니다! 로그인을 해 주세요:)");
-			return "main";
+			return "visitSitterMain";
 		} else {
 			return "joinForm";
 		}

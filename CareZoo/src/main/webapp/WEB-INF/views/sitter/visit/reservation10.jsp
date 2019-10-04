@@ -47,25 +47,43 @@ $(function(){
 	var chkin =$("input[name=vsr_chkin]").length;
 	console.log(chkin);
 	
-	var total = "";
-	if($("#hAdd").val()=="0"){
-		 total = 0*maxCount;
-	}else if($("#hAdd").val()=="1"){
-		total = 15000*maxCount;
-	}else if($("#hAdd").val()=="2"){
-		total = 30000*maxCount;
-	}else if($("#hAdd").val()=="3"){
-		total = 45000*maxCount;
-	}else if($("#hAdd").val()=="4"){
-		total = 60000*maxCount;
+	var hAddLength = $("input[name=hAdd]").length;
+	console.log("hAdd: "+hAddLength);
+	for(var i =0;i<hAddLength;i++){
+		console.log($(".hAdd")[i].value);
+		var hAddVal=$(".hAdd")[i].value;
+		
+		var pay = "";
+		if(hAddVal=="0"){
+			 pay = 0
+		}else if(hAddVal=="1"){
+			pay = 15000
+		}else if(hAddVal=="2"){
+			pay = 30000
+		}else if(hAddVal=="3"){
+			pay = 45000
+		}else if(hAddVal=="4"){
+			pay = 60000
+		}
+		var total = $("<input type='hidden' id='hAdds' class='hAdds' name ='hAdds'>").val(pay);
+		$("#tmpTotal").append(total);
 	}
-	console.log(total);
 	
+	var tmpTotalLength = $("input[name=hAdds]").length;
+	console.log(tmpTotalLength);
+	
+	var sum = 0;
+	
+	for(var i =0;i<tmpTotalLength;i++){
+		var caculation=$(".hAdds")[i].value;
+		sum += Number(caculation)
+	}	
+	console.log("sum: "+sum);
 	var totals = (28000*1)+((maxCount-1)*5000);
 	console.log(totals);
 	
-	var result = Number(total) + Number(totals);
-	console.log(result);
+	var result = Number(sum) + Number(totals);
+	console.log("sum+total: "+result);
 	
 	var totalResult = Number(result)*Number(chkin);
 	
@@ -148,7 +166,7 @@ $(function(){
 				<input type="hidden" name="p_num" value="${p}" name="p_num">
 			</c:forEach>
 			<c:forEach items="${vsr_hAddList}" var="li">
-				<input type="hidden" id="hAdd" class="hAdd" value="${li.vsr_hAdd}">
+				<input type="hidden" id="hAdd" class="hAdd" name="hAdd" value="${li.vsr_hAdd}"> 
 				<input type="hidden" id="chkin" name="vsr_chkin"
 					value="${li.vsr_chkin}">
 				<input type="hidden" name="vsr_num" value="${li.vsr_num}">
@@ -168,7 +186,8 @@ $(function(){
 				</tr>
 				<tr>
 					<th>결제 예정 금액(1박 기준)</th>
-					<td><div id="totalPay"></div></td>
+					<td><div id="tmpTotal"></div>
+					<div id="totalPay"></div></td>
 				</tr>
 				<tr>
 					<th>숙박 일수</th>
@@ -181,6 +200,6 @@ $(function(){
 			</table>
 			<input type="submit" value="예약완료하기">
 		</form>
-	</div> 
+	</div>   
 </body>
 </html>
