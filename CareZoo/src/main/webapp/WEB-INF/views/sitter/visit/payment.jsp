@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
     <c:set var="contextPath" value="<%=request.getContextPath() %>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -9,43 +10,82 @@
 th{
 	font-weight:600;
 }
-
+#visit{
+	text-align:center;
+}
 </style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	
+    <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <script type="text/javascript">
+function logoutCheck() {
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
+	}
+}
+
+$(function() { //문서가 로딩되면 실행할 함수
+
+})
+
+// $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
+
+// })
+
+// 기본적으로 세션에 저장된 정보
+var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+var user_num = "<%=session.getAttribute("user_num")%>"
+var user_name = "<%=session.getAttribute("user_name")%>"
+
 $(function(){
 	var maxCount=$("input[name=p_num]").length;
 	console.log("count"+maxCount);
 $("#count").append(maxCount);
 
-var pay = "";
-if($("#hAdd").val()=="0"){
-	 pay = 0+"원";
-}else if($("#hAdd").val()=="1"){
-	pay = 15000+"원 ";
-}else if($("#hAdd").val()=="2"){
-	pay = 30000+"원 ";
-}else if($("#hAdd").val()=="3"){
-	pay = 45000+"원 ";
-}else if($("#hAdd").val()=="4"){
-	pay = 60000 +"원";
+var hAddLength = $("input[name=hAdd]").length;
+console.log("hAdd: "+hAddLength);
+for(var i =0;i<hAddLength;i++){
+	console.log($(".hAdd")[i].value);
+	var hAddVal=$(".hAdd")[i].value;
+	
+	var pay = "";
+	if(hAddVal=="0"){
+		 pay = 0
+	}else if(hAddVal=="1"){
+		pay = 15000
+	}else if(hAddVal=="2"){
+		pay = 30000
+	}else if(hAddVal=="3"){
+		pay = 45000
+	}else if(hAddVal=="4"){
+		pay = 60000
+	}
+	var total = $("<input type='hidden' id='hAdds' class='hAdds' name ='hAdds'>").val(pay);
+	$(".hdd")[i].append(pay+"원");
+	$("#tmpTotal").append(total);
 }
-$(".hdd").append(pay);
 
-var total = "";
-if($("#hAdd").val()=="0"){
-	 total = 0*maxCount+"원";
-}else if($("#hAdd").val()=="1"){
-	total = 15000*maxCount+"원 ";
-}else if($("#hAdd").val()=="2"){
-	total = 30000*maxCount+"원 ";
-}else if($("#hAdd").val()=="3"){
-	total = 45000*maxCount+"원 ";
-}else if($("#hAdd").val()=="4"){
-	total = 60000*maxCount+"원";
-}
-console.log(total);
-$("#totalPay").append(total);
+var tmpTotalLength = $("input[name=hAdds]").length;
+	console.log(tmpTotalLength);
+	
+	var sum = 0;
+	
+	for(var i =0;i<tmpTotalLength;i++){
+		var caculation=$(".hAdds")[i].value;
+		sum += Number(caculation)
+	}
+	$("#totalPay").append(sum+"원");	
+
+
 	//p_num
 // 	var jsonData = ${p_num};
 // 	console.log(jsonData);
@@ -58,7 +98,7 @@ $("#totalPay").append(total);
 //	var json = JSON.stringify(${p_num});
 	var json =${list};
 	console.log(json);
-	
+	 
 	$.ajax({
 		url:"${contextPath}/visit/test",
 		type:"post",
@@ -95,7 +135,7 @@ $("#totalPay").append(total);
 	
 	//vsr_chkin
 	var jsonData2 = ${list2};
-	console.log(jsonData2);
+	console.log("total1"+jsonData2);
 // 	str2="";
 // 	for(i in jsonData2){
 // 		str2 += i== jsonData2.length-1 
@@ -131,66 +171,125 @@ $("#totalPay").append(total);
 <title>요금 세부 정보</title>
 </head>
 <body>
-<form action="reservation10" method="post">
-<h2>요금 상세 내역</h2>
-	<table>
-		<tr>
-			<td><input type="hidden" name="vsr_count" value="${vsr_count}"></td>
-			<td><input type="hidden" name="c_num" value="${c_num}"></td>
-			<td><c:forEach items="${p_num}" var="p">
-					<input type="hidden" name="p_num" value="${p}">
-				</c:forEach></td>
-		</tr>
-		<tr>
-			<th>회당 기본 금액</th>
-			<td><div id="total"></div></td>
-		</tr>
-		<tr>	
-			<th>기본 1마리</th>
-			<td>28000원</td>
-		</tr>
-		<tr>
-			<td>
-				<div id="add">
+    <div class="container">
+        <header>
+			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+
+		<div class="header_Btn" id="sessioncheck">
+			<sec:authorize access="isAnonymous()">
+				<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+				<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+				<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+				<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+				<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+			</sec:authorize>
 		
-				</div>
-			</td>
-		</tr>
-	</table>
-	<table>
-		<tr>
-			<th>상세 예약 내역</th>
-		</tr>
+		</div>
+        </header>
+    </div>
+    <nav>
+        <div class='menu'>
+            <ul style="">
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+                            <!-- 
+                     <ul>
+                        <li><a href='#'>HTML Basic</a></li>
+                        <li class='last'><a href='#'>HTML Advanced</a></li>
+                     </ul>
+                      -->
+                        </li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+                    </ul>
+                </li>
+                <li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
+                    </ul>
+                </li>
+                <li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
+                    <ul>
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+						<li class='last'><a href='#'>가정시터</a></li>
+						<li class='last'><a href='#'>방문시터</a></li>
+						<li class='last'><a href='#'>펫호텔</a></li>
+                    </ul>
+                </li>
+                <li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
+                <li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br><br><br>
+
+	<div class="container" id="visit">
+		<form action="reservation10" method="post">
+			<h2>요금 상세 내역</h2>
+
+			<input type="hidden" name="vsr_count" value="${vsr_count}"> <input
+				type="hidden" name="c_num" value="${c_num}">
+			<c:forEach items="${p_num}" var="p">
+				<input type="hidden" name="p_num" value="${p}">
+			</c:forEach>
+
+			<table class="table table-striped table-bordered table-hover">
 
 				<tr>
-					<td><div id="total1"></div></td>
+					<th>회당 기본 금액</th>
+					<td><div id="total"></div></td>
+				</tr>
+				<tr>
+					<th>기본 1마리</th>
+					<td>28000원</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div id="add"></div>
+					</td>
+				</tr>
+			</table>
+			<table class="table table-striped table-bordered table-hover">
+				<tr>
+					<th colspan="2">상세 예약 내역</th>
+				</tr>
+ 
+				<tr>
+					<td colspan="2"><div id="total1"></div></td>
 				</tr>
 
-			<tr>
-				<th>추가 시간 내역</th>
-				<th>기본 비용</th>
-<!-- 				<th>이용 횟수</th> -->
-<!-- 				<th>추가비 합계</th> -->
-			</tr>
-			<c:forEach items="${vsr_hAddList}" var="li" >
-			<tr>
-				<th>+${li.vsr_hAdd}시간
-				<input type="hidden" id="hAdd" value="${li.vsr_hAdd}"></th>
-				<td><div id="hdd" class="hdd"></div></td>
-<!-- 				<td><div id="count" style="text-align:center"></div></td> -->
-			</tr>	
-			</c:forEach>
-			<tr>
-				<th>추가 시간 합계</th>
-				<td><div id="totalPay" class="totalPay"></div></td>	
-		
-			</tr>
-	</table>
-	<div>
-		<input type="submit" value="확인">
+				<tr>
+					<th>추가 시간 내역</th>
+					<th>기본 비용</th>
+					<!-- 				<th>이용 횟수</th> -->
+					<!-- 				<th>추가비 합계</th> -->
+				</tr>
+				<c:forEach items="${vsr_hAddList}" var="li">
+					<tr>
+						<th>+${li.vsr_hAdd}시간 <input type="hidden" id="hAdd" class="hAdd" name="hAdd"
+							value="${li.vsr_hAdd}"></th>
+						<td><div id="hdd" class="hdd"></div></td>
+						<!-- 				<td><div id="count" style="text-align:center"></div></td> -->
+					</tr>
+				</c:forEach>
+				<tr>
+					<th>추가 시간 합계</th>
+					<td>
+					<div id="tmpTotal"></div>
+					<div id="totalPay" class="totalPay"></div>
+						
+					</td>
+
+				</tr>
+			</table>
+			<div>
+				<input type="submit" class="btn btn-chk" value="확인">
+			</div>
+		</form>
 	</div>
-</form>	
-	
-	
+
 </body>
 </html>

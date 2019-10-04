@@ -19,7 +19,6 @@
 
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -150,7 +149,7 @@ $(function() {
 	            async: true,
 	            type : 'POST',
 	            data : {c_email : c_email},
-	            url : "${contextPath}/member/idCheck",
+	            url : "${contextPath}/member/idCheck2",
 	            dataType : "json",
 	            success : function(data) {
 	                if (data.cnt > 0) {   

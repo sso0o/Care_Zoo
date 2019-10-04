@@ -18,8 +18,12 @@ public interface VisitSitterReservationDao {
 	public int updateVsr_Chkin(@Param("vsr_chkin")String vsr_chkin,@Param("list")ArrayList<Integer> vsr_num);
 	public int updateVsrCount(int c_num);
 	public int delete(int vsr_num);
+
+	public int deleteByListVsrNum(@Param("list")ArrayList<Integer> vsr_num);
+
 	public VisitSitterReservation selectByVsrnum(int vsr_num);
 	public int selectByVsrnum0_6(Map<String, Object> param);
+
 	public List<VisitSitterReservation> selectByVsrnumbers(@Param("list")ArrayList<Integer> vsr_num);
 	public List<VisitSitterReservation> selectByCnum(int c_num);
 	public List<VisitSitterReservation> selectByVSnum(int vs_num);

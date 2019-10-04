@@ -110,7 +110,7 @@ public class MemberController {
 		return "joinForm_homeSitter";
 	}
 	
-	//홈시터 회원가입
+	//방문시터 회원가입
 	@RequestMapping("/joinVisit")
 	public String joinFormVisit() {
 		return "joinForm_visitSitter";
@@ -157,7 +157,7 @@ public class MemberController {
 		return "main";
 	}
 	//아이디 유효성 검사
-	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
+	@RequestMapping(value="/idCheck2", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<Object, Object> idCheck(String c_email) {
 		System.out.println(c_email);

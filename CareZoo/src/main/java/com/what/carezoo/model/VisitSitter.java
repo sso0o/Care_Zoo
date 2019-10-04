@@ -1,7 +1,5 @@
 package com.what.carezoo.model;
 
-import java.sql.Date;
-
 public class VisitSitter {
 
 	private int vs_num;
@@ -11,7 +9,6 @@ public class VisitSitter {
 	private String vs_contact;
 	private String vs_address;
 	private String vs_d_address;
-	private String vs_job;
 	private String vs_img;
 	private String vs_email;
 	private String vs_pass;
@@ -57,12 +54,6 @@ public class VisitSitter {
 	public void setVs_d_address(String vs_d_address) {
 		this.vs_d_address = vs_d_address;
 	}
-	public String getVs_job() {
-		return vs_job;
-	}
-	public void setVs_job(String vs_job) {
-		this.vs_job = vs_job;
-	}
 	public String getVs_img() {
 		return vs_img;
 	}
@@ -83,11 +74,10 @@ public class VisitSitter {
 	}
 	@Override
 	public String toString() {
-		return "VisitSitter [vs_num=" + vs_num + ", vs_name=" + vs_name + ", vs_sex=" + vs_sex + ", vs_birth=" + vs_birth + ", vs_contact=" + vs_contact + ", vs_address=" + vs_address + ", vs_d_address=" + vs_d_address + ", vs_job="
-				+ vs_job + ", vs_img=" + vs_img + ", vs_email=" + vs_email + ", vs_pass=" + vs_pass + "]";
+		return "VisitSitter [vs_num=" + vs_num + ", vs_name=" + vs_name + ", vs_sex=" + vs_sex + ", vs_birth="
+				+ vs_birth + ", vs_contact=" + vs_contact + ", vs_address=" + vs_address + ", vs_d_address="
+				+ vs_d_address + ", vs_img=" + vs_img + ", vs_email=" + vs_email + ", vs_pass=" + vs_pass + "]";
 	}
-	
-	
 	
 	
 }

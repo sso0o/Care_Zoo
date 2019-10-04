@@ -67,6 +67,12 @@ public class SitterMainController {
 	@Autowired
 	private VisitSitterReservationService vsrService;
 	
+	@RequestMapping(value="main",method=RequestMethod.GET)
+	public String MainPage() {
+		return "sitter/sitterMain";
+		
+	}
+	
 	
 	@RequestMapping(value = "/myReservationHS" , method = RequestMethod.GET)
 	@ResponseBody
