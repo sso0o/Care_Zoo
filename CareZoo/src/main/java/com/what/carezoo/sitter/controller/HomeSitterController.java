@@ -66,11 +66,11 @@ public class HomeSitterController {
 			@RequestParam Map<String, Object> params,
 			Model model, HttpServletRequest request, String hsl_service_type, String hsl_size, String hsl_pet_age
 			) {
-//		List<Object> hsd_disabledate_list = Arrays.asList(params.get("hsd_disabledate"));
+		List<Object> hsd_disabledate_list = Arrays.asList(params.get("hsd_disabledate"));
 //		List<String> hsl_service_type_list = Arrays.asList(hsl_service_type.split(","));
 //		List<String> hsl_size_list = Arrays.asList(hsl_size.split(","));
 //		List<String> hsl_pet_age_list = Arrays.asList(hsl_pet_age.split(","));
-//		params.put("hsd_disabledate", hsd_disabledate_list);
+		params.put("hsd_disabledate", hsd_disabledate_list);
 		params.put("hsl_service_type", hsl_service_type);
 		params.put("hsl_size", hsl_size);
 		params.put("hsl_pet_age", hsl_pet_age);
@@ -82,14 +82,16 @@ public class HomeSitterController {
 		 //우선 회원가입만 먼저 하고 나중에 넣어야지
 		 //회원가입 메서드 
 		boolean hsRst = hsService.joinHomeSitter(params);
-		boolean hslRst = hslService.writeHomeSitter(params);
-		System.out.println("hsRst : "+ hsRst+"hslRst"+hslRst);
-		if(hsRst && hslRst) {
-			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
-			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요 :)");			
+		boolean hslRst = hslService.writeHomeSitterList(params);
+		boolean hslDisdate = hslService.writeDisableDates(params);
+//		System.out.println("hsRst : "+ hsRst+"hslRst"+hslRst);
+		if(hsRst && hslRst && hslDisdate ) {
+			System.out.println("글등록 성공!!");
+//			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
+//			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요 :)");			
 			return "redirect:main";
 		} else {
-			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");	
+//			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");	
 			return "redirect:joinForm";
 		}
 	}

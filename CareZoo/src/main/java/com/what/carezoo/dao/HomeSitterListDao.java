@@ -23,7 +23,8 @@ public interface HomeSitterListDao {
    public int insertFile(Map<String,Object> param);
    public String selectFileName(int hsl_num);
    public List<String> selectFileList(int hsl_num);
-   
+   //불가능 날짜(Disable Dates)
+   public int insertDisdates(@Param("list")Map<String, Object> params);
    // 가격
    public Map<String, Object> getHsPrice(Map<String, Object> params);  
 }
