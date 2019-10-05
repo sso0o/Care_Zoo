@@ -434,9 +434,9 @@ $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리�
 				<tr>
 					<th>예약일</th>
 					<td >
-						<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin"/>
+						<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin"/><span  class="glyphicon glyphicon-calendar form-control-feedback"></span>
 						<span>&gt;</span>
-						<input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout"/>
+						<input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout" class="glyphicon glyphicon-calendar"/>
 					</td>
 				</tr>
 				<tr>

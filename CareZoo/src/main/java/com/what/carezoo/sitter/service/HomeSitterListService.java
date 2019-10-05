@@ -27,6 +27,14 @@ public class HomeSitterListService {
 		List<String> filesName = hslDao.selectFileList(hsl_num);
 		return filesName;
 	}
+	//insert 실험
+	public boolean writeHomeSitter(Map<String, Object> params) {
+		if(hslDao.insertHomeSitterList(params)>0) {
+			return true;
+		}
+		return false;
+	}
+	//
 	public boolean addHsl(HomeSitterList hsl, List<MultipartFile> files) {
 		if(hslDao.insertHsl(hsl)>0) {
 			if(files.isEmpty()) {

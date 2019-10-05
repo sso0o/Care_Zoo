@@ -22,11 +22,13 @@
 <!-- link for datepicker -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"><!-- datePicker -->
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/><!-- datePicker -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/jquery-ui.multidatespicker.css'/><!-- multidatePicker -->
 <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css'/><!-- dateTimePicker -->
 <!-- script for datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><!-- datePicker -->
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> <!-- moment.js -->
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script><!-- datePicker -->
+<script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js" type="text/javascript" ></script><!-- multidatePicker -->
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
 
 <script>
@@ -146,13 +148,15 @@ var index = 1;
 $(function() {
 	$("#email").change(function() {
 		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		var c_email = $("#email").val();
-		if(regExp.test(c_email)){
+		var hs_email = $("#email").val();
+		console.log(hs_email)
+		if(regExp.test(hs_email)){
+			console.log('이거 동작?')
 			$.ajax({
 	            async: true,
 	            type : 'POST',
-	            data : {c_email : c_email},
-	            url : "${contextPath}/member/idCheck",
+	            data : {hs_email : hs_email},
+	            url : "${contextPath}/home/idCheck",
 	            dataType : "json",
 	            success : function(data) {
 	                if (data.cnt > 0) {   
@@ -193,18 +197,85 @@ $(function() {
 	});//pw체크함수
 	
 	//Disable date & time
-	$('#startTime').timepicker({
+	$('#chisTime').timepicker({
+		minTime:'07:00' ,
+		timeFormat: "HH:mm",
+		maxTime: '22:00',
+		stepMinute: 30,
+		onSelect:  function() {
+            $('#chieTime').timepicker('option', 'minTime', $(this).val());
+        }
+    });
+	$('#chieTime').timepicker({
+		timeFormat: "HH:mm",
+		maxTime: '22:00',
+		stepMinute: 30
+    });
+	$('#chosTime').timepicker({
+		minTime:'07:00' ,
+		timeFormat: "HH:mm",
+		maxTime: '22:00',
+		stepMinute: 30,
+		onSelect:  function() {
+            $('#choeTime').timepicker('option', 'minTime', $(this).val());
+        }
+    });
+	$('#choeTime').timepicker({
 		minTime:'07:00' ,
 		timeFormat: "HH:mm",
 		maxTime: '22:00',
 		stepMinute: 30
     });
-	$('#endTime').timepicker({
-		minTime:'07:00' ,
-		timeFormat: "HH:mm",
-		maxTime: '22:00',
-		stepMinute: 30
-    });
+	
+	
+	$('#disabledate').multiDatesPicker({
+		minDate: 0, // today
+		maxDate: 90		
+	});
+// 	$('#calendar').multiDatesPicker({
+// 		minDate: 0, // today
+// 		maxDate: 30,
+// 		onSelect: function(selected) {
+// 			var dateVal = $('#hsd_disabledate').val(selected);
+// 			dateVal += dateVal == "" ? dateVal : ","
+// 			console.log(dateVal);
+// 		}
+// 	});
+// 		onSelect: function(selected) {
+// 			$('.hsd_disabledate').val(selected);
+// 			console.log($('.hsd_disabledate').val(selected));
+// 		}
+// 		onSelect: function (selected) {
+// 			$('.hsd_disabledate').val(selected);
+// 			console.log(multiDates(selected))
+// 		}
+// 	});
+// 	        multiDates(selected);
+// 			dateVal += dateVal == "" ? $('.hsd_disabledate').val(selected) : ","
+					
+// 			var div = $('input [name="hsd_disabledate"]');
+// 	        var inputBox = $('<input type="text" class="hsd_disabledate" name="hsd_disabledate">').append(div);
+// 	        inputBox.val(selected);
+// 	function multiDates(selected) {
+	
+// 		var div = $('input [name=hsd_disabledate]');
+//         var inputBox = $('<input type="text" class="hsd_disabledate" name="hsd_disabledate">');
+//         var dateVal = inputBox.val(selected);
+//         div.append(inputBox);
+//         dateVal += dateVal == "" ? inputBox.val(selected) : ",";
+//         console.log('dd'+inputBox.val());
+//         console.log(div.append(inputBox))
+// 	}
+// 	$("#hsd_disabledate").datepicker({
+// 		multiDatesPicker: 
+// 		onSelect: function() {
+// 			var date = $(this).val();
+			
+// 			console.log(date);
+// 		}
+// 	});
+// 	$("#hsd_disabledate").each(function(){ $(this).datepicker(); });
+
 });
 
 
@@ -332,7 +403,7 @@ legend{
 	<div class="content">
 		<h2>회원가입</h2>
 		<hr>
-		<form action="${contextPath }/home/join" method="post" name="userInfo" onsubmit="return checkValue()">
+		<form action="${contextPath }/home/join" method="post" name="homesitterInfo" onsubmit="return checkValue()">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<div class="main">
 				<div class="form-group">
@@ -396,22 +467,7 @@ legend{
 					</button>
 				</p>
 				<div class="collapse" id="collapseExample">
-					<div class="card card-body">
-					예시********************************
-						<div class="form-group">
-							<label for="hs_birth">생년월일*</label>
-							<input type="text" class="form-control" id="birth" name="hs_birth">
-						</div>
-						<div class="form-group">
-							<label for="hs_sex">성별*</label><label class="space"></label>
-							<select id="sex" name="hs_sex" class="form-control" >
-								<option value="" selected="selected">성별</option>
-								<option value="1">여자</option>
-								<option value="2">남자</option>
-							</select>
-						</div>					 
-					 
-					****************************************** 					 
+					<div class="card card-body">				 
 						<div class="form-group">
 							<label for="hsl_title">글제목</label>
 							<input type="text" class="form-control" id="title" name="hsl_title">
@@ -420,50 +476,53 @@ legend{
 							<label for="hsl_comment">글내용</label>
 							<textarea class="form-control" id="title" name="hsl_comment" style="resize: none;" rows="8" >
 Q. 왜 도그메이트 펫시터를 하게 되었나요? 
+
+
 Q. 반려견을 키운 경험에 대해 알려주세요. 현재 반려견을 키우고 계시다면 자세히 소개해주세요! 
+
+
 Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 약속드립니다. 
-※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
+
+
+Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
+
+
 							</textarea>
 						</div>
 						<div class="form-group">
-							<label for="hsl_title">글제목</label>
-							<input type="text" class="form-control" id="title" name="hsl_title">
-						</div>
-						<div class="form-group">
-							<label for="hsl_title">글제목</label>
-							<input type="text" class="form-control" id="title" name="hsl_title">
-						</div>
-						<div class="form-group">
-							<label for="hsl_title">글제목</label>
-							<input type="text" class="form-control" id="title" name="hsl_title">
-						</div>
-						<div class="form-group">
-							<label for="hsl_title">글제목</label>
-							<input type="text" class="form-control" id="title" name="hsl_title">
-						</div>
-						<div class="form-group">
-							<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.</label>
-							<div class="form-check">
+							<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.(중복체크 가능)</label>
+							<div class="form-check-inline">
 							  <label class="form-check-label">
 							    <input type="checkbox" class="form-check-input" value="24시간돌봄" name="hsl_service_type" >24시간 돌봄(하루 이상)
 							  </label>
 							</div>
-							<div class="form-check">
+							<div class="form-check-inline">
 							  <label class="form-check-label">
 							    <input type="checkbox" class="form-check-input" value="데이케어" name="hsl_service_type" >데이케어(하루 미만)
 							  </label>
 							</div>
 						</div>	
 						<div class="form-group">
+							<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br>
+<!-- 							<div id="calendar"></div> -->
+							<input type="text" class="form-control" id="disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
+						</div>
+						<div class="form-group">
 							<label for="hsl_chkin_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
-							<input type="text" class="form-control" id="startTime" name="hsl_chkin_str_time">
+							<div class="form-inline">
+								<input type="text" class="form-control" id="chisTime" name="hsl_chkin_str_time" style="width: 35%"  autocomplete=off> ~ 
+								<input type="text" class="form-control" id="chieTime" name="hsl_chkin_end_time" style="width: 35%"  autocomplete=off>
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="hsl_chkout_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
-							<input type="text" class="form-control" id="endTime" name="hsl_chkout_str_time">
+							<div class="form-inline">
+								<input type="text" class="form-control" id="chosTime" name="hsl_chkout_str_time" style="width: 35%" autocomplete=off> ~ 
+								<input type="text" class="form-control" id="choeTime" name="hsl_chkout_end_time" style="width: 35%" autocomplete=off>
+							</div>
 						</div>
 						<div class="form-group">
-							<label for="hsl_size">돌봄 가능한 강아지의 크기를 선택해 주세요.</label>
+							<label for="hsl_size">돌봄 가능한 강아지의 크기를 선택해 주세요.(중복체크 가능)</label>
 							<div class="form-check">
 							  <label class="form-check-label">
 							    <input type="checkbox" class="form-check-input" value="소형견" name="hsl_size" >소형견 (0~4.9kg)
@@ -480,83 +539,82 @@ Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 �
 							  </label>
 							</div>
 						</div>	
-					 	<h6><mark>돌봄 환경에 대해 자세히 알려주세요</mark></h6>
+						<div class="form-group">
+							<label for="hsl_pet_age">돌봄 가능한 강아지의 나이를 선택해 주세요.(중복체크 가능)</label>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="checkbox" class="form-check-input" value="강아지" name="hsl_pet_age" >강아지(0~1살)
+							  </label>
+							</div>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="checkbox" class="form-check-input" value="성견" name="hsl_pet_age" >성견(2~6살)
+							  </label>
+							</div>
+							<div class="form-check">
+							  <label class="form-check-label">
+							    <input type="checkbox" class="form-check-input" value="노령견" name="hsl_pet_age" >노령견(7살 이상)
+							  </label>
+							</div>
+						</div>
+					 	<h6><mark>**돌봄 환경에 대해 자세히 알려주세요**</mark></h6>
 					 	<div class="form-group">
-							<label for="hsl_size">돌봄공간</label>
+							<label for="hsl_care_place">돌봄공간</label>
 							<div class="form-check">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio">Option 1
+							    <input type="radio" class="form-check-input" name="hsl_care_place" value="아파트">아파트
 							  </label>
 							</div>
 							<div class="form-check">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio">Option 2
+							    <input type="radio" class="form-check-input" name="hsl_care_place" value="빌라">빌라
 							  </label>
 							</div>
-							<div class="form-check disabled">
+							<div class="form-check">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio" disabled>Option 3
+							    <input type="radio" class="form-check-input" name="hsl_care_place" value="주택">주택
 							  </label>
 							</div>
 						</div>
 					 	<div class="form-group">
-							<label for="hsl_size">마당이 있나요? </label>
+							<label for="hsl_yard">마당이 있나요? </label>
 							<div class="form-check-inline">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio">Option 1
+							    <input type="radio" class="form-check-input" name="hsl_yard" value="있습니다.">있습니다.
 							  </label>
 							</div>
 							<div class="form-check-inline">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio">Option 2
+							    <input type="radio" class="form-check-input" name="hsl_yard" value="없습니다.">없습니다.
 							  </label>
 							</div>
 						</div>	
 					 	<div class="form-group">
-							<label for="hsl_size">14세 미만의 아동이 함께 거주하고 있나요? </label>
+							<label for="hsl_baby">14세 미만의 아동이 함께 거주하고 있나요? </label><br>
 							<div class="form-check-inline">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio">Option 1
+							    <input type="radio" class="form-check-input" name="hsl_baby" value="있습니다.">있습니다.
 							  </label>
 							</div>
 							<div class="form-check-inline">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio">Option 2
+							    <input type="radio" class="form-check-input" name="hsl_baby" value="없습니다.">없습니다.
 							  </label>
 							</div>
 						</div>
 					 	<div class="form-group">
-							<label for="hsl_size">다른 가족이 함께 거주하고 있나요? </label>
+							<label for="hsl_family">다른 가족과 함께 거주하고 있나요? </label>
 							<div class="form-check-inline">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio">Option 1
+							    <input type="radio" class="form-check-input" name="hsl_family" value="있습니다.">있습니다.
 							  </label>
 							</div>
 							<div class="form-check-inline">
 							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="optradio">Option 2
+							    <input type="radio" class="form-check-input" name="hsl_family" value="없습니다.">없습니다.
 							  </label>
 							</div>
 						</div>
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
-					 
 					</div>
 				</div>	
 				<div class="btnGroup">

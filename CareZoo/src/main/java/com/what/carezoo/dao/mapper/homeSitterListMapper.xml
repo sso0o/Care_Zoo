@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.HomeSitterListDao">
-	<insert id="insertHsl" parameterType="homeSitterList">
+	<insert id="insertHomeSitterList" parameterType="map">
 		<selectKey order="BEFORE" keyProperty="hsl_num" resultType="int">
 			select homsitterlist_seq.nextval from dual
 		</selectKey>
-		insert into homesitterlist
-		(hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age,hsl_writedate)
-		values
-		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age},sysdate)
+<!-- 		insert into homesitterlist -->
+<!-- 		(hsl_num,hsl_size,hsl_chkin,hsl_chkout,hsl_service_type,hsl_pet_age,hsl_writedate) -->
+<!-- 		values -->
+<!-- 		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age},sysdate) -->
+		INSERT ALL
+		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby,	hsl_family,hsl_service_type,hsl_pet_age,hsl_writedat,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time,hsd_num)
+		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time},#{hsd_num})
+		
+		INTO homesitterdisabledate (hsd_num, hs_num, hsd_disabledate) 
+		VALUES (homesitterdisabledate_seq.nextval, #{hs_num}, #{hsd_disabledate})
 	</insert>
+	
+<!-- 	<insert id="insertHsl" parameterType="map"> -->
+<!-- 		<selectKey order="BEFORE" keyProperty="hsl_num" resultType="int"> -->
+<!-- 			select homsitterlist_seq.nextval from dual -->
+<!-- 		</selectKey> -->
+<!-- 		INSERT ALL -->
+<!-- 		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby,	hsl_family,hsl_service_type,hsl_pet_age,hsl_writedat,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time,hsd_num) -->
+<!-- 		VALUES(homesitterlist_seq.nextval, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time},#{hsd_num}) -->
+<!-- 	</insert> -->
 	
 	<update id="updateHsl" parameterType="homeSitterList"></update>
 	

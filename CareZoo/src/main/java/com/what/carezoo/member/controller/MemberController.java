@@ -152,7 +152,7 @@ public class MemberController {
 			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
 			m.addAttribute("url", "loginForm");
 //		return "성공페이지로 보내기";
-			return "loginForm";
+			return "result";
 		} 
 		return "main";
 	}
