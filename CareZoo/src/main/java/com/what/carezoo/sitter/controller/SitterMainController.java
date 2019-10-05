@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -252,23 +253,19 @@ public class SitterMainController {
 
 	}
 	
-	//정기묶음 예약점 가져오기
-	@RequestMapping("/vsrGroup")
-	@ResponseBody
-	public Map<String, Object> vsrGroup(int num) {
-		Map<String, Object> rst = new HashMap<String, Object>();
-		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(num);
-		int c_num = vsr.getC_num();
-		int vsr_count = vsr.getVsr_count();
-		int[] list = vsrService.getVsrGroup(c_num, vsr_count);
-		for (int i = 0; i < list.length; i++) {
-			if(list[i] != num) {
-				rst.put(""+i+"", list[i]);
-			}
-		}
-		
-		return rst;
-	}
+//	//정기묶음 예약점 가져오기
+//	@RequestMapping("/vsrGroup")
+//	@ResponseBody
+//	public Map<String, Object> vsrGroup(int num) {
+//		Map<String, Object> rst = new HashMap<String, Object>();
+//		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(num);
+//		int c_num = vsr.getC_num();
+//		int vsr_count = vsr.getVsr_count();
+//		List<Map<String, Object>> list = vsrService.getVsrGroup(c_num, vsr_count);
+//		System.out.println(list);
+//		
+//		return rst;
+//	}
 	
 	@RequestMapping("/getVSRInfo")
 	@ResponseBody
@@ -320,38 +317,61 @@ public class SitterMainController {
 	
 	
 	@RequestMapping("/acceptVsr")
-	public String acceptVsr(HttpSession session, Model m, int vsr_num, @RequestParam(required = false) int b, @RequestParam(required = false) int c, @RequestParam(required = false) int d) {
+	public String acceptVsr(HttpSession session, Model m, int vsr_num) {
 		int vs_num = (Integer)session.getAttribute("user_num");
 		System.out.println("vs_num : "+vs_num);
-		//일반
-		if(b == 0 && c==0 && d ==0) {
+		int c_num = vsrService.getVisitSitterResByVsrnum(vsr_num).getC_num();
+		int vsr_count =  vsrService.getVisitSitterResByVsrnum(vsr_num).getVsr_count();
+//		일반인지 정기인지 체크
+		List<Map<String, Object>> list = vsrService.getVsrGroup(c_num, vsr_count);
+		System.out.println("일반 정기 확인 리스트 사이즈: "+list);
+		int check = list.size();
+		
+		if(check == 4) {
+			System.out.println("이리로 넘어오냐ㅑㅑㅑㅑㅑ");
+			List<VisitSitterReservation> num = vsrService.checkDate0_6(vs_num,
+										(String)list.get(0).get("VSR_CHKIN"),
+										(String)list.get(1).get("VSR_CHKIN"),
+										(String)list.get(2).get("VSR_CHKIN"),
+										(String)list.get(3).get("VSR_CHKIN"));
+			System.out.println("num : "+num);
+
+			if (num.size() == 0 && vsrService.acceptVsr0_6(vs_num, 
+										((BigDecimal)list.get(0).get("VSR_NUM")).intValue(),
+										((BigDecimal)list.get(1).get("VSR_NUM")).intValue(),
+										((BigDecimal)list.get(2).get("VSR_NUM")).intValue(),
+										((BigDecimal)list.get(3).get("VSR_NUM")).intValue() )){
+				m.addAttribute("msg", "수락이 완료되었습니다!");
+				return "sitter/myReservation_visit";
+			} else {
+				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
+				return "sitter/reservationListVs";
+			}
+			
+		} else {
+			//일반
+			
 			//그날 내가 예약있는지부터 확인
 			String resDate = vsrService.getVisitSitterResByVsrnum(vsr_num).getVsr_chkin();
-			if(vsrService.checkDate7(vs_num, resDate)==0 && vsrService.acceptVsr7(vs_num,vsr_num)) {
-				m.addAttribute("msg", "수락이 완료되었습니다!");
-				return "sitter/myReservation_visit";
+			System.out.println("예약 확인");
+			if(vsrService.checkDate7(vs_num, resDate).size()==0) {
+				System.out.println("내가 예약 가지고있나 확인");
+				if(vsrService.acceptVsr7(vs_num,vsr_num)){
+					m.addAttribute("msg", "수락이 완료되었습니다!");
+					return "sitter/myReservation_visit";
+				}
 			} else {
 				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
 				return "sitter/reservationListVs";
 			}
+				
 			
-		} else {//정기
-			//내가 예약 가지고있는지부터 확인
-			int num = vsrService.checkDate0_6(vs_num, 
-												vsrService.getVisitSitterResByVsrnum(vsr_num).getVsr_chkin(),
-												vsrService.getVisitSitterResByVsrnum(b).getVsr_chkin(),
-												vsrService.getVisitSitterResByVsrnum(c).getVsr_chkin(),
-												vsrService.getVisitSitterResByVsrnum(d).getVsr_chkin());
 			
-			if(num==0 && vsrService.acceptVsr0_6(vs_num, vsr_num, b, c, d)) {
-				m.addAttribute("msg", "수락이 완료되었습니다!");
-				return "sitter/myReservation_visit";
-			} else {
-				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
-				return "sitter/reservationListVs";
-			}
-		}		
+		}
+		return null;	
 	}
+		
+		
 	
 	//방문시터 예약현황 페이지
 	@RequestMapping("/myReservationVs_Page")

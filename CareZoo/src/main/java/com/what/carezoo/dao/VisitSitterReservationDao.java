@@ -34,10 +34,10 @@ public interface VisitSitterReservationDao {
 	public List<VisitSitterReservation>getVsrByStatus7();
 	public List<VisitSitterReservation>getVsrByStatus0_6();
 	
-	public int[] getVsrGroup(@Param("c_num")int c_num, @Param("vsr_count") int vsr_count);
+	public List<Map<String, Object>> getVsrGroup(@Param("c_num")int c_num, @Param("vsr_count") int vsr_count);
 	
-	public List<VisitSitterReservation> checkDate7(@Param("vs_num")int vs_num, @Param("vsr_chkin")String vsr_chkin);
-	public List<VisitSitterReservation> checkDate0_6(@Param("vs_num")int vs_num, @Param("a")String vsr_chkin,@Param("b")String b,@Param("c")String c, @Param("d")String d);
+	public List<VisitSitterReservation> checkDate7(Map<String, Object> param);
+	public List<VisitSitterReservation> checkDate0_6(Map<String, Object> param);
 	
 	public int acceptVsr7(Map<String, Object> param);
 	public int acceptVsr0_6(Map<String, Object> param);

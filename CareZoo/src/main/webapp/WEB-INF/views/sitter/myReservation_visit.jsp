@@ -142,7 +142,7 @@
  						start : data.rst1[i].VSR_CHKIN,
  						title : data.rst1[i].C_NAME,
  						description : "*" + data.rst1[i].VSR_STATUS,
- 						color : 'rgba(0, 0, 120, 0.6)',
+ 						color : 'rgb(0, 0, 120)',
  						textColor : "white"
 					}
 					calendar.addEvent(e)
@@ -156,7 +156,7 @@
  						start : data.rst2[i].VSR_CHKIN,
  						title : data.rst2[i].C_NAME,
  						description : "*" + data.rst2[i].VSR_STATUS,
- 						color : 'rgba(120, 0, 0, 0.6)',
+ 						color : 'rgb(120, 0, 0)',
  						textColor : "white"
 					}
 					calendar.addEvent(e)
