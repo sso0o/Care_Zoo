@@ -8,7 +8,9 @@ import org.apache.ibatis.annotations.Param;
 import com.what.carezoo.model.HomeSitterList;
 
 public interface HomeSitterListDao {
+	//회원가입 
    public int insertHsl(HomeSitterList hsl);
+   public int insertHomeSitterList(Map<String, Object> params);
    public int updateHsl(HomeSitterList hsl);
    public int deleteHsl(int hsl_num);
    public HomeSitterList selectOnebyHsl_num(int hsl_num);
