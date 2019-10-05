@@ -27,9 +27,16 @@ public class HomeSitterListService {
 		List<String> filesName = hslDao.selectFileList(hsl_num);
 		return filesName;
 	}
-	//insert 실험
-	public boolean writeHomeSitter(Map<String, Object> params) {
+	//게시글 등록
+	public boolean writeHomeSitterList(Map<String, Object> params) {
 		if(hslDao.insertHomeSitterList(params)>0) {
+			return true;
+		}
+		return false;
+	}
+	//Disable dates 등록
+	public boolean writeDisableDates(Map<String, Object> params) {
+		if(hslDao.insertDisdates(params)>0) {
 			return true;
 		}
 		return false;
