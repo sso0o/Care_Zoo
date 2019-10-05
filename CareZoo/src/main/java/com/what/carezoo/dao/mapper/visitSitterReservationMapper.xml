@@ -142,21 +142,22 @@
 		select * from VisitSitterReservation where vsr_status='0' and vsr_day between 0 and 6
 	</select>
 	
-	<select id="getVsrGroup" parameterType="int" resultType="int">
-		select vsr_num
+	<select id="getVsrGroup" parameterType="int" resultType="map">
+		select vsr_num, vsr_chkin
 		from VisitSitterReservation
 		where c_num = #{c_num}
 		and vsr_count = #{vsr_count}
+		and vsr_day between 0 and 6
 	</select>
 	
-	<select id="checkDate7" parameterType="int" resultType="VisitSitterReservation">
+	<select id="checkDate7" parameterType="map" resultType="VisitSitterReservation">
 		select *
 		from VisitSitterReservation
 		where vs_num = #{vs_num}
 		and vsr_chkin = #{vsr_chkin}
 	</select>
 	
-	<select id="checkDate0_6" parameterType="int" resultType="VisitSitterReservation">
+	<select id="checkDate0_6" parameterType="map" resultType="VisitSitterReservation">
 		select *
 		from VisitSitterReservation
 		where vs_num = #{vs_num}
@@ -195,17 +196,12 @@
 	</select>
 	
 	<select id="getMyResDay0_6" parameterType="int" resultType="map">
-		select vsrt.*, c.c_name
+		select c.c_name, vsr.*
 		from customer c,
-			(select vsr.vsr_num, vsr.c_num, vsr.vsr_status, vsr.vsr_chkin, vsr.vsr_hour, vsr.vsr_hadd
-			from visitsitterreservation vsr,
-				(select vsr_num,c_num, count(*) petCount
-				from pet_detail
-				group by vsr_num,c_num
-				order by vsr_num desc) pd
-			where vsr.vsr_num = pd.vsr_num
-			and vsr.vsr_day between 0 and 6
-			and vsr.vs_num =#{vs_num})vsrt
-		where c.c_num = vsrt.c_num
+    		(select vsr_num, c_num, vsr_chkin, vsr_hour, vsr_hadd, vsr_status, vsr_day
+    		from visitsitterreservation
+    		where vs_num = #{vs_num}
+    		and vsr_day between 0 and 6) vsr
+		where c.c_num = vsr.c_num
 	</select>
 </mapper>

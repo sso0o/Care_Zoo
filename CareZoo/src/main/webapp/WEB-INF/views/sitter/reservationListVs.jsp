@@ -53,29 +53,13 @@
 	
 	
 	function modalOpen(obj) {
+		
 		$("#petList").addClass('noshow');
 		$("#vsrInfo").removeClass('noshow');
 	
 		var num = $(obj).attr('title');
 	
 		$("#vsr_num").val(num);
-		
-		$.ajax({
-			url:"${contextPath}/sitter/vsrGroup",
-			data:{
-				num:num
-			},
-			dataType:"JSON",
-			success: function(data) {
-				if(data.rst.length>0){
-					
-				}
-			},
-			error: function() {
-				alert("error");	
-			}
-			
-		})
 		
 		$.ajax({
 			url:"${contextPath}/sitter/getVSRInfo",
@@ -134,11 +118,7 @@
 	function booking() {
 		var num = $("#vsr_num").val()
 		if(confirm("신청된 예약을 수락하시겠습니까?") ==  true){
-			if($("#b").val() == null && $("#c").val() == null && $("#d").val() == null){
-				location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num;
-			} else{
-				location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num+'&&b='$("#b").val()+'&&c='+$("#c").val()+'&&d='+$("#d").val();
-			}
+			location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num;
 			
 		} else{
 			return false;
@@ -329,9 +309,6 @@
 	<div class="row mmmmm" id="vsrInfo">
 		<p class="col-12 cl" style="text-align: right;">
 			<input type="hidden" name="vsr_num" id="vsr_num">
-			<input type="hidden" name="b" id="b">
-			<input type="hidden" name="c" id="c">
-			<input type="hidden" name="d" id="d">
 			<button type="button" class="close">&times;</button>
 		</p>
 

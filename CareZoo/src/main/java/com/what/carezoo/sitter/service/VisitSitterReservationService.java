@@ -130,20 +130,32 @@ public class VisitSitterReservationService {
 		return vsrDao.getVsrByStatus0_6();
 	}
 	
-	public int[] getVsrGroup(int c_num, int vsr_count) {
+	//정기 묶음 가져오기
+	public List<Map<String, Object>> getVsrGroup(int c_num, int vsr_count) {
+		System.out.println("in service"+c_num+" "+vsr_count);
 		return vsrDao.getVsrGroup(c_num, vsr_count);
 	}
 	
 	//중복예약 체크(일반)
-	public int checkDate7(int vs_num, String vsr_chkin) {
-		List<VisitSitterReservation> list = vsrDao.checkDate7(vs_num, vsr_chkin);
-		return list.size();
+	public List<VisitSitterReservation> checkDate7(int vs_num, String vsr_chkin) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("vs_num", vs_num);
+		param.put("vsr_chkin", vsr_chkin);
+		List<VisitSitterReservation> list = vsrDao.checkDate7(param);
+		System.out.println("list : "+list);
+		return list;
 	}
 	
 	//중복예약 체크(정기)
-	public int checkDate0_6(int vs_num, String vsr_chkin,String b,String c,String d) {
-		List<VisitSitterReservation> list = vsrDao.checkDate0_6(vs_num, vsr_chkin, b, c, d);
-		return list.size();
+	public List<VisitSitterReservation> checkDate0_6(int vs_num, String a,String b,String c,String d) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("vs_num", vs_num);
+		param.put("a", a);
+		param.put("b", b);
+		param.put("c", c);
+		param.put("d", d);
+		List<VisitSitterReservation> list = vsrDao.checkDate0_6(param);
+		return list;
 	}
 	
 	
@@ -183,6 +195,8 @@ public class VisitSitterReservationService {
 		return rst;
 	}
 	
+	
+	//내 예약 가져오기 (정기)
 	public List<Map<String, Object>> getMyResDay0_6(int vs_num) {
 		List<Map<String, Object>> rst = vsrDao.getMyResDay0_6(vs_num);
 		return rst;
