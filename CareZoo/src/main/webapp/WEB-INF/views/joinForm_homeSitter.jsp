@@ -459,164 +459,164 @@ legend{
 					<input type="button" class="form-control auth" value="인증번호 확인">
 					</div>
 				</div>
-				<p>
-					<sub>정보 확인 후 예약을 위한 게시글을 올려드립니다. <br>
-					아래 더보기를 눌러 게시글 등록을 위한 정보를 입력해 주세요.</sub><br><br>
-					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-					더보기  
-					</button>
-				</p>
-				<div class="collapse" id="collapseExample">
-					<div class="card card-body">				 
-						<div class="form-group">
-							<label for="hsl_title">글제목</label>
-							<input type="text" class="form-control" id="title" name="hsl_title">
-						</div>
-						<div class="form-group">
-							<label for="hsl_comment">글내용</label>
-							<textarea class="form-control" id="title" name="hsl_comment" style="resize: none;" rows="8" >
-Q. 왜 도그메이트 펫시터를 하게 되었나요? 
+<!-- 				<p> -->
+<!-- 					<sub>정보 확인 후 예약을 위한 게시글을 올려드립니다. <br> -->
+<!-- 					아래 더보기를 눌러 게시글 등록을 위한 정보를 입력해 주세요.</sub><br><br> -->
+<!-- 					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> -->
+<!-- 					더보기   -->
+<!-- 					</button> -->
+<!-- 				</p> -->
+<!-- 				<div class="collapse" id="collapseExample"> -->
+<!-- 					<div class="card card-body">				  -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="hsl_title">글제목</label> -->
+<!-- 							<input type="text" class="form-control" id="title" name="hsl_title"> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="hsl_comment">글내용</label> -->
+<!-- 							<textarea class="form-control" id="title" name="hsl_comment" style="resize: none;" rows="8" > -->
+<!-- Q. 왜 도그메이트 펫시터를 하게 되었나요?  -->
 
 
-Q. 반려견을 키운 경험에 대해 알려주세요. 현재 반려견을 키우고 계시다면 자세히 소개해주세요! 
+<!-- Q. 반려견을 키운 경험에 대해 알려주세요. 현재 반려견을 키우고 계시다면 자세히 소개해주세요!  -->
 
 
-Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 약속드립니다. 
+<!-- Q. 애견호텔이 아닌 저에게 맡겨주시면 아래와 같은 내용을 약속드립니다.  -->
 
 
-Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
+<!-- Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다. -->
 
 
-							</textarea>
-						</div>
-						<div class="form-group">
-							<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.(중복체크 가능)</label>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="checkbox" class="form-check-input" value="24시간돌봄" name="hsl_service_type" >24시간 돌봄(하루 이상)
-							  </label>
-							</div>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="checkbox" class="form-check-input" value="데이케어" name="hsl_service_type" >데이케어(하루 미만)
-							  </label>
-							</div>
-						</div>	
-						<div class="form-group">
-							<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br>
-<!-- 							<div id="calendar"></div> -->
-							<input type="text" class="form-control" id="disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
-						</div>
-						<div class="form-group">
-							<label for="hsl_chkin_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
-							<div class="form-inline">
-								<input type="text" class="form-control" id="chisTime" name="hsl_chkin_str_time" style="width: 35%"  autocomplete=off> ~ 
-								<input type="text" class="form-control" id="chieTime" name="hsl_chkin_end_time" style="width: 35%"  autocomplete=off>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="hsl_chkout_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
-							<div class="form-inline">
-								<input type="text" class="form-control" id="chosTime" name="hsl_chkout_str_time" style="width: 35%" autocomplete=off> ~ 
-								<input type="text" class="form-control" id="choeTime" name="hsl_chkout_end_time" style="width: 35%" autocomplete=off>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="hsl_size">돌봄 가능한 강아지의 크기를 선택해 주세요.(중복체크 가능)</label>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="checkbox" class="form-check-input" value="소형견" name="hsl_size" >소형견 (0~4.9kg)
-							  </label>
-							</div>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="checkbox" class="form-check-input" value="중형견" name="hsl_size" >중형견 (5~14.9kg)
-							  </label>
-							</div>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="checkbox" class="form-check-input" value="대형견" name="hsl_size" >대형견 (15kg 이상)
-							  </label>
-							</div>
-						</div>	
-						<div class="form-group">
-							<label for="hsl_pet_age">돌봄 가능한 강아지의 나이를 선택해 주세요.(중복체크 가능)</label>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="checkbox" class="form-check-input" value="강아지" name="hsl_pet_age" >강아지(0~1살)
-							  </label>
-							</div>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="checkbox" class="form-check-input" value="성견" name="hsl_pet_age" >성견(2~6살)
-							  </label>
-							</div>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="checkbox" class="form-check-input" value="노령견" name="hsl_pet_age" >노령견(7살 이상)
-							  </label>
-							</div>
-						</div>
-					 	<h6><mark>**돌봄 환경에 대해 자세히 알려주세요**</mark></h6>
-					 	<div class="form-group">
-							<label for="hsl_care_place">돌봄공간</label>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_care_place" value="아파트">아파트
-							  </label>
-							</div>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_care_place" value="빌라">빌라
-							  </label>
-							</div>
-							<div class="form-check">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_care_place" value="주택">주택
-							  </label>
-							</div>
-						</div>
-					 	<div class="form-group">
-							<label for="hsl_yard">마당이 있나요? </label>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_yard" value="있습니다.">있습니다.
-							  </label>
-							</div>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_yard" value="없습니다.">없습니다.
-							  </label>
-							</div>
-						</div>	
-					 	<div class="form-group">
-							<label for="hsl_baby">14세 미만의 아동이 함께 거주하고 있나요? </label><br>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_baby" value="있습니다.">있습니다.
-							  </label>
-							</div>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_baby" value="없습니다.">없습니다.
-							  </label>
-							</div>
-						</div>
-					 	<div class="form-group">
-							<label for="hsl_family">다른 가족과 함께 거주하고 있나요? </label>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_family" value="있습니다.">있습니다.
-							  </label>
-							</div>
-							<div class="form-check-inline">
-							  <label class="form-check-label">
-							    <input type="radio" class="form-check-input" name="hsl_family" value="없습니다.">없습니다.
-							  </label>
-							</div>
-						</div>
-					</div>
-				</div>	
+<!-- 							</textarea> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.(중복체크 가능)</label> -->
+<!-- 							<div class="form-check-inline"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="checkbox" class="form-check-input" value="24시간돌봄" name="hsl_service_type" >24시간 돌봄(하루 이상) -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check-inline"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="checkbox" class="form-check-input" value="데이케어" name="hsl_service_type" >데이케어(하루 미만) -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 						</div>	 -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br> -->
+<!-- <!-- 							<div id="calendar"></div> --> -->
+<!-- 							<input type="text" class="form-control" id="disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off > -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="hsl_chkin_str_time">체크인 가능 시간의 범위를 지정해 주세요</label> -->
+<!-- 							<div class="form-inline"> -->
+<!-- 								<input type="text" class="form-control" id="chisTime" name="hsl_chkin_str_time" style="width: 35%"  autocomplete=off> ~  -->
+<!-- 								<input type="text" class="form-control" id="chieTime" name="hsl_chkin_end_time" style="width: 35%"  autocomplete=off> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="hsl_chkout_str_time">체크인 가능 시간의 범위를 지정해 주세요</label> -->
+<!-- 							<div class="form-inline"> -->
+<!-- 								<input type="text" class="form-control" id="chosTime" name="hsl_chkout_str_time" style="width: 35%" autocomplete=off> ~  -->
+<!-- 								<input type="text" class="form-control" id="choeTime" name="hsl_chkout_end_time" style="width: 35%" autocomplete=off> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="hsl_size">돌봄 가능한 강아지의 크기를 선택해 주세요.(중복체크 가능)</label> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="checkbox" class="form-check-input" value="소형견" name="hsl_size" >소형견 (0~4.9kg) -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="checkbox" class="form-check-input" value="중형견" name="hsl_size" >중형견 (5~14.9kg) -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="checkbox" class="form-check-input" value="대형견" name="hsl_size" >대형견 (15kg 이상) -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 						</div>	 -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="hsl_pet_age">돌봄 가능한 강아지의 나이를 선택해 주세요.(중복체크 가능)</label> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="checkbox" class="form-check-input" value="강아지" name="hsl_pet_age" >강아지(0~1살) -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="checkbox" class="form-check-input" value="성견" name="hsl_pet_age" >성견(2~6살) -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="checkbox" class="form-check-input" value="노령견" name="hsl_pet_age" >노령견(7살 이상) -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					 	<h6><mark>**돌봄 환경에 대해 자세히 알려주세요**</mark></h6> -->
+<!-- 					 	<div class="form-group"> -->
+<!-- 							<label for="hsl_care_place">돌봄공간</label> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_care_place" value="아파트">아파트 -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_care_place" value="빌라">빌라 -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_care_place" value="주택">주택 -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					 	<div class="form-group"> -->
+<!-- 							<label for="hsl_yard">마당이 있나요? </label> -->
+<!-- 							<div class="form-check-inline"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_yard" value="있습니다.">있습니다. -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check-inline"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_yard" value="없습니다.">없습니다. -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 						</div>	 -->
+<!-- 					 	<div class="form-group"> -->
+<!-- 							<label for="hsl_baby">14세 미만의 아동이 함께 거주하고 있나요? </label><br> -->
+<!-- 							<div class="form-check-inline"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_baby" value="있습니다.">있습니다. -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check-inline"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_baby" value="없습니다.">없습니다. -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					 	<div class="form-group"> -->
+<!-- 							<label for="hsl_family">다른 가족과 함께 거주하고 있나요? </label> -->
+<!-- 							<div class="form-check-inline"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_family" value="있습니다.">있습니다. -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-check-inline"> -->
+<!-- 							  <label class="form-check-label"> -->
+<!-- 							    <input type="radio" class="form-check-input" name="hsl_family" value="없습니다.">없습니다. -->
+<!-- 							  </label> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div>	 -->
 				<div class="btnGroup">
 					<input type="submit" class="btn btn-submit" value="가입">
 					<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">

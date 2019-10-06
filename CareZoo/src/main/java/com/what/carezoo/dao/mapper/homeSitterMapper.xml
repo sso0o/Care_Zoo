@@ -37,8 +37,8 @@
 <!-- 		<selectKey order="BEFORE" keyProperty="hs_num" resultType="int"> -->
 <!-- 			select hs_num_seq.nextval from dual -->
 <!-- 		</selectKey> -->
-<!-- 		insert into homesitter(hs_name,hs_sex,hs_birth,hs_contact,hs_address,hs_d_address,hs_job,hs_e_address,hs_pass,hs_pass_chk,hs_regi_date) -->
-<!-- 		values (#{hs_name}, #{hs_sex}, #{hs_birth}, #{hs_contact}, #{hs_address}, #{hs_d_address}, #{hs_job}, #{hs_e_address}, #{hs_pass}, #{hs_pass_chk}, sysdate ) -->
+<!-- 		insert into homesitter(hs_name,hs_sex,hs_birth,hs_contact,hs_address,hs_d_address,hs_e_address,hs_pass,hs_pass_chk,hs_regi_date) -->
+<!-- 		values (#{hs_name}, #{hs_sex}, #{hs_birth}, #{hs_contact}, #{hs_address}, #{hs_d_address},  #{hs_e_address}, #{hs_pass}, #{hs_pass_chk}, sysdate ) -->
 <!-- 	</insert> -->
 	
 	<update id="updateHomeSitter" parameterType="homesitter">
@@ -47,9 +47,7 @@
 		    hs_birth = #{hs_birth},
 		   	hs_contact = #{hs_contact},
 		    hs_address = #{hs_address},
-		    hs_d_address = #{hs_d_address},
-		    hs_job = #{hs_job},
-		    hs_e_address = #{hs_e_address}
+		    hs_d_address = #{hs_d_address}
 		where hs_num = #{hs_num}
 	</update>
 	
@@ -78,4 +76,13 @@
 		select count(*) from homesitter where hs_email = #{hs_email}
 	</select>
 	
+	<select id="selectFile" parameterType="int" resultType="string">
+		select hs_filename from homesitter where hs_num = #{hs_num}
+	</select>
+	
+	<update id="updateFile" parameterType="map">
+		update homesitter
+		set hs_filename = #{hs_filename}	
+		where hs_num = #{hs_num}
+	</update>
 </mapper>

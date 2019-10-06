@@ -27,7 +27,7 @@
 		VALUES
 		<foreach collection="list" item="item" separator=",">
         (
-            homesitterdisabledate_seq.nextval,
+            get_homesitterdisabledate_seq,
             #{item.hs_num},
             #{item.hsd_disabledate},
         )

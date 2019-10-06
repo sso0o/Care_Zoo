@@ -140,7 +140,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 			return false;
 		}
 		
-		if($("#contact").val() != "${customer.c_contact}"){
+		if($("#contact").val() != "${hs.hs_contact}"){
 			alert("번호 인증을 해주세요");
 			return false;
 		}
@@ -170,30 +170,30 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 			
 		});
 	
-		$("#email").val("${customer.c_email}");
-		$("#name").val("${customer.c_name}");
-		$("#contact").val("${customer.c_contact}");
-		$("#address").val("${customer.c_address}");
-		$("#d_address").val("${customer.c_d_address}");
-		$("#birth").val("${customer.c_birth}");
-		if("${customer.c_birth}" == "1"){
+		$("#email").val("${hs.hs_email}");
+		$("#name").val("${hs.hs_name}");
+		$("#contact").val("${hs.hs_contact}");
+		$("#address").val("${hs.hs_address}");
+		$("#d_address").val("${hs.hs_d_address}");
+		$("#birth").val("${hs.hs_birth}");
+		if("${hs.hs_birth}" == "1"){
 			$("#sex").val("여자");
-			$("#c_sex").val("1");
+			$("#hs_sex").val("1");
 		} else {
 			$("#sex").val("남자");
-			$("#c_sex").val("2");
+			$("#hs_sex").val("2");
 		}
 		
 		$.ajax({
-			url:"${contextPath}/member/getImg",
+			url:"${contextPath}/sitter/getHsImg",
 			data:{
-				user_num : user_num
+				hs_num : user_num
 			},
 			dataType: "JSON",
 			success: function(data) {
 				console.log(data)
 				if(data.filename != null){
-					$("#img").attr("src","${contextPath}/member/image?fileName="+data.filename)
+					$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
 				} else {
 					$("#img").attr("src","${contextPath}/resources/img/user.jpg")
 				}
@@ -211,7 +211,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 			// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
 			//새로 추가 할 경우 두번째 tr 값을 복사하여 newitem변수에 대입
 			//var newitem = $("#file"+lastItemNo).clone();
-			var newfile = "<input type='file' id='file' name='file' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
+			var newfile = "<input type='file' id='file' name='fileName' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
 			$("#example").append(newfile);
 			//아이템 추가시 id="item" 값에 넘버를 추가해 준다.               
 			//newitem.attr("id", "file" + (parseInt(lastItemNo) + 1));
@@ -415,37 +415,37 @@ legend{
 	<br><br><br>
 	<div class="content">
 		<span>회원정보 수정페이지ㅣ</span>
-		<form action="${contextPath }/member/modify" method="post" name="userInfo" onsubmit="return checkValue()" enctype="multipart/form-data" >
+		<form action="${contextPath }/sitter/modifyHs" method="post" name="homesitterInfo" onsubmit="return checkValue()" enctype="multipart/form-data" >
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
-			<input type="hidden" value="<%=session.getAttribute("user_num")%>" name="c_num">
+			<input type="hidden" value="<%=session.getAttribute("user_num")%>" name="hs_num">
 			<div class="main">
 				<div class="form-group">
-					<label for="c_email">아이디</label>
-					<input type="email" class="form-control" id="email" name="c_email" readonly="readonly">
+					<label for="hs_email">아이디</label>
+					<input type="email" class="form-control" id="email" name="hs_email" readonly="readonly">
 					<span id="idchk_val"></span>
 				</div>
 				<div class="form-group">
-					<label for="c_pass">비밀번호</label>
-					<input type="password" class="form-control" id="pw" placeholder="비밀번호를 입력해 주세요" name="c_pass">
+					<label for="hs_pass">비밀번호</label>
+					<input type="password" class="form-control" id="pw" placeholder="비밀번호를 입력해 주세요" name="hs_pass">
 					<span id="pw_val"></span>
 				</div>
 				<div class="form-group">
-					<label for="c_pass_chk">비밀번호 확인</label>
-					<input type="password" class="form-control" id="pw2" placeholder="비밀번호 확인" name="c_pass_chk">
+					<label for="hs_pass_chk">비밀번호 확인</label>
+					<input type="password" class="form-control" id="pw2" placeholder="비밀번호 확인" name="hs_pass_chk">
 					<span id="pwchk_val"></span>
 				</div>
 				<div class="form-group">
-					<label for="c_name">이름</label>
-					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="c_name" readonly="readonly">
+					<label for="hs_name">이름</label>
+					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="hs_name" readonly="readonly">
 				</div>
 				<div class="form-group">
-					<label for="email">생년월일</label>
-					<input type="date" class="form-control" id="birth" name="c_birth" readonly="readonly">
+					<label for="hs_birth">생년월일</label>
+					<input type="date" class="form-control" id="birth" name="hs_birth" readonly="readonly">
 				</div>
 				<div class="form-group">
-					<label for="c_sex">성별</label>
+					<label for="hs_sex">성별</label>
 					<input type="text" class="form-control" id="sex" readonly="readonly">
-					<input type="hidden" class="form-control" id="c_sex" name="c_sex" readonly="readonly">
+					<input type="hidden" class="form-control" id="hs_sex" name="hs_sex" readonly="readonly">
 				</div>
 				<div class="form-group imgs">
 					<div class="imgs_wrap" id="imgs_wrap" >
@@ -457,15 +457,15 @@ legend{
 				<div class="form-group">
 					<label for="address">주소</label><label class="space"></label>
 	<!-- 				<input type="button" onclick="sample4_execDaumPostcode()" class="btn btn-outline-success" value="우편번호 찾기"> -->
-					<input type="text" class="form-control" id="address" placeholder="도로명 주소" name="c_address" readonly="readonly" onclick="getAddress()">
+					<input type="text" class="form-control" id="address" placeholder="도로명 주소" name="hs_address" readonly="readonly" onclick="getAddress()">
 					<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
-					<input type="text" class="form-control" id="d_address" placeholder="상세주소를 입력해 주세요" name="c_d_address" style="margin-top: 5px">
+					<input type="text" class="form-control" id="d_address" placeholder="상세주소를 입력해 주세요" name="hs_d_address" style="margin-top: 5px">
 					<span id="guide" style="color: #999"></span>
 				</div>
 				<div class="form-group">
 					<label for="c_contact">휴대전화</label>
 					<div class="mobile-area">
-					<input type="tel" class="form-control phone" id="contact" placeholder="숫자만 입력해 주세요" name="c_contact">
+					<input type="tel" class="form-control phone" id="contact" placeholder="숫자만 입력해 주세요" name="hs_contact">
 					<input type="button" class="form-control auth" value="인증번호 받기">
 					<input type="text" class="form-control phone" id="contact_chk" placeholder="인증번호를 입력해 주세요" style="margin-top: 5px;">
 					<input type="button" class="form-control auth" value="인증번호 확인">

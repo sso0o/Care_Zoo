@@ -32,8 +32,6 @@
 	var user_name = "<%=session.getAttribute("user_name")%>"
 	var d = new Date();
 	
-	alert("가정시터");
-	
 	function logoutCheck() {
 		if (confirm("정말 로그아웃?") == true) {
 			location.href = '${contextPath}/logout'
@@ -44,16 +42,16 @@
 	
 	$(function() {
 		$.ajax({
-			url:"${contextPath}/member/getCustomerInfo",
+			url:"${contextPath}/sitter/getHomeInfo",
 			data:{
-				user_num : user_num
+				hs_num : user_num
 			},
 			dataType: "JSON",
 			success: function(data) {
 				console.log(data);
-				$("#card-birth").text(data.customerInfo.c_birth);
-				$("#card-address").text(data.customerInfo.c_address+" "+data.customerInfo.c_d_address);
-				$("#card-contact").text(data.customerInfo.c_contact.substr(0, 3)+"-"+data.customerInfo.c_contact.substr(3, 4)+"-"+data.customerInfo.c_contact.substr(7, 4));
+				$("#card-birth").text(data.hsInfo.hs_birth);
+				$("#card-address").text(data.hsInfo.hs_address+" "+data.hsInfo.hs_d_address);
+				$("#card-contact").text(data.hsInfo.hs_contact.substr(0, 3)+"-"+data.hsInfo.hs_contact.substr(3, 4)+"-"+data.hsInfo.hs_contact.substr(7, 4));
 				
 			}, error: function() {
 				alert("error")
@@ -61,15 +59,15 @@
 		})
 		
 		$.ajax({
-			url:"${contextPath}/member/getImg",
+			url:"${contextPath}/sitter/getHsImg",
 			data:{
-				user_num : user_num
+				hs_num : user_num
 			},
 			dataType: "JSON",
 			success: function(data) {
 				console.log(data)
 				if(data.filename != null){
-					$("#img").attr("src","${contextPath}/member/image?fileName="+data.filename)
+					$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
 				} else {
 					$("#img").attr("src","${contextPath}/resources/img/user.jpg")
 				}
@@ -213,7 +211,7 @@
 					<label class="card-label">생년월일</label><p class="card-text text-center" id="card-birth">2</p><br>
 					<label class="card-label">연락처</label><p class="card-text text-center" id="card-contact">2</p><br>
 					<label class="card-label">주소</label><p class="card-text text-center" id="card-address">2</p><br>
-					<a href="${contextPath }/member/modifyUserInfo" class="btn btn-my" style="text-align: center;">정보 수정</a>
+					<a href="${contextPath }/sitter/modifySitterInfo" class="btn btn-my" style="text-align: center;">정보 수정</a>
 				</div>
 			</div>
 		</div>

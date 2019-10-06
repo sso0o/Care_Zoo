@@ -60,46 +60,70 @@ public class HomeSitterController {
 //		return "sitter/home/NewFile";
 //	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////가정시터 회원가입	
+//	//이메일 인증 보내기 메서드
+//	@RequestMapping(value = "/join", method = RequestMethod.POST)
+//	public String joinHomeSitter(
+//			@RequestParam Map<String, Object> params,
+//			Model model, HttpServletRequest request, String hsl_service_type, String hsl_size, String hsl_pet_age
+//			) {
+//		List<Object> hsd_disabledate_list = Arrays.asList(params.get("hsd_disabledate"));
+////		List<String> hsl_service_type_list = Arrays.asList(hsl_service_type.split(","));
+////		List<String> hsl_size_list = Arrays.asList(hsl_size.split(","));
+////		List<String> hsl_pet_age_list = Arrays.asList(hsl_pet_age.split(","));
+////		params.put("hsd_disabledate", hsd_disabledate_list);
+//		params.put("hsl_service_type", hsl_service_type);
+//		params.put("hsl_size", hsl_size);
+//		params.put("hsl_pet_age", hsl_pet_age);
+//		 System.out.println("파람"+params);
+////		 System.out.println(hsd_disabledate_list);
+////		 System.out.println(hsl_service_type_list);
+////		 System.out.println(hsl_size_list);
+////		 System.out.println(hsl_pet_age_list);
+//		 //우선 회원가입만 먼저 하고 나중에 넣어야지
+//		 //회원가입 메서드 
+//		boolean hsRst = hsService.joinHomeSitter(params);
+//		boolean hslRst = hslService.writeHomeSitterList(params);
+//		boolean hslDisdate = hslService.writeDisableDates(hsd_disabledate_list);
+////		System.out.println("hsRst : "+ hsRst+"hslRst"+hslRst);
+//		if(hsRst && hslRst && hslDisdate ) {
+//			System.out.println("글등록 성공!!");
+////			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
+////			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요 :)");			
+//			return "redirect:main";
+//		} else {
+////			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");	
+//			return "redirect:joinForm";
+//		}
+//	}
+	@RequestMapping("/noAuth")
+	public String noAuth() {
+		return "noAuth";
+	}
+	
 	//이메일 인증 보내기 메서드
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinHomeSitter(
-			@RequestParam Map<String, Object> params,
-			Model model, HttpServletRequest request, String hsl_service_type, String hsl_size, String hsl_pet_age
-			) {
-		List<Object> hsd_disabledate_list = Arrays.asList(params.get("hsd_disabledate"));
-//		List<String> hsl_service_type_list = Arrays.asList(hsl_service_type.split(","));
-//		List<String> hsl_size_list = Arrays.asList(hsl_size.split(","));
-//		List<String> hsl_pet_age_list = Arrays.asList(hsl_pet_age.split(","));
-		params.put("hsd_disabledate", hsd_disabledate_list);
-		params.put("hsl_service_type", hsl_service_type);
-		params.put("hsl_size", hsl_size);
-		params.put("hsl_pet_age", hsl_pet_age);
+	public String joinHomeSitter(@RequestParam Map<String, Object> params,Model model, HttpServletRequest request) {
+
 		 System.out.println("파람"+params);
-//		 System.out.println(hsd_disabledate_list);
-//		 System.out.println(hsl_service_type_list);
-//		 System.out.println(hsl_size_list);
-//		 System.out.println(hsl_pet_age_list);
-		 //우선 회원가입만 먼저 하고 나중에 넣어야지
+
 		 //회원가입 메서드 
 		boolean hsRst = hsService.joinHomeSitter(params);
-		boolean hslRst = hslService.writeHomeSitterList(params);
-		boolean hslDisdate = hslService.writeDisableDates(params);
-//		System.out.println("hsRst : "+ hsRst+"hslRst"+hslRst);
-		if(hsRst && hslRst && hslDisdate ) {
+		if(hsRst) {
 			System.out.println("글등록 성공!!");
-//			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
-//			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요 :)");			
-			return "redirect:main";
+			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
+			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요:)");	
+			model.addAttribute("url", "${contextPath}/home/main");
 		} else {
-//			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");	
-			return "redirect:joinForm";
+			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");
+			model.addAttribute("url", "${contextPath}/member/joinHome");
 		}
+		return "redirect:result";
 	}
 	// e-mail 인증 컨트롤러
 	@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
 	public String key_alterConfirm(Model model, String hs_email, String hs_email_key) {
 		if(mailsender.alter_userKey_service(hs_email, hs_email_key)>0) {
-			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 로그인 후 이용바랍니다.");
+			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 게시글 등록을 위해 회원정보를 업데이트 해주세요");
 			model.addAttribute("url", "loginForm");
 		}else {
 			model.addAttribute("msg", "회원가입이 진행중입니다. 확인 후 이용바랍니다.");
@@ -107,38 +131,7 @@ public class HomeSitterController {
 		}
 		return "result";
 	}
-/*
-	//이메일 인증 보내기 메서드
-		@RequestMapping(value="/join", method=RequestMethod.POST)
-		public String join(Customer customer, Model m,HttpServletRequest request) {
-			//회원가입 메서드
-			boolean result = memberService.joinMember(customer);
-			if(result) {					
-				//인증메일 보내기 메서드 		
-				mailsender.mailSendWithMemberKey(customer.getC_email(),customer.getC_name(), request);
-				m.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인후 로그인 해주세요 :)");	
-				return "main";
-			} 
-			return "joinForm";
-		}
-*/
-	
-/*		// e-mail 인증 컨트롤러
-		@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
-		public String key_alterConfirm(Customer customer, Model m
-				, String c_email, String c_email_key
-				) {
-			System.out.println("이거 메일 인증 커느롤러"+mailsender.alter_userKey_service(customer.getC_email(), customer.getC_email_key())); // mailsender의 경우 @Autowired
-			
-			if(mailsender.alter_userKey_service(customer.getC_email(), customer.getC_email_key())>0) {
-				m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
-				m.addAttribute("url", "loginForm");
-//			return "성공페이지로 보내기";
-				return "loginForm";
-			} 
-			return "main";
-		}
-*/
+
 	//아이디 유효성 검사
 	@ResponseBody
 	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
@@ -151,7 +144,61 @@ public class HomeSitterController {
 		map.put("cnt", count);
 		return map;
 	}
-	
+//	///////////////////////////////////////회원정보 수정(소연's)
+//	@RequestMapping("/modifyHsInfo")
+//	public String modifyHsInfo() {
+//		return "home/pwCheckHomesitter";
+//	}
+//	// 수정 전회원 확인(비밀번호 확인)
+//	@RequestMapping(value = "/pwCheckHomesitter", method=RequestMethod.POST)
+//	public String userCheck(int hs_num, String hs_pass, Model model, @RequestParam(defaultValue = "0") int p_num) {
+//		HomeSitter hs = hsService.getHomeSitterByNum(hs_num);
+//		String url = "";
+//		if(hs.getHs_pass().equals(hs_pass)) {
+//			model.addAttribute("hs", hs);
+//			url = "home/modifyHomesitterInfo";
+//		}else {
+//			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+//			url = "result";
+//		}
+//		return url;
+//	}
+//	//회원정보 수정
+//	@RequestMapping(value = "/modify", method=RequestMethod.POST)
+//	public String modifyUser(HomeSitter hs, Model m, MultipartHttpServletRequest mtfRequest) {
+//		MultipartFile file = mtfRequest.getFile("file");
+//		System.out.println("file : " + file);
+//		System.out.println("hs : "+hs);
+//		boolean rst = hsService.modifyHomeSitter(hs,file);
+//		if(rst) {
+//			m.addAttribute("msg", "회원정보를 수정하였습니다");
+//			return "sitter/hsInfo";
+//		} else {
+//			m.addAttribute("hs", hs);
+//			m.addAttribute("msg", "회원정보 수정 실패!");
+//			return "sitter/modifyHsinfo";
+//		}
+//			
+//	}
+//	//회원정보 가져오기(ajax)
+//	@ResponseBody
+//	@RequestMapping("/getHsInfo")
+//	public Map<String, Object> getCustomerInfo(int hs_num) {
+//		System.out.println("getHsInfo");
+//		Map<String, Object> rst = new HashMap<String, Object>();
+//		rst.put("getHsInfo", hsService.getHomeSitterByNum(hs_num));
+//		return rst;
+//	}
+//	@ResponseBody
+//	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
+//	public Map<String, Object> getImg(int hs_num) {
+//		System.out.println("getImg hs_num="+hs_num);
+//		String filename = hsService.getImage(hs_num);
+//		Map<String, Object> rst = new HashMap<String, Object>();
+//		rst.put("filename", filename);
+//		System.out.println("rst : "+rst);
+//		return rst;
+//	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////가정시터 메인 보여주기
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")

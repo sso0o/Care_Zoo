@@ -35,8 +35,10 @@ public class HomeSitterListService {
 		return false;
 	}
 	//Disable dates 등록
-	public boolean writeDisableDates(Map<String, Object> params) {
+	public boolean writeDisableDates(List<Object> params) {
+		System.out.println("동작쓰");
 		if(hslDao.insertDisdates(params)>0) {
+			System.out.println("이거왜 동작안하지");
 			return true;
 		}
 		return false;
