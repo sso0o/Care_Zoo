@@ -208,4 +208,11 @@
 			and vsr.vs_num =#{vs_num})vsrt
 		where c.c_num = vsrt.c_num
 	</select>
+	
+	<select id="selectByP_numVsr_chkin" parameterType="int" resultType="map" >
+		select d.p_num,v.vsr_chkin 
+		from pet_detail d join visitsitterreservation v 
+		on d.vsr_num = v.vsr_num
+		and d.p_num = #{p_num} and v.vsr_chkin = #{vsr_chkin};
+	</select>
 </mapper>

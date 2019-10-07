@@ -44,5 +44,8 @@ public interface VisitSitterReservationDao {
 	
 	public List<Map<String, Object>> getMyResDay7(int vs_num);
 	public List<Map<String, Object>> getMyResDay0_6(int vs_num);
+	//중복예약 방지
+	public List<Map<String, Object>> selectByP_numVsr_chkin(@Param("p_num")int p_num,@Param("vsr_chkin")String vsr_chkin);
+	
 
 }
