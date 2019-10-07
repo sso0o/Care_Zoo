@@ -34,15 +34,17 @@
 <link rel='stylesheet' href='${contextPath}/resources/css/star.css' />
 
 <!-- 달력 이벤트 마우스 가져다대면 정보뜨는거 -->
-<link rel='stylesheet' href='${contextPath}/resources/css/popper_tooltip.css' />
 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+<link rel='stylesheet' href='${contextPath}/resources/css/popper_tooltip.css' />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 
 
 <script>
@@ -142,7 +144,7 @@
  						start : data.rst1[i].VSR_CHKIN,
  						title : data.rst1[i].C_NAME,
  						description : "*" + data.rst1[i].VSR_STATUS,
- 						color : 'rgb(0, 0, 120)',
+ 						color : 'rgba(0, 0, 120,0.6)',
  						textColor : "white"
 					}
 					calendar.addEvent(e)
@@ -156,7 +158,7 @@
  						start : data.rst2[i].VSR_CHKIN,
  						title : data.rst2[i].C_NAME,
  						description : "*" + data.rst2[i].VSR_STATUS,
- 						color : 'rgb(120, 0, 0)',
+ 						color : 'rgba(120, 0, 0, 0.6)',
  						textColor : "white"
 					}
 					calendar.addEvent(e)
@@ -278,7 +280,6 @@
 	background-color: #40bf9f;
 	cursor: pointer;
 }
-
 
 </style>
 <title>mypage</title>

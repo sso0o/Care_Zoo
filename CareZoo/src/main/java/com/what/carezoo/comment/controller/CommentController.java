@@ -177,7 +177,7 @@ public class CommentController {
 		HomeSitterReservation hsr = hsrService.getHomeSitterResByHsrnum(num);
 		HomeSitter hs = hsService.getHomeSitterByNum(hsr.getHs_num());
 		String name = hs.getHs_name();
-		int contact = hs.getHs_contact();
+		String contact = hs.getHs_contact();
 		String address = hs.getHs_address()+hs.getHs_d_address();
 		Double star = commentService.getStarHS(hs.getHs_num());
 		rst.put("star",star);			

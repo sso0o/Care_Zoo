@@ -76,6 +76,7 @@
 		select count(*) from homesitter where hs_email = #{hs_email}
 	</select>
 	
+
 	<select id="selectFile" parameterType="int" resultType="string">
 		select hs_filename from homesitter where hs_num = #{hs_num}
 	</select>
@@ -85,4 +86,5 @@
 		set hs_filename = #{hs_filename}	
 		where hs_num = #{hs_num}
 	</update>
+
 </mapper>

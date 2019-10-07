@@ -115,7 +115,7 @@ public class SitterMainController {
 	@ResponseBody
 	@RequestMapping("/getVisitInfo")
 	public Map<String, Object> getVisitInfo(int vs_num) {
-		System.out.println("여기오니이이이ㅣ이ㅣㅣㅣㅇ");
+//		System.out.println("여기오니이이이ㅣ이ㅣㅣㅣㅇ");
 		Map<String, Object> rst = new HashMap<String, Object>();
 		rst.put("vsInfo", vsService.getVisitSitterByNum(vs_num));
 		return rst;
@@ -125,7 +125,7 @@ public class SitterMainController {
 	@ResponseBody
 	@RequestMapping("/getHomeInfo")
 	public Map<String, Object> getHomeInfo(int hs_num) {
-		System.out.println("여기오니이이이ㅣ이ㅣㅣㅣㅇ");
+//		System.out.println("여기오니이이이ㅣ이ㅣㅣㅣㅇ");
 		Map<String, Object> rst = new HashMap<String, Object>();
 		rst.put("hsInfo", hsService.getHomeSitterByNum(hs_num));
 		return rst;
@@ -147,7 +147,7 @@ public class SitterMainController {
 	@ResponseBody
 	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)
 	public Map<String, Object> getHsImg(int hs_num) {
-		System.out.println("vs넘어오나");
+		System.out.println("hs넘어오나");
 		System.out.println(hs_num);
 		Map<String, Object> rst = new HashMap<String, Object>();
 		String filename = hsService.getImage(hs_num);
@@ -155,11 +155,13 @@ public class SitterMainController {
 		System.out.println("rst : "+rst);
 		return rst;
 	}
-
+	
+	//가정, 방문 둘다 여기로옴
 	@RequestMapping("/modifySitterInfo")
 	public String modifySitterInfo() {
 		return "sitter/checkUser";
 	}
+	
 	
 	// 수정 전회원 확인(비밀번호 확인)
 	@RequestMapping(value = "/userCheck", method = RequestMethod.POST)
@@ -226,54 +228,27 @@ public class SitterMainController {
 	}
 	
 	
-	@ResponseBody
-	@RequestMapping(value = "/image")
-	public byte[] getImg(String fileName) {
-		File file = new File(FILE_PATH + fileName);
-		
-		InputStream in = null;
-		try {
-			in = new FileInputStream(file);
-			// 스트림을 byte[] 형태로 만들기 위해서 라이브러리 추가(CommonIO)
-			return IOUtils.toByteArray(in);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(in != null) in.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-	
-	
 	//방문시터 신청한 예약 목록 가져오기
 	@RequestMapping("/getVsrStatus0")
-	public String getVsrList(Model m) {
-		
+	public String getVsrList(Model m) {		
 		//일반
 		List<Map<String, Object>> rst1 = pdService.getResInfo7();
 		//정기
 		List<Map<String, Object>> rst2 = pdService.getResInfo0_6();
-
-		
 		m.addAttribute("rst1", rst1);
 		m.addAttribute("rst2", rst2);
-
 		return "sitter/reservationListVs";
 	}
 	
-	//가정시터 신청한 예약 목록 가져오기
-	public List<HomeSitterReservation> getHsrList() {
-		List<HomeSitterReservation> hsrList = new ArrayList<HomeSitterReservation>();
-
+	//나한테 신청한 예약들 가져오기
+	public List<HomeSitterReservation> getHsrList(Model m, HttpSession session) {
+		int num = (Integer) session.getAttribute("user_num");
+		List<HomeSitterReservation> hsrList = hsrService.getHomeSitterResByHSnum(num);
+		
+		
+		
+		
 		return hsrList;
-
 	}
 	
 //	//정기묶음 예약점 가져오기
@@ -290,6 +265,8 @@ public class SitterMainController {
 //		return rst;
 //	}
 	
+	
+	//모달에 띄울 vsr 정보 
 	@RequestMapping("/getVSRInfo")
 	@ResponseBody
 	public Map<String, Object> getVSRInfo(int vsr_num) {
@@ -339,6 +316,7 @@ public class SitterMainController {
 	}
 	
 	
+	//방문시터 예약수락
 	@RequestMapping("/acceptVsr")
 	public String acceptVsr(HttpSession session, Model m, int vsr_num) {
 		int vs_num = (Integer)session.getAttribute("user_num");
@@ -401,5 +379,39 @@ public class SitterMainController {
 	public String myResPageVS() {
 		return "sitter/myReservation_visit";
 	}
+	
+	@RequestMapping("/myReservationHs_Page")
+	public String myResPageHS() {
+		return "sitter/myReservation_home";
+	}
+	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/image")
+	public byte[] getImg(String fileName) {
+		File file = new File(FILE_PATH + fileName);
+		
+		InputStream in = null;
+		try {
+			in = new FileInputStream(file);
+			// 스트림을 byte[] 형태로 만들기 위해서 라이브러리 추가(CommonIO)
+			return IOUtils.toByteArray(in);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(in != null) in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
 
 }
