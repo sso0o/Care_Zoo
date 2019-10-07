@@ -22,6 +22,37 @@ public class HomeSitterList {
 	 private String hsl_service_type;
 	 private String hsl_pet_age;
 	 private String hsl_d_d_address;
+	 private String hsl_disdates;
+	 private List<String> hsl_disdates_list;
+	 private String hsl_chkin_str_time;
+	 private String hsl_chkin_end_time;
+	 private String hsl_chkout_str_time;
+	 private String hsl_chkout_end_time;
+	 
+	public String getHsl_chkin_str_time() {
+		return hsl_chkin_str_time;
+	}
+	public void setHsl_chkin_str_time(String hsl_chkin_str_time) {
+		this.hsl_chkin_str_time = hsl_chkin_str_time;
+	}
+	public String getHsl_chkin_end_time() {
+		return hsl_chkin_end_time;
+	}
+	public void setHsl_chkin_end_time(String hsl_chkin_end_time) {
+		this.hsl_chkin_end_time = hsl_chkin_end_time;
+	}
+	public String getHsl_chkout_str_time() {
+		return hsl_chkout_str_time;
+	}
+	public void setHsl_chkout_str_time(String hsl_chkout_str_time) {
+		this.hsl_chkout_str_time = hsl_chkout_str_time;
+	}
+	public String getHsl_chkout_end_time() {
+		return hsl_chkout_end_time;
+	}
+	public void setHsl_chkout_end_time(String hsl_chkout_end_time) {
+		this.hsl_chkout_end_time = hsl_chkout_end_time;
+	}
 	public int getHsl_num() {
 		return hsl_num;
 	}
@@ -136,6 +167,18 @@ public class HomeSitterList {
 	public void setHsl_d_d_address(String hsl_d_d_address) {
 		this.hsl_d_d_address = hsl_d_d_address;
 	}
+	public String getHsl_disdates() {
+		return hsl_disdates;
+	}
+	public void setHsl_disdates(String hsl_disdates) {
+		this.hsl_disdates = hsl_disdates;
+	}
+	public List<String> getHsl_disdates_list() {
+		return hsl_disdates_list;
+	}
+	public void setHsl_disdates_list(List<String> hsl_disdates_list) {
+		this.hsl_disdates_list = hsl_disdates_list;
+	}
 	@Override
 	public String toString() {
 		return "HomeSitterList [hsl_num=" + hsl_num + ", hs_num=" + hs_num + ", hsl_title=" + hsl_title
@@ -144,7 +187,11 @@ public class HomeSitterList {
 				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family + ", hsl_fileName="
 				+ hsl_fileName + ", hsl_filesName=" + hsl_filesName + ", hsl_address=" + hsl_address
 				+ ", hsl_d_address=" + hsl_d_address + ", hsl_service_type=" + hsl_service_type + ", hsl_pet_age="
-				+ hsl_pet_age + ", hsl_d_d_address=" + hsl_d_d_address + "]";
+				+ hsl_pet_age + ", hsl_d_d_address=" + hsl_d_d_address + ", hsl_disdates=" + hsl_disdates
+				+ ", hsl_disdates_list=" + hsl_disdates_list + ", hsl_chkin_str_time=" + hsl_chkin_str_time
+				+ ", hsl_chkin_end_time=" + hsl_chkin_end_time + ", hsl_chkout_str_time=" + hsl_chkout_str_time
+				+ ", hsl_chkout_end_time=" + hsl_chkout_end_time + "]";
 	}
-	 
+	
+	
 }
