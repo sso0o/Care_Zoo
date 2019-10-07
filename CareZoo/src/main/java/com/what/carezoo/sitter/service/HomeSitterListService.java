@@ -23,11 +23,6 @@ public class HomeSitterListService {
 	@Autowired
 	private HomeSitterListDao hslDao;
 	
-	//homesitterList
-	public List<String> getFileList(int hsl_num) {
-		List<String> filesName = hslDao.selectFileList(hsl_num);
-		return filesName;
-	}
 	//게시글 등록
 	public boolean writeHomeSitterList(HomeSitterList hsl) {
 		if(hslDao.insertHomeSitterList(hsl)>0) {
@@ -47,9 +42,12 @@ public class HomeSitterListService {
 	//
 	public boolean addHsl(HomeSitterList hsl, List<MultipartFile> files) {
 		if(hslDao.insertHsl(hsl)>0) {
+			System.out.println("게시글 등록 service");
 			if(files.isEmpty()) {
+				System.out.println("게시글 파일 없음");
 				return true;
 			}else {
+				System.out.println("게시글 파일 있음");
 				for(MultipartFile mf : files) {
 					String fullName = writeFile(mf);
 					System.out.println("fullName = "+fullName);
@@ -101,4 +99,10 @@ public class HomeSitterListService {
 		}
 		return fullName; //만든 파일명 반환
 	}	
+
+	//게시글 이미지 가져오기
+	public List<String> getFileList(int hsl_num) {
+		List<String> filesName = hslDao.selectFileList(hsl_num);
+		return filesName;
+	}
 }

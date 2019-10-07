@@ -236,7 +236,7 @@ $(function() {
 		});
 	//image
 	$.ajax({
-		url:"${contextPath}/sitter/getHsImg",
+		url:"${contextPath}/home/getImg",
 		data:{
 			hs_num : user_num
 		},
@@ -244,7 +244,7 @@ $(function() {
 		success: function(data) {
 			console.log(data)
 			if(data.filename != null){
-				$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
+				$("#img").attr("src","${contextPath}/home/image?fileName="+data.filename)
 			} else {
 				$("#img").attr("src","${contextPath}/resources/img/user.jpg")
 			}
@@ -262,7 +262,7 @@ $(function() {
 		// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
 		//새로 추가 할 경우 두번째 tr 값을 복사하여 newitem변수에 대입
 		//var newitem = $("#file"+lastItemNo).clone();
-		var newfile = "<input type='file' id='file' name='fileName' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
+		var newfile = "<input type='file' id='file' name='file' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
 		$("#example").append(newfile);
 		//아이템 추가시 id="item" 값에 넘버를 추가해 준다.               
 		//newitem.attr("id", "file" + (parseInt(lastItemNo) + 1));
@@ -312,7 +312,6 @@ $(function() {
 		index++;		
 	}
 	
-})
 });
 
 
@@ -480,9 +479,9 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						</div>
 					</div>	
 					<div class="form-group">
-						<label for="hsl_disdates">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br>
+						<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br>
 						<div id="calendar"></div>
-						<input type="text" class="form-control" id="hsd_disabledate" name="hsl_disdates"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
+						<input type="text" class="form-control" id="hsd_disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
 					</div>
 
 					<div class="form-group">
@@ -536,7 +535,7 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						</div>
 					</div>
 				 	<h6><mark>**돌봄 환경에 대해 자세히 알려주세요**</mark></h6>
-				</div>
+				
 				 	<div class="form-group">
 						<label for="hsl_care_place">돌봄공간</label>
 						<div class="form-check">
@@ -595,16 +594,17 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						</div>
 					</div>
 					<div class="form-group imgs">
-				 	<label for="imgs_wrap">돌봄공간의 사진을 올려주세요</label>
-						<div class="imgs_wrap" id="imgs_wrap" >
-							<img id="img" class="img" >
-						</div>
-						<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진수정">
-					<div id="example"></div>
-				</div>
-				<div class="btnGroup">
-					<input type="submit" class="btn btn-submit" value="가입">
-					<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">
+					 	<label for="imgs_wrap">돌봄공간의 사진을 올려주세요</label>
+							<div class="imgs_wrap" id="imgs_wrap" >
+								<img id="img" class="img" >
+							</div>
+							<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진수정">
+						<div id="example"></div>
+					</div>
+					<div class="btnGroup">
+						<input type="submit" class="btn btn-submit" value="가입">
+						<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">
+					</div>
 				</div>
 			</div>
 		</form>
