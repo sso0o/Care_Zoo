@@ -47,6 +47,10 @@
 		
 // 		console.log("${rst1 }")
 // 		console.log("${rst2 }")
+
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
 		
 	})
 	

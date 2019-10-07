@@ -204,4 +204,11 @@
     		and vsr_day between 0 and 6) vsr
 		where c.c_num = vsr.c_num
 	</select>
+	
+	<select id="selectByP_numVsr_chkin" parameterType="map" resultType="Integer" >
+		select count(*) 
+		from pet_detail d join visitsitterreservation v 
+		on d.vsr_num = v.vsr_num
+		and d.p_num = #{p_num} and v.vsr_chkin = #{vsr_chkin}
+	</select>
 </mapper>

@@ -6,8 +6,11 @@ public class HomeSitter {
 	private int hs_num;
 	private String hs_name;
 	private String hs_sex;
+
 	private String hs_birth;
-	private int hs_contact;
+
+	private String hs_contact;
+
 	private String hs_address;
 	private String hs_d_address;
 	private String hs_email;
@@ -39,10 +42,10 @@ public class HomeSitter {
 	public void setHs_birth(String hs_birth) {
 		this.hs_birth = hs_birth;
 	}
-	public int getHs_contact() {
+	public String getHs_contact() {
 		return hs_contact;
 	}
-	public void setHs_contact(int hs_contact) {
+	public void setHs_contact(String hs_contact) {
 		this.hs_contact = hs_contact;
 	}
 	public String getHs_address() {

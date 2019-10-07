@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,15 +32,16 @@ public class PetController {
 	private PetService pService;
 	
 	@RequestMapping(value = "/addPet", method = RequestMethod.POST)
-	public String addPet(Pet p, MultipartHttpServletRequest mtfRequest, Model m) {
+	public String addPet(Pet p, MultipartHttpServletRequest mtfRequest, Model m, HttpSession session) {
 		System.out.println("addPet 하나?");
 		MultipartFile file = mtfRequest.getFile("file");
 		System.out.println("file : " + file);
 		System.out.println("p : "+p);
-		
+		int user_num = (Integer) session.getAttribute("user_num");
 		boolean rst = pService.insertPetFile(p,file);
 		if(rst) {
 			m.addAttribute("msg", "펫 등록 성공!");
+			m.addAttribute("pL", pService.selectByC_Num(user_num));
 			return "my&customer/petInfo";
 		} else {
 			m.addAttribute("msg", "펫 등록 실패!");

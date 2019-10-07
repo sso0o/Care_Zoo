@@ -103,6 +103,7 @@ public class VisitSitterService {
 		return fullName;
 	}
 	
+
 	public String getImage(int vs_num) {
 		return vsDao.selectFile(vs_num);
 	}
@@ -129,6 +130,5 @@ public class VisitSitterService {
 		}
 		return false;
 	}
-	
 	
 }

@@ -31,6 +31,11 @@
 
 
 <script type="text/javascript">
+var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+var user_num = "<%=session.getAttribute("user_num")%>"
+var user_name = "<%=session.getAttribute("user_name")%>"
+
+
 function logoutCheck() {
 	if (confirm("정말 로그아웃?") == true) {
 		location.href = '${contextPath}/logout'
@@ -169,55 +174,13 @@ $(function() {
 		maxTime: '22:00',
 		stepMinute: 30
     });
-	
-	
-	$('#disabledate').multiDatesPicker({
+	//불가능한 날짜 받기
+	$('#calendar').multiDatesPicker({
 		minDate: 0, // today
-		maxDate: 90		
-	});
-// 	$('#calendar').multiDatesPicker({
-// 		minDate: 0, // today
-// 		maxDate: 30,
-// 		onSelect: function(selected) {
-// 			var dateVal = $('#hsd_disabledate').val(selected);
-// 			dateVal += dateVal == "" ? dateVal : ","
-// 			console.log(dateVal);
-// 		}
-// 	});
-// 		onSelect: function(selected) {
-// 			$('.hsd_disabledate').val(selected);
-// 			console.log($('.hsd_disabledate').val(selected));
-// 		}
-// 		onSelect: function (selected) {
-// 			$('.hsd_disabledate').val(selected);
-// 			console.log(multiDates(selected))
-// 		}
-// 	});
-// 	        multiDates(selected);
-// 			dateVal += dateVal == "" ? $('.hsd_disabledate').val(selected) : ","
-					
-// 			var div = $('input [name="hsd_disabledate"]');
-// 	        var inputBox = $('<input type="text" class="hsd_disabledate" name="hsd_disabledate">').append(div);
-// 	        inputBox.val(selected);
-// 	function multiDates(selected) {
-	
-// 		var div = $('input [name=hsd_disabledate]');
-//         var inputBox = $('<input type="text" class="hsd_disabledate" name="hsd_disabledate">');
-//         var dateVal = inputBox.val(selected);
-//         div.append(inputBox);
-//         dateVal += dateVal == "" ? inputBox.val(selected) : ",";
-//         console.log('dd'+inputBox.val());
-//         console.log(div.append(inputBox))
-// 	}
-// 	$("#hsd_disabledate").datepicker({
-// 		multiDatesPicker: 
-// 		onSelect: function() {
-// 			var date = $(this).val();
-			
-// 			console.log(date);
-// 		}
-// 	});
-// 	$("#hsd_disabledate").each(function(){ $(this).datepicker(); });
+		maxDate: 90,
+		maxPicks: 30,
+		altField:'#hsd_disabledate'
+		});
 
 });
 
@@ -346,13 +309,15 @@ legend{
 	<div class="content">
 		<h2>홈시터 게시글 등록을 위한 회원정보를 정확하게 입력해 주세요.</h2>
 		<hr>
-		<form action="${contextPath }/home/join" method="post" name="homesitterInfo" onsubmit="return checkValue()">
+		<form action="${contextPath }/home/getDisDate" method="post" name="homesitterInfo" onsubmit="return checkValue()">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
+			<input type="hidden" value="<%=session.getAttribute("user_num")%>" name="hs_num">
+			<input type="hidden" value="${hsl_num}" name="hsl_num">
 			<div class="main">
 					<div class="form-group">
 						<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br>
-<!-- 							<div id="calendar"></div> -->
-						<input type="text" class="form-control" id="disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
+						<div id="calendar"></div>
+						<input type="text" class="form-control" id="hsd_disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
 					</div>
 				<div class="btnGroup">
 					<input type="submit" class="btn btn-submit" value="가입">

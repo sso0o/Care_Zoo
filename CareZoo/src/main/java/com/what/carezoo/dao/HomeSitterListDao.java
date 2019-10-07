@@ -5,12 +5,13 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.what.carezoo.model.HomeSitterDisabledate;
 import com.what.carezoo.model.HomeSitterList;
 
 public interface HomeSitterListDao {
 	//회원가입 
    public int insertHsl(HomeSitterList hsl);
-   public int insertHomeSitterList(Map<String, Object> params);
+   public int insertHomeSitterList(HomeSitterList hsl);
    public int updateHsl(HomeSitterList hsl);
    public int deleteHsl(int hsl_num);
    public HomeSitterList selectOnebyHsl_num(int hsl_num);
@@ -24,7 +25,7 @@ public interface HomeSitterListDao {
    public String selectFileName(int hsl_num);
    public List<String> selectFileList(int hsl_num);
    //불가능 날짜(Disable Dates)
-   public int insertDisdates(@Param("list")List<Object> params);
+   public int updateDisDates(Map<String, Object> params);
    // 가격
    public Map<String, Object> getHsPrice(Map<String, Object> params);  
 }

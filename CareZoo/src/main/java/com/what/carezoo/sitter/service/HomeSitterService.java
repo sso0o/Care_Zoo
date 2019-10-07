@@ -16,7 +16,9 @@ import com.what.carezoo.model.HomeSitter;
 
 @Service
 public class HomeSitterService {
+	
 	private static final String UPLOAD_PATH = "c:\\temp";
+
 	@Autowired
 	private HomeSitterDao hsDao;
 	//homesitter
@@ -97,4 +99,5 @@ public class HomeSitterService {
 	public String  getImage(int hs_num) {
 		return hsDao.selectFile(hs_num);
 	}
+
 }

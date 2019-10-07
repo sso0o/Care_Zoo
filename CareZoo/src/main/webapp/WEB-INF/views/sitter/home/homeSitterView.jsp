@@ -36,6 +36,9 @@
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>부트스트랩 -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>부트스트랩 -->
 
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 코멘트 -->
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 코멘트 -->
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 코멘트 -->
 <title>homeSitterView</title>
 <!-- 가정집 펫시터 상세내용 -->
 <style type="text/css">
@@ -159,6 +162,26 @@ ul {
 /* .cal::-webkit-calendar-picker-indicator { */
 /*   opacity: 0; */
 /* } */
+
+/*코멘트용*/
+body{margin-top:20px;}
+
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+/*코멘트용*/
 </style>
 <script type="text/javascript">
 $(function() {	
@@ -456,6 +479,57 @@ $(function() {
 			<li>내용 : <span>${hsList.hsl_comment }</span></li>
 		</ul>
 		</fieldset>
+			//
+			<div class="row bootstrap snippets">
+<!-- 				<div class="col-md-6 col-md-offset-2 col-sm-12"> -->
+<!-- 					<div class="comment-wrapper"> -->
+<!-- 						<div class="panel panel-info"> -->
+<!-- 							<div class="panel-heading">Comment panel</div> -->
+<!-- 							<div class="panel-body"> -->
+<!-- 								<textarea class="form-control" placeholder="write a comment..." rows="3"></textarea> -->
+<!-- 								<br> -->
+<!-- 								<button type="button" class="btn btn-info pull-right">Post</button> -->
+<!-- 								<div class="clearfix"></div> -->
+<!-- 								<hr> -->
+							<c:forEach items="${hsList}" var="img">
+							
+							</c:forEach>
+								<ul class="media-list">
+									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+									</a>
+										<div class="media-body">
+											<span class="text-muted pull-right"> <small class="text-muted">30 min ago</small>
+											</span> <strong class="text-success">@MartinoMont</strong>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, <a href="#">#consecteturadipiscing </a>.
+											</p>
+										</div></li>
+									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
+									</a>
+										<div class="media-body">
+											<span class="text-muted pull-right"> <small class="text-muted">30 min ago</small>
+											</span> <strong class="text-success">@LaurenceCorreil</strong>
+											<p>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor <a href="#">#ipsumdolor </a>adipiscing elit.
+											</p>
+										</div></li>
+									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">
+									</a>
+										<div class="media-body">
+											<span class="text-muted pull-right"> <small class="text-muted">30 min ago</small>
+											</span> <strong class="text-success">@JohnNida</strong>
+											<p>
+												Lorem ipsum dolor <a href="#">#sitamet</a> sit amet, consectetur adipiscing elit.
+											</p>
+										</div>
+									</li>
+								</ul>
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			</div>
+			//
 		<div>
 			<div>후기</div>
 			<div>

@@ -16,9 +16,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<!-- 다음 주소 -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- link for datepicker -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"><!-- datePicker -->
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/><!-- datePicker -->
@@ -88,6 +85,10 @@ function getAddress() {
 }
 </script>
 <script type="text/javascript">
+var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+var user_num = "<%=session.getAttribute("user_num")%>"
+var user_name = "<%=session.getAttribute("user_name")%>"
+
 function logoutCheck() {
 	if (confirm("정말 로그아웃?") == true) {
 		location.href = '${contextPath}/logout'
@@ -226,56 +227,92 @@ $(function() {
 		maxTime: '22:00',
 		stepMinute: 30
     });
-	
-	
-	$('#disabledate').multiDatesPicker({
+	//불가능한 날짜 받기
+	$('#calendar').multiDatesPicker({
 		minDate: 0, // today
-		maxDate: 90		
-	});
-// 	$('#calendar').multiDatesPicker({
-// 		minDate: 0, // today
-// 		maxDate: 30,
-// 		onSelect: function(selected) {
-// 			var dateVal = $('#hsd_disabledate').val(selected);
-// 			dateVal += dateVal == "" ? dateVal : ","
-// 			console.log(dateVal);
-// 		}
-// 	});
-// 		onSelect: function(selected) {
-// 			$('.hsd_disabledate').val(selected);
-// 			console.log($('.hsd_disabledate').val(selected));
-// 		}
-// 		onSelect: function (selected) {
-// 			$('.hsd_disabledate').val(selected);
-// 			console.log(multiDates(selected))
-// 		}
-// 	});
-// 	        multiDates(selected);
-// 			dateVal += dateVal == "" ? $('.hsd_disabledate').val(selected) : ","
-					
-// 			var div = $('input [name="hsd_disabledate"]');
-// 	        var inputBox = $('<input type="text" class="hsd_disabledate" name="hsd_disabledate">').append(div);
-// 	        inputBox.val(selected);
-// 	function multiDates(selected) {
-	
-// 		var div = $('input [name=hsd_disabledate]');
-//         var inputBox = $('<input type="text" class="hsd_disabledate" name="hsd_disabledate">');
-//         var dateVal = inputBox.val(selected);
-//         div.append(inputBox);
-//         dateVal += dateVal == "" ? inputBox.val(selected) : ",";
-//         console.log('dd'+inputBox.val());
-//         console.log(div.append(inputBox))
-// 	}
-// 	$("#hsd_disabledate").datepicker({
-// 		multiDatesPicker: 
-// 		onSelect: function() {
-// 			var date = $(this).val();
+		maxDate: 90,
+		maxPicks: 30,
+		altField:'#hsd_disabledate'
+		});
+	//image
+	$.ajax({
+		url:"${contextPath}/sitter/getHsImg",
+		data:{
+			hs_num : user_num
+		},
+		dataType: "JSON",
+		success: function(data) {
+			console.log(data)
+			if(data.filename != null){
+				$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
+			} else {
+				$("#img").attr("src","${contextPath}/resources/img/user.jpg")
+			}
 			
-// 			console.log(date);
-// 		}
-// 	});
-// 	$("#hsd_disabledate").each(function(){ $(this).datepicker(); });
+		}, error: function() {
+			alert("error")
+		}
+	})
+	
+	//옵션추가 버튼 클릭시
+	$("#addImgBtn").click(function() {
+//			
+		//파일 선택란을 보여준다.
+		//$("tr#item1").show();
+		// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
+		//새로 추가 할 경우 두번째 tr 값을 복사하여 newitem변수에 대입
+		//var newitem = $("#file"+lastItemNo).clone();
+		var newfile = "<input type='file' id='file' name='fileName' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
+		$("#example").append(newfile);
+		//아이템 추가시 id="item" 값에 넘버를 추가해 준다.               
+		//newitem.attr("id", "file" + (parseInt(lastItemNo) + 1));
 
+		$("#file").trigger('click');
+
+		//file형식의 그것의 취소버튼을 눌렀을 때.
+
+		//onclick=\"deleteImageAction("+index+")\"
+		$("#file").on("change",handleImgFileSelect);
+//			console.log("add가끝난뒤 index:"+index);
+	});
+
+	// 이미지 정보들을 담을 배열
+	var sel_files = [];
+
+	function fileUploadAction() {
+		console.log("fileUploadAction");
+		$("#file").trigger('click');
+	}
+
+	var sel_file;
+
+	function handleImgFileSelect(e) {
+//			console.log("handleImg");
+//			console.log("handleImg때의 index:"+index);
+		// 이미지 정보들을 초기화
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+
+		filesArr.forEach(function(f) {
+			if (!f.type.match("image.*")) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+			sel_file = f;
+			var reader = new FileReader();
+			
+			reader.onload = function(e) {
+				
+				var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='img' class='img' style='width:250px, height:250px'></a>";
+				$(".imgs_wrap").children().remove();
+				$(".imgs_wrap").append(html);
+			}		
+			reader.readAsDataURL(f);		
+		});
+		index++;		
+	}
+	
+})
 });
 
 
@@ -403,17 +440,10 @@ legend{
 	<div class="content">
 		<h2>홈시터 게시글 등록을 위한 회원정보를 정확하게 입력해 주세요.</h2>
 		<hr>
-		<form action="${contextPath }/home/join" method="post" name="homesitterInfo" onsubmit="return checkValue()">
+		<form action="${contextPath }/home/write" method="post" name="homesitterInfo" onsubmit="return checkValue()">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
+			<input type="hidden" value="<%=session.getAttribute("user_num")%>" name="hs_num">
 			<div class="main">
-				<div class="form-group">
-					<label for="address">주소</label><label class="space"></label>
-	<!-- 				<input type="button" onclick="sample4_execDaumPostcode()" class="btn btn-outline-success" value="우편번호 찾기"> -->
-					<input type="text" class="form-control" id="address" placeholder="도로명 주소" name="hs_address" readonly="readonly" onclick="getAddress()">
-					<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
-					<input type="text" class="form-control" id="d_address" placeholder="상세주소를 입력해 주세요" name="hs_d_address" style="margin-top: 5px">
-					<span id="guide" style="color: #999"></span>
-				</div>
 				<div class="card card-body">				 
 					<div class="form-group">
 						<label for="hsl_title">글제목</label>
@@ -449,11 +479,12 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						  </label>
 						</div>
 					</div>	
-<!-- 					<div class="form-group"> -->
-<!-- 						<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br> -->
-<!-- <!-- 							<div id="calendar"></div> --> -->
-<!-- 						<input type="text" class="form-control" id="disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off > -->
-<!-- 					</div> -->
+					<div class="form-group">
+						<label for="hsl_disdates">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br>
+						<div id="calendar"></div>
+						<input type="text" class="form-control" id="hsd_disabledate" name="hsl_disdates"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
+					</div>
+
 					<div class="form-group">
 						<label for="hsl_chkin_str_time">체크인 가능 시간의 범위를 지정해 주세요</label>
 						<div class="form-inline">
@@ -505,6 +536,7 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						</div>
 					</div>
 				 	<h6><mark>**돌봄 환경에 대해 자세히 알려주세요**</mark></h6>
+				</div>
 				 	<div class="form-group">
 						<label for="hsl_care_place">돌봄공간</label>
 						<div class="form-check">
@@ -562,6 +594,13 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						  </label>
 						</div>
 					</div>
+					<div class="form-group imgs">
+				 	<label for="imgs_wrap">돌봄공간의 사진을 올려주세요</label>
+						<div class="imgs_wrap" id="imgs_wrap" >
+							<img id="img" class="img" >
+						</div>
+						<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진수정">
+					<div id="example"></div>
 				</div>
 				<div class="btnGroup">
 					<input type="submit" class="btn btn-submit" value="가입">
