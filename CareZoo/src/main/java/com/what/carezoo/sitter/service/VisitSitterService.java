@@ -102,4 +102,8 @@ public class VisitSitterService {
 		// 3. 만든 파일 이름 반환
 		return fullName;
 	}
+	
+	public String  getImage(int num) {
+		return vsDao.selectFile(num);
+	}
 }

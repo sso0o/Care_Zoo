@@ -9,7 +9,7 @@ public class HomeSitter {
 	private String hs_name;
 	private String hs_sex;
 	private Date hs_birth;
-	private int hs_contact;
+	private String hs_contact;
 	private String hs_address;
 	private String hs_d_address;
 	private double hs_star;
@@ -52,10 +52,10 @@ public class HomeSitter {
 	public void setHs_birth(Date hs_birth) {
 		this.hs_birth = hs_birth;
 	}
-	public int getHs_contact() {
+	public String getHs_contact() {
 		return hs_contact;
 	}
-	public void setHs_contact(int hs_contact) {
+	public void setHs_contact(String hs_contact) {
 		this.hs_contact = hs_contact;
 	}
 	public String getHs_address() {

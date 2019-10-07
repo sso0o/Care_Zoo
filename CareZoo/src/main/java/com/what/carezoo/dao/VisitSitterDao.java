@@ -18,4 +18,6 @@ public interface VisitSitterDao {
 /////////////
 	public int userIdCheck(String vs_email);
 	public int updateVisitSitterFile(Map<String, Object> param);
+	
+	public String selectFile(int vs_num);
 }

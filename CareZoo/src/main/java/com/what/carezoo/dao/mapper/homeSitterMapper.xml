@@ -46,4 +46,8 @@
 		select count(*) from customer where hs_email =#{hs_email}
 	</select>
 	
+	<select id="selectFile" parameterType="int" resultType="String">
+		select hs_filename from homesitter where hs_num = #{hs_num}
+	</select>
+	
 </mapper>

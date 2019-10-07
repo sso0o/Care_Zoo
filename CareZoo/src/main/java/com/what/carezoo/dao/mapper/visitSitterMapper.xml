@@ -35,4 +35,8 @@
 	<select id="userIdCheck" parameterType="string" resultType="Integer">
 		select count(*) from visitsitter where vs_email = #{vs_email}
 	</select>
+	
+	<select id="selectFile" parameterType="int" resultType="String">
+		select vs_img from visitsitter where vs_num = #{vs_num}
+	</select>
 </mapper>
