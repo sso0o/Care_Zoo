@@ -12,18 +12,18 @@
 	</insert>
 
 	<update id="update" parameterType="homeSitterComment">
-		update PetHotelComment
+		update HomeSitterComment
 		set phc_comment = #{phc_comment}
 		where phc_num = #{phc_num}
 	</update>
 	
 	<delete id="delete" parameterType="int">
-		delete from PetHotelComment where phc_num = #{phc_num}
+		delete from HomeSitterComment where phc_num = #{phc_num}
 	</delete>
 	
 	<select id="selectByHsc_num" parameterType="int" resultType="homeSitterComment">
 		select * 
-		from PetHotelComment
+		from HomeSitterComment
 		where phc_num = #{phc_num}
 	</select>
 	

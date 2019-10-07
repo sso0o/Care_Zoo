@@ -13,6 +13,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.what.carezoo.dao.HomeSitterListDao;
+import com.what.carezoo.model.HomeSitterDisabledate;
 import com.what.carezoo.model.HomeSitterList;
 @Service
 public class HomeSitterListService {
@@ -28,16 +29,16 @@ public class HomeSitterListService {
 		return filesName;
 	}
 	//게시글 등록
-	public boolean writeHomeSitterList(Map<String, Object> params) {
-		if(hslDao.insertHomeSitterList(params)>0) {
+	public boolean writeHomeSitterList(HomeSitterList hsl) {
+		if(hslDao.insertHomeSitterList(hsl)>0) {
 			return true;
 		}
 		return false;
 	}
 	//Disable dates 등록
-	public boolean writeDisableDates(List<Object> params) {
+	public boolean writeDisableDates(Map<String, Object> params) {
 		System.out.println("동작쓰");
-		if(hslDao.insertDisdates(params)>0) {
+		if(hslDao.updateDisDates(params)>0) {
 			System.out.println("이거왜 동작안하지");
 			return true;
 		}

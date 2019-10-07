@@ -31,17 +31,13 @@
 
 <script type="text/javascript">
 $(function(){
-// 	$('.hsd_disabledate').multiDatesPicker();
-	$('#hsd_disabledate').multiDatesPicker();
-		
-// 		minDate: 0,
-// 		pickableRange: 90,
-// 		format: 'yy-mm-dd',
-// 		onSelect: function(selected) {
-// 			var dates = $('.hsd_disabledate').val(selected);
-// 			dates += dates == "" ? $('.hsd_disabledate').val(selected) : ","
-// 			console.log(dates);
-// 		}
+		$('#calendar').multiDatesPicker({
+		minDate: 0, // today
+		maxDate: 90,
+		maxPicks: 30,
+		altField:'#hsd_disabledate'
+		});
+
 });
 
 </script>
@@ -51,6 +47,9 @@ $(function(){
 <body>
 <form action="${contextPath }/home/getDate">
 	<div class="form-group">
+	<div id="mdp-demo"></div>
+	<input type="text" id="altField" >
+
 							<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label>
 							<div id="calendar" ></div>
 							<input type="text" id="hsd_disabledate" name="hsd_disabledate">
