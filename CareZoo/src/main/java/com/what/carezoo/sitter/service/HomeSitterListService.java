@@ -64,6 +64,21 @@ public class HomeSitterListService {
 		}
 		return false;
 	}
+	public boolean addDisDates(int hs_num, List<String> hsd_disabledate_list) {
+		if(hsd_disabledate_list.isEmpty()) {
+			System.out.println("hsd_disabledate_list 파일 없음");
+			return true;
+		}else {
+			System.out.println("hsd_disabledate_list="+hsd_disabledate_list);
+			for(String list : hsd_disabledate_list) {
+				Map<String, Object> disDates = new HashMap<String, Object>();
+				disDates.put("hsd_disabledate", list);
+				disDates.put("hs_num", hs_num);
+				hslDao.insertDisdates(disDates);				
+			}
+			return true;
+		}
+	}
 	public HomeSitterList getHomeSitterByHsl_Num(int hsl_num) {
 		return hslDao.selectOnebyHsl_num(hsl_num);		
 	}

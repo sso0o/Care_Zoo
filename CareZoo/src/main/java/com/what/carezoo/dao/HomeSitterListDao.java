@@ -28,6 +28,7 @@ public interface HomeSitterListDao {
    public int updateFile(Map<String,Object> param);
    
    //불가능 날짜(Disable Dates)
+   public int insertDisdates(Map<String, Object> params);
    public int updateDisDates(Map<String, Object> params);
    // 가격
    public Map<String, Object> getHsPrice(Map<String, Object> params);  

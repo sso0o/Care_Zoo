@@ -35,7 +35,7 @@
 	<insert id="insertDisdates" parameterType="map">		
 		INSERT 
 		INTO homesitterdisabledate (hs_num, hsd_num, hsd_disabledate)
-		VALUES  (#{hs_num}, homesitterdisabledate_seq.nextval, #{item.hsd_disabledate} )
+		VALUES  (#{hs_num}, homesitterdisabledate_seq.nextval, #{} )
 	</insert>
 	
 	
@@ -105,10 +105,73 @@
 		select * from homesitterlist where hsl_num = #{hsl_num}
 	</select>	
 	
+<!-- 	<select id="selectAllHsl" resultType="map"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM homesitterlist hsli LEFT OUTER JOIN homesitter hs ON hsli.hs_num = hs.hs_num -->
+<!-- 		LEFT OUTER JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num -->
+<!-- 		<trim prefix="where" prefixOverrides="AND|OR"> -->
+<!-- 			<if test="hsl.hsl_size != null" > -->
+<!-- 				AND hsl_size like -->
+<!-- 				('%${hsl.hsl_size}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_service_type != null"> -->
+<!-- 				AND hsl_service_type like -->
+<!-- 				 ('%${hsl.hsl_service_type}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_pet_age != null"> -->
+<!-- 				 AND hsl_pet_age like -->
+<!-- 				('%${hsl.hsl_pet_age}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_chkin != ''"> -->
+<!-- 				AND  <![CDATA[hsli.hsl_chkin <= #{hsl.hsl_chkin}]]> -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_chkout != ''"> -->
+<!-- 				AND <![CDATA[hsli.hsl_chkout >= #{hsl.hsl_chkout}]]> -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_address != null">  -->
+<!-- 				and hsli.hsl_address in (select hsl_address from homesitterlist where -->
+<!-- 				<foreach collection="list" item="item" separator="or"> -->
+<!-- 					hsl_address like ('%${item}%') -->
+<!-- 				</foreach> -->
+<!-- 				) -->
+<!-- 			</if> -->
+<!-- 		</trim> -->
+<!-- 	</select> -->
+	
+	
+	
+	
 	<select id="selectAllHsl" resultType="map">
-		SELECT *
-		FROM homesitterlist hsli LEFT OUTER JOIN homesitter hs ON hsli.hs_num = hs.hs_num
-		LEFT OUTER JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
+		select  hs.hs_num,
+                hs.hs_name,
+                hs.hs_sex,
+                hs.hs_birth,
+                hs.hs_contact,
+                hs.hs_address,
+                hs.hs_d_address,
+                hs.hs_email,
+                hsli.hsl_title,
+                hsli.hsl_comment,
+                hsli.hsl_size,
+                hsli.hsl_care_place,
+                hsli.hsl_subway,
+                hsli.hsl_yard,
+                hsli.hsl_baby,
+                hsli.hsl_family,
+                hsli.hsl_service_type,
+                hsli.hsl_pet_age,
+                hsli.hs_disdate_num,
+                hsli.hsl_price,
+                hsli.hsl_chkin_str_time,
+                hsli.hsl_chkin_end_time,
+                hsli.hsl_chkout_str_time,
+                hsli.hsl_chkout_end_time,
+                hsli.hsl_status,
+                hsd.hsd_disabledate,
+                hsi.hsl_img_filename
+        from homesitter hs left outer join homesitterlist hsli on hs.hs_num = hsl.hs_num
+        left outer join homesitterdisabledate hsd on hs.hs_num = hsd.hs_num 
+        left outer join homesitterlist_image hsi on hsl.hsl_num = hsi.hsl_num
 		<trim prefix="where" prefixOverrides="AND|OR">
 			<if test="hsl.hsl_size != null" >
 				AND hsl_size like

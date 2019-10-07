@@ -235,85 +235,117 @@ $(function() {
 		altField:'#hsd_disabledate'
 		});
 	//image
-	$.ajax({
-		url:"${contextPath}/home/getImg",
-		data:{
-			hs_num : user_num
-		},
-		dataType: "JSON",
-		success: function(data) {
-			console.log(data)
-			if(data.filename != null){
-				$("#img").attr("src","${contextPath}/home/image?fileName="+data.filename)
-			} else {
-				$("#img").attr("src","${contextPath}/resources/img/user.jpg")
-			}
+// 	$.ajax({
+// 		url:"${contextPath}/home/getImg",
+// 		data:{
+// 			hs_num : user_num
+// 		},
+// 		dataType: "JSON",
+// 		success: function(data) {
+// 			console.log(data)
+// 			if(data.filename != null){
+// 				$("#img").attr("src","${contextPath}/home/image?fileName="+data.filename)
+// 			} else {
+// 				$("#img").attr("src","${contextPath}/resources/img/user.jpg")
+// 			}
 			
-		}, error: function() {
-			alert("error")
-		}
-	})
+// 		}, error: function() {
+// 			alert("error")
+// 		}
+// 	})
 	
-	//옵션추가 버튼 클릭시
+	// 		옵션추가 버튼 클릭시
 	$("#addImgBtn").click(function() {
-//			
+		console.log("addItem의 index:"+index);
+		console.log("file개수세기:"+$(".fileClass").length);
+		if ($(".fileClass").length > 0) {
+			console.log("img개수세기:"+$(".selProductFile").length);
+			var file = document.getElementById('file'+ ($(".fileClass").length));
+			console.log("file의length:"+file.files.length);
+			if (file.files.length == 0) {
+				console.log("length 실행!");
+				console.log($("#file" + (parseInt(index))));
+				// 									$("#file" + (parseInt(index))).remove();
+				$(file).remove();
+			}
+		}
 		//파일 선택란을 보여준다.
-		//$("tr#item1").show();
+		//             $("tr#item1").show();
 		// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
 		//새로 추가 할 경우 두번째 tr 값을 복사하여 newitem변수에 대입
-		//var newitem = $("#file"+lastItemNo).clone();
-		var newfile = "<input type='file' id='file' name='file' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
-		$("#example").append(newfile);
-		//아이템 추가시 id="item" 값에 넘버를 추가해 준다.               
-		//newitem.attr("id", "file" + (parseInt(lastItemNo) + 1));
+		// 			var newitem = $("#file"+lastItemNo).clone();
+		var newfile = "<input type='file' id='file"
+				+ (parseInt(index))
+				+ "'name='file' class='fileClass'  style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
+		if ($(".selProductFile").length == 10) {
+			//그리고 해당 아이템은 5개 이상 생성할수 없도록 제한
+			alert("5개까지 가능합니다.");
+		} else {
+			$("#example").append(newfile);
 
-		$("#file").trigger('click');
+		}
+		//아이템 추가시 id="item" 값에 넘버를 추가해 준다.               
+		// 			newitem.attr("id", "file" + (parseInt(lastItemNo) + 1));
+
+		$("#file" + (parseInt(index))).trigger('click');
 
 		//file형식의 그것의 취소버튼을 눌렀을 때.
 
 		//onclick=\"deleteImageAction("+index+")\"
-		$("#file").on("change",handleImgFileSelect);
-//			console.log("add가끝난뒤 index:"+index);
+		$("#file" + (parseInt(index))).on("change", handleImgFileSelect);
+		console.log("add가끝난뒤 index:"+index);
+
 	});
-
-	// 이미지 정보들을 담을 배열
-	var sel_files = [];
-
-	function fileUploadAction() {
-		console.log("fileUploadAction");
-		$("#file").trigger('click');
-	}
-
-	var sel_file;
-
-	function handleImgFileSelect(e) {
-//			console.log("handleImg");
-//			console.log("handleImg때의 index:"+index);
-		// 이미지 정보들을 초기화
-		var files = e.target.files;
-		var filesArr = Array.prototype.slice.call(files);
-
-		filesArr.forEach(function(f) {
-			if (!f.type.match("image.*")) {
-				alert("확장자는 이미지 확장자만 가능합니다.");
-				return;
-			}
-			sel_file = f;
-			var reader = new FileReader();
-			
-			reader.onload = function(e) {
-				
-				var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='img' class='img' style='width:250px, height:250px'></a>";
-				$(".imgs_wrap").children().remove();
-				$(".imgs_wrap").append(html);
-			}		
-			reader.readAsDataURL(f);		
-		});
-		index++;		
-	}
-	
 });
+// 이미지 정보들을 담을 배열
+var sel_files = [];
 
+function fileUploadAction() {
+	console.log("fileUploadAction");
+	$("#file1").trigger('click');
+}
+
+var sel_file;
+
+function handleImgFileSelect(e) {
+
+	console.log("handleImg");
+	console.log("handleImg때의 index:"+index);
+	// 이미지 정보들을 초기화
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+		sel_file = f;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='preImg"+(index-1)+"' class='selProductFile' title='Click to remove' style='width:250px, height:250px'></a>";
+			$(".imgs_wrap").append(html);
+
+			var newButton = "<input type='button' id='deleteButton"+(index-1)+"'  onclick='deleteImageAction("
+					+ index + ")' value='삭제'>";
+			$(".imgs_wrap").append(newButton);
+		}
+		reader.readAsDataURL(f);
+	});
+	index++;
+}
+
+function deleteImageAction(fileIndex) {
+	console.log("delete start!");
+	var file = document.getElementById('file' + (fileIndex - 1));
+	var img = document.getElementById('preImg' + (fileIndex - 1));
+	var dButton = document.getElementById('deleteButton' + (fileIndex - 1));
+	$(file).remove();
+	$(img).remove();
+	$(dButton).remove();
+	index--;
+	console.log("index="+index);
+}
 
  
 </script>
@@ -439,7 +471,7 @@ legend{
 	<div class="content">
 		<h2>홈시터 게시글 등록을 위한 회원정보를 정확하게 입력해 주세요.</h2>
 		<hr>
-		<form action="${contextPath }/home/write" method="post" name="homesitterInfo" onsubmit="return checkValue()">
+		<form action="${contextPath }/home/write" method="post" name="homesitterInfo" onsubmit="return checkValue()" enctype="multipart/form-data">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<input type="hidden" value="<%=session.getAttribute("user_num")%>" name="hs_num">
 			<div class="main">
@@ -595,10 +627,10 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 					</div>
 					<div class="form-group imgs">
 					 	<label for="imgs_wrap">돌봄공간의 사진을 올려주세요</label>
-							<div class="imgs_wrap" id="imgs_wrap" >
-								<img id="img" class="img" >
-							</div>
-							<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진수정">
+						<div>
+							<div class="imgs_wrap" id="imgs_wrap" style="border: 1px solid"></div>
+						</div>
+						<input type="button" id="addImgBtn" class="btn btn-addImg" value="사진 올리기" style="border: 1px solid #b3d7ff;">
 						<div id="example"></div>
 					</div>
 					<div class="btnGroup">

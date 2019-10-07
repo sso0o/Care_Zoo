@@ -180,7 +180,7 @@ public class HomeSitterController {
 		return "sitter/home/example";
 	}
 	@ResponseBody
-	@RequestMapping("/searchLodagin")
+	@RequestMapping("/searchLoading")
 	public List<HomeSitterList> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
 		System.out.println("여기까지?");
 		System.out.println("swichNumber=====>" + switchNumber);
@@ -193,14 +193,14 @@ public class HomeSitterController {
 			}		
 			System.out.println("모델11:"+hsl_address);
 			System.out.println("hsl11:"+hsl);
-			List<HomeSitterList>  hslList = hslService.getbySearchingHsl(hsl_address,hsl);
-			System.out.println("값11"+hslList);
-			return hslList;
+			List<HomeSitterList>  hsList = hslService.getbySearchingHsl(hsl_address,hsl);
+			System.out.println("값11"+hsList);
+			return hsList;
 			
 		}else {
-			List<HomeSitterList> hslList = hslService.getHsls();
+			List<HomeSitterList> hsList = hslService.getHsls();
 		
-			return hslList;
+			return hsList;
 		}
 	}
 
@@ -261,13 +261,17 @@ public class HomeSitterController {
 	}
 	// 가정시터 게시글 등록 로직수행
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writeHsl(HomeSitterList hsl,Model model,MultipartHttpServletRequest mtfRequest) {
-		List<MultipartFile> files = mtfRequest.getFiles("file");
-
+	public String writeHsl(HomeSitterList hsl,String hsd_disabledate,Model model,MultipartHttpServletRequest mtfRequest) {
+		System.out.println("hsd_disabledate"+hsd_disabledate);
 		System.out.println("hsl : "+hsl);
+		//불가능 날짜 받기
+		List<String> hsd_disabledate_list = Arrays.asList(hsd_disabledate.split(","));
+		boolean result = hslService.addDisDates(hsl.getHs_num(), hsd_disabledate_list);
+		//이미지 파일 받기
+		List<MultipartFile> files = mtfRequest.getFiles("file");
 		System.out.println("files = "+files);
 		boolean rst = hslService.addHsl(hsl, files);
-		if(rst) {
+		if(rst&&result) {
 			model.addAttribute("hsl_num", hsl.getHsl_num());
 			return "sitter/home/joinForm_homeSitterDisableDates";
 		}else {
