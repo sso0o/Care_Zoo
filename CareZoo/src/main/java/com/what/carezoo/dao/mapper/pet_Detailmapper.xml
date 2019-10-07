@@ -7,6 +7,10 @@
 	(#{vsr_num},#{p_num},#{c_num})
 </insert>
 
+<delete id="deletePet_Detail" parameterType="int">
+	delete from pet_detail where vsr_num = #{vsr_num}
+</delete>
+
 <select id="selectByVsr_Num" resultType="pet_detail" parameterType="int">
 	select * from pet_detail where vsr_num = #{vsr_num}
 </select>

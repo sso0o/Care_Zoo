@@ -202,5 +202,13 @@ public class VisitSitterReservationService {
 		return rst;
 	}
 	
+	//중복예약 방지
+	public int selectByP_numVsr_chkin(int p_num,String vsr_chkin){
+		Map<String, Object> param = new HashMap<String, Object>();
+			param.put("p_num", p_num);
+			param.put("vsr_chkin", vsr_chkin);
+			
+		return vsrDao.selectByP_numVsr_chkin(param);
+	}
 
 }

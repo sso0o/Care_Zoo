@@ -153,6 +153,9 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 // 				});
 		
 // 	});
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
 </script>
 <style>
  .ui-datepicker{ font-size: 30px; width: 1100px; height:500px;}
