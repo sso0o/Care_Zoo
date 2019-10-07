@@ -188,7 +188,7 @@ public class SitterMainController {
 				url = "sitter/checkUser";
 			}
 		}
-
+		System.out.println(url);
 		return url;
 	}
 	
