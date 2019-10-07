@@ -304,7 +304,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			System.out.println(str);
 		}
 		List<PetHotelRoom> petHotelRoomList = phService.getAllPetHotelRoom(ph_num);
-
+		
 		model.addAttribute("petHotel", petHotel);
 		model.addAttribute("petHotelRoomList", petHotelRoomList);
 		model.addAttribute("filesName", filesName);

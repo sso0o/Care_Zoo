@@ -960,6 +960,9 @@ input[type="number"] {
 					</ul>
 				</div>
 			</div>
+			<br>
+			<hr>
+			<br>
 			<div class="row">
 				<div class="col-5">
 					<p>가능한 펫 마리수 : ${petHotel.ph_p_count }</p>
@@ -983,16 +986,21 @@ input[type="number"] {
 				</c:forEach>
 			</div>
 		</div>
+
 		<div class="col-sm-4">
+				<br>
+		<br>
 			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
-				<div style="padding: 10px; font-size: 15px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
+				<div style="padding: 10px; font-size: 18px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
 					<div class="col-dates" style="text-align: center;">
+					
+					
 						<label>원하는 날짜를 선택해주세요.</label> <br>
 						<input type="hidden" class="ph_num" name="ph_num" value="${petHotel.ph_num }">
 						<br>
-						<input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin" />
+						<input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin"  style="font-size:17px;width:110px;height:50px"/>
 						&nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp;
-						<input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout" />
+						<input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout"  style="font-size:17px;width:110px;height:50px"/>
 						<br style="padding: 20px"> <br>
 					</div>
 					<div class="sRoom"></div>

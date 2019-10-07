@@ -11,7 +11,14 @@ public class PetHotelRoom {
 	private String phrm_pet_size;
 	private int rcount;
 	private int phrm_p_max;
+	private int remaining_room;
 	
+	public int getRemaining_room() {
+		return remaining_room;
+	}
+	public void setRemaining_room(int remaining_room) {
+		this.remaining_room = remaining_room;
+	}
 	public int getPhrm_m_price() {
 		return phrm_m_price;
 	}
@@ -78,7 +85,7 @@ public class PetHotelRoom {
 		return "PetHotelRoom [ph_num=" + ph_num + ", phrm_num=" + phrm_num + ", phrm_name=" + phrm_name
 				+ ", phrm_price=" + phrm_price + ", phrm_m_price=" + phrm_m_price + ", phrm_l_price=" + phrm_l_price
 				+ ", phrm_p_count=" + phrm_p_count + ", phrm_pet_size=" + phrm_pet_size + ", rcount=" + rcount
-				+ ", phrm_p_max=" + phrm_p_max + "]";
+				+ ", phrm_p_max=" + phrm_p_max + ", remaining_room=" + remaining_room + "]";
 	}
 	
 }
