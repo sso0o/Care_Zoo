@@ -338,18 +338,52 @@ ul {
 				//qweqweqwewq
 			    if ( rsp.success ) {
 			        var msg = '결제가 완료되었습니다.';
+				    var buyer_test = "123";
 			        msg += '고유ID : ' + rsp.imp_uid;
 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
 			        msg += '결제 금액 : ' + rsp.paid_amount;
 			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			    } else {
-			        var msg = '결제에 실패하였습니다.';
-			        msg += '에러내용 : ' + rsp.error_msg;
-			    }
-			    alert(msg);
+// 			        location.href='http://localhost:8081/carezoo/petHotel/paySuccess';
+var resForm = $("#resForm");
+
+resForm.append($("<input type='hidden'>").attr("name","phr_price").val($('.totalValue').text().replace(/,/gi, "")*1));
+resForm.append($("<input type='hidden'>").attr("name","phr_imp_uid").val(rsp.imp_uid)); //아임포트 거래 고유번호
+resForm.append($("<input type='hidden'>").attr("name","phr_merchant_uid").val(rsp.merchant_uid)); //가맹점에서 생성/관리하는 고유번호
+$("#resForm").submit();
+//  var params =$("#resForm").serialize();s
+//  console.log("params:"+params);
+//  $.ajax({
+// 		url : "${contextPath}/petHotel/paySuccess",
+// 		data : params,
+// 		dataType : "text",
+// 		success : function(data) {
+// 			  alert="성공";
+// 		},
+// 			error : function() {
+// 					alert("데이터를 불러오는데 실패했습니다.")
+// 				}
+//  });
+		
+// 			 jQuery.ajax({
+//     		      url: "http://localhost:8081/carezoo/petHotel/paySuccess", //가맹점 서버
+//        		   method: "POST",
+//       		    headers: { "Content-Type": "application/json" },
+//     			      data: {
+//     			    	  params : params,
+//    		 		          imp_uid: rsp.imp_uid,
+//     			         merchant_uid: rsp.merchant_uid
+//    					       }
+//   						    }).done(function (data) {
+//   							   alert="성공";
+//    				 		 })
+						    } else {
+					        var msg = '결제에 실패하였습니다.';
+					        msg += '에러내용 : ' + rsp.error_msg;
+								    }
+						    alert(msg);
+					});
 			});
-			});
-// 			initialize();
+// 				initialize();
 		var paramsArr = [];
 		function petLoading(){
 		}
@@ -369,15 +403,18 @@ ul {
 			//=====================
 				
 		        var radioName = $('input[name="radio"]:checked');
-		        radioId= radioName.attr('id');
+		        var radioId= radioName.attr('id');
 			    var rasioNm = $("label[for='"+radioId+"']").text();
+			    var rasioP_num = $("."+radioId).val();
+			    console.log(rasioP_num);
 				$('.petInfo').text(rasioNm);
 				$('<br>').appendTo($('.petAddForm'));
 				$('<label class="petCount" style="font-size:19px;border-bottom:1px solid;">'+rasioNm+'</label>').appendTo($('.petAddForm'));
+				$('<input type="hidden" name="p_num" value="'+rasioP_num+'">').appendTo($('.petAddForm'));
 				$('<br>').appendTo($('.petAddForm'));
 			}
 		});
-// 		=========모달!!=============================================
+// 		=========모달!!============================================
 			$('#selectPetModal').click(function() {
 				if($("label[class=petCount]").length<($('.quantity').val()*1)){
 				modalOpen();					
@@ -704,7 +741,7 @@ ul {
 	<br>
 	<br>
 	<div class="container">
-		<form>
+		<form id="resForm" name="resForm"  action="${contextPath}/petHotel/paySuccess">
 			<div style="text-align: left;">
 				<label style="font-size: 25px">예약페이지</label>
 				<hr style="">
@@ -722,12 +759,15 @@ ul {
 										style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
 
 										<label style="font-weight: bold;">체크인: </label>&nbsp;<label
-											class="chkin">${phr_chkin} </label>
+											class="phr_chkin">${phr_chkin} </label> <input type="hidden"
+											value="${phr_chkin}" class="" name="phr_chkin">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
 											style="font-weight: bold">체크아웃: </label>&nbsp;<label
-											class="chkout">${phr_chkout }&nbsp;&nbsp;</label>
+											class="phr_chkout">${phr_chkout }&nbsp;&nbsp;</label> <input
+											type="hidden" value="${phr_chkout}" class="" name="phr_chkout">
 										&nbsp;&nbsp; <label class="totalDays" style="">(총
-											${totalDays}박)</label>&nbsp;&nbsp;
+											${totalDays}박)</label>&nbsp;&nbsp; <input type="hidden"
+											value="${totalDays}" class="" name="phr_totalDays">
 									</div>
 									&nbsp; <label
 										style="font-size: 30px; padding-bottom: 20px; position: relative; top: -10px;">&</label>
@@ -763,19 +803,25 @@ ul {
 									</div>
 									<div class="countPrice" style="float: right">
 										<span class="totalValue">${totalValue }</span>원
+<!-- 										<input type="hidden" -->
+<%-- 											value="${totalValue}" class="" name="phr_price"> --%>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div>
-						<input type="button" class="btn btn-my" id="selectPetModal"  value="반려견 선택">
-<!-- 							<button class="btn btn-my" id="selectPetModal">반려견 선택</button> -->
+							<input type="button" class="btn btn-my" id="selectPetModal"
+								value="반려견 선택">
+							<!-- 							<button class="btn btn-my" id="selectPetModal">반려견 선택</button> -->
 						</div>
 
 					</div>
 				</div>
 				<%--<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
-
+										<input type="hidden"
+											value="${ph.ph_num}" class="" name="ph_num">
+																					<input type="hidden"
+											value="${phrm.phrm_num}" class="" name="phrm_num">
 			</div>
 			<br>
 
@@ -791,15 +837,16 @@ ul {
 					</ul>
 					<br>
 				</div>
-				<textarea name="hsr_message"
+				<!-- 				<input hidden="hidden" /> -->
+				<!-- 				<input type="text"  name="hsr_message" style="margin: 0px; width: 99.4%; height: 126px;" placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요."  maxlength="4000"> -->
+				<textarea name="phr_message"
 					placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000"
 					id="txtMESSAGE" style="margin: 0px; width: 99.4%; height: 126px;"></textarea>
-				<br>
-				<br>
+				<br> <br>
 				<div>
 					<div style="margin-bottom: 15px">맡겨주를 이용하시는 이유에 대해 알려주세요!</div>
 					<div style="margin-bottom: 15px">
-						<select name="hsr_purpose">
+						<select name="phr_purpose">
 							<option value="여행">여행</option>
 							<option value="출장">출장</option>
 							<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
@@ -816,43 +863,42 @@ ul {
 				</ul>
 				<br> <br>
 				<div style="text-align: center">
-					<input type="submit" class="btn btn-my" id="check_module"
-						style="text-align: center; font-size: 23px; padding-left: 40px; padding-right: 40px" value="결제하기">
+					<input type="button" class="btn btn-my" id="check_module"
+						style="text-align: center; font-size: 23px; padding-left: 40px; padding-right: 40px"
+						value="결제하기">
 				</div>
 
-
+				<input type="hidden" value="${quantity}" class="quantity">
 			</div>
-</form>
-			<br> <br> <br> <br>
+			<!-- 			<input type="submit" value="asdas"> -->
+		</form>
+		<br> <br> <br> <br>
 
 
-			<!-- ///////////////////////////////////////////////////////////////모달 -->
-			<div class="modal-modify" id="reply-modal">
-				<!-- css 적용 하기 위한 경우 class -->
+		<!-- ///////////////////////////////////////////////////////////////모달 -->
+		<div class="modal-modify" id="reply-modal">
+			<!-- css 적용 하기 위한 경우 class -->
 
-				<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-				<div class="modal-table" id="modal-table">
-					<div class="close" id="modal-close">&times;</div>
-					<div class="radioForm">
-						<c:forEach items="${petList}" var="pL" varStatus="pLstatus">
-							<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-							<input type="hidden" value="${pL.p_num}">
-							<input type="hidden" value="${quantity}" class="quantity">
-							<div class="inputGroup">
-								<input id="radio${pLstatus.count}" name="radio" type="radio" />
-								<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name}
-									${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label>
-							</div>
-						</c:forEach>
-						<input type="button" value="선택" class="petSelectButton">
-					</div>
+			<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
+			<div class="modal-table" id="modal-table">
+				<div class="close" id="modal-close">&times;</div>
+				<div class="radioForm">
+					<c:forEach items="${petList}" var="pL" varStatus="pLstatus">
+						<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+						<input type="hidden" value="${quantity}" class="quantity">
+
+						<div class="inputGroup">
+							<input id="radio${pLstatus.count}" name="radio" type="radio" />
+							<input type="hidden" value="${pL.p_num}" class="radio${pLstatus.count}">
+							<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name}
+								${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label>
+						</div>
+					</c:forEach>
+					<input type="button" value="선택" class="petSelectButton">
 				</div>
 			</div>
-		
+		</div>
 	</div>
-
-
-
-
+	<input type="text" value="asds">
 </body>
 </html>

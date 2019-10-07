@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -174,11 +175,37 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		rst.put("ph_name", ph.getPh_name());
 		return rst;
 	}
-
-	@RequestMapping(value = "/paySuccess")
-	public String payCompleteForm() {
+	
+	
+	
+	
+	
+	//----------------Pay-----------------------
+	@RequestMapping("/paySuccess")
+	public String payCompleteForm(HttpSession session,PetHotelReservation phr, String[] p_num
+			) {
+		System.out.println("phr: "+phr);
+		System.out.println("p_num:"+p_num);
+//		params
+//ph_num, phrm_num, phr_status=3, p_num, phr_price,phr,totaldays
+		int c_num = (Integer) session.getAttribute("user_num");
+		phr.setC_num(c_num);
+		for(int i = 0;i<p_num.length;i++) {
+			int intP_num = Integer.parseInt(p_num[i]);
+			phr.setP_num(intP_num);
+			phr.setPhr_status("3");
+			phrService.addPetHotelRes(phr);
+			
+		}
+		
 		return "hotel/payComplete";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
