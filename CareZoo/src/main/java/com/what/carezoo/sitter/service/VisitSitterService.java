@@ -130,5 +130,4 @@ public class VisitSitterService {
 		return false;
 	}
 	
-	
 }

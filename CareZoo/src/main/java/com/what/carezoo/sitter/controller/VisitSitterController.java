@@ -223,25 +223,31 @@ public class VisitSitterController {
 		// visitReservation저장
 		VisitSitterReservation vsr = new VisitSitterReservation();
 		ArrayList<Integer> vsr_num = new ArrayList<Integer>();
-		for (int i = 0; i < tempVsr_chkin.length; i++) {
+//		if(int i=0;i<;i++) {
+//			model.addAttribute("msg", "중복예약입니다.");
+//			return "sitter/visit/result";
+//		}else {
+			for (int i = 0; i < tempVsr_chkin.length; i++) {
 
-			vsr.setC_num(c_num);
-			vsr.setVsr_chkin(tempVsr_chkin[i]);
-			vsr.setVsr_hAdd(vsr_hAdd);
-			vsr.setVsr_hour(vsr_hour);
+				vsr.setC_num(c_num);
+				vsr.setVsr_chkin(tempVsr_chkin[i]);
+				vsr.setVsr_hAdd(vsr_hAdd);
+				vsr.setVsr_hour(vsr_hour);
 
-			if (vsr.getVsr_day() == null) {
-				vsr.setVsr_day("7");
+				if (vsr.getVsr_day() == null) {
+					vsr.setVsr_day("7");
+				}
+				vsrService.insertVisitSitterReservation(vsr);
+				vsr_num.add(vsr.getVsr_num());
+				// pet_detail저장
+				for (int j = 0; j < p_num.size(); j++) {
+					pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
+				}
 			}
-			vsrService.insertVisitSitterReservation(vsr);
-			vsr_num.add(vsr.getVsr_num());
-			// pet_detail저장
-			for (int j = 0; j < p_num.size(); j++) {
-				pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
-			}
-		}
-		// count 업로드!!
-		vsrService.updateVsrCount(c_num);
+			// count 업로드!!
+			vsrService.updateVsrCount(c_num);
+//		}
+		
 
 		System.out.println("complete11,post2:" + vsr_num);
 		model.addAttribute("list", vsrService.selectByVsrnumbers(vsr_num));
@@ -654,9 +660,9 @@ public class VisitSitterController {
 		boolean rst = vsService.insertVisitSitterFile(vs, file);
 		if(rst) {
 			m.addAttribute("msg", "방문시터가입이 완료되었습니다! 로그인을 해 주세요:)");
-			return "visitSitterMain";
+			return "main";
 		} else {
-			return "joinForm";
+			return "joinForm_visitSitter";
 		}
 
 }
