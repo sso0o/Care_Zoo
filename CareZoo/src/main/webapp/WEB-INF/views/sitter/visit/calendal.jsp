@@ -206,6 +206,7 @@ day = day >= 10 ? day : '0' + day;
 //day 두자리로 저장
 return year + '-' + month + '-' + day; }
 
+
 </script>
 <style type="text/css">
 .ui-datepicker{ font-size: 30px; width: 1100px; height:500px;}

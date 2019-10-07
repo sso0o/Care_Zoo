@@ -1,5 +1,6 @@
 package com.what.carezoo.pet.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +27,14 @@ public class Pet_DetailService {
 	
 	public boolean deletePet_Detail(int vsr_num) {
 		if(pdDao.deletePet_Detail(vsr_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean deleteByListVsr_num(ArrayList<Integer> vsr_num) {
+		if(pdDao.deleteByListVsr_num(vsr_num)>0) {
 			return true;
 		}
 		return false;
