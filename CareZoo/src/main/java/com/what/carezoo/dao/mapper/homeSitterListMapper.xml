@@ -166,12 +166,8 @@
                 hsli.hsl_chkin_end_time,
                 hsli.hsl_chkout_str_time,
                 hsli.hsl_chkout_end_time,
-                hsli.hsl_status,
-                hsd.hsd_disabledate,
-                hsi.hsl_img_filename
+                hsli.hsl_status
         from homesitter hs left outer join homesitterlist hsli on hs.hs_num = hsl.hs_num
-        left outer join homesitterdisabledate hsd on hs.hs_num = hsd.hs_num 
-        left outer join homesitterlist_image hsi on hsl.hsl_num = hsi.hsl_num
 		<trim prefix="where" prefixOverrides="AND|OR">
 			<if test="hsl.hsl_size != null" >
 				AND hsl_size like
