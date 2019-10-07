@@ -19,8 +19,8 @@
 <!-- 		values -->
 <!-- 		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age},sysdate) -->
 		INSERT 		
-		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time,hsl_disdates)
-		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time},#{hsl_disdates})
+		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time)
+		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time})
 		
 <!-- 		INTO homesitterdisabledate (hsd_num, hs_num, hsd_disabledate)  -->
 <!-- 		VALUES (#{hsd_num}, #{hs_num}, #{hsd_disabledate}) -->
@@ -31,19 +31,12 @@
 		where hsl_num = #{hsl_num}
 		and hs_num=#{hs_num}
 	</update>
-	
-<!-- 	<insert id="insertDisdates" parameterType="map"> -->
-		
-<!-- 		INSERT  -->
-<!-- 		INTO homesitterdisabledate (hsd_num, hsd_disabledate) -->
-<!-- 		VALUES -->
-<!-- 		<foreach collection="list" item="item" separator=","> -->
-<!--         ( -->
-<!--             get_homesitterdisabledate_seq, -->
-<!--             #{item.hsd_disabledate} -->
-<!--         ) -->
-<!--         </foreach> -->
-<!-- 	</insert> -->
+	<!--예약불가일자 받기 -->
+	<insert id="insertDisdates" parameterType="map">		
+		INSERT 
+		INTO homesitterdisabledate (hs_num, hsd_num, hsd_disabledate)
+		VALUES  (#{hs_num}, homesitterdisabledate_seq.nextval, #{item.hsd_disabledate} )
+	</insert>
 	
 	
 
@@ -146,15 +139,6 @@
 	</select>
 	
 	
-	<!-- 파일 올리기 -->
-	<insert id="insertFile" parameterType="map">
-		<selectKey order="BEFORE" keyProperty="hsl_img_num" resultType="int">
-			select homesitterlist_image_seq.nextval from dual
-		</selectKey>
-		insert into homesitterlist_image (hsl_img_num,hsl_num,hsl_img_filename,hsl_img_write_date )
-		values (#{hsl_img_num},#{hsl_num},#{hsl_img_filename},sysdate)
-	</insert>
-	
 	
 		<!-- 모든 홈시터 가져오기 -->
 	<select id="selectHsl" resultType="map" parameterType="int">
@@ -182,12 +166,17 @@
 		LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num		
 	</select>
 	
+	<!-- 게시글용 파일 올리기 -->
+	<insert id="insertFile" parameterType="map">		
+		insert into homesitterlist_image (hsl_img_num, hsl_num,hsl_img_filename,hsl_img_write_date )
+		values (homesitterlist_image_seq.nextval,#{hsl_num},#{hsl_img_filename},sysdate)
+	</insert>
 	
+	<!-- 게시글용 파일 가져오기 -->
 	<select id="selectFileName" parameterType="int" resultType="string">
 		select * from homesitterlist_image where hsl_num = #{hsl_num}
 	</select>
-	
-	
+		
 	<select id="selectFileList" parameterType="int" resultType="string">
 		select hsl_img_filename
 		  from homesitterlist hsl, homesitterlist_image hslI
@@ -196,5 +185,10 @@
 		<!-- resultType = "hashMap" 으로 하면 list로 간다요 -->
 	</select>
 	
-	
+	<update id="updateFile" parameterType="map">
+		update homesitter
+		set hs_filename = #{hs_filename}	
+		where hs_num = #{hs_num}
+	</update>
+
 </mapper>

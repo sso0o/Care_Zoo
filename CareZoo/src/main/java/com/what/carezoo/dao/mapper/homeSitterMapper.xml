@@ -76,6 +76,10 @@
 		select count(*) from homesitter where hs_email = #{hs_email}
 	</select>
 	
+	<insert id="insertFile" parameterType="map">
+		insert into customer_image (c_num,c_filename,c_write_date )
+		values (#{c_num},#{c_filename},sysdate)
+	</insert>
 
 	<select id="selectFile" parameterType="int" resultType="string">
 		select hs_filename from homesitter where hs_num = #{hs_num}

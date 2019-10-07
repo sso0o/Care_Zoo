@@ -94,33 +94,34 @@ public class HomeSitterController {
 	public String joinHomeSitter(@RequestParam Map<String, Object> params,Model model, HttpServletRequest request) {
 
 		 System.out.println("파람"+params);
-
+	
 		 //회원가입 메서드 
 		boolean hsRst = hsService.joinHomeSitter(params);
 		if(hsRst) {
-			System.out.println("글등록 성공!!");
+			System.out.println("회원가입 성공!!");
 			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
 			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요:)");	
-			model.addAttribute("url", "${contextPath}/home/main");
+			model.addAttribute("url", "main");
 		} else {
 			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");
-			model.addAttribute("url", "${contextPath}/member/joinHome");
+			model.addAttribute("url", "member/joinHome");
 		}
-		return "redirect:result";
+		return "result";
 	}
 	// e-mail 인증 컨트롤러
 	@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
 	public String key_alterConfirm(Model model, String hs_email, String hs_email_key) {
 		if(mailsender.alter_userKey_service(hs_email, hs_email_key)>0) {
-			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 게시글 등록을 위해 회원정보를 업데이트 해주세요");
-			model.addAttribute("url", "${contextPath}/home/loginForm");
+			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 로그인 후 게시글 등록을 위해 회원정보를 업데이트 해주세요");
+			model.addAttribute("url", "member/loginForm");
+			return "write?";
 		}else {
 			model.addAttribute("msg", "회원가입이 진행중입니다. 확인 후 이용바랍니다.");
-			model.addAttribute("url", "${contextPath}/member/main");
+			model.addAttribute("url", "member/main");
+			return "result";
 		}
-		return "redirect:result";
 	}
-
+	
 	//아이디 유효성 검사
 	@ResponseBody
 	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
@@ -133,7 +134,7 @@ public class HomeSitterController {
 		map.put("cnt", count);
 		return map;
 	}
-
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////가정시터 메인 보여주기
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")
@@ -258,30 +259,42 @@ public class HomeSitterController {
 	public String writeHsl(Model model) {
 		return "sitter/home/joinForm_homeSitterDetail";
 	}
+	// 가정시터 게시글 등록 로직수행
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String writeHsl(HomeSitterList hsl,Model model,MultipartHttpServletRequest mtfRequest) {
+		List<MultipartFile> files = mtfRequest.getFiles("file");
+
+		System.out.println("hsl : "+hsl);
+		System.out.println("files = "+files);
+		boolean rst = hslService.addHsl(hsl, files);
+		if(rst) {
+			model.addAttribute("hsl_num", hsl.getHsl_num());
+			return "sitter/home/joinForm_homeSitterDisableDates";
+		}else {
+			return "redirect:/home/write";
+		}
+	}
 //	// 가정시터 게시글 등록 로직수행
 //	@RequestMapping(value = "/write", method = RequestMethod.POST)
-//	public String writeHsl(HomeSitterList hsl,Model model,MultipartHttpServletRequest mtfRequest) {
+//	public String writeHsl(HomeSitterList hsl, Model model) {
 //		System.out.println("hsl : "+hsl);
-//		List<MultipartFile> files = mtfRequest.getFiles("file");
-//		System.out.println("files = "+files);
-//		boolean rst = hslService.addHsl(hsl, files);
+//		boolean rst = hslService.writeHomeSitterList(hsl);
 //		if(rst) {
-//			model.addAttribute("hsl_num", hsl.getHsl_num());
 //			return "sitter/home/joinForm_homeSitterDisableDates";
 //		}else {
 //			return "redirect:/home/write";
 //		}
 //	}
-	// 가정시터 게시글 등록 로직수행
-	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writeHsl(HomeSitterList hsl, Model model) {
-		System.out.println("hsl : "+hsl);
-		boolean rst = hslService.writeHomeSitterList(hsl);
-		if(rst) {
-			return "sitter/home/joinForm_homeSitterDisableDates";
-		}else {
-			return "redirect:/home/write";
-		}
+	@ResponseBody
+	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
+	public Map<String, Object> getHsImg(int hs_num) {
+		System.out.println("writeIMG 가져오는거");
+		System.out.println(hs_num);
+		Map<String, Object> rst = new HashMap<String, Object>();
+//		String filename = hslService.getFileList(hsl_num);
+//		rst.put("filename", filename);
+		System.out.println("rst : "+rst);
+		return rst;
 	}
 //	@RequestMapping(value = "/getDisDate", method = RequestMethod.POST)
 //	public String joHomeSitter(String hsd_disabledate,int hs_num,int hsl_num ,Model model ) {
@@ -317,6 +330,21 @@ public class HomeSitterController {
 	
 	
 	
+	////////////////////////////////////////////////////////////////////////////////////홈시터 게시글 상세보기 페이지
+	//홈시터 게시글 상세보기
+//	@Secured("CUSTOMER")
+	@RequestMapping("/view")
+	public String enterHomeSitterView(Model model, int hsl_num) {
+		model.addAttribute("hsList", hslService.getHomeSitterByHsl_Num(hsl_num));
+		return "sitter/home/homeSitterView";
+	}
+	@RequestMapping("/getComment")
+	@ResponseBody
+	public List<HomeSitterComment> getAllCommentByNum(int hsl_num){
+		return null;
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////게시글 삭제
+
 	@ResponseBody
 	@RequestMapping(value = "/image")
 	public byte[] getImage(String fileName) {
@@ -341,25 +369,4 @@ public class HomeSitterController {
 		}
 		return null;
 	}
-	////////////////////////////////////////////////////////////////////////////////////홈시터 게시글 상세보기 페이지
-	//홈시터 게시글 상세보기
-//	@Secured("CUSTOMER")
-	@RequestMapping("/view")
-	public String enterHomeSitterView(Model model, int hsl_num) {
-		model.addAttribute("hsList", hslService.getHomeSitterByHsl_Num(hsl_num));
-		return "sitter/home/homeSitterView";
-	}
-	@RequestMapping("/getComment")
-	@ResponseBody
-	public List<HomeSitterComment> getAllCommentByNum(int hsl_num){
-		return null;
-	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////게시글 삭제
-	
-	
-	
-	
-	
-	
-	
 }
