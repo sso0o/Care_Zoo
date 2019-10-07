@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -139,12 +140,21 @@ public class HomeSitterController {
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")
 	public String enterHomeSitterMain(Model model) {
-//		model.addAttribute("hslList", hslService.getallHsl());
-		List<Map<String, Object>> hslList = hslService.getHsl();
-//		for(int i=0;i<hslList.size();i++) {
-//			System.out.println("GET"+i+"="+hslList.get(i));
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		List<Map<String, Object>> hsList = hslService.getHsl();
+//		param.put("hsList", hsList);
+//		param.put(key, hslService.getFileList(hsl_num));
+////		System.out.println(hsList.toString());
+//		for(int i=0;i<hsList.size();i++) {
+//			System.out.println(hsList.get(i).get("HSL_NUM"));
+//			hslService.get
+////			int num = 
+////			System.out.println(hslService.getFileList(num));
+////			int hsl_num = hsList.get(i).getHsl_num();
+////			System.out.println("hsl_num"+hsl_num+"file" + fn);
+////			System.out.println("GET"+i+"="+hsList.get(i));
 //		}
-		model.addAttribute("hslList",hslList);
+//		model.addAttribute("hsList",hsList);
 		return "sitter/home/homeSitterList";
 	}
 	
@@ -168,17 +178,20 @@ public class HomeSitterController {
 		if(hsl_address==null) {
 			hsl_address = new ArrayList<String>(); 			
 		}		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("hslList", hslService.getbySearchingHsl(hsl_address,hsl));
+		System.out.println("param" + param.values());
 		System.out.println("모델00:"+hsl_address);
 		System.out.println("hsl00:"+hsl);
 		System.out.println("값00"+hslService.getbySearchingHsl(hsl_address,hsl));
 		model.addAttribute("hslList", hslService.getbySearchingHsl(hsl_address,hsl));
 		return "sitter/home/homeSitterList";
 	}
-	//가정시터 목록 json 보내기
-	@RequestMapping("/maain")
-	public String home(Model model) {
-		return "sitter/home/example";
-	}
+//	//가정시터 목록 json 보내기
+//	@RequestMapping("/maain")
+//	public String home(Model model) {
+//		return "sitter/home/example";
+//	}
 	@ResponseBody
 	@RequestMapping("/searchLoading")
 	public List<HomeSitterList> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
@@ -190,16 +203,23 @@ public class HomeSitterController {
 			}
 			if(hsl_address==null) {
 				hsl_address = new ArrayList<String>(); 			
-			}		
+			}	
+			
 			System.out.println("모델11:"+hsl_address);
 			System.out.println("hsl11:"+hsl);
 			List<HomeSitterList>  hsList = hslService.getbySearchingHsl(hsl_address,hsl);
 			System.out.println("값11"+hsList);
+			for (int i = 0; i < hsList.size(); i++) {
+				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
+			}
 			return hsList;
 			
 		}else {
 			List<HomeSitterList> hsList = hslService.getHsls();
-		
+			for (int i = 0; i < hsList.size(); i++) {
+				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
+			}
+			System.out.println("hsList"+hsList);				
 			return hsList;
 		}
 	}

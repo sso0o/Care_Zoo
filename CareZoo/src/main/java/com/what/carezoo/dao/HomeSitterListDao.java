@@ -31,5 +31,5 @@ public interface HomeSitterListDao {
    public int insertDisdates(Map<String, Object> params);
    public int updateDisDates(Map<String, Object> params);
    // 가격
-   public Map<String, Object> getHsPrice(Map<String, Object> params);  
+   public Map<String, Object> getHsPrice(@Param("hsl_size")String hsl_size, @Param("hsl_service_type")String hsl_service_type);  
 }

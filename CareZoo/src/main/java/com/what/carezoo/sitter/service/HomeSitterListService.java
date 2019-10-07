@@ -120,4 +120,8 @@ public class HomeSitterListService {
 		List<String> filesName = hslDao.selectFileList(hsl_num);
 		return filesName;
 	}
+	public String getFile(int hsl_num) {
+		String fileName = hslDao.selectFileName(hsl_num);
+		return fileName;
+	}
 }
