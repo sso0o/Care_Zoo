@@ -11,7 +11,7 @@
 <title>petHotelList</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><!--부트스트랩-->\
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><!--부트스트랩-->
 
 
 
@@ -71,6 +71,74 @@ ul {
 .petHotel:hover {
 	outline: 1px solid aqua;
 }
+
+
+.tab-box{
+
+         margin: 50px auto 0 auto;
+
+         width:520px;
+
+}
+
+
+
+.tab-box ul{
+
+         height:30px;
+
+}
+
+
+.tab-box li{
+
+         float:left;
+
+         width:100px;
+
+         height:30px;      
+
+         line-height:30px;          /* 중앙정렬 */
+
+         margin-right: 2px;
+
+         text-align: center;
+
+         background-color: #ccc;
+
+         border-radius:3px 3px 0 0;
+
+cursor: pointer;
+
+}
+
+
+
+.tab-box li.selected{
+
+         background-color: orange;
+
+}
+
+
+
+.tab-view{
+
+         width:506px;
+
+         height:100px;
+
+         line-height: 100px;
+
+         border: 1px solid gray;
+
+         text-align:center;
+
+         margin-top:-1px;
+
+}
+
+
 </style>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"
 	type="text/javascript"></script>
@@ -339,7 +407,7 @@ ul {
 
 									var petHotelDiv = $('<div class="petHotel" onclick="location.href=\'${contextPath}/petHotel/petHotelView?ph_num='
 											+ phList[i].ph_num
-											+ '\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
+											+ '\'\"style="border: 1px solid; margin: 50px; height: 352px;">');
 									//				asdasd	var petHotelDiv = $('<div class="petHotel" style="border: 1px solid; margin: 50px; height: 350px;">');
 									var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
 									petHotelDiv.append(petHotelDiv2);
@@ -648,14 +716,31 @@ ul {
 
 		<form>
 			<div>
-				<ul class="nav nav-tabs nav-justified">
-					<li id="menu_0" class="active"><a
-						href="${contextPath}/home/main">전체</a></li>
-					<li id="menu_1"><a href="#">서울</a></li>
-					<li id="menu_2"><a href="#">경기</a></li>
-					<li id="menu_3"><a href="#">인천</a></li>
-				</ul>
+<!-- 				<ul class="nav nav-tabs nav-justified"> -->
+<!-- 					<li id="menu_0" class="active"><a -->
+<%-- 						href="${contextPath}/home/main">전체</a></li> --%>
+<!-- 					<li id="menu_1"><a href="#">서울</a></li> -->
+<!-- 					<li id="menu_2"><a href="#">경기</a></li> -->
+<!-- 					<li id="menu_3"><a href="#">인천</a></li> -->
+<!-- 				</ul> -->
+				         <div class="tab-box">
+
+                  <ul>
+
+                 <li id="menu_0" class="active">전체</a></li>
+
+                 <li id="menu_1"><a href="#">서울</a></li>
+
+                 <li id="menu_2"><a href="#">경기</a></li>
+                 <li id="menu_3"><a href="#">인천</a></li>
+
+             </ul>
+
+
+         </div> 
+				
 				<div>
+				
 					<div id="subtbl_0" style="display: none">
 						<table>
 							<tr>
