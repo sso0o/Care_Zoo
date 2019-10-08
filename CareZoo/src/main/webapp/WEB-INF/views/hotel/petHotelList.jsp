@@ -11,10 +11,6 @@
 <title>petHotelList</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><!--부트스트랩-->
-
-
-
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
@@ -37,7 +33,6 @@
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
 <!-- 폰트 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"><!--부트스트랩-->
 <style type="text/css">
 ul {
 	list-style: none outside none;
@@ -72,73 +67,93 @@ ul {
 	outline: 1px solid aqua;
 }
 
-
-.tab-box{
-
-         margin: 50px auto 0 auto;
-
-         width:520px;
-
+.btn-my {
+	color: #40bf9f;
+	background-color: #fff;
+	border-color: #40bf9f;
 }
 
-
-
-.tab-box ul{
-
-         height:30px;
-
+.btn-my:hover {
+	color: #fff;
+	background-color: #40bf9f;
+	border-color: #40bf9f;
 }
 
-
-.tab-box li{
-
-         float:left;
-
-         width:100px;
-
-         height:30px;      
-
-         line-height:30px;          /* 중앙정렬 */
-
-         margin-right: 2px;
-
-         text-align: center;
-
-         background-color: #ccc;
-
-         border-radius:3px 3px 0 0;
-
-cursor: pointer;
-
+.btn {
+	width: 240px;
+	display: inline-block;
+	font-weight: 400;
+	vertical-align: middle;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid;
+	padding: .375rem .75rem;
+	font-size: 1.2rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out,
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	text-decoration: none;
 }
 
-
-
-.tab-box li.selected{
-
-         background-color: orange;
-
+.checkbox-container {
+	position: relative;
 }
 
-
-
-.tab-view{
-
-         width:506px;
-
-         height:100px;
-
-         line-height: 100px;
-
-         border: 1px solid gray;
-
-         text-align:center;
-
-         margin-top:-1px;
-
+.checkbox-container input[type="checkbox"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0
 }
 
+.checkbox-container input[type="checkbox"]+label {
+	display: inline-block;
+	position: relative;
+	cusor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
+.checkbox-container input[type="checkbox"]+label:before {
+	content: ' ';
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	margin: -2px 8px 0 0;
+	text-align: center;
+	vertical-align: middle;
+	background: #fafafa;
+	border: 1px solid #cacece;
+	border-radius: 3px;
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px
+		rgba(0, 0, 0, 0.05);
+}
+
+.checkbox-container input[type="checkbox"]+label:active:before,
+	.checkbox-container input[type="checkbox"]:checked+label:active:before
+	{
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px
+		rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-container input[type="checkbox"]:checked+label:before {
+	content: '\2713';
+	color: #314ca2;
+	text-shadow: 1px 1px white;
+	background: #f1f4ff;
+	border-color: #adb8c0;
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px
+		rgba(0, 0, 0, 0.05);
+}
 </style>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"
 	type="text/javascript"></script>
@@ -407,7 +422,7 @@ cursor: pointer;
 
 									var petHotelDiv = $('<div class="petHotel" onclick="location.href=\'${contextPath}/petHotel/petHotelView?ph_num='
 											+ phList[i].ph_num
-											+ '\'\"style="border: 1px solid; margin: 50px; height: 352px;">');
+											+ '\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
 									//				asdasd	var petHotelDiv = $('<div class="petHotel" style="border: 1px solid; margin: 50px; height: 350px;">');
 									var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
 									petHotelDiv.append(petHotelDiv2);
@@ -460,14 +475,16 @@ cursor: pointer;
 									var aArDiv = $('<div style="">');
 									$('<span>').text(phList[i].ph_name)
 											.appendTo(aArDiv);
-									$(
-											'<div>' + phList[i].ph_address
+									$('<div>' + phList[i].ph_address
 													+ phList[i].ph_d_address
-													+ '</div>')
-											.appendTo(aArDiv);
+													+ '</div>').appendTo(aArDiv);
 									var minAndMaxPrice = $('<div>');
-									console.log(phList.ph_minPrice);
-									console.log(phList.ph_maxPrice);
+									$('<span>').text(phList[i].ph_minPrice*1)
+									.appendTo(minAndMaxPrice);
+									$('<span>').text(phList[i].ph_maxPrice*1)
+									.appendTo(minAndMaxPrice);
+									console.log("minPrice: "+phList[i].ph_minPrice*1);
+									console.log("maxPrice: "+phList[i].ph_maxPrice*1);
 									minAndMaxPrice.appendTo(aArDiv);
 									var reviewDiv = $('<div>');
 									$('<span>').text(
@@ -716,31 +733,12 @@ cursor: pointer;
 
 		<form>
 			<div>
-<!-- 				<ul class="nav nav-tabs nav-justified"> -->
-<!-- 					<li id="menu_0" class="active"><a -->
-<%-- 						href="${contextPath}/home/main">전체</a></li> --%>
-<!-- 					<li id="menu_1"><a href="#">서울</a></li> -->
-<!-- 					<li id="menu_2"><a href="#">경기</a></li> -->
-<!-- 					<li id="menu_3"><a href="#">인천</a></li> -->
-<!-- 				</ul> -->
-				         <div class="tab-box">
-
-                  <ul>
-
-                 <li id="menu_0" class="active">전체</a></li>
-
-                 <li id="menu_1"><a href="#">서울</a></li>
-
-                 <li id="menu_2"><a href="#">경기</a></li>
-                 <li id="menu_3"><a href="#">인천</a></li>
-
-             </ul>
-
-
-         </div> 
-				
+				<a href="#" id="menu_0" class="btn btn-my" id="menu_0"
+					style="text-align: center;">전체</a> <a href="#" class="btn btn-my"
+					style="text-align: center;" id="menu_1">서울</a> <a href="#"
+					class="btn btn-my" style="text-align: center;" id="menu_2">경기</a> <a
+					href="#" class="btn btn-my" style="text-align: center;" id="menu_3">인천</a>
 				<div>
-				
 					<div id="subtbl_0" style="display: none">
 						<table>
 							<tr>
@@ -750,7 +748,7 @@ cursor: pointer;
 							</tr>
 						</table>
 					</div>
-					<div id="subtbl_1" style="display: none">
+					<div id="subtbl_1" style="display: none; border: 1px solid">
 						<table>
 							<tr class="state_seoul">
 								<td id="check_container"><input type="checkbox"
@@ -769,7 +767,7 @@ cursor: pointer;
 									name="ph_address" id="state7" value="구로구"> <label
 									for="state7">구로구</label> <input type="checkbox"
 									name="ph_address" id="state8" value="금천구"> <label
-									for="state8">금천구</label> <input type="checkbox"
+									for="state8">금천구</label> <br> <input type="checkbox"
 									name="ph_address" id="state9" value="노원구"> <label
 									for="state9">노원구</label> <input type="checkbox"
 									name="ph_address" id="state10" value="도봉구"> <label
@@ -785,7 +783,7 @@ cursor: pointer;
 									name="ph_address" id="state15" value="서초구"> <label
 									for="state15">서초구</label> <input type="checkbox"
 									name="ph_address" id="state16" value="성동구"> <label
-									for="state16">성동구</label> <input type="checkbox"
+									for="state16">성동구</label> <br> <input type="checkbox"
 									name="ph_address" id="state17" value="성북구"> <label
 									for="state17">성북구</label> <input type="checkbox"
 									name="ph_address" id="state18" value="송파구"> <label
@@ -801,7 +799,7 @@ cursor: pointer;
 									name="ph_address" id="state23" value="종로구"> <label
 									for="state23">종로구</label> <input type="checkbox"
 									name="ph_address" id="state24" value="중구"> <label
-									for="state24">중구</label> <input type="checkbox"
+									for="state24">중구</label> <br> <input type="checkbox"
 									name="ph_address" id="state25" value="중랑구"> <label
 									for="state24">중랑구</label></td>
 							</tr>
@@ -833,31 +831,31 @@ cursor: pointer;
 									type="checkbox" name="ph_address" id="state36" value="성남시">성남시
 									<input type="checkbox" name="ph_address" id="state37"
 									value="수원시">수원시 <input type="checkbox"
-									name="ph_address" id="state38" value="시흥시">시흥시
-									<input type="checkbox" name="ph_address" id="state39"
-									value="안산시">안산시 <input type="checkbox"
-									name="ph_address" id="state40" value="안성시">안성시 <input
-									type="checkbox" name="ph_address" id="state41" value="안양시">안양시
-									<input type="checkbox" name="ph_address" id="state42"
-									value="양주시">양주시 <input type="checkbox"
-									name="ph_address" id="state43" value="여주시">여주시 <input
-									type="checkbox" name="ph_address" id="state44" value="오산시">오산시
-									<input type="checkbox" name="ph_address" id="state45"
-									value="용인시">용인시 <input type="checkbox"
-									name="ph_address" id="state46" value="의왕시">의왕시 <input
-									type="checkbox" name="ph_address" id="state47" value="의정부시">의정부시
-									<input type="checkbox" name="ph_address" id="state48"
-									value="이천시">이천시 <input type="checkbox"
-									name="ph_address" id="state49" value="파주시">파주시 <input
-									type="checkbox" name="ph_address" id="state50" value="평택시">평택시
-									<input type="checkbox" name="ph_address" id="state51"
-									value="포천시">포천시 <input type="checkbox"
-									name="ph_address" id="state52" value="하남시">하남시 <input
-									type="checkbox" name="ph_address" id="state53" value="화성시">화성시
-									<input type="checkbox" name="ph_address" id="state54"
-									value="가평군">가평군 <input type="checkbox"
-									name="ph_address" id="state55" value="양평군">양평군 <input
-									type="checkbox" name="ph_address" id="state56" value="연천군">연천군</td>
+									name="ph_address" id="state38" value="시흥시">시흥시 <input
+									type="checkbox" name="ph_address" id="state39" value="안산시">안산시
+									<input type="checkbox" name="ph_address" id="state40"
+									value="안성시">안성시 <input type="checkbox"
+									name="ph_address" id="state41" value="안양시">안양시 <input
+									type="checkbox" name="ph_address" id="state42" value="양주시">양주시
+									<input type="checkbox" name="ph_address" id="state43"
+									value="여주시">여주시 <input type="checkbox"
+									name="ph_address" id="state44" value="오산시">오산시 <input
+									type="checkbox" name="ph_address" id="state45" value="용인시">용인시
+									<input type="checkbox" name="ph_address" id="state46"
+									value="의왕시">의왕시 <input type="checkbox"
+									name="ph_address" id="state47" value="의정부시">의정부시 <input
+									type="checkbox" name="ph_address" id="state48" value="이천시">이천시
+									<input type="checkbox" name="ph_address" id="state49"
+									value="파주시">파주시 <input type="checkbox"
+									name="ph_address" id="state50" value="평택시">평택시 <input
+									type="checkbox" name="ph_address" id="state51" value="포천시">포천시
+									<input type="checkbox" name="ph_address" id="state52"
+									value="하남시">하남시 <input type="checkbox"
+									name="ph_address" id="state53" value="화성시">화성시 <input
+									type="checkbox" name="ph_address" id="state54" value="가평군">가평군
+									<input type="checkbox" name="ph_address" id="state55"
+									value="양평군">양평군 <input type="checkbox"
+									name="ph_address" id="state56" value="연천군">연천군</td>
 							</tr>
 							<tr>
 								<td>
@@ -938,7 +936,7 @@ cursor: pointer;
 						<tr class="col-btn">
 							<td>
 								<button type="button" class="search">찾기</button>
-								<button type="reset" class="btn">초기화</button>
+								<button type="reset">초기화</button>
 							</td>
 						</tr>
 					</table>
@@ -986,6 +984,10 @@ cursor: pointer;
 
 		</div>
 	</div>
+	<div class="checkbox-container">
 
+		<input type="checkbox" id="is-subscription" value="구독신청">
+
+	</div>
 </body>
 </html>

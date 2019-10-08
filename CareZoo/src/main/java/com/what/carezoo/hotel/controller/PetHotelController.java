@@ -123,8 +123,6 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		System.out.println("swichNumber=====>" + switchNumber);
 		if (switchNumber == 1) {
 //
-			System.out.println("모델:" + ph_address); // 주소
-			System.out.println("ph:" + ph); // 서비스 예약일 반려견 나이 반려견 크기 정보
 			if (ph == null) {
 				ph = new PetHotel();
 			}
@@ -145,7 +143,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			for (int i = 0; i < phList.size(); i++) {
 				(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
 			}
-			System.out.println(phList);
+			System.out.println("==============================값" + phList);
 //			model.addAttribute("phList", phList);
 			return phList;
 		}
