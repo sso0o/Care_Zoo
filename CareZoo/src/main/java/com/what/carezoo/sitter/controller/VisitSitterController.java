@@ -240,7 +240,7 @@ public class VisitSitterController {
 					pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
 					System.out.println("test,p_num: "+p_num.get(j)+",test,chkin: "+tempVsr_chkin[i]);
 					//System.out.println(vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]));
-						if (vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]) >= 1) {
+						if (vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]) > 1) {
 							System.out.println(vsr_num.size());
 						for(int k =0;k<vsr_num.size();k++) {
 							System.out.println(vsr_num.get(k));
@@ -621,6 +621,19 @@ public class VisitSitterController {
 		System.out.println("vsr_day: " + vsr_day);
 		System.out.println("vsr_count: " + vsr_count);
 		System.out.println("p_num: " + p_num);
+		
+		//날자 선택 안했을 때!!
+		if(vsr_chkin == null) {
+			model.addAttribute("p_num", p_num);
+			model.addAttribute("c_num", c_num);
+			model.addAttribute("vsr_num", vsr_num);
+			model.addAttribute("vsr_day", vsr_day);
+			model.addAttribute("vsr_count", vsr_count);
+			model.addAttribute("list", vsrService.selectByVsrCount(vsr_count));
+			model.addAttribute("msg", "날자를 선택해주세요");
+			return "sitter/visit/calendal";
+		}
+		
 		String[] tempVsr_chkin = vsr_chkin.split(",");
 
 		VisitSitterReservation vsr = new VisitSitterReservation();
