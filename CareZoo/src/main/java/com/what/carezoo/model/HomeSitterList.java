@@ -28,31 +28,15 @@ public class HomeSitterList {
 	 private String hsl_chkin_end_time;
 	 private String hsl_chkout_str_time;
 	 private String hsl_chkout_end_time;
-	 
-	public String getHsl_chkin_str_time() {
-		return hsl_chkin_str_time;
-	}
-	public void setHsl_chkin_str_time(String hsl_chkin_str_time) {
-		this.hsl_chkin_str_time = hsl_chkin_str_time;
-	}
-	public String getHsl_chkin_end_time() {
-		return hsl_chkin_end_time;
-	}
-	public void setHsl_chkin_end_time(String hsl_chkin_end_time) {
-		this.hsl_chkin_end_time = hsl_chkin_end_time;
-	}
-	public String getHsl_chkout_str_time() {
-		return hsl_chkout_str_time;
-	}
-	public void setHsl_chkout_str_time(String hsl_chkout_str_time) {
-		this.hsl_chkout_str_time = hsl_chkout_str_time;
-	}
-	public String getHsl_chkout_end_time() {
-		return hsl_chkout_end_time;
-	}
-	public void setHsl_chkout_end_time(String hsl_chkout_end_time) {
-		this.hsl_chkout_end_time = hsl_chkout_end_time;
-	}
+	 private String hs_name;
+	 private String hs_sex;
+	 private String hs_birth;
+	 private String  hs_contact;
+	 private String hs_address;
+	 private String  hs_d_address;
+	 private String hs_email;
+	 private int hsc_cmt_count;
+	 private int hs_avgStar;
 	public int getHsl_num() {
 		return hsl_num;
 	}
@@ -179,6 +163,84 @@ public class HomeSitterList {
 	public void setHsl_disdates_list(List<String> hsl_disdates_list) {
 		this.hsl_disdates_list = hsl_disdates_list;
 	}
+	public String getHsl_chkin_str_time() {
+		return hsl_chkin_str_time;
+	}
+	public void setHsl_chkin_str_time(String hsl_chkin_str_time) {
+		this.hsl_chkin_str_time = hsl_chkin_str_time;
+	}
+	public String getHsl_chkin_end_time() {
+		return hsl_chkin_end_time;
+	}
+	public void setHsl_chkin_end_time(String hsl_chkin_end_time) {
+		this.hsl_chkin_end_time = hsl_chkin_end_time;
+	}
+	public String getHsl_chkout_str_time() {
+		return hsl_chkout_str_time;
+	}
+	public void setHsl_chkout_str_time(String hsl_chkout_str_time) {
+		this.hsl_chkout_str_time = hsl_chkout_str_time;
+	}
+	public String getHsl_chkout_end_time() {
+		return hsl_chkout_end_time;
+	}
+	public void setHsl_chkout_end_time(String hsl_chkout_end_time) {
+		this.hsl_chkout_end_time = hsl_chkout_end_time;
+	}
+	public String getHs_name() {
+		return hs_name;
+	}
+	public void setHs_name(String hs_name) {
+		this.hs_name = hs_name;
+	}
+	public String getHs_sex() {
+		return hs_sex;
+	}
+	public void setHs_sex(String hs_sex) {
+		this.hs_sex = hs_sex;
+	}
+	public String getHs_birth() {
+		return hs_birth;
+	}
+	public void setHs_birth(String hs_birth) {
+		this.hs_birth = hs_birth;
+	}
+	public String getHs_contact() {
+		return hs_contact;
+	}
+	public void setHs_contact(String hs_contact) {
+		this.hs_contact = hs_contact;
+	}
+	public String getHs_address() {
+		return hs_address;
+	}
+	public void setHs_address(String hs_address) {
+		this.hs_address = hs_address;
+	}
+	public String getHs_d_address() {
+		return hs_d_address;
+	}
+	public void setHs_d_address(String hs_d_address) {
+		this.hs_d_address = hs_d_address;
+	}
+	public String getHs_email() {
+		return hs_email;
+	}
+	public void setHs_email(String hs_email) {
+		this.hs_email = hs_email;
+	}
+	public int getHsc_cmt_count() {
+		return hsc_cmt_count;
+	}
+	public void setHsc_cmt_count(int hsc_cmt_count) {
+		this.hsc_cmt_count = hsc_cmt_count;
+	}
+	public int getHs_avgStar() {
+		return hs_avgStar;
+	}
+	public void setHs_avgStar(int hs_avgStar) {
+		this.hs_avgStar = hs_avgStar;
+	}
 	@Override
 	public String toString() {
 		return "HomeSitterList [hsl_num=" + hsl_num + ", hs_num=" + hs_num + ", hsl_title=" + hsl_title
@@ -190,8 +252,10 @@ public class HomeSitterList {
 				+ hsl_pet_age + ", hsl_d_d_address=" + hsl_d_d_address + ", hsl_disdates=" + hsl_disdates
 				+ ", hsl_disdates_list=" + hsl_disdates_list + ", hsl_chkin_str_time=" + hsl_chkin_str_time
 				+ ", hsl_chkin_end_time=" + hsl_chkin_end_time + ", hsl_chkout_str_time=" + hsl_chkout_str_time
-				+ ", hsl_chkout_end_time=" + hsl_chkout_end_time + "]";
+				+ ", hsl_chkout_end_time=" + hsl_chkout_end_time + ", hs_name=" + hs_name + ", hs_sex=" + hs_sex
+				+ ", hs_birth=" + hs_birth + ", hs_contact=" + hs_contact + ", hs_address=" + hs_address
+				+ ", hs_d_address=" + hs_d_address + ", hs_email=" + hs_email + ", hsc_cmt_count=" + hsc_cmt_count
+				+ ", hs_avgStar=" + hs_avgStar + "]";
 	}
-	
 	
 }

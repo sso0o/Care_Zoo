@@ -491,9 +491,9 @@ $(function() {
 <!-- 								<button type="button" class="btn btn-info pull-right">Post</button> -->
 <!-- 								<div class="clearfix"></div> -->
 <!-- 								<hr> -->
-							<c:forEach items="${hsList}" var="img">
+<%-- 							<c:forEach items="${hsList}" var="img"> --%>
 							
-							</c:forEach>
+<%-- 							</c:forEach> --%>
 								<ul class="media-list">
 									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
 									</a>

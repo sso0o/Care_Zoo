@@ -23,11 +23,6 @@ public class HomeSitterListService {
 	@Autowired
 	private HomeSitterListDao hslDao;
 	
-	//homesitterList
-	public List<String> getFileList(int hsl_num) {
-		List<String> filesName = hslDao.selectFileList(hsl_num);
-		return filesName;
-	}
 	//게시글 등록
 	public boolean writeHomeSitterList(HomeSitterList hsl) {
 		if(hslDao.insertHomeSitterList(hsl)>0) {
@@ -47,9 +42,12 @@ public class HomeSitterListService {
 	//
 	public boolean addHsl(HomeSitterList hsl, List<MultipartFile> files) {
 		if(hslDao.insertHsl(hsl)>0) {
+			System.out.println("게시글 등록 service");
 			if(files.isEmpty()) {
+				System.out.println("게시글 파일 없음");
 				return true;
 			}else {
+				System.out.println("게시글 파일 있음");
 				for(MultipartFile mf : files) {
 					String fullName = writeFile(mf);
 					System.out.println("fullName = "+fullName);
@@ -65,6 +63,21 @@ public class HomeSitterListService {
 			return true;
 		}
 		return false;
+	}
+	public boolean addDisDates(int hs_num, List<String> hsd_disabledate_list) {
+		if(hsd_disabledate_list.isEmpty()) {
+			System.out.println("hsd_disabledate_list 파일 없음");
+			return true;
+		}else {
+			System.out.println("hsd_disabledate_list="+hsd_disabledate_list);
+			for(String list : hsd_disabledate_list) {
+				Map<String, Object> disDates = new HashMap<String, Object>();
+				disDates.put("hsd_disabledate", list);
+				disDates.put("hs_num", hs_num);
+				hslDao.insertDisdates(disDates);				
+			}
+			return true;
+		}
 	}
 	public HomeSitterList getHomeSitterByHsl_Num(int hsl_num) {
 		return hslDao.selectOnebyHsl_num(hsl_num);		
@@ -101,4 +114,14 @@ public class HomeSitterListService {
 		}
 		return fullName; //만든 파일명 반환
 	}	
+
+	//게시글 이미지 가져오기
+	public List<String> getFileList(int hsl_num) {
+		List<String> filesName = hslDao.selectFileList(hsl_num);
+		return filesName;
+	}
+	public String getFile(int hsl_num) {
+		String fileName = hslDao.selectFileName(hsl_num);
+		return fileName;
+	}
 }

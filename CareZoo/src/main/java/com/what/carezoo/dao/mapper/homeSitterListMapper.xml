@@ -19,8 +19,8 @@
 <!-- 		values -->
 <!-- 		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age},sysdate) -->
 		INSERT 		
-		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time,hsl_disdates)
-		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time},#{hsl_disdates})
+		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time)
+		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time})
 		
 <!-- 		INTO homesitterdisabledate (hsd_num, hs_num, hsd_disabledate)  -->
 <!-- 		VALUES (#{hsd_num}, #{hs_num}, #{hsd_disabledate}) -->
@@ -31,78 +31,12 @@
 		where hsl_num = #{hsl_num}
 		and hs_num=#{hs_num}
 	</update>
-	
-<!-- 	<insert id="insertDisdates" parameterType="map"> -->
-		
-<!-- 		INSERT  -->
-<!-- 		INTO homesitterdisabledate (hsd_num, hsd_disabledate) -->
-<!-- 		VALUES -->
-<!-- 		<foreach collection="list" item="item" separator=","> -->
-<!--         ( -->
-<!--             get_homesitterdisabledate_seq, -->
-<!--             #{item.hsd_disabledate} -->
-<!--         ) -->
-<!--         </foreach> -->
-<!-- 	</insert> -->
-	
-	
-
-
-
-<!-- 	<insert id="insertDisdates" parameterType="map" useGeneratedKeys="true"> -->
-<!--          <selectKey keyProperty="id" resultType="java.lang.Long" order="BEFORE"> -->
-<!--                 SELECT homesitterdisabledate_seq.nextval FROM DUAL -->
-<!--          </selectKey>     -->
-<!--          INSERT INTO -->
-<!--          homesitterdisabledate (hsd_num, hs_num, hsd_disabledate)) -->
-<!--          SELECT homesitterdisabledate_seq.nextval, A.* from ( -->
-<!--          <foreach collection="list" item="item" index="index" separator="union all"> -->
-<!--          SELECT  -->
-<!--            #{item.hs_num} as hs_num, -->
-<!--            #{item.hsd_disabledate} as hsd_disabledate -->
-<!--          FROM DUAL -->
-<!--          </foreach> ) A -->
-<!--     </insert> -->
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!--예약불가일자 받기 -->
+	<insert id="insertDisdates" parameterType="map">		
+		INSERT 
+		INTO homesitterdisabledate (hs_num, hsd_num, hsd_disabledate)
+		VALUES  (#{hs_num}, homesitterdisabledate_seq.nextval, #{hsd_disabledate} )
+	</insert>
 	
 	<update id="updateHsl" parameterType="homeSitterList"></update>
 	
@@ -112,10 +46,51 @@
 		select * from homesitterlist where hsl_num = #{hsl_num}
 	</select>	
 	
+<!-- 	<select id="selectAllHsl" resultType="map"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM homesitterlist hsli LEFT OUTER JOIN homesitter hs ON hsli.hs_num = hs.hs_num -->
+<!-- 		LEFT OUTER JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num -->
+<!-- 		<trim prefix="where" prefixOverrides="AND|OR"> -->
+<!-- 			<if test="hsl.hsl_size != null" > -->
+<!-- 				AND hsl_size like -->
+<!-- 				('%${hsl.hsl_size}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_service_type != null"> -->
+<!-- 				AND hsl_service_type like -->
+<!-- 				 ('%${hsl.hsl_service_type}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_pet_age != null"> -->
+<!-- 				 AND hsl_pet_age like -->
+<!-- 				('%${hsl.hsl_pet_age}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_chkin != ''"> -->
+<!-- 				AND  <![CDATA[hsli.hsl_chkin <= #{hsl.hsl_chkin}]]> -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_chkout != ''"> -->
+<!-- 				AND <![CDATA[hsli.hsl_chkout >= #{hsl.hsl_chkout}]]> -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_address != null">  -->
+<!-- 				and hsli.hsl_address in (select hsl_address from homesitterlist where -->
+<!-- 				<foreach collection="list" item="item" separator="or"> -->
+<!-- 					hsl_address like ('%${item}%') -->
+<!-- 				</foreach> -->
+<!-- 				) -->
+<!-- 			</if> -->
+<!-- 		</trim> -->
+<!-- 	</select> -->
+	
+	<!--  가격 가져오기 -->
+	<select id="selectHslPrice" resultType="map" parameterType="string">
+		select hsl.hsl_size, hsp.hspr_add_pet_price, hsp.hspr_price from homesitterlist hsl, homesitterprice hsp 
+		where hsl.hsl_size like ('%${hsl_size}%') 
+		and hsp.hsl_size like ('%${hsl_size}%') 
+		and hsp.hsl_service_type like ('%${hsl_service_type}%')
+		and hsl.hsl_service_type like ('%${hsl_service_type}%')
+	</select>
+	
 	<select id="selectAllHsl" resultType="map">
-		SELECT *
-		FROM homesitterlist hsli LEFT OUTER JOIN homesitter hs ON hsli.hs_num = hs.hs_num
-		LEFT OUTER JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num
+		select  *
+        from homesitter hs left outer join homesitterlist hsli on hs.hs_num = hsli.hs_num
 		<trim prefix="where" prefixOverrides="AND|OR">
 			<if test="hsl.hsl_size != null" >
 				AND hsl_size like
@@ -146,15 +121,6 @@
 	</select>
 	
 	
-	<!-- 파일 올리기 -->
-	<insert id="insertFile" parameterType="map">
-		<selectKey order="BEFORE" keyProperty="hsl_img_num" resultType="int">
-			select homesitterlist_image_seq.nextval from dual
-		</selectKey>
-		insert into homesitterlist_image (hsl_img_num,hsl_num,hsl_img_filename,hsl_img_write_date )
-		values (#{hsl_img_num},#{hsl_num},#{hsl_img_filename},sysdate)
-	</insert>
-	
 	
 		<!-- 모든 홈시터 가져오기 -->
 	<select id="selectHsl" resultType="map" parameterType="int">
@@ -168,26 +134,39 @@
 	<select id="selectHsls" resultType="homeSitterList">
 		select *
         from homesitter hs,
-             (select hs_num, hsl_num, hsl_address, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsl,
+              homesitterlist hsl,
              (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
         where hs.hs_num = hsl.hs_num(+)
         and   hs.hs_num = hsc.hs_num(+)
         order by hs.hs_num
 	</select>
 	
-	
-	<select id="selectallHsl" resultType="map">
-		SELECT * 
-		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num
-		LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num		
+	<select id="selectallHsl" resultType="hashmap">
+		select *
+        from homesitter hs,
+             (select hs_num, hsl_num, hsl_address, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsl,
+             (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
+        where hs.hs_num = hsl.hs_num(+)
+        and   hs.hs_num = hsc.hs_num(+)
+        order by hs.hs_num		
 	</select>
+<!-- 	<select id="selectallHsl" resultType="map"> -->
+<!-- 		SELECT *  -->
+<!-- 		FROM homesitterlist hsli LEFT JOIN homesitter hs ON hsli.hs_num = hs.hs_num -->
+<!-- 		LEFT JOIN homesitterlist_image hsi ON hsli.hsl_num = hsi.hsl_num		 -->
+<!-- 	</select> -->
 	
+	<!-- 게시글용 파일 올리기 -->
+	<insert id="insertFile" parameterType="map">		
+		insert into homesitterlist_image (hsl_img_num, hsl_num,hsl_img_filename,hsl_img_write_date )
+		values (homesitterlist_image_seq.nextval,#{hsl_num},#{hsl_img_filename},sysdate)
+	</insert>
 	
+	<!-- 게시글용 파일 가져오기 -->
 	<select id="selectFileName" parameterType="int" resultType="string">
 		select * from homesitterlist_image where hsl_num = #{hsl_num}
 	</select>
-	
-	
+		
 	<select id="selectFileList" parameterType="int" resultType="string">
 		select hsl_img_filename
 		  from homesitterlist hsl, homesitterlist_image hslI
@@ -196,5 +175,10 @@
 		<!-- resultType = "hashMap" 으로 하면 list로 간다요 -->
 	</select>
 	
-	
+	<update id="updateFile" parameterType="map">
+		update homesitter
+		set hs_filename = #{hs_filename}	
+		where hs_num = #{hs_num}
+	</update>
+
 </mapper>

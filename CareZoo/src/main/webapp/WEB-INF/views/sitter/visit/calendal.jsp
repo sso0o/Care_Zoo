@@ -41,6 +41,17 @@ function logoutCheck() {
 	}
 }
 
+// function checkValue(dateVal) {
+// 	console.log("DDDDDDDDD="+dateVal);
+// 	if(dateVal == null){
+// 		alert("날자를 선택해주세요");
+// 		return false;
+// 	}return true;
+// }
+	if("${msg}" != ""){
+		alert("${msg}");
+	}
+
 $(function() { //문서가 로딩되면 실행할 함수
 	
 })
@@ -53,6 +64,7 @@ $(function() { //문서가 로딩되면 실행할 함수
 var user_numtype = "<%=session.getAttribute("user_numtype")%>"
 var user_num = "<%=session.getAttribute("user_num")%>"
 var user_name = "<%=session.getAttribute("user_name")%>"
+
 
 $(function(){
 	
@@ -86,6 +98,8 @@ $(function(){
 			
 //				$("#week").prop('value', dateVal);
 			console.log("click한값: "+dateVal);
+			
+// 			checkValue(dateVal);
 			
 			var date = new Date(dateVal);
 			console.log("date:"+date);
@@ -205,6 +219,7 @@ var day = date.getDate();
 day = day >= 10 ? day : '0' + day; 
 //day 두자리로 저장
 return year + '-' + month + '-' + day; }
+
 
 </script>
 <style type="text/css">

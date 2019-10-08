@@ -239,8 +239,8 @@ public class VisitSitterController {
 				for (int j = 0; j < p_num.size(); j++) {
 					pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
 					System.out.println("test,p_num: "+p_num.get(j)+",test,chkin: "+tempVsr_chkin[i]);
-					System.out.println(vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]));
-						if (vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]) >= 1) {
+					//System.out.println(vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]));
+						if (vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]) > 1) {
 							System.out.println(vsr_num.size());
 						for(int k =0;k<vsr_num.size();k++) {
 							System.out.println(vsr_num.get(k));
@@ -365,6 +365,7 @@ public class VisitSitterController {
 	public String reservation10(@RequestParam() ArrayList<Integer> p_num, Model model, int c_num, String vsr_attention,
 			String vsr_contents, @RequestParam() ArrayList<Integer> vsr_num, int vsr_count)
 			throws JsonProcessingException {
+		System.out.println("sub: "+vsr_num);
 		// 특이사항 요청 저장하기
 		String attention = "";
 		if (vsr_attention == null) {
@@ -525,12 +526,6 @@ public class VisitSitterController {
 			vsrService.insertVisitSitterReservation(vsr);
 			System.out.println(vsr.getVsr_num());
 			vsr_num.add(vsr.getVsr_num());
-//			System.out.println(vsr_num.size());
-//			// pet_detail저장
-//			for (int j = 0; j < p_num.size(); j++) {
-//				System.out.println("test,vsr_num: "+vsr.getVsr_num());
-//				pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
-//			}
 		}
 		// count 업로드!!
 		vsrService.updateVsrCount(c_num);
@@ -626,9 +621,23 @@ public class VisitSitterController {
 		System.out.println("vsr_day: " + vsr_day);
 		System.out.println("vsr_count: " + vsr_count);
 		System.out.println("p_num: " + p_num);
+		
+		//날자 선택 안했을 때!!
+		if(vsr_chkin == null) {
+			model.addAttribute("p_num", p_num);
+			model.addAttribute("c_num", c_num);
+			model.addAttribute("vsr_num", vsr_num);
+			model.addAttribute("vsr_day", vsr_day);
+			model.addAttribute("vsr_count", vsr_count);
+			model.addAttribute("list", vsrService.selectByVsrCount(vsr_count));
+			model.addAttribute("msg", "날자를 선택해주세요");
+			return "sitter/visit/calendal";
+		}
+		
 		String[] tempVsr_chkin = vsr_chkin.split(",");
 
 		VisitSitterReservation vsr = new VisitSitterReservation();
+		ArrayList<Integer> number = new ArrayList<Integer>();
 		for (int i = 0; i < tempVsr_chkin.length; i++) {
 
 			vsr.setC_num(c_num);
@@ -638,17 +647,37 @@ public class VisitSitterController {
 			vsr.setVsr_day(vsr_day);
 			vsr.setVsr_count(vsr_count);
 			vsrService.insertVisitSitterReservation(vsr);
+			number.add(vsr.getVsr_num());		
 			// pet_detail저장
 			for (int j = 0; j < p_num.size(); j++) {
-				System.out.println("test,vsr_num: "+vsr.getVsr_num());
-				pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
+					pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
 			}
 		}
 		vsrService.updateVsrCount(c_num);
 		vsrService.deleteByListVsrNum(vsr_num);
+		
+		//중복 없애기...
+		System.out.println("dddddddddddd: "+number);
+		for(int i =0;i<number.size();i++) {
+			for(int j=0;j<p_num.size();j++) {
+				System.out.println("test,vsr_num: "+number.get(i)+" vsr_chkin: "+tempVsr_chkin[i]+" p_num: "+p_num.get(j));
+				
+				System.out.println(vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]));
+					if (vsrService.selectByP_numVsr_chkin(p_num.get(j), tempVsr_chkin[i]) > 1) {
+						vsrService.deleteByListVsrNum(number);
+						pdService.deleteByListVsr_num(number);
+					model.addAttribute("msg", "중복예약입니다.");
+					model.addAttribute("c_num", c_num);
+					model.addAttribute("p_num", p_num);
+					model.addAttribute("p_name", petService.selectOnlyNameByP_Num(p_num));
+					return "sitter/visit/reservation6";
+				}
+			}
+			
+		}
 		model.addAttribute("c_num", c_num);
 		model.addAttribute("p_num", p_num);
-		model.addAttribute("vsr_num", vsr_num);
+		model.addAttribute("vsr_num", number);
 		model.addAttribute("vsr_count", vsr_count);
 		return "sitter/visit/reservation8";
 	}
