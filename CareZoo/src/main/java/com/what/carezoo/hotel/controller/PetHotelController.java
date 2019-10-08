@@ -113,15 +113,12 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //	      return phList;
 //	   }
 //	
-	//호텔리스트 스크롤 내리면 로딩되는 ajax
+	// 호텔리스트 스크롤 내리면 로딩되는 ajax
 	@ResponseBody
 	@RequestMapping("/petHotelListLoading")
-	public List<PetHotel> searchPetHotel(
-			@RequestParam(value = "searchSwitch",  required = false) int switchNumber,
-			@RequestParam(value = "ph_address", required = false) ArrayList<String> ph_address,
-			PetHotel ph,
-			Model model
-			) {
+	public List<PetHotel> searchPetHotel(@RequestParam(value = "searchSwitch", required = false) int switchNumber,
+			@RequestParam(value = "ph_address", required = false) ArrayList<String> ph_address, PetHotel ph,
+			Model model) {
 		System.out.println("여기까지?");
 		System.out.println("swichNumber=====>" + switchNumber);
 		if (switchNumber == 1) {
@@ -142,7 +139,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 			System.out.println("==============================값" + phList);
 //		   model.addAttribute("phList", phList);
-		   return phList;
+			return phList;
 		} else {
 			List<PetHotel> phList = phService.getAllPetHotel();
 			for (int i = 0; i < phList.size(); i++) {
@@ -155,9 +152,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //		return phList;
 
 	}
-	
-	
-	
+
 	@ResponseBody
 	@RequestMapping("/petchk")
 	public Map<String, Object> petchk(int c_num) {
@@ -175,73 +170,54 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		rst.put("ph_name", ph.getPh_name());
 		return rst;
 	}
-	
-	
-	
-	
-	
-	//----------------Pay-----------------------
+
+	// ----------------Pay-----------------------
 	@RequestMapping("/paySuccess")
-	public String payCompleteForm(HttpSession session,PetHotelReservation phr, String[] p_num
-			) {
-		System.out.println("phr: "+phr);
-		System.out.println("p_num:"+p_num);
+	public String payCompleteForm(HttpSession session, PetHotelReservation phr, String[] p_num) {
+		System.out.println("phr: " + phr);
+		System.out.println("p_num:" + p_num);
 //		params
 //ph_num, phrm_num, phr_status=3, p_num, phr_price,phr,totaldays
 		int c_num = (Integer) session.getAttribute("user_num");
 		phr.setC_num(c_num);
-		for(int i = 0;i<p_num.length;i++) {
+		for (int i = 0; i < p_num.length; i++) {
 			int intP_num = Integer.parseInt(p_num[i]);
 			phr.setP_num(intP_num);
 			phr.setPhr_status("3");
 			phrService.addPetHotelRes(phr);
-			
+
 		}
-		
+
 		return "hotel/payComplete";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
-	@RequestMapping(value = "/petHotelResForm" , method = RequestMethod.POST)
-	public String resPetHotelForm(HttpSession session,
-			Model m, 
-			PetHotelReservation phr,
-			String days, 
-			@RequestParam("quantity") int quantity,
-			@RequestParam("oneNightValue") String oneNightValue,
-			@RequestParam("nightCountValue") String nightCountValue,
-			@RequestParam("petAddValue") String petAddValue,
-			@RequestParam("totalValue") String totalValue,
-			@RequestParam("phrm_num") int phrm_num
-			) {
+	@RequestMapping(value = "/petHotelResForm", method = RequestMethod.POST)
+	public String resPetHotelForm(HttpSession session, Model m, PetHotelReservation phr, String days,
+			@RequestParam("quantity") int quantity, @RequestParam("oneNightValue") String oneNightValue,
+			@RequestParam("nightCountValue") String nightCountValue, @RequestParam("petAddValue") String petAddValue,
+			@RequestParam("totalValue") String totalValue, @RequestParam("phrm_num") int phrm_num) {
 //		System.out.println("days: "+days);
 //		System.out.println("quantity: "+ quantity+1);
 //		System.out.println("phr:"+phr);
 //		System.out.println(session.getAttribute("user_num"));
-		PetHotelRoom phrm= phService.petHotelRoomDetail(phrm_num);
-		System.out.println("oneNightPrice"+oneNightValue);
-		System.out.println("nightCountPrice"+nightCountValue);
-		System.out.println("petAddValue"+petAddValue);
-		System.out.println("totalValue"+totalValue);
+		PetHotelRoom phrm = phService.petHotelRoomDetail(phrm_num);
+		System.out.println("oneNightPrice" + oneNightValue);
+		System.out.println("nightCountPrice" + nightCountValue);
+		System.out.println("petAddValue" + petAddValue);
+		System.out.println("totalValue" + totalValue);
 		List<Pet> pL = pService.selectByC_Num((Integer) session.getAttribute("user_num"));
 //		System.out.println(pL);
 		PetHotel ph = phService.getPetHotelbyNum(phrm.getPh_num());
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		for(int i=0;i<pL.size();i++) {
-			int age = year-Integer.parseInt(((pL.get(i)).getP_birth()).substring(0,4));
-			(pL.get(i)).setAge(age+1);
+		for (int i = 0; i < pL.size(); i++) {
+			int age = year - Integer.parseInt(((pL.get(i)).getP_birth()).substring(0, 4));
+			(pL.get(i)).setAge(age + 1);
 			System.out.println(age);
 		}
-		m.addAttribute("ph",ph);
-		m.addAttribute("phrm",phrm);
-		m.addAttribute("quantity", quantity+1);
+		m.addAttribute("ph", ph);
+		m.addAttribute("phrm", phrm);
+		m.addAttribute("quantity", quantity + 1);
 		m.addAttribute("totalDays", days);
 		m.addAttribute("phr_chkin", phr.getPhr_chkin());
 		m.addAttribute("phr_chkout", phr.getPhr_chkout());
@@ -304,7 +280,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			System.out.println(str);
 		}
 		List<PetHotelRoom> petHotelRoomList = phService.getAllPetHotelRoom(ph_num);
-		
+
 		model.addAttribute("petHotel", petHotel);
 		model.addAttribute("petHotelRoomList", petHotelRoomList);
 		model.addAttribute("filesName", filesName);
@@ -328,7 +304,15 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		System.out.println(phr_chkin + phr_chkout + ph_num);
 
 		List<PetHotelRoom> dateChoice = phService.getHotelRoomByDate(phr_chkin, phr_chkout, ph_num);
-
+		for(int i = 0; i<dateChoice.size();i++) {
+			System.out.println("p_max:"+(dateChoice.get(i)).getPhrm_p_max());
+			System.out.println("Rcount:"+(dateChoice.get(i)).getRcount());
+			(dateChoice.get(i)).setRemaining_room((dateChoice.get(i).getPhrm_p_max())-(dateChoice.get(i).getRcount()));
+			if(0>=(dateChoice.get(i)).getRemaining_room()){
+				dateChoice.get(i).setRemaining_room(0);
+			}
+			System.out.println("remainingRoom:"+dateChoice.get(i).getRemaining_room());
+		}
 		System.out.println(dateChoice);
 		return dateChoice;
 	}

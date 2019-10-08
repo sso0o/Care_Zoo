@@ -125,6 +125,7 @@
 	
 	function incrementValue(e) {
 		if(currentVal == pet_max-1){
+			
 		}else{
 		  e.preventDefault();
 		  var fieldName = $(e.target).data('field');
@@ -241,9 +242,9 @@
 		 							dataType : "JSON",
 		 							success : function(data) {
 			 							var sForm=$('<div class="selectForm" style="text-align:center">');
-			 	 						$('<label>').text("방: ").appendTo(sForm);
+			 	 						$('<label>').text("방:  ").appendTo(sForm);
 			 	 						var roomSelectBox = $('<select class="rSelect" name="phrm_num">');
-		 							
+
 		 								roomSelectBox.on("change",function(){
 		 									currentVal = 0;
 		 									$('.drawResForm').remove();
@@ -259,7 +260,8 @@
 		 											},
 		 											dataType : "JSON",
 		 											success : function(data) {
-														pet_max = (data.phrm_p_max)-(data.rcount); 
+		 												
+														
 		 												var resForm=$('<div>');
 		 												var PriceAndSize=$('<div class="PriceAndSize" style="text-align:center">');
 		 									
@@ -367,12 +369,27 @@
 		 							});
 		 							
 		 	 						$("<option value='required'>필수선택</option>").appendTo(roomSelectBox);
+		 	 						var remainingRoom=0;
 		 							for(var i in data){
-		 	 						$("<option value='"+data[i].phrm_num+"'>"+data[i].phrm_name+"/남은 자리("+((data[i].phrm_p_max)-(data[i].rcount))+")</option>").appendTo(roomSelectBox);
-		 							}
+		 								if(data[i].remaining_room*1<=0){
+		 									
+		 								}else{
+		 	 						$("<option value='"+data[i].phrm_num+"'>"+data[i].phrm_name+"/남은 자리("+(data[i].remaining_room*1)+")</option>").appendTo(roomSelectBox);
+		 	 						console.log("remainingRoom:"+data[i].remaining_room*1);
+		 	 						console.log("remainingRoom:"+data[i].remaining_room);
+		 	 						pet_max = (data[i].remaining_room*1); 
+		 	 						
 		 	 						sForm.append(roomSelectBox);
 		 	 						$(".sRoom").append(sForm);
-
+		 	 						remainingRoom++;
+		 								}
+		 								}
+		 							if(remainingRoom==0){
+		 								$(".rSelect option:first").remove();
+			 	 						$("<option value='noRemaining'>남은 방이 없습니다.</option>").appendTo(roomSelectBox);
+			 	 						sForm.append(roomSelectBox);
+			 	 						$(".sRoom").append(sForm);
+		 							}
 		 								},
 		 								error : function() {
 		 									alert("데이터를 불러오는데 실패했습니다.")
@@ -492,7 +509,7 @@
 			defaultDate : d,
 			editable : true,
 			selectable : false,
-			eventLimit : true, // allow "more" link when too many events
+			eventLimit : false, // allow "more" link when too many events
 			header : {
 				left : 'prev,next',
 				center : 'title',
@@ -532,11 +549,12 @@
 							id : data[i].phr_num,
 							start : data[i].phr_chkin,
 							end : data[i].phr_chkout + 'T11:00',
-							title : '예약',
+							title :  '예약'+(i+1),
 							description : data[i].phr_chkin.substring(2, 12)
 									+ ' ~ '
 									+ data[i].phr_chkout.substring(2, 12),
-							color : 'rgba(0, 0, 120, 0.6)',
+							color : Math.random().toString(16).replace(/.*(\w{3})/, '#$1'),
+							textColor : "#FFFFFF",
 						}
 
 						calendar.addEvent(e);
@@ -991,7 +1009,7 @@ input[type="number"] {
 				<br>
 		<br>
 			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
-				<div style="padding: 10px; font-size: 18px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
+				<div style="padding: 10px; font-size: 16px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
 					<div class="col-dates" style="text-align: center;">
 					
 					

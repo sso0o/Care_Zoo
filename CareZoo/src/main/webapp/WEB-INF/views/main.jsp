@@ -23,6 +23,16 @@
 <script src="../assets/js/admin.js"></script>
 
 <style type="text/css">
+/* body { */
+/*   background-image: url('${contextPath}/resources/img/blue.png'); */
+/*   background-repeat: no-repeat; */
+/*   position: relative; */
+/*   width: 85%; */
+/*   height: 610px; */
+/*   margin-left: auto; */
+/*   margin-right: auto; qwewqe*/
+/* } */
+
 nav {
 	
 }
@@ -183,9 +193,12 @@ footer {
 			</ul>
 		</div>
 	</nav>
+
 	<div class='container'>
 		<section class="content">
 			<main>
+	<br>
+	<br>
 			<div class="lazy slider">
 				<div>
 					<img src="${contextPath}/resources/img/event_image.jpg" data-sizes="100vw" data-srcset="">
@@ -200,6 +213,9 @@ footer {
 					<img src="${contextPath}/resources/img/event_image4.jpg" data-sizes="100vw" data-srcset="">
 				</div>
 			</div>
+			<br>
+			<br>
+			<br>
 			<div class="review">
 				<fieldset class="fieldview">
 					<legend>시터후기</legend>
@@ -232,6 +248,11 @@ footer {
 
 		</section>
 	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	
 </body>
 
 </html>
