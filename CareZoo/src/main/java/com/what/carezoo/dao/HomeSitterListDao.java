@@ -20,7 +20,8 @@ public interface HomeSitterListDao {
    
    public List<HomeSitterList> selectHsls();
    
-   public List<HomeSitterList> selectAllHsl(@Param("list")List<String> hsl_address, @Param("hsl")HomeSitterList hsl);
+//   public List<HomeSitterList> selectAllHsl(@Param("list")List<String> hsl_address, @Param("hsl")HomeSitterList hsl);
+   public List<Map<String, Object>> selectAllHsl(@Param("list")List<String> hsl_address, @Param("hsl")HomeSitterList hsl);
   
    public int insertFile(Map<String,Object> param);
    public String selectFileName(int hsl_num);

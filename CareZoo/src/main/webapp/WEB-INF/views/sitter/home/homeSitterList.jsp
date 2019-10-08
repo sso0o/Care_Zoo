@@ -159,13 +159,13 @@ $(function () {
 var searchSwitch = 0;
 function loadingPage(){
 	var detailParam = $("form").serialize();
-// 	var stateParam = $('input[name=hsl_address]:checked').serialize(); 
+	var stateParam = $('input[name=hsl_address]:checked').serialize(); 
 	var homeSitterListDiv = $('.homeSitterlist');
 
 	$.ajax({
 		url : "${contextPath}/home/searchLoading",
-// 		data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
-		data : detailParam + '&searchSwitch='+searchSwitch ,
+		data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
+// 		data : detailParam + '&searchSwitch='+searchSwitch ,
 		dataType : "JSON",
 		success : function(hsList) {
 			var hsListLenghth = hsList
@@ -222,8 +222,8 @@ function ajaxSucessLoading(hsList){
 				}
 			});
 			var aArDiv = $('<div style="">');
-			$('<span>').text(hsList[i].ph_name).appendTo(aArDiv);
-			$('<div>'+hsList[i].hs_address+hsList[i].hs_d_address+'</div>').appendTo(aArDiv);
+			$('<span>').text(hsList[i].hs_name).appendTo(aArDiv);
+			$('<div>'+hsList[i].hsl_address+hsList[i].hsl_d_address+'</div>').appendTo(aArDiv);
 //				var minAndMaxPrice = $('<div>');
 //				console.log(hsList.ph_minPrice);
 //				console.log(hsList.ph_maxPrice);
@@ -361,7 +361,7 @@ $(".homeSitter").click(function() {
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" class="search">검색</button>
+							<input type="button"  class="search" value="찾기">
 							<button type="reset">초기화</button>
 						</td>
 					</tr>
@@ -406,7 +406,7 @@ $(".homeSitter").click(function() {
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" class="search">검색</button>
+							<input type="button"  class="search" value="찾기">
 							<button type="reset">초기화</button>
 						</td>
 					</tr>
@@ -430,7 +430,7 @@ $(".homeSitter").click(function() {
 					</tr>
 					<tr>
 						<td>
-							<button type="submit" class="search">검색</button>
+							<input type="button"  class="search" value="찾기">
 							<button type="reset" >초기화</button>
 						</td>
 					</tr>
@@ -481,7 +481,7 @@ $(".homeSitter").click(function() {
 				</tr>
 				<tr>
 					<td>
-						<button type="submit" class="search">찾기</button>
+						<input type="button"  class="search" value="찾기">
 						<button type="reset" class="reset">초기화</button>
 					</td>
 				</tr>

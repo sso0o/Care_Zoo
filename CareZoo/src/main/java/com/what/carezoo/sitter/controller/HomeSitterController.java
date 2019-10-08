@@ -194,7 +194,34 @@ public class HomeSitterController {
 //	}
 	@ResponseBody
 	@RequestMapping("/searchLoading")
-	public List<HomeSitterList> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+	public List<Map<String, Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+//		System.out.println("여기까지?");
+//		System.out.println("swichNumber=====>" + switchNumber);
+//		if(switchNumber ==1) {
+//			if(hsl==null) {			
+//				hsl = new HomeSitterList();
+//			}
+//			if(hsl_address==null) {
+//				hsl_address = new ArrayList<String>(); 			
+//			}	
+//			
+//			System.out.println("모델11:"+hsl_address);
+//			System.out.println("hsl11:"+hsl);
+//			List<HomeSitterList>  hsList = hslService.getbySearchingHsl(hsl_address,hsl);
+//			System.out.println("값11"+hsList);
+//			for (int i = 0; i < hsList.size(); i++) {
+//				System.out.println("1111");
+//				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
+//			}
+//			return hsList;			
+//		}else {
+//			List<HomeSitterList> hsList = hslService.getHsls();
+//			for (int i = 0; i < hsList.size(); i++) {
+//				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
+//			}
+//			System.out.println("hsList"+hsList);				
+//			return hsList;
+//		}
 		System.out.println("여기까지?");
 		System.out.println("swichNumber=====>" + switchNumber);
 		if(switchNumber ==1) {
@@ -207,19 +234,18 @@ public class HomeSitterController {
 			
 			System.out.println("모델11:"+hsl_address);
 			System.out.println("hsl11:"+hsl);
-			List<HomeSitterList>  hsList = hslService.getbySearchingHsl(hsl_address,hsl);
-			System.out.println("값11"+hsList);
-			for (int i = 0; i < hsList.size(); i++) {
+			List<Map<String, Object>>  param = hslService.getbySearchingHsl(hsl_address,hsl);
+			System.out.println("값11"+param);
+			for (int i = 0; i < param.size(); i++) {
 				System.out.println("1111");
-				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
+				String hsl_num = param.get(i).get("hsl_num").toString();
+				
+//				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
 			}
-			return hsList;			
+			return param;	
 		}else {
-			List<HomeSitterList> hsList = hslService.getHsls();
-			for (int i = 0; i < hsList.size(); i++) {
-				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
-			}
-			System.out.println("hsList"+hsList);				
+			List<Map<String, Object>> hsList = hslService.getHsl();
+							
 			return hsList;
 		}
 	}
@@ -367,6 +393,16 @@ public class HomeSitterController {
 	public List<HomeSitterComment> getAllCommentByNum(int hsl_num){
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////게시글 삭제
 
 	@ResponseBody
