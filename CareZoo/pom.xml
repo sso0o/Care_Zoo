@@ -197,7 +197,8 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
+		<!-- 문자인증 -->
+		
 		
 
 	</dependencies>
