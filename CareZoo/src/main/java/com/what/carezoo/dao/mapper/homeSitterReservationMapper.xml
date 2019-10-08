@@ -46,6 +46,29 @@
 		select *
 		from homesitterreservation
 	</select>
+	
+	<select id="getHSRInfo" parameterType="int" resultType="map">
+		select hs.hs_name, hs.hs_contact, hs.hs_address, hs.hs_d_address, hs.hs_filename, hsr.*, star.star
+		from homesitter hs,
+		(select *
+		from homesitterreservation
+		where c_num = #{c_num}) hsr,
+		(select hs_num, round(avg(hsc_star),1)as star
+		from homesittercomment
+		group by hs_num) star
+		where hsr.hs_num = hs.hs_num
+		and hsr.hs_num = star.hs_num
+	</select>
+	
+	<select id="getStatus0" parameterType="int" resultType="map">
+		select hsr_num, hs_num, c_num, hsr_chkin, hsr_chkout, hsr_numof_pet, hsr_totalprice, hsr_pickup_time, hsr_dropoff_time
+		from homesitterreservation
+		where hs_num = 130
+		and hsr_status = 0
+		and hsr_chkin>=sysdate
+	</select>
+	
+	
 
 
 </mapper>

@@ -249,46 +249,13 @@ public class MemberController {
 	@RequestMapping(value="/myReservationCustomer",method=RequestMethod.GET)
 	public Map<String, Object> myReservation(int c_num ) {
 		Map<String, Object> rst = new HashMap<String, Object>();
-		List<HomeSitterReservation> hsrList = hsrService.getHomeSitterResByCnum(c_num);
-		List<VisitSitterReservation> vsrList = vsrService.getVisitSitterResByCnum(c_num);
-		List<PetHotelReservation> phrList = phrService.getPetHotelResByCnum(c_num);
-		System.out.println(phrList);
-		if(hsrList.size()>0) {
-			List<HomeSitter> hs = new ArrayList<HomeSitter>();
-			for (HomeSitterReservation hsr : hsrList) {
-				HomeSitter h = hsService.getHomeSitterByNum(hsr.getHs_num());
-				hs.add(h);
-			}
-			rst.put("hsrList",hsrList);			
-			rst.put("hsInfo",hs);			
-		}
+		List<Map<String, Object>> hsrList = hsrService.getHSRInfo(c_num);
+		List<Map<String, Object>> vsrList = vsrService.getVSRInfo(c_num);
+		List<Map<String, Object>> phrList = phrService.getPHRInfo(c_num);
 		
-		if(vsrList.size()>0) {
-			List<VisitSitter> vs = new ArrayList<VisitSitter>();
-			for (VisitSitterReservation vsr : vsrList) {
-				VisitSitter v = vsService.getVisitSitterByNum(vsr.getVs_num());
-				vs.add(v);
-			}
-			rst.put("vsrList",vsrList);		
-			rst.put("vsInfo",vs);	
-		}
-		
-		if(phrList.size()>0) {
-			List<PetHotel> ph = new ArrayList<PetHotel>();
-			List<Pet> pet = new ArrayList<Pet>();
-			for (PetHotelReservation phr : phrList) {
-				PetHotel p = phService.getPetHotelbyNum(phr.getPh_num());
-				Pet pp = pService.selectPet(phr.getP_num());
-				System.out.println(pp);
-				ph.add(p);
-				pet.add(pp);
-			}
-			rst.put("phrList",phrList);
-			rst.put("phInfo",ph);
-			rst.put("pet", pet);
-		}
-
-//		System.out.println(rst);
+		rst.put("hsrList", hsrList);
+		rst.put("vsrList", vsrList);
+		rst.put("phrList", phrList);
 	
 		return rst;
 	}

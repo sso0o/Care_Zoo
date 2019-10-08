@@ -47,5 +47,7 @@ public interface VisitSitterReservationDao {
 	//중복예약 방지
 	public int selectByP_numVsr_chkin(Map<String, Object> param);
 	
+	public List<Map<String, Object>> getVSRInfo(int c_cum);
+	
 
 }

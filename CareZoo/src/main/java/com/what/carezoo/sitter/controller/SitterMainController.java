@@ -228,7 +228,7 @@ public class SitterMainController {
 	}
 	
 	
-	//방문시터 신청한 예약 목록 가져오기
+	//방문시터 신청한 예약 목록 가져오기(방문
 	@RequestMapping("/getVsrStatus0")
 	public String getVsrList(Model m) {		
 		//일반
@@ -240,15 +240,13 @@ public class SitterMainController {
 		return "sitter/reservationListVs";
 	}
 	
-	//나한테 신청한 예약들 가져오기
-	public List<HomeSitterReservation> getHsrList(Model m, HttpSession session) {
+	//나한테 신청한 예약들 가져오기(가정)
+	@RequestMapping("/getHsrStatus0")
+	public String getHsrList(Model m, HttpSession session) {
 		int num = (Integer) session.getAttribute("user_num");
-		List<HomeSitterReservation> hsrList = hsrService.getHomeSitterResByHSnum(num);
-		
-		
-		
-		
-		return hsrList;
+		List<Map<String, Object>> hsrList = hsrService.getStatus0(num);
+		m.addAttribute("rst1", hsrList);
+		return "sitter/reservationListHs";
 	}
 	
 //	//정기묶음 예약점 가져오기

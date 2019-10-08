@@ -1,6 +1,7 @@
 package com.what.carezoo.sitter.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,13 @@ public class HomeSitterReservationService {
 	
 	public List<HomeSitterReservation> getAllHomeSitterRes() {
 		return hsrDao.selectAll();
+	}
+	
+	public List<Map<String, Object>> getHSRInfo(int c_num){
+		return hsrDao.getHSRInfo(c_num);
+	}
+	
+	public List<Map<String, Object>> getStatus0(int hs_num){
+		return hsrDao.getStatus0(hs_num);
 	}
 }

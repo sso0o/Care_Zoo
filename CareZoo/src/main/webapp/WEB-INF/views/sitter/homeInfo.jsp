@@ -150,7 +150,7 @@
 				<div>
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
-						<li><a href="${contextPath}/sitter/">나에게 신청된 예약</a></li>
+						<li><a href="${contextPath}/sitter/getHsrStatus0">나에게 신청된 예약</a></li>
 						<li><a href="${contextPath}/sitter/myReservationHs_Page">예약상황 보기</a></li>
 					</ul>
 				</div>

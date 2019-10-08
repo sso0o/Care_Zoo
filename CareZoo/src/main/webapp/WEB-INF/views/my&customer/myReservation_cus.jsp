@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -126,58 +127,52 @@
 			dataType : "JSON",
 			success : function(data) {
 				console.log(data)
-				if(data.vsrList != null){
-					for (var i = 0; i < data.vsrList.length; i++) {
-						var e = {
-							groupId : 'vsr_num',
-							id : data.vsrList[i].vsr_num,
-							start : data.vsrList[i].vsr_chkin,
-							end : data.vsrList[i].vsr_chkout,
-							title : '방문시터예약',
-							description : '이거슨 방문시터',
-							color : 'rgba(0, 0, 120, 0.6)',
-							textColor: "white"
-						}
-						calendar.addEvent(e)
-						calendar.render();
+				for (var i = 0; i < data.vsrList.length; i++) {
+					
+					var e = {
+						groupId : 'vsr_num',
+						id : data.vsrList[i].VSR_NUM,
+						start : data.vsrList[i].VSR_CHKIN,
+						end : data.vsrList[i].VSR_CHKOUT,
+						title : '방문시터예약',
+						description : '이거슨 방문시터',
+						color : 'rgba(0, 0, 120, 0.6)',
+						textColor: "white"
 					}
-				
+					calendar.addEvent(e)
+					calendar.render();
 				}
-				if(data.hsrList != null){
-					for (var i = 0; i < data.hsrList.length; i++) {
-						var e = {
-							groupId : 'hsr_num',
-							id : data.hsrList[i].hsr_num,
-							start : data.hsrList[i].hsr_chkin,
-							end : data.hsrList[i].hsr_chkout,
-							title : '가정시터 예약',
-							description : data.hsInfo[i].hs_name,
-							color : 'rgba(0, 120, 0, 0.6)',
-							textColor: "white"
-						}
-						calendar.addEvent(e)
-						calendar.render();
+				for (var i = 0; i < data.hsrList.length; i++) {
+// 					console.log(data.hsrList[i].get("HSR_CHKIN"))
+					var e = {
+						groupId : 'hsr_num',
+						id : data.hsrList[i].HSR_NUM,
+						start : data.hsrList[i].HSR_CHKIN,
+						end : data.hsrList[i].HSR_CHKOUT,
+						title : '가정시터 예약',
+						description : data.hsrList[i].HS_NAME,
+						color : 'rgba(0, 120, 0, 0.6)',
+						textColor: "white"
 					}
+					calendar.addEvent(e)
+					calendar.render();
 				}
-				
-				if(data.phrList != null){
-					for (var i = 0; i < data.phrList.length; i++) {
-						var e = {
-							groupId : 'phr_num',
-							id : data.phrList[i].phr_num,
-							start : data.phrList[i].phr_chkin+'T13:00',
-							end : data.phrList[i].phr_chkout+'T11:00',
-							title : data.phInfo[i].ph_name,
-							description : data.pet[i].p_name,
-							color : 'rgba(200, 0, 0, 0.6)',
-							textColor: "white"
-						}
-						calendar.addEvent(e)
-						calendar.render();
+				for (var i = 0; i < data.phrList.length; i++) {
+					console.log(data.phrList[i])
+					var e = {
+						groupId : 'phr_num',
+						id : data.phrList[i].PHR_NUM,
+						start : data.phrList[i].PHR_CHKIN+'T13:00',
+						end : data.phrList[i].PHR_CHKOUT+'T11:00',
+						title : data.phrList[i].PH_NAME,
+						description : data.phrList[i].P_NAME,
+						color : 'rgba(200, 0, 0, 0.6)',
+						textColor: "white"
 					}
+					calendar.addEvent(e)
+					calendar.render();
 				}
-				
-				
+
 			},
 			error : function() {
 				alert("데이터를 불러오는데 실패했습니다.")
@@ -321,55 +316,54 @@
 			dataType: "JSON",
 			success: function(data) {
 			console.log(data);
-				if(data.vsrList != null){
-					for (var i = 0; i < data.vsrList.length; i++) {
-						if(data.vsrList[i].vsr_chkin<=checkDate && checkDate <=data.vsrList[i].vsr_chkout){
-							var pTag = "<p>"+data.vsInfo[i].vs_name+"  "+data.vsInfo.vs_contact+" "+data.vsrList.vsr_status+"</p>";
-							showDiv.append(pTag);	
-						}	
+				for (var i = 0; i < data.vsrList.length; i++) {
+					if(data.vsrList[i].VSR_CHKIN<=checkDate && checkDate <=data.vsrList[i].VSR_CHKOUT){
+						var pTag = "<p>"+data.vsrList[i].VS_NAME+"  "+data.vsrList[i].VS_CONTACT+" "+data.vsrList[i].VSR_STATUS+"</p>";
+						showDiv.append(pTag);	
+					}	
+				}
+
+				for (var i = 0; i < data.hsrList.length; i++) {
+					if(data.hsrList[i].HSR_CHKIN<=checkDate && checkDate <=data.hsrList[i].HSR_CHKOUT){
+						var pTag = "<p>"+data.hsrList[i].HS_NAME+"  "+data.hsrList[i].HS_CONTACT+" "+data.hsrList[i].HSR_STATUS+"</p>";
+						showDiv.append(pTag);
+					}
+				}
+
+				for (var i = 0; i < data.phrList.length; i++) {
+					if(data.phrList[i].PHR_CHKIN <= checkDate && checkDate <= data.phrList[i].PHR_CHKOUT){
+						console.log(data.phrList[i])
+						var pTag1 = "<p class='col'>"+data.phrList[i].PH_NAME+"</p>";
+						var pTag2 = "<p class='col'>"+data.phrList[i].PH_CONTACT+"</p>";
+						showDiv.append(pTag1);
+						showDiv.append(pTag2);
+						var pTag3;
+						switch (data.phrList[i].PHR_STATUS){
+						case '0': pTag3 = "<p class='col'>예약 신청</p>";
+								showDiv.append(pTag3);
+								break;
+						case '1': pTag3 = "<p class='col'>예약 거절</p>";
+								showDiv.append(pTag3);
+								break;
+						case '2': pTag3 = "<p class='col'>결제 대기</p>";
+								 var pTag4 = "<p class='col'><a id='payMent' class='btn my-btn'>결제 하기</a></p>";
+								 showDiv.append(pTag3);
+								 showDiv.append(pTag4);
+								break;
+						case '3': pTag3 = "<p class='col'>결제 완료</p>";
+								showDiv.append(pTag3);			
+								break;
+						case '4': pTag3 = "<p class='col'>사용 완료</p>";
+								showDiv.append(pTag3);
+								break;
+								
+						default: pTag3 = "<p class='col'></p>";
+						}
+						
+						
 					}
 				}
 				
-				if(data.hsrList != null){
-					for (var i = 0; i < data.hsrList.length; i++) {
-						if(data.hsrList[i].hsr_chkin<=checkDate && checkDate <=data.hsrList[i].hsr_chkout){
-							var pTag = "<p>"+data.hsInfo[i].hs_name+"  "+data.hsInfo.hs_contact+" "+data.hsrList.hsr_status+"</p>";
-							showDiv.append(pTag);
-						}
-					}
-				}
-				
-				if(data.phrList != null){
-					for (var i = 0; i < data.phrList.length; i++) {
-						if(data.phrList[i].phr_chkin <= checkDate && checkDate <= data.phrList[i].phr_chkout){
-							var pTag1 = "<p class='col'>"+data.phInfo[i].ph_name+"</p>";
-							var pTag2 = "<p class='col'>"+data.phInfo[i].ph_contact+"</p>";
-							showDiv.append(pTag1);
-							showDiv.append(pTag2);
-							var pTag3;
-							switch (data.phrList[i].phr_status){
-							case '0': pTag3 = "<p class='col'>예약 신청</p>";
-									break;
-							case '1': pTag3 = "<p class='col'>예약 거절</p>";
-									break;
-							case '2': pTag3 = "<p class='col'>결제 대기</p>";
-									 var pTag4 = "<p class='col'><a id='payMent' class='btn my-btn'>결제 하기</a></p>";
-									 showDiv.append(pTag3);
-									 showDiv.append(pTag4);
-									break;
-							case '3': pTag3 = "<p class='col'>결제 완료</p>";
-									break;
-							case '4': pTag3 = "<p class='col'>사용 완료</p>";
-									break;
-									
-							default: pTag3 = "<p class='col'></p>";
-									break;
-							}
-							
-							
-						}
-					}
-				}
 
 			},
 			error: function() {
@@ -504,7 +498,7 @@
 		<div id='calendar'></div>
 		<div class="content">
 			<fieldset id="showEvent" class="fieldset">
-				<legend style="text-align: center;" id="legend">여기에 선택한 날짜의 예약이 나옴</legend>
+				<legend style="text-align: center;" id="legend"><fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/></legend>
 					<div class="row" id="showDiv">
 						
 					</div>

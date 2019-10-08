@@ -2,6 +2,7 @@ package com.what.carezoo.hotel.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,10 @@ public class PetHotelReservationService {
 	
 	public List<PetHotelReservation> getAllPetHotelRes() {
 		return petHotelResDao.selectAll();
+	}
+	
+	public List<Map<String, Object>> getPHRInfo(int c_num){
+		return petHotelResDao.getPHRInfo(c_num);
 	}
 
 }
