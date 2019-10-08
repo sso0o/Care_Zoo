@@ -11,7 +11,7 @@
 	<security:http auto-config="true" use-expressions="true">
 		<security:custom-filter ref="requestContextFilter" before="FORM_LOGIN_FILTER" />
 		<!-- <security:intercept-url pattern="/login" access="permitAll" /> -->
-		<security:intercept-url pattern="/logout" access="hasAnyRole('CUSTOMER','HOME','VISIT','ADMIN')" />
+		<security:intercept-url pattern="/logout" access="hasAnyRole('ROLE_CUSTOMER','ROLE_HOME','ROLE_VISIT','ROLE_ADMIN')" />
 <!-- 		<security:intercept-url pattern="/admin/**" access="ADMIN" /> -->
 
 		<!-- <security:access-denied-handler error-page="/WEB-INF/views/main.jsp" /> -->

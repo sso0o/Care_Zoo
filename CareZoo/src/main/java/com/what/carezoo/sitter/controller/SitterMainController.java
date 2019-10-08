@@ -413,5 +413,6 @@ public class SitterMainController {
 		return null;
 	}
 	
-
+	//전화번호 인증받기(visit)
+	
 }

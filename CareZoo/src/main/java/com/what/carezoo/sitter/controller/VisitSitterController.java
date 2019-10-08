@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +45,7 @@ public class VisitSitterController {
 	private VisitSitterReservationService vsrService;
 
 	// 예약 메인(로그인, 회원가입)
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() && hasRole('ROLE_CUSTOMER')")
 	@RequestMapping("/main")
 	public String showMain(HttpSession session, Model model) {
 		int c_num = (Integer) session.getAttribute("user_num");

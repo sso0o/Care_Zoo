@@ -23,13 +23,65 @@
 		}
 	}
 </script>
+<style type="text/css">
+
+* {
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.login-form {
+  position: absolute;
+  background-color: white;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+ padding: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align:center;
+}
+
+.text-field {
+  border: none;
+  width: 150%;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
+.btn-login,
+.btn-join{
+  border: none;
+  width: 150%;
+  background-color: #1BBC9B;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 30px;
+  color: white;
+}
+.links {
+  text-align: center;
+  width: 150%;
+ }
+ .links a {
+  font-size: 12px;
+  color: #9B9B9B;
+ } 
+</style>
 <title>serviceCenter</title>
 <!-- 고객센터 -->
 </head>
 <body>
 	<div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" onclick="location.href='${contextPath}'"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -72,16 +124,22 @@
 	<br>
 	<br>
 	<div class="container">
+		<div class="login-form">
 		<form action="${contextPath }/login" method="post">
 			<%-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
 			<fieldset>
-				<legend>로그인</legend>
-				<table>
+				<legend><img src="${contextPath}/resources/img/loginDog.png"></legend>
+				<table >
 					<tr>
 						<td>
 							<input type="radio" name="user" value="customer" checked="checked">
 							고객
 						</td>
+						<td>
+							<input type="radio" name="user" value="admin">
+							관리자
+						</td>
+
 						<td>
 							<input type="radio" name="user" value="visit">
 							방문시터
@@ -90,27 +148,29 @@
 							<input type="radio" name="user" value="home">
 							가정시터
 						</td>
-						<td>
-							<input type="radio" name="user" value="admin">
-							관리자
+
+					</tr>
+					<tr>
+<!-- 						<td>이메일 :</td> -->
+						<td colspan="3">
+							<input type="text" name="userid" class="text-field" placeholder="이메일을 입력해주세요">
 						</td>
 					</tr>
 					<tr>
-						<td>이메일 :</td>
-						<td>
-							<input type="text" name="userid" placeholder="이메일을 입력해주세요">
+<!-- 						<td>비밀번호 :</td> -->
+						<td colspan="3">
+							<input type="password" class="text-field" name="pw" placeholder="비밀번호를 입력해주세요">
 						</td>
 					</tr>
 					<tr>
-						<td>비밀번호 :</td>
-						<td>
-							<input type="password" name="pw">
+						<td colspan="3">
+							<input type="submit" value="로그인" class="btn btn-login">
+							<input type="button" onclick="location.href='${contextPath}/member/joinForm'" value="회원가입" class="btn btn-join">
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">
-							<input type="submit" value="로그인">
-							<input type="button" onclick="location.href='join'" value="회원가입">
+						<td colspan="3">
+							<div class="links"><a href="#" >비밀번호를 잊어버리셨나요?</a></div>
 						</td>
 					</tr>
 				</table>
@@ -125,6 +185,7 @@
 				로그인에 실패하였습니다.
 			</c:if>
 		</h3>
+		</div>
 	</div>
 </body>
 </html>
