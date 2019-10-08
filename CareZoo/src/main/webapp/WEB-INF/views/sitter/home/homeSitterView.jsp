@@ -246,6 +246,51 @@ $(function() {
 			return [true];
 		}
 	});
+	
+	
+
+	$("#email").val("${hs.hs_email}");
+	$("#name").val("${hs.hs_name}");
+	$("#contact").val("${hs.hs_contact}");
+	$("#address").val("${hs.hs_address}");
+	$("#d_address").val("${hs.hs_d_address}");
+	$("#birth").val("${hs.hs_birth}");
+	if("${hs.hs_birth}" == "1"){
+		$("#sex").val("여자");
+		$("#hs_sex").val("1");
+	} else {
+		$("#sex").val("남자");
+		$("#hs_sex").val("2");
+	}
+	
+	$.ajax({
+		url:"${contextPath}/sitter/getHsImg",
+		data:{
+			hs_num : user_num
+		},
+		dataType: "JSON",
+		success: function(data) {
+			console.log(data)
+			if(data.filename != null){
+				$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
+			} else {
+				$("#img").attr("src","${contextPath}/resources/img/user.jpg")
+			}
+			
+		}, error: function() {
+			alert("error")
+		}
+	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	$('#petSize-select').off("change").on("change",function() {
 		console.log("펫사이즈")
 		empdays = document.getElementById('days').value;

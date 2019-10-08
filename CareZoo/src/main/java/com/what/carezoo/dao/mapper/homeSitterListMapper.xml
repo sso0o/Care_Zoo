@@ -125,7 +125,7 @@
 <!-- 		order by hs.hs_num	 -->
 <!-- 	</select> -->
 
-	<select id="selectAllHsl" resultType="homeSitterList">
+	<select id="selectAllHsl" resultType="map">
 		select *
         from homesitter hs,
             (select hs_num, hsl_num, hsl_address, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsli,
