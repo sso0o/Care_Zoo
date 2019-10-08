@@ -72,8 +72,8 @@ cursor: pointer;
 </style>
 <script type="text/javascript"> 
 var i = 0;
-var searchSwitch = 0;
 $(function () {
+	
 	//네비게이션
 	function logoutCheck() {
 		if (confirm("정말 로그아웃?") == true) {
@@ -140,110 +140,111 @@ $(function () {
 		dateFormat: 'yy-mm-dd', 
 		minDate: moment('yy-mm-dd').toDate()
 	});
+	loadingPage();
 	$(".search").on("click", function() {		
 		alert("search 실행!!");
 		 searchSwitch = 1;
 		 loadingPage();
 		 $('.homeSitterlist').empty();
 		 i = 0;
-	});	
-
-	var breaker = 0; 
-	function ajaxSucessLoading(hsList){
-		console.log("성겅!");
-		for(i;breaker<8;i++){
-			console.log(i);
-			if(breaker <7){			
-				var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num=' 
-						+hsList[i].hsl_num +'\'\"style="border: 1px solid; margin: 50px; height: 350px;">');	
-				var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
-				petHotelDiv.append(petHotelDiv2);
-				var itemDiv = $('<div class="item" style="heigth:350;width:350px">');
-				petHotelDiv2.append(itemDiv);
-				var clearfixDiv = $('<div class="clearfix" style="max-width: 350px;">');
-				itemDiv.append(clearfixDiv);
-				var imagegalleryDiv = $('<ul style="width:350px;">');
-				clearfixDiv.append(imagegalleryDiv);
-	
-				for ( var a in hsList[i].hsl_filesName) {
-
-				var imgli=$("<li data-thumb='${contextPath}/home/image?fileName="+hsList[i].hsl_filesName[a]+"'>");
-				imagegalleryDiv.append(imgli);
-				$("<img style='width: 350px; height: 350px;' src='${contextPath}/home/image?fileName="
-						+hsList[i].hsl_filesName[a]+"'/>").appendTo(imgli);
-
-
-				}
-
-				
-	
-				imagegalleryDiv.lightSlider({
-					isthumb : false, // 이 부분이 제가 추가한 옵션 true 이면 썸네일을 표시하고, false 이면 표시하지 않습니다
-					gallery : true,
-					item : 1,
-					thumbItem : 9,
-					slideMargin : 0,
-					speed : 1000,
-					pause : 4000,
-					auto : true,
-					loop : true,
-					addClass : clearfixDiv,
-					onSliderLoad : function() {
-						imagegalleryDiv.removeClass('cS-hidden');
-					}
-				});
-	
-				var aArDiv = $('<div style="">');
-				$('<span>').text(hsList[i].ph_name).appendTo(aArDiv);
-				$('<div>'+hsList[i].hs_address+hsList[i].hs_d_address+'</div>').appendTo(aArDiv);
-// 				var minAndMaxPrice = $('<div>');
-// 				console.log(hsList.ph_minPrice);
-// 				console.log(hsList.ph_maxPrice);
-// 				minAndMaxPrice.appendTo(aArDiv);
-				var reviewDiv = $('<div>');
-				$('<span>').text('후기: ' + hsList[i].hsc_cmt_count+'개 '+hsList[i].hs_avgStar).appendTo(reviewDiv);
-				reviewDiv.appendTo(aArDiv);
-				aArDiv.appendTo(petHotelDiv);
-				$('.homeSitterlist').append(petHotelDiv);
-				breaker = breaker + 1;
-			} else{
-				breaker = 0;
-				break;
-			}
-		}
-	}
-
-	loadingPage();
-	function loadingPage(){
-		var detailParam = $("form").serialize();
-		var stateParam = $('input[name=hsl_address]:checked').serialize(); 
-		var homeSitterListDiv = $('.homeSitterlist');
-	
-		$.ajax({
-			url : "${contextPath}/home/searchLoading",
-			data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
-			dataType : "JSON",
-			success : function(hsList) {
-				var hsListLenghth = hsList
-				if(hsListLenghth.length == 0){
-					$('<span>').text("검색결과가 없슴둥..힝구 (이미지)").appendTo($('.homeSitterlist'));
-				}
-			
-				ajaxSucessLoading(hsList);
-			},
-			error : function(request, status, error) {
-				console.log(" error = " + request, status, error);
-			}
-		})
-				
-	}
-		$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-	    	if($(window).scrollTop() >= $(document).height() - $(window).height()){
-	    	loadingPage(); 
-	    } 
+	});
+	$(".reset").on("click", function(){
+		alert("reset 실행");
+		 searchSwitch = 0;
+		loadingPage();
+		$('.homeSitterlist').empty();
+		 i = 0;
 	});
 });
+var searchSwitch = 0;
+function loadingPage(){
+	var detailParam = $("form").serialize();
+// 	var stateParam = $('input[name=hsl_address]:checked').serialize(); 
+	var homeSitterListDiv = $('.homeSitterlist');
 
+	$.ajax({
+		url : "${contextPath}/home/searchLoading",
+// 		data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
+		data : detailParam + '&searchSwitch='+searchSwitch ,
+		dataType : "JSON",
+		success : function(hsList) {
+			var hsListLenghth = hsList
+			if(hsListLenghth.length == 0){
+				$('<span>').text("검색결과가 없슴둥..힝구 (이미지)").appendTo($('.homeSitterlist'));
+			}
+		
+			ajaxSucessLoading(hsList);
+		},
+		error : function(request, status, error) {
+			console.log(" error = " + request, status, error);
+		}
+	});
+	return false;
+}
+
+var breaker = 0; 
+function ajaxSucessLoading(hsList){
+	console.log("성겅!");
+	for(i;breaker<8;i++){
+		console.log(i);
+		if(breaker <7){			
+			var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num=' 
+					+hsList[i].hsl_num +'\'\"style="border: 1px solid; margin: 50px; height: 350px;">');	
+			var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
+			petHotelDiv.append(petHotelDiv2);
+			var itemDiv = $('<div class="item" style="heigth:350;width:350px">');
+			petHotelDiv2.append(itemDiv);
+			var clearfixDiv = $('<div class="clearfix" style="max-width: 350px;">');
+			itemDiv.append(clearfixDiv);
+			var imagegalleryDiv = $('<ul style="width:350px;">');
+			clearfixDiv.append(imagegalleryDiv);
+
+			for ( var a in hsList[i].hsl_filesName) {
+
+			var imgli=$("<li data-thumb='${contextPath}/home/image?fileName="+hsList[i].hsl_filesName[a]+"'>");
+			imagegalleryDiv.append(imgli);
+			$("<img style='width: 350px; height: 350px;' src='${contextPath}/home/image?fileName="
+					+hsList[i].hsl_filesName[a]+"'/>").appendTo(imgli);
+			}
+			imagegalleryDiv.lightSlider({
+				isthumb : false,
+				gallery : true,
+				item : 1,
+				thumbItem : 9,
+				slideMargin : 0,
+				speed : 1000,
+				pause : 4000,
+				auto : true,
+				loop : true,
+				addClass : clearfixDiv,
+				onSliderLoad : function() {
+					imagegalleryDiv.removeClass('cS-hidden');
+				}
+			});
+			var aArDiv = $('<div style="">');
+			$('<span>').text(hsList[i].ph_name).appendTo(aArDiv);
+			$('<div>'+hsList[i].hs_address+hsList[i].hs_d_address+'</div>').appendTo(aArDiv);
+//				var minAndMaxPrice = $('<div>');
+//				console.log(hsList.ph_minPrice);
+//				console.log(hsList.ph_maxPrice);
+//				minAndMaxPrice.appendTo(aArDiv);
+			var reviewDiv = $('<div>');
+			$('<span>').text('후기: ' + hsList[i].hsc_cmt_count+'개 '+hsList[i].hs_avgStar).appendTo(reviewDiv);
+			reviewDiv.appendTo(aArDiv);
+			aArDiv.appendTo(petHotelDiv);
+			$('.homeSitterlist').append(petHotelDiv);
+			breaker = breaker + 1;
+		} else{
+			breaker = 0;
+			break;
+		}
+	}
+}
+$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+	if($(window).scrollTop() >= $(document).height() - $(window).height()){
+		loadingPage(); 
+	} 
+});
 $(".homeSitter").click(function() { 
 	location.href='/index.do'
 } );
@@ -306,7 +307,8 @@ $(".homeSitter").click(function() {
 <br><br><br><br><br>
 
 <div class='container'>
-	<form action="${contextPath }/home/search" method="get" id="searchForm">
+<%-- 	<form action="${contextPath }/home/search" method="get" id="searchForm"> --%>
+	<form id="searchForm">
 		<!-- 지역 검색 -->
 		<ul class="nav nav-tabs nav-justified">
 			<li id="menu_0" class="active"><a href="${contextPath}/home/main">전체</a></li >
@@ -314,7 +316,7 @@ $(".homeSitter").click(function() {
 			<li id="menu_2" ><a href="#">경기</a></li >
 			<li id="menu_3" ><a href="#">인천</a></li >
 		</ul>
-		<div class="nav">
+		<div class="nav states">
 			<div id="subtbl_0" style="display: none">
 				<table>
 					<tr>
@@ -358,7 +360,7 @@ $(".homeSitter").click(function() {
 						<td><input type="checkbox" name="hsl_address" id="state25" value="중랑구">중랑구</td>
 					</tr>
 					<tr>
-						<td>63
+						<td>
 							<button type="submit" class="search">검색</button>
 							<button type="reset">초기화</button>
 						</td>
@@ -429,7 +431,7 @@ $(".homeSitter").click(function() {
 					<tr>
 						<td>
 							<button type="submit" class="search">검색</button>
-							<button type="reset">초기화</button>
+							<button type="reset" >초기화</button>
 						</td>
 					</tr>
 				</table>
@@ -480,7 +482,7 @@ $(".homeSitter").click(function() {
 				<tr>
 					<td>
 						<button type="submit" class="search">찾기</button>
-						<button type="reset" >초기화</button>
+						<button type="reset" class="reset">초기화</button>
 					</td>
 				</tr>
 			</table>

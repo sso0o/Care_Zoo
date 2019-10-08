@@ -6,8 +6,8 @@
 			select homsitterlist_seq.nextval from dual
 		</selectKey>
 		INSERT 		
-		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time)
-		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time})
+		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time,hsl_status)
+		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time}, 0)
 	</insert>
 	
 	<insert id="insertHomeSitterList" parameterType="homeSitterList">
@@ -19,8 +19,8 @@
 <!-- 		values -->
 <!-- 		(#{hsl_num},#{hsl_size},#{hsl_chkin},#{hsl_chkout},#{hsl_service_type},#{hsl_pet_age},sysdate) -->
 		INSERT 		
-		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time)
-		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time})
+		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time,hsl_status)
+		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time},0)
 		
 <!-- 		INTO homesitterdisabledate (hsd_num, hs_num, hsd_disabledate)  -->
 <!-- 		VALUES (#{hsd_num}, #{hs_num}, #{hsd_disabledate}) -->
@@ -88,21 +88,77 @@
 		and hsl.hsl_service_type like ('%${hsl_service_type}%')
 	</select>
 	
-	<select id="selectAllHsl" resultType="map">
-		select  *
-        from homesitter hs left outer join homesitterlist hsli on hs.hs_num = hsli.hs_num
+<!-- 	<select id="selectAllHsl" resultType="homeSitterList"> -->
+<!-- 		select * -->
+<!--         from homesitter hs, -->
+<!--              (select hs_num, hsl_num, hsl_address, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsli, -->
+<!--              (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc -->
+<!-- 		<trim prefix="where" prefixOverrides="AND|OR"> -->
+<!-- 					hs.hs_num = hsli.hs_num(+) -->
+<!--        		 and   hs.hs_num = hsc.hs_num(+) -->
+<!-- 			<if test="hsl.hsl_size != null" > -->
+<!-- 				AND hsl_size like -->
+<!-- 				('%${hsl.hsl_size}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_service_type != null"> -->
+<!-- 				AND hsl_service_type like -->
+<!-- 				 ('%${hsl.hsl_service_type}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_pet_age != null"> -->
+<!-- 				 AND hsl_pet_age like -->
+<!-- 				('%${hsl.hsl_pet_age}%') -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_chkin != ''"> -->
+<!-- 				AND  <![CDATA[hsli.hsl_chkin <= #{hsl.hsl_chkin}]]> -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_chkout != ''"> -->
+<!-- 				AND <![CDATA[hsli.hsl_chkout >= #{hsl.hsl_chkout}]]> -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_address != null">  -->
+<!-- 				and hsli.hsl_address in (select hsl_address from homesitterlist where -->
+<!-- 				<foreach collection="list" item="item" separator="or"> -->
+<!-- 					hsl_address like ('%${item}%') -->
+<!-- 				</foreach> -->
+<!-- 				) -->
+<!-- 			</if> -->
+<!-- 		</trim> -->
+<!-- 		order by hs.hs_num	 -->
+<!-- 	</select> -->
+
+	<select id="selectAllHsl" resultType="homeSitterList">
+		select *
+        from homesitter hs,
+            (select hs_num, hsl_num, hsl_address, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsli,
+            (select hsl.hsl_num, hsp.hspr_add_pet_price, hsp.hsl_size, hsp.hspr_price, hsp.hsl_service_type from homesitterlist hsl, homesitterprice hsp
+            <trim prefix="where" prefixOverrides="AND|OR">           		
+            		hsp.hsl_size = hsl.hsl_size(+)
+	            <if test="hsl.hsl_service_type != null">
+					AND hsp.hsl_size like ('%${hsl.hsl_size}%')
+				</if>
+				<if test="hsl.hsl_service_type != null">
+	            	AND hsl.hsl_size like ('%${hsl.hsl_size}%') 
+	            </if>	
+	            <if test="hsl.hsl_service_type != null">
+					AND hsp.hsl_service_type like ('%${hsl.hsl_service_type}%')
+				</if>
+				<if test="hsl.hsl_service_type != null">
+					AND hsl.hsl_service_type like ('%${hsl.hsl_service_type}%')
+				</if>
+            </trim>
+            ) hsp,
+            (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
 		<trim prefix="where" prefixOverrides="AND|OR">
+			  AND hsli.hsl_num = hsp.hsl_num(+)
+	          AND hs.hs_num = hsli.hs_num(+)
+	          AND hs.hs_num = hsc.hs_num(+)
 			<if test="hsl.hsl_size != null" >
-				AND hsl_size like
-				('%${hsl.hsl_size}%')
+				AND hsli.hsl_size like ('%${hsl.hsl_size}%')
 			</if>
 			<if test="hsl.hsl_service_type != null">
-				AND hsl_service_type like
-				 ('%${hsl.hsl_service_type}%')
+				AND hsli.hsl_service_type like ('%${hsl.hsl_service_type}%')
 			</if>
 			<if test="hsl.hsl_pet_age != null">
-				 AND hsl_pet_age like
-				('%${hsl.hsl_pet_age}%')
+				 AND hsli.hsl_pet_age like ('%${hsl.hsl_pet_age}%')
 			</if>
 			<if test="hsl.hsl_chkin != ''">
 				AND  <![CDATA[hsli.hsl_chkin <= #{hsl.hsl_chkin}]]>
@@ -118,8 +174,8 @@
 				)
 			</if>
 		</trim>
+		order by hs.hs_num	
 	</select>
-	
 	
 	
 		<!-- 모든 홈시터 가져오기 -->

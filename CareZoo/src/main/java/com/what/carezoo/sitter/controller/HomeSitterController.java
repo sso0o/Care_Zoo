@@ -210,10 +210,10 @@ public class HomeSitterController {
 			List<HomeSitterList>  hsList = hslService.getbySearchingHsl(hsl_address,hsl);
 			System.out.println("값11"+hsList);
 			for (int i = 0; i < hsList.size(); i++) {
+				System.out.println("1111");
 				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
 			}
-			return hsList;
-			
+			return hsList;			
 		}else {
 			List<HomeSitterList> hsList = hslService.getHsls();
 			for (int i = 0; i < hsList.size(); i++) {
