@@ -118,6 +118,10 @@ legend{
 	text-align: right;
 	padding-right: 10px;
 }
+
+main{
+	margin: 50px auto;
+}
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
@@ -150,13 +154,18 @@ legend{
 		
 		
 		$.ajax({
-			url:"",
+			url:"${contextPath}/member/getMainSitterReview",
 			data:{
 				
 			},
 			dataType:"JSON",
 			success: function (data){
-				
+				console.log(data)
+				var tab = $("#sitterReview");
+				for (var i = 0; i < data.sitterR.length; i++) {
+					var tr = "<tr> <td>"
+					data.sitterR
+				}
 			},
 			error : function(){
 				alert("error")
@@ -167,6 +176,8 @@ legend{
 		
 
 	});
+	
+	
 
 </script>
 
@@ -244,34 +255,72 @@ legend{
 			<br>
 			<br>
 			<br>
-<!-- 			<div class="review row"> -->
+			<div class="row">
+				<fieldset class="col sitterReview">
+					<legend>시터후기</legend>
+					<table class="table table-striped table-hover" id="sitterReview">
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+					</table>
 
-<!-- 			</div> -->
+				</fieldset>
+				<fieldset class="col hotelReview">
+					<legend>호텔후기</legend>
+					<table class="table table-striped table-hover" id="hotelReview">
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+						<tr>
+							<td>a</td>
+							<td>b</td>
+						</tr>
+					</table>
+				</fieldset>
+			</div>
 			</main>
 
 		</section>
 		
-		<div class="row">
-			<fieldset class="col sitterReview">
-				<legend>시터후기</legend>
-				<table class="table table-striped table-hover" id="sitterReview">
-					<tr>
-					<td>a</td>
-					<td>b</td>
-					</tr>
-				</table>
-			
-			</fieldset>
-			<fieldset class="col hotelReview">
-				<legend>호텔후기</legend>
-				<table class="table table-striped table-hover" id="hotelReview">
-					<tr>
-					<td>a</td>
-					<td>b</td>
-					</tr>
-				</table>
-			</fieldset>
-		</div>
+		
 	</div>
 	<br>
 	<br>

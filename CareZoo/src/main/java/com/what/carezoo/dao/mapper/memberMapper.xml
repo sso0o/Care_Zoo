@@ -61,4 +61,20 @@
 	<update id="alter_cKey" parameterType="map">
 		update customer set c_email_key = 'Y' where c_email = #{c_email} and  c_email_key = #{c_email_key}
 	</update>
+	
+	
+	<!-- 메인에 리뷰가져오기 -->
+	<select id="getMainSitterReview" resultType="map">
+	<![CDATA[ 
+		select hsc.*, hs.hs_filename, hs.hs_name
+		from homesitter hs,
+			(select *
+			from (select *
+				from homesittercomment
+				order by hsc_write_date desc)
+			where ROWNUM <=5) hsc
+		where hsc.hs_num = hs.hs_filename(+)
+	
+	]]>
+	</select>
 </mapper>

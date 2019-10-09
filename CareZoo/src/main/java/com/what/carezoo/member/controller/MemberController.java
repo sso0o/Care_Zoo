@@ -346,5 +346,15 @@ public class MemberController {
 		return null;
 	}
 	
+	
+	//메인에 시터리뷰 가져오기
+	@RequestMapping("/getMainSitterReview")
+	@ResponseBody
+	public Map<String, Object> getMainSitterReview() {
+		System.out.println("durl dhsld");
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("sitterR", memberService.getMainSitterReview());		
+		return rst;
+	}
 
 }
