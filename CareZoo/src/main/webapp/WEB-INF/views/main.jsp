@@ -22,6 +22,12 @@
 <script type="text/javascript" src="../assets/js/jquery-latest.js"></script>
 <script src="../assets/js/admin.js"></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 /* body { */
 /*   background-image: url('${contextPath}/resources/img/blue.png'); */
@@ -72,19 +78,24 @@ footer {
 	opacity: 1;
 }
 
-.review {
-	float: left;
-	width: 50%;
-	margin: auto 0;
+.sitterReview, .hotelReview{
+	border: 5px solid #ddd;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 2px;
 }
 
-.review .fieldview .subReview {
-	display: inline-block;
-	width: 45%;
-	margin: auto 0;
-	min-height: 400px;
-	border: none;
+legend{
+	border: 5px solid #ddd;
+    border-radius: 5px;
+    padding: 2px 8px;
+    width: auto;
+    color: #fff;
+    background-color: #40bf9f;
+    height: 50px;
+    font-size: 1.3em;
 }
+
 
 .review .fieldview {
 	border: 5px solid #ddd;
@@ -136,6 +147,23 @@ footer {
 		if("${msg}" != ""){
 			alert("${msg}");
 		}
+		
+		
+		$.ajax({
+			url:"",
+			data:{
+				
+			},
+			dataType:"JSON",
+			success: function (data){
+				
+			},
+			error : function(){
+				alert("error")
+			}
+		
+			
+		})
 		
 
 	});
@@ -216,37 +244,34 @@ footer {
 			<br>
 			<br>
 			<br>
-			<div class="review">
-				<fieldset class="fieldview">
-					<legend>시터후기</legend>
-					<fieldset class="subReview">
-						<a href=""><img src="${contextPath}/resources/img/test.jpg" width="100%"></a> <span> 후기웅앵웅 </span>
-					</fieldset>
-					<fieldset class="subReview">
-						<a href=""><img src="${contextPath}/resources/img/test2.jpg" width="100%"></a> <span> 후기웅앵웅 </span>
-					</fieldset>
-					<p>
-						<a href="">더보기></a>
-					</p>
-				</fieldset>
-			</div>
-			<div class="review">
-				<fieldset class="fieldview">
-					<legend>호텔후기</legend>
-					<fieldset class="subReview">
-						<a href=""><img src="${contextPath}/resources/img/test.jpg" width="100%"></a> <span> 후기웅앵웅 </span>
-					</fieldset>
-					<fieldset class="subReview">
-						<a href=""><img src="${contextPath}/resources/img/test2.jpg" width="100%"></a> <span> 후기웅앵웅 </span>
-					</fieldset>
-					<p>
-						<a href="">더보기></a>
-					</p>
-				</fieldset>
-			</div>
+<!-- 			<div class="review row"> -->
+
+<!-- 			</div> -->
 			</main>
 
 		</section>
+		
+		<div class="row">
+			<fieldset class="col sitterReview">
+				<legend>시터후기</legend>
+				<table class="table table-striped table-hover" id="sitterReview">
+					<tr>
+					<td>a</td>
+					<td>b</td>
+					</tr>
+				</table>
+			
+			</fieldset>
+			<fieldset class="col hotelReview">
+				<legend>호텔후기</legend>
+				<table class="table table-striped table-hover" id="hotelReview">
+					<tr>
+					<td>a</td>
+					<td>b</td>
+					</tr>
+				</table>
+			</fieldset>
+		</div>
 	</div>
 	<br>
 	<br>
