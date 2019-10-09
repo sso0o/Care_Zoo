@@ -182,7 +182,7 @@ public class MemberController {
 	
 	//마이페이지()
 	@RequestMapping(value="/myPage",method=RequestMethod.GET)
-	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
+	@PreAuthorize("hasAnyAuthority({'ROLE_CUSTOMER','ROLE_ADMIN','ROLE_VISIT', 'ROLE_HOME'} )")
 	public String myPageForm(HttpSession session) {
 		String type = (String) session.getAttribute("user_numtype");
 		if(type.equals("vs_num")) {
@@ -199,7 +199,7 @@ public class MemberController {
 
 	//예약현황페이지
 	@RequestMapping(value="/myReservation",method=RequestMethod.GET)
-	@PreAuthorize("hasAnyAuthority({'CUSTOMER','ADMIN','VISIT', 'HOME'} )")
+	@PreAuthorize("hasAnyAuthority({'ROLE_CUSTOMER','ROLE_ADMIN','ROLE_VISIT', 'ROLE_HOME'} )")
 	public String myReservation() {
 		return "my&customer/myReservation_cus";
 	}

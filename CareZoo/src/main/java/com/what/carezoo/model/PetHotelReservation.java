@@ -10,6 +10,50 @@ public class PetHotelReservation {
 	private String phr_chkin;
 	private String phr_chkout;
 	private String phr_status;
+	private String phr_message;
+	private int phr_price;
+	private int phr_totalDays;
+	private String phr_purpose;
+	private String phr_imp_uid;
+	private String phr_merchant_uid;
+	
+	
+	public String getPhr_merchant_uid() {
+		return phr_merchant_uid;
+	}
+	public void setPhr_merchant_uid(String phr_merchant_uid) {
+		this.phr_merchant_uid = phr_merchant_uid;
+	}
+	public String getPhr_imp_uid() {
+		return phr_imp_uid;
+	}
+	public void setPhr_imp_uid(String phr_imp_uid) {
+		this.phr_imp_uid = phr_imp_uid;
+	}
+	public String getPhr_purpose() {
+		return phr_purpose;
+	}
+	public void setPhr_purpose(String phr_purpose) {
+		this.phr_purpose = phr_purpose;
+	}
+	public String getPhr_message() {
+		return phr_message;
+	}
+	public void setPhr_message(String phr_message) {
+		this.phr_message = phr_message;
+	}
+	public int getPhr_price() {
+		return phr_price;
+	}
+	public void setPhr_price(int phr_price) {
+		this.phr_price = phr_price;
+	}
+	public int getPhr_totalDays() {
+		return phr_totalDays;
+	}
+	public void setPhr_totalDays(int phr_totalDays) {
+		this.phr_totalDays = phr_totalDays;
+	}
 	public int getPhr_num() {
 		return phr_num;
 	}
@@ -66,8 +110,18 @@ public class PetHotelReservation {
 	}
 	@Override
 	public String toString() {
-		return "PetHotelReservation [phr_num=" + phr_num + ", c_num=" + c_num + ", p_num=" + p_num + ", ph_num=" + ph_num + ", phrm_num=" + phrm_num + ", p_count=" + p_count + ", phr_chkin=" + phr_chkin + ", phr_chkout=" + phr_chkout
-				+ ", phr_status=" + phr_status + "]";
+		return "PetHotelReservation [phr_num=" + phr_num + ", c_num=" + c_num + ", p_num=" + p_num + ", ph_num="
+				+ ph_num + ", phrm_num=" + phrm_num + ", p_count=" + p_count + ", phr_chkin=" + phr_chkin
+				+ ", phr_chkout=" + phr_chkout + ", phr_status=" + phr_status + ", phr_message=" + phr_message
+				+ ", phr_price=" + phr_price + ", phr_totalDays=" + phr_totalDays + ", phr_purpose=" + phr_purpose
+				+ ", phr_imp_uid=" + phr_imp_uid + ", phr_merchant_uid=" + phr_merchant_uid + ", getPhr_merchant_uid()="
+				+ getPhr_merchant_uid() + ", getPhr_imp_uid()=" + getPhr_imp_uid() + ", getPhr_purpose()="
+				+ getPhr_purpose() + ", getPhr_message()=" + getPhr_message() + ", getPhr_price()=" + getPhr_price()
+				+ ", getPhr_totalDays()=" + getPhr_totalDays() + ", getPhr_num()=" + getPhr_num() + ", getC_num()="
+				+ getC_num() + ", getP_num()=" + getP_num() + ", getPh_num()=" + getPh_num() + ", getPhrm_num()="
+				+ getPhrm_num() + ", getP_count()=" + getP_count() + ", getPhr_chkin()=" + getPhr_chkin()
+				+ ", getPhr_chkout()=" + getPhr_chkout() + ", getPhr_status()=" + getPhr_status() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 	
 	

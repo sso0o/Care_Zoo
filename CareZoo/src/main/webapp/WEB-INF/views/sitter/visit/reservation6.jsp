@@ -81,6 +81,10 @@ function oneCheckbox2(a){
 			return true;
 		});
 	});
+	
+	if("${msg}" != ""){
+		alert("${msg}");
+	}
 </script>
 <style type="text/css">
 #visit{

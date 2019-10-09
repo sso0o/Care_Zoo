@@ -25,12 +25,12 @@ function logoutCheck() {
 
 </script>
 <title>권한 없음</title>
-
+<%-- 	${sessionScope } --%>
 </head>
 <body>
 <div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" onclick ="location.href='${contextPath}'"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -73,8 +73,7 @@ function logoutCheck() {
 	<br>
 	<br>
 	<div class="container">
-
-		<span>권한이 없음</span>
+		<img src="${contextPath}/resources/img/강아지 이모티콘.png">
 	</div>
 </body>
 </html>

@@ -28,6 +28,7 @@ public class HomeSitterService {
 	}
 	
 	public boolean modifyHomeSitter(HomeSitter hs, MultipartFile file) {
+		System.out.println("hs서비스 동작??????");
 		if(hsDao.updateHomeSitter(hs)>0) {
 			if(file == null) {
 				System.out.println("파일 없음");
@@ -42,8 +43,11 @@ public class HomeSitterService {
 					if(hsDao.updateFile(fileParam)>0) {
 						return true;
 					} else return false;
-				} 
-				return true;					
+				} else {
+					if(hsDao.updateFile(fileParam) > 0) {
+						return true;
+					}
+				}					
 			}
 		}
 		return false;

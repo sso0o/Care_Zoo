@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -94,33 +95,34 @@ public class HomeSitterController {
 	public String joinHomeSitter(@RequestParam Map<String, Object> params,Model model, HttpServletRequest request) {
 
 		 System.out.println("파람"+params);
-
+	
 		 //회원가입 메서드 
 		boolean hsRst = hsService.joinHomeSitter(params);
 		if(hsRst) {
-			System.out.println("글등록 성공!!");
+			System.out.println("회원가입 성공!!");
 			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
 			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요:)");	
-			model.addAttribute("url", "${contextPath}/home/main");
+			model.addAttribute("url", "main");
 		} else {
 			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");
-			model.addAttribute("url", "${contextPath}/member/joinHome");
+			model.addAttribute("url", "member/joinHome");
 		}
-		return "redirect:result";
+		return "result";
 	}
 	// e-mail 인증 컨트롤러
 	@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
 	public String key_alterConfirm(Model model, String hs_email, String hs_email_key) {
 		if(mailsender.alter_userKey_service(hs_email, hs_email_key)>0) {
-			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 게시글 등록을 위해 회원정보를 업데이트 해주세요");
-			model.addAttribute("url", "${contextPath}/home/loginForm");
+			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 로그인 후 게시글 등록을 위해 회원정보를 업데이트 해주세요");
+			model.addAttribute("url", "member/loginForm");
+			return "write?";
 		}else {
 			model.addAttribute("msg", "회원가입이 진행중입니다. 확인 후 이용바랍니다.");
-			model.addAttribute("url", "${contextPath}/member/main");
+			model.addAttribute("url", "member/main");
+			return "result";
 		}
-		return "redirect:result";
 	}
-
+	
 	//아이디 유효성 검사
 	@ResponseBody
 	@RequestMapping(value="/idCheck", method=RequestMethod.POST)
@@ -133,17 +135,26 @@ public class HomeSitterController {
 		map.put("cnt", count);
 		return map;
 	}
-
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////가정시터 메인 보여주기
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")
 	public String enterHomeSitterMain(Model model) {
-//		model.addAttribute("hslList", hslService.getallHsl());
-		List<Map<String, Object>> hslList = hslService.getHsl();
-//		for(int i=0;i<hslList.size();i++) {
-//			System.out.println("GET"+i+"="+hslList.get(i));
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		List<Map<String, Object>> hsList = hslService.getHsl();
+//		param.put("hsList", hsList);
+//		param.put(key, hslService.getFileList(hsl_num));
+////		System.out.println(hsList.toString());
+//		for(int i=0;i<hsList.size();i++) {
+//			System.out.println(hsList.get(i).get("HSL_NUM"));
+//			hslService.get
+////			int num = 
+////			System.out.println(hslService.getFileList(num));
+////			int hsl_num = hsList.get(i).getHsl_num();
+////			System.out.println("hsl_num"+hsl_num+"file" + fn);
+////			System.out.println("GET"+i+"="+hsList.get(i));
 //		}
-		model.addAttribute("hslList",hslList);
+//		model.addAttribute("hsList",hsList);
 		return "sitter/home/homeSitterList";
 	}
 	
@@ -167,20 +178,50 @@ public class HomeSitterController {
 		if(hsl_address==null) {
 			hsl_address = new ArrayList<String>(); 			
 		}		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("hslList", hslService.getbySearchingHsl(hsl_address,hsl));
+		System.out.println("param" + param.values());
 		System.out.println("모델00:"+hsl_address);
 		System.out.println("hsl00:"+hsl);
 		System.out.println("값00"+hslService.getbySearchingHsl(hsl_address,hsl));
 		model.addAttribute("hslList", hslService.getbySearchingHsl(hsl_address,hsl));
 		return "sitter/home/homeSitterList";
 	}
-	//가정시터 목록 json 보내기
-	@RequestMapping("/maain")
-	public String home(Model model) {
-		return "sitter/home/example";
-	}
+//	//가정시터 목록 json 보내기
+//	@RequestMapping("/maain")
+//	public String home(Model model) {
+//		return "sitter/home/example";
+//	}
 	@ResponseBody
-	@RequestMapping("/searchLodagin")
-	public List<HomeSitterList> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+	@RequestMapping("/searchLoading")
+	public List<Map<String, Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hsl_address" ,required = false) ArrayList<String> hsl_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+//		System.out.println("여기까지?");
+//		System.out.println("swichNumber=====>" + switchNumber);
+//		if(switchNumber ==1) {
+//			if(hsl==null) {			
+//				hsl = new HomeSitterList();
+//			}
+//			if(hsl_address==null) {
+//				hsl_address = new ArrayList<String>(); 			
+//			}	
+//			
+//			System.out.println("모델11:"+hsl_address);
+//			System.out.println("hsl11:"+hsl);
+//			List<HomeSitterList>  hsList = hslService.getbySearchingHsl(hsl_address,hsl);
+//			System.out.println("값11"+hsList);
+//			for (int i = 0; i < hsList.size(); i++) {
+//				System.out.println("1111");
+//				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
+//			}
+//			return hsList;			
+//		}else {
+//			List<HomeSitterList> hsList = hslService.getHsls();
+//			for (int i = 0; i < hsList.size(); i++) {
+//				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
+//			}
+//			System.out.println("hsList"+hsList);				
+//			return hsList;
+//		}
 		System.out.println("여기까지?");
 		System.out.println("swichNumber=====>" + switchNumber);
 		if(switchNumber ==1) {
@@ -189,17 +230,23 @@ public class HomeSitterController {
 			}
 			if(hsl_address==null) {
 				hsl_address = new ArrayList<String>(); 			
-			}		
+			}	
+			
 			System.out.println("모델11:"+hsl_address);
 			System.out.println("hsl11:"+hsl);
-			List<HomeSitterList>  hslList = hslService.getbySearchingHsl(hsl_address,hsl);
-			System.out.println("값11"+hslList);
-			return hslList;
-			
+			List<Map<String, Object>>  param = hslService.getbySearchingHsl(hsl_address,hsl);
+			System.out.println("값11"+param);
+			for (int i = 0; i < param.size(); i++) {
+				System.out.println("1111");
+				String hsl_num = param.get(i).get("hsl_num").toString();
+				
+//				(hsList.get(i)).setHsl_filesName(hslService.getFileList(hsList.get(i).getHsl_num()));
+			}
+			return param;	
 		}else {
-			List<HomeSitterList> hslList = hslService.getHsls();
-		
-			return hslList;
+			List<Map<String, Object>> hsList = hslService.getHsl();
+							
+			return hsList;
 		}
 	}
 
@@ -258,30 +305,46 @@ public class HomeSitterController {
 	public String writeHsl(Model model) {
 		return "sitter/home/joinForm_homeSitterDetail";
 	}
+	// 가정시터 게시글 등록 로직수행
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String writeHsl(HomeSitterList hsl,String hsd_disabledate,Model model,MultipartHttpServletRequest mtfRequest) {
+		System.out.println("hsd_disabledate"+hsd_disabledate);
+		System.out.println("hsl : "+hsl);
+		//불가능 날짜 받기
+		List<String> hsd_disabledate_list = Arrays.asList(hsd_disabledate.split(","));
+		boolean result = hslService.addDisDates(hsl.getHs_num(), hsd_disabledate_list);
+		//이미지 파일 받기
+		List<MultipartFile> files = mtfRequest.getFiles("file");
+		System.out.println("files = "+files);
+		boolean rst = hslService.addHsl(hsl, files);
+		if(rst&&result) {
+			model.addAttribute("hsl_num", hsl.getHsl_num());
+			return "sitter/home/joinForm_homeSitterDisableDates";
+		}else {
+			return "redirect:/home/write";
+		}
+	}
 //	// 가정시터 게시글 등록 로직수행
 //	@RequestMapping(value = "/write", method = RequestMethod.POST)
-//	public String writeHsl(HomeSitterList hsl,Model model,MultipartHttpServletRequest mtfRequest) {
+//	public String writeHsl(HomeSitterList hsl, Model model) {
 //		System.out.println("hsl : "+hsl);
-//		List<MultipartFile> files = mtfRequest.getFiles("file");
-//		System.out.println("files = "+files);
-//		boolean rst = hslService.addHsl(hsl, files);
+//		boolean rst = hslService.writeHomeSitterList(hsl);
 //		if(rst) {
-//			model.addAttribute("hsl_num", hsl.getHsl_num());
 //			return "sitter/home/joinForm_homeSitterDisableDates";
 //		}else {
 //			return "redirect:/home/write";
 //		}
 //	}
-	// 가정시터 게시글 등록 로직수행
-	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writeHsl(HomeSitterList hsl, Model model) {
-		System.out.println("hsl : "+hsl);
-		boolean rst = hslService.writeHomeSitterList(hsl);
-		if(rst) {
-			return "sitter/home/joinForm_homeSitterDisableDates";
-		}else {
-			return "redirect:/home/write";
-		}
+	@ResponseBody
+	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
+	public Map<String, Object> getHsImg(int hs_num) {
+		System.out.println("writeIMG 가져오는거");
+		System.out.println(hs_num);
+		Map<String, Object> rst = new HashMap<String, Object>();
+//		String filename = hslService.getFileList(hsl_num);
+//		rst.put("filename", filename);
+		System.out.println("rst : "+rst);
+		return rst;
 	}
 //	@RequestMapping(value = "/getDisDate", method = RequestMethod.POST)
 //	public String joHomeSitter(String hsd_disabledate,int hs_num,int hsl_num ,Model model ) {
@@ -317,6 +380,31 @@ public class HomeSitterController {
 	
 	
 	
+	////////////////////////////////////////////////////////////////////////////////////홈시터 게시글 상세보기 페이지
+	//홈시터 게시글 상세보기
+//	@Secured("CUSTOMER")
+	@RequestMapping("/view")
+	public String enterHomeSitterView(Model model, int hsl_num) {
+		model.addAttribute("hsList", hslService.getHomeSitterByHsl_Num(hsl_num));
+		return "sitter/home/homeSitterView";
+	}
+	@RequestMapping("/getComment")
+	@ResponseBody
+	public List<HomeSitterComment> getAllCommentByNum(int hsl_num){
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////게시글 삭제
+
 	@ResponseBody
 	@RequestMapping(value = "/image")
 	public byte[] getImage(String fileName) {
@@ -341,25 +429,4 @@ public class HomeSitterController {
 		}
 		return null;
 	}
-	////////////////////////////////////////////////////////////////////////////////////홈시터 게시글 상세보기 페이지
-	//홈시터 게시글 상세보기
-//	@Secured("CUSTOMER")
-	@RequestMapping("/view")
-	public String enterHomeSitterView(Model model, int hsl_num) {
-		model.addAttribute("hsList", hslService.getHomeSitterByHsl_Num(hsl_num));
-		return "sitter/home/homeSitterView";
-	}
-	@RequestMapping("/getComment")
-	@ResponseBody
-	public List<HomeSitterComment> getAllCommentByNum(int hsl_num){
-		return null;
-	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////게시글 삭제
-	
-	
-	
-	
-	
-	
-	
 }

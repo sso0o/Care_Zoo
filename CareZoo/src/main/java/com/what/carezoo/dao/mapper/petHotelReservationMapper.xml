@@ -2,8 +2,8 @@
 <mapper namespace="com.what.carezoo.dao.PetHotelReservationDao">
 	<insert id="insert" parameterType="PetHotelReservation">
 		insert 
-		into PetHotelReservation (phr_num, c_num,p_num, ph_num, phr_chkin, phr_chkout)
-		values (pethotelreservation_seq.nextval, #{c_num}, #{p_num}, #{ph_num}, #{phr_chkin}, #{phr_chkout} )
+		into PetHotelReservation (phr_num, c_num,p_num, ph_num, phr_chkin, phr_chkout, phrm_num, phr_message, phr_price, phr_totalDays, phr_purpose, phr_imp_uid, phr_merchant_uid, phr_status)
+		values (pethotelreservation_seq.nextval, #{c_num}, #{p_num}, #{ph_num}, #{phr_chkin}, #{phr_chkout},#{phrm_num},#{phr_message}, #{phr_price},#{phr_totalDays},#{phr_purpose},#{phr_imp_uid},#{phr_merchant_uid},#{phr_status}  )
 	</insert>
 
 	<update id="update" parameterType="PetHotelReservation">

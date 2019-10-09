@@ -106,11 +106,16 @@
 <br><br><br>
 <div class="container">
 <!-- 		여기다 내용을 작성하시면 됩니다 -->
-	<a href="${contextPath }/member/joinCustomer">고객전용 회원가입</a>
-	<br>
-	<a href="${contextPath }/member/joinHome">가정시터 전용 회원가입</a>
-	<br>
-	<a href="${contextPath }/member/joinVisit">홈시터 전용 회원가입</a>
+	<br><br>
+	<h3 style="text-align:center;">원하시는 가입종류를 선택해 주세요</h3>
+	<br><br>
+	<div class="joins" style="text-align:center;">
+	<img src="${contextPath}/resources/img/customerDog.png" onclick="location.href='${contextPath }/member/joinCustomer'">
+	<br><br><br>
+	<img src="${contextPath}/resources/img/homeDog.png" onclick="location.href='${contextPath }/member/joinHome'">
+	<br><br><br><br>
+	<img src="${contextPath}/resources/img/visitDog.png" onclick="${contextPath }/member/joinVisit">
+	</div>
 		
 </div>
 </body>

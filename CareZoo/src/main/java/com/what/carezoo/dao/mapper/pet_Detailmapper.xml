@@ -11,6 +11,19 @@
 	delete from pet_detail where vsr_num = #{vsr_num}
 </delete>
 
+<delete id="deleteByListVsr_num" parameterType="int">
+		delete from
+		pet_detail
+		<trim prefix="where" prefixOverrides="OR">
+		<if test="list != null">
+			<foreach collection="list" item="item">
+				or vsr_num =#{item}
+			</foreach>
+		</if>
+	</trim>
+	</delete>
+
+
 <select id="selectByVsr_Num" resultType="pet_detail" parameterType="int">
 	select * from pet_detail where vsr_num = #{vsr_num}
 </select>

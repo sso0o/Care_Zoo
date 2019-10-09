@@ -78,7 +78,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			System.out.println(c);
 			if(c != null && c.getC_pass().equals(pw)) {
 				System.out.println("로그인 성공");
-				auths.add(new SimpleGrantedAuthority("CUSTOMER"));
+				auths.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
 				HttpSession session = request.getSession();
 				session.setAttribute("user_numtype", "c_num");
 				session.setAttribute("user_num", mService.getMemberByEmail(userid).getC_num());
@@ -92,7 +92,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			HomeSitter hs = hsService.getHomeSitterByEmail(userid);
 			if(hs != null && hs.getHs_pass().equals(pw)) {
 				System.out.println("로그인 성공");
-				auths.add(new SimpleGrantedAuthority("HOME"));
+				auths.add(new SimpleGrantedAuthority("ROLE_HOME"));
 				HttpSession session = request.getSession();
 				session.setAttribute("user_numtype", "hs_num");
 				session.setAttribute("user_num", hsService.getHomeSitterByEmail(userid).getHs_num());
@@ -106,7 +106,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			VisitSitter vs = vsService.getVisitSitterByEmail(userid);
 			if(vs != null && vs.getVs_pass().equals(pw)) {
 				System.out.println("로그인 성공");
-				auths.add(new SimpleGrantedAuthority("VISIT"));
+				auths.add(new SimpleGrantedAuthority("ROLE_VISIT"));
 				HttpSession session = request.getSession();
 				session.setAttribute("user_numtype", "vs_num");
 				session.setAttribute("user_num", vsService.getVisitSitterByEmail(userid).getVs_num());
@@ -119,7 +119,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			Admin a = aService.getOneAdminByEmail(userid);
 			if(a != null && a.getAdm_pass().equals(pw)) {
 				System.out.println("로그인 성공");
-				auths.add(new SimpleGrantedAuthority("ADMIN"));
+				auths.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 				HttpSession session = request.getSession();
 //				session.setAttribute("user_name", mService.getMemberByEmail(userid).getC_name());
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);

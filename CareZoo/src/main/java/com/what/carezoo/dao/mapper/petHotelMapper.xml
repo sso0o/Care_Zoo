@@ -55,7 +55,7 @@
 		select *
 		from pethotel ph,
 		(select ph_num, min(phrm_price) as
-		ph_minPrice,max(phrm_price) as
+		ph_minPrice,max(phrm_l_price) as
 		ph_maxPrice
 		from pethotelroom group by
 		ph_num) r,
@@ -76,7 +76,7 @@
 		select *
 		from pethotel ph,
 		(select ph_num, min(phrm_price) as
-		ph_minPrice,max(phrm_price) as ph_maxPrice
+		ph_minPrice,max(phrm_l_price) as ph_maxPrice
 		from pethotelroom group by
 		ph_num) r,
 		(select ph_num, count(ph_num) as ph_c_count,
