@@ -79,18 +79,8 @@ public class SitterMainController {
 	@ResponseBody
 	public Map<String, Object> getMyReservationHS(int hs_num) {
 		Map<String, Object> rst = new HashMap<String, Object>();
-		List<HomeSitterReservation> hsr = hsrService.getHomeSitterResByHSnum(hs_num);
-		List<Customer> cList = new ArrayList<Customer>();
-		System.out.println("hsr : "+hsr);
-		if(hsr != null) {
-			for (int i = 0; i < hsr.size(); i++) {
-				Customer c = mService.getMemberByC_num(hsr.get(i).getC_num());
-				cList.add(c);
-			}
-			rst.put("hsrList", hsr);
-			rst.put("cList", cList);
-
-		}
+		List<Map<String, Object>> hsr = hsrService.getHomeSitterResByHSnum(hs_num);
+		rst.put("hsrList",hsr);
 		
 		return rst;
 	}
@@ -242,11 +232,13 @@ public class SitterMainController {
 	
 	//나한테 신청한 예약들 가져오기(가정)
 	@RequestMapping("/getHsrStatus0")
-	public String getHsrList(Model m, HttpSession session) {
-		int num = (Integer) session.getAttribute("user_num");
-		List<Map<String, Object>> hsrList = hsrService.getStatus0(num);
-		m.addAttribute("rst1", hsrList);
-		return "sitter/reservationListHs";
+	@ResponseBody
+	public Map<String, Object> getHsrList(int hs_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		List<Map<String, Object>> hsrList = hsrService.getStatus0(hs_num);
+		
+		rst.put("hsrList",hsrList);
+		return rst;
 	}
 	
 //	//정기묶음 예약점 가져오기
@@ -314,6 +306,16 @@ public class SitterMainController {
 	}
 	
 	
+	@RequestMapping("/getHSRInfo")
+	@ResponseBody
+	public Map<String, Object> getHSRInfo(int hsr_num) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst = hsrService.getModalHSR(hsr_num);
+		
+		return rst;
+	}
+	
+	
 	//방문시터 예약수락
 	@RequestMapping("/acceptVsr")
 	public String acceptVsr(HttpSession session, Model m, int vsr_num) {
@@ -368,6 +370,15 @@ public class SitterMainController {
 			
 		}
 		return null;	
+	}
+	
+	@RequestMapping("/acceptHsr")
+	public String acceptHsr(int hsr_num, HttpSession session, Model m) {
+		int num = (Integer) session.getAttribute("user_num");
+		//내가 그날 예약 있는지부터 확인
+		
+		
+		return null;
 	}
 		
 		

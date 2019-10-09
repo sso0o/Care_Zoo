@@ -125,14 +125,15 @@
 			},
 			dataType : "JSON",
 			success : function(data) {
+				console.log(data)
 				for(var i = 0; i<data.hsrList.length; i++){
 					var e = {
 						groupId : 'c_num',
-						id : data.hsrList[i].c_num,
-						start : data.hsrList[i].hsr_chkin,
-						end : data.hsrList[i].hsr_chkout,
-						title : data.cList[i].c_name+' 보호자',
-						description : data.hsrList[i].hsr_status,
+						id : data.hsrList[i].C_NUM,
+						start : data.hsrList[i].HSR_CHKIN,
+						end : data.hsrList[i].HSR_CHKOUT,
+						title : data.hsrList[i].C_NAME+' 보호자',
+						description : data.hsrList[i].HSR_STATUS,
 						color : 'rgba(0, 0, 120, 0.6)',
 						textColor: "white"
 					}

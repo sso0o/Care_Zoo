@@ -36,10 +36,14 @@
 		where c_num = #{c_num}
 	</select>
 	
-	<select id="selectByHSnum" parameterType="int" resultType="HomeSitterReservation">
-		select *
+	<select id="selectByHSnum" parameterType="int" resultType="map">
+	select c.c_name, c.c_contact, hsr.*
+	from customer c,
+		(select *
 		from homesitterreservation
 		where hs_num = #{hs_num}
+		and hsr_status >= 2) hsr
+	where c.c_num = hsr.c_num
 	</select>
 
 	<select id="selectAll" resultType="homeSitterReservation">
@@ -63,12 +67,20 @@
 	<select id="getStatus0" parameterType="int" resultType="map">
 		select hsr_num, hs_num, c_num, hsr_chkin, hsr_chkout, hsr_numof_pet, hsr_totalprice, hsr_pickup_time, hsr_dropoff_time
 		from homesitterreservation
-		where hs_num = 130
+		where hs_num = #{hs_num}
 		and hsr_status = 0
 		and hsr_chkin>=sysdate
 	</select>
 	
-	
+		<select id="getModalHSR" parameterType="int" resultType="map">
+		select c.c_name, c.c_contact, hsr.*
+		from customer c,
+			(select c_num, hsr_num, hs_num, hsr_chkin, hsr_chkout, hsr_pickup_time,
+			hsr_dropoff_time, hsr_totalprice, hsr_message
+			from homesitterreservation
+			where hsr_num = #{hsr_num}) hsr
+		where c.c_num = hsr.c_num
+	</select>
 
 
 </mapper>

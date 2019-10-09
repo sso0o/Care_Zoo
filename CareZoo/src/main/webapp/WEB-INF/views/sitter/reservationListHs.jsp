@@ -32,6 +32,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
+<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
+<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
+
 <script type="text/javascript">
 	
 	// 로그아웃확인 <--모든페이지에 필수
@@ -44,10 +51,6 @@
 	}
 	
 	$(function() { //문서가 로딩되면 실행할 함수
-		
-// 		console.log("${rst1 }")
-// 		console.log("${rst2 }")
-
 		if("${msg}" != ""){
 			alert("${msg}");
 		}
@@ -55,37 +58,80 @@
 		console.log("aa : ${rst1}")		
 	})
 	
+	document.addEventListener('DOMContentLoaded', function() {	
+	
+		var num = <%=session.getAttribute("user_num")%>
+		var calendarEl = document.getElementById('calendar');
+		
+		var calendar = new FullCalendar.Calendar(calendarEl, {
+			plugins : [ 'dayGrid', 'interaction' ],
+// 			timeZone : "Asian/Seoul",
+			editable : false,
+			defaultView : 'dayGridMonth',
+			defaultDate : d,
+			editable : true,
+			selectable : true,
+			eventLimit : true, // allow "more" link when too many events
+			header : {
+				left : 'prev,next today',
+				center : 'title',
+				right : 'dayGridMonth,dayGridWeek'
+			},
+			eventRender : function(info) {
+				var tooltip = new Tooltip(info.el, {
+					title : info.event.extendedProps.description,
+					placement : 'top',
+					trigger : 'hover',
+					container : 'body'
+				});
+			},
+
+			//// uncomment this line to hide the all-day slot
+			//allDaySlot: false,
+
+			select : function(arg) {
+				console.log(arg.startStr, arg.endStr, arg.resource ? arg.resource.id : '(no resource)');
+// 				document.getElementById("p1").innerHTML=arg.startStr ;
+				myResList(arg.startStr);
+
+			},
+			eventClick : function(info) {
+				var infocheck = info.event.groupId+'='+info.event.id
+				var chkoutTime = info.event.end
+				eee = info.event.end;
+// 				$("#groupid").val(info.event.groupId)
+// 				$("#number").val(info.event.id)
+				
+				modalOpen(info.event.id);
+			}
+
+		});
+		
+		
+
+	});
 	
 	
 	function modalOpen(obj) {	
 		var num = $(obj).attr('title');
 		
-		console.log(num)
+		console.log("hsr_num : "+num)
 		
 		$.ajax({
-			url:"${contextPath}/sitter/getVSRInfo",
+			url:"${contextPath}/sitter/getHSRInfo",
 			data:{
-				vsr_num:num
+				hsr_num:num
 			},
 			dataType:"JSON",
 			success: function(data) {
 				console.log(data)
-				$("#address").val(data.address);
-				$("#chkin").val(data.chkin);
-				$("#hour").val(data.hour);
-				if(data.attention != ""){
-					$("#attention").val(data.attention);									
-				} else{
-					$("#attention").val("없음");	
-				}
+				$("#chkin").text(data.HSR_CHKIN+ " "+data.HSR_DROPOFF_TIME );
+				$("#chkout").text(data.HSR_CHKOUT+" "+data.HSR_DROPOFF_TIME);
+				$("#attention").text(data.HSR_MESSAGE);									
+				$("#name").text(data.C_NAME);
+				$("#contact").text(data.C_CONTACT);
+				$("#total").text(data.HSR_TOTALPRICE+"원");
 				
-				var pd = $("#pd");
-				pd.empty();
-				for (var p in data.petList) {
-					console.log(p)
-					var ptag = "<p class='col item'>"+data.petList[p].pet.p_name+"</p>"
-					pd.append(ptag);
-				}
 				
 			},
 			error: function() {
@@ -93,24 +139,17 @@
 			}
 		})
 
-		$("#modal-showVsr").show();
-		
-		$("#next").on("click", function() {
-			$("#petList").removeClass('noshow');
-			$("#vsrInfo").addClass('noshow');
-		})
-		
-		$("#previous").on("click", function() {
-			$("#petList").addClass('noshow');
-			$("#vsrInfo").removeClass('noshow');
-		})
+		$("#modal-showHsr").show();
+
 		
 		$(".close").on("click", function() {
-			$("#modal-showVsr").hide();
-			$("#address").val("");
-			$("#chkin").val("");
-			$("#hour").val("");
-			$("#attention").val("");
+			$("#modal-showHsr").hide();
+			$("#chkin").text("");
+			$("#chkout").text("");
+			$("#attention").text("");								
+			$("#name").text("");
+			$("#contact").text("");
+			$("#total").text("");
 
 		});
 		
@@ -118,8 +157,9 @@
 	
 	function booking() {
 		var num = $("#hsr_num").val()
+		console.log("booking -> "+num)
 		if(confirm("신청된 예약을 수락하시겠습니까?") ==  true){
-			location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num;
+			location.href = '${contextPath}/sitter/acceptHsr?hsr_num='+num;
 			
 		} else{
 			return false;
@@ -135,43 +175,80 @@
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
 	var user_num = "<%=session.getAttribute("user_num")%>"
 	var user_name = "<%=session.getAttribute("user_name")%>"
+	
+
 
 
 </script>
 <style type="text/css">
-	.content{
-		width: 900px;
-		margin: 20px auto;
-	}
-	
-	.noshow{
-		display: none;
-	}
-	
-	.item{
-		border: 1px solid rgba(0,0,0,.2);
-		border-radius: .2em;
-		height: 30px;
-	}
-	
-	.cl{
-		line-height: 1.5em;
-	}
-	
-	.tt{
-		font-size: 11px;
-	}
-	
-	.col, .col-1, .col-2, .col-3, .col-4, .col-5,
-	.col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
-		text-align: center;
-		
-	}
+.content {
+	width: 900px;
+	margin: 20px auto;
+}
+
+.noshow {
+	display: none;
+}
+
+.item {
+	border: 1px solid rgba(0, 0, 0, .2);
+	border-radius: .2em;
+	height: 30px;
+}
+
+.cl {
+	line-height: 1.5em;
+}
+
+.tt {
+	font-size: 11px;
+}
+
+.col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8,
+	.col-9, .col-10, .col-11, .col-12 {
+	text-align: center;
+}
+
+.hsrInfo {
+	background-color: #fff;
+	width: 500px;
+	height: 360px;
+	position: absolute;
+	margin-top: -180px;
+	margin-left: -250px;
+	top: 50%;
+	left: 50%;
+}
+
+textarea {
+	width: 100%;
+	border: none;
+	resize: none;
+}
+
+.acc-btn{
+	border: 1px solid #40bf9f;
+	color: #40bf9f;
+	border-radius: .125em;
+}
+
+.acc-btn:hover,.acc-btn:focus  {
+	background-color: #40bf9f;
+	color: #fff;
+	cursor: pointer;
+}
+
+#calendar {
+	max-width: 900px;
+	margin: 30px auto;
+	max-height: 100%;
+}
+
 
 </style>
 
 
-<title>Insert title here</title>
+<title>나에게 신청된 예약</title>
 </head>
 <body>
 <input type="checkbox" id="menuicon">
@@ -237,6 +314,8 @@
 <div class="content">
 	<h2>수락 대기중인 예약 목록</h2>
 	<hr>
+	<div id='calendar'></div>
+	<!--
 	<table class="table table-hover">
 	<thead>
 		<tr>
@@ -263,44 +342,43 @@
 		</c:forEach>
 	</tbody>
 	</table>
-	
+	  -->
 	
 </div>
 		
 </div>
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
-<div class="container-fluid modal-modify" id="modal-showVsr">
-	<div class="row mmmmm" id="vsrInfo">
-		<p class="col-12 cl" style="text-align: right;">
-			<input type="hidden" name="vsr_num" id="vsr_num">
-			<button type="button" class="close">&times;</button>
-		</p>
+<div class="container-fluid modal-modify" id="modal-showHsr">
+	<div id="hsrInfo" class="hsrInfo">
+		<table class="table table-hover">
+			<tr>
+				<td colspan="2"><input type="hidden" id="hsr_num" name="hsr_num"></td>
+				<td colspan="2" style="text-align: right;"><button type="button" class="close">&times;</button></td>
+			</tr>
+			<tr>
+				<th>이름</th>
+				<td id="name"></td>
+				<th>연락처</th>
+				<td id="contact"></td>
+			</tr>
+			<tr>
+				<th>시작일</th>
+				<td id="chkin"></td>
+				<th>종료일</th>
+				<td id="chkout"></td>
+			</tr>
+			<tr>
+				<td colspan="4"><textarea rows="5" cols="50" id="message"></textarea>
+			</tr>
+			<tr>
+				<th>총가격</th>
+				<td id="total"></td>
+				<td colspan="2" style="text-align: right;"><a href="#" onclick="booking()" class="btn acc-btn" id="accept">수락</a></td>
+			</tr>
+		</table>
 
-		<label class="col-2" style="text-align: center;">날짜 :</label>
-		<input type="text" class="col-4 item" style="text-align: center;" id="chkin">
-		<label class="col-2" style="text-align: center;">시간 :</label>
-		<input type="text" class="col-4 item" style="text-align: center;" id="hour">
-		
-		<label class="col-3" style="text-align: center;" >주소 :</label>
-		<input type="text" class="col-9 item" style="text-align: center;" id="address">
-		
-		<label class="col-3" style="text-align: center;" >특이사항 :</label>
-		<input type="text" class="col-9 item" style="text-align: center;" id="attention">
-		
-		<div class="col" style="text-align: left;"><button class="btn">&#9665;</button></div>
-		<div class="col" style="text-align: center;"><a href="#" onclick="booking()" class="btn acc-btn" id="accept">수락</a></div>
-		<div class="col" style="text-align: right;"><button id="next" class="btn">&#9654;</button></div>
 
-	</div>
-	<div class="row nnnnn noshow" id="petList">
-		<p class="col-12 cl"  style="text-align: right;"><button type="button" class="close">&times;</button></p>
-		
-		<div class="col-12 row" id="pd">
-			
-		</div>
-		
-		<p class="col" style="text-align: left;"><button class="btn" id="previous">&#9664;</button></p>
-		<p class="col" style="text-align: right;"><button class="btn">&#9655;</button></p>
+
 	</div>
 </div>
 </body>

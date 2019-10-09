@@ -30,7 +30,7 @@ public class HomeSitterReservationService {
 		return hsrDao.selectByCnum(c_num);
 	}
 	
-	public List<HomeSitterReservation> getHomeSitterResByHSnum(int hs_num){
+	public List<Map<String, Object>> getHomeSitterResByHSnum(int hs_num){
 		return hsrDao.selectByHSnum(hs_num);
 	}
 	
@@ -44,5 +44,9 @@ public class HomeSitterReservationService {
 	
 	public List<Map<String, Object>> getStatus0(int hs_num){
 		return hsrDao.getStatus0(hs_num);
+	}
+	
+	public Map<String, Object> getModalHSR(int hsr_num){
+		return hsrDao.getModalHSR(hsr_num);
 	}
 }
