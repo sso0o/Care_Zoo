@@ -131,4 +131,12 @@ public class VisitSitterService {
 		return false;
 	}
 	
+	//email찾기
+	public String findVs_email(String vs_name,String vs_contact){
+		return vsDao.findVs_email(vs_name, vs_contact);
+	}
+	public int findVs_emailCount(String vs_name,String vs_contact){
+		return vsDao.findVs_emailCount(vs_name, vs_contact);
+	}
+	
 }

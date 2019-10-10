@@ -91,4 +91,11 @@
 		where hs_num = #{hs_num}
 	</update>
 
+	<!-- email찾기 -->
+	<select id="findHs_email" parameterType="string" resultType="string">
+		select hs_email from homesitter where hs_name =#{name} and hs_contact = #{number}
+	</select>
+	<select id="findHs_emailCount" parameterType="string" resultType="int">
+		select count(*) from homesitter where hs_name =#{name} and hs_contact = #{number}
+	</select>
 </mapper>

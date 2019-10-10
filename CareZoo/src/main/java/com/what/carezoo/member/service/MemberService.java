@@ -126,4 +126,12 @@ public class MemberService {
 	public String  getImage(int num) {
 		return memberDao.selectFile(num);
 	}
+	
+	//이메일 찾기
+	public String findC_email(String c_name,String c_contact){
+		return memberDao.findC_email(c_name, c_contact);
+	}
+	public int findC_emailCount(String c_name,String c_contact) {
+		return memberDao.findC_emailCount(c_name, c_contact);
+	}
 }
