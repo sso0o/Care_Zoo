@@ -109,9 +109,13 @@
 					select count(phrm.phrm_num) r_cnt
 					from PETHOTELROOM phrm,
 					PETHOTELRESERVATION phr
-					where phrm.phrm_pet_size like '%' ||
-					#{ph.ph_pet_size} || '%'
-					and phrm.phrm_num = phr.phrm_num
+					where 
+					<if test="ph.ph_pet_size != null">
+					phrm.phrm_pet_size like
+					 '%' ||#{ph.ph_pet_size} || '%'
+					and 
+					</if>
+					phrm.phrm_num = phr.phrm_num
 					and
 					phrm.phrm_num = phrm2.phrm_num
 					and (phr_chkin between #{ph.phr_chkin}
@@ -120,8 +124,10 @@
 					between #{ph.phr_chkin}
 					and #{ph.phr_chkout}))
 					group by phrm.phrm_num)
+					<if test="ph.ph_pet_size != null">
 					or
 					phrm2.phrm_pet_size NOT like '%' || #{ph.ph_pet_size} || '%')
+					</if>
 					<if test="ph.phr_chkin != null">
 						and phrm.phrm_pet_size like '%' || #{ph.ph_pet_size} ||
 						'%'
@@ -139,13 +145,22 @@
 			<!-- <if test="hsl.hsl_chkin != null"> -->
 			<!-- or <![CDATA[hsl_chkin >= #{hsl.hsl_chkin} and hsl_chkout <= #{hsl.hsl_chkout}]]> -->
 			<!-- </if> -->
-			<if test="ph.ph_address != null">
-				and ph.ph_address
+<!-- 			<if test="ph.ph_address != null"> -->
+<!-- 				and ph.ph_address -->
+<!-- 				<foreach collection="list" item="item" separator="or"> -->
+<!-- 					like -->
+<!-- 					('%${item}%') -->
+<!-- 				</foreach> -->
+<!-- 			</if> -->
+			
+						<if test="ph.ph_address != null"> 
+				and ph.ph_address in (select ph.ph_address from pethotel where
 				<foreach collection="list" item="item" separator="or">
-					like
-					('%${item}%')
+					ph.ph_address like ('%${item}%')
 				</foreach>
-			</if>
+				)
+				</if>
+			
 		</trim>
 		order by ph.ph_num
 	</select>

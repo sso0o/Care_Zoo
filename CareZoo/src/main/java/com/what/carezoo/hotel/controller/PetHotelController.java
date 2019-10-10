@@ -22,6 +22,7 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -191,6 +192,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
 	@RequestMapping(value = "/petHotelResForm", method = RequestMethod.POST)
+	@PreAuthorize("hasAnyAuthority({'CUSTOMER'} )")
 	public String resPetHotelForm(HttpSession session, Model m, PetHotelReservation phr, String days,
 			@RequestParam("quantity") int quantity, @RequestParam("oneNightValue") String oneNightValue,
 			@RequestParam("nightCountValue") String nightCountValue, @RequestParam("petAddValue") String petAddValue,

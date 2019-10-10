@@ -9,11 +9,11 @@
 location.href="${contextPath}/member/myReservation"
 </script>
 <%-- <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css"> --%>
-<!-- <!-- 메뉴바 --> -->
+<!-- 메뉴바 -->
 <!-- <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet"> -->
-<!-- <!-- 폰트 --> -->
+<!-- 폰트 --> 
 <%-- <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> --%>
-<!-- <!-- 메뉴바 --> -->
+ <!-- 메뉴바 --> 
 <!-- <title>Insert title here</title> -->
 </head>
 <body>

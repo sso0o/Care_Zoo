@@ -154,6 +154,22 @@ ul {
 	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px
 		rgba(0, 0, 0, 0.05);
 }
+#subtbl_1{
+width:1000px;
+height:100px;
+background:#40bf9f;
+border-bottom-left-radius:10px;
+border-bottom-right-radius:10px;
+opacity:8;
+}
+#subtbl_1:after{
+border-top:0 solid transparent;
+border-left:10px solid transparent;
+border-right:10px solid transparent;
+border-bottom:10px solid pink;
+position:absolute;
+top:21px;left:200px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"
 	type="text/javascript"></script>

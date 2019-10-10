@@ -201,7 +201,6 @@
 						});
 
 				if ($('.col-dates .pull-left').val() == null) {
-					alert("이거니!?");
 					var datepickerEnd = $('.col-dates .pull-right').datepicker(
 							{
 								dateFormat : 'yy-mm-dd',
@@ -225,7 +224,6 @@
 		 					    days   = days/60;
 		 					    days   = days/60;
 		 					    days   = days/24;
-		 					    alert(days);
 		 					    $('.nightCount').text(days+"박"); 
 		 					 	$('.selectForm').remove(); // 방 선택 selectBox 보여주기.
 		 					   	$('.drawResForm').remove();
