@@ -44,7 +44,29 @@
         where hsl.hsl_num = #{hsl_num}
 	</select>
 	
-	<update id="updateHsl" parameterType="homeSitterList"></update>
+	<update id="updateHsl" parameterType="homeSitterList">
+		update homesitterlist
+		set hsl_title = #{hsl_title},
+			hsl_comment = #{hsl_comment},
+			hsl_size = #{hsl_size},
+			hsl_care_place = #{hsl_care_place},
+			hsl_address = #{hsl_address},
+			hsl_d_address = #{hsl_d_address},
+			hsl_yard = #{hsl_yard},
+			hsl_baby = #{hsl_baby},
+			hsl_family = #{hsl_family},
+			hsl_service_type = #{hsl_service_type},
+			hsl_pet_age = #{hsl_pet_age},
+			hsl_writedate = sysdate,
+			hsl_chkin_str_time = #{hsl_chkin_str_time},
+			hsl_chkin_end_time = #{hsl_chkin_end_time},
+			hsl_chkout_str_time = #{hsl_hsl_chkout_str_timebaby},
+			hsl_chkout_end_time = #{hsl_chkout_end_time},
+			hsl_status = 1
+		where hsl_status = 0
+		and hsl_num =#{hsl_num}
+		and hs_num = #{hs_num}
+	</update>
 	
 	<delete id="deleteHsl" parameterType="int"></delete>
 	

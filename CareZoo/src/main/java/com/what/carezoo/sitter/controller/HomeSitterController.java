@@ -325,7 +325,7 @@ public class HomeSitterController {
 		boolean result = hslService.addDisDates(hsl.getHsl_num(), hsd_disabledate_list);
 		if(rst&&result) {
 			model.addAttribute("hsl_num", hsl.getHsl_num());
-			return "sitter/home/joinForm_homeSitterDisableDates";
+			return "sitter/home/main";
 		}else {
 			return "redirect:/home/write";
 		}
@@ -341,17 +341,27 @@ public class HomeSitterController {
 //			return "redirect:/home/write";
 //		}
 //	}
-	@ResponseBody
-	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
-	public Map<String, Object> getHsImg(int hs_num) {
-		System.out.println("writeIMG 가져오는거");
-		System.out.println(hs_num);
-		Map<String, Object> rst = new HashMap<String, Object>();
-//		String filename = hslService.getFileList(hsl_num);
-//		rst.put("filename", filename);
-		System.out.println("rst : "+rst);
-		return rst;
-	}
+	
+	
+	
+	
+//	@ResponseBody
+//	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
+//	public Map<String, Object> getHsImg(int hs_num) {
+//		System.out.println("writeIMG 가져오는거");
+//		System.out.println(hs_num);
+//		Map<String, Object> rst = new HashMap<String, Object>();
+////		String filename = hslService.getFileList(hsl_num);
+////		rst.put("filename", filename);
+//		System.out.println("rst : "+rst);
+//		return rst;
+//	}
+	
+	
+	
+	
+	
+	
 //	@RequestMapping(value = "/getDisDate", method = RequestMethod.POST)
 //	public String joHomeSitter(String hsd_disabledate,int hs_num,int hsl_num ,Model model ) {
 //		Map<String,Object> params = new HashMap<String, Object>();
@@ -411,9 +421,18 @@ public class HomeSitterController {
 		System.out.println("cc"+comment);		
 		return comment;
 	}
-	
-	
-	
+	@ResponseBody
+	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)
+	public Map<String, Object> getHsImg(int hs_num) {
+		System.out.println("hs넘어오나");
+		System.out.println(hs_num);
+		Map<String, Object> rst = new HashMap<String, Object>();
+		String filename = hsService.getImage(hs_num);
+		rst.put("filename", filename);
+		System.out.println("rst : "+rst);
+		return rst;
+	}
+
 	
 	
 	

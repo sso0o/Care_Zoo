@@ -327,37 +327,33 @@ $(".homeSitter").click(function() {
 			<div id="subtbl_1" style="display: none">
 				<table>
 					<tr class="state_seoul">
-						<td><input type="checkbox" name="hsl_address" id="state1" value="강남구">강남구</td>
-						<td><input type="checkbox" name="hsl_address" id="state2" value="강동구">강동구</td>
-						<td><input type="checkbox" name="hsl_address" id="state3" value="강북구">강북구</td>
-						<td><input type="checkbox" name="hsl_address" id="state4" value="강서구">강서구</td>
-						<td><input type="checkbox" name="hsl_address" id="state5" value="관악구">관악구</td>
-						<td><input type="checkbox" name="hsl_address" id="state6" value="광진구">광진구</td>
-					</tr>                          
-					<tr class="state_seoul">       
-						<td><input type="checkbox" name="hsl_address" id="state7" value="구로구">구로구</td>
-						<td><input type="checkbox" name="hsl_address" id="state8" value="금천구">금천구</td>
-						<td><input type="checkbox" name="hsl_address" id="state9" value="노원구">노원구</td>
-						<td><input type="checkbox" name="hsl_address" id="state10" value="도봉구">도봉구</td>
-						<td><input type="checkbox" name="hsl_address" id="state11" value="동대문구">동대문구</td>
-						<td><input type="checkbox" name="hsl_address" id="state12" value="동작구">동작구</td>
-					</tr>                            
-					<tr class="state_seoul">         
-						<td><input type="checkbox" name="hsl_address" id="state13" value="마포구">마포구</td>
-						<td><input type="checkbox" name="hsl_address" id="state14" value="서대문구">서대문구</td>
-						<td><input type="checkbox" name="hsl_address" id="state15" value="서초구">서초구</td>
-						<td><input type="checkbox" name="hsl_address" id="state16" value="성동구">성동구</td>
-						<td><input type="checkbox" name="hsl_address" id="state17" value="성북구">성북구</td>
-						<td><input type="checkbox" name="hsl_address" id="state18" value="송파구">송파구</td>
-					</tr>                              
-					<tr class="state_seoul">           
-						<td><input type="checkbox" name="hsl_address" id="state19" value="양천구">양천구</td>
-						<td><input type="checkbox" name="hsl_address" id="state20" value="영등포구">영등포구</td>
-						<td><input type="checkbox" name="hsl_address" id="state21" value="용산구">용산구</td>
-						<td><input type="checkbox" name="hsl_address" id="state22" value="은평구">은평구</td>
-						<td><input type="checkbox" name="hsl_address" id="state23" value="종로구">종로구</td>
-						<td><input type="checkbox" name="hsl_address" id="state24" value="중구">중구</td>	
-						<td><input type="checkbox" name="hsl_address" id="state25" value="중랑구">중랑구</td>
+						<td class="state_seoul">
+							<input type="checkbox" name="hsl_address" id="state1" value="강남구">강남구
+							<input type="checkbox" name="hsl_address" id="state2" value="강동구">강동구
+							<input type="checkbox" name="hsl_address" id="state3" value="강북구">강북구
+							<input type="checkbox" name="hsl_address" id="state4" value="강서구">강서구
+							<input type="checkbox" name="hsl_address" id="state5" value="관악구">관악구
+							<input type="checkbox" name="hsl_address" id="state6" value="광진구">광진구  
+							<input type="checkbox" name="hsl_address" id="state7" value="구로구">구로구
+							<input type="checkbox" name="hsl_address" id="state8" value="금천구">금천구
+							<input type="checkbox" name="hsl_address" id="state9" value="노원구">노원구
+							<input type="checkbox" name="hsl_address" id="state10" value="도봉구">도봉구
+							<input type="checkbox" name="hsl_address" id="state11" value="동대문구">동대문구
+							<input type="checkbox" name="hsl_address" id="state12" value="동작구">동작구       
+							<input type="checkbox" name="hsl_address" id="state13" value="마포구">마포구
+							<input type="checkbox" name="hsl_address" id="state14" value="서대문구">서대문구
+							<input type="checkbox" name="hsl_address" id="state15" value="서초구">서초구
+							<input type="checkbox" name="hsl_address" id="state16" value="성동구">성동구
+							<input type="checkbox" name="hsl_address" id="state17" value="성북구">성북구
+							<input type="checkbox" name="hsl_address" id="state18" value="송파구">송파구        
+							<input type="checkbox" name="hsl_address" id="state19" value="양천구">양천구
+							<input type="checkbox" name="hsl_address" id="state20" value="영등포구">영등포구
+							<input type="checkbox" name="hsl_address" id="state21" value="용산구">용산구
+							<input type="checkbox" name="hsl_address" id="state22" value="은평구">은평구
+							<input type="checkbox" name="hsl_address" id="state23" value="종로구">종로구
+							<input type="checkbox" name="hsl_address" id="state24" value="중구">중구	
+							<input type="checkbox" name="hsl_address" id="state25" value="중랑구">중랑구
+						</td>
 					</tr>
 					<tr>
 						<td>

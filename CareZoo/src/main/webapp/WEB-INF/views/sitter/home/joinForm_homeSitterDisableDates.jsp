@@ -51,45 +51,74 @@ function cancleCheck() {
 	}
 }
 function checkValue() {
-	if($("#email").val() ==""){
-		alert("아이디(이메일)을 입력해주세요");
+	if($("#title").val() ==""){
+		alert("제목을 입력해주세요");
 		return false;
 	}
 	
-	if($("#pw2").val() ==""){
-		alert("비밀번호를 입력해 주세요");
+	if($("#content").val() ==""){
+		alert("내용을 입력해 주세요");
 		return false;
 	}
 	
-	if($("#name").val() ==""){
-		alert("이름을 입력해 주세요");
+	if($("input:checkbox[name='hsl_service_type']").is(":checked")){
+		if(false){
+			alert("케어 가능한 서비스 타입을 선택해 주세요");			
+			return false;
+		}
+		return true;
+	}
+	
+	if($("#hsd_disabledate").val() ==""){
+		alert("불가능한 날짜를 선택해 주세요");
 		return false;
 	}
 	
-	if($("#birth").val() ==""){
-		alert("생년월일을 입력해 주세요");
+	if($(".chkin").val() ==""){
+		alert("체크인 가능 시간을 입력해 주세요");
 		return false;
 	}
 	
-	if($("#sex").val() ==""){
-		alert("성별을 입력해 주세요");
+	if($(".chkout").val() ==""){
+		alert("체크아웃 가능 시간을 입력해 주세요");
 		return false;
 	}
 	
-	if($("#address").val() ==""){
-		alert("주소를 입력해 주세요");
+	if($(".size").val() ==""){
+		alert("돌봄 가능한 강아지의 크기를 선택해 주세요");
 		return false;
 	}
 	
-	if($("#d_address").val() ==""){
-		alert("상세주소를 입력해주세요");
+	if($(".age").val() ==""){
+		alert("돌봄 가능한 강아지의 나이를 선택해 주세요");
 		return false;
 	}
 	
-	if($("#contact").val() ==""){
-		alert("연락처를 입력해주세요");
+	if($(".place").val() ==""){
+		alert("돌봄공간을 선택해 주세요");
 		return false;
 	}	
+
+	if($(".yard").val() ==""){
+		alert("마당이 있는지 선택해주세요");
+		return false;
+	}
+
+	if($(".baby").val() ==""){
+		alert("14세 미만 아동이 있는지 선택해주세요");
+		return false;
+	}
+
+	if($(".family").val() ==""){
+		alert("다른 가족이 함께 거주하는지 선택해주세요");
+		return false;
+	}
+
+	if($("#imgs_wrap").val() ==""){
+		alert("사진을 올려주세요");
+		return false;
+	}
+	
 }
 var index = 1;
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )

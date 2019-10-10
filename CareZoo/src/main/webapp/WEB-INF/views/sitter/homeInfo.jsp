@@ -150,12 +150,12 @@
 				<div>
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
+						<li><a href="${contextPath}/home/write"><strong>게시글 관리</strong></a></li>
 						<li><a href="${contextPath}/sitter/">나에게 신청된 예약</a></li>
 						<li><a href="${contextPath}/sitter/myReservationHs_Page">예약상황 보기</a></li>
 					</ul>
 				</div>
 			</div>
-
 	<div class="container">
 		<header>
 			<a href="${contextPath }"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
