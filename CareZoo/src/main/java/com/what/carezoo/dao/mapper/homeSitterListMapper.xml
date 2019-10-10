@@ -29,14 +29,20 @@
 		update homesitterlist
 		set hsl_disdates = #{hsl_disdates}
 		where hsl_num = #{hsl_num}
-		and hs_num=#{hs_num}
+		
 	</update>
 	<!--예약불가일자 받기 -->
 	<insert id="insertDisdates" parameterType="map">		
 		INSERT 
-		INTO homesitterdisabledate (hs_num, hsd_num, hsd_disabledate)
-		VALUES  (#{hs_num}, homesitterdisabledate_seq.nextval, #{hsd_disabledate} )
+		INTO homesitterdisabledate (hsl_num, hsd_num, hsd_disabledate)
+		VALUES  (#{hsl_num}, homesitterdisabledate_seq.nextval, #{hsd_disabledate} )
 	</insert>
+	
+	<select id="selectDisdates" parameterType="int" resultType="string">
+		select trim(hsd.hsd_disabledate), hsl.hsl_num
+        from homesitterlist hsl, homesitterdisabledate hsd
+        where hsl.hsl_num = #{hsl_num}
+	</select>
 	
 	<update id="updateHsl" parameterType="homeSitterList"></update>
 	
@@ -125,7 +131,7 @@
 <!-- 		order by hs.hs_num	 -->
 <!-- 	</select> -->
 
-	<select id="selectAllHsl" resultType="map">
+	<select id="selectAllHsl" resultType="homeSitterList">
 		select *
         from homesitter hs,
             (select hs_num, hsl_num, hsl_address, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsli,

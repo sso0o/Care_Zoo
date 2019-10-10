@@ -159,13 +159,13 @@ $(function () {
 var searchSwitch = 0;
 function loadingPage(){
 	var detailParam = $("form").serialize();
-	var stateParam = $('input[name=hsl_address]:checked').serialize(); 
+// 	var stateParam = $('input[name=hsl_address]:checked').serialize(); //
 	var homeSitterListDiv = $('.homeSitterlist');
 
 	$.ajax({
 		url : "${contextPath}/home/searchLoading",
-		data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
-// 		data : detailParam + '&searchSwitch='+searchSwitch ,
+// 		data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
+		data : detailParam + '&searchSwitch='+searchSwitch ,
 		dataType : "JSON",
 		success : function(hsList) {
 			var hsListLenghth = hsList

@@ -12,6 +12,7 @@ import com.what.carezoo.model.HomeSitterComment;
 public class HomeSitterCommentService {
 	@Autowired
 	private HomeSitterCommentDao hscDao;
+	
 	public List<HomeSitterComment> getHomesitterComment(int hs_num) {	
 		System.out.println("홈시터당 코멘트 목록 : "+hscDao.selectByHs_num(hs_num));
 		return hscDao.selectByHs_num(hs_num);
