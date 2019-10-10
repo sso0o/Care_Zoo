@@ -22,6 +22,16 @@
 			return false;
 		}
 	}
+	//비밀번호 찾기 새 창띄우기
+	function openWin(){  
+    window.open("${contextPath}/member/searchPw", "비밀번호 찾기", 
+    		"width=600, height=200, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
+	//아이디(이메일) 찾기 새 창띄우기
+	function openWin2(){  
+    window.open("${contextPath}/member/searchEmail", "아이디 찾기", 
+    		"width=600, height=200, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
 </script>
 <style type="text/css">
 
@@ -170,7 +180,8 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<div class="links"><a href="#" >비밀번호를 잊어버리셨나요?</a></div>
+							<div class="links"><a href="#" onclick="openWin()">비밀번호를 잊어버리셨나요?</a></div>
+							<div class="links"><a href="#" onclick="openWin2()">이메일을 잊어버리셨나요?</a></div>
 						</td>
 					</tr>
 				</table>

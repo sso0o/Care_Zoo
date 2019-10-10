@@ -11,8 +11,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -23,12 +27,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
@@ -379,5 +387,100 @@ public class MemberController {
 		return null;
 	}
 	
+	//비밀번호찾기
+	@RequestMapping(value="searchPw",method=RequestMethod.GET)
+	public String searchPwForm() {
+		return "searchPw";
+	}
 
+	
+	//이메일 유효성 검사
+	@RequestMapping(value="emailCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<Object, Object> emailCheck(String email,String user) {
+		System.out.println("email: "+email);
+		System.out.println("user: "+user);
+		int count = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		if (user.equals("customer")) {
+			count = memberService.userIdCheck(email);
+			System.out.println(count);
+		} else if (user.equals("visit")) {
+			count = vsService.userIdCheck(email);
+			System.out.println(count);
+		} else if (user.equals("home")) {
+			count = hsService.userIdCheck(email);
+			System.out.println(count);
+		}
+		map.put("cnt", count);
+		return map;
+	}
+	
+	@RequestMapping(value="/find_pass", method = RequestMethod.POST)
+    public String find_pass(String email,String user,Model model,HttpServletRequest request) {
+		System.out.println("email: "+email);
+		System.out.println("user: "+user);
+		
+		if(user.equals("customer")) {
+			if(memberService.userIdCheck(email)>0) {
+				//email로 비번 보내기
+				mailsender.pass(email,memberService.getMemberByEmail(email).getC_name(), user);
+
+				return "passOk";
+			}
+		}else if(user.equals("visit")) {
+			if(vsService.userIdCheck(email)>0) {
+				return "passOk";
+			}
+		}else if(user.equals("home")) {
+			if(hsService.userIdCheck(email)>0) {
+				return "passOk";
+			}
+		}
+		model.addAttribute("msg", "다시 시도해주세요.");
+			return "searchPw";
+        
+    }
+	
+	//비밀번호 찾기 완료
+	@RequestMapping(value="passOk",method=RequestMethod.GET)
+	public String passOkForm() {
+		return "passOk";
+		
+	}
+	
+	//email찾기
+	@RequestMapping(value="searchEmail",method=RequestMethod.GET)
+	public String searchEmailForm() {
+		return "searchEmail";
+	}
+	
+	@RequestMapping(value="find_email", method=RequestMethod.POST)
+	public String find_email(String user,String name,String phone,String phone1,String phone2,Model model) {
+		String number = phone+phone1+phone2;
+		System.out.println(number);
+		System.out.println(user);
+		System.out.println(name);
+		if(user.equals("customer")) {
+			if(memberService.findC_emailCount(name, number)>0) {
+				model.addAttribute("email", memberService.findC_email(name, number));
+				return "emailOk";
+			}
+			
+		}else if(user.equals("visit")) {
+			if(vsService.findVs_emailCount(name, number)>0) {
+				model.addAttribute("email", vsService.findVs_email(name, number));
+				return "emailOk";
+			}
+			
+		}else if(user.equals("home")) {
+			if(hsService.findHs_emailCount(name, number)>0) {
+				model.addAttribute("email", hsService.findHs_email(name, number));
+				return "emailOk";
+			}
+			
+		}
+			model.addAttribute("msg", "가입하지 않은 고객입니다.");
+			return "searchEmail";
+	}
 }

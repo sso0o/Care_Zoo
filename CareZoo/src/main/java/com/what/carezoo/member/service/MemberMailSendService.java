@@ -1,5 +1,6 @@
 package com.what.carezoo.member.service;
 
+import java.io.PrintWriter;
 import java.util.Random;
 
 import javax.mail.Message.RecipientType;
@@ -7,12 +8,16 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.what.carezoo.dao.MemberDao;
+import com.what.carezoo.model.Customer;
+import com.what.carezoo.sitter.service.HomeSitterService;
+import com.what.carezoo.sitter.service.VisitSitterService;
 
 @Service
 public class MemberMailSendService {
@@ -20,6 +25,12 @@ public class MemberMailSendService {
 	private JavaMailSender mailSender;
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private VisitSitterService vsService;
+	@Autowired
+	private HomeSitterService hsService;
 	
 	// 이메일 난수 만드는 메서드
 		private String init() {
@@ -82,4 +93,41 @@ public class MemberMailSendService {
 			System.out.println("resultCnt실행?"+resultCnt);
 			return resultCnt;
 		}
+		
+		// 비밀번호 찾기
+		public boolean pass(String email,String name,String user) {
+			System.out.println(email);
+			System.out.println(name);
+			System.out.println(user);
+			MimeMessage mail = mailSender.createMimeMessage();
+			String htmlStr = "";
+			if(user.equals("customer")) {
+				htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br><br>" 
+						+"<p>"+name+"님의 비밀번호 입니다 : </p>" 
+						+ "<h3>"+memberService.getMemberByEmail(email).getC_pass()+"</h3>"
+						+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+			}else if(user.equals("visit")) {
+				htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br><br>" 
+						+"<p>"+name+"님의 비밀번호 입니다 : </p>" 
+						+ "<h3>"+vsService.getVisitSitterByEmail(email).getVs_pass()+"</h3>"
+						+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+			}else if(user.equals("home")) {
+				htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br><br>" 
+						+"<p>"+name+"님의 비밀번호 입니다 : </p>" 
+						+ "<h3>"+hsService.getHomeSitterByEmail(email).getHs_pass()+"</h3>"
+						+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+			}
+
+			try {
+				mail.setSubject("맡겨쥬의 비밀번호 입니다", "utf-8");
+				mail.setText(htmlStr, "utf-8", "html");
+				mail.addRecipient(RecipientType.TO, new InternetAddress(email));
+				mailSender.send(mail);
+				return true;
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			return false;
+		}
+
 }

@@ -111,10 +111,13 @@
 	<br><br>
 	<div class="joins" style="text-align:center;">
 	<img src="${contextPath}/resources/img/customerDog.png" onclick="location.href='${contextPath }/member/joinCustomer'">
-	<br><br><br>
+	<p>(강아지를 시터들에게 맡기실 수 있어요!)</p>
+	<br><br>
 	<img src="${contextPath}/resources/img/homeDog.png" onclick="location.href='${contextPath }/member/joinHome'">
-	<br><br><br><br>
+	<p>(강아지를 집에서 돌봐주실 수 있는 시터분을 구해요!)</p>
+	<br><br><br>
 	<img src="${contextPath}/resources/img/visitDog.png" onclick="${contextPath }/member/joinVisit">
+	<p>(강아지의 집에 직접 찾아가 주실 시터분을 구해요!)</p>
 	</div>
 		
 </div>
