@@ -28,7 +28,7 @@
 	</select>
 	
 	<select id="selectByHs_num" parameterType="int" resultType="homeSitterComment">
-		select hsc.c_num, hsc.hsc_comment, hsc.hsc_star, hsc.hsc_write_date,hsc.hsc_num,c.c_name
+		select hsc.c_num, hsc.hsc_comment, hsc.hsc_star, hsc.hsc_write_date,hsc.hsc_num, c.c_name
 		from homesittercomment hsc, homesitter hs ,customer c
 		where hs.hs_num = hsc.hs_num(+) 
         and hsc.c_num = c.c_num(+)

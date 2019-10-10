@@ -184,19 +184,12 @@ body{margin-top:20px;}
 <script type="text/javascript">
 
 $(function() {	
-	var unavailableDates = new Array();
-	
+	var unavailableDates = new Array();	
 	<c:forEach items='${disDates}' var = 'item' >
 	var d = "${item}";
 	unavailableDates.push(d);
 	</c:forEach>
 	console.log(unavailableDates)		
-// 	var iterator = arr.values();
-// 	for(e in unavailableDates){
-// 		console.log(e); 
-// 	};
-
-	var list = ['2019-10-19','2019-10-11']
 	function disableAllTheseDays(date) {
 	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
 	    for (i = 0; i < unavailableDates.length; i++) {
@@ -207,9 +200,9 @@ $(function() {
 	    return [true];
 	}
 	calculatePrice();
-	$('#calendar').datepicker();
+	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
 	
-	console.log(list);
+	console.log(unavailableDates);
 	var pickupTime = $('#hsr_dropoff_time').timepicker({		
 		format: 'LT',
 		minTime:'${hsList.hsl_chkin_str_time}' ,
@@ -247,6 +240,7 @@ $(function() {
 			for(var i in unavailableDates){				
 				var notableDays = new Date(unavailableDates[i])
 				if(startDate<notableDays && notableDays<endDate){
+					datepickerEnd.datepicker('setDate','today')
 					alert("예약 불가능한 일자가 존재합니다. 다시 선택해 주세요.");
 					return [false];	
 				}		
@@ -463,8 +457,6 @@ $(function() {
 </head>
 <body>
 <!-- 네비게이션 -->
-<input id="demo1" value="${hsList.hs_num}" type="text">
-<input id="demo" value="${disDates}" type="text">
 <div>
 	<div class="container">
         <header>
@@ -519,21 +511,11 @@ $(function() {
 <div class="container">
 	<div  style="width: 750px; display: inline-block; float: left;">
 	<div>이미지 올리기</div>
-<%-- 	<div>${hsList }</div> --%>
-<%-- 	<div>lllll${hsList.hsl_img_filesname}</div> --%>
+
 		<div class="demo">
 			<div class="item">
 				<div class="clearfix" style="width: 700px; height:402px ">
 					<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-<!-- 						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-4.jpg"> -->
-<!-- 							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-4.jpg" style="width: 700px; height:402px "/> -->
-<!-- 						</li> -->
-<!-- 						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-3.jpg"> -->
-<!-- 							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-3.jpg" style="width: 700px; height:402px " /> -->
-<!-- 						</li> -->
-<!-- 						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-1.jpg"> -->
-<!-- 							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-1.jpg" style="width: 700px; height:402px "/> -->
-<!-- 						</li> -->
 					<c:forEach items="${hsimg}" var="img">
 						<li data-thumb="${contextPath}/home/image?fileName=${img}">
 							<img src="${contextPath}/home/image?fileName=${img}" style="width: 700px; height:402px "/>										
@@ -546,7 +528,7 @@ $(function() {
 		<br><br>
 		<div>
 			<ul>
-				<li>돌봄 가능한 강아지 크기&나이</li>
+				<li><strong>돌봄 가능한 강아지 크기&나이</strong></li>
 				<li>${hsList.hsl_size } 가능합니다.</li>
 				<li>${hsList.hsl_pet_age }케어 가능합니다.</li>
 			</ul>
@@ -567,71 +549,22 @@ $(function() {
 			<li>내용 : <span>${hsList.hsl_comment }</span></li>
 		</ul>
 		</fieldset>
-			//
 			<div class="row bootstrap snippets">
-<!-- 				<div class="col-md-6 col-md-offset-2 col-sm-12"> -->
-<!-- 					<div class="comment-wrapper"> -->
-<!-- 						<div class="panel panel-info"> -->
-<!-- 							<div class="panel-heading">Comment panel</div> -->
-<!-- 							<div class="panel-body"> -->
-<!-- 								<textarea class="form-control" placeholder="write a comment..." rows="3"></textarea> -->
-<!-- 								<br> -->
-<!-- 								<button type="button" class="btn btn-info pull-right">Post</button> -->
-<!-- 								<div class="clearfix"></div> -->
-<!-- 								<hr> -->
-<!-- 							<ul class="media-list"> -->
-<%-- 							<c:forEach items="${comment}" var="comment"> --%>
-<!-- 								<li class="media"> -->
-<!-- 									<a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle"></a> -->
-							
-<!-- 									<div class="media-body"> -->
-							
-<%-- 									<span class="text-muted pull-right"> <small class="text-muted">${comment}</small> --%>
-							
-<%-- 									</span><strong class="text-success">@${comment.c_name}</strong> --%>
-							
-<%-- 									<p>${comment.hsc_comment }.</p> --%>
-<!-- 							</div> -->
-<!-- 							</li> -->
-<%-- 							</c:forEach> --%>
-<!-- 							</ul> -->
-								<ul class="media-list">
-									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle"></a>
-										<div class="media-body">
-											<span class="text-muted pull-right"> <small class="text-muted">30 min ago</small>
-											</span> <strong class="text-success">@MartinoMont</strong>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, <a href="#">#consecteturadipiscing </a>.
-											</p>
-										</div>
-									</li>
-									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
-									</a>
-										<div class="media-body">
-											<span class="text-muted pull-right"> <small class="text-muted">30 min ago</small>
-											</span> <strong class="text-success">@LaurenceCorreil</strong>
-											<p>
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor <a href="#">#ipsumdolor </a>adipiscing elit.
-											</p>
-										</div></li>
-									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_3.jpg" alt="" class="img-circle">
-									</a>
-										<div class="media-body">
-											<span class="text-muted pull-right"> <small class="text-muted">30 min ago</small>
-											</span> <strong class="text-success">@JohnNida</strong>
-											<p>
-												Lorem ipsum dolor <a href="#">#sitamet</a> sit amet, consectetur adipiscing elit.
-											</p>
-										</div>
-									</li>
-								</ul>
-							
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
+				<ul class="media-list">
+					<c:forEach items="${comment}" var="cmmt">
+						<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle"></a>
+							<div> </div>
+							<div class="media-body">
+								<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
+								</span> <strong class="text-success">@${cmmt.c_name}</strong>
+								<p>
+									${cmmt.hsc_comment} <a href="#">#consecteturadipiscing </a>.
+								</p>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
 			</div>
-			//
 		<div>
 		<a href="#" class="pull-left">
 			<div>후기</div>
