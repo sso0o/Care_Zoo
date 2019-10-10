@@ -233,77 +233,90 @@
 <br><br><br>
 <div class="container">
 <!-- 		여기다 내용을 작성하시면 됩니다 -->
-
-<div class="content">
-	<h2>수락 대기중인 예약 목록</h2>
-	<hr>
-	<p>일반 방문시터</p>
-	<div class="row">
-		<p class="col-6 tt">주소</p>
-		<p class="col-1 tt">마리수</p>
-		<p class="col-1 tt">시작시간</p>
-		<p class="col-1 tt">종료시간</p>
-		<p class="col-2 tt">예약일</p>
-		<p class="col-1 tt">정보</p>
-	<c:forEach items="${rst1 }" var="vsr" >
-		<p class="col-6" style="height: 2.5em">${vsr.C_ADDRESS}&nbsp;${vsr.C_D_ADDRESS}</p>
-		<p class="col-1">${vsr.PETCOUNT}마리</p>
-		<p class="col-1">${vsr.VSR_HOUR}시</p>
-		<p class="col-1">${vsr.VSR_HOUR+vsr.VSR_HADD+3}시</p>
-		<p class="col-2">${vsr.VSR_CHKIN}</p>
-		<p class="col-1" onclick="modalOpen(this)" title="${vsr.VSR_NUM}">보기</p>
-	</c:forEach>
-	</div>
-	<hr>
-	<p>정기 방문시터</p>
-	<div class="row">
-		<p class="col-6 tt">주소</p>
-		<p class="col-1 tt">요일</p>
-		<p class="col-1 tt">시작시간</p>
-		<p class="col-1 tt">종료시간</p>
-		<p class="col-1 tt">시작일</p>
-		<p class="col-1 tt">종료일</p>
-		<p class="col-1 tt">정보</p>
-		
-	<c:forEach items="${rst2 }" var="vsr1">
-		<p class="col-6" style="height: 2.5em">${vsr1.C_ADDRESS}&nbsp;${vsr1.C_D_ADDRESS}</p>
-		<c:choose>
-			<c:when test="${vsr1.VSR_DAY == 0}">
-				<p class="col-1">일</p>
-			</c:when>
-			<c:when test="${vsr1.VSR_DAY == 1}">
-				<p class="col-1">월</p>
-			</c:when>
-			<c:when test="${vsr1.VSR_DAY == 2}">
-				<p class="col-1">화</p>
-			</c:when>
-			<c:when test="${vsr1.VSR_DAY == 3}">
-				<p class="col-1">수</p>
-			</c:when>
-			<c:when test="${vsr1.VSR_DAY == 4}">
-				<p class="col-1">목</p>
-			</c:when>
-			<c:when test="${vsr1.VSR_DAY == 5}">
-				<p class="col-1">금</p>
-			</c:when>
-			<c:when test="${vsr1.VSR_DAY == 6}">
-				<p class="col-1">토</p>
-			</c:when>
-			<c:otherwise>
-				<p class="col-1">?</p>
-			</c:otherwise>
-		</c:choose>
-		<p class="col-1">${vsr1.VSR_HOUR}시</p>
-		<p class="col-1">${vsr1.VSR_HOUR + vsr1.VSR_HADD+3}시</p>
-		<p class="col-1">${vsr1.STARTDAY}</p>
-		<p class="col-1">${vsr1.ENDDAY}</p>
-		<p class="col-1" onclick="modalOpen(this)" title="${vsr1.A}">보기</p>
+	<div class="content">
+		<h2>수락 대기중인 예약 목록</h2>
 		<hr>
-	</c:forEach>
+		<p>일반 방문시터</p>
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>주소</th>
+					<th>마리수</th>
+					<th>시작시간</th>
+					<th>종료시간</th>
+					<th>예약일</th>
+					<th>정보</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${rst1 }" var="vsr" >
+					<tr>
+						<td>${vsr.C_ADDRESS}&nbsp;${vsr.C_D_ADDRESS}</td>
+						<td>${vsr.PETCOUNT}마리</td>
+						<td>${vsr.VSR_HOUR}시</td>
+						<td>${vsr.VSR_HOUR+vsr.VSR_HADD+3}시</td>
+						<td>${vsr.VSR_CHKIN}</td>
+						<td onclick="modalOpen(this)" title="${vsr.VSR_NUM}">보기</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		<hr>
+		<p>정기 방문시터</p>
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>주소</th>
+					<th>요일</th>
+					<th>시작시간</th>
+					<th>종료시간</th>
+					<th>시작일</th>
+					<th>종료일</th>
+					<th>정보</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${rst2 }" var="vsr1">
+					<tr>
+						<td>${vsr1.C_ADDRESS}&nbsp;${vsr1.C_D_ADDRESS}</td>
+						<c:choose>
+							<c:when test="${vsr1.VSR_DAY == 0}">
+								<td>일</td>
+							</c:when>
+							<c:when test="${vsr1.VSR_DAY == 1}">
+								<td>월</td>
+							</c:when>
+							<c:when test="${vsr1.VSR_DAY == 2}">
+								<td>화</td>
+							</c:when>
+							<c:when test="${vsr1.VSR_DAY == 3}">
+								<td>수</td>
+							</c:when>
+							<c:when test="${vsr1.VSR_DAY == 4}">
+								<td>목</td>
+							</c:when>
+							<c:when test="${vsr1.VSR_DAY == 5}">
+								<td>금</td>
+							</c:when>
+							<c:when test="${vsr1.VSR_DAY == 6}">
+								<td>토</td>
+							</c:when>
+							<c:otherwise>
+								<td>?</td>
+							</c:otherwise>
+						</c:choose>
+						<td>${vsr1.VSR_HOUR}시</td>
+						<td>${vsr1.VSR_HOUR + vsr1.VSR_HADD+3}시</td>
+						<td>${vsr1.STARTDAY}</td>
+						<td>${vsr1.ENDDAY}</td>
+						<td onclick="modalOpen(this)" title="${vsr1.A}">보기</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 </div>
-		
-</div>
+
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
 <div class="container-fluid modal-modify" id="modal-showVsr">
 	<div class="row mmmmm" id="vsrInfo">

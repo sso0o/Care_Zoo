@@ -39,7 +39,16 @@
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
 
+<link rel='stylesheet' href='${contextPath}/resources/css/popper_tooltip.css' />
+<script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
+<script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
+
 <script type="text/javascript">
+	//기본적으로 세션에 저장된 정보
+	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+	var user_num = "<%=session.getAttribute("user_num")%>"
+	var user_name = "<%=session.getAttribute("user_name")%>"
+	var d = new Date();
 	
 	// 로그아웃확인 <--모든페이지에 필수
 	function logoutCheck() {
@@ -55,7 +64,6 @@
 			alert("${msg}");
 		}
 	
-		console.log("aa : ${rst1}")		
 	})
 	
 	document.addEventListener('DOMContentLoaded', function() {	
@@ -96,24 +104,61 @@
 
 			},
 			eventClick : function(info) {
-				var infocheck = info.event.groupId+'='+info.event.id
-				var chkoutTime = info.event.end
-				eee = info.event.end;
-// 				$("#groupid").val(info.event.groupId)
-// 				$("#number").val(info.event.id)
-				
-				modalOpen(info.event.id);
+				var infoid = info.event.id
+				modalOpen(infoid);
 			}
 
 		});
 		
+		$.ajax({
+			url:"${contextPath}/sitter/getMyDataHs",
+			data:{
+				hs_num : num
+			},
+			dataType: "JSON",
+			success: function(data) {
+				for (var i = 0; i < data.status0.length; i++) {
+					console.log(data.status0[i])
+					var e = {
+							groupId : 'hsr_num',
+	 						id : data.status0[i].HSR_NUM,
+	 						start : data.status0[i].HSR_CHKIN+"T"+data.status0[i].HSR_PICKUP_TIME,
+	 						end : data.status0[i].HSR_CHKOUT+"T"+data.status0[i].HSR_DROPOFF_TIME,
+	 						title : data.status0[i].C_NAME+" 보호자",
+	 						color : 'rgba(250, 0, 0,0.6)',
+	 						textColor : "white"
+						}
+						calendar.addEvent(e)
+	 					calendar.render();
+				}
+				
+				for (var i = 0; i < data.status2.length; i++) {
+					console.log(data.status2[i])
+					var e = {
+							groupId : 'hsr_num',
+	 						id : data.status2[i].HSR_NUM,
+	 						start : data.status2[i].HSR_CHKIN+"T"+data.status2[i].HSR_PICKUP_TIME,
+	 						end : data.status2[i].HSR_CHKOUT+"T"+data.status2[i].HSR_DROPOFF_TIME,
+	 						title : data.status2[i].C_NAME+" 보호자",
+	 						color : 'rgba(0, 0, 120,0.6)',
+	 						textColor : "white"
+						}
+						calendar.addEvent(e)
+	 					calendar.render();
+				}
 		
+			},
+			error: function() {
+				alert("데이터 불러오기 실패")
+			}
+		})
+		
+		calendar.render();
 
 	});
 	
-	
 	function modalOpen(obj) {	
-		var num = $(obj).attr('title');
+		var num = obj;
 		
 		console.log("hsr_num : "+num)
 		
@@ -125,13 +170,22 @@
 			dataType:"JSON",
 			success: function(data) {
 				console.log(data)
-				$("#chkin").text(data.HSR_CHKIN+ " "+data.HSR_DROPOFF_TIME );
+				$("#hsr_num").val(data.HSR_NUM);
+				$("#numpet").text(data.HSR_NUMOF_PET)
+				$("#chkin").text(data.HSR_CHKIN+ " "+data.HSR_PICKUP_TIME );
 				$("#chkout").text(data.HSR_CHKOUT+" "+data.HSR_DROPOFF_TIME);
 				$("#attention").text(data.HSR_MESSAGE);									
 				$("#name").text(data.C_NAME);
 				$("#contact").text(data.C_CONTACT);
 				$("#total").text(data.HSR_TOTALPRICE+"원");
-				
+				$("#message").text(data.HSR_MESSAGE);
+				if(data.HSR_STATUS >= 2){
+					$("#accept").addClass('noshow');
+					$("#cancel").addClass('noshow');
+				} else{
+					$("#accept").removeClass('noshow');
+					$("#cancel").removeClass('noshow');
+				}
 				
 			},
 			error: function() {
@@ -150,16 +204,28 @@
 			$("#name").text("");
 			$("#contact").text("");
 			$("#total").text("");
+			$("#numpet").text("");
 
 		});
 		
 	}//modalOpen()
 	
 	function booking() {
-		var num = $("#hsr_num").val()
+		var num = $("#hsr_num").val();
 		console.log("booking -> "+num)
 		if(confirm("신청된 예약을 수락하시겠습니까?") ==  true){
 			location.href = '${contextPath}/sitter/acceptHsr?hsr_num='+num;
+			
+		} else{
+			return false;
+		}
+	}
+	
+	function cancel() {
+		var num = $("#hsr_num").val();
+		console.log("cancel -> "+num)
+		if(confirm("신청된 예약을 거절하시겠습니까?") ==  true){
+			location.href = '${contextPath}/sitter/cancelHsr?hsr_num='+num;
 			
 		} else{
 			return false;
@@ -170,13 +236,6 @@
 	// $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
 	
 	// })
-	
-	// 기본적으로 세션에 저장된 정보
-	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
-	var user_num = "<%=session.getAttribute("user_num")%>"
-	var user_name = "<%=session.getAttribute("user_name")%>"
-	
-
 
 
 </script>
@@ -244,7 +303,9 @@ textarea {
 	max-height: 100%;
 }
 
-
+.mark, mark{
+	color: red;
+}
 </style>
 
 
@@ -261,8 +322,7 @@ textarea {
 				<div>
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
-						<li><a href="${contextPath}/sitter/getHsrStatus0">나에게 신청된 예약</a></li>
-						<li><a href="${contextPath}/sitter/myReservationHs_Page">예약상황 보기</a></li>
+						<li><a href="${contextPath}/sitter/getHsrStatus0">예약현황 보기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -314,35 +374,8 @@ textarea {
 <div class="content">
 	<h2>수락 대기중인 예약 목록</h2>
 	<hr>
+	<p>수락대기중인 예약은 <mark>빨간색</mark> 이벤트 입니다</p>
 	<div id='calendar'></div>
-	<!--
-	<table class="table table-hover">
-	<thead>
-		<tr>
-	        <th>시작일</th>
-	        <th>종료일</th>
-	        <th>체크인</th>
-	        <th>체크아웃</th>
-	        <th>마리수</th>
-	        <th>총가격</th>
-	        <th>정보</th>
-        </tr>
-	</thead>
-	<tbody>
-		<c:forEach items="${rst1 }" var="hsr">
-			<tr>
-				<td>${hsr.HSR_CHKIN }</td>
-				<td>${hsr.HSR_CHKOUT }</td>
-				<td>${hsr.HSR_PICKUP_TIME }</td>
-				<td>${hsr.HSR_DROPOFF_TIME }</td>
-				<td>${hsr.HSR_NUMOF_PET }</td>
-				<td>${hsr.HSR_TOTALPRICE }</td>
-				<td onclick="modalOpen(this)" title="${hsr.HSR_NUM }">보기</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-	</table>
-	  -->
 	
 </div>
 		
@@ -352,8 +385,10 @@ textarea {
 	<div id="hsrInfo" class="hsrInfo">
 		<table class="table table-hover">
 			<tr>
-				<td colspan="2"><input type="hidden" id="hsr_num" name="hsr_num"></td>
-				<td colspan="2" style="text-align: right;"><button type="button" class="close">&times;</button></td>
+				<th>마리수</th>
+				<td id="numpet"></td>
+				<td><input type="hidden" id="hsr_num" name="hsr_num"></td>
+				<td><button type="button" class="close">&times;</button></td>
 			</tr>
 			<tr>
 				<th>이름</th>
@@ -373,7 +408,8 @@ textarea {
 			<tr>
 				<th>총가격</th>
 				<td id="total"></td>
-				<td colspan="2" style="text-align: right;"><a href="#" onclick="booking()" class="btn acc-btn" id="accept">수락</a></td>
+				<td><a href="#" onclick="cancel()" class="btn acc-btn" id="cancel">거절</a></td>
+				<td><a href="#" onclick="booking()" class="btn acc-btn" id="accept">수락</a></td>
 			</tr>
 		</table>
 

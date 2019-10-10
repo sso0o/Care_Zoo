@@ -49,4 +49,18 @@ public class HomeSitterReservationService {
 	public Map<String, Object> getModalHSR(int hsr_num){
 		return hsrDao.getModalHSR(hsr_num);
 	}
+	
+	public boolean acceptHsr(int hsr_num) {
+		if(hsrDao.acceptHsr(hsr_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean cancelHsr(int hsr_num) {
+		if(hsrDao.cancelHsr(hsr_num)>0) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -217,11 +217,11 @@
 	from visitsitter vs,
 		(select *
 		from visitsitterreservation
-		where c_num = #{503}) vsr,
+		where c_num = #{c_num}) vsr,
 		(select vs_num, round(avg(vsc_star),1)as star
 		from visitsittercomment
 		GROUP by vs_num) star
-	where vsr.vs_num = vs.vs_num
-	and vsr.vs_num = star.vs_num
+	where vsr.vs_num = vs.vs_num(+)
+	and vsr.vs_num = star.vs_num(+)
 	</select>
 </mapper>

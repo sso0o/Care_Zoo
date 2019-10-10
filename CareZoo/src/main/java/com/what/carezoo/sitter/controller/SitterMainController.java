@@ -232,14 +232,23 @@ public class SitterMainController {
 	
 	//나한테 신청한 예약들 가져오기(가정)
 	@RequestMapping("/getHsrStatus0")
+	public String getHsrList() {
+		return "sitter/reservationListHs";
+	}
+	
+	//reservationListHs / ajax 데이터 가져오기
+	@RequestMapping("/getMyDataHs")
 	@ResponseBody
-	public Map<String, Object> getHsrList(int hs_num) {
+	public Map<String, Object> getMyDataHs(int hs_num) {
 		Map<String, Object> rst = new HashMap<String, Object>();
-		List<Map<String, Object>> hsrList = hsrService.getStatus0(hs_num);
 		
-		rst.put("hsrList",hsrList);
+		rst.put("status0", hsrService.getStatus0(hs_num));
+		rst.put("status2", hsrService.getHomeSitterResByHSnum(hs_num));
+		
 		return rst;
 	}
+	
+	
 	
 //	//정기묶음 예약점 가져오기
 //	@RequestMapping("/vsrGroup")
@@ -311,7 +320,6 @@ public class SitterMainController {
 	public Map<String, Object> getHSRInfo(int hsr_num) {
 		Map<String, Object> rst = new HashMap<String, Object>();
 		rst = hsrService.getModalHSR(hsr_num);
-		
 		return rst;
 	}
 	
@@ -372,13 +380,27 @@ public class SitterMainController {
 		return null;	
 	}
 	
+	//예약 수락
 	@RequestMapping("/acceptHsr")
-	public String acceptHsr(int hsr_num, HttpSession session, Model m) {
-		int num = (Integer) session.getAttribute("user_num");
-		//내가 그날 예약 있는지부터 확인
-		
-		
-		return null;
+	public String acceptHsr(int hsr_num, Model m) {
+		if(hsrService.acceptHsr(hsr_num)) {
+			m.addAttribute("msg", "수락이 완료되었습니다!");
+
+		} else {
+			m.addAttribute("msg", "예약을 수락할 수 없습니다.");
+		}
+		return "sitter/reservationListHs";
+	}
+	
+	//거절
+	@RequestMapping("/cancelHsr")
+	public String cancelHsr(int hsr_num, Model m) {
+		if(hsrService.cancelHsr(hsr_num)) {
+			m.addAttribute("msg", "거절이 완료되었습니다!");
+		} else {
+			m.addAttribute("msg", "예약을 거절할 수 없습니다.");
+		}
+		return "sitter/reservationListHs";
 	}
 		
 		
