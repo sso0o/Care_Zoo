@@ -39,6 +39,12 @@ public class HomeSitterListService {
 		}
 		return false;
 	}
+	//Disable dates 가져오기
+	public List<String> getDisableDates(int hsl_num){
+		return hslDao.selectDisdates(hsl_num);
+	}
+	
+	
 	//
 	public boolean addHsl(HomeSitterList hsl, List<MultipartFile> files) {
 		if(hslDao.insertHsl(hsl)>0) {
@@ -64,7 +70,7 @@ public class HomeSitterListService {
 		}
 		return false;
 	}
-	public boolean addDisDates(int hs_num, List<String> hsd_disabledate_list) {
+	public boolean addDisDates(int hsl_num, List<String> hsd_disabledate_list) {
 		if(hsd_disabledate_list.isEmpty()) {
 			System.out.println("hsd_disabledate_list 파일 없음");
 			return true;
@@ -73,7 +79,7 @@ public class HomeSitterListService {
 			for(String list : hsd_disabledate_list) {
 				Map<String, Object> disDates = new HashMap<String, Object>();
 				disDates.put("hsd_disabledate", list);
-				disDates.put("hs_num", hs_num);
+				disDates.put("hsl_num", hsl_num);
 				hslDao.insertDisdates(disDates);				
 			}
 			return true;
@@ -91,7 +97,7 @@ public class HomeSitterListService {
 //	public List<HomeSitterList> getbySearchingHsl(List<String> hsl_address,HomeSitterList hsl){		
 //		return hslDao.selectAllHsl(hsl_address,hsl);
 //	}
-	public List<Map<String, Object>> getbySearchingHsl(List<String> hsl_address,HomeSitterList hsl){		
+	public List<HomeSitterList> getbySearchingHsl(List<String> hsl_address,HomeSitterList hsl){		
 		return hslDao.selectAllHsl(hsl_address,hsl);
 	}
 	public Map<String, Object> getallHsl(int hsl_num){

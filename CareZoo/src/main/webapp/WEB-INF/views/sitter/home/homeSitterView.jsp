@@ -10,11 +10,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--부트스트랩-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- link for datepicker -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"><!-- datePicker -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/><!-- datePicker -->
-<link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css'/><!-- dateTimePicker -->
-<!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css" type='text/css'>안이쁨 dateTimePicker  -->
 <!-- link for navBar -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -24,17 +19,20 @@
 <!-- *필수요소*제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<!-- script for datepicker -->
-<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
 <!-- 슬라이더 -->
+<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
+
+<!-- link for datepicker -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"><!-- datePicker -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/><!-- datePicker -->
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/jquery-ui.multidatespicker.css'/><!-- multidatePicker -->
+<link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css'/><!-- dateTimePicker -->
+<!-- script for datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script><!-- datePicker -->
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script> <!-- moment.js -->
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script><!-- datePicker -->
+<script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js" type="text/javascript" ></script><!-- multidatePicker -->
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
-<!--  <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>안이쁨 dateTimePicker  -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>부트스트랩 -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>부트스트랩 -->
 
 <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 코멘트 -->
 <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 코멘트 -->
@@ -184,34 +182,50 @@ body{margin-top:20px;}
 /*코멘트용*/
 </style>
 <script type="text/javascript">
+
 $(function() {	
-	calculatePrice();
-	$('#calendar').datepicker({ beforeShowDay: unavailableD });
-	var unavailableDates = ["2019-9-19","2019-9-14"];   //*************** 홈시터가 지정한 날짜를 disable 설정필요
-	function unavailableD(date) {
-	    var dateType = date.getFullYear()+ "-" +(date.getMonth()+1)+ "-" +date.getDate();
-	    if ($.inArray(dateType, unavailableDates) < 0) {
-	        return [true,"","Book Now"];
-	    } else {
-	        return [false,"","Booked Out"];
+	var unavailableDates = new Array();
+	
+	<c:forEach items='${disDates}' var = 'item' >
+	var d = "${item}";
+	unavailableDates.push(d);
+	</c:forEach>
+	console.log(unavailableDates)		
+// 	var iterator = arr.values();
+// 	for(e in unavailableDates){
+// 		console.log(e); 
+// 	};
+
+	var list = ['2019-10-19','2019-10-11']
+	function disableAllTheseDays(date) {
+	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+	    for (i = 0; i < unavailableDates.length; i++) {
+	        if($.inArray(y + '-' +(m+1) + '-' + d,unavailableDates) != -1) {
+	            return [false];
+	        }
 	    }
+	    return [true];
 	}
-	var pickupTime = $('#hsr_dropoff_time').timepicker({
+	calculatePrice();
+	$('#calendar').datepicker();
+	
+	console.log(list);
+	var pickupTime = $('#hsr_dropoff_time').timepicker({		
 		format: 'LT',
-		minTime:'07:00' ,
+		minTime:'${hsList.hsl_chkin_str_time}' ,
 		timeFormat: "HH:mm",
-		maxTime: '22:00',
+		maxTime: '${hsList.hsl_chkin_end_time}',
 		stepMinute: 30		
 	});
 	var takebackTime = $('#hsr_pickup_time').timepicker({
 		format: 'LT',
-		minTime:'07:00' ,
+		minTime:'${hsList.hsl_chkout_str_time}' ,
 		timeFormat: "HH:mm",
-		maxTime: '22:00',
+		maxTime: '${hsList.hsl_chkout_end_time}',
 		stepMinute: 30
 	});
 	var datepickerStart = $('#checkin').datepicker({
-		beforeShowDay: unavailableD,
+		beforeShowDay: disableAllTheseDays,
 		dateFormat: 'yy-mm-dd', 
 		minDate: 'today',
 		onSelect: function (selected) {
@@ -221,13 +235,9 @@ $(function() {
 			} 
 			showDays();
 		}
-// 		minTime:'07:00' ,
-// 		timeFormat: "HH:mm",
-// 		maxTime: '22:00',
-// 		stepMinute: 30
 	});
 	var datepickerEnd = $('#checkout').datepicker({
-		beforeShowDay: unavailableD,
+		beforeShowDay: disableAllTheseDays ,
 		dateFormat: 'yy-mm-dd', 
 		minDate: 'today',
 		//예약 불가능일때 선택 막기
@@ -245,45 +255,77 @@ $(function() {
 			alert("성공")
 			return [true];
 		}
+		
 	});
 	
+// 	var unavailableDates = ${disDates};
+// -----------------------------------------
+// 	$("#email").val("${hsList.hsl_chkin_str_time}");
+// 	$("#name").val("${hs.hs_name}");
+// 	$("#contact").val("${hs.hs_contact}");
+// 	$("#address").val("${hs.hs_address}");
+// 	$("#d_address").val("${hs.hs_d_address}");
+// 	$("#birth").val("${hs.hs_birth}");
+// 	if("${hs.hs_birth}" == "1"){
+// 		$("#sex").val("여자");
+// 		$("#hs_sex").val("1");
+// 	} else {
+// 		$("#sex").val("남자");
+// 		$("#hs_sex").val("2");
+// 	}
 	
-
-	$("#email").val("${hs.hs_email}");
-	$("#name").val("${hs.hs_name}");
-	$("#contact").val("${hs.hs_contact}");
-	$("#address").val("${hs.hs_address}");
-	$("#d_address").val("${hs.hs_d_address}");
-	$("#birth").val("${hs.hs_birth}");
-	if("${hs.hs_birth}" == "1"){
-		$("#sex").val("여자");
-		$("#hs_sex").val("1");
-	} else {
-		$("#sex").val("남자");
-		$("#hs_sex").val("2");
-	}
-	
-	$.ajax({
-		url:"${contextPath}/sitter/getHsImg",
-		data:{
-			hs_num : user_num
-		},
-		dataType: "JSON",
-		success: function(data) {
-			console.log(data)
-			if(data.filename != null){
-				$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
-			} else {
-				$("#img").attr("src","${contextPath}/resources/img/user.jpg")
-			}
+// 	$.ajax({
+// 		url:"${contextPath}/home/getComment",
+// 		data:{
+// 			hs_num : $('#demo1').val()
+// 		},
+// 		dataType: "JSON",
+// 		success: function(data) {
+// 			console.log(data)
+		
+// // 			if(data.filename != null){
+// // 				$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
+// // 			} else {
+// // 				$("#img").attr("src","${contextPath}/resources/img/user.jpg")
+// // 			}
 			
-		}, error: function() {
-			alert("error")
-		}
-	})
+// 		}, error: function() {
+// 			alert("error")
+// 		}
+// 	})
 	
 	
+// 	function ajaxSucessLoading(hsList){
+// 		console.log("성겅!");
+// 		for(i;breaker<8;i++){
+// 			console.log(i);
+// 			if(breaker <7){			
+// 				var ul = $('<ul class="media-list">');	
+// 				var li = $('<li class="media">');
+// 				ul.append(li);
+// 				var img = $('<a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle"></a>');
+// 				li.append(img);
+// 				var cmmtBodyDiv = $('<div class="media-body">');
+// 				img.append(cmmtBodyDiv);
+// 				var writedate = $('<span class="text-muted pull-right"> <small class="text-muted">'+comment[i].hsc_write_date+'</small>');
+// 				cmmtBodyDiv.append(writedate);
+// 				var name = $('</span><strong class="text-success">@'+comment[i].c_name+'</strong>');
+// 				writedate.append(name);
+// 				var cmmt = $('<p>'+comment[i].hsc_comment+'.</p>');
+// 				name.append(cmmt);
+// 				$('.row bootstrap snippets').append(ul);
+
+// 				breaker = breaker + 1;
+// 			} else{
+// 				breaker = 0;
+// 				break;
+// 			}
+// 		}
+// 	}
+// -----------------------------------------------	
 	
+// 	var a = ${hsList.hsl_chkin_str_time};
+// 	console.log(a);
 	
 	
 	
@@ -414,12 +456,15 @@ $(function() {
 			$('#image-gallery').removeClass('cS-hidden');
 		}
 	});
+	
 })
 
 </script>
 </head>
 <body>
 <!-- 네비게이션 -->
+<input id="demo1" value="${hsList.hs_num}" type="text">
+<input id="demo" value="${disDates}" type="text">
 <div>
 	<div class="container">
         <header>
@@ -480,20 +525,20 @@ $(function() {
 			<div class="item">
 				<div class="clearfix" style="width: 700px; height:402px ">
 					<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-4.jpg">
-							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-4.jpg" style="width: 700px; height:402px "/>
-						</li>
-						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-3.jpg">
-							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-3.jpg" style="width: 700px; height:402px " />
-						</li>
-						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-1.jpg">
-							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-1.jpg" style="width: 700px; height:402px "/>
-						</li>
-<%-- 					<c:forEach items="${hsList}" var="img"> --%>
-<%-- 						<li data-thumb="${contextPath}/home/image?fileName=${img.hsl_img_filesname}"> --%>
-<%-- 							<img src="${contextPath}/home/image?fileName=${img.hsl_img_filesname}" style="width: 700px; height:402px "/>										 --%>
+<!-- 						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-4.jpg"> -->
+<!-- 							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-4.jpg" style="width: 700px; height:402px "/> -->
 <!-- 						</li> -->
-<%-- 					</c:forEach> --%>
+<!-- 						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-3.jpg"> -->
+<!-- 							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-3.jpg" style="width: 700px; height:402px " /> -->
+<!-- 						</li> -->
+<!-- 						<li data-thumb="http://www.blueb.co.kr/SRC2/lightslider/image/cS-1.jpg"> -->
+<!-- 							<img src="http://www.blueb.co.kr/SRC2/lightslider/image/cS-1.jpg" style="width: 700px; height:402px "/> -->
+<!-- 						</li> -->
+					<c:forEach items="${hsimg}" var="img">
+						<li data-thumb="${contextPath}/home/image?fileName=${img}">
+							<img src="${contextPath}/home/image?fileName=${img}" style="width: 700px; height:402px "/>										
+						</li>
+					</c:forEach>
 					</ul>
 				</div>
 			</div>	
@@ -502,19 +547,17 @@ $(function() {
 		<div>
 			<ul>
 				<li>돌봄 가능한 강아지 크기&나이</li>
-				<li>$KG부터 모두 가능합니다.</li>
+				<li>${hsList.hsl_size } 가능합니다.</li>
 				<li>${hsList.hsl_pet_age }케어 가능합니다.</li>
 			</ul>
 		</div>
 		<fieldset>
 			<legend>돌보미환경</legend>
 				<ul>
-					<li>돌봄 공간 : <span>${hsList.hsl_chkout }</span></li>
-					<li>인근지하철역 : <span>${hsList.hsl_subway }</span></li>
+					<li>돌봄 공간 : <span>${hsList.hsl_care_place }</span></li>
 					<li>마당유무 : <span>${hsList.hsl_yard }</span></li>
 					<li>14세 미만 아동 : <span>${hsList.hsl_baby }</span></li>
 					<li>가족 동거 여부 : <span>${hsList.hsl_family }</span></li>
-					<li>다른 동물 유무 : <span>칼럼추가필요**</span></li>
 				</ul>
 		</fieldset>
 		<fieldset>
@@ -536,19 +579,32 @@ $(function() {
 <!-- 								<button type="button" class="btn btn-info pull-right">Post</button> -->
 <!-- 								<div class="clearfix"></div> -->
 <!-- 								<hr> -->
-<%-- 							<c:forEach items="${hsList}" var="img"> --%>
+<!-- 							<ul class="media-list"> -->
+<%-- 							<c:forEach items="${comment}" var="comment"> --%>
+<!-- 								<li class="media"> -->
+<!-- 									<a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle"></a> -->
 							
+<!-- 									<div class="media-body"> -->
+							
+<%-- 									<span class="text-muted pull-right"> <small class="text-muted">${comment}</small> --%>
+							
+<%-- 									</span><strong class="text-success">@${comment.c_name}</strong> --%>
+							
+<%-- 									<p>${comment.hsc_comment }.</p> --%>
+<!-- 							</div> -->
+<!-- 							</li> -->
 <%-- 							</c:forEach> --%>
+<!-- 							</ul> -->
 								<ul class="media-list">
-									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
-									</a>
+									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle"></a>
 										<div class="media-body">
 											<span class="text-muted pull-right"> <small class="text-muted">30 min ago</small>
 											</span> <strong class="text-success">@MartinoMont</strong>
 											<p>
 												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, <a href="#">#consecteturadipiscing </a>.
 											</p>
-										</div></li>
+										</div>
+									</li>
 									<li class="media"><a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_2.jpg" alt="" class="img-circle">
 									</a>
 										<div class="media-body">
@@ -569,6 +625,7 @@ $(function() {
 										</div>
 									</li>
 								</ul>
+							
 <!-- 							</div> -->
 <!-- 						</div> -->
 <!-- 					</div> -->
@@ -576,6 +633,7 @@ $(function() {
 			</div>
 			//
 		<div>
+		<a href="#" class="pull-left">
 			<div>후기</div>
 			<div>
 				<div>프로필사진<img src="" alt=""></div>
@@ -583,6 +641,7 @@ $(function() {
 				<div>후기내용</div>
 				<div>작성일</div>
 			</div>
+		</a>
 		</div>
 	</div>
 	<div style="width: 293px; display: inline-block; float: left;">

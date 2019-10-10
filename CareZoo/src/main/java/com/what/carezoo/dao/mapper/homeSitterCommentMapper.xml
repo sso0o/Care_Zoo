@@ -28,10 +28,11 @@
 	</select>
 	
 	<select id="selectByHs_num" parameterType="int" resultType="homeSitterComment">
-		select *
-		from homesittercomment hsc, customer c 
-		where hsc.c_num = c.c_num(+) 
-		and hs_num = 1;
+		select hsc.c_num, hsc.hsc_comment, hsc.hsc_star, hsc.hsc_write_date,hsc.hsc_num,c.c_name
+		from homesittercomment hsc, homesitter hs ,customer c
+		where hs.hs_num = hsc.hs_num(+) 
+        and hsc.c_num = c.c_num(+)
+		and hs.hs_num = #{hs_num}
 	</select>
 	
 	<select id="selectAll" parameterType="int" resultType="homeSitterComment">
