@@ -16,8 +16,14 @@ public class PetHotelReservation {
 	private String phr_purpose;
 	private String phr_imp_uid;
 	private String phr_merchant_uid;
+	private int phr_numof_pet;
 	
-	
+	public int getPhr_numof_pet() {
+		return phr_numof_pet;
+	}
+	public void setPhr_numof_pet(int phr_numof_pet) {
+		this.phr_numof_pet = phr_numof_pet;
+	}
 	public String getPhr_merchant_uid() {
 		return phr_merchant_uid;
 	}
@@ -114,14 +120,8 @@ public class PetHotelReservation {
 				+ ph_num + ", phrm_num=" + phrm_num + ", p_count=" + p_count + ", phr_chkin=" + phr_chkin
 				+ ", phr_chkout=" + phr_chkout + ", phr_status=" + phr_status + ", phr_message=" + phr_message
 				+ ", phr_price=" + phr_price + ", phr_totalDays=" + phr_totalDays + ", phr_purpose=" + phr_purpose
-				+ ", phr_imp_uid=" + phr_imp_uid + ", phr_merchant_uid=" + phr_merchant_uid + ", getPhr_merchant_uid()="
-				+ getPhr_merchant_uid() + ", getPhr_imp_uid()=" + getPhr_imp_uid() + ", getPhr_purpose()="
-				+ getPhr_purpose() + ", getPhr_message()=" + getPhr_message() + ", getPhr_price()=" + getPhr_price()
-				+ ", getPhr_totalDays()=" + getPhr_totalDays() + ", getPhr_num()=" + getPhr_num() + ", getC_num()="
-				+ getC_num() + ", getP_num()=" + getP_num() + ", getPh_num()=" + getPh_num() + ", getPhrm_num()="
-				+ getPhrm_num() + ", getP_count()=" + getP_count() + ", getPhr_chkin()=" + getPhr_chkin()
-				+ ", getPhr_chkout()=" + getPhr_chkout() + ", getPhr_status()=" + getPhr_status() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", phr_imp_uid=" + phr_imp_uid + ", phr_merchant_uid=" + phr_merchant_uid + ", phr_numof_pet="
+				+ phr_numof_pet + "]";
 	}
 	
 	

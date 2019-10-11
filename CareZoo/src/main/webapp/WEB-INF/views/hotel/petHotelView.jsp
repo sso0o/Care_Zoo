@@ -43,8 +43,7 @@
 <script type="text/javascript" src='${contextPath}/resources/js/moment.js'></script>
 <!-- 데이트피커 -->
 
-<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
-<!-- 메뉴바 -->
+
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
 <!-- 슬라이더 -->
@@ -71,6 +70,8 @@
 <!-- 캘린더 -->
 <script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
 <!-- 캘린더 -->
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+<!-- 메뉴바 -->
 <script type="text/javascript">
 	var imgCommonPreview = new Image();
 	var sizeS=0;
@@ -536,6 +537,9 @@
 					// 							alert("reservationId");
 					// 							reservationId.remove();
 					// 						}
+// 					361, 342
+					
+					
 					var events = calendar.getEvents();
 					var len = events.length;
 					for (var i = 0; i < len; i++) {
@@ -543,7 +547,7 @@
 					}
 					for (var i = 0; i < data.length; i++) {
 						e = {
-							groupId : 'vsr_num',
+							groupId : 'phr_num',
 							id : data[i].phr_num,
 							start : data[i].phr_chkin,
 							end : data[i].phr_chkout + 'T11:00',
@@ -855,16 +859,16 @@ input[type="number"] {
 }
 
 .reserButton button {
-	border: 1px solid skyblue;
+	border: 1px solid #40bf9f;
 	background-color: rgba(0, 0, 0, 0);
-	color: skyblue;
+	color: #40bf9f;
 	padding: 5px;
 }
 
 .reserButton button:hover {
 	cursor: pointer;
 	color: white;
-	background-color: skyblue;
+	background-color: #40bf9f;
 }
 
 .sizeSelect {
@@ -905,6 +909,11 @@ input[type="number"] {
 	border-radius: 4px;
 	font-size: 12px;
 }
+
+.menu>ul{
+height:45px;
+}
+
 </style>
 
 

@@ -22,7 +22,14 @@ public class PetHotel {
 	private String ph_pet_age;
 	private String ph_service_type;
 	private String ph_contact;
+	private String ph_email;
 
+	public String getPh_email() {
+		return ph_email;
+	}
+	public void setPh_email(String ph_email) {
+		this.ph_email = ph_email;
+	}
 	public String getPhr_chkin() {
 		return phr_chkin;
 	}
@@ -165,9 +172,13 @@ public class PetHotel {
 	}
 	@Override
 	public String toString() {
-		return "PetHotel [ph_num=" + ph_num + ", ph_name=" + ph_name + ", ph_address=" + ph_address + ", ph_d_address=" + ph_d_address + ", ph_p_count=" + ph_p_count + ", ph_latitude=" + ph_latitude + ", ph_longitude=" + ph_longitude
-				+ ", ph_fileName=" + ph_fileName + ", ph_filesName=" + ph_filesName + ", ph_c_count=" + ph_c_count + ", ph_avgStar=" + ph_avgStar + ", ph_maxPrice=" + ph_maxPrice + ", ph_minPrice=" + ph_minPrice + ", phr_chkin=" + phr_chkin
-				+ ", phr_chkout=" + phr_chkout + ", ph_pet_size=" + ph_pet_size + ", ph_pet_age=" + ph_pet_age + ", ph_service_type=" + ph_service_type + ", ph_contact=" + ph_contact + "]";
+		return "PetHotel [ph_num=" + ph_num + ", ph_name=" + ph_name + ", ph_address=" + ph_address + ", ph_d_address="
+				+ ph_d_address + ", ph_p_count=" + ph_p_count + ", ph_latitude=" + ph_latitude + ", ph_longitude="
+				+ ph_longitude + ", ph_fileName=" + ph_fileName + ", ph_filesName=" + ph_filesName + ", ph_c_count="
+				+ ph_c_count + ", ph_avgStar=" + ph_avgStar + ", ph_maxPrice=" + ph_maxPrice + ", ph_minPrice="
+				+ ph_minPrice + ", phr_chkin=" + phr_chkin + ", phr_chkout=" + phr_chkout + ", ph_pet_size="
+				+ ph_pet_size + ", ph_pet_age=" + ph_pet_age + ", ph_service_type=" + ph_service_type + ", ph_contact="
+				+ ph_contact + ", ph_email=" + ph_email + "]";
 	}
 
 

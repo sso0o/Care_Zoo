@@ -389,39 +389,39 @@ $("#resForm").submit();
 		}
 
 		// //=========펫선택버튼=========
-		$('.petSelectButton').click(function() {
-			if($('input[name="radio"]:checked').val() ==null){
-				alert("펫을 선택해주세요.");
-			}else{
-				// 화면에서 지우기
-				$("#reply-modal").hide();
-				$("#starRev").children('span').removeClass('on');
-				$("#modal-name").val("");
-				$("#modal-contact").val("");
-				$("#modal-star").val("");
-				$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
-			//=====================
+// 		$('.petSelectButton').click(function() {
+// 			if($('input[name="radio"]:checked').val() ==null){
+// 				alert("펫을 선택해주세요.");
+// 			}else{
+// 				// 화면에서 지우기
+// 				$("#reply-modal").hide();
+// 				$("#starRev").children('span').removeClass('on');
+// 				$("#modal-name").val("");
+// 				$("#modal-contact").val("");
+// 				$("#modal-star").val("");
+// 				$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
+// 			//=====================
 				
-		        var radioName = $('input[name="radio"]:checked');
-		        var radioId= radioName.attr('id');
-			    var rasioNm = $("label[for='"+radioId+"']").text();
-			    var rasioP_num = $("."+radioId).val();
-			    console.log(rasioP_num);
-				$('.petInfo').text(rasioNm);
-				$('<br>').appendTo($('.petAddForm'));
-				$('<label class="petCount" style="font-size:19px;border-bottom:1px solid;">'+rasioNm+'</label>').appendTo($('.petAddForm'));
-				$('<input type="hidden" name="p_num" value="'+rasioP_num+'">').appendTo($('.petAddForm'));
-				$('<br>').appendTo($('.petAddForm'));
-			}
-		});
+// 		        var radioName = $('input[name="radio"]:checked');
+// 		        var radioId= radioName.attr('id');
+// 			    var rasioNm = $("label[for='"+radioId+"']").text();
+// 			    var rasioP_num = $("."+radioId).val();
+// 			    console.log(rasioP_num);
+// 				$('.petInfo').text(rasioNm);
+// 				$('<br>').appendTo($('.petAddForm'));
+// 				$('<label class="petCount" style="font-size:19px;border-bottom:1px solid;">'+rasioNm+'</label>').appendTo($('.petAddForm'));
+// 				$('<input type="hidden" name="p_num" value="'+rasioP_num+'">').appendTo($('.petAddForm'));
+// 				$('<br>').appendTo($('.petAddForm'));
+// 			}
+// 		});
 // 		=========모달!!============================================
-			$('#selectPetModal').click(function() {
-				if($("label[class=petCount]").length<($('.quantity').val()*1)){
-				modalOpen();					
-				}else{
-					alert(($('.quantity').val()*1)+"마리만 선택할 수 있습니다.");
-				}
-			});
+// 			$('#selectPetModal').click(function() {
+// 				if($("label[class=petCount]").length<($('.quantity').val()*1)){
+// 				modalOpen();					
+// 				}else{
+// 					alert(($('.quantity').val()*1)+"마리만 선택할 수 있습니다.");
+// 				}
+// 			});
 // 			function pSmodalButton(){
 // 				if($("label[class=petCount]").length<($('.quantity').val()*1)){
 // 					modalOpen();					
@@ -431,81 +431,81 @@ $("#resForm").submit();
 // 			}
 			//나이 구하기
 
-			function modalOpen() {
-				console.log($("#groupid").val()+"=="+$("#number").val())
-				var urll = "";
-				if($("#groupid").val()=="phr_num"){
-					urll = "getModalPH";
-				} else if($("#groupid").val()=="hsr_num"){
-					urll = "getModalHS";
-				}else if($("#groupid").val()=="vsr_num"){
-					urll = "getModalVS";
-				} else if($("#groupid").val()=="c_num"){
-					urll = "getModalC";
-				}
-				console.log(urll)
+// 			function modalOpen() {
+// 				console.log($("#groupid").val()+"=="+$("#number").val())
+// 				var urll = "";
+// 				if($("#groupid").val()=="phr_num"){
+// 					urll = "getModalPH";
+// 				} else if($("#groupid").val()=="hsr_num"){
+// 					urll = "getModalHS";
+// 				}else if($("#groupid").val()=="vsr_num"){
+// 					urll = "getModalVS";
+// 				} else if($("#groupid").val()=="c_num"){
+// 					urll = "getModalC";
+// 				}
+// 				console.log(urll)
 				
-				$.ajax({
-					url: "${contextPath}/comment/"+urll ,
-					data:{
-						num: $("#number").val()
-					},
-					dataTpe:"JSON",
-					success: function(data) {
-						console.log(data)				
-						$("#modal-name").val(data.name);
-						$("#modal-contact").val(data.contact);
-						if(data.star != null){
-							$("#starTr").show();
-							$("#modal-star").val(data.star+"점");
-						} else{
-							$("#starTr").hide();
-							$("#reviewTr").hide();
-						}
-						rstnum = data.number;
-						if(data.fileName != null){
-							$("#modal-img").attr("src","${contextPath}/comment/image?fileName="+data.filename)
-						} else{
-							$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg")
-						}
-						var rststar = parseInt(data.star /0.5) 
-						console.log(rststar)
-						$("#star"+rststar).addClass('on').prevAll('span').addClass('on');
+// 				$.ajax({
+// 					url: "${contextPath}/comment/"+urll ,
+// 					data:{
+// 						num: $("#number").val()
+// 					},
+// 					dataTpe:"JSON",
+// 					success: function(data) {
+// 						console.log(data)				
+// 						$("#modal-name").val(data.name);
+// 						$("#modal-contact").val(data.contact);
+// 						if(data.star != null){
+// 							$("#starTr").show();
+// 							$("#modal-star").val(data.star+"점");
+// 						} else{
+// 							$("#starTr").hide();
+// 							$("#reviewTr").hide();
+// 						}
+// 						rstnum = data.number;
+// 						if(data.fileName != null){
+// 							$("#modal-img").attr("src","${contextPath}/comment/image?fileName="+data.filename)
+// 						} else{
+// 							$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg")
+// 						}
+// 						var rststar = parseInt(data.star /0.5) 
+// 						console.log(rststar)
+// 						$("#star"+rststar).addClass('on').prevAll('span').addClass('on');
 						
-						if(data.address != null){
-							$("#addressTr").show();
-							document.getElementById("modal-address").innerHTML=(data.address);
-						} else{
-							$("#addressTr").hide();
-						}
+// 						if(data.address != null){
+// 							$("#addressTr").show();
+// 							document.getElementById("modal-address").innerHTML=(data.address);
+// 						} else{
+// 							$("#addressTr").hide();
+// 						}
 						
 						
-						$("#atag").on('click', function() {
-							if($("#groupid").val()=="phr_num"){
-								$("#atag").attr('href',"${contextPath}/petHotel/petHotelView?ph_num="+rstnum)
-							} else if($("#groupid").val()=="hsr_num"){
-								////여기 채우기ㅣㅣㅣ**********************************************
-							}else if($("#groupid").val()=="vsr_num"){
-								////여기 채우기ㅣㅣㅣ**********************************************
-							}
-						})
+// 						$("#atag").on('click', function() {
+// 							if($("#groupid").val()=="phr_num"){
+// 								$("#atag").attr('href',"${contextPath}/petHotel/petHotelView?ph_num="+rstnum)
+// 							} else if($("#groupid").val()=="hsr_num"){
+// 								////여기 채우기ㅣㅣㅣ**********************************************
+// 							}else if($("#groupid").val()=="vsr_num"){
+// 								////여기 채우기ㅣㅣㅣ**********************************************
+// 							}
+// 						})
 						
-					},error: function() {
+// 					},error: function() {
 			
-					}
-				})
-				$("#reply-modal").show();
+// 					}
+// 				})
+// 				$("#reply-modal").show();
 
-				$("#modal-close").on("click", function() {
-					$("#reply-modal").hide();
-					$("#starRev").children('span').removeClass('on');
-					$("#modal-name").val("");
-					$("#modal-contact").val("");
-					$("#modal-star").val("");
-					$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
-					document.getElementById("modal-address").innerHTML=("");
-				});
-			}
+// 				$("#modal-close").on("click", function() {
+// 					$("#reply-modal").hide();
+// 					$("#starRev").children('span').removeClass('on');
+// 					$("#modal-name").val("");
+// 					$("#modal-contact").val("");
+// 					$("#modal-star").val("");
+// 					$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
+// 					document.getElementById("modal-address").innerHTML=("");
+// 				});
+// 			}
 			//=========모달!!=============================================
 		
 		//datepicker
@@ -776,6 +776,8 @@ $("#resForm").submit();
 										style="text-align: left; display: inline-block; padding-top: 10px; padding-right: 5px; padding-left: 10px; border-color: #40bf9f">
 										<label class="totalDays" style="float: right">반려견
 											${quantity} 마리</label>
+											<input type="hidden"
+											value="${quantity}" class="" name="phr_numof_pet">
 									</div>
 								</div>
 
@@ -810,8 +812,8 @@ $("#resForm").submit();
 							</div>
 						</div>
 						<div>
-							<input type="button" class="btn btn-my" id="selectPetModal"
-								value="반려견 선택">
+<!-- 							<input type="button" class="btn btn-my" id="selectPetModal" -->
+<!-- 								value="반려견 선택"> -->
 							<!-- 							<button class="btn btn-my" id="selectPetModal">반려견 선택</button> -->
 						</div>
 
@@ -876,28 +878,28 @@ $("#resForm").submit();
 
 
 		<!-- ///////////////////////////////////////////////////////////////모달 -->
-		<div class="modal-modify" id="reply-modal">
-			<!-- css 적용 하기 위한 경우 class -->
+<!-- 		<div class="modal-modify" id="reply-modal"> -->
+<!-- 			<!-- css 적용 하기 위한 경우 class --> -->
 
-			<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-			<div class="modal-table" id="modal-table">
-				<div class="close" id="modal-close">&times;</div>
-				<div class="radioForm">
-					<c:forEach items="${petList}" var="pL" varStatus="pLstatus">
-						<%-- 									<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-						<input type="hidden" value="${quantity}" class="quantity">
+<!-- 			<!-- 스크립트 요소를 직접 조작해야 하는경우 id --> -->
+<!-- 			<div class="modal-table" id="modal-table"> -->
+<!-- 				<div class="close" id="modal-close">&times;</div> -->
+<!-- 				<div class="radioForm"> -->
+<%-- 					<c:forEach items="${petList}" var="pL" varStatus="pLstatus"> --%>
+<%-- 															<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+<%-- 						<input type="hidden" value="${quantity}" class="quantity"> --%>
 
-						<div class="inputGroup">
-							<input id="radio${pLstatus.count}" name="radio" type="radio" />
-							<input type="hidden" value="${pL.p_num}" class="radio${pLstatus.count}">
-							<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name}
-								${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label>
-						</div>
-					</c:forEach>
-					<input type="button" value="선택" class="petSelectButton">
-				</div>
-			</div>
-		</div>
+<!-- 						<div class="inputGroup"> -->
+<%-- 							<input id="radio${pLstatus.count}" name="radio" type="radio" /> --%>
+<%-- 							<input type="hidden" value="${pL.p_num}" class="radio${pLstatus.count}"> --%>
+<%-- 							<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name} --%>
+<%-- 								${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label> --%>
+<!-- 						</div> -->
+<%-- 					</c:forEach> --%>
+<!-- 					<input type="button" value="선택" class="petSelectButton"> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	</div>
 	<input type="text" value="asds">
 </body>

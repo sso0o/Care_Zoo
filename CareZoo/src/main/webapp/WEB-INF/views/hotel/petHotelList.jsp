@@ -14,6 +14,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <link rel="stylesheet"
 	href="${contextPath}/resources/css/lightslider.css" />
 <!--이미지 슬라이더  -->
@@ -34,6 +35,20 @@
 	rel="stylesheet">
 <!-- 폰트 -->
 <style type="text/css">
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
+
 ul {
 	list-style: none outside none;
 	padding-left: 0;
@@ -170,6 +185,13 @@ border-bottom:10px solid pink;
 position:absolute;
 top:21px;left:200px;
 }
+
+.menu>ul{
+height:45px;
+
+}
+
+
 </style>
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"
 	type="text/javascript"></script>
@@ -189,12 +211,34 @@ top:21px;left:200px;
 <script src="${contextPath}/resources/js/datepicker-ko.js"
 	type="text/javascript"></script>
 <!-- 데이트피커 -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<!-- 카카오 채팅 -->
 <script type="text/javascript">
+
+
+
+
+
 	var i = 0;
 	var searchSwitch = 0;
 	$(document)
 			.ready(
 					function() {
+						
+						//----카카오 1:1상담
+						//<![CDATA[
+						// 사용할 앱의 JavaScript 키를 설정해 주세요.
+						Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+						// 플러스친구 1:1채팅 버튼을 생성합니다.
+						Kakao.PlusFriend.createChatButton({
+						  container: '#plusfriend-chat-button',
+						  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+						});
+						//]]>
+						//----카카오 1:1상담	
+						
+						
+					
 						//datepicker동작
 
 						//state 검색 폼 전달
@@ -911,17 +955,18 @@ top:21px;left:200px;
 			</div>
 
 			<div>
-				<table>
-					<tr>
-						<td></td>
-						<td><select name="listOption"
-							style="width: 100px; height: 25px;">
-								<option value="star">별점순</option>
-								<option value="comments">후기순</option>
-						</select></td>
-					</tr>
+<!-- 				<table> -->
+<!-- 					<tr> -->
+<!-- 						<td><select name="listOption" -->
+<!-- 							style="width: 100px; height: 25px;"> -->
+<!-- 								<option value="star">별점순</option> -->
+<!-- 								<option value="comments">후기순</option> -->
+<!-- 						</select></td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
+<br>
+<br>
 
-				</table>
 				<div class="main-wrap no-profile">
 					<table>
 						<tr class="col-dates">
@@ -1005,5 +1050,8 @@ top:21px;left:200px;
 		<input type="checkbox" id="is-subscription" value="구독신청">
 
 	</div>
+	<div class="bottom-left alert" id="plusfriend-chat-button"></div>
+
+	
 </body>
 </html>

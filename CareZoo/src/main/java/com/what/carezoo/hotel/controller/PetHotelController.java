@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -172,27 +174,29 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 
 	// ----------------Pay-----------------------
 	@RequestMapping("/paySuccess")
-	public String payCompleteForm(HttpSession session, PetHotelReservation phr, String[] p_num) {
+	public String payCompleteForm(HttpSession session, PetHotelReservation phr, String phr_numof_pet,
+			HttpServletRequest request) {
 		System.out.println("phr: " + phr);
-		System.out.println("p_num:" + p_num);
+		System.out.println("phr_numof_pet:" + phr_numof_pet);
 //		params
 //ph_num, phrm_num, phr_status=3, p_num, phr_price,phr,totaldays
 		int c_num = (Integer) session.getAttribute("user_num");
 		phr.setC_num(c_num);
-		for (int i = 0; i < p_num.length; i++) {
-			int intP_num = Integer.parseInt(p_num[i]);
-			phr.setP_num(intP_num);
-			phr.setPhr_status("3");
-			phrService.addPetHotelRes(phr);
+		int intPhr_numof_pet = Integer.parseInt(phr_numof_pet);
+		phr.setP_num(intPhr_numof_pet);
+		phr.setPhr_status("3");
+		phrService.addPetHotelRes(phr);
 
-		}
+		PetHotel petHotel = phService.getPetHotelbyNum(phr.getPh_num());
+		// 인증메일 보내기 메서드
+		phrService.mailSendWithMemberKey(petHotel, phr, request);
 
 		return "hotel/payComplete";
 	}
 
 	// 펫호텔 예약폼 --> 회원가입 상태(고객)여야하고, 고객넘, 고객의 펫리스트, 호텔넘 넘겨야함
 	@RequestMapping(value = "/petHotelResForm", method = RequestMethod.POST)
-	@PreAuthorize("hasAnyAuthority({'CUSTOMER'} )")
+	@PreAuthorize("hasAnyAuthority({'ROLE_CUSTOMER'} )")
 	public String resPetHotelForm(HttpSession session, Model m, PetHotelReservation phr, String days,
 			@RequestParam("quantity") int quantity, @RequestParam("oneNightValue") String oneNightValue,
 			@RequestParam("nightCountValue") String nightCountValue, @RequestParam("petAddValue") String petAddValue,
@@ -230,43 +234,43 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		return "hotel/petHotelResForm";
 	}
 
-	//
-	@RequestMapping(value = "/resPetHotel", method = RequestMethod.POST)
-	@ResponseBody
-	public boolean resPetHotel(String str, HttpServletRequest req) {
-		List<PetHotelReservation> phR = new ArrayList<PetHotelReservation>();
-		System.out.println("str -----------" + str);
-		JSONArray jArray = new JSONArray(str);
-		System.out.println(jArray);
-		for (int i = 0; i < jArray.length(); i++) {
-			PetHotelReservation r = new PetHotelReservation();
-			JSONObject jo = jArray.getJSONObject(i);
-			r.setC_num(jo.getInt("c_num"));
-			r.setP_num(jo.getInt("p_num"));
-			r.setPh_num(jo.getInt("ph_num"));
-			r.setPhr_chkin(jo.getString("phr_chkin"));
-			r.setPhr_chkout(jo.getString("phr_chkout"));
-			System.out.println(r);
-			phR.add(r);
-		}
-		int addCount = 0;
-		for (PetHotelReservation r : phR) {
-			PetHotelReservation selectResult = phrService.getPetHotelResByResInfo(r);
-			if (selectResult == null) {
-				boolean rst = phrService.addPetHotelRes(r);
-				if (rst) {
-					addCount += 1;
-				}
-			}
-		}
-
-		if (addCount == phR.size()) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
+//	//
+//	@RequestMapping(value = "/resPetHotel", method = RequestMethod.POST)
+//	@ResponseBody
+//	public boolean resPetHotel(String str, HttpServletRequest req) {
+//		List<PetHotelReservation> phR = new ArrayList<PetHotelReservation>();
+//		System.out.println("str -----------" + str);
+//		JSONArray jArray = new JSONArray(str);
+//		System.out.println(jArray);
+//		for (int i = 0; i < jArray.length(); i++) {
+//			PetHotelReservation r = new PetHotelReservation();
+//			JSONObject jo = jArray.getJSONObject(i);
+//			r.setC_num(jo.getInt("c_num"));
+//			r.setP_num(jo.getInt("p_num"));
+//			r.setPh_num(jo.getInt("ph_num"));
+//			r.setPhr_chkin(jo.getString("phr_chkin"));
+//			r.setPhr_chkout(jo.getString("phr_chkout"));
+//			System.out.println(r);
+//			phR.add(r);
+//		}
+//		int addCount = 0;
+//		for (PetHotelReservation r : phR) {
+//			PetHotelReservation selectResult = phrService.getPetHotelResByResInfo(r);
+//			if (selectResult == null) {
+//				boolean rst = phrService.addPetHotelRes(r);
+//				if (rst) {
+//					addCount += 1;
+//				}
+//			}
+//		}
+//
+//		if (addCount == phR.size()) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//
+//	}
 
 	// 펫호텔 상세보기
 	@RequestMapping("/petHotelView")
@@ -304,14 +308,15 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		System.out.println(phr_chkin + phr_chkout + ph_num);
 
 		List<PetHotelRoom> dateChoice = phService.getHotelRoomByDate(phr_chkin, phr_chkout, ph_num);
-		for(int i = 0; i<dateChoice.size();i++) {
-			System.out.println("p_max:"+(dateChoice.get(i)).getPhrm_p_max());
-			System.out.println("Rcount:"+(dateChoice.get(i)).getRcount());
-			(dateChoice.get(i)).setRemaining_room((dateChoice.get(i).getPhrm_p_max())-(dateChoice.get(i).getRcount()));
-			if(0>=(dateChoice.get(i)).getRemaining_room()){
+		for (int i = 0; i < dateChoice.size(); i++) {
+			System.out.println("p_max:" + (dateChoice.get(i)).getPhrm_p_max());
+			System.out.println("Rcount:" + (dateChoice.get(i)).getRcount());
+			(dateChoice.get(i))
+					.setRemaining_room((dateChoice.get(i).getPhrm_p_max()) - (dateChoice.get(i).getRcount()));
+			if (0 >= (dateChoice.get(i)).getRemaining_room()) {
 				dateChoice.get(i).setRemaining_room(0);
 			}
-			System.out.println("remainingRoom:"+dateChoice.get(i).getRemaining_room());
+			System.out.println("remainingRoom:" + dateChoice.get(i).getRemaining_room());
 		}
 		System.out.println(dateChoice);
 		return dateChoice;
@@ -326,8 +331,28 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	@ResponseBody
 	@RequestMapping(value = "/petHotelReservation")
 	public List<PetHotelReservation> makePetHotelRes(@RequestParam("phrm_num") int phrm_num) {
+		int compare = 0;
+		Date phrCheckOut;
+		Date today = new Date();
+		List<PetHotelReservation> phrList = phrService.getPetHotelResByPhrm_num(phrm_num);
+		System.out.println(phrList);
+		System.out.println("size: "+phrList.size());
+		int phrSize = phrList.size();
+		for (int i = phrSize-1; i+1 > 0; i--) { //checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
+			String from = (phrList.get(i)).getPhr_chkout();
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd"); //String to Date format
+			try {
+				phrCheckOut = transFormat.parse(from); //String to Date
+				if (0 < (compare = today.compareTo(phrCheckOut))) { //compare은 -1,0,1만 나올 수 있음   ex ==) today>phrCheckOut ==> compare =1
+					phrList.remove(i);
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return phrList;
 
-		return phrService.getPetHotelResByPhrm_num(phrm_num);
 	}
 
 //	"${contextPath}/image?ph_num=${pethotel.ph_num}&fileName=9eed7ab3-fb5d-451d-84b0-137dc68e5c2e_NAVER.jpg"/></td>	
@@ -376,6 +401,14 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //		System.out.println("BoardContoller /download 호출"+ ph_num);
 //		
 //		return phService.getAttachment(ph_num);
+//	}
+
+//	//호텔이메일로 예약확정 메일 보내기.
+//	@RequestMapping(value="/join", method=RequestMethod.POST)
+//	public String join(Customer customer, Model m,HttpServletRequest request) {
+//		//회원가입 메서드
+//		
+//		return "joinForm";
 //	}
 
 }

@@ -39,7 +39,7 @@ import com.what.carezoo.sitter.service.SitterService;
 
 @Controller
 @RequestMapping("/admin")
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class AdminController {
 
 	@Autowired
