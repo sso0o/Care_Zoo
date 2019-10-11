@@ -103,6 +103,11 @@ public class HomeSitterService {
 		// 3. 만든 파일 이름 반환
 		return fullName;
 	}
+	
+	public int updateHsAddress(HomeSitter hs) {
+		return hsDao.updateAddressHs(hs);
+	}
+	
 	public String  getImage(int hs_num) {
 		return hsDao.selectFile(hs_num);
 	}

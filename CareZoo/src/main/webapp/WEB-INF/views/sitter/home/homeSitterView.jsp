@@ -40,6 +40,11 @@
 <title>homeSitterView</title>
 <!-- 가정집 펫시터 상세내용 -->
 <style type="text/css">
+.menu>ul {
+	height: 45px;
+}
+
+
 /* light slider*/
 ul {
 	list-style: none outside none;
@@ -552,15 +557,16 @@ $(function() {
 			</div>	
 		</div>
 		<br><br>
-		<div>
+		<fieldset>
+			<legend><strong>돌봄 가능한 강아지 크기&나이</strong></legend>
 			<ul>
-				<li><strong>돌봄 가능한 강아지 크기&나이</strong></li>
 				<li>${hsList.hsl_size } 가능합니다.</li>
 				<li>${hsList.hsl_pet_age }케어 가능합니다.</li>
 			</ul>
-		</div>
+		</fieldset>
+		<br><br>
 		<fieldset>
-			<legend>돌보미환경</legend>
+			<legend><strong>돌보미환경</strong></legend>
 				<ul>
 					<li>돌봄 공간 : <span>${hsList.hsl_care_place }</span></li>
 					<li>마당유무 : <span>${hsList.hsl_yard }</span></li>
@@ -568,40 +574,30 @@ $(function() {
 					<li>가족 동거 여부 : <span>${hsList.hsl_family }</span></li>
 				</ul>
 		</fieldset>
+		<br><br>
 		<fieldset>
-		<legend>돌보미 소개</legend>
+		<legend><strong>돌보미 소개</strong></legend>
 		<ul>
 			<li>제목 : <span>${hsList.hsl_title }</span></li>
-			<li>내용 : <span>${hsList.hsl_comment }</span></li>
+			<li>내용 : <br><span>${hsList.hsl_comment }</span></li>
 		</ul>
 		</fieldset>
-			<div class="row bootstrap snippets">
-				<ul class="media-list">
-					<c:forEach items="${comment}" var="cmmt">
-						<li class="media"><a href="#" class="pull-left">
-							 <img alt="https://bootdey.com/img/Content/user_1.jpg" class="img-circle" src="${contextPath}/sitter/image?fileName=${filename}"></a>
-							<div> </div>
-							<div class="media-body">
-								<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
-								</span> <strong class="text-success">@${cmmt.c_name}</strong>
-								<p>
-									${cmmt.hsc_comment} <a href="#">#consecteturadipiscing =/a>.
-								</p>
-							</div>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
-		<div>
-		<a href="#" class="pull-left">
-			<div>후기</div>
-			<div>
-				<div>프로필사진<img src="" alt=""></div>
-				<div>이름</div><div>돌봄타입</div>
-				<div>후기내용</div>
-				<div>작성일</div>
-			</div>
-		</a>
+		<div class="row bootstrap snippets">
+			<ul class="media-list">
+				<c:forEach items="${comment}" var="cmmt">
+					<li class="media"><a href="#" class="pull-left">
+						 <img alt="https://bootdey.com/img/Content/user_1.jpg" class="img-circle" src="${contextPath}/sitter/image?fileName=${filename}"></a>
+						<div> </div>
+						<div class="media-body">
+							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
+							</span> <strong class="text-success">@${cmmt.c_name}</strong>
+							<p>
+								${cmmt.hsc_comment} <a href="#">#consecteturadipiscing </a>.
+							</p>
+						</div>
+					</li>
+				</c:forEach>
+			</ul>
 		</div>
 	</div>
 	<div style="width: 293px; display: inline-block; float: left;">

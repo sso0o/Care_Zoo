@@ -123,7 +123,11 @@ public class HomeSitterListService {
 		}
 		return fullName; //만든 파일명 반환
 	}	
-
+	
+	public int updateHslAddress(HomeSitterList hsl) {
+		return hslDao.updateAddressHsl(hsl);
+	}
+	
 	//게시글 이미지 가져오기
 	public List<String> getFileList(int hsl_num) {
 		List<String> filesName = hslDao.selectFileList(hsl_num);

@@ -38,6 +38,10 @@
 <title>homeSitterList</title>
 <!-- 가정용 펫시터 리스트 -->
 <style type="text/css">
+.menu>ul {
+	height: 45px;
+}
+
 ul {
 	list-style: none outside none;
 	padding-left: 0;
@@ -62,12 +66,13 @@ ul {
 .demo {
 	width: 800px;
 }
-.homesitterList {
-cursor: pointer;
 
+.homesitterList {
+	cursor: pointer;
 }
-.homesitterList{
-	 outline: 1px solid aqua;
+
+.homesitterList {
+	outline: 1px solid aqua;
 }
 </style>
 <script type="text/javascript"> 

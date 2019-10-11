@@ -86,6 +86,11 @@ $(function() {
 }); 
 </script>
 <style type="text/css">
+.menu>ul {
+	height: 45px;
+}
+
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;

@@ -29,6 +29,7 @@ import com.what.carezoo.customer.service.CustomerService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.HomeSitter;
+import com.what.carezoo.model.HomeSitterList;
 import com.what.carezoo.model.HomeSitterReservation;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.Pet_Detail;
@@ -36,6 +37,7 @@ import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.pet.service.Pet_DetailService;
+import com.what.carezoo.sitter.service.HomeSitterListService;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
 import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.SitterService;
@@ -67,6 +69,9 @@ public class SitterMainController {
 	
 	@Autowired
 	private VisitSitterReservationService vsrService;
+	
+	@Autowired
+	private HomeSitterListService hslService;
 	
 	@RequestMapping(value="main",method=RequestMethod.GET)
 	public String MainPage() {
@@ -208,6 +213,12 @@ public class SitterMainController {
 		System.out.println("hs : "+hs);
 		boolean rst = hsService.modifyHomeSitter(hs,file);
 		if(rst) {
+			//게시글 주소도 바뀜
+			HomeSitterList hsl = new HomeSitterList();
+			hsl.setHsl_address(hs.getHs_address());
+			hsl.setHsl_d_address(hs.getHs_d_address());
+			hsl.setHs_num(hs.getHs_num());
+			hslService.updateHslAddress(hsl);
 			m.addAttribute("msg", "회원정보를 수정하였습니다");
 			return "sitter/homeInfo";
 		} else {
