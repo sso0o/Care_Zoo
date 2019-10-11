@@ -86,6 +86,7 @@ public class HomeSitterController {
 	public String key_alterConfirm(Model model, String hs_email, String hs_email_key) {
 		if(mailsender.alter_userKey_service(hs_email, hs_email_key)>0) {
 			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 로그인 후 게시글 등록을 위해 회원정보를 업데이트 해주세요");
+			model.addAttribute("url", "member/loginForm");			
 			model.addAttribute("url", "member/loginForm");
 			
 		}else {
