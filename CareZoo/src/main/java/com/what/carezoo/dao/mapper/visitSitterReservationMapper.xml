@@ -213,15 +213,11 @@
 	</select>
 	
 	<select id="getVSRInfo" parameterType="int" resultType="map">
-	select vs.vs_name, vs.vs_contact, vs.vs_img, vsr.*, star.star
+	select vs.vs_name,  vsr.*
 	from visitsitter vs,
 		(select *
 		from visitsitterreservation
-		where c_num = #{c_num}) vsr,
-		(select vs_num, round(avg(vsc_star),1)as star
-		from visitsittercomment
-		GROUP by vs_num) star
+		where c_num = #{c_num}) vsr
 	where vsr.vs_num = vs.vs_num(+)
-	and vsr.vs_num = star.vs_num(+)
 	</select>
 </mapper>

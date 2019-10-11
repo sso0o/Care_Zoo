@@ -146,5 +146,17 @@ public class MemberService {
 	public int findC_emailCount(String c_name,String c_contact) {
 		return memberDao.findC_emailCount(c_name, c_contact);
 	}
+	
+	
+	//예약현황에서 이벤트 눌렀을때 모달정보 가져오기
+	public Map<String, Object> getModalHS(int num) {
+		return memberDao.getModalHS(num);
+	}
+	public Map<String, Object> getModalVS(int num) {
+		return memberDao.getModalVS(num);
+	}
+	public Map<String, Object> getModalPH(int num){
+		return memberDao.getModalPH(num);
+	}
 
 }

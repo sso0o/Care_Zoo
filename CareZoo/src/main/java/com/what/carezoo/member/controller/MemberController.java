@@ -268,6 +268,26 @@ public class MemberController {
 		return rst;
 	}
 	
+	@RequestMapping("/getModalHS")
+	@ResponseBody
+	public Map<String, Object> getModalHS(int num) {
+		return memberService.getModalHS(num);
+	}
+	
+	@RequestMapping("/getModalVS")
+	@ResponseBody
+	public Map<String, Object> getModalVS(int num) {
+		return memberService.getModalVS(num);
+	}
+	
+	@RequestMapping("/getModalPH")
+	@ResponseBody
+	public Map<String, Object> getModalPH(int num) {
+		return memberService.getModalPH(num);
+	}
+	
+	
+	
 	@RequestMapping("/qna")
 	public String qnaForm() {
 		return "my&customer/qnaForm";	

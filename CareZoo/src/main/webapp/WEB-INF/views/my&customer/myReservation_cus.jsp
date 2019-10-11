@@ -50,6 +50,9 @@
 	var user_num = "<%=session.getAttribute("user_num")%>"
 	var user_name = "<%=session.getAttribute("user_name")%>"
 	var d = new Date();
+	var eee = null;
+	var rstnum = null;
+	
 	
 	function logoutCheck() {
 		if (confirm("정말 로그아웃?") == true) {
@@ -70,9 +73,6 @@
 		
 		var num = <%=session.getAttribute("user_num")%>
 		var calendarEl = document.getElementById('calendar');
-		
-		var eee = null;
-		var rstnum = null;
 		
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 			plugins : [ 'dayGrid', 'interaction' ],
@@ -108,13 +108,13 @@
 				var infocheck = info.event.groupId+'='+info.event.id
 				var chkoutTime = info.event.end
 				eee = info.event.end;
-				$("#groupid").val(info.event.groupId)
-				$("#number").val(info.event.id)
+				$(".groupid").val(info.event.groupId)
+				$(".number").val(info.event.id)
 				
 				modalOpen();
 			}
-
 		});
+		calendar.render();
 
 		// 캘린더에 내 예약 추가(고객)
 		$.ajax({
@@ -132,7 +132,6 @@
 						start : data.vsrList[i].VSR_CHKIN,
 						end : data.vsrList[i].VSR_CHKOUT,
 						title : '방문시터예약',
-						description : '이거슨 방문시터',
 						color : 'rgba(0, 0, 120, 0.6)',
 						textColor: "white"
 					}
@@ -160,7 +159,6 @@
 						start : data.phrList[i].PHR_CHKIN+'T13:00',
 						end : data.phrList[i].PHR_CHKOUT+'T11:00',
 						title : data.phrList[i].PH_NAME,
-						description : data.phrList[i].P_NAME,
 						color : 'rgba(200, 0, 0, 0.6)',
 						textColor: "white"
 					}
@@ -173,117 +171,180 @@
 				alert("데이터를 불러오는데 실패했습니다.")
 			}
 		})
-	
-		
-		// 후기등록 버튼 눌렀을때 실행할 함수
-		$("#modal-review").on("click", function() {
-			if(d>eee){
-				$.ajax({
-					url:"${contextPath}/comment/commentchk" ,
-					data:{
-						groupId : $("#groupid").val(),
-						id : $("#number").val()
-					},
-					dataType : "JSON",
-					success: function(data) {
-						if(data){
-							if($("#groupid").val()=="phr_num"){
-								location.href='${contextPath}/comment/phCommentForm?phr_num='+$("#number").val();
-							} else if($("#groupid").val()=="hsr_num"){
-								location.href='${contextPath}/comment/hsCommentForm?hsr_num='+$("#number").val();
-							}else if($("#groupid").val()=="vsr_num"){
-								location.href='${contextPath}/comment/vsCommentForm?vsr_num='+$("#number").val();
-							}		
-						} else{
-							alert("이미 후기를 작성하셨습니다 :)")
-						}
-					},error: function() {
-						alert("오류");
-					}
-				})
-			
-			} else{
-				alert("조건을 갖추지 못하였습니다 :/")
-			}
-		});
-
 	});
 	
 	function modalOpen() {
-		console.log($("#groupid").val()+"=="+$("#number").val())
+		console.log($(".groupid").val()+"=="+$(".number").val())
 		var urll = "";
-		if($("#groupid").val()=="phr_num"){
+		if($(".groupid").val()=="phr_num"){
 			urll = "getModalPH";
-		} else if($("#groupid").val()=="hsr_num"){
+			$.ajax({
+				url: "${contextPath}/member/"+urll ,
+				data:{
+					num: $(".number").val()
+				},
+				dataTpe:"JSON",
+				success: function(data) {
+					
+					console.log(data)	
+					
+					$("#ph_name").text(data.PH_NAME);
+					$("#ph_contact").text(data.PH_CONTACT);
+					$("#ph_address").text(data.PH_ADDRESS+" "+data.PH_D_ADDRESS);
+					$("#ph_chkin").text(data.PHR_CHKIN);
+					$("#ph_chkout").text(data.PHR_CHKOUT);
+					$("#ph_total").text(data.PHR_PRICE+"원");
+					$("#ph_message").text(data.PHR_MESSAGE);
+					var rststar = parseInt(data.STAR / 0.5);
+					console.log(rststar)
+					$("#ph_star"+rststar).addClass('on').prevAll('span').addClass('on');
+					
+					$("#modal-showMain").show();
+					$("#phrInfo").show();
+					
+				},error: function() {
+		
+				}
+			})
+		} else if($(".groupid").val()=="hsr_num"){
 			urll = "getModalHS";
-		}else if($("#groupid").val()=="vsr_num"){
+			$.ajax({
+				url: "${contextPath}/member/"+urll ,
+				data:{
+					num: $(".number").val()
+				},
+				dataTpe:"JSON",
+				success: function(data) {
+					console.log(data)	
+					$("#hs_name").text(data.HS_NAME);
+					$("#hs_contact").text(data.HS_CONTACT);
+					$("#hs_address").text(data.HS_ADDRESS+" "+data.HS_D_ADDRESS);
+					$("#hs_chkin").text(data.HSR_CHKIN + " "+data.HSR_PICKUP_TIME);
+					$("#hs_chkout").text(data.HSR_CHKOUT+" "+data.HSR_DROPOFF_TIME);
+					$("#hs_total").text(data.HSR_TOTALPRICE+"원");
+					$("#hs_message").text(data.HSR_MESSAGE);
+					var rststar = parseInt(data.STAR / 0.5);
+					console.log(rststar)
+					$("#hs_star"+rststar).addClass('on').prevAll('span').addClass('on');
+					
+					$("#modal-showMain").show();
+					$("#hsrInfo").show();
+					
+				},error: function() {
+		
+				}
+			})
+		}else if($(".groupid").val()=="vsr_num"){
 			urll = "getModalVS";
-		} else if($("#groupid").val()=="c_num"){
-			urll = "getModalC";
-		}
-		console.log(urll)
-		
-		$.ajax({
-			url: "${contextPath}/member/"+urll ,
-			data:{
-				num: $("#number").val()
-			},
-			dataTpe:"JSON",
-			success: function(data) {
-				console.log(data)				
-				$("#modal-name").val(data.name);
-				$("#modal-contact").val(data.contact);
-				if(data.star != null){
-					$("#starTr").show();
-					$("#modal-star").val(data.star+"점");
-				} else{
-					$("#starTr").hide();
-					$("#reviewTr").hide();
-				}
-				rstnum = data.number;
-				if(data.fileName != null){
-					$("#modal-img").attr("src","${contextPath}/comment/image?fileName="+data.filename)
-				} else{
-					$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg")
-				}
-				var rststar = parseInt(data.star /0.5) 
-				console.log(rststar)
-				$("#star"+rststar).addClass('on').prevAll('span').addClass('on');
-				
-				if(data.address != null){
-					$("#addressTr").show();
-					document.getElementById("modal-address").innerHTML=(data.address);
-				} else{
-					$("#addressTr").hide();
-				}
-				
-				
-				$("#atag").on('click', function() {
-					if($("#groupid").val()=="phr_num"){
-						$("#atag").attr('href',"${contextPath}/petHotel/petHotelView?ph_num="+rstnum)
-					} else if($("#groupid").val()=="hsr_num"){
-						////여기 채우기ㅣㅣㅣ**********************************************
-					}else if($("#groupid").val()=="vsr_num"){
-						////여기 채우기ㅣㅣㅣ**********************************************
+			$.ajax({
+				url: "${contextPath}/member/"+urll ,
+				data:{
+					num: $(".number").val()
+				},
+				dataTpe:"JSON",
+				success: function(data) {
+					console.log(data)	
+					$("#vs_name").text("");
+					$("#vs_contact").text("");
+					$("#vs_chkin").text("");
+					$("#vs_chkout").text("");
+					$("#vs_total").text("");
+					$("#vs_message").text("");
+					$("#vs_name").text(data.VS_NAME);
+					$("#vs_contact").text(data.VS_CONTACT);
+					$("#vs_chkin").text(data.VSR_CHKIN+" "+data.VSR_HOUR+":00");
+					$("#vs_chkout").text(data.VSR_CHKIN+" "+(data.VSR_HOUR*1+3+data.VSR_HADD*1)+":00");
+					$("#vs_total").text(data.VSR_TOTALPRICE+"원");
+					var str = "";
+					if(data.VSR_ATTENTION.includes("1")){
+						str += "/ 놀이위주 ";
 					}
-				})
-				
-			},error: function() {
-	
-			}
-		})
+					if(data.VSR_ATTENTION.includes("2")){
+						str += "/ 산책위주 ";
+					} 
+					if(data.VSR_ATTENTION.includes("3")){
+						srt += "/ 생식급여 ";
+					} 
+					if(data.VSR_ATTENTION.includes("4")){
+						str += "/ 케어필요 ";
+					}
+					$("#vs_attention").text(str);
+					$("#vs_message").text(data.VSR_CONTENTS);
+					var rststar = parseInt(data.STAR / 0.5);
+					console.log(rststar)
+					$("#vs_star"+rststar).addClass('on').prevAll('span').addClass('on');
+					
+					$("#modal-showMain").show();
+					$("#vsrInfo").show();
+					
+				},error: function() {
 		
-		$("#reply-modal").show();
+				}
+			})
+		}
 
-		$("#modal-close").on("click", function() {
-			$("#reply-modal").hide();
-			$("#starRev").children('span').removeClass('on');
-			$("#modal-name").val("");
-			$("#modal-contact").val("");
-			$("#modal-star").val("");
-			$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
-			document.getElementById("modal-address").innerHTML=("");
+		$(".close").on("click", function() {
+			$("#modal-showMain").hide();
+			$("#phrInfo").hide();
+			$("#hsrInfo").hide();
+			$("#vsrInfo").hide();
+			$(".starRev").children('span').removeClass('on');
+			
 		});
+	}
+	
+	function payMent() {
+		console.log("결제버튼 누름->"+$(".groupid").val()+"="+$(".number").val());
+		if (confirm("선택한 예약을 결제하시겠습니까?") == true) {
+			//location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}	
+	}
+	
+	function cancel() {
+		console.log("취소버튼 누름->"+$(".groupid").val()+"="+$(".number").val());
+		if (confirm("선택한 예약을 취소하시겠습니까?") == true) {
+			//location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
+	
+	function review() {
+		console.log("후기버튼 누름->"+$(".groupid").val()+"="+$(".number").val());
+		if(d>eee){
+			$.ajax({
+				url:"${contextPath}/comment/commentchk",
+				data:{
+					groupId : $(".groupid").val(),
+					id:$(".number").val()
+				},
+				dataType:"JSON",
+				success: function(data){
+					if(data){
+						if($(".groupid").val()=="hsr_num"){
+							location.href='${contextPath}/comment/hsCommentForm?hsr_num='+$(".number").val();
+						}else if($(".groupid").val()=="vsr_num"){
+							location.href='${contextPath}/comment/vsCommentForm?vsr_num='+$(".number").val();
+						}else if($(".groupid").val()=="phr_num"){
+							location.href='${contextPath}/comment/phCommentForm?phr_num='+$(".number").val();
+						}
+					} else{
+						alert("이미 후기를 작성 하셨습니다")
+					}
+					
+					
+				}, error : function() {
+					
+				}
+			})
+			
+		} else{
+			alert("조건을 갖추지 못하였습니다:/");
+		}
+		
+	
 	}
 
 </script>
@@ -299,6 +360,10 @@
 	max-width: 900px;
 	margin: 30px auto;
 	max-height: 100%;
+}
+
+.noshow {
+	display: none;
 }
 
 .content{
@@ -328,6 +393,12 @@
 	color: #40bf9f;
 }
 
+textarea {
+	width: 100%;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: .3em;
+	resize: none;
+}
 
 
 .my-btn:hover, .my-btn:focus{
@@ -337,6 +408,21 @@
 	cursor: pointer;
 }
 
+.hsrInfo, .vsrInfo, .phrInfo {
+	background-color: #fff;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	margin-top: -250px;
+	margin-left: -250px;
+	top: 50%;
+	left: 50%;
+}
+
+
+td{
+	vertical-align: middle;
+}
 
 </style>
 <title>mypage</title>
@@ -406,7 +492,7 @@
 	<br>
 	<br>
 	<div class="container">
-		<h2>내 정보</h2>
+		<h2>내 예약 현황</h2>
 		<hr>
 		<div id='calendar'></div>
 		<div class="content">
@@ -422,10 +508,7 @@
 		</div>
 
 	</div>
-	
 
-	
-	
 	<footer>
 		<div>durlsms footer</div>
 	</footer>
@@ -438,10 +521,10 @@
 			<table class="table table-hover">
 				<tr>
 					<td>
-						<input type="hidden" id="groupid" name="groupid">
+						<input type="hidden" class="groupid" name="groupid">
 					</td>
 					<td>
-						<input type="hidden" id="number" name="number">
+						<input type="hidden" class="number" name="number">
 					</td>
 					<td colspan="2" style="text-align: right;">
 						<button type="button" class="close">&times;</button>
@@ -468,84 +551,153 @@
 						<textarea rows="5" cols="50" id="hs_message"></textarea>
 				</tr>
 				<tr>
-					<td colspan="2" class="starTr" id="starTr">
+					<td colspan="2" class="starTr" id="starTr" style="padding-left: 35px">
 						<span id="starRev" class="starRev"> 
-							<span class="starR1" id="star1" title="0.5">별1_왼쪽</span> 
-							<span class="starR2" id="star2" title="1">별1_오른쪽</span> 
-							<span class="starR1" id="star3" title="1.5">별2_왼쪽</span> 
-							<span class="starR2" id="star4" title="2">별2_오른쪽</span> 
-							<span class="starR1" id="star5" title="2.5">별3_왼쪽</span> 
-							<span class="starR2" id="star6" title="3">별3_오른쪽</span> 
-							<span class="starR1" id="star7" title="3.5">별4_왼쪽</span> 
-							<span class="starR2" id="star8" title="4">별4_오른쪽</span> 
-							<span class="starR1" id="star9" title="4.5">별5_왼쪽</span> 
-							<span class="starR2" id="star10" title="5">별5_오른쪽</span>
+							<span class="starR1" id="hs_star1" title="0.5">별1_왼쪽</span> 
+							<span class="starR2" id="hs_star2" title="1">별1_오른쪽</span> 
+							<span class="starR1" id="hs_star3" title="1.5">별2_왼쪽</span> 
+							<span class="starR2" id="hs_star4" title="2">별2_오른쪽</span> 
+							<span class="starR1" id="hs_star5" title="2.5">별3_왼쪽</span> 
+							<span class="starR2" id="hs_star6" title="3">별3_오른쪽</span> 
+							<span class="starR1" id="hs_star7" title="3.5">별4_왼쪽</span> 
+							<span class="starR2" id="hs_star8" title="4">별4_오른쪽</span> 
+							<span class="starR1" id="hs_star9" title="4.5">별5_왼쪽</span> 
+							<span class="starR2" id="hs_star10" title="5">별5_오른쪽</span>
 						</span>
 					</td>
 					<th>총가격</th>
 					<td id="hs_total"></td>
 				</tr>
 				<tr>
-					<td colspan="2">
-						<a href="#" onclick="payMent()" class="btn acc-btn" id="cancel">결제</a>
-					</td>
-					<td colspan="2">
-						<a href="#" onclick="review()" class="btn acc-btn" id="accept">후기</a>
+					<td colspan="4" style="text-align: center;">
+						<a href="#" onclick="payMent()" class="btn my-btn" id="payment">결제</a>
+						<a href="#" onclick="cancel()" class="btn my-btn" id="cancel">취소</a>
+						<a href="#" onclick="review()" class="btn my-btn" id="accept">후기</a>
 					</td>
 				</tr>
 			</table>
 		</div>
-		<div id="vsrInfo" class="vsrInfo">
-			<table class="table table-hover"></table>
-		</div>
-		<div id="phrInfo" class="phrInfo">
-			<table class="table table-hover"></table>
+		<div id="vsrInfo" class="vsrInfo noshow">
+			<table class="table table-hover">
+				<tr>
+					<td>
+						<input type="hidden" class="groupid" name="groupid">
+					</td>
+					<td>
+						<input type="hidden" class="number" name="number">
+					</td>
+					<td colspan="2" style="text-align: right;">
+						<button type="button" class="close">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<th>시터이름</th>
+					<td id="vs_name"></td>
+					<th>연락처</th>
+					<td id="vs_contact"></td>
+				</tr>
+				<tr>
+					<th>선택사항</th>
+					<td colspan="3" id="vs_attention"></td>
+				</tr>
+				<tr>
+					<th>체크인</th>
+					<td id="vs_chkin"></td>
+					<th>체크아웃</th>
+					<td id="vs_chkout"></td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<textarea rows="5" cols="50" id="vs_message"></textarea>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding-left: 35px">
+						<span id="starRev" class="starRev"> 
+							<span class="starR1" id="vs_star1" title="0.5">별1_왼쪽</span> 
+							<span class="starR2" id="vs_star2" title="1">별1_오른쪽</span> 
+							<span class="starR1" id="vs_star3" title="1.5">별2_왼쪽</span> 
+							<span class="starR2" id="vs_star4" title="2">별2_오른쪽</span> 
+							<span class="starR1" id="vs_star5" title="2.5">별3_왼쪽</span> 
+							<span class="starR2" id="vs_star6" title="3">별3_오른쪽</span> 
+							<span class="starR1" id="vs_star7" title="3.5">별4_왼쪽</span> 
+							<span class="starR2" id="vs_star8" title="4">별4_오른쪽</span> 
+							<span class="starR1" id="vs_star9" title="4.5">별5_왼쪽</span> 
+							<span class="starR2" id="vs_star10" title="5">별5_오른쪽</span>
+						</span>
+					</td>
+					<th>총가격</th>
+					<td id="vs_total"></td>
+				</tr>
+				<tr>
+					<td colspan="4" style="text-align: center;">
+						<a href="#" onclick="payMent()" class="btn my-btn" id="payment">결제</a>
+						<a href="#" onclick="cancel()" class="btn my-btn" id="cancel">취소</a>
+						<a href="#" onclick="review()" class="btn my-btn" id="accept">후기</a>
+					</td>
+				</tr>
+			</table>
 		</div>
 		
-		<table class="modal-table" id="modal-table">
-			<tr height="10px">
-				<td>
-					<input type="hidden" name="groupid" id="groupid">
-				</td>
-				<td>
-					<input type="hidden" name="number" id="number">
-				</td>
-				<td class="close" id="modal-close">&times;</td>
-
-			</tr>
-			<tr>
-				<td rowspan="3" style="width: 150px">
-					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle; margin-left: 15px;">
-				</td>
-				<td colspan="2">
-					<a id="atag"><input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly"></a>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="text" class="modal-content contact" name="modal-contact" id="modal-contact" value="" readonly="readonly">
-				</td>
-			</tr>
-			<tr >
-				<td style="padding-left: 15px; width: 170px;">
-					<span id="starRev" class="starRev"> <span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> <span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4" title="2">별2_오른쪽</span> <span class="starR1" id="star5" title="2.5">별3_왼쪽</span> <span class="starR2" id="star6" title="3">별3_오른쪽</span> <span class="starR1" id="star7" title="3.5">별4_왼쪽</span> <span class="starR2" id="star8" title="4">별4_오른쪽</span> <span class="starR1" id="star9" title="4.5">별5_왼쪽</span> <span class="starR2" id="star10" title="5">별5_오른쪽</span>
-					</span>
-				</td>
-				<td>
-					<input type="text" class="modal-content star" name="modal-contact" id="modal-star" value="" style="display: inline-block; text-align: left;">
-
-				</td>
-			</tr>
-			<tr class="addressTr" id="addressTr">
-				<td colspan="3">
-					<p class="modal-content address" id="modal-address"></p>
-				</td>
-			</tr>
-			<tr id="reviewTr">
-				<td colspan="3" style="text-align: center">
-					<span class="review" id="modal-review">후기등록</span>
-			</tr>
-		</table>
+		<div id="phrInfo" class="phrInfo noshow">
+			<table class="table table-hover">
+				<tr>
+					<td>
+						<input type="hidden" class="groupid" name="groupid">
+					</td>
+					<td>
+						<input type="hidden" class="number" name="number">
+					</td>
+					<td colspan="2" style="text-align: right;">
+						<button type="button" class="close">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<th>호텔이름</th>
+					<td id="ph_name"></td>
+					<th>연락처</th>
+					<td id="ph_contact"></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td colspan="3" id="ph_address"></td>
+				</tr>
+				<tr>
+					<th>체크인</th>
+					<td id="ph_chkin"></td>
+					<th>체크아웃</th>
+					<td id="ph_chkout"></td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<textarea rows="5" cols="50" id="ph_message"></textarea>
+				</tr>
+				<tr>
+					<td colspan="2" class="starTr" id="starTr" style="padding-left: 35px">
+						<span id="starRev" class="starRev"> 
+							<span class="starR1" id="ph_star1" title="0.5">별1_왼쪽</span> 
+							<span class="starR2" id="ph_star2" title="1">별1_오른쪽</span> 
+							<span class="starR1" id="ph_star3" title="1.5">별2_왼쪽</span> 
+							<span class="starR2" id="ph_star4" title="2">별2_오른쪽</span> 
+							<span class="starR1" id="ph_star5" title="2.5">별3_왼쪽</span> 
+							<span class="starR2" id="ph_star6" title="3">별3_오른쪽</span> 
+							<span class="starR1" id="ph_star7" title="3.5">별4_왼쪽</span> 
+							<span class="starR2" id="ph_star8" title="4">별4_오른쪽</span> 
+							<span class="starR1" id="ph_star9" title="4.5">별5_왼쪽</span> 
+							<span class="starR2" id="ph_star10" title="5">별5_오른쪽</span>
+						</span>
+					</td>
+					<th>총가격</th>
+					<td id="ph_total"></td>
+				</tr>
+				<tr>
+					<td colspan="4" style="text-align: center;">
+						<a href="#" onclick="payMent()" class="btn my-btn" id="payment">결제</a>
+						<a href="#" onclick="cancel()" class="btn my-btn" id="cancel">취소</a>
+						<a href="#" onclick="review()" class="btn my-btn" id="accept">후기</a>
+					</td>
+				</tr>
+			</table>
+		</div>
 
 	</div>
 

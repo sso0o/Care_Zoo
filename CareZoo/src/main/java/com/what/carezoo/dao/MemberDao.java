@@ -33,5 +33,11 @@ public interface MemberDao {
 
 	//메인에 리뷰가져오기
 	public List<Map<String, Object>> getMainSitterReview();
+	
+	
+	//마이페이지 예약정보에 모달정보
+	public Map<String, Object> getModalHS(int num);
+	public Map<String, Object> getModalVS(int num);
+	public Map<String, Object> getModalPH(int num);
  }
 

@@ -52,16 +52,13 @@
 	</select>
 	
 	<select id="getHSRInfo" parameterType="int" resultType="map">
-		select hs.hs_name, hs.hs_contact,hs.hs_filename, hs.hs_address, hs.hs_d_address,NVL(st.star,0) star, hsr.*
+		select hs.hs_name,  hsr.*
 		from homesitter hs,
-			(select hs_num, round(avg(hsc_star),1) as star
-			from homesittercomment
-			group by hs_num) st,
-			(select hsr_num, c_num, hs_num, hsr_chkin, hsr_chkout, hsr_pickup_time, hsr_dropoff_time, hsr_totalprice, hsr_numof_pet, hsr_status, hsr_message
+			(select *
 			from homesitterreservation
 			where c_num = #{c_num}) hsr
 		where hsr.hs_num = hs.hs_num
-		and hsr.hs_num = st.hs_num(+)
+
 	</select>
 	
 	<select id="getStatus0" parameterType="int" resultType="map">
