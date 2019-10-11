@@ -102,5 +102,11 @@
 		where hsr_num = #{hsr_num}
 	</update>
 
+	<select id="countC_num" parameterType="int" resultType="int">
+      select count(*)
+      from HomeSitterReservation
+      where c_num=#{c_num}
+
+   </select>
 
 </mapper>

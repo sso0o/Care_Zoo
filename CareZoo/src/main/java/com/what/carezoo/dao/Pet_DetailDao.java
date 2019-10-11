@@ -35,5 +35,6 @@ public interface Pet_DetailDao {
 	public List<Map<String, Object>> getVsrInfo7();
 	public List<Map<String, Object>> getVsrInfo0_6();
 	
+	public int countPetByC_num(int c_num);
 //	public int petCountGroupResNum(int vsr_num);
 }

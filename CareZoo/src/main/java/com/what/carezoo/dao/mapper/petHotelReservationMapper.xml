@@ -74,4 +74,12 @@
 	where phrt.p_num = p.p_num
 	and phrt.ph_num = star.ph_num
 	</select>
+	
+	<select id="countC_num" parameterType="int" resultType="int">
+      select count(*)
+      from pethotelreservation
+      where c_num=#{c_num}
+
+   </select>
+	
 </mapper>

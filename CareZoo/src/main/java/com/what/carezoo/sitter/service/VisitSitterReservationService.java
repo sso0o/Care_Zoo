@@ -221,5 +221,9 @@ public class VisitSitterReservationService {
 	public List<Map<String, Object>> getVSRInfo(int c_num){
 		return vsrDao.getVSRInfo(c_num);
 	}
+	
+	public int countC_num(int c_num) {
+		return vsrDao.countC_num(c_num);
+	}
 
 }

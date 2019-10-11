@@ -133,5 +133,8 @@ public class PetHotelReservationService {
 		return false;
 	}
 	
+	public int countC_num(int c_num) {
+		return petHotelResDao.countC_num(c_num);
+	}
 	
 }

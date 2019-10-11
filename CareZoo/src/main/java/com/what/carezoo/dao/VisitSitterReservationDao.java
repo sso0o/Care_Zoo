@@ -22,7 +22,8 @@ public interface VisitSitterReservationDao {
 	public int deleteByC_num(int c_num);
 	public VisitSitterReservation selectByVsrnum(int vsr_num);
 	public int selectByVsrnum0_6(Map<String, Object> param);
-
+	public int countC_num(int c_num);
+	
 	public List<VisitSitterReservation> selectByVsrnumbers(@Param("list")ArrayList<Integer> vsr_num);
 	public List<VisitSitterReservation> selectByCnum(int c_num);
 	public List<VisitSitterReservation> selectByVSnum(int vs_num);

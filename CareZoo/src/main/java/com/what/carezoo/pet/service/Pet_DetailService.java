@@ -32,7 +32,6 @@ public class Pet_DetailService {
 		return false;
 	}
 	
-	
 	public boolean deleteByListVsr_num(ArrayList<Integer> vsr_num) {
 		if(pdDao.deleteByListVsr_num(vsr_num)>0) {
 			return true;
@@ -62,6 +61,9 @@ public class Pet_DetailService {
 		return pdDao.getVsrInfo0_6();
 	}
 	
+	public int countPetByC_num(int c_num) {
+		return pdDao.countPetByC_num(c_num);
+	}
 	
 //	public boolean insertPet_Detail(Pet_Detail pd) {
 ////		Pet_Detail pd = new Pet_Detail();

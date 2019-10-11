@@ -18,7 +18,7 @@ public interface PetDao {
 	public List<Pet> selectChoiceByP_Num(int p_num);
 
 	public List<Pet> selectOnlyNameByP_Num(List<Integer> p_num);
-	public int countPetByC_num(int p_num);
+	public int countPetByC_num(int c_num);
 	
 	public String selectFile(int p_num);
 
