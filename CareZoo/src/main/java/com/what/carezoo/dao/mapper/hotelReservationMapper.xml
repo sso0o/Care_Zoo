@@ -18,6 +18,7 @@
 		delete from HotelReservation 
 		where hr_num = #{hr_num}
 	</delete>	
+	
 	<select id="selectOne" parameterType="int" resultType="HotelReservation">
 		select *
 		from HotelReservation

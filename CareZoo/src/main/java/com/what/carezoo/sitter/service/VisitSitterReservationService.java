@@ -94,6 +94,13 @@ public class VisitSitterReservationService {
 		}
 		return false;
 	}
+	
+	public boolean deleteByC_num(int c_num) {
+		if(vsrDao.deleteByC_num(c_num)>0) {
+			return true;
+		}
+		return false;
+	}
 
 	public VisitSitterReservation getVisitSitterResByVsrnum(int vsr_num) {
 		return vsrDao.selectByVsrnum(vsr_num);

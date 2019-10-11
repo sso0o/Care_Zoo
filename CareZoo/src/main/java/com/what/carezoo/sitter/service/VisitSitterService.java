@@ -35,7 +35,10 @@ public class VisitSitterService {
 		
 	}
 	
-	public boolean deleteVisitSitter(VisitSitter vs) {
+	public boolean deleteVisitSitter(int vs_num) {
+		if(vsDao.deleteVisitSitter(vs_num)>0) {
+			return true;
+		}
 		return false;
 		
 	}
