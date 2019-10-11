@@ -81,6 +81,13 @@ public class PetService {
 		}return false;
 	}
 	
+	public boolean deletePetByC_num(int c_num) {
+		if(petDao.deletePetByC_num(c_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public Pet selectPet(int p_num) {
 		return petDao.selectPet(p_num);
 	}

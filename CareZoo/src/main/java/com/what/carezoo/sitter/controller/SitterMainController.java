@@ -444,6 +444,43 @@ public class SitterMainController {
 		return null;
 	}
 	
-	//전화번호 인증받기(visit)
+	//탈퇴 전 회원  확인 폼
+	@RequestMapping(value = "/goodByeCheckUser", method = RequestMethod.GET)
+	public String goodbByeCheckUserForm() {
+		return "sitter/goodByeCheckUser";
+	}
+	
+	// 탈퇴 전회원 확인(비밀번호 확인)
+	@RequestMapping(value = "/goodByeCheckUser", method = RequestMethod.POST)
+	public String goodByeCheckUser(HttpSession session, int num, String pw, Model m, @RequestParam(defaultValue = "0") int p_num) {
+		String type = (String)session.getAttribute("user_numtype");
+		String url = "";
+		
+		if (type.equals("vs_num")) {
+			VisitSitter vs = vsService.getVisitSitterByNum(num);
+			if(vs.getVs_pass().equals(pw)) {
+				m.addAttribute("vs", vs);
+				m.addAttribute("msg", "정말로 탈퇴하시겠습니까?");
+				vsService.deleteVisitSitter(vs.getVs_num());
+				url =  "sitter/goodBye";
+			} else {
+				m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+				url = "sitter/goodByeCheckUser";
+			}
+		} else if(type.equals("hs_num")) {
+			HomeSitter hs = hsService.getHomeSitterByNum(num);
+			if(hs.getHs_pass().equals(pw)) {
+				m.addAttribute("hs", hs);
+				m.addAttribute("msg", "정말로 탈퇴하시겠습니까?");
+				hsService.deleteHomeSitter(num);
+				url = "sitter/goodBye";
+			} else {
+				m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+				url = "sitter/goodByeCheckUser";
+			}
+		}
+		System.out.println(url);
+		return url;
+	}
 	
 }

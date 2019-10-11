@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-<link rel='stylesheet' href='${contextPath}/resources/css/sideMenu.css' />
+
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,90 +20,59 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<style>
+<script type="text/javascript">
+function logoutCheck() {
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
+	}
+}
 
-</style>
+//기본적으로 세션에 저장된 정보
+var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+var user_num = "<%=session.getAttribute("user_num")%>"
+var user_name = "<%=session.getAttribute("user_name")%>"
 
-
-<script>
-	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
-	var user_num = "<%=session.getAttribute("user_num")%>"
-	var user_name = "<%=session.getAttribute("user_name")%>"
-	var d = new Date();
+$(function() {
 	
-// 	alert("방문시터");
-	
-	function logoutCheck() {
-		if (confirm("정말 로그아웃?") == true) {
-			location.href = '${contextPath}/logout'
-		} else {
-			return false;
-		}
+
+	if("${msg}" != ""){
+		alert("${msg}");
 	}
 	
-	$(function() {
-		$.ajax({
-			url:"${contextPath}/sitter/getVisitInfo",
-			data:{
-				vs_num : user_num
-			},
-			dataType: "JSON",
-			success: function(data) {
-				console.log(data);
-				$("#card-birth").text(data.vsInfo.vs_birth);
-				$("#card-address").text(data.vsInfo.vs_address+" "+data.vsInfo.vs_d_address);
-				$("#card-contact").text(data.vsInfo.vs_contact.substr(0, 3)+"-"+data.vsInfo.vs_contact.substr(3, 4)+"-"+data.vsInfo.vs_contact.substr(7, 4));
-				
-			}, error: function() {
-				alert("error")
-			}
-		})
-		
-		$.ajax({
-			url:"${contextPath}/sitter/getVsImg",
-			data:{
-				vs_num : user_num
-			},
-			dataType: "JSON",
-			success: function(data) {
-				console.log(data)
-				if(data.filename != null){
-					$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
-				} else {
-					$("#img").attr("src","${contextPath}/resources/img/user.jpg")
-				}
-				
-			}, error: function() {
-				alert("error")
-			}
-		})
-		
-		if("${msg}" != ""){
-			alert("${msg}");
-		}
-	})
+	console.log("p_num : ${p_num}")
+	$("#p_num").val("${p_num}");
 	
 
+})//문서가 로딩되면 실행할 함수
+
 </script>
-<style>
 
-.content{
-	width: 900px;
-	margin: 0 auto;
+<style type="text/css">
+.passcheck{
+	width: 700px;
+	height: 300px;
+	margin: 50px auto;
+	border: 1px solid rgba(0,0,0,.125);
+	border-radius: .25rem;
 }
 
-.card{
-	margin: 30px auto;
-}
-
-.card-body{
+.passcheck form{
+	margin: 128px auto;
 	text-align: center;
+}
+
+h3{
+	margin-top: 50px;
+	font-weight: bold;
 }
 
 .btn-my{
 	color: #40bf9f;
 	background-color: #fff;
 	border-color: #40bf9f;
+	margin-bottom: .4rem
 }
 
 .btn-my:hover{
@@ -112,55 +81,24 @@
 	border-color: #40bf9f;
 }
 
-.rounded-circle{
-	border: 1.3px solid rgba(0,0,0,.5);
-	margin: 20px auto;
-	width: 90%;
-	height: 310px;
-} 
-
-.card-label{
-	width: 90px;
-	display: inline-block;
-	text-align: center;
-	vertical-align: top;
+.passcheck form label {
+	font-weight: bold;
 }
 
-.text-center{
-	width: 190px;
+.form-control{
+	width: 250px;
 	display: inline-block;
-}
-
-#card-address{
-	font-size: 12px;
 }
 
 
 </style>
-<title>mypage</title>
-<!-- 마이페이지 시작 -->
+<title>비밀번호 확인</title>
+<!-- 고객센터 -->
 </head>
 <body>
-<input type="checkbox" id="menuicon">
-			<label for="menuicon">
-				<span></span>
-				<span></span>
-				<span></span>
-			</label>
-			<div class="sidebar">
-				<div>
-					<ul>
-						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
-						<li><a href="${contextPath}/sitter/getVsrStatus0">신청 목록</a></li>
-						<li><a href="${contextPath}/sitter/myReservationVs_Page">예약상황 보기</a></li>
-						<li><a href="${contextPath}/sitter/goodByeCheckUser">회원탈퇴</a></li>
-					</ul>
-				</div>
-			</div>
-
-	<div class="container">
+<div class="container">
 		<header>
-			<a href="${contextPath }"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -203,20 +141,16 @@
 	<br>
 	<br>
 	<div class="container">
-		<div class="content">
-			<h2>내 정보</h2>
-			<hr>
-			<div class="card" style="width: 350px">
-				<img class="card-img-top rounded-circle" id="img" alt="Card image">
-				<div class="card-body">
-					<h4 class="card-title "><%=session.getAttribute("user_name")%>님</h4>
-					<label class="card-label">생년월일</label><p class="card-text text-center" id="card-birth">2</p><br>
-					<label class="card-label">연락처</label><p class="card-text text-center" id="card-contact">2</p><br>
-					<label class="card-label">주소</label><p class="card-text text-center" id="card-address">2</p><br>
-					<a href="${contextPath }/sitter/modifySitterInfo" class="btn btn-my" style="text-align: center;">정보 수정</a>
-				</div>
-			</div>
-		</div>
+		<h3 style="text-align: center">비밀번호 확인</h3>
+		<p>회원정보 수정을 위해 비밀번호를 입력해 주세요</p>
+		<fieldset class="passcheck">
+			<form action="${contextPath }/sitter/goodByeCheckUser" method="post">
+				<label>비밀번호 입력 : </label>
+				<input type="password" class="form-control" name="pw">
+				<input type="submit" class="btn btn-my" value="확인">
+				<input type="hidden" value="<%=session.getAttribute("user_num")%>" name="num" >
+			</form>
+		</fieldset>
 	</div>
 </body>
 </html>

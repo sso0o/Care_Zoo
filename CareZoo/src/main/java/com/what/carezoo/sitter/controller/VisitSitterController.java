@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.what.carezoo.member.service.MemberMailSendService;
 import com.what.carezoo.member.service.MemberService;
+import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
@@ -43,7 +46,9 @@ public class VisitSitterController {
 	private VisitSitterService vsService;
 	@Autowired
 	private VisitSitterReservationService vsrService;
-
+	@Autowired
+	private MemberMailSendService mailsender;
+	
 	// 예약 메인(로그인, 회원가입)
 	@PreAuthorize("isAuthenticated() && hasRole('ROLE_CUSTOMER')")
 	@RequestMapping("/main")
@@ -699,19 +704,37 @@ public class VisitSitterController {
 	}
 	
 	//회원가입
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(VisitSitter vs, Model m, MultipartHttpServletRequest mtfReq) {
-		//이미지 uuid가져오기
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public String join(VisitSitter vs, Model m, MultipartHttpServletRequest mtfReq, HttpServletRequest request) {
+		// 이미지 uuid가져오기
 		MultipartFile file = mtfReq.getFile("file");
-		System.out.println("일반,petjoin,file: "+file);
+		System.out.println("일반,petjoin,file: " + file);
 		boolean rst = vsService.insertVisitSitterFile(vs, file);
-		if(rst) {
-			m.addAttribute("msg", "방문시터가입이 완료되었습니다! 로그인을 해 주세요:)");
+		if (rst) {
+			// 인증메일 보내기 메서드
+			mailsender.mailSendWithMemberKey(vs.getVs_email(), vs.getVs_name(), request);
+			m.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인후 로그인 해주세요 :)");
 			return "main";
+
 		} else {
 			return "joinForm_visitSitter";
 		}
 
-}
+	}
 	
+	// e-mail 인증 컨트롤러
+	@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
+	public String key_alterConfirm(VisitSitter vs, Model m
+			, String vs_email, String vs_email_key
+			) {
+		System.out.println("이거 메일 인증 커느롤러"+mailsender.alter_userKey_service(vs.getVs_email(), vs.getVs_email_key())); // mailsender의 경우 @Autowired
+		
+		if(mailsender.alter_userKey_service(vs.getVs_email(), vs.getVs_email_key())>0) {
+			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
+			m.addAttribute("url", "loginForm");
+
+			return "result";
+		} 
+		return "main";
+	}
 }

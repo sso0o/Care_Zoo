@@ -11,6 +11,7 @@ public interface HomeSitterReservationDao {
 	public int insertHsr(HomeSitterReservation hsr);
 	public int update(HomeSitterReservation hsr);
 	public int delete(HomeSitterReservation hsr);
+	public int deleteByC_num(int c_num);
 	public HomeSitterReservation selectByHsrnum(int hsr_num);
 	public List<HomeSitterReservation> selectByCnum(int c_num);
 	public List<Map<String, Object>> selectByHSnum(int hs_num);

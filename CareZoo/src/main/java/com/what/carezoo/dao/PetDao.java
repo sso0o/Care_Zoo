@@ -11,6 +11,7 @@ public interface PetDao {
 	public int updatePetFile(Map<String,Object> param);
 	public int updatePet(Pet pet);
 	public int deletePet(int p_num);
+	public int deletePetByC_num(int c_num);
 	public Pet selectPet(int p_num);
 	public List<Pet> selectAllPet();
 	public List<Pet> selectByC_Num(int c_num);

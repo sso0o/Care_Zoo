@@ -31,7 +31,7 @@
 	</update>
 	
 	<delete id="deleteHomeSitter" parameterType="int">
-		delete * homesitter where hs_pass = #{hs_pass} 
+		delete from homesitter where hs_num = #{hs_num}
 	</delete>
 	
 	<select id="selectOneByNum" parameterType="int" resultType="homesitter">

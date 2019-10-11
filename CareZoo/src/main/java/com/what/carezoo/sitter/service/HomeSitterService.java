@@ -54,7 +54,10 @@ public class HomeSitterService {
 		
 	}
 	
-	public boolean deleteHomeSitter(HomeSitter hs) {
+	public boolean deleteHomeSitter(int hs_num) {
+		if(hsDao.deleteHomeSitter(hs_num)>0) {
+			return true;
+		}
 		return false;
 		
 	}

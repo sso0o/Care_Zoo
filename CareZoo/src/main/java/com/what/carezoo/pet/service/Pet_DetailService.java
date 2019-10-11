@@ -40,6 +40,12 @@ public class Pet_DetailService {
 		return false;
 	}
 	
+	public boolean deleteByC_num(int c_num) {
+		if(pdDao.deleteByC_num(c_num)>0) {
+			return true;
+		}
+		return false;
+	}
 	
 	public List<Pet_Detail> selectByVsr_Num(int vsr_num){
 		return pdDao.selectByVsr_Num(vsr_num);

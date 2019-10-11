@@ -86,7 +86,10 @@
 		</if>
 	</trim>
 	</delete>
-
+	
+	<delete id="deleteByC_num" parameterType="int">
+		delete from visitsitterreservation where c_num = #{c_num}
+	</delete>
 
 	<select id="selectByVsrnum" parameterType="int" resultType="VisitSitterReservation">
 		select *

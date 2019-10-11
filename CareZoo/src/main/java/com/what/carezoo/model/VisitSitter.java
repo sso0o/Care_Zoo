@@ -12,6 +12,15 @@ public class VisitSitter {
 	private String vs_img;
 	private String vs_email;
 	private String vs_pass;
+	private String vs_email_key;
+	
+	
+	public String getVs_email_key() {
+		return vs_email_key;
+	}
+	public void setVs_email_key(String vs_email_key) {
+		this.vs_email_key = vs_email_key;
+	}
 	public int getVs_num() {
 		return vs_num;
 	}
@@ -76,7 +85,8 @@ public class VisitSitter {
 	public String toString() {
 		return "VisitSitter [vs_num=" + vs_num + ", vs_name=" + vs_name + ", vs_sex=" + vs_sex + ", vs_birth="
 				+ vs_birth + ", vs_contact=" + vs_contact + ", vs_address=" + vs_address + ", vs_d_address="
-				+ vs_d_address + ", vs_img=" + vs_img + ", vs_email=" + vs_email + ", vs_pass=" + vs_pass + "]";
+				+ vs_d_address + ", vs_img=" + vs_img + ", vs_email=" + vs_email + ", vs_pass=" + vs_pass
+				+ ", vs_email_key=" + vs_email_key + "]";
 	}
 	
 	

@@ -10,6 +10,7 @@ public interface PetHotelReservationDao {
 	public int insert(PetHotelReservation phr);
 	public int update(PetHotelReservation phr);
 	public int delete(PetHotelReservation phr);
+	public int deleteByC_num(int c_num);
 	public PetHotelReservation selectByPhrnum(int phr_num);
 	public PetHotelReservation selectByPhnum(int ph_num);
 	public PetHotelReservation selectByResInfo(PetHotelReservation phr);
