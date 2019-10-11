@@ -13,6 +13,7 @@ public class HomeSitterComment {
 	private Date hsc_write_date;
 	private String hsc_fileName;
 	private String c_name;
+	private String c_filename;
 	public int getHsc_num() {
 		return hsc_num;
 	}
@@ -67,11 +68,18 @@ public class HomeSitterComment {
 	public void setC_name(String c_name) {
 		this.c_name = c_name;
 	}
+	public String getC_filename() {
+		return c_filename;
+	}
+	public void setC_filename(String c_filename) {
+		this.c_filename = c_filename;
+	}
 	@Override
 	public String toString() {
 		return "HomeSitterComment [hsc_num=" + hsc_num + ", hsr_num=" + hsr_num + ", hs_num=" + hs_num + ", c_num="
 				+ c_num + ", hsc_comment=" + hsc_comment + ", hsc_star=" + hsc_star + ", hsc_write_date="
-				+ hsc_write_date + ", hsc_fileName=" + hsc_fileName + ", c_name=" + c_name + "]";
+				+ hsc_write_date + ", hsc_fileName=" + hsc_fileName + ", c_name=" + c_name + ", c_filename="
+				+ c_filename + "]";
 	}
 	
 }

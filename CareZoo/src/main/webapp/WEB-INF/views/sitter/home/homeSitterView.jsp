@@ -260,7 +260,7 @@ $(function() {
 	
 	//후기 이미지 갖고 오기
 	$.ajax({
-			url:"${contextPath}/home/getHsImg",
+			url:"${contextPath}/home/getComment",
 			data:{
 				hs_num : ${hsList.hs_num}
 			},
@@ -268,7 +268,7 @@ $(function() {
 			success: function(data) {
 				console.log(data)
 				if(data.filename != null){
-					$(".img-circle").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
+					$(".img-circle").attr("src","${contextPath}/home/image?fileName="+data.filename)
 				} else {
 					$(".img-circle").attr("src","https://bootdey.com/img/Content/user_1.jpg")
 				}
@@ -586,7 +586,7 @@ $(function() {
 			<ul class="media-list">
 				<c:forEach items="${comment}" var="cmmt">
 					<li class="media"><a href="#" class="pull-left">
-						 <img alt="https://bootdey.com/img/Content/user_1.jpg" class="img-circle" src="${contextPath}/sitter/image?fileName=${filename}"></a>
+						 <img class="img-circle" ></a>
 						<div> </div>
 						<div class="media-body">
 							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
