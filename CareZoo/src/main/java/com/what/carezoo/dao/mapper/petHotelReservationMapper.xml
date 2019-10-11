@@ -18,6 +18,9 @@
 		where phr_num = #{phr_num}
 	</delete>
 	
+	<delete id="deleteByC_num" parameterType="int">
+		delete from pethotelreservation where c_num = #{c_num}
+	</delete>
 	
 	<select id="selectByPhrnum" parameterType="int" resultType="PetHotelReservation">
 		select *

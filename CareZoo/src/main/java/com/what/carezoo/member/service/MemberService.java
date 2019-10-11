@@ -146,5 +146,12 @@ public class MemberService {
 	public int findC_emailCount(String c_name,String c_contact) {
 		return memberDao.findC_emailCount(c_name, c_contact);
 	}
+	
+	//삭제
+	public boolean deleteCustomer(int c_num) {
+		if(memberDao.deleteCustomer(c_num)>0) {
+			return true;
+		}return false;
+	}
 
 }

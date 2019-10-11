@@ -27,6 +27,11 @@
 			where vs_num = #{vs_num}
 	</update>
 	
+	<delete id="deleteVisitSitter" parameterType="int">
+		delete from visitsitter where vs_num = #{vs_num}
+	</delete>
+	
+	
 	<select id="selectOneByNum" parameterType="int" resultType="visitsitter">
 		select * from visitsitter
 		where vs_num = #{vs_num}
@@ -57,4 +62,11 @@
 	<select id="findVs_emailCount" parameterType="string" resultType="int">
 		select count(*) from visitsitter where vs_name = #{name} and vs_contact = #{number}
 	</select>
+		<!-- 자바 메일 - 이메일 인증하기 -->
+	<insert id="GetKey" parameterType="map">
+		update visitsitter set vs_email_key = #{vs_email_key} where vs_email = #{vs_email}
+	</insert>
+	<update id="alter_cKey" parameterType="map">
+		update visitsitter set vs_email_key = 'Y' where vs_email = #{vs_email} and  vs_email_key = #{vs_email_key}
+	</update>
 </mapper>

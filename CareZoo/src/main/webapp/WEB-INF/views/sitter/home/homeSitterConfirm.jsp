@@ -55,7 +55,13 @@
 
 
 </script>
+<style type="text/css">
+.menu>ul {
+	height: 45px;
+}
 
+
+</style>
 
 
 <title>homesitterConfirm</title>

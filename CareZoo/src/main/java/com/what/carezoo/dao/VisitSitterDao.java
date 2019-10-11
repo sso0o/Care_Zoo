@@ -13,7 +13,7 @@ public interface VisitSitterDao {
 	
 	public int insertVisitSitter(VisitSitter vs);
 	public int updateVisitSitter(VisitSitter vs);
-	public int delete(VisitSitter vs);
+	public int deleteVisitSitter(int vs_num);
 	public VisitSitter selectOneByNum(int vs_num);
 	public VisitSitter selectOneByEmail(String vs_email);
 	public List<VisitSitter> selectAllVisitSitter();
@@ -24,4 +24,8 @@ public interface VisitSitterDao {
 	//email찾기
 	public String findVs_email(@Param("name")String vs_name,@Param("number")String vs_contact);
 	public int findVs_emailCount(@Param("name")String vs_name,@Param("number")String vs_contact);
+	
+	//자바메일인증
+	public int GetKey(@Param("vs_email")String vs_email, @Param("vs_email_key")String vs_email_key);  //멤버 인증키 생성 메서드
+	int alter_cKey(@Param("vs_email")String vs_email, @Param("vs_email_key")String vs_email_key); //멤버 인증키(난수로 생성/)된 것을 Y로 바꿔주는 메서드
 }

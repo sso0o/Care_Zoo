@@ -11,11 +11,12 @@ public interface HomeSitterDao {
 	
 	public int insertHomeSitter(Map<String, Object> params);
 	public int updateHomeSitter(HomeSitter hs);
-	public int deleteHomeSitter(int Hhs_pass);
+	public int deleteHomeSitter(int hs_num);
 	public HomeSitter selectOneByNum(int hs_num);
 	public HomeSitter selectOneByEmail(String hs_email);
 	public List<HomeSitter> selectAllHomeSitter();
 	public int homeSitterIdCheck(String hs_email);
+	public int updateAddressHs(HomeSitter hs);
 	
 	public String selectFile(int hs_num);
 	public int insertFile(Map<String,Object> param);
@@ -27,5 +28,6 @@ public interface HomeSitterDao {
 	//email찾기
 	public String findHs_email(@Param("name")String hs_name,@Param("number")String hs_contact);
 	public int findHs_emailCount(@Param("name")String hs_name,@Param("number")String hs_contact);
+
 }
 

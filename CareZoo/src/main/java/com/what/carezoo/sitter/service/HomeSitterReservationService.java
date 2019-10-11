@@ -26,6 +26,13 @@ public class HomeSitterReservationService {
 		return hsrDao.selectByHsrnum(hsr_num);
 	}
 	
+	public boolean deleteByC_num(int c_num) {
+		if(hsrDao.deleteByC_num(c_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public List<HomeSitterReservation> getHomeSitterResByCnum(int c_num){
 		return hsrDao.selectByCnum(c_num);
 	}

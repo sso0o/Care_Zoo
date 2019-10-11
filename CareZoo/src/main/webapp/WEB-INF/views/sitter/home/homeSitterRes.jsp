@@ -30,6 +30,11 @@
 
 
 <style>
+.menu>ul {
+	height: 45px;
+}
+
+
 #map_canvas {
 	width: 300px;
 	height: 300px;

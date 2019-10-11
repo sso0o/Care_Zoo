@@ -61,12 +61,19 @@ function checkValue() {
 		return false;
 	}
 	
-	if($("input:checkbox[name='hsl_service_type']").is(":checked")){
-		if(false){
-			alert("케어 가능한 서비스 타입을 선택해 주세요");			
-			return false;
-		}
-		return true;
+	if($("#address").val() ==""){
+		alert("주소를 입력해 주세요");
+		return false;
+	}
+	
+	if($("#d_address").val() ==""){
+		alert("상세주소를 입력해주세요");
+		return false;
+	}
+	
+	if($('input[name="hsl_service_type"]').filter(':checked').size == 0){
+		alert("케어 가능한 서비스 타입을 선택해 주세요");			
+		return false;
 	}
 	
 	if($("#hsd_disabledate").val() ==""){
@@ -74,47 +81,53 @@ function checkValue() {
 		return false;
 	}
 	
-	if($(".chkin").val() ==""){
-		alert("체크인 가능 시간을 입력해 주세요");
+	if($("#chisTime").val() ==""){
+		alert("체크인 가능 시간을 정확히 입력해 주세요");
 		return false;
 	}
-	
-	if($(".chkout").val() ==""){
-		alert("체크아웃 가능 시간을 입력해 주세요");
+	if($("#chieTime").val() ==""){
+		alert("체크인 가능 시간을 정확히 입력해 주세요");
 		return false;
 	}
-	
-	if($(".size").val() ==""){
+	if($("#chosTime").val() ==""){
+		alert("체크아웃 가능 시간을 정확히 입력해 주세요");
+		return false;
+	}
+	if($("#choeTime").val() ==""){
+		alert("체크인 가능 시간을 정확히 입력해 주세요");
+		return false;
+	}
+	if($('input[name="hsl_size"]:checked').val() ==""){
 		alert("돌봄 가능한 강아지의 크기를 선택해 주세요");
 		return false;
 	}
 	
-	if($(".age").val() ==""){
+	if($('input[name="hsl_pet_age"]:checked').val() ==""){
 		alert("돌봄 가능한 강아지의 나이를 선택해 주세요");
 		return false;
 	}
 	
-	if($(".place").val() ==""){
+	if($('input[name="hsl_care_place"]:checked').val() ==""){
 		alert("돌봄공간을 선택해 주세요");
 		return false;
 	}	
 
-	if($(".yard").val() ==""){
+	if($('input[name="hsl_yard"]:checked').val() ==""){
 		alert("마당이 있는지 선택해주세요");
 		return false;
 	}
 
-	if($(".baby").val() ==""){
+	if($('input[name="hsl_baby"]:checked').val() ==""){
 		alert("14세 미만 아동이 있는지 선택해주세요");
 		return false;
 	}
 
-	if($(".family").val() ==""){
+	if($('input[name="hsl_family"]:checked').val() ==""){
 		alert("다른 가족이 함께 거주하는지 선택해주세요");
 		return false;
 	}
 
-	if($("#imgs_wrap").val() ==""){
+	if($("#preImg").val() ==""){
 		alert("사진을 올려주세요");
 		return false;
 	}
@@ -218,6 +231,11 @@ $(function() {
 </script>
 
 <style type="text/css">
+.menu>ul {
+	height: 45px;
+}
+
+
 .content{
 	width: 900px;
 	margin: 0 auto;

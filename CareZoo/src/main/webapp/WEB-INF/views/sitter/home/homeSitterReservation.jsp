@@ -45,6 +45,13 @@ function logoutCheck() {
 }
 
 </script>
+<style type="text/css">
+.menu>ul {
+	height: 45px;
+}
+
+
+</style>
 </head>
 <body>
 <!-- 네비게이션 -->

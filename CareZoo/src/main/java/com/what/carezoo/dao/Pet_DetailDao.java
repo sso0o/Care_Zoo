@@ -27,6 +27,8 @@ public interface Pet_DetailDao {
 	public int insertPet_Detail(@Param("vsr_num")int vsr_num, @Param("p_num")int p_num, @Param("c_num")int c_num);
 	public int deletePet_Detail(int vsr_num);
 	public int deleteByListVsr_num(@Param("list")ArrayList<Integer> vsr_num);
+	public int deleteByC_num(int c_num);
+	
 	public List<Pet_Detail> selectByVsr_Num(int vsr_num);
 	public List<Pet_Detail> selectByC_num(int c_num);
 	

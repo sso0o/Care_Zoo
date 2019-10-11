@@ -37,6 +37,7 @@ public class HomeSitterList {
 	 private String hs_email;
 	 private int hsc_cmt_count;
 	 private int hs_avgStar;
+	 private int c_num;
 	public int getHsl_num() {
 		return hsl_num;
 	}
@@ -241,6 +242,12 @@ public class HomeSitterList {
 	public void setHs_avgStar(int hs_avgStar) {
 		this.hs_avgStar = hs_avgStar;
 	}
+	public int getC_num() {
+		return c_num;
+	}
+	public void setC_num(int c_num) {
+		this.c_num = c_num;
+	}
 	@Override
 	public String toString() {
 		return "HomeSitterList [hsl_num=" + hsl_num + ", hs_num=" + hs_num + ", hsl_title=" + hsl_title
@@ -255,7 +262,7 @@ public class HomeSitterList {
 				+ ", hsl_chkout_end_time=" + hsl_chkout_end_time + ", hs_name=" + hs_name + ", hs_sex=" + hs_sex
 				+ ", hs_birth=" + hs_birth + ", hs_contact=" + hs_contact + ", hs_address=" + hs_address
 				+ ", hs_d_address=" + hs_d_address + ", hs_email=" + hs_email + ", hsc_cmt_count=" + hsc_cmt_count
-				+ ", hs_avgStar=" + hs_avgStar + "]";
+				+ ", hs_avgStar=" + hs_avgStar + ", c_num=" + c_num + "]";
 	}
-	
+	 
 }

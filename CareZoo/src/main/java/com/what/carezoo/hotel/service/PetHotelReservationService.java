@@ -50,6 +50,12 @@ public class PetHotelReservationService {
 		return false;
 	}
 
+	public boolean deleteByC_num(int c_num) {
+		if(petHotelResDao.deleteByC_num(c_num)>0) {
+			return true;
+		}
+		return false;
+	}
 	
 	public PetHotelReservation getPetHotelResByNum(int phr_num) {
 		return petHotelResDao.selectByPhrnum(phr_num);

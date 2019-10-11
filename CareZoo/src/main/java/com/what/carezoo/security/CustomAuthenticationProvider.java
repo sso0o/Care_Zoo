@@ -106,7 +106,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		} else if(type.equals("visit")) {
 			System.out.println("visit==================================");
 			VisitSitter vs = vsService.getVisitSitterByEmail(userid);
-			if(vs != null && vs.getVs_pass().equals(pw)) {
+			if(vs != null && vs.getVs_pass().equals(pw) && vs.getVs_email_key().contains("Y")) {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("ROLE_VISIT"));
 				HttpSession session = request.getSession();
