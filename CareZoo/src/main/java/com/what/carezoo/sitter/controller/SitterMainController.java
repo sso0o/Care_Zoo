@@ -461,6 +461,12 @@ public class SitterMainController {
 		return "sitter/goodByeCheckUser";
 	}
 	
+	@RequestMapping(value="goodBye", method=RequestMethod.GET)
+	public String goodByeForm() {
+		return "sitter/goodBye";
+	}
+	
+	
 	// 탈퇴 전회원 확인(비밀번호 확인)
 	@RequestMapping(value = "/goodByeCheckUser", method = RequestMethod.POST)
 	public String goodByeCheckUser(HttpSession session, int num, String pw, Model m, @RequestParam(defaultValue = "0") int p_num) {
@@ -491,7 +497,8 @@ public class SitterMainController {
 			}
 		}
 		System.out.println(url);
-		return url;
+		m.addAttribute("url", url);
+		return "result";
 	}
 	
 }

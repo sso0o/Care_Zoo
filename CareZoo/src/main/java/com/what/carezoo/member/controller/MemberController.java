@@ -48,9 +48,11 @@ import com.what.carezoo.model.HomeSitterReservation;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.Pet_Detail;
 import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.pet.service.PetService;
+import com.what.carezoo.pet.service.Pet_DetailService;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
 import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.SitterService;
@@ -68,6 +70,8 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private Pet_DetailService pdService;
 	
 	@Autowired
 	private HomeSitterReservationService hsrService;
@@ -461,5 +465,67 @@ public class MemberController {
 		}
 			model.addAttribute("msg", "가입하지 않은 고객입니다.");
 			return "searchEmail";
+	}
+	
+	//탈퇴 전 회원  확인 폼
+	@RequestMapping(value = "/goodByeCheckUser", method = RequestMethod.GET)
+	public String goodbByeCheckUserForm() {
+		return "goodByeCheckUser";
+	}
+	
+	@RequestMapping(value="goodBye", method=RequestMethod.GET)
+	public String goodByeForm() {
+		return "goodBye";
+	}
+	
+	// 탈퇴 전회원 확인(비밀번호 확인)
+	@RequestMapping(value = "/goodByeCheckUser", method = RequestMethod.POST)
+	public String goodByeCheckUser(HttpSession session, int num, String pw, Model m, @RequestParam(defaultValue = "0") int p_num) {
+		String type = (String)session.getAttribute("user_numtype");
+		String url = "";
+		
+		if(type.equals("c_num")) {
+			Customer customer = memberService.getMemberByC_num(num);
+			if(customer.getC_pass().equals(pw)) {
+				m.addAttribute("customer", customer);
+				m.addAttribute("msg", "정말로 탈퇴하시겠습니까?");
+				//멤버삭제
+				memberService.deleteCustomer(num);
+				//강아지삭제
+				if(pService.countPetByC_num(num)>0) {
+					pService.deletePetByC_num(num);
+				}
+				
+				//펫디테일 삭제
+				if(pdService.countPetByC_num(num)>0) {
+					pdService.deleteByC_num(num);
+				}
+				
+				//방문예약 삭제
+				if(vsrService.countC_num(num)>0) {
+					vsrService.deleteByC_num(num);
+				}
+				
+				//가정예약 삭제
+				if(hsrService.countC_num(num)>0) {
+					hsrService.deleteByC_num(num);
+				}
+				
+				//펫호텔 예약 삭제
+				if(phrService.countC_num(num)>0) {
+					phrService.deleteByC_num(num);
+				}
+				
+				url = "goodBye";
+				
+			}else {
+				m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
+				url = "goodByeCheckUser";
+				
+			}
+		}
+		System.out.println(url);
+		m.addAttribute("url", url);
+		return "result";
 	}
 }

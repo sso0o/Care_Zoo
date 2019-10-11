@@ -14,6 +14,7 @@ public interface PetHotelReservationDao {
 	public PetHotelReservation selectByPhrnum(int phr_num);
 	public PetHotelReservation selectByPhnum(int ph_num);
 	public PetHotelReservation selectByResInfo(PetHotelReservation phr);
+	public int countC_num(int c_num);
 	
 	public List<PetHotelReservation> selectByCnum(int c_num);
 	public List<PetHotelReservation> selectAll();

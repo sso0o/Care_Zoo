@@ -142,7 +142,7 @@ h3{
 	<br>
 	<div class="container">
 		<h3 style="text-align: center">비밀번호 확인</h3>
-		<p>회원정보 수정을 위해 비밀번호를 입력해 주세요</p>
+		<p>회원정보 탈퇴를 위해 비밀번호를 입력해 주세요</p>
 		<fieldset class="passcheck">
 			<form action="${contextPath }/sitter/goodByeCheckUser" method="post">
 				<label>비밀번호 입력 : </label>

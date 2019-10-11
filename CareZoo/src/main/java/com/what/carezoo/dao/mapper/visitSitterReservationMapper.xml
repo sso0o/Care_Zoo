@@ -227,4 +227,11 @@
 	where vsr.vs_num = vs.vs_num(+)
 	and vsr.vs_num = star.vs_num(+)
 	</select>
+	
+	<select id="countC_num" parameterType="int" resultType="int">
+      select count(*)
+      from visitsitterreservation
+      where c_num=#{c_num}
+
+   </select>
 </mapper>
