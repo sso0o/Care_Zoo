@@ -1,6 +1,7 @@
 package com.what.carezoo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.what.carezoo.model.PetHotelReservation;
 
@@ -16,5 +17,7 @@ public interface PetHotelReservationDao {
 	public List<PetHotelReservation> selectByCnum(int c_num);
 	public List<PetHotelReservation> selectAll();
 	public List<PetHotelReservation> selectByPhrm_num(int phrm_num);
+	
+	public List<Map<String, Object>> getPHRInfo(int c_num);
 
 }

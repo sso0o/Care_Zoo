@@ -75,8 +75,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		if(type.equals("customer")) {
 			System.out.println("customer==================================");
 			Customer c = mService.getMemberByEmail(userid);
+			System.out.println("email key : " +c.getC_email_key());
 			System.out.println(c);
-			if(c != null && c.getC_pass().equals(pw)) {
+			if(c != null && c.getC_pass().equals(pw) && c.getC_email_key().contains("Y")) {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
 				HttpSession session = request.getSession();
@@ -90,7 +91,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		} else if(type.equals("home")) {
 			System.out.println("home==================================");
 			HomeSitter hs = hsService.getHomeSitterByEmail(userid);
-			if(hs != null && hs.getHs_pass().equals(pw)) {
+			System.out.println("email key"+hs.getHs_email_key());
+			if(hs != null && hs.getHs_pass().equals(pw) && hs.getHs_email_key().contains("Y")) {
 				System.out.println("로그인 성공");
 				auths.add(new SimpleGrantedAuthority("ROLE_HOME"));
 				HttpSession session = request.getSession();
@@ -128,7 +130,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		} else {
 			return authToken;
 		}
-
 	}
 
 	@Override

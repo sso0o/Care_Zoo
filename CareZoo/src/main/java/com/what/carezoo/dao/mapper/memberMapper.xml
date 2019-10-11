@@ -53,7 +53,13 @@
 			
 		where c_num = #{c_num}
 	</update>
-	
+	<!-- email 찾기 -->
+	<select id="findC_email" parameterType="string" resultType="string">
+		select c_email from customer where c_name = #{name} and c_contact = #{number}
+	</select>
+	<select id="findC_emailCount" parameterType="string" resultType="int">
+		select count(*) from customer where c_name = #{name} and c_contact = #{number}
+	</select>
 	<!-- 자바 메일 - 이메일 인증하기 -->
 	<insert id="GetKey" parameterType="map">
 		update customer set c_email_key = #{c_email_key} where c_email = #{c_email}
@@ -61,4 +67,20 @@
 	<update id="alter_cKey" parameterType="map">
 		update customer set c_email_key = 'Y' where c_email = #{c_email} and  c_email_key = #{c_email_key}
 	</update>
+	
+	
+	<!-- 메인에 리뷰가져오기 -->
+	<select id="getMainSitterReview" resultType="map">
+	<![CDATA[ 
+		select hsc.*, hs.hs_filename, hs.hs_name
+		from homesitter hs,
+			(select *
+			from (select *
+				from homesittercomment
+				order by hsc_write_date desc)
+			where ROWNUM <=5) hsc
+		where hsc.hs_num = hs.hs_filename(+)
+	
+	]]>
+	</select>
 </mapper>

@@ -103,5 +103,11 @@ public class HomeSitterService {
 	public String  getImage(int hs_num) {
 		return hsDao.selectFile(hs_num);
 	}
-
+	//email찾기
+	public String findHs_email(String hs_name,String hs_contact){
+		return hsDao.findHs_email(hs_name,hs_contact);
+	}
+	public int findHs_emailCount(String hs_name,String hs_contact){
+		return hsDao.findHs_emailCount(hs_name,hs_contact);
+	}
 }

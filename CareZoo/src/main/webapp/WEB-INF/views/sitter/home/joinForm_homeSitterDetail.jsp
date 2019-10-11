@@ -16,6 +16,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- 다음 주소 -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- link for datepicker -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"><!-- datePicker -->
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css'/><!-- datePicker -->
@@ -152,6 +155,16 @@ function checkValue() {
 	
 	if($("#content").val() ==""){
 		alert("내용을 입력해 주세요");
+		return false;
+	}
+	
+	if($("#address").val() ==""){
+		alert("주소를 입력해 주세요");
+		return false;
+	}
+	
+	if($("#d_address").val() ==""){
+		alert("상세주소를 입력해주세요");
 		return false;
 	}
 	
@@ -562,6 +575,13 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 
 
 						</textarea>
+					</div>
+					<div class="form-group">
+						<label for="address">주소</label><label class="space"></label>
+						<input type="text" class="form-control" id="address" placeholder="도로명 주소" name="hsl_address" readonly="readonly" onclick="getAddress()">
+						<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+						<input type="text" class="form-control" id="d_address" placeholder="상세주소를 입력해 주세요" name="hsl_d_address" style="margin-top: 5px">
+						<span id="guide" style="color: #999"></span>
 					</div>
 					<div class="form-group">
 						<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.(중복체크 가능)</label>

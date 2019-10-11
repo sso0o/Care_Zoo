@@ -1,6 +1,7 @@
 package com.what.carezoo.sitter.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,11 +30,37 @@ public class HomeSitterReservationService {
 		return hsrDao.selectByCnum(c_num);
 	}
 	
-	public List<HomeSitterReservation> getHomeSitterResByHSnum(int hs_num){
+	public List<Map<String, Object>> getHomeSitterResByHSnum(int hs_num){
 		return hsrDao.selectByHSnum(hs_num);
 	}
 	
 	public List<HomeSitterReservation> getAllHomeSitterRes() {
 		return hsrDao.selectAll();
+	}
+	
+	public List<Map<String, Object>> getHSRInfo(int c_num){
+		return hsrDao.getHSRInfo(c_num);
+	}
+	
+	public List<Map<String, Object>> getStatus0(int hs_num){
+		return hsrDao.getStatus0(hs_num);
+	}
+	
+	public Map<String, Object> getModalHSR(int hsr_num){
+		return hsrDao.getModalHSR(hsr_num);
+	}
+	
+	public boolean acceptHsr(int hsr_num) {
+		if(hsrDao.acceptHsr(hsr_num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean cancelHsr(int hsr_num) {
+		if(hsrDao.cancelHsr(hsr_num)>0) {
+			return true;
+		}
+		return false;
 	}
 }

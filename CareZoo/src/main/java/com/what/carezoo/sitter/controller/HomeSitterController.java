@@ -56,41 +56,7 @@ public class HomeSitterController {
 	private HomeSitterMailSendService mailsender;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////가정시터 회원가입	
-//	//이메일 인증 보내기 메서드
-//	@RequestMapping(value = "/join", method = RequestMethod.POST)
-//	public String joinHomeSitter(
-//			@RequestParam Map<String, Object> params,
-//			Model model, HttpServletRequest request, String hsl_service_type, String hsl_size, String hsl_pet_age
-//			) {
-//		List<Object> hsd_disabledate_list = Arrays.asList(params.get("hsd_disabledate"));
-////		List<String> hsl_service_type_list = Arrays.asList(hsl_service_type.split(","));
-////		List<String> hsl_size_list = Arrays.asList(hsl_size.split(","));
-////		List<String> hsl_pet_age_list = Arrays.asList(hsl_pet_age.split(","));
-////		params.put("hsd_disabledate", hsd_disabledate_list);
-//		params.put("hsl_service_type", hsl_service_type);
-//		params.put("hsl_size", hsl_size);
-//		params.put("hsl_pet_age", hsl_pet_age);
-//		 System.out.println("파람"+params);
-////		 System.out.println(hsd_disabledate_list);
-////		 System.out.println(hsl_service_type_list);
-////		 System.out.println(hsl_size_list);
-////		 System.out.println(hsl_pet_age_list);
-//		 //우선 회원가입만 먼저 하고 나중에 넣어야지
-//		 //회원가입 메서드 
-//		boolean hsRst = hsService.joinHomeSitter(params);
-//		boolean hslRst = hslService.writeHomeSitterList(params);
-//		boolean hslDisdate = hslService.writeDisableDates(hsd_disabledate_list);
-////		System.out.println("hsRst : "+ hsRst+"hslRst"+hslRst);
-//		if(hsRst && hslRst && hslDisdate ) {
-//			System.out.println("글등록 성공!!");
-////			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
-////			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요 :)");			
-//			return "redirect:main";
-//		} else {
-////			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");	
-//			return "redirect:joinForm";
-//		}
-//	}
+
 	@RequestMapping("/noAuth")
 	public String noAuth() {
 		return "noAuth";
@@ -121,6 +87,8 @@ public class HomeSitterController {
 		if(mailsender.alter_userKey_service(hs_email, hs_email_key)>0) {
 			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 로그인 후 게시글 등록을 위해 회원정보를 업데이트 해주세요");
 			model.addAttribute("url", "member/loginForm");			
+			model.addAttribute("url", "member/loginForm");
+			
 		}else {
 			model.addAttribute("msg", "회원가입이 진행중입니다. 확인 후 이용바랍니다.");
 			model.addAttribute("url", "member/main");
@@ -257,7 +225,7 @@ public class HomeSitterController {
 
 	
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////시터 예약 
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////시터 예약 
 	//홈시터 예약페이지
 ////	@Secured("CUSTOMER")
 ////	@PreAuthorsize("isAuthenticated()")
@@ -304,7 +272,7 @@ public class HomeSitterController {
 	
 	
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////게시글 등록
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////게시글 등록
 	// 가정시터 게시글 등록 뷰 보여주기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeHsl(Model model) {
@@ -404,22 +372,28 @@ public class HomeSitterController {
 		List<String> dateStrings  = hslService.getDisableDates(hsl_num);
 		List<String> files = hslService.getFileList(hsl_num);
 		List<HomeSitterComment> comment = hscService.getHomesitterComment(hsList.getHs_num());
+		Map<String, Object> rst = new HashMap<String, Object>();
+		String filename = hsService.getImage(hsList.getHs_num());
+		rst.put("filename", filename);
+		
 		System.out.println(comment);
 		System.out.println("dateStrings"+dateStrings);
 		System.out.println("hsimg"+files);
+		
+		model.addAttribute("filename", filename);
 		model.addAttribute("hsimg", files);
 		model.addAttribute("disDates", dateStrings);
 		model.addAttribute("hsList", hsList);
 		model.addAttribute("comment", comment);
 		return "sitter/home/homeSitterView";
 	}
-	@RequestMapping("/getComment")
-	@ResponseBody
-	public List<HomeSitterComment> getAllCommentByNum(int hs_num){
-		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
-		System.out.println("cc"+comment);		
-		return comment;
-	}
+//	@RequestMapping("/getComment")
+//	@ResponseBody
+//	public List<HomeSitterComment> getAllCommentByNum(int hs_num){
+//		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
+//		System.out.println("cc"+comment);		
+//		return comment;
+//	}
 	@ResponseBody
 	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)
 	public Map<String, Object> getHsImg(int hs_num) {

@@ -50,4 +50,11 @@
 	<select id="selectFile" parameterType="int" resultType="string">
 		select vs_img from visitsitter where vs_num = #{vs_num}
 	</select>
+	<!-- email찾기 -->
+	<select id="findVs_email" parameterType="string" resultType="string">
+		select vs_email from visitsitter where vs_name = #{name} and vs_contact = #{number}
+	</select>
+	<select id="findVs_emailCount" parameterType="string" resultType="int">
+		select count(*) from visitsitter where vs_name = #{name} and vs_contact = #{number}
+	</select>
 </mapper>

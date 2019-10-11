@@ -176,6 +176,7 @@
             ) hsp,
             (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
 		<trim prefix="where" prefixOverrides="AND|OR">
+			  AND hsli.hsl_status = 1
 			  AND hsli.hsl_num = hsp.hsl_num(+)
 	          AND hs.hs_num = hsli.hs_num(+)
 	          AND hs.hs_num = hsc.hs_num(+)
