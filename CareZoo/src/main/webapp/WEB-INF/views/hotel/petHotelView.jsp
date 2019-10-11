@@ -990,7 +990,7 @@ height:45px;
 			<br>
 			<div class="row">
 				<div class="col-5">
-					<p>가능한 펫 마리수 : ${petHotel.ph_p_count }</p>
+					<p>가능한 펫 마리수 :</p>
 					<p>주소 : ${petHotel.ph_address} &ensp; ${petHotel.ph_d_address }
 					<p>연락처 : ${petHotel.ph_contact }
 				</div>
