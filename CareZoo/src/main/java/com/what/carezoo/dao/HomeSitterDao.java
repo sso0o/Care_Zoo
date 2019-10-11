@@ -16,6 +16,7 @@ public interface HomeSitterDao {
 	public HomeSitter selectOneByEmail(String hs_email);
 	public List<HomeSitter> selectAllHomeSitter();
 	public int homeSitterIdCheck(String hs_email);
+	public int updateAddressHs(HomeSitter hs);
 	
 	public String selectFile(int hs_num);
 	public int insertFile(Map<String,Object> param);

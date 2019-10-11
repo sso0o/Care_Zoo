@@ -30,6 +30,13 @@
 		where hs_num = #{hs_num}
 	</update>
 	
+	<update id="updateAddressHs" parameterType="homesitter">
+	 update homesitter
+	 set hs_address = #{hs_address},
+    	hs_d_address = #{hs_d_address}
+	where hs_num = #{hs_num}
+	</update>
+	
 	<delete id="deleteHomeSitter" parameterType="int">
 		delete * homesitter where hs_pass = #{hs_pass} 
 	</delete>

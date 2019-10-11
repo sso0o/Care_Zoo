@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.what.carezoo.member.service.MemberService;
+import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterComment;
 import com.what.carezoo.model.HomeSitterList;
 import com.what.carezoo.model.HomeSitterReservation;
@@ -291,8 +293,13 @@ public class HomeSitterController {
 		List<String> hsd_disabledate_list = Arrays.asList(hsd_disabledate.split(","));
 		boolean result = hslService.addDisDates(hsl.getHsl_num(), hsd_disabledate_list);
 		if(rst&&result) {
+			HomeSitter hs = new HomeSitter();
+			hs.setHs_address(hsl.getHsl_address());
+			hs.setHs_d_address(hsl.getHsl_d_address());
+			hs.setHs_num(hsl.getHs_num());
+			hsService.updateHsAddress(hs);
 			model.addAttribute("hsl_num", hsl.getHsl_num());
-			return "sitter/home/main";
+			return "redirect:/member/myPage";
 		}else {
 			return "redirect:/home/write";
 		}
@@ -372,15 +379,12 @@ public class HomeSitterController {
 		List<String> dateStrings  = hslService.getDisableDates(hsl_num);
 		List<String> files = hslService.getFileList(hsl_num);
 		List<HomeSitterComment> comment = hscService.getHomesitterComment(hsList.getHs_num());
-		Map<String, Object> rst = new HashMap<String, Object>();
-		String filename = hsService.getImage(hsList.getHs_num());
-		rst.put("filename", filename);
 		
 		System.out.println(comment);
 		System.out.println("dateStrings"+dateStrings);
 		System.out.println("hsimg"+files);
 		
-		model.addAttribute("filename", filename);
+		
 		model.addAttribute("hsimg", files);
 		model.addAttribute("disDates", dateStrings);
 		model.addAttribute("hsList", hsList);

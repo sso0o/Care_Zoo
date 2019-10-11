@@ -31,6 +31,11 @@
 <script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js" type="text/javascript" ></script><!-- multidatePicker -->
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
 <style type="text/css">
+.menu>ul {
+	height: 45px;
+}
+
+
 body {
   padding: 20px;
 }
@@ -168,60 +173,68 @@ function checkValue() {
 		return false;
 	}
 	
-	if($("input:checkbox[name='hsl_service_type']").is(":checked")){
-		alert("케어 가능한 서비스 타입을 선택해 주세요");			
-		return false;
-	}
-	
 	if($("#hsd_disabledate").val() ==""){
 		alert("불가능한 날짜를 선택해 주세요");
 		return false;
 	}
 	
-	if($(".chkin").val() ==""){
-		alert("체크인 가능 시간을 입력해 주세요");
+	if($("#chisTime").val() ==""){
+		alert("체크인 가능 시간을 정확히 입력해 주세요");
+		return false;
+	}
+	if($("#chieTime").val() ==""){
+		alert("체크인 가능 시간을 정확히 입력해 주세요");
+		return false;
+	}
+	if($("#chosTime").val() ==""){
+		alert("체크아웃 가능 시간을 정확히 입력해 주세요");
+		return false;
+	}
+	if($("#choeTime").val() ==""){
+		alert("체크인 가능 시간을 정확히 입력해 주세요");
 		return false;
 	}
 	
-	if($(".chkout").val() ==""){
-		alert("체크아웃 가능 시간을 입력해 주세요");
+	if($('input:checkbox[name="hsl_service_type"]:checked').length ==0){
+		alert("케어 가능한 서비스 타입을 선택해 주세요");			
 		return false;
 	}
 	
-	if($(".size").val() ==""){
+	if($('input:checkbox[name="hsl_size"]:checked').length == 0){
 		alert("돌봄 가능한 강아지의 크기를 선택해 주세요");
 		return false;
 	}
 	
-	if($(".age").val() ==""){
+	if($('input:checkbox[name="hsl_pet_age"]:checked').length == 0){
 		alert("돌봄 가능한 강아지의 나이를 선택해 주세요");
 		return false;
 	}
 	
-	if($(".place").val() ==""){
+	if(!$('input:radio[name="hsl_care_place"]').is(":checked")){
 		alert("돌봄공간을 선택해 주세요");
 		return false;
 	}	
 
-	if($(".yard").val() ==""){
+	if(!$('input:radio[name="hsl_yard"]').is(":checked")){
 		alert("마당이 있는지 선택해주세요");
 		return false;
 	}
 
-	if($(".baby").val() ==""){
+	if(!$('input:radio[name="hsl_baby"]').is(":checked")){
 		alert("14세 미만 아동이 있는지 선택해주세요");
 		return false;
 	}
 
-	if($(".family").val() ==""){
+	if(!$('input:radio[name="hsl_family"]').is(":checked")){
 		alert("다른 가족이 함께 거주하는지 선택해주세요");
 		return false;
 	}
 
-	if($("#image-area").val() ==""){
-		alert("사진을 올려주세요");
-		return false;
-	}
+// 	if($("#preImg").val() ==""){
+// 		alert("사진을 올려주세요");
+// 		return false;
+// 	}
+	
 }
 var index = 1;
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
@@ -584,19 +597,6 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						<span id="guide" style="color: #999"></span>
 					</div>
 					<div class="form-group">
-						<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.(중복체크 가능)</label>
-						<div class="form-check-inline">
-						  <label class="form-check-label">
-						    <input type="checkbox" class="form-check-input service" value="24시간돌봄" name="hsl_service_type" >24시간 돌봄(하루 이상)
-						  </label>
-						</div>
-						<div class="form-check-inline">
-						  <label class="form-check-label">
-						    <input type="checkbox" class="form-check-input service" value="데이케어" name="hsl_service_type" >데이케어(하루 미만)
-						  </label>
-						</div>
-					</div>	
-					<div class="form-group">
 						<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br>
 						<div id="calendar"></div>
 						<input type="text" class="form-control" id="hsd_disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
@@ -617,20 +617,33 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="hsl_service_type">케어 가능한 서비스 타입을 선택해 주세요.(중복체크 가능)</label>
+						<div class="form-check">
+						  <label class="form-check-label">
+						    <input type="checkbox" class="form-check-input" value="24시간돌봄" name="hsl_service_type" >24시간 돌봄(하루 이상)
+						  </label>
+						</div>
+						<div class="form-check">
+						  <label class="form-check-label">
+						    <input type="checkbox" class="form-check-input" value="데이케어" name="hsl_service_type" >데이케어(하루 미만)
+						  </label>
+						</div>
+					</div>	
+					<div class="form-group">
 						<label for="hsl_size">돌봄 가능한 강아지의 크기를 선택해 주세요.(중복체크 가능)</label>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="checkbox" class="form-check-input size" value="소형견" name="hsl_size" >소형견 (0~4.9kg)
+						    <input type="checkbox" class="form-check-input" value="소형견" name="hsl_size" >소형견 (0~4.9kg)
 						  </label>
 						</div>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="checkbox" class="form-check-input size" value="중형견" name="hsl_size" >중형견 (5~14.9kg)
+						    <input type="checkbox" class="form-check-input" value="중형견" name="hsl_size" >중형견 (5~14.9kg)
 						  </label>
 						</div>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="checkbox" class="form-check-input size" value="대형견" name="hsl_size" >대형견 (15kg 이상)
+						    <input type="checkbox" class="form-check-input" value="대형견" name="hsl_size" >대형견 (15kg 이상)
 						  </label>
 						</div>
 					</div>	
@@ -638,17 +651,17 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						<label for="hsl_pet_age">돌봄 가능한 강아지의 나이를 선택해 주세요.(중복체크 가능)</label>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="checkbox" class="form-check-input age" value="강아지" name="hsl_pet_age" >강아지(0~1살)
+						    <input type="checkbox" class="form-check-input" value="강아지" name="hsl_pet_age" >강아지(0~1살)
 						  </label>
 						</div>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="checkbox" class="form-check-input age" value="성견" name="hsl_pet_age" >성견(2~6살)
+						    <input type="checkbox" class="form-check-input" value="성견" name="hsl_pet_age" >성견(2~6살)
 						  </label>
 						</div>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="checkbox" class="form-check-input age" value="노령견" name="hsl_pet_age" >노령견(7살 이상)
+						    <input type="checkbox" class="form-check-input" value="노령견" name="hsl_pet_age" >노령견(7살 이상)
 						  </label>
 						</div>
 					</div>
@@ -658,17 +671,17 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						<label for="hsl_care_place">돌봄공간</label>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input place" name="hsl_care_place" value="아파트">아파트
+						    <input type="radio" class="form-check-input" name="hsl_care_place" value="아파트">아파트
 						  </label>
 						</div>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input place" name="hsl_care_place" value="빌라">빌라
+						    <input type="radio" class="form-check-input" name="hsl_care_place" value="빌라">빌라
 						  </label>
 						</div>
 						<div class="form-check">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input place" name="hsl_care_place" value="주택">주택
+						    <input type="radio" class="form-check-input" name="hsl_care_place" value="주택">주택
 						  </label>
 						</div>
 					</div>
@@ -676,12 +689,12 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						<label for="hsl_yard">마당이 있나요? </label>
 						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input yard" name="hsl_yard" value="있습니다.">있습니다.
+						    <input type="radio" class="form-check-input" name="hsl_yard" value="있습니다.">있습니다.
 						  </label>
 						</div>
 						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input yard" name="hsl_yard" value="없습니다.">없습니다.
+						    <input type="radio" class="form-check-input" name="hsl_yard" value="없습니다.">없습니다.
 						  </label>
 						</div>
 					</div>	
@@ -689,12 +702,12 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						<label for="hsl_baby">14세 미만의 아동이 함께 거주하고 있나요? </label><br>
 						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input baby" name="hsl_baby" value="있습니다.">있습니다.
+						    <input type="radio" class="form-check-input" name="hsl_baby" value="있습니다.">있습니다.
 						  </label>
 						</div>
 						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input baby" name="hsl_baby" value="없습니다.">없습니다.
+						    <input type="radio" class="form-check-input" name="hsl_baby" value="없습니다.">없습니다.
 						  </label>
 						</div>
 					</div>
@@ -702,12 +715,12 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						<label for="hsl_family">다른 가족과 함께 거주하고 있나요? </label>
 						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input family" name="hsl_family" value="있습니다.">있습니다.
+						    <input type="radio" class="form-check-input" name="hsl_family" value="있습니다.">있습니다.
 						  </label>
 						</div>
 						<div class="form-check-inline">
 						  <label class="form-check-label">
-						    <input type="radio" class="form-check-input family" name="hsl_family" value="없습니다.">없습니다.
+						    <input type="radio" class="form-check-input" name="hsl_family" value="없습니다.">없습니다.
 						  </label>
 						</div>
 					</div>
