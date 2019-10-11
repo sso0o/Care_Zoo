@@ -30,4 +30,8 @@ public interface MemberDao {
 	public int GetKey(@Param("c_email")String c_email, @Param("c_email_key")String c_email_key);  //멤버 인증키 생성 메서드
 	int alter_cKey(@Param("c_email")String c_email, @Param("c_email_key")String c_email_key); //멤버 인증키(난수로 생성/)된 것을 Y로 바꿔주는 메서드
 	
-}
+
+	//메인에 리뷰가져오기
+	public List<Map<String, Object>> getMainSitterReview();
+ }
+

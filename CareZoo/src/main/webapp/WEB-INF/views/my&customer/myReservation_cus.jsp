@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -100,9 +101,7 @@
 			//allDaySlot: false,
 
 			select : function(arg) {
-				console.log(arg.startStr, arg.endStr, arg.resource ? arg.resource.id : '(no resource)');
-// 				document.getElementById("p1").innerHTML=arg.startStr ;
-				myResList(arg.startStr);
+
 
 			},
 			eventClick : function(info) {
@@ -126,58 +125,49 @@
 			dataType : "JSON",
 			success : function(data) {
 				console.log(data)
-				if(data.vsrList != null){
-					for (var i = 0; i < data.vsrList.length; i++) {
-						var e = {
-							groupId : 'vsr_num',
-							id : data.vsrList[i].vsr_num,
-							start : data.vsrList[i].vsr_chkin,
-							end : data.vsrList[i].vsr_chkout,
-							title : '방문시터예약',
-							description : '이거슨 방문시터',
-							color : 'rgba(0, 0, 120, 0.6)',
-							textColor: "white"
-						}
-						calendar.addEvent(e)
-						calendar.render();
+				for (var i = 0; i < data.vsrList.length; i++) {
+					var e = {
+						groupId : 'vsr_num',
+						id : data.vsrList[i].VSR_NUM,
+						start : data.vsrList[i].VSR_CHKIN,
+						end : data.vsrList[i].VSR_CHKOUT,
+						title : '방문시터예약',
+						description : '이거슨 방문시터',
+						color : 'rgba(0, 0, 120, 0.6)',
+						textColor: "white"
 					}
-				
+					calendar.addEvent(e)
+					calendar.render();
 				}
-				if(data.hsrList != null){
-					for (var i = 0; i < data.hsrList.length; i++) {
-						var e = {
-							groupId : 'hsr_num',
-							id : data.hsrList[i].hsr_num,
-							start : data.hsrList[i].hsr_chkin,
-							end : data.hsrList[i].hsr_chkout,
-							title : '가정시터 예약',
-							description : data.hsInfo[i].hs_name,
-							color : 'rgba(0, 120, 0, 0.6)',
-							textColor: "white"
-						}
-						calendar.addEvent(e)
-						calendar.render();
+				for (var i = 0; i < data.hsrList.length; i++) {
+					var e = {
+						groupId : 'hsr_num',
+						id : data.hsrList[i].HSR_NUM,
+						start : data.hsrList[i].HSR_CHKIN+"T"+data.hsrList[i].HSR_PICKUP_TIME,
+						end : data.hsrList[i].HSR_CHKOUT+"T"+data.hsrList[i].HSR_DROPOFF_TIME,
+						title : data.hsrList[i].HS_NAME+' 가정시터',
+						color : 'rgba(0, 120, 0, 0.6)',
+						textColor: "white"
 					}
+					calendar.addEvent(e)
+					calendar.render();
 				}
-				
-				if(data.phrList != null){
-					for (var i = 0; i < data.phrList.length; i++) {
-						var e = {
-							groupId : 'phr_num',
-							id : data.phrList[i].phr_num,
-							start : data.phrList[i].phr_chkin+'T13:00',
-							end : data.phrList[i].phr_chkout+'T11:00',
-							title : data.phInfo[i].ph_name,
-							description : data.pet[i].p_name,
-							color : 'rgba(200, 0, 0, 0.6)',
-							textColor: "white"
-						}
-						calendar.addEvent(e)
-						calendar.render();
+				for (var i = 0; i < data.phrList.length; i++) {
+					console.log(data.phrList[i])
+					var e = {
+						groupId : 'phr_num',
+						id : data.phrList[i].PHR_NUM,
+						start : data.phrList[i].PHR_CHKIN+'T13:00',
+						end : data.phrList[i].PHR_CHKOUT+'T11:00',
+						title : data.phrList[i].PH_NAME,
+						description : data.phrList[i].P_NAME,
+						color : 'rgba(200, 0, 0, 0.6)',
+						textColor: "white"
 					}
+					calendar.addEvent(e)
+					calendar.render();
 				}
-				
-				
+
 			},
 			error : function() {
 				alert("데이터를 불러오는데 실패했습니다.")
@@ -216,16 +206,6 @@
 				alert("조건을 갖추지 못하였습니다 :/")
 			}
 		});
-	
-		var iiii = {
-				start : '2019-09-17',
-				end: '2019-09-17',
-				description : 'test',
-				title: 'test',
-				textColor: "white"
-			}
-			calendar.addEvent(iiii);
-			calendar.render();
 
 	});
 	
@@ -244,7 +224,7 @@
 		console.log(urll)
 		
 		$.ajax({
-			url: "${contextPath}/comment/"+urll ,
+			url: "${contextPath}/member/"+urll ,
 			data:{
 				num: $("#number").val()
 			},
@@ -304,79 +284,6 @@
 			$("#modal-img").attr("src","${contextPath}/resources/img/aa.jpg");
 			document.getElementById("modal-address").innerHTML=("");
 		});
-	}
-	
-	function myResList(checkDate) {
-		console.log("function : "+checkDate);
-		console.log("function : "+user_numtype);
-		var showDiv = $("#showDiv");
-		$("#legend").text(checkDate);
-
-		showDiv.children("p").remove();
-		$.ajax({
-			url : "${contextPath}/member/myReservationCustomer",
-			data: {
-				c_num:user_num,
-			},
-			dataType: "JSON",
-			success: function(data) {
-			console.log(data);
-				if(data.vsrList != null){
-					for (var i = 0; i < data.vsrList.length; i++) {
-						if(data.vsrList[i].vsr_chkin<=checkDate && checkDate <=data.vsrList[i].vsr_chkout){
-							var pTag = "<p>"+data.vsInfo[i].vs_name+"  "+data.vsInfo.vs_contact+" "+data.vsrList.vsr_status+"</p>";
-							showDiv.append(pTag);	
-						}	
-					}
-				}
-				
-				if(data.hsrList != null){
-					for (var i = 0; i < data.hsrList.length; i++) {
-						if(data.hsrList[i].hsr_chkin<=checkDate && checkDate <=data.hsrList[i].hsr_chkout){
-							var pTag = "<p>"+data.hsInfo[i].hs_name+"  "+data.hsInfo.hs_contact+" "+data.hsrList.hsr_status+"</p>";
-							showDiv.append(pTag);
-						}
-					}
-				}
-				
-				if(data.phrList != null){
-					for (var i = 0; i < data.phrList.length; i++) {
-						if(data.phrList[i].phr_chkin <= checkDate && checkDate <= data.phrList[i].phr_chkout){
-							var pTag1 = "<p class='col'>"+data.phInfo[i].ph_name+"</p>";
-							var pTag2 = "<p class='col'>"+data.phInfo[i].ph_contact+"</p>";
-							showDiv.append(pTag1);
-							showDiv.append(pTag2);
-							var pTag3;
-							switch (data.phrList[i].phr_status){
-							case '0': pTag3 = "<p class='col'>예약 신청</p>";
-									break;
-							case '1': pTag3 = "<p class='col'>예약 거절</p>";
-									break;
-							case '2': pTag3 = "<p class='col'>결제 대기</p>";
-									 var pTag4 = "<p class='col'><a id='payMent' class='btn my-btn'>결제 하기</a></p>";
-									 showDiv.append(pTag3);
-									 showDiv.append(pTag4);
-									break;
-							case '3': pTag3 = "<p class='col'>결제 완료</p>";
-									break;
-							case '4': pTag3 = "<p class='col'>사용 완료</p>";
-									break;
-									
-							default: pTag3 = "<p class='col'></p>";
-									break;
-							}
-							
-							
-						}
-					}
-				}
-
-			},
-			error: function() {
-				
-			}
-		})
-		
 	}
 
 </script>
@@ -504,7 +411,7 @@
 		<div id='calendar'></div>
 		<div class="content">
 			<fieldset id="showEvent" class="fieldset">
-				<legend style="text-align: center;" id="legend">여기에 선택한 날짜의 예약이 나옴</legend>
+				<legend style="text-align: center;" id="legend"><fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/></legend>
 					<div class="row" id="showDiv">
 						
 					</div>
@@ -526,7 +433,75 @@
 	
 
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
-	<div class="modal-modify" id="reply-modal">
+	<div class="container-fluid modal-modify" id="modal-showMain">
+		<div id="hsrInfo" class="hsrInfo noshow">
+			<table class="table table-hover">
+				<tr>
+					<td>
+						<input type="hidden" id="groupid" name="groupid">
+					</td>
+					<td>
+						<input type="hidden" id="number" name="number">
+					</td>
+					<td colspan="2" style="text-align: right;">
+						<button type="button" class="close">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<th>시터이름</th>
+					<td id="hs_name"></td>
+					<th>연락처</th>
+					<td id="hs_contact"></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td colspan="3" id="hs_address"></td>
+				</tr>
+				<tr>
+					<th>시작일</th>
+					<td id="hs_chkin"></td>
+					<th>종료일</th>
+					<td id="hs_chkout"></td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<textarea rows="5" cols="50" id="hs_message"></textarea>
+				</tr>
+				<tr>
+					<td colspan="2" class="starTr" id="starTr">
+						<span id="starRev" class="starRev"> 
+							<span class="starR1" id="star1" title="0.5">별1_왼쪽</span> 
+							<span class="starR2" id="star2" title="1">별1_오른쪽</span> 
+							<span class="starR1" id="star3" title="1.5">별2_왼쪽</span> 
+							<span class="starR2" id="star4" title="2">별2_오른쪽</span> 
+							<span class="starR1" id="star5" title="2.5">별3_왼쪽</span> 
+							<span class="starR2" id="star6" title="3">별3_오른쪽</span> 
+							<span class="starR1" id="star7" title="3.5">별4_왼쪽</span> 
+							<span class="starR2" id="star8" title="4">별4_오른쪽</span> 
+							<span class="starR1" id="star9" title="4.5">별5_왼쪽</span> 
+							<span class="starR2" id="star10" title="5">별5_오른쪽</span>
+						</span>
+					</td>
+					<th>총가격</th>
+					<td id="hs_total"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<a href="#" onclick="payMent()" class="btn acc-btn" id="cancel">결제</a>
+					</td>
+					<td colspan="2">
+						<a href="#" onclick="review()" class="btn acc-btn" id="accept">후기</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="vsrInfo" class="vsrInfo">
+			<table class="table table-hover"></table>
+		</div>
+		<div id="phrInfo" class="phrInfo">
+			<table class="table table-hover"></table>
+		</div>
+		
 		<table class="modal-table" id="modal-table">
 			<tr height="10px">
 				<td>
@@ -551,7 +526,7 @@
 					<input type="text" class="modal-content contact" name="modal-contact" id="modal-contact" value="" readonly="readonly">
 				</td>
 			</tr>
-			<tr class="starTr" id="starTr">
+			<tr >
 				<td style="padding-left: 15px; width: 170px;">
 					<span id="starRev" class="starRev"> <span class="starR1" id="star1" title="0.5">별1_왼쪽</span> <span class="starR2" id="star2" title="1">별1_오른쪽</span> <span class="starR1" id="star3" title="1.5">별2_왼쪽</span> <span class="starR2" id="star4" title="2">별2_오른쪽</span> <span class="starR1" id="star5" title="2.5">별3_왼쪽</span> <span class="starR2" id="star6" title="3">별3_오른쪽</span> <span class="starR1" id="star7" title="3.5">별4_왼쪽</span> <span class="starR2" id="star8" title="4">별4_오른쪽</span> <span class="starR1" id="star9" title="4.5">별5_왼쪽</span> <span class="starR2" id="star10" title="5">별5_오른쪽</span>
 					</span>

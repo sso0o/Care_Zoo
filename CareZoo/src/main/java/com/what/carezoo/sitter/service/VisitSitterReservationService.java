@@ -210,5 +210,9 @@ public class VisitSitterReservationService {
 			
 		return vsrDao.selectByP_numVsr_chkin(param);
 	}
+	
+	public List<Map<String, Object>> getVSRInfo(int c_num){
+		return vsrDao.getVSRInfo(c_num);
+	}
 
 }

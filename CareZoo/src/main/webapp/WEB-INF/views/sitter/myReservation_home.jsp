@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -62,6 +63,10 @@
 		console.log("numtype : "+user_numtype)
 		console.log("name : "+user_name)
 		console.log("num : "+user_num)
+		
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
 	})//문서가 로딩되면 실행할 함수
 	
 
@@ -125,14 +130,15 @@
 			},
 			dataType : "JSON",
 			success : function(data) {
+				console.log(data)
 				for(var i = 0; i<data.hsrList.length; i++){
 					var e = {
 						groupId : 'c_num',
-						id : data.hsrList[i].c_num,
-						start : data.hsrList[i].hsr_chkin,
-						end : data.hsrList[i].hsr_chkout,
-						title : data.cList[i].c_name+' 보호자',
-						description : data.hsrList[i].hsr_status,
+						id : data.hsrList[i].C_NUM,
+						start : data.hsrList[i].HSR_CHKIN+ "T"+data.hsrList[i].HSR_PICKUP_TIME,
+						end : data.hsrList[i].HSR_CHKOUT+ "T"+data.hsrList[i].HSR_DROPOFF_TIME,
+						title : data.hsrList[i].C_NAME+' 보호자',
+						description : data.hsrList[i].HSR_STATUS,
 						color : 'rgba(0, 0, 120, 0.6)',
 						textColor: "white"
 					}
@@ -276,8 +282,8 @@
 				<div>
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
-						<li><a href="${contextPath}/member/myPet?user_num=<%=session.getAttribute("user_num")%>">펫 정보</a></li>
-						<li><a href="${contextPath}/member/myReservation">예약상황 보기</a></li>
+						<li><a href="${contextPath}/sitter/getHsrStatus0">예약현황 보기</a></li>
+
 					</ul>
 				</div>
 			</div>
@@ -333,7 +339,7 @@
 		<div id='calendar'></div>
 		<div class="content">
 			<fieldset id="showEvent" class="fieldset">
-				<legend style="text-align: center;" id="legend">여기에 선택한 날짜의 예약이 나옴</legend>
+				<legend style="text-align: center;" id="legend"><fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/></legend>
 					<div class="row" id="showDiv">
 						
 					</div>

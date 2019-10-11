@@ -36,16 +36,66 @@
 		where c_num = #{c_num}
 	</select>
 	
-	<select id="selectByHSnum" parameterType="int" resultType="HomeSitterReservation">
-		select *
+	<select id="selectByHSnum" parameterType="int" resultType="map">
+	select c.c_name, c.c_contact, hsr.*
+	from customer c,
+		(select *
 		from homesitterreservation
 		where hs_num = #{hs_num}
+		and hsr_status >= 2) hsr
+	where c.c_num = hsr.c_num
 	</select>
 
 	<select id="selectAll" resultType="homeSitterReservation">
 		select *
 		from homesitterreservation
 	</select>
+	
+	<select id="getHSRInfo" parameterType="int" resultType="map">
+		select hs.hs_name, hs.hs_contact,hs.hs_filename, hs.hs_address, hs.hs_d_address,NVL(st.star,0) star, hsr.*
+		from homesitter hs,
+			(select hs_num, round(avg(hsc_star),1) as star
+			from homesittercomment
+			group by hs_num) st,
+			(select hsr_num, c_num, hs_num, hsr_chkin, hsr_chkout, hsr_pickup_time, hsr_dropoff_time, hsr_totalprice, hsr_numof_pet, hsr_status, hsr_message
+			from homesitterreservation
+			where c_num = #{c_num}) hsr
+		where hsr.hs_num = hs.hs_num
+		and hsr.hs_num = st.hs_num(+)
+	</select>
+	
+	<select id="getStatus0" parameterType="int" resultType="map">
+		select c.c_name, hsr.*
+		from customer c,
+			(select hsr_num, hs_num, c_num, hsr_chkin, hsr_chkout, hsr_numof_pet, hsr_totalprice, hsr_pickup_time, hsr_dropoff_time, hsr_message, hsr_status
+			from homesitterreservation
+			where hs_num = #{hs_num}
+			and hsr_status = 0
+			and hsr_chkin>=sysdate)hsr
+		where c.c_num = hsr.c_num
+	</select>
+	
+	<select id="getModalHSR" parameterType="int" resultType="map">
+		select c.c_name, c.c_contact, hsr.*
+		from customer c,
+			(select c_num, hsr_num, hs_num, hsr_chkin, hsr_chkout, hsr_pickup_time,
+			hsr_dropoff_time, hsr_totalprice, hsr_message, hsr_status, hsr_numof_pet
+			from homesitterreservation
+			where hsr_num = #{hsr_num}) hsr
+		where c.c_num = hsr.c_num
+	</select>
+	
+	<update id="acceptHsr" parameterType="int">
+		update HomeSitterReservation
+		set hsr_status = 2
+		where hsr_num = #{hsr_num}
+	</update>
+	
+	<update id="cancelHsr" parameterType="int">
+		update HomeSitterReservation
+		set hsr_status = 1
+		where hsr_num = #{hsr_num}
+	</update>
 
 
 </mapper>
