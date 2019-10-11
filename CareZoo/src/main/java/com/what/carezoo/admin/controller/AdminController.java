@@ -264,6 +264,12 @@ public class AdminController {
 		}
 
 	}
+	
+	
+	
+	
+	
+	
 	// 펫호텔 수정하기 위해 리스트 보기
 	@RequestMapping("/petHotelList")
 	public String showPetHotelList(Model m) {
@@ -272,6 +278,29 @@ public class AdminController {
 		System.out.println(phL);
 		return "admin/petHotelList";
 	}
+	
+	@RequestMapping("/petHotelDelete")
+	public String petHotelRemove(@RequestParam("ph_num") int ph_num,Model m) {
+		phService.removePetHotel(ph_num);
+		List<PetHotel> phL = phService.getAllPetHotel();
+		m.addAttribute("phL", phL);
+		return "admin/petHotelList";
+	}
+	
+	@RequestMapping("/petHotelModifyForm")
+	public String showPetHotelModiForm(@RequestParam("ph_num") int ph_num) {
+		phService.removePetHotel(ph_num);
+		return "admin/petHotelList";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// 펫호텔 상세보기
 	@RequestMapping("/viewPetHotel")

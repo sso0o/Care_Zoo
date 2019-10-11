@@ -12,6 +12,17 @@ img {
 	width: 200px;
 	height: 200px;
 }
+
+.dButton {
+    position: relative;
+    float: right;
+    background: red;
+	color: white;
+    top: -10px;
+    right: -10px;
+}
+
+
 </style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -126,19 +137,18 @@ img {
 						function() {
 							console.log("addItem의 index:"+index);
 								console.log("file개수세기:"+$(".fileClass").length);
-							if ($(".fileClass").length > 0) {
-								console.log("img개수세기:"+$(".selProductFile").length);
-								var file = document.getElementById('file'
-										+ ($(".fileClass").length));
-								// 								var file = $("#file"+(index-1));
-								console.log("file의length:"+file.files.length);
-								if (file.files.length == 0) {
-									console.log("length 실행!");
-									console.log($("#file" + (parseInt(index))));
-									// 									$("#file" + (parseInt(index))).remove();
-									$(file).remove();
-								}
-							}
+// 							if ($(".fileClass").length > 0) {
+// 								console.log("img개수세기:"+$(".selProductFile").length);
+// 								var file = document.getElementById( 'file' + ($(".fileClass").length));
+// 								// 								var file = $("#file"+(index-1));
+// 								console.log("file의length:"+file.files.length);
+// 								if (file.files.length == 0) {
+// 									console.log("length 실행!");
+// 									console.log($("#file" + (parseInt(index))));
+// 									// 									$("#file" + (parseInt(index))).remove();
+// 									$(file).remove();
+// 								}
+// 							}
 							//파일 선택란을 보여준다.
 							//             $("tr#item1").show();
 							// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
@@ -148,9 +158,9 @@ img {
 									+ (parseInt(index))
 									+ "'name='file' class='fileClass'  style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
 
-							if ($(".selProductFile").length == 5) {
+							if ($(".selProductFile").length == 8) {
 								//그리고 해당 아이템은 5개 이상 생성할수 없도록 제한
-								alert("5개까지 가능합니다.");
+								alert("8개까지 가능합니다.");
 							} else {
 								$("#example").append(newfile);
 
@@ -193,17 +203,20 @@ img {
 		filesArr
 				.forEach(function(f) {
 					if (!f.type.match("image.*")) {
-						alert("확장자는 이미지 확장자만 가능합니다.");
+						alert("이미지 확장자만 가능합니다.");
 						return;
 					}
 					sel_file = f;
 					var reader = new FileReader();
 					reader.onload = function(e) {
-						var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='preImg"+(index-1)+"' class='selProductFile' title='Click to remove' style='width:250px, height:250px'></a>";
+						
+						var html = "&nbsp;&nbsp;<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='preImg"+(index-1)+"' class='selProductFile' title='Click to remove' style='width:250px, height:250px'></a>";
 						$(".imgs_wrap").append(html);
 
-						var newButton = "<input type='button' id='deleteButton"+(index-1)+"'  onclick='deleteImageAction("
-								+ index + ")' value='삭제'>";
+// 						var newButton = "<input type='button' id='deleteButton"+(index-1)+"'  onclick='deleteImageAction("
+// 								+ index + ")' value='삭제'>&nbsp;";
+						var newButton = "<button class='dButton' id='deleteButton"+(index-1)+"'  onclick='deleteImageAction("
+								+ index + ")' >&times;</button>&nbsp;";
 						$(".imgs_wrap").append(newButton);
 					}
 					reader.readAsDataURL(f);
