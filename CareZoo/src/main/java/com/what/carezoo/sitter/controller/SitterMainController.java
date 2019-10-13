@@ -353,6 +353,12 @@ public class SitterMainController {
 				m.addAttribute("msg", "수락이 완료되었습니다!");
 				return "sitter/myReservation_visit";
 			} else {
+				//일반
+				List<Map<String, Object>> rst1 = pdService.getResInfo7();
+				//정기
+				List<Map<String, Object>> rst2 = pdService.getResInfo0_6();
+				m.addAttribute("rst1", rst1);
+				m.addAttribute("rst2", rst2);
 				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
 				return "sitter/reservationListVs";
 			}
@@ -370,6 +376,12 @@ public class SitterMainController {
 					return "sitter/myReservation_visit";
 				}
 			} else {
+				//일반
+				List<Map<String, Object>> rst1 = pdService.getResInfo7();
+				//정기
+				List<Map<String, Object>> rst2 = pdService.getResInfo0_6();
+				m.addAttribute("rst1", rst1);
+				m.addAttribute("rst2", rst2);
 				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
 				return "sitter/reservationListVs";
 			}

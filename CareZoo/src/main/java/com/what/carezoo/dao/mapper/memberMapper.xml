@@ -123,4 +123,15 @@
 		where vsr.vs_num = vs.vs_num(+)
 		and vsr.vs_num = st.vs_num(+)
 	</select>
+	
+	<!-- 예약 취소 -->
+	<delete id="cancelHSR" parameterType="int">
+		delete from homesitterReservtion where hsr_num = #{hsr_num}
+	</delete>
+	<delete id="cancelVSR" parameterType="int">
+		delete from visitsitterReservation where vsr_num = #{vsr_num}
+	</delete>
+	<delete id="cancelPHR" parameterType="int">
+		delete from pethotelReservation where phr_num = #{phr_num}
+	</delete>
 </mapper>

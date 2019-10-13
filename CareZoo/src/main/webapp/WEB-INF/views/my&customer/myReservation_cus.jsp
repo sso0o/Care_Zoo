@@ -66,6 +66,10 @@
 		console.log("numtype : "+user_numtype)
 		console.log("name : "+user_name)
 		console.log("num : "+user_num)
+		
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
 	})//문서가 로딩되면 실행할 함수
 	
 
@@ -106,12 +110,13 @@
 			},
 			eventClick : function(info) {
 				var infocheck = info.event.groupId+'='+info.event.id
-				var chkoutTime = info.event.end
+				var chkoutTime = info.event.end;
+
 				eee = info.event.end;
 				$(".groupid").val(info.event.groupId)
 				$(".number").val(info.event.id)
 				
-				modalOpen();
+				modalOpen(chkoutTime);
 			}
 		});
 		calendar.render();
@@ -173,7 +178,8 @@
 		})
 	});
 	
-	function modalOpen() {
+	function modalOpen(endday) {
+		console.log("endday : "+endday);
 		console.log($(".groupid").val()+"=="+$(".number").val())
 		var urll = "";
 		if($(".groupid").val()=="phr_num"){
@@ -187,7 +193,11 @@
 				success: function(data) {
 					
 					console.log(data)	
-					
+					if(d>endday){
+						$(".cancel").hide();
+					} else{
+						$(".review").hide();
+					}
 					$("#ph_name").text(data.PH_NAME);
 					$("#ph_contact").text(data.PH_CONTACT);
 					$("#ph_address").text(data.PH_ADDRESS+" "+data.PH_D_ADDRESS);
@@ -216,9 +226,18 @@
 				dataTpe:"JSON",
 				success: function(data) {
 					console.log(data)	
+					if(d>endday){
+						$(".payment").hide();
+						$(".cancel").hide();
+						
+					} else{
+						if(data.HSR_STATUS == 2){
+							$(".payment").hide();
+						}
+						$(".review").hide();
+					}
 					$("#hs_name").text(data.HS_NAME);
 					$("#hs_contact").text(data.HS_CONTACT);
-					$("#hs_address").text(data.HS_ADDRESS+" "+data.HS_D_ADDRESS);
 					$("#hs_chkin").text(data.HSR_CHKIN + " "+data.HSR_PICKUP_TIME);
 					$("#hs_chkout").text(data.HSR_CHKOUT+" "+data.HSR_DROPOFF_TIME);
 					$("#hs_total").text(data.HSR_TOTALPRICE+"원");
@@ -244,6 +263,16 @@
 				dataTpe:"JSON",
 				success: function(data) {
 					console.log(data)	
+					if(d>data.VSR_CHKIN){
+						$(".payment").hide();
+						$(".cancel").hide();
+						
+					} else{
+						if(data.VSR_STATUS == 2){
+							$(".payment").hide();
+						}
+						$(".review").hide();
+					}
 					$("#vs_name").text("");
 					$("#vs_contact").text("");
 					$("#vs_chkin").text("");
@@ -289,6 +318,9 @@
 			$("#hsrInfo").hide();
 			$("#vsrInfo").hide();
 			$(".starRev").children('span').removeClass('on');
+			$(".payment").show();
+			$(".cancel").show();
+			$(".review").show();
 			
 		});
 	}
@@ -306,6 +338,14 @@
 		console.log("취소버튼 누름->"+$(".groupid").val()+"="+$(".number").val());
 		if (confirm("선택한 예약을 취소하시겠습니까?") == true) {
 			//location.href = '${contextPath}/logout'
+			if($(".groupid").val()=="hsr_num"){
+				location.href='${contextPath}/member/cancelHSR?num='+$(".number").val();
+			}else if($(".groupid").val()=="vsr_num"){
+				location.href='${contextPath}/member/cancelVSR?num='+$(".number").val();
+			}else if($(".groupid").val()=="phr_num"){
+				location.href='${contextPath}/member/cancelPHR?num='+$(".number").val();
+			}
+			
 		} else {
 			return false;
 		}
@@ -570,9 +610,9 @@ td{
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: center;">
-						<a href="#" onclick="payMent()" class="btn my-btn" id="payment">결제</a>
-						<a href="#" onclick="cancel()" class="btn my-btn" id="cancel">취소</a>
-						<a href="#" onclick="review()" class="btn my-btn" id="accept">후기</a>
+						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
+						<a href="#" onclick="cancel()" class="btn my-btn payment" id="cancel">취소</a>
+						<a href="#" onclick="review()" class="btn my-btn review" id="review">후기</a>
 					</td>
 				</tr>
 			</table>
@@ -630,9 +670,9 @@ td{
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: center;">
-						<a href="#" onclick="payMent()" class="btn my-btn" id="payment">결제</a>
-						<a href="#" onclick="cancel()" class="btn my-btn" id="cancel">취소</a>
-						<a href="#" onclick="review()" class="btn my-btn" id="accept">후기</a>
+						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
+						<a href="#" onclick="cancel()" class="btn my-btn cancel" id="cancel">취소</a>
+						<a href="#" onclick="review()" class="btn my-btn review" id="review">후기</a>
 					</td>
 				</tr>
 			</table>
@@ -691,9 +731,9 @@ td{
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: center;">
-						<a href="#" onclick="payMent()" class="btn my-btn" id="payment">결제</a>
-						<a href="#" onclick="cancel()" class="btn my-btn" id="cancel">취소</a>
-						<a href="#" onclick="review()" class="btn my-btn" id="accept">후기</a>
+						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
+						<a href="#" onclick="cancel()" class="btn my-btn cancel" id="cancel">취소</a>
+						<a href="#" onclick="review()" class="btn my-btn review" id="review">후기</a>
 					</td>
 				</tr>
 			</table>

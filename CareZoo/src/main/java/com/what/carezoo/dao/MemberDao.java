@@ -39,5 +39,10 @@ public interface MemberDao {
 	public Map<String, Object> getModalHS(int num);
 	public Map<String, Object> getModalVS(int num);
 	public Map<String, Object> getModalPH(int num);
+	
+	//예약취소
+	public int cancelHSR(int hsr_num);
+	public int cancelVSR(int vsr_num);
+	public int cancelPHR(int phr_num);
  }
 

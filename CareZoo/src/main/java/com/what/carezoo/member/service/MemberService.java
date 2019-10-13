@@ -158,5 +158,28 @@ public class MemberService {
 	public Map<String, Object> getModalPH(int num){
 		return memberDao.getModalPH(num);
 	}
+	
+	//예약 취소
+	public boolean cancelHSR(int num) {
+		if(memberDao.cancelHSR(num)>0) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public boolean cancelVSR(int num) {
+		if(memberDao.cancelVSR(num) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean cancelPHR(int num) {
+		if(memberDao.cancelPHR(num) >0) {
+			return true;
+		}
+		return false;
+	}
 
 }

@@ -126,9 +126,12 @@
 	}
 	
 
-	// $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
+	$(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
 	
-	// })
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
+	})
 	
 	// 기본적으로 세션에 저장된 정보
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"

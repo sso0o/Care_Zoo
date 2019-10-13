@@ -287,6 +287,34 @@ public class MemberController {
 	}
 	
 	
+	//홈시터예약 취소
+	@RequestMapping("/cancelHSR")
+	public String cancelHSR(int num) {
+		if(memberService.cancelHSR(num)) {
+			return null;
+		}
+		return null;
+	}
+
+	// 방문시터예약 취소
+	@RequestMapping("/cancelVSR")
+	public String cancelVSR(int num, Model m) {
+		if (memberService.cancelVSR(num)) {
+			m.addAttribute("msg", "예약이 취소되었습니다.");
+		} else {
+			m.addAttribute("msg", "취소 실패");
+		}
+		return "my&customer/myReservation_cus";
+	}
+
+	// 펫호텔예약 취소
+	@RequestMapping("/cancelPHR")
+	public String cancelPHR(int num) {
+		if (memberService.cancelPHR(num)) {
+			return null;
+		}
+		return null;
+	}
 	
 	@RequestMapping("/qna")
 	public String qnaForm() {
