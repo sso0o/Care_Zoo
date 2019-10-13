@@ -378,9 +378,9 @@ public class HomeSitterController {
 		HomeSitterList hsList = hslService.getHomeSitterByHsl_Num(hsl_num);
 		List<String> dateStrings  = hslService.getDisableDates(hsl_num);
 		List<String> files = hslService.getFileList(hsl_num);
-		List<HomeSitterComment> comment = hscService.getHomesitterComment(hsList.getHs_num());
+//		List<HomeSitterComment> comment = hscService.getHomesitterComment(hsList.getHs_num());
 		
-		System.out.println(comment);
+		System.out.println(hsList);
 		System.out.println("dateStrings"+dateStrings);
 		System.out.println("hsimg"+files);
 		
@@ -388,16 +388,16 @@ public class HomeSitterController {
 		model.addAttribute("hsimg", files);
 		model.addAttribute("disDates", dateStrings);
 		model.addAttribute("hsList", hsList);
-		model.addAttribute("comment", comment);
+//		model.addAttribute("comment", comment);
 		return "sitter/home/homeSitterView";
 	}
-//	@RequestMapping("/getComment")
-//	@ResponseBody
-//	public List<HomeSitterComment> getAllCommentByNum(int hs_num){
-//		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
-//		System.out.println("cc"+comment);		
-//		return comment;
-//	}
+	@RequestMapping("/getComment")
+	@ResponseBody
+	public List<HomeSitterComment> getAllCommentByNum(int hs_num){
+		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
+		System.out.println("cc"+comment);		
+		return comment;
+	}
 	@ResponseBody
 	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)
 	public Map<String, Object> getHsImg(int hs_num) {

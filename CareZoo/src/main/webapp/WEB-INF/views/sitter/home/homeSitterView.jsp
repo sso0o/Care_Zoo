@@ -260,25 +260,39 @@ $(function() {
 	
 	//후기 이미지 갖고 오기
 	$.ajax({
-			url:"${contextPath}/home/getHsImg",
-			data:{
-				hs_num : ${hsList.hs_num}
-			},
-			dataType: "JSON",
-			success: function(data) {
-				console.log(data)
-				if(data.filename != null){
-					$(".img-circle").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
-				} else {
-					$(".img-circle").attr("src","https://bootdey.com/img/Content/user_1.jpg")
-				}
-				
-			}, error: function() {
-				alert("error")
+		url:"${contextPath}/home/getComment",
+		data:{
+			hs_num : ${hsList.hs_num}
+		},
+		dataType: "JSON",
+		success: function(data) {
+			console.log(data)
+			if(data.filename != null){
+				$(".img-circle").attr("src","${contextPath}/home/image?fileName="+data.filename)
+			} else {
+				$(".img-circle").attr("src","https://bootdey.com/img/Content/user_1.jpg")
 			}
-		})
+			
+		}, error: function() {
+			alert("error")
+		}
+	})
 	
-	
+// 				<ul class="media-list">
+// 				<c:forEach items="${comment}" var="cmmt">
+// 					<li class="media"><a href="#" class="pull-left">
+// 						 <img class="img-circle"></a>
+// 						<div> </div>
+// 						<div class="media-body">
+// 							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
+// 							</span> <strong class="text-success">@${cmmt.c_name}</strong>
+// 							<p>
+// 								${cmmt.hsc_comment} <a href="#">#consecteturadipiscing </a>.
+// 							</p>
+// 						</div>
+// 					</li>
+// 				</c:forEach>
+// 			</ul>
 	
 // 	var unavailableDates = ${disDates};
 // -----------------------------------------
@@ -541,7 +555,7 @@ $(function() {
 <!-- 		여기다 내용을 작성하시면 됩니다 -->
 <div class="container">
 	<div  style="width: 750px; display: inline-block; float: left;">
-	<div>이미지 올리기</div>
+	<div><strong>${hsList.hsl_title}</strong></div>
 
 		<div class="demo">
 			<div class="item">
@@ -581,12 +595,14 @@ $(function() {
 			<li>제목 : <span>${hsList.hsl_title }</span></li>
 			<li>내용 : <br><span>${hsList.hsl_comment }</span></li>
 		</ul>
-		</fieldset>
+		</fieldset>		
+		<br><br>
+		
 		<div class="row bootstrap snippets">
 			<ul class="media-list">
 				<c:forEach items="${comment}" var="cmmt">
 					<li class="media"><a href="#" class="pull-left">
-						 <img alt="https://bootdey.com/img/Content/user_1.jpg" class="img-circle" src="${contextPath}/sitter/image?fileName=${filename}"></a>
+						 <img class="img-circle"></a>
 						<div> </div>
 						<div class="media-body">
 							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
