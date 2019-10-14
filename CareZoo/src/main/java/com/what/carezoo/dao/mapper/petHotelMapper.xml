@@ -93,10 +93,6 @@
 			<!-- '%' || #{ph.ph_pet_size} || '%' -->
 			<!-- </if> -->
 
-			<if test="ph.phr_chkin != null">
-				<if test="ph.phr_chkout != null">
-
-
 					and
 					ph.ph_num IN ( select phrm.ph_num
 					from pethotelroom phrm
@@ -118,24 +114,29 @@
 					phrm.phrm_num = phr.phrm_num
 					and
 					phrm.phrm_num = phrm2.phrm_num
+					<if test="ph.phr_chkin != null">
+				   <if test="ph.phr_chkout != null">
 					and (phr_chkin between #{ph.phr_chkin}
 					and #{ph.phr_chkout}
 					or (phrm2.phrm_num = phr.phrm_num and phr_chkout
 					between #{ph.phr_chkin}
 					and #{ph.phr_chkout}))
+					
+				</if>
+			</if>
+					
 					group by phrm.phrm_num)
 					<if test="ph.ph_pet_size != null">
 					or
-					phrm2.phrm_pet_size NOT like '%' || #{ph.ph_pet_size} || '%')
+					phrm2.phrm_pet_size NOT like '%' || #{ph.ph_pet_size} || '%'
 					</if>
-					<if test="ph.phr_chkin != null">
+					)
+					<if test="ph.ph_pet_size!= null">
 						and phrm.phrm_pet_size like '%' || #{ph.ph_pet_size} ||
 						'%'
 					</if>
 					)
 
-				</if>
-			</if>
 			<!-- <if test="ph.hsl_chkin != ''">erwerwerwerwerwerwer -->
 			<!-- AND hsl_chkin like '%' || #{hsl.hsl_chkin} || '%' -->
 			<!-- </if> -->
@@ -153,7 +154,7 @@
 <!-- 				</foreach> -->
 <!-- 			</if> -->
 			
-						<if test="ph.ph_address != null"> 
+				<if test="ph.ph_address != null"> 
 				and ph.ph_address in (select ph.ph_address from pethotel where
 				<foreach collection="list" item="item" separator="or">
 					ph.ph_address like ('%${item}%')
