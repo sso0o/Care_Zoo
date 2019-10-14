@@ -7,13 +7,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- 카카오 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-
+<!-- 카카오 -->
+ <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
 	function logoutCheck() {
 		if (confirm("정말 로그아웃?") == true) {
@@ -32,6 +37,44 @@
     window.open("${contextPath}/member/searchEmail", "아이디 찾기", 
     		"width=600, height=200, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 }  
+	
+	//kakaologin
+		// 사용할 앱의 JavaScript 키를 설정해 주세요.
+// 		Kakao.init('d21dc2e8ec81b89ed57723a54ff54450');
+// 		// 카카오 로그인 버튼을 생성합니다.
+// 		Kakao.Auth.createLoginButton({
+// 			container : '#kakao-login-btn',
+// 			success : function(authObj) {
+// 				alert(JSON.stringify(authObj));
+// 				postLogin(authObj);
+// 			},
+// 			fail : function(err) {
+// 				alert(JSON.stringify(err));
+// 			}
+// 		});
+		
+		  //<![CDATA[
+	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('d21dc2e8ec81b89ed57723a54ff54450');
+	
+    function loginWithKakao() {
+	      // 로그인 창을 띄웁니다.
+	      Kakao.Auth.login({
+	        success: function(authObj) {
+	        	console.log("성공"); 	
+	          alert(JSON.stringify(authObj));
+	          
+	          location.href = "${contextPath}/member/joinForm";
+	        },
+	        fail: function(err) {
+	        	console.log("오류");
+	          alert(JSON.stringify(err));
+	        }
+	      });
+	    };
+	  //]]>
+
+
 </script>
 <style type="text/css">
 
@@ -46,7 +89,7 @@
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
+  width: 600px;
  padding: 20px;
   top: 50%;
   left: 50%;
@@ -61,19 +104,20 @@
   font-size: 14px;
   padding: 10px;
   margin-bottom: 10px;
-  margin-left: auto;
+  margin-left: -15px; 
   margin-right: auto;
   text-align:center;
 }
 .btn-login,
 .btn-join{
   border: none;
-  width: 150%;
+  width: 90%;
   background-color: #1BBC9B;
   border-radius: 5px;
   font-size: 14px;
   padding: 10px;
   margin-bottom: 30px;
+  margin-left: 40px; 
   color: white;
 }
 .links {
@@ -83,7 +127,16 @@
  .links a {
   font-size: 12px;
   color: #9B9B9B;
+  margin-left: -15%
  } 
+ #kakaoBtn{
+   margin-left: 18%;
+   width:90%
+ } 
+table{
+	margin-left: 23%
+}
+
 </style>
 <title>serviceCenter</title>
 <!-- 고객센터 -->
@@ -137,10 +190,11 @@
 		<div class="login-form">
 		<form action="${contextPath }/login" method="post">
 			<%-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
-			<fieldset>
+			<fieldset id="center">
 				<legend><img src="${contextPath}/resources/img/loginDog.png"></legend>
+				
 				<table >
-					<tr>
+					<tr id ="choose">
 						<td>
 							<input type="radio" name="user" value="customer" checked="checked">
 							고객
@@ -174,10 +228,23 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<input type="submit" value="로그인" class="btn btn-login">
-							<input type="button" onclick="location.href='${contextPath}/member/joinForm'" value="회원가입" class="btn btn-join">
+							<a id ="kakao-login-btn"
+							            href="javascript:loginWithKakao()">
+									<img src="${contextPath}/resources/img/kakaoButton.png"
+									 id="kakaoBtn">
+									  
+							</a>
 						</td>
 					</tr>
+					<tr>
+
+							<td colspan="3">
+	
+							<input type="submit" value="로그인"
+								class="btn btn-login"> <input type="button"
+								onclick="location.href='${contextPath}/member/joinForm'"
+								value="회원가입" class="btn btn-join"> </td>
+					</tr>	
 					<tr>
 						<td colspan="3">
 							<div class="links"><a href="#" onclick="openWin()">비밀번호를 잊어버리셨나요?</a></div>
@@ -185,6 +252,7 @@
 						</td>
 					</tr>
 				</table>
+
 			</fieldset>
 		</form>
 
