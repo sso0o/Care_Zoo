@@ -190,9 +190,9 @@ height:45px;
 <body>
 	    <div class="container">
         <header>
-            <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
             <br>
-            <div class="header_Btn"> <a class="btn_Login" href="${contextPath}/member/login">로그인</a> <a class="btn_Join" href="${contextPath}/member/join">회원가입</a> </div>
+            <div class="header_Btn"> <a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a> </div>
         </header>
     </div>
     <nav>
