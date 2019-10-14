@@ -13,7 +13,7 @@
 <!-- link for navBar -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"><!-- 부트스트랩 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"><!-- 부트스트랩 -->
 <link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
 <!-- 슬라이드 -->
 <!-- *필수요소*제이쿼리 -->
@@ -33,7 +33,8 @@
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script><!-- datePicker -->
 <script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js" type="text/javascript" ></script><!-- multidatePicker -->
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 코멘트 -->
 <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 코멘트 -->
 <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 코멘트 -->
@@ -259,24 +260,24 @@ $(function() {
 	});
 	
 	//후기 이미지 갖고 오기
-	$.ajax({
-		url:"${contextPath}/home/getComment",
-		data:{
-			hs_num : ${hsList.hs_num}
-		},
-		dataType: "JSON",
-		success: function(data) {
-			console.log(data)
-			if(data.filename != null){
-				$(".img-circle").attr("src","${contextPath}/home/image?fileName="+data.filename)
-			} else {
-				$(".img-circle").attr("src","https://bootdey.com/img/Content/user_1.jpg")
-			}
+// 	$.ajax({
+// 		url:"${contextPath}/home/getComment",
+// 		data:{
+// 			hs_num : ${hsList.hs_num}
+// 		},
+// 		dataType: "JSON",
+// 		success: function(data) {
+// 			console.log(data)
+// 			if(data.filename != null){
+// 				$(".img-circle").attr("src","${contextPath}/home/image?fileName="+data.filename)
+// 			} else {
+// 				$(".img-circle").attr("src","https://bootdey.com/img/Content/user_1.jpg")
+// 			}
 			
-		}, error: function() {
-			alert("error")
-		}
-	})
+// 		}, error: function() {
+// 			alert("error")
+// 		}
+// 	})
 	
 // 				<ul class="media-list">
 // 				<c:forEach items="${comment}" var="cmmt">
@@ -601,14 +602,23 @@ $(function() {
 		<div class="row bootstrap snippets">
 			<ul class="media-list">
 				<c:forEach items="${comment}" var="cmmt">
-					<li class="media"><a href="#" class="pull-left">
-						 <img class="img-circle"></a>
-						<div> </div>
+					<li class="media">
+						<a href="#" class="pull-left">						 
+						<c:choose>
+							<c:when test="${cmmt.c_filename eq null}">
+								<img src="https://bootdey.com/img/Content/user_1.jpg" class="img-circle">
+							</c:when>
+							<c:otherwise>
+								<img src="${contextPath }/home/image?fileName=${cmmt.c_filename }" class="img-circle">
+							</c:otherwise>
+						</c:choose>
+						</a>
+						<div></div>
 						<div class="media-body">
 							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
-							</span> <strong class="text-success">@${cmmt.c_name}</strong>
+							</span> <strong class="text-success">${cmmt.c_name}</strong>
 							<p>
-								${cmmt.hsc_comment} <a href="#">#consecteturadipiscing </a>.
+								${cmmt.hsc_comment}
 							</p>
 						</div>
 					</li>
@@ -657,32 +667,30 @@ $(function() {
 					<input type="hidden" name="hsr_priceperday" id="hsr_priceperday">
 					<input type="hidden" name="hsr_pricePerDays" class="pricePerDays">
 					<input type="hidden" id="days" name="hsr_duringdays" value="0">
-					<input type="text" name="hsr_days" id="Days"><!-- 이거 확인하기(삭제해도 괜찮은지....)-->
+					<input type="hidden" name="hsr_days" id="Days"><!-- 이거 확인하기(삭제해도 괜찮은지....)-->
 				</form>
 			</fieldset>
 		</div>
 		<div>
 			<div >캘린더 미리보기</div>
 			<div id="calendar"></div>
-			**************달력 그리기**********
-
 		</div>
-		<div>
-			<ul>
-				<li><img alt="" src="">홈시터 이미지</li>
-				<li>홈시터 별점</li>
-				<li>홈시터 이름</li>
-				<li>홈시터 주소</li>
-				<li><button onclick="">예약요청하기</button></li>
-			</ul>
-		</div>
+<!-- 		<div id="sideInfo" style='position: fixed; right:0; top:50%;'> -->
+<!-- 			<ul> -->
+<!-- 				<li><img alt="" src="">홈시터 이미지</li> -->
+<%-- 				<li>${hsList.hs_name}</li> --%>
+<%-- 				<li>${hsList.hsl_address}${hsList.hsl_d_address }</li> --%>
+<%-- 				<li>${hsList.hs_avgStar}</li> --%>
+<!-- 				<li><button onclick="">예약요청하기</button></li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
 	</div>
 </div>	
 
 	
-<br><br>
-<footer>
-	<div>durlsms footer</div>
-</footer>
+<!-- <br><br> -->
+<!-- <footer> -->
+<!-- 	<div>durlsms footer</div> -->
+<!-- </footer> -->
 </body>
 </html>

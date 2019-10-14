@@ -378,37 +378,37 @@ public class HomeSitterController {
 		HomeSitterList hsList = hslService.getHomeSitterByHsl_Num(hsl_num);
 		List<String> dateStrings  = hslService.getDisableDates(hsl_num);
 		List<String> files = hslService.getFileList(hsl_num);
-//		List<HomeSitterComment> comment = hscService.getHomesitterComment(hsList.getHs_num());
+		List<HomeSitterComment> comment = hscService.getHomesitterComment(hsList.getHs_num());
 		
 		System.out.println(hsList);
 		System.out.println("dateStrings"+dateStrings);
 		System.out.println("hsimg"+files);
-		
+		System.out.println(comment);
 		
 		model.addAttribute("hsimg", files);
 		model.addAttribute("disDates", dateStrings);
 		model.addAttribute("hsList", hsList);
-//		model.addAttribute("comment", comment);
+		model.addAttribute("comment", comment);
 		return "sitter/home/homeSitterView";
 	}
-	@RequestMapping("/getComment")
-	@ResponseBody
-	public List<HomeSitterComment> getAllCommentByNum(int hs_num){
-		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
-		System.out.println("cc"+comment);		
-		return comment;
-	}
-	@ResponseBody
-	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)
-	public Map<String, Object> getHsImg(int hs_num) {
-		System.out.println("hs넘어오나");
-		System.out.println(hs_num);
-		Map<String, Object> rst = new HashMap<String, Object>();
-		String filename = hsService.getImage(hs_num);
-		rst.put("filename", filename);
-		System.out.println("rst : "+rst);
-		return rst;
-	}
+//	@RequestMapping("/getComment")
+//	@ResponseBody
+//	public List<HomeSitterComment> getAllCommentByNum(int hs_num){
+//		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
+//		System.out.println("cc"+comment);		
+//		return comment;
+//	}
+//	@ResponseBody
+//	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)3
+//	public Map<String, Object> getHsImg(int hs_num) {
+//		System.out.println("hs넘어오나");
+//		System.out.println(hs_num);
+//		Map<String, Object> rst = new HashMap<String, Object>();
+//		String filename = hsService.getImage(hs_num);
+//		rst.put("filename", filename);
+//		System.out.println("rst : "+rst);
+//		return rst;
+//	}
 
 	
 	
