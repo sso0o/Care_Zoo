@@ -45,4 +45,16 @@
 		on ph.ph_num=s.ph_num;
 		
 	</select>
+	
+	<select id="getPHCbyph_num" parameterType="int" resultType="map">
+		select phc.*, c.c_filename, c.c_name
+		from pethotelcomment phc,
+			(select c.c_num, c.c_name, ci.c_filename
+			from customer c,
+			customer_image ci
+			where c.c_num = ci.c_num(+)) c
+		where ph_num = #{ph_num}
+		and phc.c_num = c.c_num(+)
+		order by phc_write_date desc
+	</select>
 </mapper>

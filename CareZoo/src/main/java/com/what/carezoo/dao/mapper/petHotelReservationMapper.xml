@@ -60,19 +60,12 @@
 	</select>
 	
 	<select id="getPHRInfo" parameterType="int" resultType="map">
-	select p.p_name, phrt.*, star.star
-	from pet p,
-		(select phr.*, ph.ph_address, ph.ph_d_address, ph.ph_contact, ph.ph_name
+		select ph.ph_name,  phr.*
 		from pethotel ph,
-			(select *
-			from pethotelreservation
-			where c_num = #{503}) phr
-		where phr.ph_num = ph.ph_num) phrt,
-		(select ph_num, round(avg(phc_star),1)as star
-		from pethotelcomment
-		group by ph_num) star
-	where phrt.p_num = p.p_num
-	and phrt.ph_num = star.ph_num
+		(select *
+		from pethotelreservation
+		where c_num = #{c_num}) phr
+		where phr.ph_num = ph.ph_num
 	</select>
 	
 	<select id="countC_num" parameterType="int" resultType="int">

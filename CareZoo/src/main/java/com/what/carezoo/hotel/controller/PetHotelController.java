@@ -288,7 +288,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		model.addAttribute("petHotel", petHotel);
 		model.addAttribute("petHotelRoomList", petHotelRoomList);
 		model.addAttribute("filesName", filesName);
-		model.addAttribute("phComment", phService.selectByPh_num(ph_num));
+		model.addAttribute("phComment", phService.getPHCbyph_num(ph_num));
 
 		return "hotel/petHotelView";
 	}
