@@ -9,6 +9,14 @@
 		values(#{c_num},#{c_name},#{c_email},#{c_pass},#{c_address},#{c_d_address},#{c_sex},#{c_birth},#{c_contact})
 	</insert>
 	
+	<insert id="insertCustomer2" parameterType="customer"> <!-- kakao 가입 -->
+		<selectKey order="BEFORE" keyProperty="c_num" resultType="int">
+			select customer_seq.nextval from dual
+		</selectKey>
+		insert into customer(c_num,c_name,c_email,c_pass,c_address,c_d_address,c_sex,c_birth,c_contact,c_email_key,c_id)
+		values(#{c_num},#{c_name},#{c_email},#{c_pass},#{c_address},#{c_d_address},#{c_sex},#{c_birth},#{c_contact},'Y',#{c_id})
+	</insert>
+	
 	<update id="updateCustomer" parameterType="customer">
 		update customer 
 			set c_contact = #{c_contact},
@@ -134,4 +142,8 @@
 	<delete id="cancelPHR" parameterType="int">
 		delete from pethotelReservation where phr_num = #{phr_num}
 	</delete>
+	
+	<select id="findC_id" parameterType="string" resultType="int">
+		select count(*) from customer where c_id = #{c_id}
+	</select>
 </mapper>

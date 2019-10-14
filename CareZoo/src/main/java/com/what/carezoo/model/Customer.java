@@ -16,6 +16,15 @@ public class Customer {
 	private String c_birth;
 	private String c_contact;
 	private String c_email_key;
+	private String c_id;
+	
+	
+	public String getC_id() {
+		return c_id;
+	}
+	public void setC_id(String c_id) {
+		this.c_id = c_id;
+	}
 	public int getC_num() {
 		return c_num;
 	}
@@ -80,7 +89,7 @@ public class Customer {
 	public String toString() {
 		return "Customer [c_num=" + c_num + ", c_name=" + c_name + ", c_email=" + c_email + ", c_pass=" + c_pass
 				+ ", c_address=" + c_address + ", c_d_address=" + c_d_address + ", c_sex=" + c_sex + ", c_birth="
-				+ c_birth + ", c_contact=" + c_contact + ", c_email_key=" + c_email_key + "]";
+				+ c_birth + ", c_contact=" + c_contact + ", c_email_key=" + c_email_key + ", c_id=" + c_id + "]";
 	}
 	
 }
