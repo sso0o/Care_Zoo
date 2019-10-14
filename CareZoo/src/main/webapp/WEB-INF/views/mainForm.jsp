@@ -45,18 +45,13 @@
                 </li>
                 <li class='active sub'><a href='#'>HOTEL</a>
                     <ul>
-                        <li class='last'><a href='#'>애견동반호텔</a></li>
-                        <li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
-                    </ul>
-                </li>
-                <li class='active sub'><a href='#'>REVIEW</a>
-                    <ul>
+                        <li class='last'><a href='#'>펫호텔</a></li>
+
                         <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-                        <li class='last'><a href='#'>시터</a></li>
-                        <li class='last'><a href='#'>호텔</a></li>
+
                     </ul>
                 </li>
-                <li class='last'><a href='#' style="font-size: 17px">MTPAGE</a></li>
+                <li class='last'><a href='#' style="font-size: 17px">MYPAGE</a></li>
                 <li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
             </ul>
         </div>
