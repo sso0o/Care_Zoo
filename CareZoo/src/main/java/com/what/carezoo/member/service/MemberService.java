@@ -69,6 +69,14 @@ public class MemberService {
 		}
 		return false;
 	}
+	//kakao 가입
+	public boolean joinMember2(Customer customer) {
+		int rst = memberDao.insertCustomer2(customer);
+		if(rst>0) {
+			return true;
+		}
+		return false;
+	}
 	
 	public List<Customer> selectAll(){
 		return memberDao.selectAll();
@@ -187,6 +195,10 @@ public class MemberService {
 			return true;
 		}
 		return false;
+	}
+	
+	public int findC_id(String c_id) {
+		return memberDao.findC_id(c_id);
 	}
 
 }

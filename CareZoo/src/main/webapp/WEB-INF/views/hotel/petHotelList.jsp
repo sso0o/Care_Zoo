@@ -434,7 +434,7 @@ height:45px;
 
 									var petHotelDiv = $('<div class="petHotel" onclick="location.href=\'${contextPath}/petHotel/petHotelView?ph_num='
 											+ phList[i].ph_num
-											+ '\'\"style="border: 1px solid; margin: 50px; height: 355px;">');
+											+ '\'\"style="border: 1px solid; margin: 50px; height: 352px;">');
 									//				asdasd	var petHotelDiv = $('<div class="petHotel" style="border: 1px solid; margin: 50px; height: 350px;">');
 									var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
 									petHotelDiv.append(petHotelDiv2);
@@ -484,26 +484,45 @@ height:45px;
 										}
 									});
 
-									var aArDiv = $('<div style="">');
-									$('<span>').text(phList[i].ph_name)
+									var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
+									$('<span style="font-size:25px;">').text(phList[i].ph_name)
 											.appendTo(aArDiv);
-									$('<div>' + phList[i].ph_address
+									$('<hr><br><div style="font-size:20px">' + phList[i].ph_address
 													+ phList[i].ph_d_address
 													+ '</div>').appendTo(aArDiv);
-									var minAndMaxPrice = $('<div>');
-									$('<span>').text(phList[i].ph_minPrice*1)
+									var minAndMaxPrice = $('<div style="font-size:22px;position:relative;top:90px">');
+									$('<span>').text(phList[i].ph_minPrice*1+"원 ~ ")
 									.appendTo(minAndMaxPrice);
-									$('<span>').text(phList[i].ph_maxPrice*1)
+									$('<span>').text(phList[i].ph_maxPrice*1+"원")
 									.appendTo(minAndMaxPrice);
 									console.log("minPrice: "+phList[i].ph_minPrice*1);
 									console.log("maxPrice: "+phList[i].ph_maxPrice*1);
 									minAndMaxPrice.appendTo(aArDiv);
-									var reviewDiv = $('<div>');
+									$('<br><hr>').appendTo(aArDiv);
+									var reviewDiv = $('<div style="font-size:21px;position:relative;left:420px;top:2px">');
 									$('<span>').text(
-											'후기: ' + phList[i].ph_c_count
+											'고객후기  ' + phList[i].ph_c_count
 													+ '개 '
 													+ phList[i].ph_avgStar)
 											.appendTo(reviewDiv);
+									
+
+// 									<span id="starRev" class="starRev"> 
+// 										<span class="starR1" id="ph_star1" title="0.5">별1_왼쪽</span> 
+// 										<span class="starR2" id="ph_star2" title="1">별1_오른쪽</span> 
+// 										<span class="starR1" id="ph_star3" title="1.5">별2_왼쪽</span> 
+// 										<span class="starR2" id="ph_star4" title="2">별2_오른쪽</span> 
+// 										<span class="starR1" id="ph_star5" title="2.5">별3_왼쪽</span> 
+// 										<span class="starR2" id="ph_star6" title="3">별3_오른쪽</span> 
+// 										<span class="starR1" id="ph_star7" title="3.5">별4_왼쪽</span> 
+// 										<span class="starR2" id="ph_star8" title="4">별4_오른쪽</span> 
+// 										<span class="starR1" id="ph_star9" title="4.5">별5_왼쪽</span> 
+// 										<span class="starR2" id="ph_star10" title="5">별5_오른쪽</span>
+// 									</span>
+
+									
+									
+									
 									reviewDiv.appendTo(aArDiv);
 									aArDiv.appendTo(petHotelDiv);
 									$('.petHotelList').append(petHotelDiv);
@@ -691,7 +710,17 @@ height:45px;
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
             <br>
-            <div class="header_Btn"> <a class="btn_Login" href="${contextPath}/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a> </div>
+			<div class="header_Btn" id="sessioncheck">
+				<sec:authorize access="isAnonymous()">
+					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+				</sec:authorize>
+			</div>
         </header>
     </div>
     <nav>
@@ -867,9 +896,9 @@ height:45px;
 									for="state44">오산시</label> <input
 									type="checkbox" name="ph_address" id="state45" value="용인시">
 									<label
-									for="state45">용인시</label>
+									for="state45">용인시</label><br>
 									<input type="checkbox" name="ph_address" id="state46"
-									value="의왕시"><br>
+									value="의왕시">
 									<label
 									for="state46">의왕시</label> <input type="checkbox"
 									name="ph_address" id="state47" value="의정부시">

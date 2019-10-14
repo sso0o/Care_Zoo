@@ -24,7 +24,17 @@
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
             <br>
-            <div class="header_Btn"> <a class="btn_Login" href="${contextPath}/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a> </div>
+			<div class="header_Btn" id="sessioncheck">
+				<sec:authorize access="isAnonymous()">
+					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+				</sec:authorize>
+			</div>
         </header>
     </div>
     <nav>
