@@ -128,27 +128,10 @@ public class MemberController {
 		return "joinForm_visitSitter";
 	}
 	
-	//방문시터 회원가입(kakao)
-	@RequestMapping("/joinVisit2")
-	public String joinFormVisit2(String email,String name,Model model) {
-		System.out.println("email: "+email+" name: "+name);
-		model.addAttribute("email", email);
-		model.addAttribute("name", name);
-		return "joinForm_visitSitter";
-	}
 	
-	//회원가입
-//	@RequestMapping(value="/join", method=RequestMethod.POST)
-//	public String join(Customer customer, Model m) {
-//			//회원가입 메서드
-//		boolean rst = memberService.joinMember(customer);
-//		if(rst) {
-//			m.addAttribute("msg", "회원가입이 완료되었습니다! 로그인을 해 주세요:)");
-//			return "main";
-//		} else {
-//			return "joinForm";
-//		}
-//	}
+
+	
+	
 	//이메일 인증 보내기 메서드
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(Customer customer, Model m,HttpServletRequest request) {
@@ -584,5 +567,17 @@ public class MemberController {
 		System.out.println(url);
 		m.addAttribute("url", url);
 		return "result";
+	}
+	
+	//회원가입(kakao)
+	@RequestMapping(value="/join2", method=RequestMethod.POST)
+	public String join2(Customer customer, Model m,HttpServletRequest request) {
+		//회원가입 메서드
+		boolean result = memberService.joinMember2(customer);
+		if(result) {					
+			m.addAttribute("c_name", customer.getC_name());
+			return "mainLogin";
+		} 
+		return "joinForm";
 	}
 }

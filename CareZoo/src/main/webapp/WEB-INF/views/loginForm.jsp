@@ -88,7 +88,7 @@
 						//alert(JSON.stringify(authObj)); //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
 						console.log(res);
 						console.log(res.id);//<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
-
+						var id = res.id;		
 						console.log(res.kaccount_email);//<---- 콘솔 로그에 email 정보 출력 (어딨는지 알겠죠?)
 						var email = res.kaccount_email;
 						console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
@@ -98,7 +98,7 @@
 						console.log(authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
 						
 			         	 alert("카카오 로그인 성공");
-						 location.href = "${contextPath}/kakao/login?email="+encodeURI(email)+"&name="+encodeURI(name);
+						 location.href = "${contextPath}/kakao/login?email="+encodeURI(email)+"&name="+encodeURI(name)+"&id="+encodeURI(id);
 					}
 
 				})

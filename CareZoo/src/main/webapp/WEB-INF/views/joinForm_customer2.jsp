@@ -142,10 +142,9 @@ function checkValue() {
 var index = 1;
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
 $(function() {
-	$("#email").change(function() {
-		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		var c_email = $("#email").val();
-		if(regExp.test(c_email)){
+	var c_email = $("#email").val();
+	console.log(c_email);
+		if(c_email){
 			$.ajax({
 	            async: true,
 	            type : 'POST',
@@ -176,7 +175,7 @@ $(function() {
         	$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
 		}
 		
-	}); //email체크함수
+ //email체크함수
 	
 	$("#pw2").change(function() {
 		var pw = $("#pw").val(); 
@@ -324,12 +323,13 @@ legend{
 	<div class="content">
 		<h2>회원가입</h2>
 		<hr>
-		<form action="${contextPath }/member/join" method="post" name="userInfo" onsubmit="return checkValue()">
+		<form action="${contextPath }/member/join2" method="post" name="userInfo" onsubmit="return checkValue()">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<div class="main">
 				<div class="form-group">
 					<label for="c_email">아이디</label>
-					<input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요" name="c_email" value="${email}">
+					<input type="text" value="${id}" name="c_id">
+					<input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요" name="c_email" value="${email}" readonly="readonly">
 					<span id="idchk_val"></span>
 				</div>
 				<div class="form-group">
@@ -344,7 +344,7 @@ legend{
 				</div>
 				<div class="form-group">
 					<label for="c_name">이름</label>
-					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="c_name">
+					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="c_name" value="${name}" readonly="readonly">
 				</div>
 				<div class="form-group">
 					<label for="c_birth">생년월일</label>
