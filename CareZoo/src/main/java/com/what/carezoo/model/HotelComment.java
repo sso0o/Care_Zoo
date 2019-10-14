@@ -11,12 +11,7 @@ public class HotelComment {
 	private double hc_star;
 	private Date hc_write_date;
 	private String hc_fileName;
-	public String getHc_fileName() {
-		return hc_fileName;
-	}
-	public void setHc_fileName(String hc_fileName) {
-		this.hc_fileName = hc_fileName;
-	}
+	private String c_filename;
 	public int getHc_num() {
 		return hc_num;
 	}
@@ -59,7 +54,23 @@ public class HotelComment {
 	public void setHc_write_date(Date hc_write_date) {
 		this.hc_write_date = hc_write_date;
 	}
-
-
+	public String getHc_fileName() {
+		return hc_fileName;
+	}
+	public void setHc_fileName(String hc_fileName) {
+		this.hc_fileName = hc_fileName;
+	}
+	public String getC_filename() {
+		return c_filename;
+	}
+	public void setC_filename(String c_filename) {
+		this.c_filename = c_filename;
+	}
+	@Override
+	public String toString() {
+		return "HotelComment [hc_num=" + hc_num + ", hr_num=" + hr_num + ", h_num=" + h_num + ", c_num=" + c_num
+				+ ", hc_comment=" + hc_comment + ", hc_star=" + hc_star + ", hc_write_date=" + hc_write_date
+				+ ", hc_fileName=" + hc_fileName + ", c_filename=" + c_filename + "]";
+	}
 	
 }

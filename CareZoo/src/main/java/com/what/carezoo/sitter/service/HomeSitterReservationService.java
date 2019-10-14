@@ -70,4 +70,8 @@ public class HomeSitterReservationService {
 		}
 		return false;
 	}
+	
+	public int countC_num(int c_num) {
+		return hsrDao.countC_num(c_num);
+	}
 }

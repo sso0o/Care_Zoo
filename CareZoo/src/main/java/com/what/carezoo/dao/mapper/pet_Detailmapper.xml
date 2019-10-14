@@ -63,6 +63,13 @@
 	where vsr.c_num = c.c_num
 	order by b desc
 </select>
+
+	<select id="countPetByC_num" parameterType="int" resultType="int">
+      select count(*)
+      from pet_detail
+      where c_num=#{c_num}
+
+   </select>
 <!-- 	<insert id="insertPet_DetailDao" parameterType="pet_detail"> -->
 <!-- 		<selectKey order="BEFORE" keyProperty="pd_num" -->
 <!-- 			resultType="int"> -->

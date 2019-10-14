@@ -355,6 +355,7 @@
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
 						<li><a href="${contextPath}/member/myPet?user_num=<%=session.getAttribute("user_num")%>">펫 정보</a></li>
 						<li><a href="${contextPath}/member/myReservation">예약상황 보기</a></li>
+						<li><a href="${contextPath}/member/goodByeCheckUser">회원탈퇴</a></li>
 					</ul>
 				</div>
 			</div>

@@ -88,6 +88,10 @@ public class PetService {
 		return false;
 	}
 	
+	public int countPetByC_num(int c_num) {
+		return petDao.countPetByC_num(c_num);
+	}
+	
 	public Pet selectPet(int p_num) {
 		return petDao.selectPet(p_num);
 	}
