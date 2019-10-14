@@ -195,6 +195,7 @@
 					console.log(data)	
 					if(d>endday){
 						$(".cancel").hide();
+						$(".payment").hide();
 					} else{
 						$(".review").hide();
 					}

@@ -181,6 +181,10 @@ public class PetHotelService {
 	public List<PetHotelComment> selectByPh_num(int ph_num) {
 		return petHotelComDao.selectByPh_num(ph_num);
 	}
+	
+	public List<Map<String, Object>> getPHCbyph_num(int ph_num){
+		return petHotelComDao.getPHCbyph_num(ph_num);
+	}
 
 	public List<PetHotelComment> selectAll() {
 		return petHotelComDao.selectAll();

@@ -1,6 +1,7 @@
 package com.what.carezoo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.what.carezoo.model.PetHotelComment;
 
@@ -13,6 +14,8 @@ public interface PetHotelCommentDao {
 	public List<PetHotelComment> selectByPh_num(int ph_num);
 	public List<PetHotelComment> selectAll();
 	public double ph_star(int ph_num);
+	
+	public List<Map<String, Object>> getPHCbyph_num(int ph_num);
 	
 	
 }
