@@ -188,7 +188,7 @@ height:45px;
 </head>
 
 <body>
- <div class="container">
+	    <div class="container">
         <header>
             <a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
             <br>
@@ -198,9 +198,9 @@ height:45px;
     <nav>
         <div class='menu'>
             <ul style="">
-                <li class='active sub'><a href='#'>SITTER</a>
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
                     <ul>
-                        <li class='last'><a href='#'>가정펫시터</a>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
                             <!-- 
                      <ul>
                         <li><a href='#'>HTML Basic</a></li>
@@ -211,15 +211,16 @@ height:45px;
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
-                <li class='active sub'><a href='#'>HOTEL</a>
+                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
                     <ul>
-                        <li class='last'><a href='#'>펫호텔</a></li>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
 
                         <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
                     </ul>
                 </li>
-                <li class='last'><a href='#' style="font-size: 17px">MYPAGE</a></li>
-                <li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
+                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
             </ul>
         </div>
     </nav>
