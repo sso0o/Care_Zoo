@@ -128,6 +128,15 @@ public class MemberController {
 		return "joinForm_visitSitter";
 	}
 	
+	//방문시터 회원가입(kakao)
+	@RequestMapping("/joinVisit2")
+	public String joinFormVisit2(String email,String name,Model model) {
+		System.out.println("email: "+email+" name: "+name);
+		model.addAttribute("email", email);
+		model.addAttribute("name", name);
+		return "joinForm_visitSitter";
+	}
+	
 	//회원가입
 //	@RequestMapping(value="/join", method=RequestMethod.POST)
 //	public String join(Customer customer, Model m) {
