@@ -34,6 +34,7 @@ import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.PetHotelRoom;
 import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.sitter.service.SitterService;
 
@@ -244,7 +245,7 @@ public class AdminController {
 
 	// 펫호텔 추가
 	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
-	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest){
+	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest, PetHotelRoom phrm){
         List<MultipartFile> files = mtfRequest.getFiles("file");
 //        String src = mtfRequest.getParameter("src");
 //        System.out.println("src value : " + src);
@@ -257,6 +258,7 @@ public class AdminController {
 //            System.out.println("fileSize : " + fileSize);
 //        }
 		boolean rst = phService.addPetHotel(ph,files);
+		boolean add_phrm = phService.
 		if (rst) {
 			return "redirect:/admin/main";
 		} else {

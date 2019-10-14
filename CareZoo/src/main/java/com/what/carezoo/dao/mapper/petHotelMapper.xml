@@ -11,11 +11,12 @@
 				보드에 있는 num에 집어넣는다 -->
 		</selectKey>
 		insert
-		into pethotel (ph_num, ph_p_count, ph_price, ph_name,
+		into pethotel (ph_num, ph_contact, ph_name,ph_email,
 		ph_address,
 		ph_d_address)
-		values (#{ph_num}, #{ph_p_count}, 0 ,
+		values (#{ph_num}, #{ph_contact}, 
 		#{ph_name},
+		#{ph_email},
 		#{ph_address}, #{ph_d_address} )
 	</insert>
 
