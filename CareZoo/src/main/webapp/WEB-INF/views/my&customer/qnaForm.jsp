@@ -63,6 +63,21 @@ function logoutCheck() {
   font-weight: bold;
   padding: 1em;
 }
+.menu ul ul li a {
+	align-content: center;
+	width: 127px;
+	border-bottom: 1px solid #eeeeee;
+	padding: 10px 20px;
+	font-size: 15px;
+	color: #9ea2a5;
+	background: #ffffff;
+	-webkit-transition: all .35s ease;
+	-moz-transition: all .35s ease;
+	-ms-transition: all .35s ease;
+	-o-transition: all .35s ease;
+	transition: all .35s ease;
+}
+
 </style>
 
 <title>qna</title>
