@@ -33,6 +33,7 @@ public interface MemberDao {
 
 	//메인에 리뷰가져오기
 	public List<Map<String, Object>> getMainSitterReview();
+	public List<Map<String, Object>> getMainPethotelReview();
 	
 	
 	//마이페이지 예약정보에 모달정보

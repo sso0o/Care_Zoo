@@ -425,7 +425,7 @@
 					}
 				});
 			
-	console.log("${phComment}");
+	
 	
 	
 	});
@@ -938,7 +938,7 @@ height:45px;
 <body>
 	<div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="${contextPath }"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -1016,7 +1016,7 @@ height:45px;
 					<div class="media border p-3" style="margin: 3px auto;">
 					<c:choose>
 						<c:when test="${phc.C_FILENAME eq null}">
-							<img src="${contextPath}/resources/img/dog.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+							<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
 						</c:when>
 						<c:otherwise>
 							<img src="${contextPath }/comment/image?fileName=${phc.C_FILENAME}" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">

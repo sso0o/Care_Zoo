@@ -418,9 +418,17 @@ public class MemberController {
 	@RequestMapping("/getMainSitterReview")
 	@ResponseBody
 	public Map<String, Object> getMainSitterReview() {
-		System.out.println("durl dhsld");
 		Map<String, Object> rst = new HashMap<String, Object>();
 		rst.put("sitterR", memberService.getMainSitterReview());		
+		return rst;
+	}
+	
+	//메인에 호텔리뷰 가져오기
+	@RequestMapping("/getMainPethotelReview")
+	@ResponseBody
+	public Map<String, Object> getMainPethotelReview() {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("pethotelR", memberService.getMainPethotelReview());
 		return rst;
 	}
 

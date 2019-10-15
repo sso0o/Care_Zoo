@@ -110,6 +110,10 @@ public class MemberService {
 		return memberDao.getMainSitterReview();
 	}
 	
+	public List<Map<String, Object>> getMainPethotelReview(){
+		return memberDao.getMainPethotelReview();
+	}
+	
 	
 	
 	
