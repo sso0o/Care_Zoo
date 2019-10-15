@@ -20,6 +20,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script type="text/javascript">
 function logoutCheck() {
 	if (confirm("정말 로그아웃?") == true) {
@@ -28,6 +32,19 @@ function logoutCheck() {
 		return false;
 	}
 }
+$(function(){
+	//----카카오 1:1상담
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+	// 플러스친구 1:1채팅 버튼을 생성합니다.
+	Kakao.PlusFriend.createChatButton({
+	  container: '#plusfriend-chat-button',
+	  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+	});
+	//]]>
+	//----카카오 1:1상담	
+})
 
 //기본적으로 세션에 저장된 정보
 var user_numtype = "<%=session.getAttribute("user_numtype")%>"
@@ -92,7 +109,19 @@ h3{
 	width: 250px;
 	display: inline-block;
 }
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
 
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 
 </style>
 <title>비밀번호 확인</title>
@@ -155,5 +184,6 @@ h3{
 			</form>
 		</fieldset>
 	</div>
+	<div class="bottom-left alert" id="plusfriend-chat-button">
 </body>
 </html>

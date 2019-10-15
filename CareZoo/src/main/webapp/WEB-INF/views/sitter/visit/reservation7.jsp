@@ -15,6 +15,11 @@
 
 <!--     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> -->
     <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+    
+    <!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 function logoutCheck() {
@@ -26,7 +31,17 @@ function logoutCheck() {
 }
 
 $(function() { //문서가 로딩되면 실행할 함수
-	
+	//----카카오 1:1상담
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+	// 플러스친구 1:1채팅 버튼을 생성합니다.
+	Kakao.PlusFriend.createChatButton({
+	  container: '#plusfriend-chat-button',
+	  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+	});
+	//]]>
+	//----카카오 1:1상담	
 })
 
 // $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
@@ -128,6 +143,19 @@ body{
 	width: 50;
 	font-weight: bold;
 }
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 </style>
 <meta charset="UTF-8">
 <title>예약내용 확인 폼</title>
@@ -207,7 +235,7 @@ body{
 					<input type="button" class="btn btn-cancle" onclick="petDeleteOpen(${c_num},${li.vsr_num},${li.vsr_count})" value="x">
 					</div>
 					</th></tr>
-					<tr><td class="hour"></td><td>+${li.vsr_hAdd}시간
+					<tr><td class="hour" style="line-height: 60px;"></td><td>+${li.vsr_hAdd}시간
 					<input type="button" class="btn btn-add" onclick="location.href='${contextPath}/visit/addForm2?vsr_day=${li.vsr_day}&vsr_hour=${li.vsr_hour}&vsr_hAdd=${li.vsr_hAdd}&c_num=${c_num}&vsr_num=${li.vsr_num}&vsr_count=${li.vsr_count}'" value="변경">
 					</td></tr>	
 				</c:forEach>				
@@ -219,6 +247,6 @@ body{
 		</div>
 	</form>
 	</div>
-
+<div class="bottom-left alert" id="plusfriend-chat-button">
 </body>
 </html>

@@ -29,6 +29,11 @@
 
 <!-- 주소가져오기 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script>
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 	function getAddress() {
@@ -246,9 +251,19 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 		
 	})
 
-	// $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
-	
-	// })
+	$(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
+		//----카카오 1:1상담
+		//<![CDATA[
+		// 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+		// 플러스친구 1:1채팅 버튼을 생성합니다.
+		Kakao.PlusFriend.createChatButton({
+		  container: '#plusfriend-chat-button',
+		  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+		});
+		//]]>
+		//----카카오 1:1상담	
+	})
 	
 </script>
 
@@ -344,7 +359,19 @@ legend{
 .imgs{
 	display: inline-block;
 }
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
 
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 </style>
 
 <title>Insert title here</title>
@@ -459,5 +486,6 @@ legend{
 		</form>
 		
 	</div>
+	<div class="bottom-left alert" id="plusfriend-chat-button">
 	</body>
 </html>

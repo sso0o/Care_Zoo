@@ -31,6 +31,10 @@
 <script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js" type="text/javascript" ></script><!-- multidatePicker -->
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
 
+<!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script>
 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 function getAddress() {
@@ -266,7 +270,19 @@ legend{
     width: 70px;
     font-weight: bold;
 }
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
 
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 
 </style>
 <meta charset="UTF-8">
@@ -383,5 +399,6 @@ legend{
 			</div>
 		</form>
 	</div>
+		 <div class="bottom-left alert" id="plusfriend-chat-button">  
 </body>
 </html>

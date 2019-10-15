@@ -57,7 +57,7 @@ public class HomeController {
     			}
     		    
     		}
-        	return "mainLogin";
+        	return "main";
         }
         model.addAttribute("id", kakaoId);
         model.addAttribute("email", userid);

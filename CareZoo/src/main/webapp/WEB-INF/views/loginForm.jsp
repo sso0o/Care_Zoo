@@ -22,6 +22,11 @@
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <!-- 카카오 -->
  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+ 
+ <!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script type="text/javascript">
 	function logoutCheck() {
 		if (confirm("정말 로그아웃?") == true) {
@@ -167,10 +172,23 @@ table{
 #p{
     font-size: 11px;
     position: absolute;
-    left: 174px;
+    left: 189px;
     top: 332px;
     margin: 8px;
 }
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 </style>
 <title>serviceCenter</title>
 <!-- 고객센터 -->
@@ -314,5 +332,6 @@ table{
 		</h3>
 		</div>
 	</div>
+		 <div class="bottom-left alert" id="plusfriend-chat-button">  
 </body>
 </html>

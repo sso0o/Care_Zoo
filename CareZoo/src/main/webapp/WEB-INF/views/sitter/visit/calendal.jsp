@@ -31,6 +31,11 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript" ></script>
+
+<!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script >
 //로그아웃확인 <--모든페이지에 필수
 function logoutCheck() {
@@ -204,6 +209,17 @@ $(function(){
 		}
 
 	});
+	//----카카오 1:1상담
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+	// 플러스친구 1:1채팅 버튼을 생성합니다.
+	Kakao.PlusFriend.createChatButton({
+	  container: '#plusfriend-chat-button',
+	  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+	});
+	//]]>
+	//----카카오 1:1상담	
 	
 });
 //yyy-mm-dd형식으로 바꾸는 함수
@@ -241,6 +257,19 @@ body{
 #visit{
 	text-align:center;
 }
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 </style>
 <meta charset="UTF-8">
 <title>정기적인 요일 시작일 고르기</title>
@@ -321,5 +350,6 @@ body{
 			</div>
 		</form>
 	</div>
+	<div class="bottom-left alert" id="plusfriend-chat-button">
 </body>
 </html>

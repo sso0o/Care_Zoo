@@ -31,6 +31,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <style type="text/css">
 /* body { */
 /*   background-image: url('${contextPath}/resources/img/blue.png'); */
@@ -44,6 +48,19 @@
 body{
 	font-family: 'Noto Sans KR', sans-serif;
 }
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 .container {
 	width: 1100px;
 	margin: 0px auto;
@@ -152,6 +169,7 @@ height:45px;
 	}
 
 	$(document).on('ready', function() {
+		
 		$(".lazy").slick({
 			dots : true,
 			lazyLoad : 'ondemand', // ondemand progressive anticipated
@@ -215,7 +233,18 @@ height:45px;
 			}
 		})
 		
-
+								//----카카오 1:1상담
+						//<![CDATA[
+						// 사용할 앱의 JavaScript 키를 설정해 주세요.
+						Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+						// 플러스친구 1:1채팅 버튼을 생성합니다.
+						Kakao.PlusFriend.createChatButton({
+						  container: '#plusfriend-chat-button',
+						  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+						});
+						//]]>
+						//----카카오 1:1상담	
+						
 	});
 	
 	
@@ -315,10 +344,13 @@ height:45px;
 		
 		
 	</div>
+	<div class="bottom-left alert" id="plusfriend-chat-button">
+	</div>
 	<br>
 	<br>
 	<br>
 	<br>
+	
 	
 </body>
 

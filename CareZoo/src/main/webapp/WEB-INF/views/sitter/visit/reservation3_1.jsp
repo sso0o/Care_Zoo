@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<title>reservation3</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
@@ -20,109 +20,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<title>reservation3</title>
-<style type="text/css">
-body{
-   font-family: 'Noto Sans KR', sans-serif;
-}
-.img_wrap {
-	width: 300px;
-	margin-top: 50px;
-}
-
-.img_wrap img {
-	max-width: 100%;
-}
-
-.content {
-	width: 900px;
-	margin: 0 auto;
-}
-
-legend {
-	text-align: center;
-}
-
-.content fieldset {
-	padding: 25px;
-}
-
-.main {
-	width: 500px;
-	margin: 40px auto;
-}
-
-.space {
-	width: 70px;
-}
-
-.auth {
-	background-color: #40bf9f;
-	color: white;
-	border-color: #40bf9f;
-	width: 200px;
-	display: inline;
-	font-weight: bold;
-}
-
-.phone {
-	display: inline;
-	width: 295px;
-}
-
-.red {
-	color: red;
-	font-size: 10px;
-}
-
-.green {
-	color: green;
-	font-size: 10px;
-}
-
-.btnGroup {
-	text-align: center;
-	margin: 35px;
-}
-
-.btn-submit, .btn-go {
-	background-color: #40bf9f;
-	color: white;
-	border-color: #40bf9f;
-	margin: 15px;
-	width: 400px;
-	font-weight: bold;
-}
+<!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 
-.btn-addImg {
-	border-color: #40bf9f;
-	color: #40bf9f;
-	font-weight: bold;
-	border: 1.5px solid;
-	float: right;
-	margin: 95px 70px;
-}
 
-.btn-addImg:hover {
-	border-color: #40bf9f;
-	background-color: #40bf9f;
-	color: #fff;
-}
-
-.imgs_wrap {
-	float: left;
-}
-
-.img {
-	width: 250px;
-	height: 250px;
-}
-
-.imgs {
-	display: inline-block;
-}
-</style>
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <script type="text/javascript">
 
@@ -269,11 +172,135 @@ $(function() {
 		});
 		index++;		
 	}
-	
+	//----카카오 1:1상담
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+	// 플러스친구 1:1채팅 버튼을 생성합니다.
+	Kakao.PlusFriend.createChatButton({
+	  container: '#plusfriend-chat-button',
+	  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+	});
+	//]]>
+	//----카카오 1:1상담	
 });
 
 </script>
+<style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
+.img_wrap {
+	width: 300px;
+	margin-top: 50px;
+}
 
+.img_wrap img {
+	max-width: 100%;
+}
+
+.content {
+	width: 900px;
+	margin: 0 auto;
+}
+
+legend {
+	text-align: center;
+}
+
+.content fieldset {
+	padding: 25px;
+}
+
+.main {
+	width: 500px;
+	margin: 40px auto;
+}
+
+.space {
+	width: 70px;
+}
+
+.auth {
+	background-color: #40bf9f;
+	color: white;
+	border-color: #40bf9f;
+	width: 200px;
+	display: inline;
+	font-weight: bold;
+}
+
+.phone {
+	display: inline;
+	width: 295px;
+}
+
+.red {
+	color: red;
+	font-size: 10px;
+}
+
+.green {
+	color: green;
+	font-size: 10px;
+}
+
+.btnGroup {
+	text-align: center;
+	margin: 35px;
+}
+
+.btn-submit, .btn-go {
+	background-color: #40bf9f;
+	color: white;
+	border-color: #40bf9f;
+	margin: 15px;
+	width: 400px;
+	font-weight: bold;
+}
+
+
+.btn-addImg {
+	border-color: #40bf9f;
+	color: #40bf9f;
+	font-weight: bold;
+	border: 1.5px solid;
+	float: right;
+	margin: 95px 70px;
+}
+
+.btn-addImg:hover {
+	border-color: #40bf9f;
+	background-color: #40bf9f;
+	color: #fff;
+}
+
+.imgs_wrap {
+	float: left;
+}
+
+.img {
+	width: 250px;
+	height: 250px;
+}
+
+.imgs {
+	display: inline-block;
+}
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
+</style>
 </head>
 <body class="container">
     <div class="container">
@@ -388,6 +415,6 @@ $(function() {
 <!-- 	</div> -->
 	
 
-
+<div class="bottom-left alert" id="plusfriend-chat-button">
 </body>
 </html>

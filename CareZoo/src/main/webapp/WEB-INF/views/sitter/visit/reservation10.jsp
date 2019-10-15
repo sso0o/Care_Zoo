@@ -17,6 +17,10 @@
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
     
+    <!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 <script type="text/javascript">
 function logoutCheck() {
@@ -91,6 +95,18 @@ $(function(){
 	$("#totalPay").append(result+"원");
 	$("#result").append("<input type='hidden' name='vsr_totalPrice' value='"+totalResult+"'>"+totalResult+"원");
 	$("#days").append(chkin+"박");
+	
+	//----카카오 1:1상담
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+	// 플러스친구 1:1채팅 버튼을 생성합니다.
+	Kakao.PlusFriend.createChatButton({
+	  container: '#plusfriend-chat-button',
+	  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+	});
+	//]]>
+	//----카카오 1:1상담	
 });
 
 </script>
@@ -101,6 +117,19 @@ body{
 #visit{
 	text-align:center;
 }
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 </style>
 <title>방문 펫시터 예약(일반)</title>
 </head>
@@ -198,6 +227,7 @@ body{
 			</table>
 			<input type="submit" value="예약완료하기">
 		</form>
-	</div>   
+	</div>  
+	<div class="bottom-left alert" id="plusfriend-chat-button"> 
 </body>
 </html>
