@@ -98,27 +98,10 @@
 						console.log(authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
 						
 			         	 alert("카카오 로그인 성공");
-			         	var form = document.createElement("form");
 
-			         	form.setAttribute("charset", "UTF-8");
-
-			         	form.setAttribute("method", "Post"); // Get 또는 Post 입력
-
-			         	form.setAttribute("action", "${contextPath}/login");
 			         	
-			         	var hiddenField = document.createElement("input");
-
-			         	hiddenField.setAttribute("type", "hidden");
-
-			         	hiddenField.setAttribute("name", "userid");
-
-			         	hiddenField.setAttribute("value", encodeURI(email));
-
-			         	form.appendChild(hiddenField);
-			         	
-						 //location.href = "${contextPath}/login?userid="+encodeURI(email)+"&user=kakao&kakaoId="+encodeURI(id);
+						 location.href = "${contextPath}/kakao/login?userid="+encodeURI(email)+"&user=kakao&kakaoId="+encodeURI(id);
 						 
-			         	form.submit();
 					}
 
 				})
@@ -215,6 +198,8 @@ table{
 					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
+				
+				
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
 					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>

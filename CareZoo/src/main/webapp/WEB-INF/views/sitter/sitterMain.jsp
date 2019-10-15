@@ -13,14 +13,10 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <style type="text/css">
-    	#choice{
-    	 text-align:center;
-    	 
-    	 
-    	}
-    </style>
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+	<link
+   href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
+   rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
     <script type="text/javascript">
 	// 로그아웃확인 <--모든페이지에 필수
@@ -46,6 +42,16 @@
 	var user_name = "<%=session.getAttribute("user_name")%>"
 
     </script>
+	<style type="text/css">
+	body {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	#choice {
+		text-align: center;
+	}
+</style>
+    
 <title>sitterMain</title>
 <!-- 방문펫시터, 가정집펫시터 고르는부분  -->
 </head>
@@ -83,21 +89,15 @@
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
-                <li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
-                    <ul>
-                        <li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
-                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
-                    </ul>
-                </li>
-                <li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-                    <ul>
-                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>가정시터</a></li>
-						<li class='last'><a href='#'>방문시터</a></li>
-						<li class='last'><a href='#'>펫호텔</a></li>
-                    </ul>
-                </li>
-                <li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
+				<li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
+					<ul>
+						<li class='last'><a
+							href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+					</ul>
+				</li>
+
+				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
                 <li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
             </ul>
         </div>
