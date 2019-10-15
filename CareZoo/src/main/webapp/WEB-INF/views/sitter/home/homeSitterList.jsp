@@ -209,16 +209,14 @@ ul {
 		});
 		return false;
 	}
-	
+	//
 	var breaker = 0;
 	function ajaxSucessLoading(hsList) {
 		console.log("성겅!");
-		for (i; breaker < 8; i++) {
+		for (i; breaker < 8; i++) {		
 			console.log(i);
 			if (breaker < 7) {
-				var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num='
-						+ hsList[i].HSL_NUM
-						+ '\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
+				var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num='+hsList[i].HSL_NUM+'\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
 				var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
 				petHotelDiv.append(petHotelDiv2);
 				var itemDiv = $('<div class="item" style="heigth:350;width:350px">');
@@ -227,13 +225,24 @@ ul {
 				itemDiv.append(clearfixDiv);
 				var imagegalleryDiv = $('<ul style="width:350px;">');
 				clearfixDiv.append(imagegalleryDiv);
-
+// 				var imgli = $("<li id='imgli' data-thumb=''>");
+// 				imagegalleryDiv.append(imgli);
+// 				$("<img id='image' style='width: 350px; height: 350px;'/>").appendTo(imgli);		
+				
 				for ( var a in hsList[i].hsl_filesName) {
-
-					var imgli = $("<li data-thumb='${contextPath}/home/image?fileName="+ hsList[i].HSL_IMG_FILESNAME[a] + "'>");
+					var imgli = $("<li data-thumb='${contextPath}/home/image?fileName="
+							+ hsList[i].hsl_filesName[a]
+							+ "'>");
 					imagegalleryDiv.append(imgli);
-					$("<img style='width: 350px; height: 350px;' src='${contextPath}/home/image?fileName="+ hsList[i].HSL_IMG_FILESNAME[a] + "'/>").appendTo(imgli);
+					$(
+							"<img style='width: 350px; height: 350px;' src='${contextPath}/home/image?fileName="
+									+ hsList[i].hsl_filesName[a]
+									+ "'/>")
+							.appendTo(imgli);
+
 				}
+				
+				
 				imagegalleryDiv.lightSlider({
 					isthumb : false,
 					gallery : true,
@@ -248,7 +257,7 @@ ul {
 					onSliderLoad : function() {
 						imagegalleryDiv.removeClass('cS-hidden');
 					}
-				});
+				});	
 				var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
 				$('<span>').text(hsList[i].HS_NAME).appendTo(aArDiv);
 				$('<div>' + hsList[i].HS_ADDRESS+ hsList[i].HS_D_ADDRESS + '</div>').appendTo(aArDiv);
@@ -267,7 +276,58 @@ ul {
 				break;
 			}
 		}
+// 		$.ajax({
+// 			url:"${contextPath}/home/getImg",
+// 			data:{
+// 				hsl_num : hsList[i].HSL_NUM
+// 			},
+// 			dataType: "JSON",
+// 			success: function(data) {
+// 				console.log(data)			
+// 				for ( var a in data.filename) {
+// 					console.log(data.filename[a]);
+// 					if(data.filename[a] != null){
+// 						$("#image").attr("src","${contextPath}/sitter/image?fileName="+data.filename[a]);
+// 						console.log()
+// 						$('#imgli').attr("data-thumb","${contextPath}/home/image?fileName="+data.filename[a]);
+// 					} else {
+// 						$("#image").attr("src","${contextPath}/resources/img/user.jpg")
+// 						$('#imgli').attr("data-thumb","${contextPath}/resources/img/user.jpg");
+// 					}
+// 				}
+// //	 			imagegalleryDiv.lightSlider({
+// //	 				isthumb : false,
+// //	 				gallery : true,
+// //	 				item : 1,
+// //	 				thumbItem : 9,
+// //	 				slideMargin : 0,
+// //	 				speed : 1000,
+// //	 				pause : 4000,
+// //	 				auto : true,
+// //	 				loop : true,
+// //	 				addClass : clearfixDiv,
+// //	 				onSliderLoad : function() {
+// //	 					imagegalleryDiv.removeClass('cS-hidden');
+// //	 				}
+// //	 			});
+						
+				
+// //					if(data.filename != null){
+// //						$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
+// //					} else {
+// //						$("#img").attr("src","${contextPath}/resources/img/user.jpg")
+// //					}
+				
+// 			}, error: function() {
+// 				alert("error")
+// 			}
+// 		});	
 	}
+
+
+
+//
+
 	$(window).scroll(
 			function() { //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
 				if ($(window).scrollTop() >= $(document).height()
@@ -442,19 +502,19 @@ ul {
 	</form>
 	<div class="homeSitterlist">
 		<%-- 		<c:forEach var="hsList" items="${hsList}"> --%>
-		<%-- 			<div class = "homesitter" onclick="location.href='${contextPath}/home/view?hsl_num=${hsList.HSL_NUM}'"  style="border: 1px solid; margin: 50px; height: 350px;"> --%>
-		<!-- 				<div style="width: auto; display: inline-block display:inline; float: left;"> -->
-		<!-- 					<div class="item"> -->
-		<!-- 						<div class="clearfix" style="max-width: 350px;"> -->
-		<!-- 							<ul class="image-gallery" class="gallery list-unstyled cS-hidden"> -->
-		<%-- 								<c:forEach items="${hsList.HSL_IMG_FILENAME}" var="fn"> --%>
-		<%-- 									<li data-thumb="${contextPath}/home/image?fileName=${fn}"> --%>
-		<%-- 										<img alt="사진이 엄슴" src="${contextPath}/home/image?fileName=${fn}" onclick="location.href='${contextPath}/home/view?hsl_num=${hsList.HSL_NUM}'" style="width: 350px; height: 350px;" />										 --%>
-		<!-- 									</li> -->
-		<%-- 								</c:forEach> --%>
-		<!-- 							</ul> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
+<%-- 					<div class = "homesitter" onclick="location.href='${contextPath}/home/view?hsl_num=${hsList.HSL_NUM}'"  style="border: 1px solid; margin: 50px; height: 350px;"> --%>
+<!-- 						<div style="width: auto; display: inline-block display:inline; float: left;"> -->
+<!-- 							<div class="item"> -->
+<!-- 								<div class="clearfix" style="max-width: 350px;"> -->
+<!-- 									<ul class="image-gallery" class="gallery list-unstyled cS-hidden"> -->
+<%-- 										<c:forEach items="${hsList.HSL_IMG_FILENAME}" var="fn"> --%>
+<%-- 											<li data-thumb="${contextPath}/home/image?fileName=${fn}"> --%>
+<!-- 												<img style="width: 350px; height: 350px;" />										 -->
+<!-- 											</li> -->
+<%-- 										</c:forEach> --%>
+<!-- 									</ul> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 		<!-- 					<br> -->
 		<!-- 				</div> -->
 		<!-- 				<div> -->
@@ -467,7 +527,7 @@ ul {
 		<%-- 						후기:${hsList.ph_c_count}개 <br> ${hsList.HS_STAR } --%>
 		<!-- 					</div> -->
 		<!-- 				</div> -->
-		<!-- 			</div> -->
+					</div>
 		<%-- 		</c:forEach> --%>
 	</div>
 </div>

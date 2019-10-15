@@ -163,19 +163,21 @@ public class HomeSitterController {
 		return "sitter/home/homeSitterList";
 	}
 	//이미지 가져오기
-//	@ResponseBody
-//	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
-//	public Map<String, Object> getHsImg(int hsl_num) {
-//		System.out.println("writeIMG 가져오는거");
-//		System.out.println(hsl_num);
-//		Map<String, Object> rst = new HashMap<String, Object>();
-//		List<String> filename = hslService.getFileList(hsl_num);
+	@ResponseBody
+	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
+	public Map<String, Object> getHsImg(int hsl_num) {
+		System.out.println("writeIMG 가져오는거");
+		System.out.println(hsl_num);
+		Map<String, Object> rst = new HashMap<String, Object>();
+		List<String> filename = hslService.getFileList(hsl_num);
 //		for(int i = 0; i<filename.size();i++) {
-//			rst.put("filename", filename.get(i));
+//			System.out.println(i+":"+filename.get(i));
 //		}
-//		System.out.println("filename : "+filename);
-//		return rst;
-//	}
+			rst.put("filename", filename);
+		System.out.println("filename : "+filename);
+		System.out.println("rst"+rst);
+		return rst;
+	}
 	@ResponseBody
 	@RequestMapping("/searchLoading")
 	public List<Map<String,Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hs_address" ,required = false) ArrayList<String> hs_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
@@ -199,10 +201,11 @@ public class HomeSitterController {
 					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
 					System.out.println("hsl_num = "+hsl_num);
 					List<String> hsl_filesName = hslService.getFileList(hsl_num);
-					if(hsl_filesName != null) {
-						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
-						System.out.println(hsl_filesName);
-					}
+					map.put("hsl_filesName", hsl_filesName);
+//					if(hsl_filesName != null) {
+//						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
+//						System.out.println(hsl_filesName);
+//					}
 					
 				} catch(NumberFormatException e) {
 					System.out.println("뭔오류다냐");
@@ -219,10 +222,11 @@ public class HomeSitterController {
 					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
 					System.out.println("hsl_num = "+hsl_num);
 					List<String> hsl_filesName = hslService.getFileList(hsl_num);
-					if(hsl_filesName != null) {
-						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
-						System.out.println(hsl_filesName);
-					}
+					map.put("hsl_filesName", hsl_filesName);
+//					if(hsl_filesName != null) {
+//						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
+//						System.out.println(hsl_filesName);
+//					}
 					
 				} catch(NumberFormatException e) {
 					System.out.println("뭔오류다냐");
