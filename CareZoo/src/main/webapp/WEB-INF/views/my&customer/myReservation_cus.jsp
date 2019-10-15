@@ -614,7 +614,7 @@ td{
 					<td colspan="4" style="text-align: center;">
 						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
 						<a href="#" onclick="cancel()" class="btn my-btn payment" id="cancel">취소</a>
-						<a href="#" onclick="review()" class="btn my-btn review" id="review">후기</a>
+						<a href="#" onclick="review()" class="btn my-btn review" id="review" style="position:relative;right:190px">후기</a>
 					</td>
 				</tr>
 			</table>
@@ -674,7 +674,7 @@ td{
 					<td colspan="4" style="text-align: center;">
 						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
 						<a href="#" onclick="cancel()" class="btn my-btn cancel" id="cancel">취소</a>
-						<a href="#" onclick="review()" class="btn my-btn review" id="review">후기</a>
+						<a href="#" onclick="review()" class="btn my-btn review" id="review" style="position:relative;right:190px">후기</a>
 					</td>
 				</tr>
 			</table>
@@ -735,7 +735,7 @@ td{
 					<td colspan="4" style="text-align: center;">
 						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
 						<a href="#" onclick="cancel()" class="btn my-btn cancel" id="cancel">취소</a>
-						<a href="#" onclick="review()" class="btn my-btn review" id="review">후기</a>
+						<a href="#" onclick="review()" class="btn my-btn review" id="review"style="position:relative;right:190px">후기</a>
 					</td>
 				</tr>
 			</table>
