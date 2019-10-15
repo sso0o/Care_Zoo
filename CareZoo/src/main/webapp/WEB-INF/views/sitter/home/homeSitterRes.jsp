@@ -361,6 +361,7 @@ ul {
 									<span class="nightCountPrice">${params.hsr_pricePerPetSize }원 X ${params.hsr_numof_pet}마리 X ${params.hsr_days}</span>
 								</div>
 							</div>
+							
 							<hr style="width: 400px">
 							<div class="night" style="display: inline-block; width: 350px">
 								<div class="nightCount" style="text-align: left; float: left">총</div>
