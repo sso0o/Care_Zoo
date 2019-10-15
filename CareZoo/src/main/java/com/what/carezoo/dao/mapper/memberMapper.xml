@@ -87,12 +87,26 @@
 				from homesittercomment
 				order by hsc_write_date desc)
 			where ROWNUM <=5) hsc
-		where hsc.hs_num = hs.hs_filename(+)
+		where hsc.hs_num = hs.hs_num(+)
 	
 	]]>
 	</select>
-	<select id="getMainPethotelReview" resultMap="map">
-		select 
+	
+	<select id="getMainPethotelReview" resultType="map">
+	<![CDATA[ 
+		select phc.*, c.c_name, ci.c_filename, ph.ph_name
+		from 
+		customer c,
+		customer_image ci,
+		pethotel ph,
+		(select *
+		from pethotelcomment
+		order by phc_write_date desc) phc
+		where rownum <=5
+		and phc.c_num = c.c_num(+)
+		and phc.c_num = ci.c_num(+)
+		and phc.ph_num = ph.ph_num
+	]]>
 	</select>
 	
 	
