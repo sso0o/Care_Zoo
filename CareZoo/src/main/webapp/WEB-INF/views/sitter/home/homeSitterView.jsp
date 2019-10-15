@@ -617,35 +617,80 @@ $(function() {
 		<div>
 			<fieldset>
 				<form action="reserve" method="post" >
-					<div>
-						<ul>
-							<li>
-								예약을 원하는 날짜와 시간을 선택해주세요.<br>
-								<input type="text" id="checkin" name="hsr_chkin"  class="cal" placeholder="시작일" style="width: 143px;">
-								<input type="text" id="checkout" name="hsr_chkout"  class="cal" placeholder="마침일" style="width: 143px;">
-							</li>
-							<li>
-								시작 시간 : <input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time"><br>
-								종료 시간 : <input type="text" id="hsr_pickup_time" name="hsr_pickup_time"><br>
-							</li>
-							<li><span id="pricePerDay">20000</span>원 
-								<span>
-									<select id="petSize-select" name="hsl_size" data-width="130px">
+				<h5>예약을 확인해 주세요.</h5>
+					<table class="table table-hover">
+						<thead >
+					      <tr>
+					        <th><input type="text" id="checkin" name="hsr_chkin"  class="cal" placeholder="시작일" style="width: 143px;"></th>
+					        <th><input type="text" id="checkout" name="hsr_chkout"  class="cal" placeholder="마침일" style="width: 143px;"></th>
+					      </tr>
+					      <tr>
+					      	<th colspan="2"><small>(반려견 추가 당<span id="addPet">15000</span>원)</small></th>
+					      	</tr>
+					    </thead>
+					    <tbody>
+					      <tr>
+					        <td>시작 시간 :</td>
+					        <td><input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time"></td>
+					      </tr>
+					      <tr>
+					        <td>종료 시간 :</td>
+					        <td><input type="text" id="hsr_pickup_time" name="hsr_pickup_time"></td>
+					      </tr>
+					      <tr>
+					        <td ><span id="pricePerDay">20000</span>원 </td>
+					        <td><select id="petSize-select" name="hsl_size" data-width="130px">
 										<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option>
 										<option id="bigSize" value="대형견">15kg 이상</option>
-									</select>
-								</span>
-							</li>
-							<li>반려견 추가 당 <span id="addPet">15000</span>원</li>
-							<li><span id ="DAY">1 day</span> <span class="pricePerDays"> 20000</span>원</li>
-							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li>
-							<li>총 가격 : <span id="hsr_totalprice">20,000</span>원<br>
-							</li>
-						</ul>					
-						<ul>
-							<li><input type="submit" value="예약하기"><input type="reset" value="초기화"></li>
-						</ul>
-					</div>
+									</select></td>
+					      </tr>
+					      <tr>
+					        <td>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span></td>
+					        <td><span id="totalAddPetPrice">0</span>원</td>
+					      </tr>
+					      <tr>
+					        <td>총 가격 :</td>
+					        <td><span id="hsr_totalprice">20,000</span>원</td>
+					      </tr>
+					      <tr>
+					        <td colspan="2"><input type="submit" value="예약하기" class="btn btn-outline-info"> <input type="reset" value="초기화" class="btn btn-outline-info"></td>
+					      </tr>
+<!-- 					      <tr> -->
+<!-- 					        <td>July</td> -->
+<!-- 					        <td>Dooley</td> -->
+<!-- 					      </tr> -->
+					    </tbody>
+					
+					
+					
+<!-- 						<ul> -->
+<!-- 							<li> -->
+<!-- 								예약을 원하는 날짜와 시간을 선택해주세요.<br> -->
+<!-- 								<input type="text" id="checkin" name="hsr_chkin"  class="cal" placeholder="시작일" style="width: 143px;"> -->
+<!-- 								<input type="text" id="checkout" name="hsr_chkout"  class="cal" placeholder="마침일" style="width: 143px;"> -->
+<!-- 							</li> -->
+<!-- 							<li> -->
+<!-- 								시작 시간 : <input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time"><br> -->
+<!-- 								종료 시간 : <input type="text" id="hsr_pickup_time" name="hsr_pickup_time"><br> -->
+<!-- 							</li> -->
+<!-- 							<li><span id="pricePerDay">20000</span>원  -->
+<!-- 								<span> -->
+<!-- 									<select id="petSize-select" name="hsl_size" data-width="130px"> -->
+<!-- 										<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option> -->
+<!-- 										<option id="bigSize" value="대형견">15kg 이상</option> -->
+<!-- 									</select> -->
+<!-- 								</span> -->
+<!-- 							</li> -->
+<!-- 							<li>반려견 추가 당 <span id="addPet">15000</span>원</li> -->
+<!-- 							<li><span id ="DAY">1 day</span> <span class="pricePerDays"> 20000</span>원</li> -->
+<!-- 							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li> -->
+<!-- 							<li>총 가격 : <span id="hsr_totalprice">20,000</span>원<br> -->
+<!-- 							</li> -->
+<!-- 						</ul>					 -->
+<!-- 						<ul> -->
+<!-- 							<li><input type="submit" value="예약하기"><input type="reset" value="초기화"></li> -->
+<!-- 						</ul> -->
+					</table>
 					<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>">
 					<input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }">
 					<input type="hidden" name="hs_num" value="${hsList.HS_NUM}">
