@@ -511,7 +511,7 @@ height:45px;
 													+ phList[i].ph_avgStar)
 											.appendTo(reviewDiv);
 									
-// 									for(var i = 0; 5<i ;i++){asdasdㅂㅈㄷㅈㅂㄷㅈㅂqwewqeqweqqweqw
+// 									for(var l = 0; 5<l ;l++){
 // 										$('<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">").appentTo(reviewDiv);
 // 									}
 									

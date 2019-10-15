@@ -18,7 +18,10 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <!-- 메뉴바 -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+<!-- 폰트 -->
 <script type="text/javascript" src="../assets/js/jquery-latest.js"></script>
 <script src="../assets/js/admin.js"></script>
 
@@ -38,7 +41,9 @@
 /*   margin-left: auto; */
 /*   margin-right: auto; qwewqe*/
 /* } */
-
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+}
 nav {
 	
 }
@@ -126,6 +131,7 @@ main{
 height:45px;
 
 }
+
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
