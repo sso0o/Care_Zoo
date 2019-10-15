@@ -61,6 +61,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		String type = request.getParameter("user");
 		System.out.println(type);
+		//kakao
+		String kakaoId = request.getParameter("kakaoId");
+		System.out.println(kakaoId);
 		
 		String userid = authentication.getName();
 		String pw = (String)authentication.getCredentials();
@@ -127,7 +130,22 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 				authToken = new UsernamePasswordAuthenticationToken(userid, pw, auths);
 			}
 		    return authToken;
-		} else {
+		}else if(type.equals("kakao")) {
+			System.out.println("kakao==================================");
+			Customer c = mService.getMemberByEmail(userid);
+			System.out.println("email key : " +c.getC_email_key());
+			System.out.println(c);
+			if(kakaoId != null) {
+				System.out.println("로그인 성공");
+				auths.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+				HttpSession session = request.getSession();
+				session.setAttribute("user_numtype", "c_num");
+				session.setAttribute("user_num", mService.getMemberByEmail(userid).getC_num());
+				session.setAttribute("user_name", mService.getMemberByEmail(userid).getC_name());
+				authToken = new UsernamePasswordAuthenticationToken(userid, mService.getMemberByEmail(userid).getC_pass(), auths);
+			}
+		    return authToken;
+		}else {
 			return authToken;
 		}
 	}

@@ -165,8 +165,7 @@ function checkValue() {
 var index = 1;
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
 $(function() {
-	if($("#email").val() == ""){
-		
+
 	$("#email").change(function() {
 		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		var vs_email = $("#email").val();
@@ -200,8 +199,6 @@ $(function() {
         	$("#idchk_val").addClass('red');
         	$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
 		}
-	}
-// 	$("#email").val(${email});
 	}); //email체크함수
 	
 	$("#pw2").change(function() {
