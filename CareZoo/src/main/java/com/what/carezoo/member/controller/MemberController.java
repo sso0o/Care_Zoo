@@ -307,7 +307,7 @@ public class MemberController {
 	@RequestMapping("/cancelPHR")
 	public String cancelPHR(int num) {
 		if (memberService.cancelPHR(num)) {
-			return null;
+			return "my&customer/myReservation_cus";
 		}
 		return null;
 	}
