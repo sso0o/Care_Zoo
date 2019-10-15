@@ -174,10 +174,10 @@ table{
 	margin-left: 23%
 }
 #p{
-    font-size: 10px;
+    font-size: 11px;
     position: absolute;
-    left: 170px;
-    top: 316px;
+    left: 174px;
+    top: 332px;
     margin: 8px;
 }
 </style>
@@ -185,10 +185,10 @@ table{
 <!-- 고객센터 -->
 </head>
 <body>
-	<div class="container">
-		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" onclick="location.href='${contextPath}'"></a>
-
+    <div class="container">
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
@@ -200,32 +200,38 @@ table{
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
-		</header>
-	</div>
-	<nav>
-		<div class='menu'>
-			<ul style="">
-				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
-						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>PETHOTEL</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-					<ul>
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>가정시터</a></li>
-						<li class='last'><a href='#'>방문시터</a></li>
-						<li class='last'><a href='#'>펫호텔</a></li>
-					</ul></li>
-				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">FAQ</a></li>
-			</ul>
-		</div>
-	</nav>
+        </header>
+    </div>
+    <nav>
+        <div class='menu'>
+            <ul style="">
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+                            <!-- 
+                     <ul>
+                        <li><a href='#'>HTML Basic</a></li>
+                        <li class='last'><a href='#'>HTML Advanced</a></li>
+                     </ul>
+                      -->
+                        </li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+                    </ul>
+                </li>
+                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
+                    </ul>
+                </li>
+                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+            </ul>
+        </div>
+    </nav>
+    
 	<br>
 	<br>
 	<br>
@@ -282,7 +288,7 @@ table{
 						</tr>	
 						<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
 						<tr>
-							<td colspan="3"><p id="p">(카카오 로그인시, <span style="color:red;">고객</span>으로서만 이용이 가능합니다!)</p></td>
+							<td colspan="3"><p id="p">(카카오 로그인시, <span style="color:red;">고객</span>만 이용이 가능합니다!)</p></td>
 						</tr>
 
 						<tr>
