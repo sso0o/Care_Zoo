@@ -44,6 +44,10 @@
 body{
 	font-family: 'Noto Sans KR', sans-serif;
 }
+.container {
+	width: 1100px;
+	margin: 0px auto;
+}
 nav {
 	
 }
@@ -220,7 +224,7 @@ height:45px;
 
 </head>
 
-<body>
+<body class="container">
 	    <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>

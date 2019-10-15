@@ -21,6 +21,9 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 
+<!-- 폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 <!-- 선택요소 -->
 <!-- 부트스트랩 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +58,12 @@
 
 
 </script>
+<style>
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 
+</style>
 
 
 <title>Insert title here</title>
