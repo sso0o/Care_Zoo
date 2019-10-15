@@ -285,11 +285,14 @@ public class MemberController {
 	
 	//홈시터예약 취소
 	@RequestMapping("/cancelHSR")
-	public String cancelHSR(int num) {
+	public String cancelHSR(int num, Model m) {
 		if(memberService.cancelHSR(num)) {
-			return null;
+			m.addAttribute("msg", "예약이 취소되었습니다.");
+		} else {
+			m.addAttribute("msg", "취소 실패");
 		}
-		return null;
+		return "my&customer/myReservation_cus";
+		
 	}
 
 	// 방문시터예약 취소
@@ -305,11 +308,14 @@ public class MemberController {
 
 	// 펫호텔예약 취소
 	@RequestMapping("/cancelPHR")
-	public String cancelPHR(int num) {
+	public String cancelPHR(int num, Model m) {
 		if (memberService.cancelPHR(num)) {
-			return "my&customer/myReservation_cus";
+			m.addAttribute("msg", "예약이 취소되었습니다.");
+		} else {
+			m.addAttribute("msg", "취소 실패");
 		}
-		return null;
+		
+		return "my&customer/myReservation_cus";
 	}
 	
 	@RequestMapping("/qna")
