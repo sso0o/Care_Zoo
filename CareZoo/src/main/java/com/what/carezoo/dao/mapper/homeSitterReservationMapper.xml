@@ -6,7 +6,27 @@
 		<selectKey order="BEFORE" keyProperty="hsr_num" resultType="int">
 			select homesitterreservation_seq.nextval from dual
 		</selectKey>
-		insert into homesitterreservation 
+		insert into homesitterreservation (
+		hsr_num,
+		c_num,
+		hs_num,
+		hsr_chkin,
+		hsr_chkout,
+		hsr_status,
+		hsr_numof_pet,
+		p_num,
+		hsr_totalprice,
+		hsr_duringdays,
+		hsr_purpose,
+		hsr_message,
+		hsr_write_date,
+		hsr_pickup_time,
+		hsr_dropoff_time,
+		hsr_priceperday,
+		hsr_priceperpetsize,
+		hsr_priceperdays,
+		hsr_days
+		)
 		values (#{hsr_num}, #{c_num}, #{hs_num}, #{hsr_chkin}, #{hsr_chkout}, '0', #{hsr_numof_pet}, #{p_num}, #{hsr_totalprice}, #{hsr_duringdays}, #{hsr_purpose},
 		 #{hsr_message}, sysdate, #{hsr_pickup_time}, #{hsr_dropoff_time}, #{hsr_priceperday}, #{hsr_priceperpetsize}, #{hsr_priceperdays}, #{hsr_days})
 	</insert>
