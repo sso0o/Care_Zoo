@@ -88,14 +88,13 @@ public class HomeSitterController {
 	public String key_alterConfirm(Model model, String hs_email, String hs_email_key) {
 		if(mailsender.alter_userKey_service(hs_email, hs_email_key)>0) {
 			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 로그인 후 게시글 등록을 위해 회원정보를 업데이트 해주세요");
-			model.addAttribute("url", "member/loginForm");			
-			model.addAttribute("url", "member/loginForm");
-			
+			model.addAttribute("url", "loginForm");			
+			return "result";
 		}else {
 			model.addAttribute("msg", "회원가입이 진행중입니다. 확인 후 이용바랍니다.");
-			model.addAttribute("url", "member/main");
+			model.addAttribute("url", "main");
+			return "result";
 		}
-		return "result";
 	}
 	
 	//아이디 유효성 검사
@@ -132,7 +131,10 @@ public class HomeSitterController {
 //		model.addAttribute("hsList",hsList);
 		return "sitter/home/homeSitterList";
 	}
-	
+	@RequestMapping("/loginForm")
+	public String loginForm(Model model) {
+		return "loginForm";
+	}
 	//홈시터 정보 가져오기
 	@RequestMapping("/homeSitter")
 	@ResponseBody
@@ -195,43 +197,43 @@ public class HomeSitterController {
 			System.out.println("hsl11:"+hsl);
 			List<Map<String,Object>>  hsList = hslService.getbySearchingHsl(hs_address,hsl);
 			System.out.println("값11"+hsList);
-			for (int i = 0; i < hsList.size(); i++) {
-				Map<String,Object> map = hsList.get(i);
-				try {
-					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
-					System.out.println("hsl_num = "+hsl_num);
-					List<String> hsl_filesName = hslService.getFileList(hsl_num);
-					map.put("hsl_filesName", hsl_filesName);
-//					if(hsl_filesName != null) {
-//						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
-//						System.out.println(hsl_filesName);
-//					}
-					
-				} catch(NumberFormatException e) {
-					System.out.println("뭔오류다냐");
-				}
-			}
+//			for (int i = 0; i < hsList.size(); i++) {
+//				Map<String,Object> map = hsList.get(i);
+//				try {
+//					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
+//					System.out.println("hsl_num = "+hsl_num);
+//					List<String> hsl_filesName = hslService.getFileList(hsl_num);
+//					map.put("hsl_filesName", hsl_filesName);
+////					if(hsl_filesName != null) {
+////						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
+////						System.out.println(hsl_filesName);
+////					}
+//					
+//				} catch(NumberFormatException e) {
+//					System.out.println("뭔오류다냐");
+//				}
+//			}
 			return hsList;			
 		}
 		else {
 			List<Map<String,Object>> hsList = hslService.getHsls();
 			System.out.println("값22222"+hsList);
-			for (int i = 0; i < hsList.size(); i++) {
-				Map<String,Object> map = hsList.get(i);
-				try {
-					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
-					System.out.println("hsl_num = "+hsl_num);
-					List<String> hsl_filesName = hslService.getFileList(hsl_num);
-					map.put("hsl_filesName", hsl_filesName);
-//					if(hsl_filesName != null) {
-//						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
-//						System.out.println(hsl_filesName);
-//					}
-					
-				} catch(NumberFormatException e) {
-					System.out.println("뭔오류다냐");
-				}
-			}
+//			for (int i = 0; i < hsList.size(); i++) {
+//				Map<String,Object> map = hsList.get(i);
+//				try {
+//					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
+//					System.out.println("hsl_num = "+hsl_num);
+//					List<String> hsl_filesName = hslService.getFileList(hsl_num);
+//					map.put("hsl_filesName", hsl_filesName);
+////					if(hsl_filesName != null) {
+////						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
+////						System.out.println(hsl_filesName);
+////					}
+//					
+//				} catch(NumberFormatException e) {
+//					System.out.println("뭔오류다냐");
+//				}
+//			}
 			System.out.println("hsList"+hsList);				
 			return hsList;
 		}
