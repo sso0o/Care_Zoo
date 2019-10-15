@@ -44,6 +44,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<!-- 아임포트-->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" ></script>
+
 
 <script>
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
@@ -231,8 +234,9 @@
 						$(".cancel").hide();
 						
 					} else{
-						if(data.HSR_STATUS == 2){
+						if(data.HSR_STATUS < 2){
 							$(".payment").hide();
+							$(".cancel").show();
 						}
 						$(".review").hide();
 					}
@@ -268,8 +272,9 @@
 						$(".cancel").hide();
 						
 					} else{
-						if(data.VSR_STATUS == 2){
+						if(data.VSR_STATUS < 2){
 							$(".payment").hide();
+							$(".cancel").show();
 						}
 						$(".review").hide();
 					}
@@ -328,7 +333,31 @@
 	function payMent() {
 		console.log("결제버튼 누름->"+$(".groupid").val()+"="+$(".number").val());
 		if (confirm("선택한 예약을 결제하시겠습니까?") == true) {
-			//location.href = '${contextPath}/logout'
+			
+			IMP.init('imp94354183');
+			IMP.request_pay({
+			    pg : 'inicis', // version 1.1.0부터 지원.
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '주문명:결제테스트',
+// 			    amount : $('.totalValue').text().replace(/,/gi, "")*1,
+			    amount : 100,
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
+			    buyer_addr : '서울특별시 강남구 삼성동',
+			    buyer_postcode : '123-456'
+			}, function(rsp) {
+			    if ( rsp.success ) {
+			       alert('결제가 완료되었습니다.');
+			       
+				    
+				} else {
+					        var msg = '결제에 실패하였습니다.';
+					        msg += '에러내용 : ' + rsp.error_msg;
+								    }
+						    alert(msg);
+			});
 		} else {
 			return false;
 		}	
@@ -619,7 +648,7 @@ td{
 				<tr>
 					<td colspan="4" style="text-align: center;">
 						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
-						<a href="#" onclick="cancel()" class="btn my-btn payment" id="cancel">취소</a>
+						<a href="#" onclick="cancel()" class="btn my-btn cancel" id="cancel">취소</a>
 						<a href="#" onclick="review()" class="btn my-btn review" id="review" style="position:relative;right:190px">후기</a>
 					</td>
 				</tr>

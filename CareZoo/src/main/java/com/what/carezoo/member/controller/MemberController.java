@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.print.DocFlavor.STRING;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -317,6 +318,12 @@ public class MemberController {
 		
 		return "my&customer/myReservation_cus";
 	}
+	
+	//결제
+	public Map<String, Object> name() {
+		
+	}
+
 	
 	@RequestMapping("/qna")
 	public String qnaForm() {

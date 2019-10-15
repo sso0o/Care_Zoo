@@ -1,16 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -18,43 +14,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel='stylesheet' type='text/css'
-	href='${contextPath}/resources/css/datepicker.css' />
-<link rel='stylesheet' type='text/css'
-	href='${contextPath}/resources/css/homeSitter.css' />
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/index.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' />
+<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' />
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
-<link rel='stylesheet'
-	href='${contextPath}/resources/css/phReservation_modal.css' />
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel='stylesheet' href='${contextPath}/resources/css/phReservation_modal.css' />
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="${contextPath}/resources/js/datepicker-ko.js"
-	type="text/javascript"></script>
-<script src="${contextPath}/resources/js/moment.js"
-	type="text/javascript"></script>
-<script type="text/javascript"
-	src="${contextPath}/resources/js/index.js"></script>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js">
-
-
-</script>
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <style>
 #map_canvas {
@@ -219,8 +196,7 @@ ul {
 	content: "";
 	border: 2px solid #d1d7dc;
 	background-color: #fff;
-	background-image:
-		url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+	background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
 	background-repeat: no-repeat;
 	background-position: 6px 6px;
 	border-radius: 50%;
@@ -685,11 +661,10 @@ $("#resForm").submit();
 
 </head>
 <body>
-	    <div class="container">
-        <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-            <br>
-            <div class="header_Btn">
+	<div class="container">
+		<header>
+			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a> <br>
+			<div class="header_Btn">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
 					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
@@ -699,81 +674,64 @@ $("#resForm").submit();
 					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
-             </div>
-        </header>
-    </div>
-    <nav>
-        <div class='menu'>
-            <ul style="">
-                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-                    <ul>
-                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
-                            <!-- 
+			</div>
+		</header>
+	</div>
+	<nav>
+		<div class='menu'>
+			<ul style="">
+				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+					<ul>
+						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
                      <ul>
                         <li><a href='#'>HTML Basic</a></li>
                         <li class='last'><a href='#'>HTML Advanced</a></li>
                      </ul>
-                      -->
-                        </li>
-                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-                    </ul>
-                </li>
-                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
-                    <ul>
-                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+                      --></li>
+						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+					</ul></li>
+				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+					<ul>
+						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
 
-                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
 
-                    </ul>
-                </li>
-                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
-                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
-            </ul>
-        </div>
-    </nav>
+					</ul></li>
+				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
+				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
+			</ul>
+		</div>
+	</nav>
 	<br>
 	<br>
 	<br>
 	<br>
 	<br>
 	<div class="container">
-		<form id="resForm" name="resForm"  action="${contextPath}/petHotel/paySuccess">
+		<form id="resForm" name="resForm" action="${contextPath}/petHotel/paySuccess">
 			<div style="text-align: left;">
 				<label style="font-size: 25px">예약페이지</label>
 				<hr style="">
 			</div>
-			<div
-				style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 1px solid darkgray; padding: 50px; border-radius: 4px;">
+			<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 1px solid darkgray; padding: 50px; border-radius: 4px;">
 				<div style="text-align: center">
 					<div class="petAddForm">
 						<div class="PriceAndSize" style="">
-							<div
-								style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
-								<div
-									style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 55px">
-									<div
-										style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
+							<div style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
+								<div style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 55px">
+									<div style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
 
-										<label style="font-weight: bold;">체크인: </label>&nbsp;<label
-											class="phr_chkin">${phr_chkin} </label> <input type="hidden"
-											value="${phr_chkin}" class="" name="phr_chkin">
-										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label
-											style="font-weight: bold">체크아웃: </label>&nbsp;<label
-											class="phr_chkout">${phr_chkout }&nbsp;&nbsp;</label> <input
-											type="hidden" value="${phr_chkout}" class="" name="phr_chkout">
-										&nbsp;&nbsp; <label class="totalDays" style="">(총
-											${totalDays}박)</label>&nbsp;&nbsp; <input type="hidden"
-											value="${totalDays}" class="" name="phr_totalDays">
+										<label style="font-weight: bold;">체크인: </label>&nbsp;<label class="phr_chkin">${phr_chkin} </label>
+										<input type="hidden" value="${phr_chkin}" class="" name="phr_chkin">
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label style="font-weight: bold">체크아웃: </label>&nbsp;<label class="phr_chkout">${phr_chkout }&nbsp;&nbsp;</label>
+										<input type="hidden" value="${phr_chkout}" class="" name="phr_chkout">
+										&nbsp;&nbsp; <label class="totalDays" style="">(총 ${totalDays}박)</label>&nbsp;&nbsp;
+										<input type="hidden" value="${totalDays}" class="" name="phr_totalDays">
 									</div>
-									&nbsp; <label
-										style="font-size: 30px; padding-bottom: 20px; position: relative; top: -10px;">&</label>
-									&nbsp;
-									<div
-										style="text-align: left; display: inline-block; padding-top: 10px; padding-right: 5px; padding-left: 10px; border-color: #40bf9f">
-										<label class="totalDays" style="float: right">반려견
-											${quantity} 마리</label>
-											<input type="hidden"
-											value="${quantity}" class="" name="phr_numof_pet">
+									&nbsp; <label style="font-size: 30px; padding-bottom: 20px; position: relative; top: -10px;">&</label> &nbsp;
+									<div style="text-align: left; display: inline-block; padding-top: 10px; padding-right: 5px; padding-left: 10px; border-color: #40bf9f">
+										<label class="totalDays" style="float: right">반려견 ${quantity} 마리</label>
+										<input type="hidden" value="${quantity}" class="" name="phr_numof_pet">
 									</div>
 								</div>
 
@@ -781,52 +739,45 @@ $("#resForm").submit();
 								<div class="petList" style="font-size: 20px"></div>
 								<br>
 								<div class="night" style="display: inline-block; width: 600px">
-									<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원
-										X ${totalDays}박</div>
+									<div class="nightCount" style="text-align: left; float: left">${oneNightValue}원X ${totalDays}박</div>
 									<div class="countPrice" style="float: right">
 										<span class="nightCountPrice">${nightCountValue }원</span>
 									</div>
 								</div>
 								<hr style="width: 680px">
 								<div class="night" style="display: inline-block; width: 600px">
-									<div class="nightCount" style="text-align: left; float: left">반려견
-										추가</div>
+									<div class="nightCount" style="text-align: left; float: left">반려견 추가</div>
 									<div class="countPrice" style="float: right">
 										<span class="petAddValue">${petAddValue }원</span>
 									</div>
 								</div>
 								<hr style="width: 680px">
 								<div class="night" style="display: inline-block; width: 600px">
-									<div class="nightCount" style="text-align: left; float: left">총
-									</div>
+									<div class="nightCount" style="text-align: left; float: left">총</div>
 									<div class="countPrice" style="float: right">
 										<span class="totalValue">${totalValue }</span>원
-<!-- 										<input type="hidden" -->
-<%-- 											value="${totalValue}" class="" name="phr_price"> --%>
+										<!-- 										<input type="hidden" -->
+										<%-- 											value="${totalValue}" class="" name="phr_price"> --%>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div>
-<!-- 							<input type="button" class="btn btn-my" id="selectPetModal" -->
-<!-- 								value="반려견 선택"> -->
+							<!-- 							<input type="button" class="btn btn-my" id="selectPetModal" -->
+							<!-- 								value="반려견 선택"> -->
 							<!-- 							<button class="btn btn-my" id="selectPetModal">반려견 선택</button> -->
 						</div>
 
 					</div>
 				</div>
 				<%--<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
-										<input type="hidden"
-											value="${ph.ph_num}" class="" name="ph_num">
-																					<input type="hidden"
-											value="${phrm.phrm_num}" class="" name="phrm_num">
+				<input type="hidden" value="${ph.ph_num}" class="" name="ph_num">
+				<input type="hidden" value="${phrm.phrm_num}" class="" name="phrm_num">
 			</div>
 			<br>
 
-			<div
-				style="margin-top: 50px; margin-right: 100px; margin-left: 100px;">
-				<div
-					style="margin: 40px 0 0; padding: 25px; background-color: #f5f5f5; border-top: solid 1px #dfdfdf; line-height: 1.6;">
+			<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px;">
+				<div style="margin: 40px 0 0; padding: 25px; background-color: #f5f5f5; border-top: solid 1px #dfdfdf; line-height: 1.6;">
 					<h4>예약요청 전 꼭 확인해주세요!</h4>
 					<ul>
 						<li>* 예약을 위해 강아지에 대한 내용을 상세히 적어주세요.</li>
@@ -837,9 +788,7 @@ $("#resForm").submit();
 				</div>
 				<!-- 				<input hidden="hidden" /> -->
 				<!-- 				<input type="text"  name="hsr_message" style="margin: 0px; width: 99.4%; height: 126px;" placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요."  maxlength="4000"> -->
-				<textarea name="phr_message"
-					placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000"
-					id="txtMESSAGE" style="margin: 0px; width: 99.4%; height: 126px;"></textarea>
+				<textarea name="phr_message" placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000" id="txtMESSAGE" style="margin: 0px; width: 99.4%; height: 126px;"></textarea>
 				<br> <br>
 				<div>
 					<div style="margin-bottom: 15px">맡겨주를 이용하시는 이유에 대해 알려주세요!</div>
@@ -849,8 +798,7 @@ $("#resForm").submit();
 							<option value="출장">출장</option>
 							<option value="회사업무 (워크샵, 야근 등등)">회사업무 (워크샵, 야근 등등)</option>
 							<option value="집안행사">집안행사</option>
-							<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기
-								위해</option>
+							<option value="혼자 있는 시간동안 잠시 맡기기 위해">혼자 있는 시간동안 잠시 맡기기 위해</option>
 							<option value="기타">기타</option>
 						</select>
 					</div>
@@ -861,9 +809,7 @@ $("#resForm").submit();
 				</ul>
 				<br> <br>
 				<div style="text-align: center">
-					<input type="button" class="btn btn-my" id="check_module"
-						style="text-align: center; font-size: 23px; padding-left: 40px; padding-right: 40px"
-						value="결제하기">
+					<input type="button" class="btn btn-my" id="check_module" style="text-align: center; font-size: 23px; padding-left: 40px; padding-right: 40px" value="결제하기">
 				</div>
 
 				<input type="hidden" value="${quantity}" class="quantity">
@@ -874,28 +820,28 @@ $("#resForm").submit();
 
 
 		<!-- ///////////////////////////////////////////////////////////////모달 -->
-<!-- 		<div class="modal-modify" id="reply-modal"> -->
-<!-- 			<!-- css 적용 하기 위한 경우 class --> 
+		<!-- 		<div class="modal-modify" id="reply-modal"> -->
+		<!-- 			<!-- css 적용 하기 위한 경우 class -->
 
-<!-- 			<!-- 스크립트 요소를 직접 조작해야 하는경우 id --> 
-<!-- 			<div class="modal-table" id="modal-table"> -->
-<!-- 				<div class="close" id="modal-close">&times;</div> -->
-<!-- 				<div class="radioForm"> -->
-<%-- 					<c:forEach items="${petList}" var="pL" varStatus="pLstatus"> --%>
-<%-- 															<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
-<%-- 						<input type="hidden" value="${quantity}" class="quantity"> --%>
+		<!-- 			<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
+		<!-- 			<div class="modal-table" id="modal-table"> -->
+		<!-- 				<div class="close" id="modal-close">&times;</div> -->
+		<!-- 				<div class="radioForm"> -->
+		<%-- 					<c:forEach items="${petList}" var="pL" varStatus="pLstatus"> --%>
+		<%-- 															<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 680px; height: 580px;" /></li> --%>
+		<%-- 						<input type="hidden" value="${quantity}" class="quantity"> --%>
 
-<!-- 						<div class="inputGroup"> -->
-<%-- 							<input id="radio${pLstatus.count}" name="radio" type="radio" /> --%>
-<%-- 							<input type="hidden" value="${pL.p_num}" class="radio${pLstatus.count}"> --%>
-<%-- 							<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name} --%>
-<%-- 								${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label> --%>
-<!-- 						</div> -->
-<%-- 					</c:forEach> --%>
-<!-- 					<input type="button" value="선택" class="petSelectButton"> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
+		<!-- 						<div class="inputGroup"> -->
+		<%-- 							<input id="radio${pLstatus.count}" name="radio" type="radio" /> --%>
+		<%-- 							<input type="hidden" value="${pL.p_num}" class="radio${pLstatus.count}"> --%>
+		<%-- 							<label class="petListLabel" for="radio${pLstatus.count}">${pL.p_name} --%>
+		<%-- 								${pL.p_sex} ${pL.p_weight} ${pL.age}살 </label> --%>
+		<!-- 						</div> -->
+		<%-- 					</c:forEach> --%>
+		<!-- 					<input type="button" value="선택" class="petSelectButton"> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
 	</div>
 </body>
 </html>
