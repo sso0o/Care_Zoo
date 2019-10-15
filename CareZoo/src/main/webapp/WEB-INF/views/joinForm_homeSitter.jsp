@@ -204,6 +204,9 @@ $(function() {
 </script>
 
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 .content{
 	width: 900px;
 	margin: 0 auto;
@@ -269,7 +272,7 @@ legend{
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body class="container">
 	    <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>

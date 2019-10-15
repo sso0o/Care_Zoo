@@ -50,6 +50,9 @@ $(function() {
 </script>
 
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 .passcheck{
 	width: 700px;
 	height: 300px;
@@ -95,11 +98,11 @@ h3{
 <title>비밀번호 확인</title>
 <!-- 고객센터 -->
 </head>
-<body>
+<body class="">
 <div class="container">
 		<header>
 			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-
+			<br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
@@ -125,13 +128,7 @@ h3{
 					<ul>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
 					</ul></li>
-				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-					<ul>
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>가정시터</a></li>
-						<li class='last'><a href='#'>방문시터</a></li>
-						<li class='last'><a href='#'>펫호텔</a></li>
-					</ul></li>
+
 				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
 				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">FAQ</a></li>
 			</ul>

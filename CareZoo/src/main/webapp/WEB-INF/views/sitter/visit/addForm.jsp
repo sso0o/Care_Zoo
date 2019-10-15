@@ -48,7 +48,7 @@ $(function() { //문서가 로딩되면 실행할 함수
 // 기본적으로 세션에 저장된 정보
 var user_numtype = "<%=session.getAttribute("user_numtype")%>"
 var user_num = "<%=session.getAttribute("user_num")%>"
-var user_name = "<%=session.getAttribute("user_name")%>
+var user_name = "<%=session.getAttribute("user_name")%>"
 	"
 	//hour의 값 중복되지 않게 check해주기
 	function oneCheckbox(a) {
@@ -166,6 +166,9 @@ var user_name = "<%=session.getAttribute("user_name")%>
 	});
 </script>
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 #visit {
 	text-align: center;
 }

@@ -24,14 +24,19 @@ function logoutCheck() {
 }
 
 </script>
+<style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
+</style>
 <title>권한 없음</title>
 <%-- 	${sessionScope } --%>
 </head>
-<body>
+<body class="container">
 <div class="container">
 		<header>
 			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" onclick ="location.href='${contextPath}'"></a>
-
+			<br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>

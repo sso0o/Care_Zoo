@@ -141,6 +141,9 @@
 
 </script>
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 	.content{
 		width: 900px;
 		margin: 20px auto;

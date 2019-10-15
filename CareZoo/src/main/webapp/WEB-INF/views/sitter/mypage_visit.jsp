@@ -24,6 +24,11 @@ function logoutCheck() {
 }
 
 </script>
+<style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
+</style>
 <title>serviceCenter</title>
 <!-- 고객센터 -->
 </head>

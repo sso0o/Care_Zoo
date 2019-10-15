@@ -218,12 +218,9 @@
 </script>
 <style>
 
-/*   body { */
-/*     margin: 0; */
-/*     padding: 0; */
-/*     font-family: Arial, Helvetica Neue, Helvetica, sans-serif; */
-/*     font-size: 14px; */
-/*   } */
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 #calendar {
 	max-width: 900px;
 	margin: 30px auto;

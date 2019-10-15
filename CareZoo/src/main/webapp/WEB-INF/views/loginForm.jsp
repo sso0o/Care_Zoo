@@ -38,7 +38,7 @@
 	//아이디(이메일) 찾기 새 창띄우기
 	function openWin2(){  
     window.open("${contextPath}/member/searchEmail", "아이디 찾기", 
-    		"width=600, height=200, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+    		"width=700, height=200, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
 }
 
 	function checkValue(){
@@ -55,22 +55,6 @@
 
 	
 	//kakaologin
-		// 사용할 앱의 JavaScript 키를 설정해 주세요.
-// 		Kakao.init('d21dc2e8ec81b89ed57723a54ff54450');
-// 		// 카카오 로그인 버튼을 생성합니다.
-// 		Kakao.Auth.createLoginButton({
-// 			container : '#kakao-login-btn',
-// 			success : function(authObj) {
-// 				alert(JSON.stringify(authObj));
-// 				postLogin(authObj);
-// 			},
-// 			fail : function(err) {
-// 				alert(JSON.stringify(err));
-// 			}
-// 		});
-		
-		  //<![CDATA[
-	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
 	Kakao.init('d21dc2e8ec81b89ed57723a54ff54450');
 	
 
@@ -117,7 +101,6 @@
 			}
 		});
 	};
-	//]]>
 </script>
 <style type="text/css">
 body{

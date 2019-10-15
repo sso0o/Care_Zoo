@@ -285,7 +285,9 @@ $(function() {
 </script>
 
 <style type="text/css">
-
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 .img_wrap {
 	width: 300px;
 	margin-top: 50px;
@@ -387,7 +389,7 @@ legend{
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body class="container">
 	    <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>

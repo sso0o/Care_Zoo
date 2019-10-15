@@ -223,6 +223,9 @@ return year + '-' + month + '-' + day; }
 
 </script>
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 .ui-datepicker{ font-size: 30px; width: 1100px; height:500px;}
 .ui-datepicker select.ui-datepicker-month{ width:50%; font-size: 100px; height:50%; }
 .ui-datepicker select.ui-datepicker-year{ width:40%; font-size: 100px; height:50%;  }
@@ -278,8 +281,14 @@ return year + '-' + month + '-' + day; }
                     </ul>
                 </li>
                 <li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
-					<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
-                </li>
+					<ul>
+						<li class='last'><a
+							href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
+					</ul>
+				</li>
                 <li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
                 <li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
             </ul>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ public class HomeController {
 	 private MemberService mService;
     
     @RequestMapping(value="/login")
-    public Authentication login(@RequestParam("userid") String userid,@RequestParam("user") String user, @RequestParam("kakaoId") String kakaoId,Model model) {
+    public String login(@RequestParam("userid") String userid,@RequestParam("user") String user, @RequestParam("kakaoId") String kakaoId,Model model) {
         System.out.println("email: "+userid+" user: "+user+" id: "+kakaoId);
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		String type = request.getParameter("user");
@@ -51,15 +52,17 @@ public class HomeController {
     				session.setAttribute("user_num", mService.getMemberByEmail(userid).getC_num());
     				session.setAttribute("user_name", mService.getMemberByEmail(userid).getC_name());
     				authToken = new UsernamePasswordAuthenticationToken(userid, mService.getMemberByEmail(userid).getC_pass(), auths);
+    				SecurityContextHolder.getContext().setAuthentication(authToken);//권한 저장하는 애(로그인정보)
+    				
     			}
-    		    return authToken;
+    		    
     		}
-        	//return "mainLogin";
+        	return "mainLogin";
         }
         model.addAttribute("id", kakaoId);
         model.addAttribute("email", userid);
-		return authToken;
+//		return authToken;
 
-      //  return "joinForm_customer2";
+        return "joinForm_customer2";
     }
 }

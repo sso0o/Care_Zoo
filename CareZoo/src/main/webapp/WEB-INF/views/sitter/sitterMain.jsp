@@ -42,16 +42,20 @@
 	var user_name = "<%=session.getAttribute("user_name")%>"
 
     </script>
-	<style type="text/css">
-	body {
-		font-family: 'Noto Sans KR', sans-serif;
-	}
-	
-	#choice {
-		text-align: center;
-	}
+<style type="text/css">
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+#choice {
+	text-align: center;
+}
 </style>
-    
+
 <title>sitterMain</title>
 <!-- 방문펫시터, 가정집펫시터 고르는부분  -->
 </head>

@@ -17,6 +17,9 @@ $(function(){
 
 </script>
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 .btn-ok{
     width: 5%;
     border: none;

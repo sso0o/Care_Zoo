@@ -68,7 +68,7 @@ body{
 
 <title>Insert title here</title>
 </head>
-<body>
+<body class="container">
     <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>

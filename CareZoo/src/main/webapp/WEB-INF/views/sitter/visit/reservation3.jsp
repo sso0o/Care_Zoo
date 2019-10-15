@@ -22,6 +22,9 @@
 
 <title>reservation3</title>
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 .img_wrap {
 	width: 300px;
 	margin-top: 50px;
@@ -307,19 +310,14 @@ $(function() {
                     </ul>
                 </li>
                 <li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
-                    <ul>
-                        <li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
-                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
-                    </ul>
-                </li>
-                <li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-                    <ul>
+				    <ul>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
                         <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>가정시터</a></li>
-						<li class='last'><a href='#'>방문시터</a></li>
-						<li class='last'><a href='#'>펫호텔</a></li>
+
                     </ul>
                 </li>
+
                 <li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
                 <li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
             </ul>
