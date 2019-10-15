@@ -18,7 +18,10 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <!-- 메뉴바 -->
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+<!-- 폰트 -->
 <script type="text/javascript" src="../assets/js/jquery-latest.js"></script>
 <script src="../assets/js/admin.js"></script>
 
@@ -38,7 +41,9 @@
 /*   margin-left: auto; */
 /*   margin-right: auto; qwewqe*/
 /* } */
-
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+}
 nav {
 	
 }
@@ -126,6 +131,7 @@ main{
 height:45px;
 
 }
+
 </style>
 
 <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
@@ -162,15 +168,42 @@ height:45px;
 			dataType:"JSON",
 			success: function (data){
 				console.log(data)
-				var hotT = $("#hotelReview")
+				var hotD = $("#hotelReview")
 				for (var i = 0; i < data.pethotelR.length; i++) {
-					var tr = "<tr>";
-					var td = "<td>"
+					var divM = "<div class='media border p-3' style='margin: 3px auto;'>"
+					if(data.pethotelR[i].C_FILENAME == null){						
+						divM += '<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">'
+					} else {
+						divM += '<img src="${contextPath}/member/image?fileName='+data.pethotelR[i].C_FILENAME+'" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">'
+					}
+					divM += '<div class="media-body"><table style="width: 100%"><tr>';
+					divM += '<td style="text-align: left; width: 50%"><a href="${contextPath}/petHotel/petHotelView?ph_num='+data.pethotelR[i].PH_NUM+'">'+data.pethotelR[i].PH_NAME+'</a></td>';
+					divM += '<td style="text-align: right;">'
+					for (var j = 1; j <= parseInt(data.pethotelR[i].PHC_STAR) ; j++) {
+						divM += '<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">'
+					}
+					divM += '</tr><tr><td colspan="2"><p style="margin-left: 10px; ">'+data.pethotelR[i].PHC_COMMENT+'</p></td></tr></table></div></div>'
+						
+					hotD.append(divM);
 				}
 				
-				var sitT = $("#sitterReview");
+				var sitD = $("#sitterReview");
 				for (var i = 0; i < data.sitterR.length; i++) {
+					var divM = "<div class='media border p-3' style='margin: 3px auto;'>"
+					if(data.sitterR[i].HS_FILENAME == null){
+						divM += '<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">'
+					} else{						
+						divM += '<img src="${contextPath}/member/image?fileName='+data.sitterR[i].HS_FILENAME+'" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">'
+					}
+					divM += '<div class="media-body"><table style="width: 100%"><tr>';
+					divM += '<td style="text-align: left; width: 50%"><a href="${contextPath}/home/view?hsl_num='+data.sitterR[i].HSL_NUM+'">'+data.sitterR[i].HS_NAME+'시터</a></td>';
+					divM += '<td style="text-align: right;">'
+					for (var j = 1; j <= parseInt(data.sitterR[i].HSC_STAR) ; j++) {
+						divM += '<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">'
+					}
+					divM += '</tr><tr><td colspan="2"><p style="margin-left: 10px; ">'+data.sitterR[i].HSC_COMMENT+'</p></td></tr></table></div></div>'
 					
+					sitD.append(divM);
 				}					
 			},
 			error : function(){
@@ -257,65 +290,19 @@ height:45px;
 			<br>
 			<br>
 			<br>
-			<div class="row">
+			<div class="row" style="margin-bottom: 100px">
 				<fieldset class="col sitterReview">
 					<legend>시터후기</legend>
-					<table class="table table-striped table-hover" id="sitterReview">
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-					</table>
+					<div id="sitterReview">
+						
+					</div>
 
 				</fieldset>
 				<fieldset class="col hotelReview">
 					<legend>호텔후기</legend>
-					<table class="table table-striped table-hover" id="hotelReview">
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-						<tr>
-							<td>a</td>
-							<td>b</td>
-						</tr>
-					</table>
+					<div id="hotelReview">
+						
+					</div>
 				</fieldset>
 			</div>
 			</main>

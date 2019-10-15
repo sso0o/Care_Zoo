@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -333,11 +334,10 @@ ul {
 					</div>
 					&nbsp; <label style="font-size: 40px">&</label> &nbsp;
 					<div style="text-align: left; display: inline-block; border: 1px solid darkgray; border-radius: 4px; padding: 15px; border-color: #40bf9f">
-						<label class="totalDays" style="float: right">반려견 ${params.hsr_numof_pet} 마리</label>
+						<label class="totalDays" style="float: right">반려견 ${params.hsr_numof_pet+1} 마리</label>
 					</div>
 				</div>
-				<h1>가격 형식 바꾸기</h1>
-				<br> <br>
+				<br><br>
 				<div class="hsResAddForm">
 					<br>
 					<div class="PriceAndSize" style="">
@@ -349,16 +349,23 @@ ul {
 <!-- 							<div class="petList" style="font-size: 20px"></div> -->
 <!-- 							<br> -->
 							<div class="night" style="display: inline-block; width: 350px">
-								<div class="nightCount" style="text-align: left; float: left">${params.hsr_priceperday}원 X ${params.hsr_days}</div>
+								<div class="nightCount" style="text-align: left; float: left"><fmt:formatNumber value="${params.hsr_priceperday}" type="currency"></fmt:formatNumber>원 X ${params.hsr_days}</div>
 								<div class="countPrice" style="float: right">
-									<span class="nightCountPrice">${params.hsr_pricePerDays }원</span>
+									<span class="nightCountPrice"><fmt:formatNumber value="${params.hsr_pricePerDays}" type="currency"></fmt:formatNumber>원</span>
 								</div>
 							</div>
 							<hr style="width: 400px">
 							<div class="night" style="display: inline-block; width: 350px">
 								<div class="nightCount" style="text-align: left; float: left">반려견 추가</div>
 								<div class="countPrice" style="float: right">
-									<span class="nightCountPrice">${params.hsr_pricePerPetSize }원 X ${params.hsr_numof_pet}마리 X ${params.hsr_days}</span>
+									<c:choose>
+										<c:when test="${params.hsr_numof_pet eq 0}">
+											<div><span class="nightCountPrice">없음</span></div>
+										</c:when>
+										<c:otherwise>
+											<div><span class="nightCountPrice"><fmt:formatNumber value="${params.hsr_pricePerPetSize }" type="currency"></fmt:formatNumber>원 X ${params.hsr_numof_pet}마리 X ${params.hsr_days}</span></div>
+										</c:otherwise>
+									</c:choose>									
 								</div>
 							</div>
 							
@@ -366,14 +373,15 @@ ul {
 							<div class="night" style="display: inline-block; width: 350px">
 								<div class="nightCount" style="text-align: left; float: left">총</div>
 								<div class="countPrice" style="float: right">
-									<span class="nightCountPrice">${params.hsr_totalprice}원</span>
+									<span class="nightCountPrice"><fmt:formatNumber value="${params.hsr_totalprice}" type="currency"></fmt:formatNumber>원</span>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<%-- 			<div ><label style="font-weight: bold">호텔명:</label> &nbsp; <label>${ph.ph_name} ${phrm.phrm_name }</label></div> asdasd--%>
+		</div>
+		<div>
 			<br> <br>
 			<div>
 				<h4>예약요청 전 꼭 확인해주세요!</h4>
@@ -389,7 +397,7 @@ ul {
 			<textarea name="hsr_message" placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000" id="txtMESSAGE" style="margin: 0px; width: 700px; height: 126px;"></textarea>
 			<br>
 			<div>
-				<div style="margin-bottom: 15px">도그메이트를 이용하시는 이유에 대해 알려주세요!</div>
+				<div style="margin-bottom: 15px">맡겨Zoo를 이용하시는 이유에 대해 알려주세요!</div>
 				<div style="margin-bottom: 15px">
 					<select name="hsr_purpose">
 						<option value="여행">여행</option>
@@ -430,5 +438,7 @@ ul {
 		</div>
 	</form>
 </div>
+
+<br><br><br><br>
 </body>
 </html>

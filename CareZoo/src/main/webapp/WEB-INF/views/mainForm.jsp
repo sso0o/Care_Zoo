@@ -13,6 +13,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <style type="text/css">
+    body{
+	font-family: 'Noto Sans KR', sans-serif;
+}
     </style>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="${contextPath}/resources/js/index.js"></script> 

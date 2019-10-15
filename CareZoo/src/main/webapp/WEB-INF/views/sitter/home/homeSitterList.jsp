@@ -499,7 +499,7 @@ ul {
 					<tr>
 						<th>예약일</th>
 						<td>
-							<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin" /><span class="glyphicon glyphicon-calendar form-control-feedback"></span> <span>&gt;</span> <input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout" class="glyphicon glyphicon-calendar" />
+							<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin"/><span class="glyphicon glyphicon-calendar form-control-feedback"></span> <span>&gt;</span> <input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout" class="glyphicon glyphicon-calendar" />
 						</td>
 					</tr>
 					<tr>

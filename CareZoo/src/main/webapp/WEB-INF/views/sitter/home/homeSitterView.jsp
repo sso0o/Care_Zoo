@@ -82,6 +82,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css' /><!-- dateTimePicker -->
 <script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js" type="text/javascript"></script><!-- multidatePicker -->
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script><!-- dateTimePicker -->
+
 <title>homeSitterView</title>
 <!-- 가정집 펫시터 상세내용 -->
 <style type="text/css">
@@ -501,12 +502,40 @@ $(function() {
 				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
 					<ul>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+                 </ul>
+             </li>
+             <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+             <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+         </ul>
+     </div>
+ </nav>
+<!-- 칸 띄우기 위함 -->
+<br><br><br>
 
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+<!-- 		여기다 내용을 작성하시면 됩니다 -->
+<div class="container">
+	<div  style="width: 750px; display: inline-block; float: left;">
+	<div><strong>${hsList.HSL_TITLE}</strong></div>
 
-					</ul></li>
-				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
+		<div class="demo">
+			<div class="item">
+				<div class="clearfix" style="width: 700px; height:402px ">
+					<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+					<c:forEach items="${hsimg}" var="img">
+						<li data-thumb="${contextPath}/home/image?fileName=${img}">
+							<img src="${contextPath}/home/image?fileName=${img}" style="width: 700px; height:402px "/>										
+						</li>
+					</c:forEach>
+					</ul>
+				</div>
+			</div>	
+		</div>
+		<br><br>
+		<fieldset>
+			<legend><strong>돌봄 가능한 강아지 크기&나이</strong></legend>
+			<ul>
+				<li>${hsList.HSL_SIZE } 가능합니다.</li>
+				<li>${hsList.HSL_PET_AGE }케어 가능합니다.</li>
 			</ul>
 		</div>
 	</nav>
@@ -573,32 +602,39 @@ $(function() {
 			</fieldset>
 			<br>
 			<br>
-
-			<div class="row bootstrap snippets">
-				<ul class="media-list">
-					<c:forEach items="${comment}" var="cmmt">
-						<li class="media">
-							<a href="#" class="pull-left"> 
-							<c:choose>
-								<c:when test="${cmmt.C_FILENAME eq null}">
-									<img src="${contextPath}/resources/img/dog.jpg" class="img-circle">
-								</c:when>
-								<c:otherwise>
-									<img src="${contextPath }/home/image?fileName=${cmmt.C_FILENAME }" alt="사진엄슴" class="img-circle">
-	
-								</c:otherwise>
-							</c:choose>
-							</a>
-							<div></div>
-							<div class="media-body">
-								<span class="text-muted pull-right"> <small class="text-muted">${cmmt.HSC_WRITE_DATE}</small>
-								</span><small class="text-success"><i>${cmmt.C_NAME}</i></small>
-								<p>${cmmt.HSC_COMMENT}</p>
-							</div>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
+			<div>
+			<c:forEach items="${comment}" var="cmmt">
+				<div class="media border p-3" style="margin: 3px auto;">
+				<c:choose>
+					<c:when test="${cmmt.C_FILENAME eq null}">
+						<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+					</c:when>
+					<c:otherwise>
+						<img src="${contextPath }/home/image?fileName=${cmmt.C_FILENAME }" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+					</c:otherwise>
+				</c:choose>
+					<div class="media-body">
+						<div class="media-body">
+							<table style="width: 100%">
+								<tr>
+									<td style="text-align: left; width: 50%">${cmmt.C_NAME}</td>
+									<td style="text-align: right; width: fit-content;" colspan="2">	
+										<c:forEach var="i" begin="1" end="${cmmt.HSC_STAR-(cmmt.HSC_STAR%1)}">
+											<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
+										</c:forEach>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" style="text-align: left; width: 80%"><p style="margin-left: 10px; ">${cmmt.HSC_COMMENT}</p></td>
+									<td colspan="1" style="text-align: right; width: fit-content;" ><fmt:formatDate value="${cmmt.HSC_WRITE_DATE}"></fmt:formatDate></td>
+								</tr>
+							</table>
+							
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
 		</div>
 		<div style="width: 293px; display: inline-block; float: left;">
 			<div>
