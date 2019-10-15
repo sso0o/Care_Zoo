@@ -1,61 +1,73 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--부트스트랩-->
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- 글씨체 -->
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<!-- 메뉴바 -->
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-<!-- link for datepicker -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- datePicker -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' />
-<!-- datePicker -->
-<link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css' />
-<!-- link for navBar -->
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<!--부트스트랩-->
-
+<meta name="description" content="">
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/lightslider.css" />
 <!--이미지 슬라이더  -->
-<!-- *필수요소*제이쿼리 -->
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/resources/css/index.css">
+<!-- 메뉴바 -->
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css'
+	href='${contextPath}/resources/css/datepicker.css' />
+<!-- 데이트피커 -->
+<link rel='stylesheet' type='text/css'
+	href='${contextPath}/resources/css/homeSitter.css' />
+<!-- 데이트피커 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- 폰트 -->
+<link rel='stylesheet' href='${contextPath}/resources/css/star.css' />
+<!-- 별점 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- ㄴㅁㅇ -->
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> -->
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script> -->
-<!-- <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
-<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<!-- script for datepicker -->
+<script src="https://code.jquery.com/jquery-2.2.0.min.js"
+	type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!-- datePicker -->
-<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
-<!-- moment.js -->
-<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
-<!-- datePicker -->
-<script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>
-<!-- dateTimePicker -->
-<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
-<!-- 부트스트랩 -->
-
+<!-- 데이트피커 -->
+<script type="text/javascript"
+	src="${contextPath}/resources/js/lightslider.js"></script>
+<!-- 슬라이드 -->
+<script type="text/javascript"
+	src="${contextPath}/resources/js/index.js"></script>
+<!-- 메뉴바 -->
+<script src="${contextPath}/resources/js/moment.js"
+	type="text/javascript"></script>
+<!-- 데이트피커 -->
+<script src="${contextPath}/resources/js/datepicker-ko.js"
+	type="text/javascript"></script>
+<!-- 데이트피커 -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<!-- 카카오 상담 -->
 
 
 <title>homeSitterList</title>
 <!-- 가정용 펫시터 리스트 -->
 <style type="text/css">
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 .menu>ul {
 	height: 45px;
 }
@@ -359,16 +371,25 @@ ul {
 	// ajax로 이미지 띄우기 왜냐면 map으로 받으니깐!!!
 </script>
 </head>
-<body>
+<body class="container">
 	<!-- 네비게이션 -->
 	<div class="container">
-		<header>
-			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a> <br>
-			<div class="header_Btn">
-				<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
-			</div>
-		</header>
-	</div>
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+         
+            <div class="header_Btn" id="sessioncheck"> 
+            <sec:authorize access="isAnonymous()">
+            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
+            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+            </sec:authorize>
+             </div>
+        </header>
+    </div>
 	<nav>
 		<div class='menu'>
 			<ul style="">
@@ -409,17 +430,17 @@ ul {
 				<li id="menu_3" class="nav-item"><a class="nav-link" data-toggle="tab" href="#">인천</a></li>
 			</ul>
 			<div class="tab-content">
-							<div id="subtbl_0" style="display: none">
-								<table>
-									<tr>
-										<td>
-											<input type="checkbox" name="hs_address" value="서울"> 
-											<input type="checkbox" name="hs_address" value="경기"> 
-											<input type="checkbox" name="hs_address" value="인천">
-										</td>
-									</tr>
-								</table>
-							</div>
+				<div id="subtbl_0" style="display: none">
+					<table>
+						<tr>
+							<td>
+								<input type="checkbox" name="hs_address" value="서울"> 
+								<input type="checkbox" name="hs_address" value="경기"> 
+								<input type="checkbox" name="hs_address" value="인천">
+							</td>
+						</tr>
+					</table>
+				</div>
 				<div id="subtbl_1" style="display: none; border: 1px solid" class="container tab-pane active">
 					<table>
 						<tr class="state_seoul">
@@ -551,7 +572,7 @@ ul {
 		</div>
 		<%-- 		</c:forEach> --%>
 	</div>
-	</div>
+
 
 	<br>
 	<br>
