@@ -378,7 +378,7 @@ public class HomeSitterController {
 		HomeSitterList hsList = hslService.getHomeSitterByHsl_Num(hsl_num);
 		List<String> dateStrings  = hslService.getDisableDates(hsl_num);
 		List<String> files = hslService.getFileList(hsl_num);
-//		List<HomeSitterComment> comment = hscService.getHomesitterComment(hsList.getHs_num());
+		List<HomeSitterComment> comment = hscService.getHomesitterComment(hsList.getHs_num());
 		
 		System.out.println(hsList);
 		System.out.println("dateStrings"+dateStrings);
@@ -388,7 +388,7 @@ public class HomeSitterController {
 		model.addAttribute("hsimg", files);
 		model.addAttribute("disDates", dateStrings);
 		model.addAttribute("hsList", hsList);
-//		model.addAttribute("comment", comment);
+		model.addAttribute("comment", comment);
 		return "sitter/home/homeSitterView";
 	}
 	@RequestMapping("/getComment")
@@ -398,17 +398,17 @@ public class HomeSitterController {
 		System.out.println("cc"+comment);		
 		return comment;
 	}
-	@ResponseBody
-	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)
-	public Map<String, Object> getHsImg(int hs_num) {
-		System.out.println("hs넘어오나");
-		System.out.println(hs_num);
-		Map<String, Object> rst = new HashMap<String, Object>();
-		String filename = hsService.getImage(hs_num);
-		rst.put("filename", filename);
-		System.out.println("rst : "+rst);
-		return rst;
-	}
+//	@ResponseBody
+//	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)
+//	public Map<String, Object> getHsImg(int hs_num) {
+//		System.out.println("hs넘어오나");
+//		System.out.println(hs_num);
+//		Map<String, Object> rst = new HashMap<String, Object>();
+//		String filename = hsService.getImage(hs_num);
+//		rst.put("filename", filename);
+//		System.out.println("rst : "+rst);
+//		return rst;
+//	}
 
 	
 	
