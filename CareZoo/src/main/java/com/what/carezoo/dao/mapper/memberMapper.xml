@@ -80,15 +80,16 @@
 	<!-- 메인에 리뷰가져오기 -->
 	<select id="getMainSitterReview" resultType="map">
 	<![CDATA[ 
-		select hsc.*, hs.hs_filename, hs.hs_name
+		select hsc.*, hs.hs_filename, hs.hs_name, hsl.hsl_num
 		from homesitter hs,
+			homesitterlist hsl,
 			(select *
 			from (select *
 				from homesittercomment
 				order by hsc_write_date desc)
 			where ROWNUM <=5) hsc
 		where hsc.hs_num = hs.hs_num(+)
-	
+		and hsc.hs_num = hsl.hs_num(+)
 	]]>
 	</select>
 	
