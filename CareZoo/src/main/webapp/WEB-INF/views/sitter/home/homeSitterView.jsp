@@ -584,33 +584,37 @@ $(function() {
 		</ul>
 		</fieldset>		
 		<br><br>
-		
-		<div class="row bootstrap snippets">
-			<ul class="media-list">
-				<c:forEach items="${comment}" var="cmmt">
-					<li class="media">
-						<a href="#" class="pull-left">						 
-						<c:choose>
-							<c:when test="${cmmt.C_FILENAME eq null}">
-								<img src="${contextPath}/resources/img/dog.jpg" class="img-circle">
-							</c:when>
-							<c:otherwise>
-								<img src="${contextPath }/home/image?fileName=${cmmt.C_FILENAME }" alt="사진엄슴" class="img-circle">
-								
-							</c:otherwise>
-						</c:choose>
-						</a>
-						<div></div>
+		<div>
+			<c:forEach items="${comment}" var="cmmt">
+				<div class="media border p-3" style="margin: 3px auto;">
+				<c:choose>
+					<c:when test="${cmmt.C_FILENAME eq null}">
+						<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+					</c:when>
+					<c:otherwise>
+						<img src="${contextPath }/home/image?fileName=${cmmt.C_FILENAME }" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+					</c:otherwise>
+				</c:choose>
+					<div class="media-body">
 						<div class="media-body">
-							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.HSC_WRITE_DATE}</small>
-							</span> <strong class="text-success">${cmmt.C_NAME}</strong>
-							<p>
-								${cmmt.HSC_COMMENT}
-							</p>
+							<table style="width: 100%">
+								<tr>
+									<td style="text-align: left; width: 50%">${cmmt.C_NAME}</td>
+									<td style="text-align: right;">	
+										<c:forEach var="i" begin="1" end="${cmmt.HSC_STAR-(cmmt.HSC_STAR%1)}">
+											<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
+										</c:forEach>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2"><p style="margin-left: 10px; ">${cmmt.HSC_COMMENT}</p></td>
+								</tr>
+							</table>
+							
 						</div>
-					</li>
-				</c:forEach>
-			</ul>
+					</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	<div style="width: 293px; display: inline-block; float: left;">
@@ -660,36 +664,6 @@ $(function() {
 <!-- 					        <td>Dooley</td> -->
 <!-- 					      </tr> -->
 					    </tbody>
-					
-					
-					
-<!-- 						<ul> -->
-<!-- 							<li> -->
-<!-- 								예약을 원하는 날짜와 시간을 선택해주세요.<br> -->
-<!-- 								<input type="text" id="checkin" name="hsr_chkin"  class="cal" placeholder="시작일" style="width: 143px;"> -->
-<!-- 								<input type="text" id="checkout" name="hsr_chkout"  class="cal" placeholder="마침일" style="width: 143px;"> -->
-<!-- 							</li> -->
-<!-- 							<li> -->
-<!-- 								시작 시간 : <input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time"><br> -->
-<!-- 								종료 시간 : <input type="text" id="hsr_pickup_time" name="hsr_pickup_time"><br> -->
-<!-- 							</li> -->
-<!-- 							<li><span id="pricePerDay">20000</span>원  -->
-<!-- 								<span> -->
-<!-- 									<select id="petSize-select" name="hsl_size" data-width="130px"> -->
-<!-- 										<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option> -->
-<!-- 										<option id="bigSize" value="대형견">15kg 이상</option> -->
-<!-- 									</select> -->
-<!-- 								</span> -->
-<!-- 							</li> -->
-<!-- 							<li>반려견 추가 당 <span id="addPet">15000</span>원</li> -->
-<!-- 							<li><span id ="DAY">1 day</span> <span class="pricePerDays"> 20000</span>원</li> -->
-<!-- 							<li>반려견 추가<span><input type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0"></span><span id="totalAddPetPrice">0</span>원</li> -->
-<!-- 							<li>총 가격 : <span id="hsr_totalprice">20,000</span>원<br> -->
-<!-- 							</li> -->
-<!-- 						</ul>					 -->
-<!-- 						<ul> -->
-<!-- 							<li><input type="submit" value="예약하기"><input type="reset" value="초기화"></li> -->
-<!-- 						</ul> -->
 					</table>
 					<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>">
 					<input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }">
