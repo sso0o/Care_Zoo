@@ -107,7 +107,7 @@ ul {
 }
 
 .btn {
-	width: 265.5px;
+	width: 264.5px;
 	display: inline-block;
 	font-weight: 400;
 	vertical-align: middle;
@@ -126,7 +126,7 @@ ul {
 
 
 #subtbl_1,#subtbl_2,#subtbl_3{
-width:1072px;
+width:1068px;
 height:100px;
 border-bottom-left-radius:10px;
 border-bottom-right-radius:10px;
@@ -173,7 +173,6 @@ height:45px;
 
 
 <script type="text/javascript">
-
 	var i = 0;
 	var searchSwitch = 0;
 	$(document)
@@ -720,7 +719,7 @@ height:45px;
 <!-- 애견호텔 목록 -->
 </head>
 <body class="container">
-	    <div class="container">
+ <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
             <br>

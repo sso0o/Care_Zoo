@@ -52,9 +52,7 @@ function logoutCheck() {
 	
 </script>
 <style>
-header {
-width:1070px;
-}
+
 .bottom-left {
   position: fixed;
   bottom: 0;
@@ -84,12 +82,12 @@ width:1070px;
 </style>
 
 <title>qna</title>
-<!-- QnA -->
+<!-- QnA asd-->
 </head>
 <body class="container">
     <div class="container">
-        <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+        <header >
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position:relative;left:28px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
