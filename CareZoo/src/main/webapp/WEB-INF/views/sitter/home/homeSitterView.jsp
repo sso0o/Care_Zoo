@@ -35,10 +35,7 @@
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<!--  comment -->
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
-<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  -->
+
 <title>homeSitterView</title>
 <!-- 가정집 펫시터 상세내용 -->
 <style type="text/css">
@@ -503,39 +500,52 @@ $(function() {
 </head>
 <body>
 	<!-- 네비게이션 -->
-<div class="container">
-	<header>
-		<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a> <br>
-		<div class="header_Btn">
-			<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
-		</div>
-	</header>
-</div>
-<nav>
-	<div class='menu'>
-		<ul style="">
-			<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-				<ul>
-					<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
-                    <ul>
-                       <li><a href='#'>HTML Basic</a></li>
-                       <li class='last'><a href='#'>HTML Advanced</a></li>
-                    </ul>
-                     --></li>
-					<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-				</ul></li>
-			<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
-				<ul>
-					<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+    <div class="container">
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <br>
+			<div class="header_Btn" id="sessioncheck">
+				<sec:authorize access="isAnonymous()">
+					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+				</sec:authorize>
+			</div>
+        </header>
+    </div>
+ <nav>
+     <div class='menu'>
+         <ul style="">
+             <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+                 <ul>
+                     <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+                         <!-- 
+                  <ul>
+                     <li><a href='#'>HTML Basic</a></li>
+                     <li class='last'><a href='#'>HTML Advanced</a></li>
+                  </ul>
+                   -->
+                     </li>
+                     <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+                 </ul>
+             </li>
+             <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+                 <ul>
+                     <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
 
-					<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+                     <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
 
-				</ul></li>
-			<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
-			<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
-		</ul>
-	</div>
-</nav>
+                 </ul>
+             </li>
+             <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+             <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+         </ul>
+     </div>
+ </nav>
 <!-- 칸 띄우기 위함 -->
 <br><br><br>
 
@@ -600,14 +610,15 @@ $(function() {
 							<table style="width: 100%">
 								<tr>
 									<td style="text-align: left; width: 50%">${cmmt.C_NAME}</td>
-									<td style="text-align: right;">	
+									<td style="text-align: right; width: fit-content;" colspan="2">	
 										<c:forEach var="i" begin="1" end="${cmmt.HSC_STAR-(cmmt.HSC_STAR%1)}">
 											<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
 										</c:forEach>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><p style="margin-left: 10px; ">${cmmt.HSC_COMMENT}</p></td>
+									<td colspan="2" style="text-align: left; width: 80%"><p style="margin-left: 10px; ">${cmmt.HSC_COMMENT}</p></td>
+									<td colspan="1" style="text-align: right; width: fit-content;" ><fmt:formatDate value="${cmmt.HSC_WRITE_DATE}"></fmt:formatDate></td>
 								</tr>
 							</table>
 							
@@ -628,11 +639,11 @@ $(function() {
 					        <th><input type="text" id="checkin" name="hsr_chkin"  class="cal" placeholder="시작일" style="width: 143px;"></th>
 					        <th><input type="text" id="checkout" name="hsr_chkout"  class="cal" placeholder="마침일" style="width: 143px;"></th>
 					      </tr>
-					      <tr>
-					      	<th colspan="2"><small>(반려견 추가 당<span id="addPet">15000</span>원)</small></th>
-					      	</tr>
 					    </thead>
 					    <tbody>
+					      <tr>
+					      	<td colspan="2"><small>(반려견 추가 당<span id="addPet">15000</span>원)</small></td>
+				      	 </tr>
 					      <tr>
 					        <td>시작 시간 :</td>
 					        <td><input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time"></td>
