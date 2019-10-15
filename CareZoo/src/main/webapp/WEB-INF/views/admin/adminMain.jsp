@@ -127,7 +127,7 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="${contextPath}/admin/petHotelList">
+        <a class="nav-link collapsed" href="${contextPath}/admin/main">
           <i class="fas fa-fw fa-cog"></i>
           <span>시터정보관리</span>
         </a>

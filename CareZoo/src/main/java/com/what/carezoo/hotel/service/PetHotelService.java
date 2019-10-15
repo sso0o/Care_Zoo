@@ -40,7 +40,7 @@ public class PetHotelService {
 
 	public boolean addPetHotel(PetHotel ph, List<MultipartFile> files) {
 		System.out.println(ph.getPh_num());
-		if (petHotelDao.insert(ph) > 0) {
+		if (petHotelDao.insertPetHotel(ph) > 0) {
 			System.out.println(ph);
 			if (files.isEmpty()) {
 				return true;
@@ -228,6 +228,14 @@ public class PetHotelService {
 	public PetHotelRoom petHotelRoomDetail(int phrm_num) {
 		return petHotelDao.selectPhRoomByPhrm_num(phrm_num);
 		
+	}
+
+	public boolean addPetHotelRoom(PetHotelRoom phrm) {
+		System.out.println(phrm);
+		if (petHotelDao.insertPetHotelRoom(phrm) > 0) {
+		return true;
+		}
+		return false;
 	}
 
 

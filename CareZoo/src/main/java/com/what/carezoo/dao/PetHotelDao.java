@@ -10,7 +10,8 @@ import com.what.carezoo.model.PetHotelRoom;
 
 public interface PetHotelDao {
 	
-	public int insert(PetHotel ph);
+	public int insertPetHotel(PetHotel ph);
+	public int insertPetHotelRoom(PetHotelRoom phrm);
 	public int update(PetHotel ph);
 	public int delete(int ph_num);
 	public PetHotel selectOne(int ph_num);

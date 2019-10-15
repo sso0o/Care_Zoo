@@ -1,7 +1,7 @@
 <!DOCTYPE mapper     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.what.carezoo.dao.PetHotelDao">
 
-	<insert id="insert" parameterType="PetHotel">
+	<insert id="insertPetHotel" parameterType="PetHotel">
 		<selectKey order="BEFORE" keyProperty="ph_num"
 			resultType="int">
 			<!-- keyProperty="">엔 보드가 가지고 있는 키값을 넣어주면 됨 result Type은 sequence가 int형이니까 
@@ -18,6 +18,26 @@
 		#{ph_name},
 		#{ph_email},
 		#{ph_address}, #{ph_d_address} )
+	</insert>
+	
+	<insert id="insertPetHotelRoom" parameterType="PetHotelRoom">
+		<selectKey order="BEFORE" keyProperty="phrm_num"
+			resultType="int">
+			<!-- keyProperty="">엔 보드가 가지고 있는 키값을 넣어주면 됨 result Type은 sequence가 int형이니까 
+				int로. board속성에 num이 int형으로 sequence를 생성해서 넣었다. -->
+			select pethotelRoom_seq.nextval from dual
+			<!-- insert하면서 시퀀스를 하는게 아니라 시퀀스를 미리 조회해서 값을 미리 가지고 있는다 그 값을 파라미터로 받아온 
+				보드에 있는 num에 집어넣는다 -->
+		</selectKey>
+		insert
+		into pethotelroom (ph_num, phrm_num, phrm_name, phrm_price, phrm_m_price, phrm_l_price, phrm_p_max, phrm_pet_size)
+		values (#{ph_num}, #{phrm_num}, 
+		#{phrm_name},
+		#{phrm_price},
+		#{phrm_m_price},
+		#{phrm_l_price},
+		#{phrm_p_max},
+		#{phrm_pet_size} )
 	</insert>
 
 	<update id="update" parameterType="PetHotel">

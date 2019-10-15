@@ -244,28 +244,28 @@ public class AdminController {
 	}
 
 	// 펫호텔 추가
-//	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
-//	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest, PetHotelRoom phrm){
-//        List<MultipartFile> files = mtfRequest.getFiles("file");
-////        String src = mtfRequest.getParameter("src");
-////        System.out.println("src value : " + src);
-////        System.out.println(fileList.get(0));
-////        for (MultipartFile mf : fileList) {
-////            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-////            long fileSize = mf.getSize(); // 파일 사이즈
-////
-////            System.out.println("originFileName : " + originFileName);
-////            System.out.println("fileSize : " + fileSize);
-////        }
-//		boolean rst = phService.addPetHotel(ph,files);
-//		boolean add_phrm = phService.
-//		if (rst) {
-//			return "redirect:/admin/main";
-//		} else {
-//			return "redirect:/admin/addPetHotelForm";
-//		}
+	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
+	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest, PetHotelRoom phrm){
+        List<MultipartFile> files = mtfRequest.getFiles("file");
+//        String src = mtfRequest.getParameter("src");
+//        System.out.println("src value : " + src);
+//        System.out.println(fileList.get(0));
+//        for (MultipartFile mf : fileList) {
+//            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+//            long fileSize = mf.getSize(); // 파일 사이즈
 //
-//	}
+//            System.out.println("originFileName : " + originFileName);
+//            System.out.println("fileSize : " + fileSize);
+//        }
+		boolean rst = phService.addPetHotel(ph,files);
+		boolean add_phrm = phService.addPetHotelRoom(phrm);
+		if (rst) {
+			return "redirect:/admin/main";
+		} else {
+			return "redirect:/admin/addPetHotelForm";
+		}
+
+	}
 	
 	
 	
