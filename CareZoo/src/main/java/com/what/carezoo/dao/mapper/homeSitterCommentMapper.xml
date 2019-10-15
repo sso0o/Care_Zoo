@@ -27,7 +27,7 @@
 		where phc_num = #{phc_num}
 	</select>
 	
-	<select id="selectByHs_num" parameterType="int" resultType="homeSitterComment">
+	<select id="selectByHs_num" parameterType="int" resultType="hashmap">
 		select hsc.c_num, hsc.hsc_comment, hsc.hsc_star,
 		hsc.hsc_write_date,hsc.hsc_num, c.c_name, ci.c_filename
 		from homesittercomment hsc, homesitter hs ,customer_image ci, customer c
