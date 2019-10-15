@@ -158,24 +158,24 @@ height:45px;
 		
 		
 		$.ajax({
-			url:"${contextPath}/member/getMainSitterReview",
-			data:{
-				
-			},
+			url:"${contextPath}/member/getMainReview",
 			dataType:"JSON",
 			success: function (data){
 				console.log(data)
-				var tab = $("#sitterReview");
-				for (var i = 0; i < data.sitterR.length; i++) {
-					var tr = "<tr> <td>"
-					data.sitterR
+				var hotT = $("#hotelReview")
+				for (var i = 0; i < data.pethotelR.length; i++) {
+					var tr = "<tr>";
+					var td = "<td>"
 				}
+				
+				var sitT = $("#sitterReview");
+				for (var i = 0; i < data.sitterR.length; i++) {
+					
+				}					
 			},
 			error : function(){
 				alert("error")
 			}
-		
-			
 		})
 		
 

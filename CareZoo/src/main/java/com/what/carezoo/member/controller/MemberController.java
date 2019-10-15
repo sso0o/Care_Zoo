@@ -406,23 +406,16 @@ public class MemberController {
 	}
 
 	
-	//메인에 시터리뷰 가져오기
-	@RequestMapping("/getMainSitterReview")
+	//메인에 시터리뷰, 호텔리뷰 가져오기
+	@RequestMapping("/getMainReview")
 	@ResponseBody
 	public Map<String, Object> getMainSitterReview() {
 		Map<String, Object> rst = new HashMap<String, Object>();
-		rst.put("sitterR", memberService.getMainSitterReview());		
-		return rst;
-	}
-	
-	//메인에 호텔리뷰 가져오기
-	@RequestMapping("/getMainPethotelReview")
-	@ResponseBody
-	public Map<String, Object> getMainPethotelReview() {
-		Map<String, Object> rst = new HashMap<String, Object>();
+		rst.put("sitterR", memberService.getMainSitterReview());
 		rst.put("pethotelR", memberService.getMainPethotelReview());
 		return rst;
 	}
+
 
 	
 	//이메일 유효성 검사
