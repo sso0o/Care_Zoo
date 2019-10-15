@@ -932,16 +932,15 @@ height:45px;
 <title>petHotelView</title>
 
 </head>
-<body>
-
-	<div class="container">
-		<header>
-			<a href="${contextPath }"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-
+<body class="container">
+  <div class="container">
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
@@ -949,21 +948,6 @@ height:45px;
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
-		</header>
-	</div>
-	<nav>
-		<div class='menu'>
-			<ul style="">
-				<li class='active sub'><a href='#'>SITTER</a>
-					<ul>
-						<li class='last'><a href='#'>가정펫시터</a> 
-						<!-- 
-
-	    <div class="container">
-        <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-            <br>
-            <div class="header_Btn"> <a class="btn_Login" href="${contextPath}/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a> </div>
         </header>
     </div>
     <nav>

@@ -21,7 +21,7 @@
 <link href="${contextPath }/resources/css/jquery.treemenu.css" rel="stylesheet" type="text/css">
 <script src="${contextPath }/resources/js/jquery.treemenu.js"></script> 
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<!-- 카카오 상담 -->
+<!-- 카카오 상담 asdasd-->
 
 <script type="text/javascript">
 $(document)
@@ -52,6 +52,9 @@ function logoutCheck() {
 	
 </script>
 <style>
+header {
+width:1070px;
+}
 .bottom-left {
   position: fixed;
   bottom: 0;
@@ -83,7 +86,7 @@ function logoutCheck() {
 <title>qna</title>
 <!-- QnA -->
 </head>
-<body>
+<body class="container">
     <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>

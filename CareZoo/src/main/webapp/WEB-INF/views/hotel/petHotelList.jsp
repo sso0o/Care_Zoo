@@ -162,14 +162,11 @@ height:45px;
 <script type="text/javascript"
 	src="${contextPath}/resources/js/lightslider.js"></script>
 <!-- 슬라이드 -->
-<script type="text/javascript"
-	src="${contextPath}/resources/js/index.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
 <!-- 메뉴바 -->
-<script src="${contextPath}/resources/js/moment.js"
-	type="text/javascript"></script>
+<script src="${contextPath}/resources/js/moment.js" type="text/javascript"></script>
 <!-- 데이트피커 -->
-<script src="${contextPath}/resources/js/datepicker-ko.js"
-	type="text/javascript"></script>
+<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
 <!-- 데이트피커 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!-- 카카오 상담 -->
