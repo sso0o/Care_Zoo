@@ -195,7 +195,6 @@
 					console.log(data)	
 					if(d>endday){
 						$(".cancel").hide();
-						$(".payment").hide();
 					} else{
 						$(".review").hide();
 					}
@@ -489,7 +488,7 @@ td{
 
 	<div class="container">
 		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
 
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -733,7 +732,6 @@ td{
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: center;">
-						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
 						<a href="#" onclick="cancel()" class="btn my-btn cancel" id="cancel">취소</a>
 						<a href="#" onclick="review()" class="btn my-btn review" id="review">후기</a>
 					</td>

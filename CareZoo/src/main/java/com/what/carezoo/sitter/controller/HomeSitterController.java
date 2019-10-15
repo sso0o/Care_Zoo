@@ -355,18 +355,7 @@ public class HomeSitterController {
 //	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

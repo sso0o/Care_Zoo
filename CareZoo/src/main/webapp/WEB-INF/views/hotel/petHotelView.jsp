@@ -1027,31 +1027,29 @@ height:45px;
 			<div>
 				<c:forEach var="phc" items="${phComment}">
 					<div class="media border p-3" style="margin: 3px auto;">
-					<c:choose>
-						<c:when test="${phc.C_FILENAME eq null}">
-							<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
-						</c:when>
-						<c:otherwise>
-							<img src="${contextPath }/comment/image?fileName=${phc.C_FILENAME}" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
-						</c:otherwise>
-					</c:choose>
+						<c:choose>
+							<c:when test="${phc.C_FILENAME eq null}">
+								<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+							</c:when>
+							<c:otherwise>
+								<img src="${contextPath }/comment/image?fileName=${phc.C_FILENAME}" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+							</c:otherwise>
+						</c:choose>
 						<div class="media-body">
-							<div class="media-body">
-								<table style="width: 100%">
-									<tr>
-										<td style="text-align: left; width: 50%">${phc.C_NAME}</td>
-										<td style="text-align: right;">	
-											<c:forEach var="i" begin="1" end="${phc.PHC_STAR-(phc.PHC_STAR%1)}">
-												<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
-											</c:forEach>
-										</td>
-									</tr>
-									<tr>
-										<td colspan="2"><p style="margin-left: 10px; ">${phc.PHC_COMMENT}</p></td>
-									</tr>
-								</table>
-								
-							</div>
+							<table style="width: 100%">
+								<tr>
+									<td style="text-align: left; width: 50%">${phc.C_NAME}</td>
+									<td style="text-align: right;">	
+										<c:forEach var="i" begin="1" end="${phc.PHC_STAR-(phc.PHC_STAR%1)}">
+											<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
+										</c:forEach>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2"><p style="margin-left: 10px; ">${phc.PHC_COMMENT}</p></td>
+								</tr>
+							</table>
+							
 						</div>
 					</div>
 				</c:forEach>
