@@ -115,11 +115,11 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 <meta charset="UTF-8">
 <title>방문 펫시터 예약</title>
 </head>
-<body>
+<body class="container">
     <div class="container">
         <header>
 			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-
+			<br>
 		<div class="header_Btn" id="sessioncheck">
 			<sec:authorize access="isAnonymous()">
 				<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>

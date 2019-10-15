@@ -242,11 +242,11 @@ return year + '-' + month + '-' + day; }
 <meta charset="UTF-8">
 <title>정기적인 요일 시작일 고르기</title>
 </head>
-<body>
+<body class="container">
     <div class="container">
         <header>
 			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-
+			<br>
 		<div class="header_Btn" id="sessioncheck">
 			<sec:authorize access="isAnonymous()">
 				<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
@@ -278,18 +278,7 @@ return year + '-' + month + '-' + day; }
                     </ul>
                 </li>
                 <li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
-                    <ul>
-                        <li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
-                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
-                    </ul>
-                </li>
-                <li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-                    <ul>
-                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>가정시터</a></li>
-						<li class='last'><a href='#'>방문시터</a></li>
-						<li class='last'><a href='#'>펫호텔</a></li>
-                    </ul>
+					<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
                 </li>
                 <li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
                 <li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
