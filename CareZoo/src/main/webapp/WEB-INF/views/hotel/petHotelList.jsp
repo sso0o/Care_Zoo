@@ -34,7 +34,8 @@
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
 <!-- 폰트 -->
-
+<link rel='stylesheet' href='${contextPath}/resources/css/star.css' />
+<!-- 별점 -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <style type="text/css">
@@ -502,11 +503,22 @@ height:45px;
 									var reviewDiv = $('<div style="font-size:21px;position:relative;left:420px;top:2px">');
 									$('<span>').text(
 											'고객후기  ' + phList[i].ph_c_count
-													+ '개 '
+													+ '개')
+											.appendTo(reviewDiv);
+											$('<br>').appendTo(reviewDiv);
+									$('<span>').text(
+											'평점  ' 
 													+ phList[i].ph_avgStar)
 											.appendTo(reviewDiv);
 									
-
+// 									for(var i = 0; 5<i ;i++){asdasdㅂㅈㄷㅈㅂㄷㅈㅂqwewqeqweqqweqw
+// 										$('<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">").appentTo(reviewDiv);
+// 									}
+									
+// 									<c:forEach var="i" begin="1" end="${phc.PHC_STAR-(phc.PHC_STAR%1)}"> q
+// 									<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
+// 								</c:forEach>
+								
 // 									<span id="starRev" class="starRev"> 
 // 										<span class="starR1" id="ph_star1" title="0.5">별1_왼쪽</span> 
 // 										<span class="starR2" id="ph_star2" title="1">별1_오른쪽</span> 

@@ -1017,8 +1017,16 @@ height:45px;
 			<br>
 			<div class="row">
 				<div class="col-5">
-					<p>가능한 펫 마리수 :</p>
-					<p>주소 : ${petHotel.ph_address} &ensp; ${petHotel.ph_d_address }
+				
+				<c:forEach items="${petHotelRoomList}" var="phrml">
+						<div style="border:1px solid;padding:10px;border-radius:13px">
+						<label>방 이름: ${phrml.phrm_name}</label>
+						<label>가능한 펫 사이즈: ${phrml.phrm_pet_size} </label>
+						<label>가능한 펫 마리수: ${phrml.phrm_p_max} </label>
+						</div>
+						<br>
+				</c:forEach>
+					<p>주소 : ${petHotel.ph_address}  ${petHotel.ph_d_address }
 					<p>연락처 : ${petHotel.ph_contact }
 				</div>
 				<div id="map_canvas" class="col-7"></div>
@@ -1069,9 +1077,9 @@ height:45px;
 						<label>원하는 날짜를 선택해주세요.</label> <br>
 						<input type="hidden" class="ph_num" name="ph_num" value="${petHotel.ph_num }">
 						<br>
-						<input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin"  style="font-size:17px;width:110px;height:50px"/>
+						<input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin"  style="font-size:16px;width:110px;height:50px"/>
 						&nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp;
-						<input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout"  style="font-size:17px;width:110px;height:50px"/>
+						<input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout"  style="font-size:15px;width:110px;height:50px"/>
 						<br style="padding: 20px"> <br>
 					</div>
 					<div class="sRoom"></div>
