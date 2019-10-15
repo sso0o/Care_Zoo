@@ -479,13 +479,22 @@ $(function() {
 <div class="container">
 	<!-- 네비게이션 -->
 	<div class="container">
-		<header>
-			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a> <br>
-			<div class="header_Btn">
-				<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
-			</div>
-		</header>
-	</div>
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+         
+            <div class="header_Btn" id="sessioncheck"> 
+            <sec:authorize access="isAnonymous()">
+            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
+            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+            </sec:authorize>
+             </div>
+        </header>
+    </div>
 	<nav>
 		<div class='menu'>
 			<ul style="">
@@ -511,39 +520,6 @@ $(function() {
  </nav>
 <!-- 칸 띄우기 위함 -->
 <br><br><br>
-
-<!-- 		여기다 내용을 작성하시면 됩니다 -->
-<div class="container">
-	<div  style="width: 750px; display: inline-block; float: left;">
-	<div><strong>${hsList.HSL_TITLE}</strong></div>
-
-		<div class="demo">
-			<div class="item">
-				<div class="clearfix" style="width: 700px; height:402px ">
-					<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-					<c:forEach items="${hsimg}" var="img">
-						<li data-thumb="${contextPath}/home/image?fileName=${img}">
-							<img src="${contextPath}/home/image?fileName=${img}" style="width: 700px; height:402px "/>										
-						</li>
-					</c:forEach>
-					</ul>
-				</div>
-			</div>	
-		</div>
-		<br><br>
-		<fieldset>
-			<legend><strong>돌봄 가능한 강아지 크기&나이</strong></legend>
-			<ul>
-				<li>${hsList.HSL_SIZE } 가능합니다.</li>
-				<li>${hsList.HSL_PET_AGE }케어 가능합니다.</li>
-			</ul>
-		</div>
-	</nav>
-	<!-- 칸 띄우기 위함 -->
-	<br>
-	<br>
-	<br>
-
 	<!-- 		여기다 내용을 작성하시면 됩니다 -->
 	<div class="container">
 		<div style="width: 750px; display: inline-block; float: left;">
