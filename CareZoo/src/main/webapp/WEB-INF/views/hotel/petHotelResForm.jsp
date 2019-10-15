@@ -875,9 +875,9 @@ $("#resForm").submit();
 
 		<!-- ///////////////////////////////////////////////////////////////모달 -->
 <!-- 		<div class="modal-modify" id="reply-modal"> -->
-<!-- 			<!-- css 적용 하기 위한 경우 class --> -->
+<!-- 			<!-- css 적용 하기 위한 경우 class --> 
 
-<!-- 			<!-- 스크립트 요소를 직접 조작해야 하는경우 id --> -->
+<!-- 			<!-- 스크립트 요소를 직접 조작해야 하는경우 id --> 
 <!-- 			<div class="modal-table" id="modal-table"> -->
 <!-- 				<div class="close" id="modal-close">&times;</div> -->
 <!-- 				<div class="radioForm"> -->
@@ -897,6 +897,5 @@ $("#resForm").submit();
 <!-- 			</div> -->
 <!-- 		</div> -->
 	</div>
-	<input type="text" value="asds">
 </body>
 </html>
