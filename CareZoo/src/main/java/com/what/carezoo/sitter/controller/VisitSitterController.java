@@ -32,6 +32,7 @@ import com.what.carezoo.pet.service.Pet_DetailService;
 
 import com.what.carezoo.sitter.service.VisitSitterReservationService;
 import com.what.carezoo.sitter.service.VisitSitterService;
+import com.what.carezoo.sitter.service.visitSitterMailSenderService;
 
 @RequestMapping("/visit")
 @Controller
@@ -47,7 +48,7 @@ public class VisitSitterController {
 	@Autowired
 	private VisitSitterReservationService vsrService;
 	@Autowired
-	private MemberMailSendService mailsender;
+	private visitSitterMailSenderService mailsender;
 	
 	// 예약 메인(로그인, 회원가입)
 	@PreAuthorize("isAuthenticated() && hasRole('ROLE_CUSTOMER')")

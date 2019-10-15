@@ -258,7 +258,7 @@ public class AdminController {
 //            System.out.println("fileSize : " + fileSize);
 //        }
 		boolean rst = phService.addPetHotel(ph,files);
-		boolean add_phrm = phService.
+//		boolean add_phrm = phService.
 		if (rst) {
 			return "redirect:/admin/main";
 		} else {

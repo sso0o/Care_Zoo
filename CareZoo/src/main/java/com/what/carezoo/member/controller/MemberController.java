@@ -571,11 +571,12 @@ public class MemberController {
 	
 	//회원가입(kakao)
 	@RequestMapping(value="/join2", method=RequestMethod.POST)
-	public String join2(Customer customer, Model m,HttpServletRequest request) {
+	public String join2(Customer customer, Model m) {
 		//회원가입 메서드
 		boolean result = memberService.joinMember2(customer);
 		if(result) {					
 			m.addAttribute("c_name", customer.getC_name());
+
 			return "mainLogin";
 		} 
 		return "joinForm";
