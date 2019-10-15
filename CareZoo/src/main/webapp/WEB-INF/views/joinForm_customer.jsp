@@ -329,7 +329,7 @@ legend{
 			<div class="main">
 				<div class="form-group">
 					<label for="c_email">아이디</label>
-					<input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요" name="c_email">
+					<input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요" name="c_email" value="${email}">
 					<span id="idchk_val"></span>
 				</div>
 				<div class="form-group">

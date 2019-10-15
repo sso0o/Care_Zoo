@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
@@ -78,30 +79,6 @@
 	}
 </script>
 <script type="text/javascript">
-var sel_file;
-
-$(document).ready(function(){
-	$("#input_img").on("change", handleImgFileSelect);
-});
-
-function handleImgFileSelect(e){
-	var files = e.target.files;
-	var filesArr = Array.prototype.slice.call(files);
-	
-	filesArr.forEach(function(f){
-		if(!f.type.match("image.*")){
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			return;
-		}
-		sel_file = f;
-		
-		var reader = new FileReader();
-		reader.onload = function(e){
-			$("#img").attr("src",e.target.result);
-		}
-		reader.readAsDataURL(f);
-	})
-}
 
 function logoutCheck() {
 	if (confirm("정말 로그아웃?") == true) {
@@ -165,17 +142,14 @@ function checkValue() {
 var index = 1;
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
 $(function() {
-	if($("#email").val() == ""){
-		
-	$("#email").change(function() {
-		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		var vs_email = $("#email").val();
-		if(regExp.test(vs_email)){
+	var c_email = $("#email").val();
+	console.log(c_email);
+		if(c_email){
 			$.ajax({
 	            async: true,
 	            type : 'POST',
-	            data : {vs_email : vs_email},
-	            url : "${contextPath}/visit/idCheck",
+	            data : {c_email : c_email},
+	            url : "${contextPath}/member/idCheck2",
 	            dataType : "json",
 	            success : function(data) {
 	                if (data.cnt > 0) {   
@@ -200,9 +174,8 @@ $(function() {
         	$("#idchk_val").addClass('red');
         	$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
 		}
-	}
-// 	$("#email").val(${email});
-	}); //email체크함수
+		
+ //email체크함수
 	
 	$("#pw2").change(function() {
 		var pw = $("#pw").val(); 
@@ -221,110 +194,15 @@ $(function() {
 		}
 		
 	});//pw체크함수
-	//옵션추가 버튼 클릭시
-	$("#addImgBtn").click(function() {
-//			
-		//파일 선택란을 보여준다.
-		//$("tr#item1").show();
-		// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
-		//새로 추가 할 경우 두번째 tr 값을 복사하여 newitem변수에 대입
-		//var newitem = $("#file"+lastItemNo).clone();
-		var newfile = "<input type='file' id='file' name='file' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
-		$("#example").append(newfile);
-		//아이템 추가시 id="item" 값에 넘버를 추가해 준다.               
-		//newitem.attr("id", "file" + (parseInt(lastItemNo) + 1));
-
-		$("#file").trigger('click');
-
-		//file형식의 그것의 취소버튼을 눌렀을 때.
-
-		//onclick=\"deleteImageAction("+index+")\"
-		$("#file").on("change",handleImgFileSelect);
-//			console.log("add가끝난뒤 index:"+index);
-	});
-
-	// 이미지 정보들을 담을 배열
-	var sel_files = [];
-
-	function fileUploadAction() {
-		console.log("fileUploadAction");
-		$("#file").trigger('click');
-	}
-
-	var sel_file;
-
-	function handleImgFileSelect(e) {
-//			console.log("handleImg");
-//			console.log("handleImg때의 index:"+index);
-		// 이미지 정보들을 초기화
-		var files = e.target.files;
-		var filesArr = Array.prototype.slice.call(files);
-
-		filesArr.forEach(function(f) {
-			if (!f.type.match("image.*")) {
-				alert("확장자는 이미지 확장자만 가능합니다.");
-				return;
-			}
-			sel_file = f;
-			var reader = new FileReader();
-			
-			reader.onload = function(e) {
-				
-				var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='img' class='img' style='width:250px, height:250px'></a>";
-				$(".imgs_wrap").children().remove();
-				$(".imgs_wrap").append(html);
-			}		
-			reader.readAsDataURL(f);		
-		});
-		index++;		
-	}
+	
 	
 });
-
-
 
 
  
 </script>
 
 <style type="text/css">
-
-.img_wrap {
-	width: 300px;
-	margin-top: 50px;
-}
-
-.img_wrap img {
-	max-width: 100%;
-} 
-.btn-addImg {
-	border-color: #40bf9f;
-	color: #40bf9f;
-	font-weight: bold;
-	border: 1.5px solid;
-	float: right;
-	margin: 95px 70px;
-}
-
-.btn-addImg:hover {
-	border-color: #40bf9f;
-	background-color: #40bf9f;
-	color: #fff;
-}
-
-.imgs_wrap {
-	float: left;
-}
-
-.img {
-	width: 250px;
-	height: 250px;
-}
-
-.imgs {
-	display: inline-block;
-}
-
 .content{
 	width: 900px;
 	margin: 0 auto;
@@ -445,35 +323,36 @@ legend{
 	<div class="content">
 		<h2>회원가입</h2>
 		<hr>
-		<form action="${contextPath }/visit/join" method="post" name="userInfo" onsubmit="return checkValue()" enctype="multipart/form-data">
+		<form action="${contextPath }/member/join2" method="post" name="userInfo" onsubmit="return checkValue()">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<div class="main">
 				<div class="form-group">
-					<label for="vs_email">아이디</label>
-					<input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요" name="vs_email">
+					<label for="c_email">아이디</label>
+					<input type="text" value="${id}" name="c_id">
+					<input type="email" class="form-control" id="email" placeholder="이메일을 입력해 주세요" name="c_email" value="${email}" readonly="readonly">
 					<span id="idchk_val"></span>
 				</div>
 				<div class="form-group">
-					<label for="vs_pass">비밀번호</label>
-					<input type="password" class="form-control" id="pw" placeholder="비밀번호를 입력해 주세요" name="vs_pass">
+					<label for="c_pass">비밀번호</label>
+					<input type="password" class="form-control" id="pw" placeholder="비밀번호를 입력해 주세요" name="c_pass">
 					<span id="pw_val"></span>
 				</div>
 				<div class="form-group">
-					<label for="vs_pass_chk">비밀번호 확인</label>
-					<input type="password" class="form-control" id="pw2" placeholder="비밀번호 확인" name="vs_pass_chk">
+					<label for="c_pass_chk">비밀번호 확인</label>
+					<input type="password" class="form-control" id="pw2" placeholder="비밀번호 확인" name="c_pass_chk">
 					<span id="pwchk_val"></span>
 				</div>
 				<div class="form-group">
-					<label for="vs_name">이름</label>
-					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="vs_name">
+					<label for="c_name">이름</label>
+					<input type="text" class="form-control" id="name" placeholder="이름을 입력해 주세요" name="c_name" value="${name}" readonly="readonly">
 				</div>
 				<div class="form-group">
-					<label for="vs_birth">생년월일</label>
-					<input type="date" class="form-control" id="birth" name="vs_birth">
+					<label for="c_birth">생년월일</label>
+					<input type="date" class="form-control" id="birth" name="c_birth">
 				</div>
 				<div class="form-group">
-					<label for="vs_sex">성별</label><label class="space"></label>
-					<select id="sex" name="vs_sex" class="form-control" >
+					<label for="c_sex">성별</label><label class="space"></label>
+					<select id="sex" name="c_sex" class="form-control" >
 						<option value="" selected="selected">성별</option>
 						<option value="1">여자</option>
 						<option value="2">남자</option>
@@ -482,29 +361,20 @@ legend{
 				<div class="form-group">
 					<label for="address">주소</label><label class="space"></label>
 	<!-- 				<input type="button" onclick="sample4_execDaumPostcode()" class="btn btn-outline-success" value="우편번호 찾기"> -->
-					<input type="text" class="form-control" id="address" placeholder="도로명 주소" name="vs_address" readonly="readonly" onclick="getAddress()">
+					<input type="text" class="form-control" id="address" placeholder="도로명 주소" name="c_address" readonly="readonly" onclick="getAddress()">
 					<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
-					<input type="text" class="form-control" id="d_address" placeholder="상세주소를 입력해 주세요" name="vs_d_address" style="margin-top: 5px">
+					<input type="text" class="form-control" id="d_address" placeholder="상세주소를 입력해 주세요" name="c_d_address" style="margin-top: 5px">
 					<span id="guide" style="color: #999"></span>
 				</div>
 				<div class="form-group">
 					<label for="c_contact">휴대전화</label>
 					<div class="mobile-area">
-					<input type="tel" class="form-control phone" id="contact" placeholder="숫자만 입력해 주세요" name="vs_contact">
+					<input type="tel" class="form-control phone" id="contact" placeholder="숫자만 입력해 주세요" name="c_contact">
 					<input type="button" class="form-control auth" value="인증번호 받기">
 					<input type="text" class="form-control phone" id="contact_chk" placeholder="인증번호를 입력해 주세요" style="margin-top: 5px;">
 					<input type="button" class="form-control auth" value="인증번호 확인">
 					</div>
 				</div>
-				
-				<div class="form-group imgs">
-					<div class="imgs_wrap" id="imgs_wrap" >
-						<img id="img" class="img" >
-					</div>
-					<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진 등록">
-					<div id="example"></div>
-				</div>
-				
 				<div class="btnGroup">
 					<input type="submit" class="btn btn-submit" value="가입">
 					<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">

@@ -918,16 +918,13 @@ input[type="number"] {
 	font-size: 12px;
 }
 
-<<<<<<< HEAD
 .menu>ul{
 height:45px;
 }
 
-=======
 .p-3{
 	border-radius: .3em;
 }
->>>>>>> refs/heads/sso
 </style>
 
 
@@ -936,6 +933,7 @@ height:45px;
 
 </head>
 <body>
+
 	<div class="container">
 		<header>
 			<a href="${contextPath }"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
@@ -958,30 +956,45 @@ height:45px;
 			<ul style="">
 				<li class='active sub'><a href='#'>SITTER</a>
 					<ul>
-						<li class='last'><a href='#'>가정펫시터</a> <!-- 
+						<li class='last'><a href='#'>가정펫시터</a> 
+						<!-- 
+
+	    <div class="container">
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <br>
+            <div class="header_Btn"> <a class="btn_Login" href="${contextPath}/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a> </div>
+        </header>
+    </div>
+    <nav>
+        <div class='menu'>
+            <ul style="">
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+                            <!-- 
                      <ul>
                         <li><a href='#'>HTML Basic</a></li>
                         <li class='last'><a href='#'>HTML Advanced</a></li>
                      </ul>
-                      --></li>
-						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-					</ul></li>
-				<li class='active sub'><a href='#'>HOTEL</a>
-					<ul>
-						<li class='last'><a href='#'>애견동반호텔</a></li>
-						<li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
-					</ul></li>
-				<li class='active sub'><a href='#'>REVIEW</a>
-					<ul>
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>시터</a></li>
-						<li class='last'><a href='#'>호텔</a></li>
-					</ul></li>
-				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
-			</ul>
-		</div>
-	</nav>
+                      -->
+                        </li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+                    </ul>
+                </li>
+                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
+                    </ul>
+                </li>
+                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+            </ul>
+        </div>
+    </nav>
 	<br>
 	<br>
 	<br>

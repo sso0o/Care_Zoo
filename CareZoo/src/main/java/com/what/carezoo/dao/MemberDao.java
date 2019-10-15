@@ -45,5 +45,9 @@ public interface MemberDao {
 	public int cancelHSR(int hsr_num);
 	public int cancelVSR(int vsr_num);
 	public int cancelPHR(int phr_num);
+	
+	//kakao
+	public int insertCustomer2(Customer customer);
+	public int findC_id(String c_id);
  }
 

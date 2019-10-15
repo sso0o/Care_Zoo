@@ -69,7 +69,7 @@
 			hsl_chkin_end_time = #{hsl_chkin_end_time},
 			hsl_chkout_str_time = #{hsl_hsl_chkout_str_timebaby},
 			hsl_chkout_end_time = #{hsl_chkout_end_time},
-			hsl_status = 1
+			hsl_status = '1'
 		where hsl_status = 0
 		and hsl_num =#{hsl_num}
 		and hs_num = #{hs_num}

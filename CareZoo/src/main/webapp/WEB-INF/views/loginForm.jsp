@@ -36,7 +36,20 @@
 	function openWin2(){  
     window.open("${contextPath}/member/searchEmail", "아이디 찾기", 
     		"width=600, height=200, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
-}  
+}
+
+	function checkValue(){
+		
+		if($("#userid").val() == ""){
+			alert("이메일을 입력해주세요.");
+			return false;
+		}
+		if($("#pw").val() == ""){
+			alert("비밀번호를 입력해 주세요.");
+			return false;
+		}
+	}		
+
 	
 	//kakaologin
 		// 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -57,24 +70,48 @@
 	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
 	Kakao.init('d21dc2e8ec81b89ed57723a54ff54450');
 	
-    function loginWithKakao() {
-	      // 로그인 창을 띄웁니다.
-	      Kakao.Auth.login({
-	        success: function(authObj) {
-	        	console.log("성공"); 	
-	          alert(JSON.stringify(authObj));
-	          
-	          location.href = "${contextPath}/member/joinForm";
-	        },
-	        fail: function(err) {
-	        	console.log("오류");
-	          alert(JSON.stringify(err));
-	        }
-	      });
-	    };
-	  //]]>
+
+	function loginWithKakao() {
+		// 로그인 창을 띄웁니다.
+		Kakao.Auth.login({
+
+			success : function(authObj) {
+
+				Kakao.API.request({
+
+					url : '/v1/user/me',
+
+					success : function(res) {
+						console.log("성공"); 	
+						//alert(JSON.stringify(res)); //<---- kakao.api.request 에서 불러온 결과값 json형태로 출력
+
+						//alert(JSON.stringify(authObj)); //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
+						console.log(res);
+						console.log(res.id);//<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
+						var id = res.id;		
+						console.log(res.kaccount_email);//<---- 콘솔 로그에 email 정보 출력 (어딨는지 알겠죠?)
+						var email = res.kaccount_email;
+						console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
+						var name = res.properties['nickname'];
+						// res.properties.nickname으로도 접근 가능 )
+
+						console.log(authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
+						
+			         	 alert("카카오 로그인 성공");
+						 location.href = "${contextPath}/kakao/login?email="+encodeURI(email)+"&name="+encodeURI(name)+"&id="+encodeURI(id);
+					}
+
+				})
 
 
+			},
+			fail : function(err) {
+				console.log("오류");
+				alert(JSON.stringify(err));
+			}
+		});
+	};
+	//]]>
 </script>
 <style type="text/css">
 
@@ -136,7 +173,13 @@
 table{
 	margin-left: 23%
 }
-
+#p{
+    font-size: 10px;
+    position: absolute;
+    left: 170px;
+    top: 316px;
+    margin: 8px;
+}
 </style>
 <title>serviceCenter</title>
 <!-- 고객센터 -->
@@ -188,7 +231,7 @@ table{
 	<br>
 	<div class="container">
 		<div class="login-form">
-		<form action="${contextPath }/login" method="post">
+		<form action="${contextPath }/login" method="post" onsubmit="return checkValue()">
 			<%-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
 			<fieldset id="center">
 				<legend><img src="${contextPath}/resources/img/loginDog.png"></legend>
@@ -217,26 +260,32 @@ table{
 					<tr>
 <!-- 						<td>이메일 :</td> -->
 						<td colspan="3">
-							<input type="text" name="userid" class="text-field" placeholder="이메일을 입력해주세요">
+							<input type="text" id ="userid" name="userid" class="text-field" placeholder="이메일을 입력해주세요">
 						</td>
 					</tr>
 					<tr>
 <!-- 						<td>비밀번호 :</td> -->
 						<td colspan="3">
-							<input type="password" class="text-field" name="pw" placeholder="비밀번호를 입력해주세요">
+							<input type="password" id="pw" class="text-field" name="pw" placeholder="비밀번호를 입력해주세요">
 						</td>
 					</tr>
-					<tr>
-						<td colspan="3">
-							<a id ="kakao-login-btn"
-							            href="javascript:loginWithKakao()">
-									<img src="${contextPath}/resources/img/kakaoButton.png"
-									 id="kakaoBtn">
-									  
+						<tr>
+							<td colspan="3">
+								<!-- 						<a id="kakao-login-btn"></a> --> <a
+								href="javascript:loginWithKakao()"> <img
+									src="${contextPath}/resources/img/kakaoButton.png"
+									id="kakaoBtn">
+
 							</a>
-						</td>
-					</tr>
-					<tr>
+								
+							</td>
+						</tr>	
+						<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+						<tr>
+							<td colspan="3"><p id="p">(카카오 로그인시, <span style="color:red;">고객</span>으로서만 이용이 가능합니다!)</p></td>
+						</tr>
+
+						<tr>
 
 							<td colspan="3">
 	

@@ -34,8 +34,14 @@
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
 <!-- 폰트 -->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <style type="text/css">
 /* -------카카오 상담버튼------- */
+body{
+	font-family: 'Noto Sans KR', sans-serif;
+}
 .bottom-left {
   position: fixed;
   bottom: 0;
@@ -95,7 +101,7 @@ ul {
 }
 
 .btn {
-	width: 240px;
+	width: 265.5px;
 	display: inline-block;
 	font-weight: 400;
 	vertical-align: middle;
@@ -112,72 +118,15 @@ ul {
 	text-decoration: none;
 }
 
-.checkbox-container {
-	position: relative;
-}
 
-.checkbox-container input[type="checkbox"] {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0
-}
-
-.checkbox-container input[type="checkbox"]+label {
-	display: inline-block;
-	position: relative;
-	cusor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-.checkbox-container input[type="checkbox"]+label:before {
-	content: ' ';
-	display: inline-block;
-	width: 18px;
-	height: 18px;
-	line-height: 18px;
-	margin: -2px 8px 0 0;
-	text-align: center;
-	vertical-align: middle;
-	background: #fafafa;
-	border: 1px solid #cacece;
-	border-radius: 3px;
-	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px
-		rgba(0, 0, 0, 0.05);
-}
-
-.checkbox-container input[type="checkbox"]+label:active:before,
-	.checkbox-container input[type="checkbox"]:checked+label:active:before
-	{
-	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px
-		rgba(0, 0, 0, 0.1);
-}
-
-.checkbox-container input[type="checkbox"]:checked+label:before {
-	content: '\2713';
-	color: #314ca2;
-	text-shadow: 1px 1px white;
-	background: #f1f4ff;
-	border-color: #adb8c0;
-	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px
-		rgba(0, 0, 0, 0.05);
-}
-#subtbl_1{
-width:1000px;
+#subtbl_1,#subtbl_2,#subtbl_3{
+width:1072px;
 height:100px;
-background:#40bf9f;
 border-bottom-left-radius:10px;
 border-bottom-right-radius:10px;
 opacity:8;
 }
-#subtbl_1:after{
+#subtbl_1:after,#subtbl_2:after,#subtbl_3:after{
 border-top:0 solid transparent;
 border-left:10px solid transparent;
 border-right:10px solid transparent;
@@ -193,6 +142,11 @@ height:45px;
 
 
 </style>
+<!-- ㄴㅁㅇ -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 <script src="https://code.jquery.com/jquery-2.2.0.min.js"
 	type="text/javascript"></script>
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -212,12 +166,10 @@ height:45px;
 	type="text/javascript"></script>
 <!-- 데이트피커 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<!-- 카카오 채팅 -->
+<!-- 카카오 상담 -->
+
+
 <script type="text/javascript">
-
-
-
-
 
 	var i = 0;
 	var searchSwitch = 0;
@@ -482,7 +434,7 @@ height:45px;
 
 									var petHotelDiv = $('<div class="petHotel" onclick="location.href=\'${contextPath}/petHotel/petHotelView?ph_num='
 											+ phList[i].ph_num
-											+ '\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
+											+ '\'\"style="border: 1px solid; margin: 50px; height: 352px;">');
 									//				asdasd	var petHotelDiv = $('<div class="petHotel" style="border: 1px solid; margin: 50px; height: 350px;">');
 									var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
 									petHotelDiv.append(petHotelDiv2);
@@ -532,26 +484,45 @@ height:45px;
 										}
 									});
 
-									var aArDiv = $('<div style="">');
-									$('<span>').text(phList[i].ph_name)
+									var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
+									$('<span style="font-size:25px;">').text(phList[i].ph_name)
 											.appendTo(aArDiv);
-									$('<div>' + phList[i].ph_address
+									$('<hr><br><div style="font-size:20px">' + phList[i].ph_address
 													+ phList[i].ph_d_address
 													+ '</div>').appendTo(aArDiv);
-									var minAndMaxPrice = $('<div>');
-									$('<span>').text(phList[i].ph_minPrice*1)
+									var minAndMaxPrice = $('<div style="font-size:22px;position:relative;top:90px">');
+									$('<span>').text(phList[i].ph_minPrice*1+"원 ~ ")
 									.appendTo(minAndMaxPrice);
-									$('<span>').text(phList[i].ph_maxPrice*1)
+									$('<span>').text(phList[i].ph_maxPrice*1+"원")
 									.appendTo(minAndMaxPrice);
 									console.log("minPrice: "+phList[i].ph_minPrice*1);
 									console.log("maxPrice: "+phList[i].ph_maxPrice*1);
 									minAndMaxPrice.appendTo(aArDiv);
-									var reviewDiv = $('<div>');
+									$('<br><hr>').appendTo(aArDiv);
+									var reviewDiv = $('<div style="font-size:21px;position:relative;left:420px;top:2px">');
 									$('<span>').text(
-											'후기: ' + phList[i].ph_c_count
+											'고객후기  ' + phList[i].ph_c_count
 													+ '개 '
 													+ phList[i].ph_avgStar)
 											.appendTo(reviewDiv);
+									
+
+// 									<span id="starRev" class="starRev"> 
+// 										<span class="starR1" id="ph_star1" title="0.5">별1_왼쪽</span> 
+// 										<span class="starR2" id="ph_star2" title="1">별1_오른쪽</span> 
+// 										<span class="starR1" id="ph_star3" title="1.5">별2_왼쪽</span> 
+// 										<span class="starR2" id="ph_star4" title="2">별2_오른쪽</span> 
+// 										<span class="starR1" id="ph_star5" title="2.5">별3_왼쪽</span> 
+// 										<span class="starR2" id="ph_star6" title="3">별3_오른쪽</span> 
+// 										<span class="starR1" id="ph_star7" title="3.5">별4_왼쪽</span> 
+// 										<span class="starR2" id="ph_star8" title="4">별4_오른쪽</span> 
+// 										<span class="starR1" id="ph_star9" title="4.5">별5_왼쪽</span> 
+// 										<span class="starR2" id="ph_star10" title="5">별5_오른쪽</span>
+// 									</span>
+
+									
+									
+									
 									reviewDiv.appendTo(aArDiv);
 									aArDiv.appendTo(petHotelDiv);
 									$('.petHotelList').append(petHotelDiv);
@@ -735,54 +706,52 @@ height:45px;
 <!-- 애견호텔 목록 -->
 </head>
 <body class="container">
-	<div class="container">
-		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg"
-				class="anchor_logo"></a>
-
+	    <div class="container">
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<label id="principal" style="display: none;"><sec:authentication
-							property="principal" /></label>
+					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
 					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
-		</header>
-	</div>
-	<nav>
-		<div class='menu'>
-			<ul style="">
-				<li class='active sub'><a href='#'>SITTER</a>
-					<ul>
-						<li class='last'><a href='#'>가정펫시터</a> <!-- 
+        </header>
+    </div>
+    <nav>
+        <div class='menu'>
+            <ul style="">
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+                            <!-- 
                      <ul>
                         <li><a href='#'>HTML Basic</a></li>
                         <li class='last'><a href='#'>HTML Advanced</a></li>
                      </ul>
-                      --></li>
-						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-					</ul></li>
-				<li class='active sub'><a href='#'>HOTEL</a>
-					<ul>
-						<li class='last'><a href='#'>애견동반호텔</a></li>
-						<li class='last'><a href='#'>애견호텔(보호자비동반)</a></li>
-					</ul></li>
-				<li class='active sub'><a href='#'>REVIEW</a>
-					<ul>
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>시터</a></li>
-						<li class='last'><a href='#'>호텔</a></li>
-					</ul></li>
-				<li class='last'><a href='#' style="font-size: 17px">MTPAGE</a></li>
-				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
-			</ul>
-		</div>
-	</nav>
+                      -->
+                        </li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+                    </ul>
+                </li>
+                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
+                    </ul>
+                </li>
+                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+            </ul>
+        </div>
+    </nav>
 	<div class='container'></div>
 	<br>
 	<br>
@@ -793,7 +762,7 @@ height:45px;
 
 		<form>
 			<div>
-				<a href="#" id="menu_0" class="btn btn-my" id="menu_0"
+				<a href="${contextPath}/petHotel/petHotelList" id="menu_0" class="btn btn-my" id="menu_0"
 					style="text-align: center;">전체</a> <a href="#" class="btn btn-my"
 					style="text-align: center;" id="menu_1">서울</a> <a href="#"
 					class="btn btn-my" style="text-align: center;" id="menu_2">경기</a> <a
@@ -810,7 +779,7 @@ height:45px;
 					</div>
 					<div id="subtbl_1" style="display: none; border: 1px solid">
 						<table>
-							<tr class="state_seoul">
+							<tr class="">
 								<td id="check_container"><input type="checkbox"
 									name="ph_address" id="state1" value="강남구"> <label
 									for="state1">강남구</label> <input type="checkbox"
@@ -859,93 +828,159 @@ height:45px;
 									name="ph_address" id="state23" value="종로구"> <label
 									for="state23">종로구</label> <input type="checkbox"
 									name="ph_address" id="state24" value="중구"> <label
-									for="state24">중구</label> <br> <input type="checkbox"
+									for="state24">중구</label>  <input type="checkbox"
 									name="ph_address" id="state25" value="중랑구"> <label
 									for="state24">중랑구</label></td>
 							</tr>
 							<tr>
 								<td>
-									<button class="search">검색</button>
+									<input type="button"  class="search" value="찾기">
 									<button type="reset">초기화</button>
 								</td>
 							</tr>
 						</table>
 					</div>
-					<div id="subtbl_2" style="display: none">
+					<div id="subtbl_2" style="display: none; border: 1px solid" >
 						<table>
 							<tr>
 								<td id="check_container"><input type="checkbox"
-									name="ph_address" id="state26" value="고양시">고양시 <input
-									type="checkbox" name="ph_address" id="state27" value="과천시">과천시
+									name="ph_address" id="state26" value="고양시"><label
+									for="state26">고양시</label> <input
+									type="checkbox" name="ph_address" id="state27" value="과천시">
+									<label
+									for="state27">과천시</label>
 									<input type="checkbox" name="ph_address" id="state28"
-									value="광명시">광명시 <input type="checkbox"
-									name="ph_address" id="state29" value="광주시">광주시 <input
-									type="checkbox" name="ph_address" id="state30" value="구리시">구리시
+									value="광명시"><label
+									for="state28">광명시</label> <input type="checkbox"
+									name="ph_address" id="state29" value="광주시"><label
+									for="state29">광주시</label> <input
+									type="checkbox" name="ph_address" id="state30" value="구리시"><label
+									for="state30">구리시</label>
 									<input type="checkbox" name="ph_address" id="state31"
-									value="군포시">군포시 <input type="checkbox"
-									name="ph_address" id="state32" value="김포시">김포시 <input
-									type="checkbox" name="ph_address" id="state33" value="남양주시">남양주시
+									value="군포시"><label
+									for="state31">군포시</label> <input type="checkbox"
+									name="ph_address" id="state32" value="김포시">
+									<label
+									for="state32">김포시</label> <input
+									type="checkbox" name="ph_address" id="state33" value="남양주시">
+									<label
+									for="state33">남양주시</label>
 									<input type="checkbox" name="ph_address" id="state34"
-									value="동두천시">동두천시 <input type="checkbox"
-									name="ph_address" id="state35" value="부천시">부천시 <input
-									type="checkbox" name="ph_address" id="state36" value="성남시">성남시
+									value="동두천시"><label
+									for="state33">동두천시</label> <input type="checkbox"
+									name="ph_address" id="state35" value="부천시"><label
+									for="state35">부천시</label> <br><input
+									type="checkbox" name="ph_address" id="state36" value="성남시">
+									<label
+									for="state36">성남시</label>
 									<input type="checkbox" name="ph_address" id="state37"
-									value="수원시">수원시 <input type="checkbox"
-									name="ph_address" id="state38" value="시흥시">시흥시 <input
-									type="checkbox" name="ph_address" id="state39" value="안산시">안산시
+									value="수원시"><label
+									for="state37">수원시</label> <input type="checkbox"
+									name="ph_address" id="state38" value="시흥시"><label
+									for="state37">시흥시</label> <input
+									type="checkbox" name="ph_address" id="state39" value="안산시"><label
+									for="state39">안산시</label>
 									<input type="checkbox" name="ph_address" id="state40"
-									value="안성시">안성시 <input type="checkbox"
-									name="ph_address" id="state41" value="안양시">안양시 <input
-									type="checkbox" name="ph_address" id="state42" value="양주시">양주시
+									value="안성시"><label
+									for="state40">안성시</label> <input type="checkbox"
+									name="ph_address" id="state41" value="안양시"><label
+									for="state41">안양시</label> <input
+									type="checkbox" name="ph_address" id="state42" value="양주시">
+									<label
+									for="state42">양주시</label>
 									<input type="checkbox" name="ph_address" id="state43"
-									value="여주시">여주시 <input type="checkbox"
-									name="ph_address" id="state44" value="오산시">오산시 <input
-									type="checkbox" name="ph_address" id="state45" value="용인시">용인시
+									value="여주시"><label
+									for="state43">여주시</label> <input type="checkbox"
+									name="ph_address" id="state44" value="오산시">
+									<label
+									for="state44">오산시</label> <input
+									type="checkbox" name="ph_address" id="state45" value="용인시">
+									<label
+									for="state45">용인시</label><br>
 									<input type="checkbox" name="ph_address" id="state46"
-									value="의왕시">의왕시 <input type="checkbox"
-									name="ph_address" id="state47" value="의정부시">의정부시 <input
-									type="checkbox" name="ph_address" id="state48" value="이천시">이천시
+									value="의왕시">
+									<label
+									for="state46">의왕시</label> <input type="checkbox"
+									name="ph_address" id="state47" value="의정부시">
+									<label
+									for="state47">의정부시</label> <input
+									type="checkbox" name="ph_address" id="state48" value="이천시">
+									<label
+									for="state48">이천시</label>
 									<input type="checkbox" name="ph_address" id="state49"
-									value="파주시">파주시 <input type="checkbox"
-									name="ph_address" id="state50" value="평택시">평택시 <input
-									type="checkbox" name="ph_address" id="state51" value="포천시">포천시
+									value="파주시">
+									<label
+									for="state49">파주시</label> <input type="checkbox"
+									name="ph_address" id="state50" value="평택시">
+									<label
+									for="state50">평택시</label> <input
+									type="checkbox" name="ph_address" id="state51" value="포천시">
+									<label
+									for="state51">포천시</label>
 									<input type="checkbox" name="ph_address" id="state52"
-									value="하남시">하남시 <input type="checkbox"
-									name="ph_address" id="state53" value="화성시">화성시 <input
-									type="checkbox" name="ph_address" id="state54" value="가평군">가평군
+									value="하남시"><label
+									for="state52">하남시</label> <input type="checkbox"
+									name="ph_address" id="state53" value="화성시"><label
+									for="state53">화성시</label> <input
+									type="checkbox" name="ph_address" id="state54" value="가평군"><label
+									for="state54">가평군</label>
 									<input type="checkbox" name="ph_address" id="state55"
-									value="양평군">양평군 <input type="checkbox"
-									name="ph_address" id="state56" value="연천군">연천군</td>
+									value="양평군"><label
+									for="state55">양평군</label> <input type="checkbox"
+									name="ph_address" id="state56" value="연천군"><label
+									for="state56">연천군</label></td>
 							</tr>
 							<tr>
 								<td>
-									<button class="search">검색</button>
+									<input type="button"  class="search" value="찾기">
 									<button type="reset">초기화</button>
 								</td>
 							</tr>
 						</table>
 					</div>
-					<div id="subtbl_3" style="display: none">
+					<div id="subtbl_3" style="display: none; border: 1px solid">
+<!-- 					<div id="subtbl_3"  class="custom-control custom-checkbox"> -->
 						<table>
 							<tr>
-								<td id="check_container"><input type="checkbox"
-									name="ph_address" id="state57" value="계양구">계양구 <input
-									type="checkbox" name="ph_address" id="state58" value="남동구">남동구
+								<td id="check_container">
+								
+
+								<input type="checkbox"
+									name="ph_address" id="state57" value="계양구"><label
+									for="state57">계양구</label>
+									 <input
+									type="checkbox" name="ph_address" id="state58" value="남동구">
+									<label
+									for="state58">남동구</label>
 									<input type="checkbox" name="ph_address" id="state59"
-									value="동구">동구 <input type="checkbox" name="ph_address"
-									id="state60" value="미추홀구">미추홀구 <input type="checkbox"
-									name="ph_address" id="state61" value="부평구">부평구 <input
-									type="checkbox" name="ph_address" id="state62" value="서구">서구
+									value="동구"><label
+									for="state59">동구</label> <input type="checkbox" name="ph_address"
+									id="state60" value="미추홀구"><label
+									for="state60">미추홀구</label> <input type="checkbox"
+									name="ph_address" id="state61" value="부평구">
+									<label
+									for="state61">부평구</label> <input
+									type="checkbox" name="ph_address" id="state62" value="서구">
+									<label
+									for="state62">서구</label>
 									<input type="checkbox" name="ph_address" id="state63"
-									value="연수구">연수구 <input type="checkbox"
-									name="ph_address" id="state64" value="중구">중구 <input
-									type="checkbox" name="ph_address" id="state65" value="강화군">강화군
+									value="연수구"><label
+									for="state63">연수구</label> <input type="checkbox"
+									name="ph_address" id="state64" value="중구"><label
+									for="state64">중구</label> <input
+									type="checkbox" name="ph_address" id="state65" value="강화군">
+									<label
+									for="state65">강화군</label>
 									<input type="checkbox" name="ph_address" id="state66"
-									value="옹진군">옹진군</td>
+									value="옹진군"><label
+									for="state66">옹진군</label></td>
 							</tr>
 							<tr>
 								<td>
-									<button class="search">검색</button>
+								<br>
+								<br>
+								<br>
+									<input type="button"  class="search" value="찾기">
 									<button type="reset">초기화</button>
 								</td>
 							</tr>
@@ -976,15 +1011,7 @@ height:45px;
 								type="text" class="pull-right" placeholder="마침 날짜"
 								readonly="readonly" name="phr_chkout" /></td>
 						</tr>
-						<tr class="col-age">
-							<th>반려견 나이</th>
-							<td><select name="ph_pet_age" data-width="130px">
-									<option value="" selected disabled hidden>==선택하세요==</option>
-									<option title="강아지" value="강아지">강아지 (1살 이하)</option>
-									<option title="성견" value="성견">성견 (2~6살)</option>
-									<option title="노령견" value="노령견">노령견 (7살 이상)</option>
-							</select></td>
-						</tr>
+
 						<tr class="col-size">
 							<th>반려견 크기</th>
 							<td><select name="ph_pet_size" data-width="130px">
@@ -996,7 +1023,7 @@ height:45px;
 						</tr>
 						<tr class="col-btn">
 							<td>
-								<button type="button" class="search">찾기</button>
+								<input type="button"  class="search" value="찾기">
 								<button type="reset">초기화</button>
 							</td>
 						</tr>
@@ -1045,13 +1072,7 @@ height:45px;
 
 		</div>
 	</div>
-	<div class="checkbox-container">
-
-		<input type="checkbox" id="is-subscription" value="구독신청">
-
-	</div>
-	<div class="bottom-left alert" id="plusfriend-chat-button"></div>
-
+   <div class="bottom-left alert" id="plusfriend-chat-button"></div>
 	
 </body>
 </html>
