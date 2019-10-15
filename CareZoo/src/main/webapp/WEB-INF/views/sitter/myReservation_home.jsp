@@ -271,7 +271,7 @@
 <title>mypage</title>
 <!-- 마이페이지 시작 -->
 </head>
-<body>
+<body class="container">
 <input type="checkbox" id="menuicon">
 			<label for="menuicon">
 				<span></span>
@@ -292,7 +292,7 @@
 	<div class="container">
 		<header>
 			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-
+			<br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>

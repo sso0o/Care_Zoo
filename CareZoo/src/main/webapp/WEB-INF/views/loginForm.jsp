@@ -15,6 +15,9 @@
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
+<link
+   href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
+   rel="stylesheet">
 
 <script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
 <!-- 카카오 -->
@@ -117,7 +120,9 @@
 	//]]>
 </script>
 <style type="text/css">
-
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 * {
   box-sizing: border-box;
   font-family: 'Noto Sans KR', sans-serif;
@@ -187,7 +192,7 @@ table{
 <title>serviceCenter</title>
 <!-- 고객센터 -->
 </head>
-<body>
+<body class="container">
     <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
