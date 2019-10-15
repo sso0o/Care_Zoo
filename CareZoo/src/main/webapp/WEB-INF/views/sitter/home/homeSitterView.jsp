@@ -267,21 +267,36 @@ $(function() {
 		dataType: "JSON",
 		success: function(data) {
 			console.log(data)
-			if(data.filename != null){
-				$(".img-circle").attr("src","${contextPath}/home/image?fileName="+data.filename)
+			if(data.fileName != null){			
+				$(".img-circle").attr("src","${contextPath}/home/image?fileName="+data.fileName)
 			} else {
 				$(".img-circle").attr("src","https://bootdey.com/img/Content/user_1.jpg")
 			}
-			
 		}, error: function() {
 			alert("error")
 		}
 	})
+// 			for(var a in data){
+// 				var li = $('<li class="media">');
+// 				var a = $('<a href="#" class="pull-left">');
+// 				li.append(a);
+// 				var img = $('<img class="img-circle" alt = "https://bootdey.com/img/Content/user_1.jpg" src ="${contextPath}/home/image?fileName="'+data[a].fileName+'>');
+// 				a.append(img);
+// 				var div =$('<div class="media-body">');
+// 				img.append(div);
+// 				var span = $('<span class="text-muted pull-right"><small class="text-muted">'+data[a].hsc_write_date+'</small></span>');
+// 				div.append(span);
+// 				var strong = $('<strong class="text-success">@'+data[a].c_name+'</strong>');
+// 				span.append(strong);
+// 				var p = $('<p>'+data[a].hsc_comment+'<a href="#">#'+consecteturadipiscing+'</a>.</p>');
+// 				strong.append(p);
+// 				$('.media-list').append(li);
+// 			}
 	
 // 				<ul class="media-list">
 // 				<c:forEach items="${comment}" var="cmmt">
 // 					<li class="media"><a href="#" class="pull-left">
-// 						 <img class="img-circle"></a>
+// 						 <img class="img-circle" src ="${contextPath}/home/image?fileName="+data[a].hsc_fileName></a>
 // 						<div> </div>
 // 						<div class="media-body">
 // 							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
