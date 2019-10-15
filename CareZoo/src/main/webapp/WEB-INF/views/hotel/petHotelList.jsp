@@ -39,10 +39,10 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <style type="text/css">
-/* -------카카오 상담버튼------- */
 body{
 	font-family: 'Noto Sans KR', sans-serif;
 }
+/* -------카카오 상담버튼------- */
 .bottom-left {
   position: fixed;
   bottom: 0;
@@ -511,7 +511,7 @@ height:45px;
 													+ phList[i].ph_avgStar)
 											.appendTo(reviewDiv);
 									
-// 									for(var i = 0; 5<i ;i++){asdasdㅂㅈㄷㅈㅂㄷㅈㅂqwewqeqweqqweqw
+// 									for(var l = 0; 5<l ;l++){
 // 										$('<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">").appentTo(reviewDiv);
 // 									}
 									

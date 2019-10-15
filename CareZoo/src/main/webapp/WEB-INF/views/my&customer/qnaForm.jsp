@@ -20,10 +20,26 @@
 
 <link href="${contextPath }/resources/css/jquery.treemenu.css" rel="stylesheet" type="text/css">
 <script src="${contextPath }/resources/js/jquery.treemenu.js"></script> 
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<!-- 카카오 상담 -->
 
 <script type="text/javascript">
-
+$(document)
+.ready(
+		function() {
+			
+			//----카카오 1:1상담
+			//<![CDATA[
+			// 사용할 앱의 JavaScript 키를 설정해 주세요.
+			Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+			// 플러스친구 1:1채팅 버튼을 생성합니다.
+			Kakao.PlusFriend.createChatButton({
+			  container: '#plusfriend-chat-button',
+			  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+			});
+			//]]>
+			//----카카오 1:1상담	
+		});
 function logoutCheck() {
 	if (confirm("정말 로그아웃?") == true) {
 		location.href = '${contextPath}/logout'
@@ -35,7 +51,19 @@ function logoutCheck() {
 	
 	
 </script>
+<style>
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
 
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+</style>
 
 <title>qna</title>
 <!-- QnA -->
@@ -282,7 +310,7 @@ function logoutCheck() {
 			</div>
 		</section>
 	</div>
-	
+	   <div class="bottom-left alert" id="plusfriend-chat-button"></div>
 	<script src="${contextPath }/resources/js/jquery.treemenu.js"></script> 
 <script>
 $(function(){
