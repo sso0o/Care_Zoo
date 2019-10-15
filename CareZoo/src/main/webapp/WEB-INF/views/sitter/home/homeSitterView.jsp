@@ -35,9 +35,10 @@
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 코멘트 -->
-<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 코멘트 -->
-<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 코멘트 -->
+<!--  comment -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> 
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  -->
 <title>homeSitterView</title>
 <!-- 가정집 펫시터 상세내용 -->
 <style type="text/css">
@@ -212,16 +213,16 @@ $(function() {
 	console.log(unavailableDates);
 	var pickupTime = $('#hsr_dropoff_time').timepicker({		
 		format: 'LT',
-		minTime:'${hsList.hsl_chkin_str_time}' ,
+		minTime:'${hsList.HSL_CHKIN_STR_TIME}' ,
 		timeFormat: "HH:mm",
-		maxTime: '${hsList.hsl_chkin_end_time}',
+		maxTime: '${hsList.HSL_CHKIN_END_TIME}',
 		stepMinute: 30		
 	});
 	var takebackTime = $('#hsr_pickup_time').timepicker({
 		format: 'LT',
-		minTime:'${hsList.hsl_chkout_str_time}' ,
+		minTime:'${hsList.HSL_CHKOUT_STR_TIME}' ,
 		timeFormat: "HH:mm",
-		maxTime: '${hsList.hsl_chkout_end_time}',
+		maxTime: '${hsList.HSL_CHKOUT_END_TIME}',
 		stepMinute: 30
 	});
 	var datepickerStart = $('#checkin').datepicker({
@@ -499,64 +500,47 @@ $(function() {
 </script>
 </head>
 <body>
-<!-- 네비게이션 -->
-<div>
-	<div class="container">
-		<header>
-			<a href="#"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-
-			<div class="header_Btn" id="sessioncheck">
-				<sec:authorize access="isAnonymous()">
-					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
-				</sec:authorize>
-				<sec:authorize access="isAuthenticated()">
-					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
-					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
-				</sec:authorize>
-			</div>
-		</header>
-	</div>
-	<nav>
-		<div class='menu'>
-			<ul style="">
-				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-
-					<ul>
-						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      --></li>
-						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
-						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-					<ul>
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>가정시터</a></li>
-						<li class='last'><a href='#'>방문시터</a></li>
-						<li class='last'><a href='#'>펫호텔</a></li>
-					</ul></li>
-				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">FAQ</a></li>
-			</ul>
+	<!-- 네비게이션 -->
+<div class="container">
+	<header>
+		<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a> <br>
+		<div class="header_Btn">
+			<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a> <a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 		</div>
-	</nav>
-</div>	
+	</header>
+</div>
+<nav>
+	<div class='menu'>
+		<ul style="">
+			<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+				<ul>
+					<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
+                    <ul>
+                       <li><a href='#'>HTML Basic</a></li>
+                       <li class='last'><a href='#'>HTML Advanced</a></li>
+                    </ul>
+                     --></li>
+					<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+				</ul></li>
+			<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+				<ul>
+					<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+					<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
+				</ul></li>
+			<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
+			<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
+		</ul>
+	</div>
+</nav>
 <!-- 칸 띄우기 위함 -->
-<br><br><br><br><br>
+<br><br><br>
 
 <!-- 		여기다 내용을 작성하시면 됩니다 -->
 <div class="container">
 	<div  style="width: 750px; display: inline-block; float: left;">
-	<div><strong>${hsList.hsl_title}</strong></div>
+	<div><strong>${hsList.HSL_TITLE}</strong></div>
 
 		<div class="demo">
 			<div class="item">
@@ -575,26 +559,26 @@ $(function() {
 		<fieldset>
 			<legend><strong>돌봄 가능한 강아지 크기&나이</strong></legend>
 			<ul>
-				<li>${hsList.hsl_size } 가능합니다.</li>
-				<li>${hsList.hsl_pet_age }케어 가능합니다.</li>
+				<li>${hsList.HSL_SIZE } 가능합니다.</li>
+				<li>${hsList.HSL_PET_AGE }케어 가능합니다.</li>
 			</ul>
 		</fieldset>
 		<br><br>
 		<fieldset>
 			<legend><strong>돌보미환경</strong></legend>
 				<ul>
-					<li>돌봄 공간 : <span>${hsList.hsl_care_place }</span></li>
-					<li>마당유무 : <span>${hsList.hsl_yard }</span></li>
-					<li>14세 미만 아동 : <span>${hsList.hsl_baby }</span></li>
-					<li>가족 동거 여부 : <span>${hsList.hsl_family }</span></li>
+					<li>돌봄 공간 : <span>${hsList.HSL_CARE_PLACE }</span></li>
+					<li>마당유무 : <span>${hsList.HSL_YARD }</span></li>
+					<li>14세 미만 아동 : <span>${hsList.HSL_BABY }</span></li>
+					<li>가족 동거 여부 : <span>${hsList.HSL_FAMILY }</span></li>
 				</ul>
 		</fieldset>
 		<br><br>
 		<fieldset>
 		<legend><strong>돌보미 소개</strong></legend>
 		<ul>
-			<li>제목 : <span>${hsList.hsl_title }</span></li>
-			<li>내용 : <br><span>${hsList.hsl_comment }</span></li>
+			<li>제목 : <span>${hsList.HSL_TITLE }</span></li>
+			<li>내용 : <br><span>${hsList.HSL_COMMENT }</span></li>
 		</ul>
 		</fieldset>		
 		<br><br>
@@ -605,20 +589,21 @@ $(function() {
 					<li class="media">
 						<a href="#" class="pull-left">						 
 						<c:choose>
-							<c:when test="${cmmt.c_filename eq null}">
-								<img src="https://bootdey.com/img/Content/user_1.jpg" class="img-circle">
+							<c:when test="${cmmt.C_FILENAME eq null}">
+								<img src="${contextPath}/resources/img/dog.jpg" class="img-circle">
 							</c:when>
 							<c:otherwise>
-								<img src="${contextPath }/home/image?fileName=${cmmt.c_filename }" class="img-circle">
+								<img src="${contextPath }/home/image?fileName=${cmmt.C_FILENAME }" alt="사진엄슴" class="img-circle">
+								
 							</c:otherwise>
 						</c:choose>
 						</a>
 						<div></div>
 						<div class="media-body">
-							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
-							</span> <strong class="text-success">${cmmt.c_name}</strong>
+							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.HSC_WRITE_DATE}</small>
+							</span> <strong class="text-success">${cmmt.C_NAME}</strong>
 							<p>
-								${cmmt.hsc_comment}
+								${cmmt.HSC_COMMENT}
 							</p>
 						</div>
 					</li>
@@ -660,8 +645,8 @@ $(function() {
 						</ul>
 					</div>
 					<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>">
-					<input type="hidden" name="hsl_num" value="${hsList.hsl_num }">
-					<input type="hidden" name="hs_num" value="${hsList.hs_num}">
+					<input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }">
+					<input type="hidden" name="hs_num" value="${hsList.HS_NUM}">
 					<input type="hidden" name="hsr_totalprice" id="totalpriceInput">
 					<input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize">
 					<input type="hidden" name="hsr_priceperday" id="hsr_priceperday">
@@ -675,15 +660,6 @@ $(function() {
 			<div >캘린더 미리보기</div>
 			<div id="calendar"></div>
 		</div>
-<!-- 		<div id="sideInfo" style='position: fixed; right:0; top:50%;'> -->
-<!-- 			<ul> -->
-<!-- 				<li><img alt="" src="">홈시터 이미지</li> -->
-<%-- 				<li>${hsList.hs_name}</li> --%>
-<%-- 				<li>${hsList.hsl_address}${hsList.hsl_d_address }</li> --%>
-<%-- 				<li>${hsList.hs_avgStar}</li> --%>
-<!-- 				<li><button onclick="">예약요청하기</button></li> -->
-<!-- 			</ul> -->
-<!-- 		</div> -->
 	</div>
 </div>	
 

@@ -41,7 +41,7 @@
 	<select id="selectDisdates" parameterType="int" resultType="string">
 		select trim(hsd.hsd_disabledate), hsl.hsl_num
         from homesitterlist hsl, homesitterdisabledate hsd
-        where hsl.hsl_num = #{hsl_num}
+        where hsd.hsl_num = #{hsl_num}
 	</select>
 	
 	<update id="updateAddressHsl" parameterType="homeSitterList">
@@ -57,8 +57,6 @@
 			hsl_comment = #{hsl_comment},
 			hsl_size = #{hsl_size},
 			hsl_care_place = #{hsl_care_place},
-			hsl_address = #{hsl_address},
-			hsl_d_address = #{hsl_d_address},
 			hsl_yard = #{hsl_yard},
 			hsl_baby = #{hsl_baby},
 			hsl_family = #{hsl_family},
@@ -77,8 +75,8 @@
 	
 	<delete id="deleteHsl" parameterType="int"></delete>
 	
-	<select id="selectOnebyHsl_num" parameterType="int" resultType="homeSitterList">
-		select * from homesitterlist where hsl_num = #{hsl_num}
+	<select id="selectOnebyHsl_num" parameterType="int" resultType="hashmap">
+		select * from homesitterlist where hsl_num = #{HSL_NUM}
 	</select>	
 	
 <!-- 	<select id="selectAllHsl" resultType="map"> -->
@@ -160,10 +158,10 @@
 <!-- 		order by hs.hs_num	 -->
 <!-- 	</select> -->
 
-	<select id="selectAllHsl" resultType="homeSitterList">
+	<select id="selectAllHsl" resultType="hashmap">
 		select *
         from homesitter hs,
-            (select hs_num, hsl_num, hsl_address, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsli,
+            (select hs_num, hsl_num,  hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsli,
             (select hsl.hsl_num, hsp.hspr_add_pet_price, hsp.hsl_size, hsp.hspr_price, hsp.hsl_service_type from homesitterlist hsl, homesitterprice hsp
             <trim prefix="where" prefixOverrides="AND|OR">           		
             		hsp.hsl_size = hsl.hsl_size(+)
@@ -181,9 +179,10 @@
 				</if>
             </trim>
             ) hsp,
-            (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
+            (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc,
+            (select hsr_chkin, hsr_chkout, hs_num from homesitterreservation) hsr
 		<trim prefix="where" prefixOverrides="AND|OR">
-			  AND hsli.hsl_status = 1
+			 AND hs.hs_num = hsr.hs_num(+)
 			  AND hsli.hsl_num = hsp.hsl_num(+)
 	          AND hs.hs_num = hsli.hs_num(+)
 	          AND hs.hs_num = hsc.hs_num(+)
@@ -197,15 +196,15 @@
 				 AND hsli.hsl_pet_age like ('%${hsl.hsl_pet_age}%')
 			</if>
 			<if test="hsl.hsl_chkin != ''">
-				AND  <![CDATA[hsli.hsl_chkin <= #{hsl.hsl_chkin}]]>
+				AND  <![CDATA[hsr.hsr_chkin <= #{hsl.hsl_chkin}]]>
 			</if>
 			<if test="hsl.hsl_chkout != ''">
-				AND <![CDATA[hsli.hsl_chkout >= #{hsl.hsl_chkout}]]>
+				AND <![CDATA[hsr.hsr_chkout >= #{hsl.hsl_chkout}]]>
 			</if>
-			<if test="hsl.hsl_address != null"> 
-				and hsli.hsl_address in (select hsl_address from homesitterlist where
+			<if test="hsl.hs_address != null"> 
+				and hs.hs_address in (select hs_address from homesitter where
 				<foreach collection="list" item="item" separator="or">
-					hsl_address like ('%${item}%')
+					hs_address like ('%${item}%')
 				</foreach>
 				)
 			</if>
@@ -223,7 +222,7 @@
 	</select>
 	
 	
-	<select id="selectHsls" resultType="homeSitterList">
+	<select id="selectHsls" resultType="map">
 		select *
         from homesitter hs,
               homesitterlist hsl,
@@ -236,7 +235,7 @@
 	<select id="selectallHsl" resultType="hashmap">
 		select *
         from homesitter hs,
-             (select hs_num, hsl_num, hsl_address, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsl,
+             (select hs_num, hsl_num, hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsl,
              (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
         where hs.hs_num = hsl.hs_num(+)
         and   hs.hs_num = hsc.hs_num(+)

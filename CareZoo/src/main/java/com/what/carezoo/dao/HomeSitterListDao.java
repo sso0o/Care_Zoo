@@ -14,14 +14,13 @@ public interface HomeSitterListDao {
    public int insertHomeSitterList(HomeSitterList hsl);
    public int updateHsl(HomeSitterList hsl);
    public int deleteHsl(int hsl_num);
-   public HomeSitterList selectOnebyHsl_num(int hsl_num);
+   public Map<String, Object> selectOnebyHsl_num(int hsl_num);
    public Map<String, Object> selectHsl(int hsl_num);   
    public List<Map<String, Object>> selectallHsl();
    public int updateAddressHsl (HomeSitterList hsl);
    
-   public List<HomeSitterList> selectHsls();
-   
-   public List<HomeSitterList> selectAllHsl(@Param("list")List<String> hsl_address, @Param("hsl")HomeSitterList hsl);
+   public List<Map<String,Object>> selectHsls();  
+   public List<Map<String,Object>> selectAllHsl(@Param("list")List<String> hs_address, @Param("hsl")HomeSitterList hsl);
   
    public int insertFile(Map<String,Object> param);
    public String selectFileName(int hsl_num);

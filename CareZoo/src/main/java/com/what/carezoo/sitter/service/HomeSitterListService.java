@@ -85,7 +85,7 @@ public class HomeSitterListService {
 			return true;
 		}
 	}
-	public HomeSitterList getHomeSitterByHsl_Num(int hsl_num) {
+	public Map<String, Object> getHomeSitterByHsl_Num(int hsl_num) {
 		return hslDao.selectOnebyHsl_num(hsl_num);		
 	}
 	public boolean modifyHsl(HomeSitterList hsl) {
@@ -97,8 +97,8 @@ public class HomeSitterListService {
 //	public List<HomeSitterList> getbySearchingHsl(List<String> hsl_address,HomeSitterList hsl){		
 //		return hslDao.selectAllHsl(hsl_address,hsl);
 //	}
-	public List<HomeSitterList> getbySearchingHsl(List<String> hsl_address,HomeSitterList hsl){		
-		return hslDao.selectAllHsl(hsl_address,hsl);
+	public List<Map<String,Object>> getbySearchingHsl(List<String> hs_address,HomeSitterList hsl){		
+		return hslDao.selectAllHsl(hs_address,hsl);
 	}
 	public Map<String, Object> getallHsl(int hsl_num){
 		return hslDao.selectHsl(hsl_num);
@@ -106,7 +106,7 @@ public class HomeSitterListService {
 	public List<Map<String, Object>> getHsl(){
 		return hslDao.selectallHsl();
 	}
-	public List<HomeSitterList> getHsls(){
+	public List<Map<String,Object>> getHsls(){
 		return hslDao.selectHsls();
 	}
 	public String writeFile(MultipartFile file) {
