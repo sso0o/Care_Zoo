@@ -68,7 +68,6 @@
 		console.log("numtype : "+user_numtype)
 		console.log("name : "+user_name)
 		console.log("num : "+user_num)
-		alert("ss")
 		
 // 		$("#legend").text(value)
 								//----카카오 1:1상담
@@ -202,6 +201,7 @@
 				$("#c_address").text(data.C_ADDRESS+" "+data.C_D_ADDRESS)
 				$("#chkin").text(data.VSR_CHKIN+" "+data.VSR_HOUR+":00")
 				$("#chkout").text(data.VSR_CHKIN+" "+data.VSR_EHOUR+":00")
+				$("#count").text(data.COUNT)
 				var str = "";
 				if(data.VSR_ATTENTION.includes("1")){
 					str += "/ 놀이위주 ";
@@ -266,6 +266,26 @@ textarea {
 }
 .table th, .table td{
 	vertical-align: middle;
+}
+
+.purple{
+	border: 1px solid rgba(0, 0, 120,0.6);
+	background-color: rgba(0, 0, 120,0.6);
+	border-radius: .125em;
+	color: white;
+	margin-right: 15px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.red{
+	border: 1px solid rgba(120, 0, 0,0.6);
+	background-color:rgba(120, 0, 0,0.6);
+	border-radius: .125em;
+	color: white;
+	margin-right: 15px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 /*
@@ -381,18 +401,19 @@ textarea {
 	<br>
 	<br>
 	<br>
-	<div class="container">
+	<div class="container" style="margin-bottom: 80px">
 		<h2>내 정보</h2>
 		<hr>
+		<p style="text-align: right;">
+			<span class="red">정기예약</span>
+			<span class="purple">일반예약</span>
+		</p>
 		<div id='calendar'></div>
 		<div class="content"></div>
 		<div></div>
 
 	</div>
 
-	<footer>
-		<div>footer</div>
-	</footer>
 
 	
 
@@ -400,13 +421,13 @@ textarea {
 	<div class="container-fluid modal-modify" id="modal-showMain">
 		<table class="vsrInfo table table-hover" id="vsrInfo">
 			<tr style="height: 10px">
+				<th>마리수</th>
+				<td id="count"></td>
 				<td >
 					<input type="hidden" name="groupid" id="groupid" >
-				</td>
-				<td >
 					<input type="hidden" name="number" id="number" >
 				</td>
-				<td colspan="2" class="close" id="modal-close"  style="text-align: right; position: relative; left: 150px; margin: 0;">&times;</td>
+				<td><button class="close" id="modal-close" style="margin: 0">&times;</button></td>
 			</tr>
 			<tr>
 				<th>고객이름</th>
@@ -430,7 +451,7 @@ textarea {
 			</tr>
 			<tr>
 				<td colspan="4">
-				<textarea rows="5" cols="50" id="message"></textarea>
+				<textarea rows="5" cols="50" id="message">없음</textarea>
 			</tr>
 
 		</table>

@@ -387,6 +387,6 @@ body{
 		<p class="col" style="text-align: right;"><button class="btn">&#9655;</button></p>
 	</div>
 </div>
-<div class="bottom-left alert" id="plusfriend-chat-button">
+<div class="bottom-left alert" id="plusfriend-chat-button"></div>
 </body>
 </html>
