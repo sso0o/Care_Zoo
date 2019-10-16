@@ -230,4 +230,19 @@
       where c_num=#{c_num}
 
    </select>
+   
+   <select id="getModalC" parameterType="int" resultType="map">
+		select vsr.vsr_num, vsr.c_num, vsr.vsr_chkin, vsr.vsr_hour, (vsr.vsr_hadd + vsr.vsr_hour +3) as vsr_ehour, 
+				vsr.vsr_attention, vsr.vsr_contents, count.count,
+				c.c_name, c.c_contact, c.c_address, c.c_d_address
+		from visitsitterreservation vsr,
+		customer c,
+		(select count(*) count, vsr_num
+		from pet_detail
+		group by vsr_num
+		having vsr_num = #{vsr_num}) count
+		where vsr.vsr_num = #{vsr_num}
+		and vsr.vsr_num = count.vsr_num(+)
+		and vsr.c_num = c.c_num
+   </select>
 </mapper>

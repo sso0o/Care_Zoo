@@ -225,5 +225,9 @@ public class VisitSitterReservationService {
 	public int countC_num(int c_num) {
 		return vsrDao.countC_num(c_num);
 	}
+	
+	public Map<String, Object> getModalC(int vsr_num) {
+		return vsrDao.getModalC(vsr_num);
+	}
 
 }

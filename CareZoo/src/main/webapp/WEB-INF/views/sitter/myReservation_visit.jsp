@@ -68,6 +68,7 @@
 		console.log("numtype : "+user_numtype)
 		console.log("name : "+user_name)
 		console.log("num : "+user_num)
+		alert("ss")
 		
 // 		$("#legend").text(value)
 								//----카카오 1:1상담
@@ -152,8 +153,8 @@
 				
 				for(var i= 0; i<data.rst1.length; i++){
 					var e = {
-						groupId : 'c_num',
- 						id : data.rst1[i].C_NUM,
+						groupId : 'vsr_num',
+ 						id : data.rst1[i].VSR_NUM,
  						start : data.rst1[i].VSR_CHKIN,
  						title : data.rst1[i].C_NAME,
  						description : "*" + data.rst1[i].VSR_STATUS,
@@ -166,8 +167,8 @@
 
 				for(var i= 0; i<data.rst2.length; i++){
 					var e = {
-						groupId : 'c_num',
- 						id : data.rst2[i].C_NUM,
+						groupId : 'vsr_num',
+ 						id : data.rst2[i].VSR_NUM,
  						start : data.rst2[i].VSR_CHKIN,
  						title : data.rst2[i].C_NAME,
  						description : "*" + data.rst2[i].VSR_STATUS,
@@ -188,61 +189,48 @@
 
 	//고객정보가 모달에 있어야함
 	function modalOpen(num) {
-		var urll = "getModalC";
-		console.log(urll)
-
 		$.ajax({
-			url : "${contextPath}/comment/" + urll,
+			url : "${contextPath}/sitter/getModalC",
 			data : {
 				num : num
 			},
 			dataTpe : "JSON",
 			success : function(data) {
 				console.log(data)
-				$("#modal-name").val(data.name);
-				$("#modal-contact").val(data.contact);
-
+				$("#c_name").text(data.C_NAME)
+				$("#c_contact").text(data.C_CONTACT)
+				$("#c_address").text(data.C_ADDRESS+" "+data.C_D_ADDRESS)
+				$("#chkin").text(data.VSR_CHKIN+" "+data.VSR_HOUR+":00")
+				$("#chkout").text(data.VSR_CHKIN+" "+data.VSR_EHOUR+":00")
+				var str = "";
+				if(data.VSR_ATTENTION.includes("1")){
+					str += "/ 놀이위주 ";
+				}
+				if(data.VSR_ATTENTION.includes("2")){
+					str += "/ 산책위주 ";
+				} 
+				if(data.VSR_ATTENTION.includes("3")){
+					srt += "/ 생식급여 ";
+				} 
+				if(data.VSR_ATTENTION.includes("4")){
+					str += "/ 케어필요 ";
+				}
+				$("#attention").text(str)
+				$("#message").text(data.VSR_CONTENTS)
 			},
 			error : function() {
 			}
 		})
 
-		$("#reply-modal").show();
+		$("#modal-showMain").show();
+		$("#phrInfo").show();
 
 		$("#modal-close").on("click", function() {
-			$("#reply-modal").hide();
-			$("#modal-name").val("");
-			$("#modal-contact").val("");
-			$("#modal-img").attr("src", "${contextPath}/resources/img/user.jpg");
-			document.getElementById("modal-address").innerHTML = ("");
+			$("#modal-showMain").hide();
+			
 		});
 	}
 
-	function myResList(checkDate) {
-		console.log("function : " + checkDate);
-		console.log("function : " + user_numtype);
-		var showDiv = $("#showDiv");
-		$("#legend").text(checkDate);
-
-		showDiv.children("p").remove();
-		
-// 	$.ajax({
-// 		url : "",
-// 		data : {
-			
-// 		},
-// 		dataType : "JSON",
-// 		success : function(data) {
-// 			console.log(data);
-			
-
-// 		},
-// 		error : function() {
-
-// 		}
-// 	})
-
-}
 </script>
 <style>
 
@@ -260,6 +248,27 @@ body{
 	margin: 0 auto;
 }
 
+.vsrInfo{
+	background-color: #fff;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	margin-top: -250px;
+	margin-left: -250px;
+	top: 50%;
+	left: 50%;
+}
+textarea {
+	width: 100%;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: .3em;
+	resize: none;
+}
+.table th, .table td{
+	vertical-align: middle;
+}
+
+/*
 .fieldset{
 	border: 1px solid #888;
 	border-radius: .125em;
@@ -270,7 +279,7 @@ body{
 .fieldset legend{
 	max-width: 400px;
 	width: auto;
-}
+}*/
 
 .col{
 	text-align: center;
@@ -281,6 +290,7 @@ body{
 	border: 1px solid #40bf9f;
 	color: #40bf9f;
 }
+
 
 
 
@@ -375,17 +385,8 @@ body{
 		<h2>내 정보</h2>
 		<hr>
 		<div id='calendar'></div>
-		<div class="content">
-			<fieldset id="showEvent" class="fieldset">
-				<legend style="text-align: center;" id="legend"><fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/></legend>
-					<div class="row" id="showDiv">
-						
-					</div>
-			</fieldset>
-		</div>
-		<div>
-			
-		</div>
+		<div class="content"></div>
+		<div></div>
 
 	</div>
 
@@ -396,36 +397,46 @@ body{
 	
 
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
-	<div class="modal-modify" id="reply-modal">
-		<!-- css 적용 하기 위한 경우 class -->
+	<div class="container-fluid modal-modify" id="modal-showMain">
+		<table class="vsrInfo table table-hover" id="vsrInfo">
+			<tr style="height: 10px">
+				<td >
+					<input type="hidden" name="groupid" id="groupid" >
+				</td>
+				<td >
+					<input type="hidden" name="number" id="number" >
+				</td>
+				<td colspan="2" class="close" id="modal-close"  style="text-align: right; position: relative; left: 150px; margin: 0;">&times;</td>
+			</tr>
+			<tr>
+				<th>고객이름</th>
+				<td id="c_name"></td>
+				<th >연락처</th>
+				<td id="c_contact" ></td> 
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td colspan="3" id="c_address"></td>
+			</tr>
+			<tr>
+				<th>체크인</th>
+				<td id="chkin"></td>
+				<th>체크아웃</th>
+				<td id="chkout"></td>
+			</tr>
+			<tr>
+				<th>선택사항</th>
+				<td colspan="3" id="attention"></td>
+			</tr>
+			<tr>
+				<td colspan="4">
+				<textarea rows="5" cols="50" id="message"></textarea>
+			</tr>
 
-		<!-- 스크립트 요소를 직접 조작해야 하는경우 id -->
-		<table class="modal-table" id="modal-table">
-			<tr height="10px">
-				<td colspan="3" class="close" id="modal-close">&times;</td>
-			</tr>
-			<tr>
-				<td rowspan="3" style="width: 150px">
-					<img id="modal-img" class="modal-img" src="${contextPath}/resources/img/aa.jpg" style="width: 150px; height: 180px; vertical-align: middle;
-					margin-left: 15px;">
-				</td>
-				<td colspan="2">
-					<input type="text" class="modal-content name" name="modal-name" id="modal-name" value="" readonly="readonly">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="text" class="modal-content contact" name="modal-contact" id="modal-contact" value="" readonly="readonly">
-				</td>
-			</tr>
-			<tr class="addressTr" id="addressTr">
-				<td colspan="3">
-					<p class="modal-content address" id="modal-address"></p>
-				</td>
-			</tr>
 		</table>
 
 	</div>
-<div class="bottom-left alert" id="plusfriend-chat-button">
+<!-- 	상담버튼 -->
+	<div class="bottom-left alert" id="plusfriend-chat-button"></div>
 </body>
 </html>

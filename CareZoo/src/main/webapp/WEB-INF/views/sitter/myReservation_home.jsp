@@ -396,7 +396,6 @@ body{
 					<input type="hidden" name="number" id="number">
 				</td>
 				<td class="close" id="modal-close">&times;</td>
-
 			</tr>
 			<tr>
 				<td rowspan="3" style="width: 150px">
@@ -419,6 +418,6 @@ body{
 		</table>
 
 	</div>
-<div class="bottom-left alert" id="plusfriend-chat-button">
+	<div class="bottom-left alert" id="plusfriend-chat-button"></div>
 </body>
 </html>
