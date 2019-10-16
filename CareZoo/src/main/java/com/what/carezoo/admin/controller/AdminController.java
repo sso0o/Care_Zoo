@@ -1,5 +1,6 @@
 package com.what.carezoo.admin.controller;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.util.ArrayList;
@@ -257,7 +258,9 @@ public class AdminController {
 	   public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest){
 	      List<MultipartFile> files = mtfRequest.getFiles("file");
 	      boolean rst = phService.addPetHotel(ph,files);
+   	      String phrm_pet_size_memo="";
 	      String[] phrm_pet_size = null;
+	     
 	      String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
 	      System.out.println(phrm_nam);
 	      String[] phrm_name = mtfRequest.getParameterValues("phrm_name");
@@ -268,9 +271,17 @@ public class AdminController {
 	      PetHotel petHotel = phService.getPetHotelbyName(ph.getPh_name());
 	      System.out.println("ph:"+ph);
 	      for(int i= 0;i<phrm_name.length;i++) {
+	    	  String result_size ="";
 	         if(mtfRequest.getParameterValues("phrm_pet_size"+i) != null) {
 	            phrm_pet_size = mtfRequest.getParameterValues("phrm_pet_size"+i);
 	            System.out.println("phrm_pet_size:"+Arrays.toString(phrm_pet_size));
+	           System.out.println("phrm_pet_size"+phrm_pet_size);
+	           for(int j = 0 ;j<phrm_pet_size.length; j++) {
+	        	  result_size += phrm_pet_size_memo.concat(phrm_pet_size[j]);
+	        	   if(j<(phrm_pet_size.length)-1) {
+	        		    result_size += phrm_pet_size_memo.concat(",");
+	        	   }
+	           }
 	         }
 	         PetHotelRoom phrm = new PetHotelRoom();
 	         System.out.println("ph.getPh_num:"+ph.getPh_num());
@@ -282,7 +293,7 @@ public class AdminController {
 	         phrm.setPhrm_m_price(Integer.parseInt(phrm_m_price[i]));
 	         phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
 	         phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
-	         phrm.setPhrm_pet_size(Arrays.toString(phrm_pet_size));
+	         phrm.setPhrm_pet_size(result_size);
 	         phService.addPetHotelRoom(phrm);
 	      }
 	      

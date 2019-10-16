@@ -38,25 +38,25 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${contextPath}/admin/main">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${contextPath}/admin/memberList">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
         <div class="sidebar-brand-text mx-3">관리자 페이지 </div>
       </a>
-
+<br>
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+<!--       <hr class="sidebar-divider my-0"> -->
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item ">
-        <a class="nav-link" href="${contextPath}/admin/main">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+<!--       Nav Item - Dashboard -->
+<!--       <li class="nav-item "> -->
+<%--         <a class="nav-link" href="${contextPath}/admin/main"> --%>
+<!--           <i class="fas fa-fw fa-tachometer-alt"></i> -->
+<!--           <span>Dashboard</span></a> -->
+<!--       </li> -->
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+<!--       Divider -->
+<!--       <hr class="sidebar-divider"> -->
 
       <!-- Heading -->
       <div class="sidebar-heading">
@@ -64,12 +64,12 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link collapsed" href="${contextPath}/admin/memberList">
           <i class="fas fa-fw fa-cog"></i>
           <span>멤버관리</span>
         </a>
-<!--         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"> -->
+<!--   qweewq      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"> -->
 <!--           <div class="bg-white py-2 collapse-inner rounded"> -->
 <!--             <h6 class="collapse-header">호텔목록</h6> -->
 <!--             <a class="collapse-item" href="buttons.html"></a> -->
@@ -82,7 +82,7 @@
         Hotel
       </div>
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item active" >
+      <li class="nav-item" >
         <a class="nav-link collapsed" href="${contextPath}/admin/petHotelList">
           <i class="fas fa-fw fa-cog"></i>
           <span>호텔관리</span>
@@ -91,7 +91,7 @@
             <li class="nav-item">
         <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>호텔예약관리</span></a>
+          <span>호텔예약리스트</span></a>
       </li>
 
       <!-- Divider -->
@@ -222,7 +222,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">호텔목록</h1>
+          <h1 class="h3 mb-2 text-gray-800">호텔</h1>
 <br>
 <br>
           <!-- DataTales Example -->

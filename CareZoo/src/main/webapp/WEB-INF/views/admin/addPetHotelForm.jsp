@@ -37,7 +37,7 @@ img {
 	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 	crossorigin="anonymous"></script>
 <script>
-	// 	new daum.Postcode({
+	// 	new daum.Postcode({asdas
 	// 		oncomplete : function(data) {
 	// 			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
 	// 			// 예제를 참고하여 다양한 활용법을 확인해 보세요.
@@ -47,6 +47,12 @@ img {
 <script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+	$(function() {
+
+	});
+	function submitFunction() {
+		$(".addPetHotelForm").submit();
+	}
 	function sample4_execDaumPostcode() {
 		new daum.Postcode(
 				{
@@ -143,7 +149,7 @@ img {
 		})
 
 		//방추가하기 버튼 클릭시asdsa
-		$(".roomAddButton")
+		$("#roomAddButton")
 				.click(
 						function() {
 							s++;
@@ -160,7 +166,7 @@ img {
 							roomDiv
 									.append($(" <label> 대형견 가격</label>  <input type='text' name='phrm_l_price'><br>"));
 							roomDiv
-									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input class='form-control-sm' type='number' min='0' max='5' name='phrm_p_max' id='hsr_numof_pet' value='0'><br>"));
+									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input class='form-control-sm' type='number' min='1' max='5' name='phrm_p_max' id='hsr_numof_pet' value='0'><br>"));
 							roomDiv
 									.append($("<label>가능한 펫 사이즈</label> &nbsp; 	<div class='form-check'> <label class='form-check-label'> <input type='checkbox' class='form-check-input' value='소형견' name='phrm_pet_size"+s+"'>소형견</label></div><div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='중형견' name='phrm_pet_size"+s+"'>중형견</label></div><div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='대형견' name='phrm_pet_size"+s+"'>대형견</label></div>"));
 
@@ -321,23 +327,23 @@ img {
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="${contextPath}/admin/main">
+				href="${contextPath}/admin/memberList">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
 				<div class="sidebar-brand-text mx-3">관리자 페이지</div>
 			</a>
 
+<br>
 			<!-- Divider -->
-			<hr class="sidebar-divider my-0">
+<!-- 			<hr class="sidebar-divider my-0"> asd-asdasdaasdsaasdsadsaasdsdadsdsad->
 
-			<!-- Nav Item - Dashboard -->
-			<li class="nav-item active"><a class="nav-link"
-				href="${contextPath}/admin/main"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
+<!-- 			<!-- Nav Item - Dashboard --> 
+<!-- 			<li class="nav-item active"><a class="nav-link" -->
+<%-- 				href="${contextPath}/admin/main"> <i --%>
+<!-- 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li> -->
+<!-- 			<!-- Divider --> 
+<!-- 			<hr class="sidebar-divider"> -->
 
 			<!-- Heading -->
 			<div class="sidebar-heading">Member</div>
@@ -359,7 +365,7 @@ img {
 					class="fas fa-fw fa-cog"></i> <span>호텔관리</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fas fa-fw fa-table"></i> <span>호텔예약관리</span>
+					<i class="fas fa-fw fa-table"></i> <span>호텔예약리스트</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -511,7 +517,7 @@ img {
 									<div>
 										<fieldset>
 											<form action="${contextPath}/admin/addPetHotel" method="post"
-												enctype="multipart/form-data">
+												enctype="multipart/form-data" class="addPetHotelForm">
 												<table>
 
 													<tr>
@@ -525,12 +531,15 @@ img {
 													<tr>
 														<th>주소</th>
 														<td><input type="hidden" id="sample4_postcode"
-															placeholder="우편번호"> <input type="button"
-															onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-															<input type="text" id="sample4_roadAddress"
-															name="ph_address" placeholder="도로명주소"> <input
-															type="hidden" id="sample4_jibunAddress"
-															placeholder="지번주소"></td>
+															placeholder="우편번호"> <a href="javascript:void(0)"
+															onclick="sample4_execDaumPostcode()"
+															class="btn btn-success btn-icon-split"> <span
+																class="text">우편번호찾기</span>
+														</a> <!-- 															 <input type="button" onclick="saㅁㄴㅇㅁㄴmple4_exㅁㄴㅇㄴㅇeㅁㄴㅇㅇㅁㄴcDaumPostcode()" -->
+															<!-- 															value="우편번호 찾기">  --> <input
+															type="text" id="sample4_roadAddress" name="ph_address"
+															placeholder="도로명주소"> <input type="hidden"
+															id="sample4_jibunAddress" placeholder="지번주소"></td>
 														<td><input type="text" id="c_d_address"
 															name="ph_d_address" placeholder="상세주소 입력해주세요"> <span
 															id="guide" style="color: #999"></span><br></td>
@@ -554,8 +563,13 @@ img {
 
 													<tr>
 														<th>사진</th>
-														<td><br> <input type="button" id="addItemBtn"
-															class="my_button" value="사진추가">
+														<td><br> <a href="javascript:void(0)"
+															id="addItemBtn" class="btn btn-success btn-icon-split">
+																<span class="text">사진추가</span>
+														</a> <!-- 														<input type="button" id="addItemBtn"ㅁㄴㅇㅁㄴ -->
+															<!-- 															class="my_button" value="사진추가"> -->
+
+
 															<div id="example"></div> <br></td>
 												</table>
 												<br>
@@ -567,8 +581,12 @@ img {
 												<br>
 												<div class="roomAddForm">
 													<div style="font-size: 20px">
-														방 추가하기 &nbsp; &nbsp;<input type="button" value="+"
-															class="roomAddButton">
+														방 추가하기 &nbsp; &nbsp; <a href="javascript:void(0)"
+															id="roomAddButton" class="btn btn-success btn-icon-split">
+															<span class="text">+</span>
+														</a>
+
+
 													</div>
 													<br> <label>방이름</label> &nbsp;&nbsp; &nbsp; &nbsp;
 													&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input
@@ -578,30 +596,39 @@ img {
 														가격</label> <input type="text" name="phrm_m_price"> <label>
 														대형견 가격</label> <input type="text" name="phrm_l_price"><br>
 													<label>최대 가능 펫 수</label> &nbsp; &nbsp; &nbsp;<input
-														class="form-control-sm" type="number" min="0" max="5"
+														class="form-control-sm" type="number" min="1" max="5"
 														name="phrm_p_max" id="hsr_numof_pet" value="0"><br>
 													<label>가능한 펫 사이즈</label> &nbsp;
 													<!-- ㄴㅁㅇㅁ -->
 													<div class="form-check">
-														<label class="form-check-label"> 
-														<input type="checkbox" class="form-check-input" value="소형견" name="phrm_pet_size0">소형견
+														<label class="form-check-label"> <input
+															type="checkbox" class="form-check-input" value="소형견"
+															name="phrm_pet_size0">소형견
 														</label>
 													</div>
 													<div class="form-check">
 														<label class="form-check-label"> <input
-															type="checkbox" class="form-check-input" value="중형견" name="phrm_pet_size0">중형견
-															
+															type="checkbox" class="form-check-input" value="중형견"
+															name="phrm_pet_size0">중형견
+
 														</label>
 													</div>
 													<div class="form-check">
 														<label class="form-check-label"> <input
-															type="checkbox" class="form-check-input" value="대형견" name="phrm_pet_size0">대형견
+															type="checkbox" class="form-check-input" value="대형견"
+															name="phrm_pet_size0">대형견
 														</label>
 													</div>
 												</div>
 												<br>
 												<hr>
-												<br> <input type="submit" value="추가하기">
+												<br> 
+												<div style="text-align:center"><a href="javascript:void(0)"
+													class="btn btn-info btn-icon-split"
+													onclick="submitFunction()"> <span class="text">추가</span>
+													</a>
+								</div>
+
 											</form>
 										</fieldset>
 									</div>

@@ -38,25 +38,25 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${contextPath}/admin/main">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${contextPath}/admin/memberList">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
         <div class="sidebar-brand-text mx-3">관리자 페이지 </div>
       </a>
-
+<br>
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+<!--       <hr class="sidebar-divider my-0"> -->
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item ">
-        <a class="nav-link" href="${contextPath}/admin/main">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
+<!--       Nav Item - Dashboard -->
+<!--       <li class="nav-item "> -->
+<%--         <a class="nav-link" href="${contextPath}/admin/main"> --%>
+<!--           <i class="fas fa-fw fa-tachometer-alt"></i> -->
+<!--           <span>Dashboard</span></a> -->
+<!--       </li> -->
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
+<!--       Divider -->
+<!--       <hr class="sidebar-divider"> -->
 
       <!-- Heading -->
       <div class="sidebar-heading">
@@ -91,7 +91,7 @@
             <li class="nav-item">
         <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>호텔예약관리</span></a>
+          <span>호텔예약리스트</span></a>
       </li>
 
       <!-- Divider -->
@@ -283,7 +283,6 @@
                     <span class="icon text-white-50">
                       <i class="fas fa-trash"></i>
                     </span>
-                    <span class="text">삭제</span>
                   </a>                  
                   </td>
 				</tr>
