@@ -169,6 +169,7 @@ public class HomeSitterController {
 	@ResponseBody
 	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
 	public Map<String, Object> getHsImg(int hsl_num) {
+		System.out.println("hsl_num"+hsl_num);
 		System.out.println("writeIMG 가져오는거");
 		System.out.println(hsl_num);
 		Map<String, Object> rst = new HashMap<String, Object>();

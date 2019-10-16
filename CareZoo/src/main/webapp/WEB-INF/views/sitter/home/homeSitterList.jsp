@@ -109,6 +109,20 @@ label {
     margin-bottom: .5rem;
     width: 138px;
 }
+
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
 /* #subtbl_1,#subtbl_2,#subtbl_3{ */
 /* border-bottom-left-radius:10px; */
 /* border-bottom-right-radius:10px; */
@@ -131,8 +145,41 @@ li:hover {
 }
 </style>
 <script type="text/javascript">
+
 	var i = 0;
 	$(function() {
+
+		// 로그아웃확인 <--모든페이지에 필수
+		function logoutCheck() {
+			if (confirm("정말 로그아웃?") == true) {
+				location.href = '${contextPath}/logout'
+			} else {
+				return false;
+			}
+		}
+
+		$(function() { //문서가 로딩되면 실행할 함수
+			//----카카오 1:1상담
+			//<![CDATA[
+			// 사용할 앱의 JavaScript 키를 설정해 주세요.
+			Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+			// 플러스친구 1:1채팅 버튼을 생성합니다.
+			Kakao.PlusFriend.createChatButton({
+				container : '#plusfriend-chat-button',
+				plusFriendId : '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+			});
+			//]]>
+			//----카카오 1:1상담	
+		})
+
+		// $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
+
+		// })
+
+		// 기본적으로 세션에 저장된 정보
+		var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+		var user_num = "<%=session.getAttribute("user_num")%>"
+		var user_name = "<%=session.getAttribute("user_name")%>"
 
 		//네비게이션
 		function logoutCheck() {
@@ -241,6 +288,64 @@ li:hover {
 				}
 
 				ajaxSucessLoading(hsList);
+				for(var b in hsList){
+					$.ajax({
+						url : "${contextPath}/home/getImg",
+						data : {
+							hsl_num : hsList[b].HSL_NUM
+						},
+						dataType : "JSON",
+						success : function(data) {
+							console.log(data)
+							for ( var a in data) {
+								console.log(data.filename);
+								if (data[a].filename != null) {
+									$("#image").attr(
+											"src",
+											"${contextPath}/home/image?fileName="
+													+ data[a].filename);
+									console.log()
+									$('#imgli').attr(
+											"data-thumb",
+											"${contextPath}/home/image?fileName="
+													+ data[a].filename);
+								} else {
+									$("#image").attr("src",
+											"${contextPath}/resources/img/user.jpg")
+									$('#imgli').attr("data-thumb",
+											"${contextPath}/resources/img/user.jpg");
+								}
+							}
+								 			imagegalleryDiv.lightSlider({
+								 				isthumb : false,
+								 				gallery : true,
+								 				item : 1,
+								 				thumbItem : 9,
+								 				slideMargin : 0,
+								 				speed : 1000,
+								 				pause : 4000,
+								 				auto : true,
+								 				loop : true,
+								 				addClass : clearfixDiv,
+								 				onSliderLoad : function() {
+								 					imagegalleryDiv.removeClass('cS-hidden');
+								 				}
+								 			});
+
+// 												if(data.filename != null){
+// 													$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
+// 												} else {
+// 													$("#img").attr("src","${contextPath}/resources/img/user.jpg")
+// 												}
+
+						},
+						error : function() {
+							alert("그림안그려짐")
+						}
+					});
+					
+				}
+				
 			},
 			error : function(request, status, error) {
 				console.log(" error = " + request, status, error);
@@ -255,9 +360,7 @@ li:hover {
 		for (i; breaker < 8; i++) {
 			console.log(i);
 			if (breaker < 7) {
-				var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num='
-						+ hsList[i].HSL_NUM
-						+ '\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
+				var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num='+ hsList[i].HSL_NUM+ '\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
 				var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
 				petHotelDiv.append(petHotelDiv2);
 				var itemDiv = $('<div class="item" style="heigth:350;width:350px">');
@@ -268,52 +371,13 @@ li:hover {
 				clearfixDiv.append(imagegalleryDiv);
 				var imgli = $("<li id='imgli' data-thumb=''>");
 				imagegalleryDiv.append(imgli);
-				$("<img id='image' style='width: 350px; height: 348px;'/>")
-						.appendTo(imgli);
-
-				// 				for ( var a in hsList[i].hsl_filesName) {
-				// 					var imgli = $("<li data-thumb='${contextPath}/home/image?fileName="
-				// 							+ hsList[i].hsl_filesName[a]
-				// 							+ "'>");
-				// 					imagegalleryDiv.append(imgli);
-				// 					$(
-				// 							"<img style='width: 350px; height: 350px;' src='${contextPath}/home/image?fileName="
-				// 									+ hsList[i].hsl_filesName[a]
-				// 									+ "'/>")
-				// 							.appendTo(imgli);
-
-				// 				}
-
-				// 				imagegalleryDiv.lightSlider({
-				// 					isthumb : false,
-				// 					gallery : true,
-				// 					item : 1,
-				// 					thumbItem : 9,
-				// 					slideMargin : 0,
-				// 					speed : 1000,
-				// 					pause : 4000,
-				// 					auto : true,
-				// 					loop : true,
-				// 					addClass : clearfixDiv,
-				// 					onSliderLoad : function() {
-				// 						imagegalleryDiv.removeClass('cS-hidden');
-				// 					}
-				// 				});	
+				$("<img id='image' style='width: 350px; height: 348px;'/>").appendTo(imgli);
 				var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
 				$('<span>').text(hsList[i].HS_NAME).appendTo(aArDiv);
-				$(
-						'<div>' + hsList[i].HS_ADDRESS + hsList[i].HS_D_ADDRESS
-								+ '</div>').appendTo(aArDiv);
-				//				var minAndMaxPrice = $('<div>');
-				//				console.log(hsList.ph_minPrice);
-				//				console.log(hsList.ph_maxPrice);
-				//				minAndMaxPrice.appendTo(aArDiv);
-				var reviewDiv = $(
-						'<div><span><strong>' + hsList[i].HSL_TITLE
-								+ '</strong></span>').appendTo(aArDiv);
-				$('<br><span>').text(
-						'후기: ' + hsList[i].HSC_CMT_COUNT + '개 '
-								+ hsList[i].HS_AVGSTAR).appendTo(reviewDiv);
+				$('<div>' + hsList[i].HS_ADDRESS + hsList[i].HS_D_ADDRESS+ '</div>').appendTo(aArDiv);
+
+				var reviewDiv = $('<div><span><strong>' + hsList[i].HSL_TITLE+ '</strong></span>').appendTo(aArDiv);
+				$('<br><span>').text('후기: ' + hsList[i].HSC_CMT_COUNT + '개 '+ hsList[i].HS_AVGSTAR).appendTo(reviewDiv);
 				reviewDiv.appendTo(aArDiv);
 				aArDiv.appendTo(petHotelDiv);
 				$('.homeSitterlist').append(petHotelDiv);
@@ -323,61 +387,9 @@ li:hover {
 				break;
 			}
 		}
-		$.ajax({
-			url : "${contextPath}/home/getImg",
-			data : {
-				hsl_num : hsList[i].HSL_NUM
-			},
-			dataType : "JSON",
-			success : function(data) {
-				console.log(data)
-				for ( var a in data.filename) {
-					console.log(data.filename[a]);
-					if (data.filename[a] != null) {
-						$("#image").attr(
-								"src",
-								"${contextPath}/sitter/image?fileName="
-										+ data.filename[a]);
-						console.log()
-						$('#imgli').attr(
-								"data-thumb",
-								"${contextPath}/home/image?fileName="
-										+ data.filename[a]);
-					} else {
-						$("#image").attr("src",
-								"${contextPath}/resources/img/user.jpg")
-						$('#imgli').attr("data-thumb",
-								"${contextPath}/resources/img/user.jpg");
-					}
-				}
-				//	 			imagegalleryDiv.lightSlider({
-				//	 				isthumb : false,
-				//	 				gallery : true,
-				//	 				item : 1,
-				//	 				thumbItem : 9,
-				//	 				slideMargin : 0,
-				//	 				speed : 1000,
-				//	 				pause : 4000,
-				//	 				auto : true,
-				//	 				loop : true,
-				//	 				addClass : clearfixDiv,
-				//	 				onSliderLoad : function() {
-				//	 					imagegalleryDiv.removeClass('cS-hidden');
-				//	 				}
-				//	 			});
-
-				//					if(data.filename != null){
-				//						$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
-				//					} else {
-				//						$("#img").attr("src","${contextPath}/resources/img/user.jpg")
-				//					}
-
-			},
-			error : function() {
-				alert("error")
-			}
-		});
 	}
+		
+	
 
 	//
 
@@ -394,57 +406,60 @@ li:hover {
 
 	//이미지 띄우기
 	// ajax로 이미지 띄우기 왜냐면 map으로 받으니깐!!!
+	
 </script>
 </head>
-<body >
-	<!-- 네비게이션 -->
-	<div class="container">
+<body>
+<c:forEach items="${hsList }" var="i">
+	${i.HS_NUM }
+</c:forEach>
+  <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-         
-            <div class="header_Btn" id="sessioncheck"> 
-            <sec:authorize access="isAnonymous()">
-            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
-            </sec:authorize>
-            <sec:authorize access="isAuthenticated()">
-            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
-            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
-            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
-            </sec:authorize>
-             </div>
+            <br>
+			<div class="header_Btn" id="sessioncheck">
+				<sec:authorize access="isAnonymous()">
+					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+				</sec:authorize>
+			</div>
         </header>
     </div>
-	<nav>
-		<div class='menu'>
-			<ul style="">
-				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
+    <nav>
+        <div class='menu'>
+            <ul style="">
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
                     <ul>
-                       <li><a href='#'>HTML Basic</a></li>
-                       <li class='last'><a href='#'>HTML Advanced</a></li>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+                            <!-- 
+                     <ul>
+                        <li><a href='#'>HTML Basic</a></li>
+                        <li class='last'><a href='#'>HTML Advanced</a></li>
+                     </ul>
+                      -->
+                        </li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
-                     --></li>
-						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+                </li>
+                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
 
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법asd-->
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
 
-					</ul></li>
-				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
-			</ul>
-		</div>
-	</nav>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+                    </ul>
+                </li>
+                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br><br><br>
 	
 	<div class='container'>
 		<%-- 	<form action="${contextPath }/home/search" method="get" id="searchForm"> --%>
@@ -646,11 +661,11 @@ li:hover {
 		<%-- 		</c:forEach> --%>
 	</div>
 
-
 	<br>
 	<br>
 	<footer>
 		<div>durlsms footer</div>
 	</footer>
+<div class="bottom-left alert" id="plusfriend-chat-button"/>
 </body>
 </html>

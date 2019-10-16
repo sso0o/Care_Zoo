@@ -39,6 +39,22 @@
 			return false;
 		}
 	}
+
+	$(function() { //문서가 로딩되면 실행할 함수
+		//----카카오 1:1상담
+		//<![CDATA[
+		// 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+		// 플러스친구 1:1채팅 버튼을 생성합니다.
+		Kakao.PlusFriend.createChatButton({
+			container : '#plusfriend-chat-button',
+			plusFriendId : '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+		});
+		//]]>
+		//----카카오 1:1상담	
+	})
+
+	
 	
 	$(function() {
 		$.ajax({
@@ -77,20 +93,6 @@
 			}
 		})
 		
-		if("${msg}" != ""){
-			alert("${msg}");
-		}
-		//----카카오 1:1상담
-		//<![CDATA[
-		// 사용할 앱의 JavaScript 키를 설정해 주세요.
-		Kakao.init('d5215a661c44ab13805d6f04adeddadb');
-		// 플러스친구 1:1채팅 버튼을 생성합니다.
-		Kakao.PlusFriend.createChatButton({
-		  container: '#plusfriend-chat-button',
-		  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
-		});
-		//]]>
-		//----카카오 1:1상담	
 	})
 	
 
@@ -181,10 +183,11 @@ body{
 					</ul>
 				</div>
 			</div>
-	<div class="container">
-		<header>
-			<a href="${contextPath }"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-			<br>
+	<body class="container">
+  <div class="container">
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
@@ -196,35 +199,38 @@ body{
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
-		</header>
-	</div>
-	<nav>
-		<div class='menu'>
-			<ul style="">
-				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
-						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>PETHOTEL</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-					<ul>
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='#'>가정시터</a></li>
-						<li class='last'><a href='#'>방문시터</a></li>
-						<li class='last'><a href='#'>펫호텔</a></li>
-					</ul></li>
-				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">FAQ</a></li>
-			</ul>
-		</div>
-	</nav>
-	<br>
-	<br>
-	<br>
+        </header>
+    </div>
+    <nav>
+        <div class='menu'>
+            <ul style="">
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+                            <!-- 
+                     <ul>
+                        <li><a href='#'>HTML Basic</a></li>
+                        <li class='last'><a href='#'>HTML Advanced</a></li>
+                     </ul>
+                      -->
+                        </li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+                    </ul>
+                </li>
+                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
+                    </ul>
+                </li>
+                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br><br><br>
 	<div class="container">
 		<div class="content">
 			<h2>내 정보</h2>

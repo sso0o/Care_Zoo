@@ -77,6 +77,9 @@
 <link rel='stylesheet' href='${contextPath}/resources/css/star.css' />
 <script type="text/javascript" src="${contextPath}/resources/js/bootstrap-input-spinner.js"></script><!-- input : number -->
 
+<!-- kakao상담 -->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/jquery-ui.multidatespicker.css' /><!-- multidatePicker -->
 <link rel="stylesheet" href="${contextPath}/resources/css/jquery-ui-timepicker-addon.css" type='text/css' /><!-- dateTimePicker -->
@@ -160,6 +163,43 @@ body {
 	left: 20%;
 }
 /*코멘트용*/
+
+
+/* -------카카오 상담버튼------- */
+.bottom-left {
+  position: fixed;
+  bottom: 0;
+  right:0;
+}
+
+.alert {
+  background: white;
+  font-weight: bold;
+  padding: 1em;
+}
+/* -------카카오 상담버튼------- */
+
+form{
+	font-weight: 400;
+	line-height: 1.5;
+	color: #212529;
+	text-align: left;
+	font-family: 'Noto Sans KR', sans-serif;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+	width: 100%;
+	border: 1px solid darkgray;
+	border-radius: 4px;
+}
+#calSpan{
+    display: inline-block;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid darkgray;
+    border-radius: 4px;
+    text-align: center;
+}
 </style>
 <script type="text/javascript">
 
@@ -182,7 +222,7 @@ $(function() {
 	    return [true];
 	}
 	calculatePrice();
-// 	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
+	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
 	
 	console.log(unavailableDates);
 	var pickupTime = $('#hsr_dropoff_time').timepicker({		
@@ -359,123 +399,157 @@ $(function() {
 	});
 	
 })
- 	var calendar=null;
-document.addEventListener('DOMContentLoaded', function() {
-	var d = new Date();
-	var num = <%=session.getAttribute("user_num")%>
-	var calendarEl = document.getElementById('calendar');
-	var calHeight = 450;
-	calendar = new FullCalendar.Calendar(calendarEl, {
-		plugins : [ 'dayGrid', 'interaction' ],
-		//		 			timeZone : "Asian/Seoul",
-		locale : 'ko',
-		height : calHeight,
-		// 				    contentHeight:calHeight,
-		allDayDefault : false,
-		editable : false,
-		displayEventTime : false,
-		defaultView : 'dayGridMonth',
-		defaultDate : d,
-		editable : true,
-		selectable : false,
-		eventLimit : false, // allow "more" link when too many events
-		header : {
-			left : 'prev,next',
-			center : 'title',
-			right : 'dayGridMonth,dayGridWeek'
-		},
-		eventRender : function(info) {
-			var tooltip = new Tooltip(info.el, {
-				title : info.event.extendedProps.description,
-				placement : 'top',
-				trigger : 'hover',
-				container : 'body'
-			});
-		},
-	});
+//  	var calendar=null;
+// document.addEventListener('DOMContentLoaded', function() {
+// 	var d = new Date();
+<%-- 	var num = <%=session.getAttribute("user_num")%> --%>
+// 	var calendarEl = document.getElementById('calendar');
+// 	var calHeight = 450;
+// 	calendar = new FullCalendar.Calendar(calendarEl, {
+// 		plugins : [ 'dayGrid', 'interaction' ],
+// 		//		 			timeZone : "Asian/Seoul",
+// 		locale : 'ko',
+// 		height : calHeight,
+// 		// 				    contentHeight:calHeight,
+// 		allDayDefault : false,
+// 		editable : false,
+// 		displayEventTime : false,
+// 		defaultView : 'dayGridMonth',
+// 		defaultDate : d,
+// 		editable : true,
+// 		selectable : false,
+// 		eventLimit : false, // allow "more" link when too many events
+// 		header : {
+// 			left : 'prev,next',
+// 			center : 'title',
+// 			right : 'dayGridMonth,dayGridWeek'
+// 		},
+// 		eventRender : function(info) {
+// 			var tooltip = new Tooltip(info.el, {
+// 				title : info.event.extendedProps.description,
+// 				placement : 'top',
+// 				trigger : 'hover',
+// 				container : 'body'
+// 			});
+// 		},
+// 	});
 
-	// 캘린더에 내 예약 추가(홈시터)
-	$.ajax({
-		url : "${contextPath}/sitter/myReservationHS",
-		data : {
-			hs_num : num
-		},
-		dataType : "JSON",
-		success : function(data) {
-			console.log(data)
-			for(var i = 0; i<data.hsrList.length; i++){
-				var e = {
-					groupId : 'c_num',
-					id : data.hsrList[i].C_NUM,
-					start : data.hsrList[i].HSR_CHKIN+ "T"+data.hsrList[i].HSR_PICKUP_TIME,
-					end : data.hsrList[i].HSR_CHKOUT+ "T"+data.hsrList[i].HSR_DROPOFF_TIME,
-					title : data.hsrList[i].C_NAME+' 보호자',
-					description : data.hsrList[i].HSR_STATUS,
-					color : 'rgba(0, 0, 120, 0.6)',
-					textColor: "white"
-				}
-				calendar.addEvent(e)
-				calendar.render();
-			}
+// 	// 캘린더에 내 예약 추가(홈시터)
+// 	$.ajax({
+// 		url : "${contextPath}/sitter/myReservationHS",
+// 		data : {
+// 			hs_num : num
+// 		},
+// 		dataType : "JSON",
+// 		success : function(data) {
+// 			console.log(data)
+// 			for(var i = 0; i<data.hsrList.length; i++){
+// 				var e = {
+// 					groupId : 'c_num',
+// 					id : data.hsrList[i].C_NUM,
+// 					start : data.hsrList[i].HSR_CHKIN+ "T"+data.hsrList[i].HSR_PICKUP_TIME,
+// 					end : data.hsrList[i].HSR_CHKOUT+ "T"+data.hsrList[i].HSR_DROPOFF_TIME,
+// 					title : '예약'+(i+1),
+// 					description : data.hsrList[i].HSR_STATUS,
+// 					color : 'rgba(0, 0, 120, 0.6)',
+// 					textColor : "#FFFFFF"
+// 				}
+// 				calendar.addEvent(e)
+// 				calendar.render();
+// 			}
 
-		},
-		error : function() {
-			alert("데이터를 불러오는데 실패했습니다.")
-		}
-	})
+// 		},
+// 		error : function() {
+// 			alert("데이터를 불러오는데 실패했습니다.")
+// 		}
+// 	})
 	
-	calendar.render();
-});
+// 	calendar.render();
+// });
+
+
+// 로그아웃확인 <--모든페이지에 필수
+function logoutCheck() {
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
+	}
+}
+
+$(function() { //문서가 로딩되면 실행할 함수
+	//----카카오 1:1상담
+	//<![CDATA[
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+	// 플러스친구 1:1채팅 버튼을 생성합니다.
+	Kakao.PlusFriend.createChatButton({
+		container : '#plusfriend-chat-button',
+		plusFriendId : '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+	});
+	//]]>
+	//----카카오 1:1상담	
+})
+
+// $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
+
+// })
+
+// 기본적으로 세션에 저장된 정보
+var user_numtype = "<%=session.getAttribute("user_numtype")%>"
+var user_num = "<%=session.getAttribute("user_num")%>"
+var user_name = "<%=session.getAttribute("user_name")%>"
+
 </script>
 </head>
 <body>
-
-	<!-- 네비게이션 -->
-	<div class="container">
+  <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-         
-            <div class="header_Btn" id="sessioncheck"> 
-            <sec:authorize access="isAnonymous()">
-            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
-            </sec:authorize>
-            <sec:authorize access="isAuthenticated()">
-            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
-            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
-            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
-            </sec:authorize>
-             </div>
+            <br>
+			<div class="header_Btn" id="sessioncheck">
+				<sec:authorize access="isAnonymous()">
+					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+				</sec:authorize>
+			</div>
         </header>
     </div>
-	<nav>
-		<div class='menu'>
-			<ul style="">
-				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
+    <nav>
+        <div class='menu'>
+            <ul style="">
+                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
                     <ul>
-                       <li><a href='#'>HTML Basic</a></li>
-                       <li class='last'><a href='#'>HTML Advanced</a></li>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+                            <!-- 
+                     <ul>
+                        <li><a href='#'>HTML Basic</a></li>
+                        <li class='last'><a href='#'>HTML Advanced</a></li>
+                     </ul>
+                      -->
+                        </li>
+                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
-                     --></li>
-						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
-                 </ul>
-             </li>
-             <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
-             <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
-         </ul>
-     </div>
- </nav>
-<!-- 칸 띄우기 위함 -->
-	<br>
-	<br>
-	<br>
-	<br>
+                </li>
+                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
+                    </ul>
+                </li>
+                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br><br><br>
 	<!-- 		여기다 내용을 작성하시면 됩니다 -->
 	<div class="container row">
 		<div style="width: 720px; display: inline-block; float: left;padding: 10px;">
@@ -488,8 +562,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					<div class="clearfix" style="width: 690px;height:402px;">
 						<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
 							<c:forEach items="${hsimg}" var="img">
-								<li data-thumb="${contextPath}/home/image?fileName=${img}">
-									<img src="${contextPath}/home/image?fileName=${img}" style="width: 700px; height: 402px" />
+								<li data-thumb="${contextPath}/home/image?fileName=${img}" style="width: 674px; height: 401px; position: relative; left: 4px;">
+									<img src="${contextPath}/home/image?fileName=${img}" style="width: 674px; height: 401px; position: relative; left: 4px;" />
 								</li>
 							</c:forEach>
 						</ul>
@@ -554,8 +628,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					</legend>
 					<ul>
 						<li>제목 : <span>${hsList.HSL_TITLE }</span></li>
-						<li>내용 : <br>
-						<span>${hsList.HSL_COMMENT }</span></li>
+						<li>내용 : <div style="white-space:pre;"><c:out value="${hsList.HSL_COMMENT }" /></div></li>
+<%-- 						<span>${hsList.HSL_COMMENT }</span></li> --%>
 					</ul>
 				</fieldset>
 <!-- 				<div style="width: 720px; display: inline-block; float: left;"> -->
@@ -599,21 +673,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				</div>
 			</div>
 		</div>	
-		<style>
-		form{
-			font-weight: 400;
-			line-height: 1.5;
-			color: #212529;
-			text-align: left;
-			font-family: 'Noto Sans KR', sans-serif;
-			box-sizing: border-box;
-			padding: 10px;
-			font-size: 16px;
-			width: 100%;
-			border: 1px solid darkgray;
-			border-radius: 4px;
-		}
-		</style>
 		<div style="width: 350px; display: inline-block; float: left;padding:10px;">
 			<br><br>
 			<form action="reserve" method="post">
@@ -668,12 +727,17 @@ document.addEventListener('DOMContentLoaded', function() {
 								<input type="submit" value="예약하기" class="btn btn-outline-info"> <input type="reset" value="초기화" class="btn btn-outline-info">
 				<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> <input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }"> <input type="hidden" name="hs_num" value="${hsList.HS_NUM}"> <input type="hidden" name="hsr_totalprice" id="totalpriceInput"> <input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize"> <input type="hidden" name="hsr_priceperday" id="hsr_priceperday"> <input type="hidden" name="hsr_pricePerDays" class="pricePerDays"> <input type="hidden" id="days" name="hsr_duringdays" value="0"> <input type="hidden" name="hsr_days" id="Days">
 			</form>
-			<br><br>			
-			<div>
+			<br>			
+			<div id="calSpan">
 				<div>캘린더 미리보기</div>
+				<div><small>예약 가능한 날짜를 보여줍니다!</small></div>
+				<br>
+				<hr>
+				
 				<div id="calendar"></div>
 			</div>
 		</div>
 	</div>
+	<div class="bottom-left alert" id="plusfriend-chat-button"/>
 </body>
 </html>

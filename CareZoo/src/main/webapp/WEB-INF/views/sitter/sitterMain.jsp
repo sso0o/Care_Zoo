@@ -8,24 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/resources/css/index.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
 
-<link
-	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
-	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
-	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-2.2.0.min.js"
-	type="text/javascript"></script>
-<script type="text/javascript"
-	src="${contextPath}/resources/js/index.js"></script>
-	
-	<!-- kakao상담 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+
+<!-- kakao상담 -->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"/>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
@@ -58,8 +50,7 @@
 	// })
 
 	// 기본적으로 세션에 저장된 정보
-	var user_numtype = "
-<%=session.getAttribute("user_numtype")%>"
+	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
 	var user_num = "<%=session.getAttribute("user_num")%>"
 	var user_name = "<%=session.getAttribute("user_name")%>"
 
@@ -149,6 +140,6 @@ body {
 
 
 	</div>
-	<div class="bottom-left alert" id="plusfriend-chat-button">
+	<div class="bottom-left alert" id="plusfriend-chat-button"/>
 </body>
 </html>

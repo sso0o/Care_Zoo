@@ -5,17 +5,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
+<!-- 슬라이드 -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+<!-- 메뉴바 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- 폰트 -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+
+<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+<!-- 메뉴바 -->
 <!-- 다음 주소 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -443,6 +456,14 @@ function deleteImageAction(fileIndex) {
 </script>
 
 <style type="text/css">
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.menu>ul {
+	height: 45px;
+}
+
 .content{
 	width: 900px;
 	margin: 0 auto;
@@ -509,54 +530,49 @@ legend{
 <title>Insert title here</title>
 </head>
 <body>
+	<!-- 네비게이션 -->
 	<div class="container">
-		<header>
-			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-
-			<div class="header_Btn" id="sessioncheck">
-				<sec:authorize access="isAnonymous()">
-					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
-					<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
-				</sec:authorize>
-				<sec:authorize access="isAuthenticated()">
-					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
-					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
-				</sec:authorize>
-			</div>
-		</header>
-	</div>
+        <header>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+         
+            <div class="header_Btn" id="sessioncheck"> 
+            <sec:authorize access="isAnonymous()">
+            	<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
+            	<a class="btn_Join" href="${contextPath}/member/join">회원가입</a>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+            	<label id="principal" style="display: none;" ><sec:authentication property="principal"/></label>
+            	<label><%=session.getAttribute("user_name") %>님 반갑습니다!</label>
+            	<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
+            </sec:authorize>
+             </div>
+        </header>
+    </div>
 	<nav>
 		<div class='menu'>
 			<ul style="">
 				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-
 					<ul>
 						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a> <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      --></li>
+                    <ul>
+                       <li><a href='#'>HTML Basic</a></li>
+                       <li class='last'><a href='#'>HTML Advanced</a></li>
+                    </ul>
+                     --></li>
 						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
 					</ul></li>
-				<li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
+				<li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
 					<ul>
-						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
-						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-					<ul>
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='${contextPath}/comment/hscList'>가정시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/vscList'>방문시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/phcList'>펫호텔</a></li>
-					</ul></li>
-				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
-			</ul>
-		</div>
-	</nav>
+						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+                 </ul>
+             </li>
+             <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
+             <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
+         </ul>
+     </div>
+ </nav>
+<!-- 칸 띄우기 위함 -->
+	<br>
 	<br>
 	<br>
 	<br>
