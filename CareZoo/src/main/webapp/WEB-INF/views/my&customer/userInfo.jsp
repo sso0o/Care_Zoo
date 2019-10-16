@@ -163,7 +163,7 @@ body{
 
     <div class="container">
         <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position:relative;left:24px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">

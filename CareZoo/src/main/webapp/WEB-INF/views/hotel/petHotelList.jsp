@@ -716,12 +716,12 @@ height:45px;
 		location.href = '/index.do'
 	});
 </script>
-<!-- 애견호텔 목록 -->
+<!-- 애견호텔 목록asdasasdsadasdsaasd -->
 </head>
 <body>
  <div class="container">
         <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position:relative;left:16px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
