@@ -233,120 +233,7 @@ $(function() {
 		}
 		
 	});
-	
-	//후기 이미지 갖고 오기
-
-// 	$.ajax({
-// 		url:"${contextPath}/home/getComment",
-// 		data:{
-// 			hs_num : ${hsList.hs_num}
-// 		},
-// 		dataType: "JSON",
-// 		success: function(data) {
-// 			console.log(data)
-// 			if(data.filename != null){
-// 				$(".img-circle").attr("src","${contextPath}/home/image?fileName="+data.filename)
-// 			} else {
-// 				$(".img-circle").attr("src","https://bootdey.com/img/Content/user_1.jpg")
-// 			}
-			
-// 		}, error: function() {
-// 			alert("error")
-// 		}
-// 	})
-
-	
-// 				<ul class="media-list">
-// 				<c:forEach items="${comment}" var="cmmt">
-// 					<li class="media"><a href="#" class="pull-left">
-// 						 <img class="img-circle" src ="${contextPath}/home/image?fileName="+data[a].hsc_fileName></a>
-// 						<div> </div>
-// 						<div class="media-body">
-// 							<span class="text-muted pull-right"> <small class="text-muted">${cmmt.hsc_write_date}</small>
-// 							</span> <strong class="text-success">@${cmmt.c_name}</strong>
-// 							<p>
-// 								${cmmt.hsc_comment} <a href="#">#consecteturadipiscing </a>.
-// 							</p>
-// 						</div>
-// 					</li>
-// 				</c:forEach>
-// 			</ul>
-	
-// 	var unavailableDates = ${disDates};
-// -----------------------------------------
-// 	$("#email").val("${hsList.hsl_chkin_str_time}");
-// 	$("#name").val("${hs.hs_name}");
-// 	$("#contact").val("${hs.hs_contact}");
-// 	$("#address").val("${hs.hs_address}");
-// 	$("#d_address").val("${hs.hs_d_address}");
-// 	$("#birth").val("${hs.hs_birth}");
-// 	if("${hs.hs_birth}" == "1"){
-// 		$("#sex").val("여자");
-// 		$("#hs_sex").val("1");
-// 	} else {
-// 		$("#sex").val("남자");
-// 		$("#hs_sex").val("2");
-// 	}
-	
-// 	$.ajax({
-// 		url:"${contextPath}/home/getComment",
-// 		data:{
-// 			hs_num : $('#demo1').val()
-// 		},
-// 		dataType: "JSON",
-// 		success: function(data) {
-// 			console.log(data)
 		
-// // 			if(data.filename != null){
-// // 				$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
-// // 			} else {
-// // 				$("#img").attr("src","${contextPath}/resources/img/user.jpg")
-// // 			}
-			
-// 		}, error: function() {
-// 			alert("error")
-// 		}
-// 	})
-	
-	
-// 	function ajaxSucessLoading(hsList){
-// 		console.log("성겅!");
-// 		for(i;breaker<8;i++){
-// 			console.log(i);
-// 			if(breaker <7){			
-// 				var ul = $('<ul class="media-list">');	
-// 				var li = $('<li class="media">');
-// 				ul.append(li);
-// 				var img = $('<a href="#" class="pull-left"> <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle"></a>');
-// 				li.append(img);
-// 				var cmmtBodyDiv = $('<div class="media-body">');
-// 				img.append(cmmtBodyDiv);
-// 				var writedate = $('<span class="text-muted pull-right"> <small class="text-muted">'+comment[i].hsc_write_date+'</small>');
-// 				cmmtBodyDiv.append(writedate);
-// 				var name = $('</span><strong class="text-success">@'+comment[i].c_name+'</strong>');
-// 				writedate.append(name);
-// 				var cmmt = $('<p>'+comment[i].hsc_comment+'.</p>');
-// 				name.append(cmmt);
-// 				$('.row bootstrap snippets').append(ul);
-
-// 				breaker = breaker + 1;
-// 			} else{
-// 				breaker = 0;
-// 				break;
-// 			}
-// 		}
-// 	}
-// -----------------------------------------------	
-	
-// 	var a = ${hsList.hsl_chkin_str_time};
-// 	console.log(a);
-	
-	
-	
-	
-	
-	
-	
 	$('#petSize-select').off("change").on("change",function() {
 		console.log("펫사이즈")
 		empdays = document.getElementById('days').value;
@@ -472,7 +359,85 @@ $(function() {
 	});
 	
 })
+ 	var calendar=null;
+	document.addEventListener('DOMContentLoaded', function() {
+		var d = new Date();
+		<%=session.getAttribute("c_num")%>
+		var calendarEl = document.getElementById('calendar');
+		var calHeight = 450;
+		calendar = new FullCalendar.Calendar(calendarEl, {
+			plugins : [ 'dayGrid', 'interaction' ],
+			//		 			timeZone : "Asian/Seoul",
+			locale : 'ko',
+			height : calHeight,
+			// 				    contentHeight:calHeight,
+			allDayDefault : false,
+			editable : false,
+			displayEventTime : false,
+			defaultView : 'dayGridMonth',
+			defaultDate : d,
+			editable : true,
+			selectable : false,
+			eventLimit : false, // allow "more" link when too many events
+			header : {
+				left : 'prev,next',
+				center : 'title',
+				right : 'dayGridMonth,dayGridWeek'
+			},
+			eventRender : function(info) {
+				var tooltip = new Tooltip(info.el, {
+					title : info.event.extendedProps.description,
+					placement : 'top',
+					trigger : 'hover',
+					container : 'body'
+				});
+			},
+		});
+		function roomCalendar() {
+			var room_num = $('.rCalSelect option:selected').val();
+			$.ajax({
+				url : "${contextPath}/petHotel/petHotelReservation",
+				data : {
+					phrm_num : room_num
+				},
+				dataType : "JSON",
+				success : function(data) {
 
+					var events = calendar.getEvents();
+					var len = events.length;
+					for (var i = 0; i < len; i++) {
+						events[i].remove();
+					}
+					for (var i = 0; i < data.length; i++) {
+						e = {
+							groupId : 'phr_num',
+							id : data[i].phr_num,
+							start : data[i].phr_chkin,
+							end : data[i].phr_chkout + 'T11:00',
+							title :  '예약'+(i+1),
+							description : data[i].phr_chkin.substring(2, 12)
+									+ ' ~ '
+									+ data[i].phr_chkout.substring(2, 12),
+							color : Math.random().toString(16).replace(/.*(\w{3})/, '#$1'),
+							textColor : "#FFFFFF",
+						}
+
+						calendar.addEvent(e);
+						calendar.render();
+					}
+
+				},
+				error : function() {
+					alert("데이터를 불러오는데 실패했습니다.")
+				}
+			})
+		}
+		calendar.render();
+		$('.rCalSelect').on("change", function() {
+			roomCalendar();
+		});
+		roomCalendar();
+	});
 </script>
 </head>
 <body>
@@ -526,7 +491,6 @@ $(function() {
 			<div>
 				<strong>${hsList.HSL_TITLE}</strong>
 			</div>
-
 			<div class="demo">
 				<div class="item">
 					<div class="clearfix" style="width: 700px; height: 402px">
@@ -540,83 +504,114 @@ $(function() {
 					</div>
 				</div>
 			</div>
-			<br>
-			<br>
-			<fieldset>
-				<legend>
-					<strong><i>돌봄 가능한 강아지 크기&나이</i></strong>
-				</legend>
-				<ul>
-					<li>${hsList.HSL_SIZE }가능합니다.</li>
-					<li>${hsList.HSL_PET_AGE }케어가능합니다.</li>
-				</ul>
-			</fieldset>
-			<br>
-			<br>
-			<fieldset>
-				<legend>
-					<strong><i>돌보미환경</i></strong>
-				</legend>
-				<ul>
-					<li>돌봄 공간 : <span>${hsList.HSL_CARE_PLACE }</span></li>
-					<li>마당유무 : <span>${hsList.HSL_YARD }</span></li>
-					<li>14세 미만 아동 : <span>${hsList.HSL_BABY }</span></li>
-					<li>가족 동거 여부 : <span>${hsList.HSL_FAMILY }</span></li>
-				</ul>
-			</fieldset>
-			<br>
-			<br>
-			<fieldset>
-				<legend>
-					<strong><i>돌보미 소개</i></strong>
-				</legend>
-				<ul>
-					<li>제목 : <span>${hsList.HSL_TITLE }</span></li>
-					<li>내용 : <br>
-					<span>${hsList.HSL_COMMENT }</span></li>
-				</ul>
-			</fieldset>
-			<br>
-			<br>
-			<div>
-			<c:forEach items="${comment}" var="cmmt">
-				<div class="media border p-3" style="margin: 3px auto;">
-				<c:choose>
-					<c:when test="${cmmt.C_FILENAME eq null}">
-						<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
-					</c:when>
-					<c:otherwise>
-						<img src="${contextPath }/home/image?fileName=${cmmt.C_FILENAME }" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
-					</c:otherwise>
-				</c:choose>
-					<div class="media-body">
-						<div class="media-body">
-							<table style="width: 100%">
-								<tr>
-									<td style="text-align: left; width: 50%">${cmmt.C_NAME}</td>
-									<td style="text-align: right; width: fit-content;" colspan="2">	
-										<c:forEach var="i" begin="1" end="${cmmt.HSC_STAR-(cmmt.HSC_STAR%1)}">
-											<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
-										</c:forEach>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2" style="text-align: left; width: 80%"><p style="margin-left: 10px; ">${cmmt.HSC_COMMENT}</p></td>
-									<td colspan="1" style="text-align: right; width: fit-content;" ><fmt:formatDate value="${cmmt.HSC_WRITE_DATE}"></fmt:formatDate></td>
-								</tr>
-							</table>
-							
-						</div>
+
+				
+			<div style="width: 750px; display: inline-block; float: left;">
+					<div style="width: 70px; display: inline-block; float: left;">
+						<img src="${contextPath}/resources/img/reserveDog.JPG" >
 					</div>
+				<div style="width: 304.5px; display: inline-block; float: left;">
+					<fieldset>
+						<legend>
+							<small><i>돌봄 가능한 강아지 크기&나이</i></small>
+						</legend>
+						<ul>
+							<li>${hsList.HSL_SIZE }가능합니다.</li>
+							<li>${hsList.HSL_PET_AGE }케어가능합니다.</li>
+						</ul>
+					</fieldset>			
 				</div>
-			</c:forEach>
-		</div>
-		</div>
-		<div style="width: 293px; display: inline-block; float: left;">
+					<div style="width: 70px; display: inline-block; float: left;">
+						<img src="${contextPath}/resources/img/reserveClock.JPG" style="height: 105px;left: -14px; position: relative;">
+					</div>
+				<div style="width: 304.5px; display: inline-block; float: left;">
+					<fieldset>
+						<legend>
+							<small><i>체크인, 체크아웃 시간</i></small>
+						</legend>
+						<ul>
+							<li>체 크 인 : ${hsList.HSL_CHKIN_STR_TIME } ~ ${hsList.HSL_CHKIN_END_TIME }</li>
+							<li>체 크 아 웃 : ${hsList.HSL_CHKOUT_STR_TIME } ~ ${hsList.HSL_CHKOUT_END_TIME }</li>
+						</ul>
+					</fieldset>				
+				</div>
+			</div>
+			
+			<div style="width: 750px; display: inline-block; float: left;">
+			<br><br>
+			</div>
+			
+			<div style="width: 750px; display: inline-block; float: left;">		
+				<fieldset>
+					<legend>
+						<strong><i>돌보미환경</i></strong>
+					</legend>
+					<ul>
+						<li>돌봄 공간 : <span>${hsList.HSL_CARE_PLACE }</span></li>
+						<li>마당유무 : <span>${hsList.HSL_YARD }</span></li>
+						<li>14세 미만 아동 : <span>${hsList.HSL_BABY }</span></li>
+						<li>가족 동거 여부 : <span>${hsList.HSL_FAMILY }</span></li>
+					</ul>
+				</fieldset>
+				<br>
+				<br>
+				<fieldset>
+					<legend>
+						<strong><i>돌보미 소개</i></strong>
+					</legend>
+					<ul>
+						<li>제목 : <span>${hsList.HSL_TITLE }</span></li>
+						<li>내용 : <br>
+						<span>${hsList.HSL_COMMENT }</span></li>
+					</ul>
+				</fieldset>
+<!-- 				<div style="width: 750px; display: inline-block; float: left;"> -->
+			<br><br>
+<!-- 			</div> -->
+				<div>
+					<c:forEach items="${comment}" var="cmmt">
+						<div class="media border p-3" style="margin: 3px auto;">
+							<c:choose>
+								<c:when test="${cmmt.C_FILENAME eq null}">
+									<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width: 60px; height: 60px">
+								</c:when>
+								<c:otherwise>
+									<img src="${contextPath }/home/image?fileName=${cmmt.C_FILENAME }" class="mr-3 mt-3 rounded-circle" style="width: 60px; height: 60px">
+								</c:otherwise>
+							</c:choose>
+							<div class="media-body">
+								<div class="media-body">
+									<table style="width: 100%">
+										<tr>
+											<td style="text-align: left; width: 50%">${cmmt.C_NAME}</td>
+											<td style="text-align: right; width: fit-content;" colspan="2">
+												<c:forEach var="i" begin="1" end="${cmmt.HSC_STAR-(cmmt.HSC_STAR%1)}">
+													<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
+												</c:forEach>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="text-align: left; width: 80%">
+												<p style="margin-left: 10px;">${cmmt.HSC_COMMENT}</p>
+											</td>
+											<td colspan="1" style="text-align: right; width: fit-content;">
+												<fmt:formatDate value="${cmmt.HSC_WRITE_DATE}"></fmt:formatDate>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>	
+		
+		<div style="width: 280px; display: inline-block; float: left;">
 			<div>
 				<fieldset>
 					<form action="reserve" method="post">
-						<h5>예약을 확인해 주세요.</h5>
+						<h5 style="text-align: center">예약을 확인해 주세요.</h5>
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -662,13 +657,9 @@ $(function() {
 										<span id="hsr_totalprice">20,000</span>원
 									</td>
 								</tr>
-								<tr>
-									<td colspan="2">
-										<input type="submit" value="예약하기" class="btn btn-outline-info"> <input type="reset" value="초기화" class="btn btn-outline-info">
-									</td>
-								</tr>
 							</tbody>
 						</table>
+										<input type="submit" value="예약하기" class="btn btn-outline-info"> <input type="reset" value="초기화" class="btn btn-outline-info">
 						<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> <input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }"> <input type="hidden" name="hs_num" value="${hsList.HS_NUM}"> <input type="hidden" name="hsr_totalprice" id="totalpriceInput"> <input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize"> <input type="hidden" name="hsr_priceperday" id="hsr_priceperday"> <input type="hidden" name="hsr_pricePerDays" class="pricePerDays"> <input type="hidden" id="days" name="hsr_duringdays" value="0"> <input type="hidden" name="hsr_days" id="Days">
 					</form>
 				</fieldset>
