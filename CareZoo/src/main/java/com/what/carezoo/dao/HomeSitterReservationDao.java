@@ -19,6 +19,8 @@ public interface HomeSitterReservationDao {
 	public List<HomeSitterReservation> selectAll();
 	public int countC_num(int c_num);
 	
+	public List<HomeSitterReservation> selectByHsNum(int hs_num);
+	
 	//고객예약현황페이지에 넣을 정보 가져오기
 	public List<Map<String, Object>> getHSRInfo(int c_num);
 	
