@@ -432,7 +432,7 @@ li:hover {
 					<ul>
 						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
 
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법asd-->
 
 					</ul></li>
 				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MYPAGE</a></li>
@@ -462,15 +462,15 @@ li:hover {
 					<input type="checkbox" name="hs_address" value="경기"> 
 					<input type="checkbox" name="hs_address" value="인천">
 				</div>
-				<div id="subtbl_1" style="display: none; border: 1px  solid #17a2b8 ;padding: 14px;">
-					<div id="check_container">
+				<div id="subtbl_1" style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:40px;width:1040px;">
+					<div id="check_container" style="font-size:18px">
 						<input type="checkbox" name="hs_address" id="state1" value="강남구"><label>강남구</label>
 						<input type="checkbox" name="hs_address" id="state2" value="강동구"><label>강동구</label>
 						<input type="checkbox" name="hs_address" id="state3" value="강북구"><label>강북구</label>
 						<input type="checkbox" name="hs_address" id="state4" value="강서구"><label>강서구</label>
 						<input type="checkbox" name="hs_address" id="state5" value="관악구"><label>관악구</label>
 						<input type="checkbox" name="hs_address" id="state6" value="광진구"><label>광진구</label>
-						<input type="checkbox" name="hs_address" id="state7" value="구로구"><label>구로구</label>
+						<input type="checkbox" name="hs_address" id="state7" value="구로구" ><label style="width: 60px;">구로구</label>
 					<br>	                                                                           
 						<input type="checkbox" name="hs_address" id="state8" value="금천구"><label>금천구</label>
 						<input type="checkbox" name="hs_address" id="state9" value="노원구"><label>노원구</label>
@@ -478,7 +478,7 @@ li:hover {
 						<input type="checkbox" name="hs_address" id="state11" value="동대문구"><label>동대문구</label> 
 						<input type="checkbox" name="hs_address" id="state12" value="동작구"><label>동작구</label> 
 						<input type="checkbox" name="hs_address" id="state13" value="마포구"><label>마포구</label> 
-						<input type="checkbox" name="hs_address" id="state14" value="서대문구"><label>서대문구</label> 
+						<input type="checkbox" name="hs_address" id="state14" value="서대문구" ><label style="    width: 61px; font-size: 16.5px">서대문구</label> 
 					<br>	
 						<input type="checkbox" name="hs_address" id="state15" value="서초구"><label>서초구</label>
 						<input type="checkbox" name="hs_address" id="state16" value="성동구"><label>성동구</label>
@@ -486,7 +486,7 @@ li:hover {
 						<input type="checkbox" name="hs_address" id="state18" value="송파구"><label>송파구</label>
 						<input type="checkbox" name="hs_address" id="state19" value="양천구"><label>양천구</label>
 						<input type="checkbox" name="hs_address" id="state20" value="영등포구"><label>영등포구</label> 
-						<input type="checkbox" name="hs_address" id="state21" value="용산구"><label>용산구</label> 
+						<input type="checkbox" name="hs_address" id="state21" value="용산구"><label style="width: 60px;">용산구</label> 
 					<br>	
 						<input type="checkbox" name="hs_address" id="state22" value="은평구"><label>은평구</label> 
 						<input type="checkbox" name="hs_address" id="state23" value="종로구"><label>종로구</label> 
@@ -500,15 +500,15 @@ li:hover {
 					</div>
 
 				</div>
-				<div id="subtbl_2" style="display: none; border: 1px  solid #17a2b8;padding: 14px;"  class="container tab-pane active">
-					<div id="check_container">
+				<div id="subtbl_2" " style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:5px;width:1040px;"  class="container tab-pane active">
+					<div id="check_container"  style="font-size:18px">
 						<input type="checkbox" name="hs_address" id="state26" value="고양시"><label>고양시</label>
 						<input type="checkbox" name="hs_address" id="state27" value="과천시"><label>과천시</label>
 						<input type="checkbox" name="hs_address" id="state28" value="광명시"><label>광명시</label>
 						<input type="checkbox" name="hs_address" id="state29" value="광주시"><label>광주시</label>
 						<input type="checkbox" name="hs_address" id="state30" value="구리시"><label>구리시</label>
 						<input type="checkbox" name="hs_address" id="state31" value="군포시"><label>군포시</label>
-						<input type="checkbox" name="hs_address" id="state32" value="김포시"><label>김포시</label>
+						<input type="checkbox" name="hs_address" id="state32" value="김포시"><label style="width: 60px;">김포시</label>
 					<br>	
 						<input type="checkbox" name="hs_address" id="state33" value="남양주시"><label>남양주시</label>
 						<input type="checkbox" name="hs_address" id="state34" value="동두천시"><label>동두천시</label>
@@ -516,7 +516,7 @@ li:hover {
 						<input type="checkbox" name="hs_address" id="state36" value="성남시"><label>성남시 </label>
 						<input type="checkbox" name="hs_address" id="state37" value="수원시"><label>수원시 </label>
 						 <input type="checkbox" name="hs_address"id="state38" value="시흥시"><label>시흥시 </label>
-						 <input type="checkbox" name="hs_address" id="state39" value="안산시"><label>안산시</label> 
+						 <input type="checkbox" name="hs_address" id="state39" value="안산시"><label style="width: 60px;">안산시</label> 
 					<br>		 
 						 <input type="checkbox" name="hs_address" id="state40" value="안성시"><label>안성시</label>
 						 <input type="checkbox" name="hs_address" id="state41" value="안양시"><label>안양시</label>
@@ -524,7 +524,7 @@ li:hover {
 						 <input type="checkbox" name="hs_address" id="state43" value="여주시"><label>여주시</label>
 						 <input type="checkbox" name="hs_address" id="state44" value="오산시"><label>오산시</label>
 						 <input type="checkbox" name="hs_address" id="state45" value="용인시"><label>용인시</label>
-						 <input type="checkbox" name="hs_address" id="state46" value="의왕시"><label>의왕시</label>
+						 <input type="checkbox" name="hs_address" id="state46" value="의왕시"><label style="width: 60px;">의왕시</label>
 					<br>		 
 						 <input type="checkbox" name="hs_address" id="state47" value="의정부시"><label>의정부시</label> 
 						 <input type="checkbox" name="hs_address" id="state48" value="이천시"><label>이천시</label> 
@@ -532,7 +532,7 @@ li:hover {
 						 <input type="checkbox" name="hs_address" id="state50" value="평택시"><label>평택시</label> 
 						 <input type="checkbox" name="hs_address" id="state51" value="포천시"><label>포천시</label> 
 						 <input type="checkbox" name="hs_address" id="state52" value="하남시"><label>하남시</label> 
-						 <input type="checkbox" name="hs_address" id="state53" value="화성시"><label>화성시</label> 
+						 <input type="checkbox" name="hs_address" id="state53" value="화성시"><label style="width: 60px;">화성시</label> 
 					<br>		                                                                        
 						 <input type="checkbox" name="hs_address" id="state54" value="가평군"><label>가평군</label> 
 						 <input type="checkbox" name="hs_address" id="state55" value="양평군"><label>양평군</label> 
@@ -546,15 +546,15 @@ li:hover {
 					</div>
 
 				</div>
-				<div id="subtbl_3" style="display: none; border: 1px solid #17a2b8;padding: 14px;" class="container tab-pane active">
-					<div id="check_container">
+				<div id="subtbl_3"   style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:40px;width:1040px;">
+					<div id="check_container"  style="font-size:18px">
 						<input type="checkbox" name="hs_address" id="state57" value="계양구"><label>계양구</label> 
 						<input type="checkbox" name="hs_address" id="state58" value="남동구"><label>남동구</label> 
 						<input type="checkbox" name="hs_address" id="state59" value="동구"><label>동구</label>
 						<input type="checkbox" name="hs_address" id="state60" value="미추홀구"><label>미추홀구</label> 
 						<input type="checkbox" name="hs_address" id="state61" value="부평구"><label>부평구</label> 
 						<input type="checkbox" name="hs_address" id="state62" value="서구"><label>서구</label> 
-						<input type="checkbox" name="hs_address" id="state63" value="연수구"><label>연수구</label> 
+						<input type="checkbox" name="hs_address" id="state63" value="연수구"><label style="width: 60px;">연수구</label> 
 					<br>	
 						<input type="checkbox" name="hs_address" id="state64" value="중구"><label>중구</label> 
 						<input type="checkbox" name="hs_address" id="state65" value="강화군"><label>강화군</label> 
@@ -570,7 +570,7 @@ li:hover {
 				</div>
 			</div>
 			<hr>
-			<!-- 홈시터 검색필터 설정부분 -->
+			<!-- 홈시터 검색필터 설정부분 asd-->
 			<div class="nav" style="position: relative;left: 48px;">
 				<table >
 					<tr>
