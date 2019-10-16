@@ -27,6 +27,8 @@
   <link href="${contextPath}/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
+
+
 </head>
 
 <body id="page-top">
@@ -67,7 +69,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="${contextPath}/admin/memberList">
           <i class="fas fa-fw fa-cog"></i>
-          <span>멤버관리</span>
+          <span>멤버 관리</span>
         </a>
 <!--         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"> -->
 <!--           <div class="bg-white py-2 collapse-inner rounded"> -->
@@ -238,7 +240,7 @@
                       <th>주소</th>
                       <th>연락처</th>
                       <th>이메일</th>
-                      <th style="width:80px" id="soso">삭제</th>
+                      <th style="width:32px" id="soso">삭제</th>
                     </tr>
                   </thead>
 <!--                   <tfoot> -->

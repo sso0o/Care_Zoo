@@ -436,7 +436,7 @@ height:45px;
 
 									var petHotelDiv = $('<div class="petHotel" onclick="location.href=\'${contextPath}/petHotel/petHotelView?ph_num='
 											+ phList[i].ph_num
-											+ '\'\"style="border: 1px solid; margin: 50px; height: 352px;">');
+											+ '\'\"style="border: 1px solid rgba(0,0,0,0.3); margin: 50px; height: 352px;border-radius:5px">');
 									//				asdasd	var petHotelDiv = $('<div class="petHotel" style="border: 1px solid; margin: 50px; height: 350px;">');
 									var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
 									petHotelDiv.append(petHotelDiv2);
@@ -501,7 +501,7 @@ height:45px;
 									console.log("maxPrice: "+phList[i].ph_maxPrice*1);
 									minAndMaxPrice.appendTo(aArDiv);
 									$('<br><hr>').appendTo(aArDiv);
-									var reviewDiv = $('<div style="font-size:21px;position:relative;left:420px;top:2px">');
+									var reviewDiv = $('<div style="font-size:21px;position:relative;left:420px;top:2px;width:120px;">');
 									$('<span>').text(
 											'고객후기  ' + phList[i].ph_c_count
 													+ '개')

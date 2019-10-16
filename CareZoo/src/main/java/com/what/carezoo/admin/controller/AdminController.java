@@ -32,6 +32,7 @@ import com.google.gson.JsonArray;
 import com.what.carezoo.hotel.service.DongbanHotelService;
 import com.what.carezoo.hotel.service.PetHotelReservationService;
 import com.what.carezoo.hotel.service.PetHotelService;
+import com.what.carezoo.member.service.MemberMailSendService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.Pet;
@@ -47,33 +48,34 @@ import com.what.carezoo.sitter.service.SitterService;
 public class AdminController {
 
 	@Autowired
+	private MemberMailSendService mailsender;
+	
+	@Autowired
 	private PetHotelService phService;
 
 	@Autowired
 	private DongbanHotelService dhService;
-	
+
 	@Autowired
 	private MemberService mService;
-	
+
 	@Autowired
 	private PetService pService;
-	
+
 	@Autowired
 	private PetHotelReservationService phrService;
-	
-	
 
 	@RequestMapping("/main")
 	public String showAdminMain() {
 		return "admin/adminMain";
 	}
 
-	//  <---------------------------------------------------------이거 위치
+	// <---------------------------------------------------------이거 위치
 	@RequestMapping("/qna")
 	public String showQna() {
 		return "my&customer/qna";
 	}
-	
+
 	@RequestMapping("/test")
 	public String test(HttpServletRequest request, Model m, String email, String pass) {
 		String radio = request.getParameter("user");
@@ -82,38 +84,38 @@ public class AdminController {
 		return "test";
 
 	}
-	
+
 	// <-----------------------------------------------------------------이거 위치
-	
+
 	///////////////////////////////////////////////////////////////////////////////// 멤버
-	
+
 	@RequestMapping("/memberList")
 	public String showMemberList(Model m) {
 		List<Customer> cList = mService.selectAll();
-		
+
 		m.addAttribute("cList", cList);
 		return "admin/memberList";
 	}
-	
+
 	@RequestMapping("/memberView")
 	public String showMemberView(String c_email, Model m) {
 		Customer c = mService.getMemberByEmail(c_email);
 		int c_num = c.getC_num();
 		List<Pet> pL = pService.selectByC_Num(c_num);
-		
+
 		m.addAttribute("c", c);
 		m.addAttribute("pL", pL);
-		
+
 		return "admin/memberView";
 	}
-	
+
 //	@RequestMapping("/addMemberForm")
 //	public String addMemberForm() {
 //		return "admin/joinForm_customer";
 //	}
-	
+
 	@RequestMapping("/memberDelete")
-	public String memberDelete(@RequestParam("c_num")int c_num, Model model) {
+	public String memberDelete(@RequestParam("c_num") int c_num, Model model) {
 		mService.deleteCustomer(c_num);
 		List<Customer> c = mService.selectAll();
 		model.addAttribute("cList", c);
@@ -130,15 +132,15 @@ public class AdminController {
 //		return "redirect:/admin/memberList";
 //	}
 //	
-	
+
 	///////////////////////////////////////////////////////////////////////////////// 펫
-	
+
 	@RequestMapping("/addPetForm")
 	public String addPetForm(int c_num, Model m) {
 		m.addAttribute("c_num", c_num);
 		return "admin/addPetForm";
 	}
-	
+
 //	@RequestMapping(value = "/addPet", method = RequestMethod.POST)
 //	public String addPet(Pet p) {
 //		Customer c = mService.getMemberByC_num(p.getC_num());
@@ -160,9 +162,9 @@ public class AdminController {
 		rst.put("pL", pL);
 		return rst;
 	}
-	
-	//////////////////////////////////////////////////////////////////////////예약
-	
+
+	////////////////////////////////////////////////////////////////////////// 예약
+
 	@ResponseBody
 	@RequestMapping("/phchk")
 	public Map<String, Object> getPh_Name(int ph_num) {
@@ -171,13 +173,42 @@ public class AdminController {
 		rst.put("ph_name", ph.getPh_name());
 		return rst;
 	}
-	
-	
+
 	@RequestMapping("/resPetHotelList")
 	public String resList(Model m) {
 		List<PetHotelReservation> phR = phService.getAllPetHotelRes();
-		
+		for (int i = 0; i < phR.size(); i++) {
+			(phR.get(i)).setPh_name((phService.getPetHotelbyNum((phR.get(i)).getPh_num())).getPh_name());
+			(phR.get(i)).setPhrm_name((phrService.getOnePetHotelRoom(phR.get(i).getPhrm_num())).getPhrm_name());
+			(phR.get(i)).setC_name((mService.getMemberByC_num((phR.get(i)).getC_num())).getC_name());
+
+			if (((phR.get(i)).getPhr_status()).equals("3")) {
+				(phR.get(i)).setPhr_status("결제 완료");
+			} else if (((phR.get(i)).getPhr_status()).equals("4")) {
+				(phR.get(i)).setPhr_status("이용 완료");
+			} else {
+
+			}
+		}
+
 		m.addAttribute("phR", phR);
+		return "admin/resPetHotelList";
+	}
+	
+	// 펫호텔예약 취소
+	@RequestMapping("/cancelPHR")
+	public String cancelPHR(int num, Model m,HttpServletRequest request) {
+		PetHotelReservation phr = phrService.getPetHotelResByNum(num);
+		if (mService.cancelPHR(num)) {
+			m.addAttribute("msg", "예약이 취소되었습니다.");
+			PetHotel ph = phService.getPetHotelbyNum(phr.getPh_num());
+			System.out.println(ph);
+			Customer cus = mService.getMemberByC_num(phr.getC_num());
+			mailsender.mailSendCancelPHR(ph,phr,cus,request);
+			System.out.println("=============이메일 성공");
+		} else {
+			m.addAttribute("msg", "취소 실패");
+		}
 		
 		return "admin/resPetHotelList";
 	}
@@ -186,17 +217,17 @@ public class AdminController {
 	public String resPetHotelForm(Model m) {
 		List<Customer> cL = mService.selectAll();
 		List<PetHotel> phL = phService.getAllPetHotel();
-		
+
 		m.addAttribute("cL", cL);
 		m.addAttribute("phL", phL);
 		return "admin/resPetHotelForm";
 	}
-	
+
 	@RequestMapping(value = "/resPetHotel", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean resPetHotel(String str, HttpServletRequest req) {
 		List<PetHotelReservation> phR = new ArrayList<PetHotelReservation>();
-		System.out.println("str -----------"+str);
+		System.out.println("str -----------" + str);
 		JSONArray jArray = new JSONArray(str);
 		System.out.println(jArray);
 		for (int i = 0; i < jArray.length(); i++) {
@@ -210,7 +241,7 @@ public class AdminController {
 			System.out.println(r);
 			phR.add(r);
 		}
-		
+
 //		for (PetHotelReservation r : phR) {
 //			boolean result = rst.add(phrService.addPetHotelRes(r));
 //			if(result) {
@@ -222,15 +253,12 @@ public class AdminController {
 //		if (!rst.contains(false)) {
 //			return true;
 //		}
-		
-		if(phR.size()>0) {
+
+		if (phR.size() > 0) {
 			return true;
 		}
 		return false;
 	}
-	
-	
-	
 
 	////////////////////////////////////////////////////////////////////////// 호텔
 	// add PetHotel Form
@@ -253,73 +281,71 @@ public class AdminController {
 		return "admin/addPetHotelForm";
 	}
 
-	   // 펫호텔 추가
-	   @RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
-	   public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest){
-	      List<MultipartFile> files = mtfRequest.getFiles("file");
-	      boolean rst = phService.addPetHotel(ph,files);
-   	      String phrm_pet_size_memo="";
-	      String[] phrm_pet_size = null;
-	     
-	      String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
-	      System.out.println(phrm_nam);
-	      String[] phrm_name = mtfRequest.getParameterValues("phrm_name");
-	      String[] phrm_price = mtfRequest.getParameterValues("phrm_price");
-	      String[] phrm_m_price = mtfRequest.getParameterValues("phrm_m_price");
-	      String[] phrm_l_price = mtfRequest.getParameterValues("phrm_l_price");
-	      String[] phrm_p_max = mtfRequest.getParameterValues("phrm_p_max");
-	      PetHotel petHotel = phService.getPetHotelbyName(ph.getPh_name());
-	      System.out.println("ph:"+ph);
-	      for(int i= 0;i<phrm_name.length;i++) {
-	    	  String result_size ="";
-	         if(mtfRequest.getParameterValues("phrm_pet_size"+i) != null) {
-	            phrm_pet_size = mtfRequest.getParameterValues("phrm_pet_size"+i);
-	            System.out.println("phrm_pet_size:"+Arrays.toString(phrm_pet_size));
-	           System.out.println("phrm_pet_size"+phrm_pet_size);
-	           for(int j = 0 ;j<phrm_pet_size.length; j++) {
-	        	  result_size += phrm_pet_size_memo.concat(phrm_pet_size[j]);
-	        	   if(j<(phrm_pet_size.length)-1) {
-	        		    result_size += phrm_pet_size_memo.concat(",");
-	        	   }
-	           }
-	         }
-	         PetHotelRoom phrm = new PetHotelRoom();
-	         System.out.println("ph.getPh_num:"+ph.getPh_num());
-	         int ph_num = ph.getPh_num();
-	         System.out.println("ph_num"+ph_num);
-	         phrm.setPh_num(ph_num);
-	         phrm.setPhrm_name(phrm_name[i]);
-	         phrm.setPhrm_price(Integer.parseInt(phrm_price[i]));
-	         phrm.setPhrm_m_price(Integer.parseInt(phrm_m_price[i]));
-	         phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
-	         phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
-	         phrm.setPhrm_pet_size(result_size);
-	         phService.addPetHotelRoom(phrm);
-	      }
-	      
+	// 펫호텔 추가
+	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
+	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest) {
+		List<MultipartFile> files = mtfRequest.getFiles("file");
+		boolean rst = phService.addPetHotel(ph, files);
+		String phrm_pet_size_memo = "";
+		String[] phrm_pet_size = null;
+
+		String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
+		System.out.println(phrm_nam);
+		String[] phrm_name = mtfRequest.getParameterValues("phrm_name");
+		String[] phrm_price = mtfRequest.getParameterValues("phrm_price");
+		String[] phrm_m_price = mtfRequest.getParameterValues("phrm_m_price");
+		String[] phrm_l_price = mtfRequest.getParameterValues("phrm_l_price");
+		String[] phrm_p_max = mtfRequest.getParameterValues("phrm_p_max");
+		PetHotel petHotel = phService.getPetHotelbyName(ph.getPh_name());
+		System.out.println("ph:" + ph);
+		for (int i = 0; i < phrm_name.length; i++) {
+			String result_size = "";
+			if (mtfRequest.getParameterValues("phrm_pet_size" + i) != null) {
+				phrm_pet_size = mtfRequest.getParameterValues("phrm_pet_size" + i);
+				System.out.println("phrm_pet_size:" + Arrays.toString(phrm_pet_size));
+				System.out.println("phrm_pet_size" + phrm_pet_size);
+				for (int j = 0; j < phrm_pet_size.length; j++) {
+					result_size += phrm_pet_size_memo.concat(phrm_pet_size[j]);
+					if (j < (phrm_pet_size.length) - 1) {
+						result_size += phrm_pet_size_memo.concat(",");
+					}
+				}
+			}
+			PetHotelRoom phrm = new PetHotelRoom();
+			System.out.println("ph.getPh_num:" + ph.getPh_num());
+			int ph_num = ph.getPh_num();
+			System.out.println("ph_num" + ph_num);
+			phrm.setPh_num(ph_num);
+			phrm.setPhrm_name(phrm_name[i]);
+			phrm.setPhrm_price(Integer.parseInt(phrm_price[i]));
+			phrm.setPhrm_m_price(Integer.parseInt(phrm_m_price[i]));
+			phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
+			phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
+			phrm.setPhrm_pet_size(result_size);
+			phService.addPetHotelRoom(phrm);
+		}
+
 //	        String src = mtfRequest.getParameter("src");
 //	        System.out.println("src value : " + src);
 //	        System.out.println(fileList.get(0));
 //	        for (MultipartFile mf : fileList) {
 //	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
 //	            long fileSize = mf.getSize(); // 파일 사이즈
-	//
+		//
 //	            System.out.println("originFileName : " + originFileName);
 //	            System.out.println("fileSize : " + fileSize);
 //	        }
 
 //	      boolean add_phrm = phService.addPetHotelRoom(phrm);
 
-	      if (rst) {
-	         return "redirect:/admin/main";
-	      } else {
-	         return "redirect:/admin/addPetHotelForm";
-	      }
+		if (rst) {
+			return "redirect:/admin/main";
+		} else {
+			return "redirect:/admin/addPetHotelForm";
+		}
 
-	   }
-	
-	
-	
+	}
+
 	// 펫호텔 수정하기 위해 리스트 보기
 	@RequestMapping("/petHotelList")
 	public String showPetHotelList(Model m) {
@@ -328,22 +354,20 @@ public class AdminController {
 		System.out.println(phL);
 		return "admin/petHotelList";
 	}
-	
+
 	@RequestMapping("/petHotelDelete")
-	public String petHotelRemove(@RequestParam("ph_num") int ph_num,Model m) {
+	public String petHotelRemove(@RequestParam("ph_num") int ph_num, Model m) {
 		phService.removePetHotel(ph_num);
 		List<PetHotel> phL = phService.getAllPetHotel();
 		m.addAttribute("phL", phL);
 		return "admin/petHotelList";
 	}
-	
+
 	@RequestMapping("/petHotelModifyForm")
 	public String showPetHotelModiForm(@RequestParam("ph_num") int ph_num) {
 		phService.removePetHotel(ph_num);
 		return "admin/petHotelList";
 	}
-	
-	
 
 	// 펫호텔 상세보기
 	@RequestMapping("/viewPetHotel")
@@ -352,46 +376,42 @@ public class AdminController {
 //		model.addAttribute("ph", ph);
 		System.out.println(phService.getPetHotelbyNum(ph_num));
 		List<String> filesName = phService.getFileList(ph_num);
-		for (int i=0; i<filesName.size(); i++) {
+		for (int i = 0; i < filesName.size(); i++) {
 			String str = filesName.get(i);
 			System.out.println(str);
 		}
 		model.addAttribute("pethotel", phService.getPetHotelbyNum(ph_num));
-		model.addAttribute("filesName",filesName);
+		model.addAttribute("filesName", filesName);
 		return "admin/viewPetHotel";
 	}
 
-	
 	@RequestMapping("/petHotelView")
 	public String showPetHotelView(Model model, @RequestParam("ph_num") int ph_num) {
 		System.out.println(phService.getPetHotelbyNum(ph_num));
 		model.addAttribute("pethotel", phService.getPetHotelbyNum(ph_num));
 		return "hotel/petHotelView";
 	}
-	
-	
+
 	// 펫호텔 수정
-	@RequestMapping(value="/modifyPetHotel", method = RequestMethod.POST)
+	@RequestMapping(value = "/modifyPetHotel", method = RequestMethod.POST)
 	public String modifyPetHotel(PetHotel ph, Model m) {
 		int num = ph.getPh_num();
 		boolean rst = phService.modifyPetHotel(ph);
-		if(rst) {
+		if (rst) {
 			return "redirect:/admin/petHotelList";
 		} else {
-			return "admin/viewPetHotel?ph_num="+num;
+			return "admin/viewPetHotel?ph_num=" + num;
 		}
 	}
-	
+
 	@RequestMapping("/delPetHotel")
 	public String delPetHotel(int ph_num) {
 		boolean rst = phService.removePetHotel(ph_num);
-		if(rst) {
+		if (rst) {
 			return "redirect:/admin/petHotelList";
 		} else {
-			return "redirect:/admin/viewPetHotel?ph_num="+ph_num;
+			return "redirect:/admin/viewPetHotel?ph_num=" + ph_num;
 		}
 	}
-	
-	
 
 }

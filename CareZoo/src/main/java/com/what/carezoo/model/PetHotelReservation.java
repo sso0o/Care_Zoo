@@ -3,6 +3,9 @@ package com.what.carezoo.model;
 public class PetHotelReservation {
 	private int phr_num;
 	private int c_num;
+	private String c_name;
+	private String ph_name;
+	private String phrm_name;
 	private int p_num;
 	private int ph_num;
 	private int phrm_num;
@@ -18,6 +21,24 @@ public class PetHotelReservation {
 	private String phr_merchant_uid;
 	private int phr_numof_pet;
 	
+	public String getC_name() {
+		return c_name;
+	}
+	public void setC_name(String c_name) {
+		this.c_name = c_name;
+	}
+	public String getPh_name() {
+		return ph_name;
+	}
+	public void setPh_name(String ph_name) {
+		this.ph_name = ph_name;
+	}
+	public String getPhrm_name() {
+		return phrm_name;
+	}
+	public void setPhrm_name(String phrm_name) {
+		this.phrm_name = phrm_name;
+	}
 	public int getPhr_numof_pet() {
 		return phr_numof_pet;
 	}
@@ -116,12 +137,12 @@ public class PetHotelReservation {
 	}
 	@Override
 	public String toString() {
-		return "PetHotelReservation [phr_num=" + phr_num + ", c_num=" + c_num + ", p_num=" + p_num + ", ph_num="
-				+ ph_num + ", phrm_num=" + phrm_num + ", p_count=" + p_count + ", phr_chkin=" + phr_chkin
-				+ ", phr_chkout=" + phr_chkout + ", phr_status=" + phr_status + ", phr_message=" + phr_message
-				+ ", phr_price=" + phr_price + ", phr_totalDays=" + phr_totalDays + ", phr_purpose=" + phr_purpose
-				+ ", phr_imp_uid=" + phr_imp_uid + ", phr_merchant_uid=" + phr_merchant_uid + ", phr_numof_pet="
-				+ phr_numof_pet + "]";
+		return "PetHotelReservation [phr_num=" + phr_num + ", c_num=" + c_num + ", c_name=" + c_name + ", ph_name="
+				+ ph_name + ", phrm_name=" + phrm_name + ", p_num=" + p_num + ", ph_num=" + ph_num + ", phrm_num="
+				+ phrm_num + ", p_count=" + p_count + ", phr_chkin=" + phr_chkin + ", phr_chkout=" + phr_chkout
+				+ ", phr_status=" + phr_status + ", phr_message=" + phr_message + ", phr_price=" + phr_price
+				+ ", phr_totalDays=" + phr_totalDays + ", phr_purpose=" + phr_purpose + ", phr_imp_uid=" + phr_imp_uid
+				+ ", phr_merchant_uid=" + phr_merchant_uid + ", phr_numof_pet=" + phr_numof_pet + "]";
 	}
 	
 	

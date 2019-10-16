@@ -52,7 +52,10 @@
 		from PetHotelReservation
 		where c_num = #{c_num}
 	</select>
-	
+		<select id="selectPhRoomByPhrm_num" resultType="PetHotelRoom">
+		select * from PethotelRoom
+		where phrm_num = #{phrm_num}
+	</select>
 	
 	<select id="selectAll" resultType="PetHotelReservation">
 		select * 

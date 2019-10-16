@@ -20,6 +20,7 @@ import com.what.carezoo.dao.PetHotelReservationDao;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.PetHotelRoom;
 
 @Service
 public class PetHotelReservationService {
@@ -137,5 +138,7 @@ public class PetHotelReservationService {
 	public int countC_num(int c_num) {
 		return petHotelResDao.countC_num(c_num);
 	}
-	
+	public PetHotelRoom getOnePetHotelRoom(int phrm_num) {
+		return petHotelResDao.selectPhRoomByPhrm_num(phrm_num);
+	}
 }

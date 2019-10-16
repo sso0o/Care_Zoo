@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.PetHotelRoom;
 
 public interface PetHotelReservationDao {
 	
@@ -15,7 +16,7 @@ public interface PetHotelReservationDao {
 	public PetHotelReservation selectByPhnum(int ph_num);
 	public PetHotelReservation selectByResInfo(PetHotelReservation phr);
 	public int countC_num(int c_num);
-	
+	public PetHotelRoom selectPhRoomByPhrm_num(int phr_num);
 	public List<PetHotelReservation> selectByCnum(int c_num);
 	public List<PetHotelReservation> selectAll();
 	public List<PetHotelReservation> selectByPhrm_num(int phrm_num);

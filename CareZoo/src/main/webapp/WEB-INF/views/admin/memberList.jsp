@@ -67,7 +67,7 @@
       <li class="nav-item active">
         <a class="nav-link collapsed" href="${contextPath}/admin/memberList">
           <i class="fas fa-fw fa-cog"></i>
-          <span>멤버관리</span>
+          <span>멤버 관리</span>
         </a>
 <!--   qweewq      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"> -->
 <!--           <div class="bg-white py-2 collapse-inner rounded"> -->
@@ -222,7 +222,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">호텔</h1>
+          <h1 class="h3 mb-2 text-gray-800">멤버 관리</h1>
 <br>
 <br>
           <!-- DataTales Example -->
