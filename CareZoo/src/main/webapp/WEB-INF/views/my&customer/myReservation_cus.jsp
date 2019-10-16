@@ -73,6 +73,7 @@
 		if("${msg}" != ""){
 			alert("${msg}");
 		}
+		alert("aa")
 	})//문서가 로딩되면 실행할 함수
 	
 
@@ -237,6 +238,8 @@
 						if(data.HSR_STATUS < 2){
 							$(".payment").hide();
 							$(".cancel").show();
+						} 	else if(data.HSR_STATUS > 2){
+							$(".payment").hide();
 						}
 						$(".review").hide();
 					}
@@ -275,6 +278,8 @@
 						if(data.VSR_STATUS < 2){
 							$(".payment").hide();
 							$(".cancel").show();
+						} else if(data.VSR_STATUS >3 ){
+							$(".payment").hide();
 						}
 						$(".review").hide();
 					}
@@ -333,31 +338,58 @@
 	function payMent() {
 		console.log("결제버튼 누름->"+$(".groupid").val()+"="+$(".number").val());
 		if (confirm("선택한 예약을 결제하시겠습니까?") == true) {
+			$.ajax({
+				url:"${contextPath}/member/getPayInfo",
+				data:{
+					num: $(".number").val(),
+					type: $(".groupid").val()
+				},
+				dataType: "JSON",
+				success: function(data) {
+					IMP.init('imp94354183');
+					IMP.request_pay({
+					    pg : 'inicis', // version 1.1.0부터 지원.
+					    pay_method : 'card',
+					    merchant_uid : 'merchant_' + new Date().getTime(),
+					    name : data.name,
+//		 			    amount : $('.totalValue').text().replace(/,/gi, "")*1,
+					    amount : data.rst.TOTAL,
+					    buyer_email : data.rst.C_EMAIL,
+					    buyer_name : data.rst.C_NAME,
+					    buyer_tel : data.rst.C_CONTACT,
+					    buyer_addr : data.rst.C_ADDRESS,
+					    buyer_postcode : data.rst.C_D_ADDRESS
+					}, function(rsp) {
+					    if ( rsp.success ) {
+					       $.ajax({
+					    	   url:"${contextPath}/member/updateStatus",
+					    	   data:{
+					    		   num: $(".number").val(),
+									type: $(".groupid").val()
+								},
+								dataType: "JSON",
+								success: function(data) {
+									if(data){
+										alert('결제가 완료되었습니다.');				
+										location.href = '${contextPath}/member/myReservation'
+									} 
+								},error: function() {
+									alert("error");
+								}
+					       })
+					       
+						} else {
+							var msg = '결제에 실패하였습니다.';
+							msg += '에러내용 : ' + rsp.error_msg;
+						}
+						alert(msg);
+					});
+				},
+				error: function() {
+					alert("error");
+				}
+			})
 			
-			IMP.init('imp94354183');
-			IMP.request_pay({
-			    pg : 'inicis', // version 1.1.0부터 지원.
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '주문명:결제테스트',
-// 			    amount : $('.totalValue').text().replace(/,/gi, "")*1,
-			    amount : 100,
-			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자이름',
-			    buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울특별시 강남구 삼성동',
-			    buyer_postcode : '123-456'
-			}, function(rsp) {
-			    if ( rsp.success ) {
-			       alert('결제가 완료되었습니다.');
-			       
-				    
-				} else {
-					        var msg = '결제에 실패하였습니다.';
-					        msg += '에러내용 : ' + rsp.error_msg;
-								    }
-						    alert(msg);
-			});
 		} else {
 			return false;
 		}	

@@ -320,8 +320,30 @@ public class MemberController {
 	}
 	
 	//결제
-	public Map<String, Object> name() {
-		
+	@RequestMapping("/getPayInfo")
+	@ResponseBody
+	public Map<String, Object> payInfo(int num, String type) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		if(type.equals("hsr_num")) {
+			rst.put("rst", memberService.getPayInfoHSR(num));
+			rst.put("name", "홈시터 예약");
+		} else {
+			rst.put("rst", memberService.getPayInfoVSR(num));
+			rst.put("name", "방문시터 예약");
+		}
+		return rst;
+	}
+	
+	@RequestMapping("/updateStatus")
+	@ResponseBody
+	public boolean updateStatus(int num, String type) {
+		if(type.equals("hsr_num")) {
+			return memberService.updateStatusHSR(num);
+		} else if(type.equals("vsr_num")) {
+			return memberService.updateStatusVSR(num);
+		}else {
+			return false;
+		}
 	}
 
 	

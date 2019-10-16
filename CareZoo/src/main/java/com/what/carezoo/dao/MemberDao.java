@@ -46,6 +46,14 @@ public interface MemberDao {
 	public int cancelVSR(int vsr_num);
 	public int cancelPHR(int phr_num);
 	
+	//결제정보 가져오기
+	public Map<String, Object> getPayInfoHSR(int hsr_num);
+	public Map<String, Object> getPayInfoVSR(int vsr_num);
+	
+	//updateStatus
+	public int updateStatusHSR(int hsr_num);
+	public int updateStatusVSR(int vsr_num);
+	
 	//kakao
 	public int insertCustomer2(Customer customer);
 	public int findC_id(String c_id);
