@@ -108,7 +108,7 @@ public class AdminController {
 	
 	@RequestMapping("/addMemberForm")
 	public String addMemberForm() {
-		return "admin/addMemberForm";
+		return "admin/joinForm_customer";
 	}
 	
 //	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
