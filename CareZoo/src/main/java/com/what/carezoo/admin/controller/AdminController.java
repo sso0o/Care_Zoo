@@ -106,11 +106,18 @@ public class AdminController {
 		return "admin/memberView";
 	}
 	
-	@RequestMapping("/addMemberForm")
-	public String addMemberForm() {
-		return "admin/joinForm_customer";
-	}
+//	@RequestMapping("/addMemberForm")
+//	public String addMemberForm() {
+//		return "admin/joinForm_customer";
+//	}
 	
+	@RequestMapping("/memberDelete")
+	public String memberDelete(@RequestParam("c_num")int c_num, Model model) {
+		mService.deleteCustomer(c_num);
+		List<Customer> c = mService.selectAll();
+		model.addAttribute("cList", c);
+		return "admin/memberList";
+	}
 //	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
 //	public String addMember(Customer c) {
 //		boolean rst = mService.joinMember(c);

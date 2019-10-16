@@ -36,7 +36,7 @@
 		
 		<div>
 			
-			<button onclick="location.href='${contextPath}/admin/addPetForm?c_num=${c.c_num }'">펫 등록</button>
+<%-- 			<button onclick="location.href='${contextPath}/admin/addPetForm?c_num=${c.c_num }'">펫 등록</button> --%>
 			<button onclick="location.href='${contextPath}/admin/memberList'">멤버목록</button>
 		</div>
 	</div>
