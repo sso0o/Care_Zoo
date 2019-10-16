@@ -36,6 +36,7 @@ import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterComment;
 import com.what.carezoo.model.HomeSitterList;
 import com.what.carezoo.model.HomeSitterReservation;
+import com.what.carezoo.model.PetHotelReservation;
 import com.what.carezoo.sitter.service.HomeSitterCommentService;
 import com.what.carezoo.sitter.service.HomeSitterListService;
 import com.what.carezoo.sitter.service.HomeSitterMailSendService;
@@ -417,7 +418,32 @@ public class HomeSitterController {
 //		return rst;
 //	}
 
-	
+//	@ResponseBody
+//	@RequestMapping(value = "/homesitterReservation")
+//	public List<PetHotelReservation> makePetHotelRes(@RequestParam("phrm_num") int phrm_num) {
+//		int compare = 0;
+//		Date phrCheckOut;
+//		Date today = new Date();
+//		List<PetHotelReservation> phrList = phrService.getPetHotelResByPhrm_num(phrm_num);
+//		System.out.println(phrList);
+//		System.out.println("size: "+phrList.size());
+//		int phrSize = phrList.size();
+//		for (int i = phrSize-1; i+1 > 0; i--) { //checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
+//			String from = (phrList.get(i)).getPhr_chkout();
+//			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd"); //String to Date format
+//			try {
+//				phrCheckOut = transFormat.parse(from); //String to Date
+//				if (0 < (compare = today.compareTo(phrCheckOut))) { //compare은 -1,0,1만 나올 수 있음   ex ==) today>phrCheckOut ==> compare =1
+//					phrList.remove(i);
+//				}
+//			} catch (ParseException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		return phrList;
+//
+//	}
 	
 	
 	

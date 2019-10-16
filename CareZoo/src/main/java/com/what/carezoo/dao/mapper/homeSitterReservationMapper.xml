@@ -48,6 +48,11 @@
 		delete from homesitterreservation where c_num = #{c_num}
 	</delete>
 	
+	<select id="selectByHsNum" parameterType="int" resultType="homeSitterReservation">
+		select *
+		from homesitterreservation
+		where hs_num = #{hs_num}
+	</select>
 	
 	<select id="selectByHsrnum" parameterType="int" resultType="homeSitterReservation">
 		select *
