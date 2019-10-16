@@ -54,12 +54,7 @@ public class Pet_DetailService {
 		return pdDao.selectByC_num(c_num);
 	}
 	
-	public List<Map<String, Object>> getResInfo7() {
-		return pdDao.getVsrInfo7();
-	}
-	public List<Map<String, Object>> getResInfo0_6() {
-		return pdDao.getVsrInfo0_6();
-	}
+	
 	
 	public int countPetByC_num(int c_num) {
 		return pdDao.countPetByC_num(c_num);

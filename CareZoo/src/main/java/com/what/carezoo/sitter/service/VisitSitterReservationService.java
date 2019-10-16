@@ -209,6 +209,13 @@ public class VisitSitterReservationService {
 		return rst;
 	}
 	
+	public List<Map<String, Object>> getResInfo7() {
+		return vsrDao.getVsrInfo7();
+	}
+	public List<Map<String, Object>> getResInfo0_6() {
+		return vsrDao.getVsrInfo0_6();
+	}
+	
 	//중복예약 방지
 	public int selectByP_numVsr_chkin(int p_num,String vsr_chkin){
 		Map<String, Object> param = new HashMap<String, Object>();

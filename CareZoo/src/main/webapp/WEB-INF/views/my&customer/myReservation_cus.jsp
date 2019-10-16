@@ -73,7 +73,7 @@
 		if("${msg}" != ""){
 			alert("${msg}");
 		}
-		alert("aa")
+
 	})//문서가 로딩되면 실행할 함수
 	
 
@@ -302,7 +302,7 @@
 						str += "/ 산책위주 ";
 					} 
 					if(data.VSR_ATTENTION.includes("3")){
-						srt += "/ 생식급여 ";
+						str += "/ 생식급여 ";
 					} 
 					if(data.VSR_ATTENTION.includes("4")){
 						str += "/ 케어필요 ";
@@ -512,9 +512,9 @@ textarea {
 .hsrInfo, .vsrInfo, .phrInfo {
 	background-color: #fff;
 	width: 500px;
-	height: 500px;
+	height: 470px;
 	position: absolute;
-	margin-top: -250px;
+	margin-top: -235px;
 	margin-left: -250px;
 	top: 50%;
 	left: 50%;
@@ -600,17 +600,17 @@ td{
 	<br>
 	<br>
 	<br>
-	<div class="container">
+	<div class="container" style="margin-bottom: 80px">
 		<h2>내 예약 현황</h2>
 		<hr>
 		<div id='calendar'></div>
 		<div class="content">
-			<fieldset id="showEvent" class="fieldset">
-				<legend style="text-align: center;" id="legend"><fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/></legend>
-					<div class="row" id="showDiv">
+<!-- 			<fieldset id="showEvent" class="fieldset"> -->
+<%-- 				<legend style="text-align: center;" id="legend"><fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd"/></legend> --%>
+<!-- 					<div class="row" id="showDiv"> -->
 						
-					</div>
-			</fieldset>
+<!-- 					</div> -->
+<!-- 			</fieldset> -->
 		</div>
 		<div>
 			
@@ -618,9 +618,6 @@ td{
 
 	</div>
 
-	<footer>
-		<div>durlsms footer</div>
-	</footer>
 
 	
 
@@ -636,7 +633,7 @@ td{
 						<input type="hidden" class="number" name="number">
 					</td>
 					<td colspan="2" style="text-align: right;">
-						<button type="button" class="close">&times;</button>
+						<button type="button" class="close" style="margin: 0">&times;</button>
 					</td>
 				</tr>
 				<tr>
@@ -696,7 +693,7 @@ td{
 						<input type="hidden" class="number" name="number">
 					</td>
 					<td colspan="2" style="text-align: right;">
-						<button type="button" class="close">&times;</button>
+						<button type="button" class="close" style="margin: 0">&times;</button>
 					</td>
 				</tr>
 				<tr>
@@ -757,7 +754,7 @@ td{
 						<input type="hidden" class="number" name="number">
 					</td>
 					<td colspan="2" style="text-align: right;">
-						<button type="button" class="close">&times;</button>
+						<button type="button" class="close" style="margin: 0">&times;</button>
 					</td>
 				</tr>
 				<tr>

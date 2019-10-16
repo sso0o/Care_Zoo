@@ -213,12 +213,7 @@ public class SitterMainController {
 		System.out.println("hs : "+hs);
 		boolean rst = hsService.modifyHomeSitter(hs,file);
 		if(rst) {
-			//게시글 주소도 바뀜
-			HomeSitterList hsl = new HomeSitterList();
-			hsl.setHsl_address(hs.getHs_address());
-			hsl.setHsl_d_address(hs.getHs_d_address());
-			hsl.setHs_num(hs.getHs_num());
-			hslService.updateHslAddress(hsl);
+			m.addAttribute("hs", hs);
 			m.addAttribute("msg", "회원정보를 수정하였습니다");
 			return "sitter/homeInfo";
 		} else {
@@ -233,9 +228,9 @@ public class SitterMainController {
 	@RequestMapping("/getVsrStatus0")
 	public String getVsrList(Model m) {		
 		//일반
-		List<Map<String, Object>> rst1 = pdService.getResInfo7();
+		List<Map<String, Object>> rst1 = vsrService.getResInfo7();
 		//정기
-		List<Map<String, Object>> rst2 = pdService.getResInfo0_6();
+		List<Map<String, Object>> rst2 = vsrService.getResInfo0_6();
 		m.addAttribute("rst1", rst1);
 		m.addAttribute("rst2", rst2);
 		return "sitter/reservationListVs";
@@ -373,13 +368,13 @@ public class SitterMainController {
 				return "sitter/myReservation_visit";
 			} else {
 				//일반
-				List<Map<String, Object>> rst1 = pdService.getResInfo7();
+				List<Map<String, Object>> rst1 = vsrService.getResInfo7();
 				//정기
-				List<Map<String, Object>> rst2 = pdService.getResInfo0_6();
+				List<Map<String, Object>> rst2 = vsrService.getResInfo0_6();
 				m.addAttribute("rst1", rst1);
 				m.addAttribute("rst2", rst2);
 				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
-				return "sitter/reservationListVs";
+				
 			}
 			
 		} else {
@@ -396,19 +391,18 @@ public class SitterMainController {
 				}
 			} else {
 				//일반
-				List<Map<String, Object>> rst1 = pdService.getResInfo7();
+				List<Map<String, Object>> rst1 = vsrService.getResInfo7();
 				//정기
-				List<Map<String, Object>> rst2 = pdService.getResInfo0_6();
+				List<Map<String, Object>> rst2 = vsrService.getResInfo0_6();
 				m.addAttribute("rst1", rst1);
 				m.addAttribute("rst2", rst2);
 				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
-				return "sitter/reservationListVs";
 			}
 				
 			
 			
 		}
-		return null;	
+		return "sitter/reservationListVs";	
 	}
 	
 	//예약 수락
