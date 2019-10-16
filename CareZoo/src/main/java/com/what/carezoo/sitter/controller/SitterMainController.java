@@ -325,7 +325,6 @@ public class SitterMainController {
 		return rst;	
 	}
 	
-	
 	@RequestMapping("/getHSRInfo")
 	@ResponseBody
 	public Map<String, Object> getHSRInfo(int hsr_num) {
@@ -333,6 +332,15 @@ public class SitterMainController {
 		rst = hsrService.getModalHSR(hsr_num);
 		return rst;
 	}
+	
+	
+	//고객정보 모달에 가져오기
+	@RequestMapping("/getModalC")
+	@ResponseBody
+	public Map<String, Object> getModalC(int num) {
+		return vsrService.getModalC(num);
+	}
+	
 	
 	
 	//방문시터 예약수락

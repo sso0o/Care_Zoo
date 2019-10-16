@@ -204,21 +204,21 @@ public class CommentController {
 	}
 
 	
-	@RequestMapping("/getModalC")
-	@ResponseBody
-	public Map<String, Object> getModalC(int num) {
-		Customer c = mService.getMemberByC_num(num);
-		String name = c.getC_name();
-		String contact = c.getC_contact();
-		String address = c.getC_address()+c.getC_d_address();
-		List<Pet> pList	= pService.selectByC_Num(c.getC_num());
-		Map<String, Object> rst = new HashMap<String, Object>();
-		rst.put("name",name);
-		rst.put("contact",contact);
-		rst.put("address",address);
-		rst.put("pList",pList);
-		return rst;
-	}
+//	@RequestMapping("/getModalC")
+//	@ResponseBody
+//	public Map<String, Object> getModalC(int num) {
+//		Customer c = mService.getMemberByC_num(num);
+//		String name = c.getC_name();
+//		String contact = c.getC_contact();
+//		String address = c.getC_address()+c.getC_d_address();
+//		List<Pet> pList	= pService.selectByC_Num(c.getC_num());
+//		Map<String, Object> rst = new HashMap<String, Object>();
+//		rst.put("name",name);
+//		rst.put("contact",contact);
+//		rst.put("address",address);
+//		rst.put("pList",pList);
+//		return rst;
+//	}
 	
 	
 

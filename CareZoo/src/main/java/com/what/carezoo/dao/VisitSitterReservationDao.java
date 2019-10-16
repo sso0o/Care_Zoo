@@ -49,5 +49,7 @@ public interface VisitSitterReservationDao {
 	
 	public List<Map<String, Object>> getVSRInfo(int c_cum);
 	
+	public Map<String, Object> getModalC(int vsr_num);
+	
 
 }
