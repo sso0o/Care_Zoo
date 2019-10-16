@@ -106,6 +106,7 @@ img {
 <script type="text/javascript">
 	// 이미지 정보들을 담을 배열
 	var index = 1;
+	var s = 0;
 	$(function() {
 		var count = 0;
 
@@ -145,6 +146,7 @@ img {
 		$(".roomAddButton")
 				.click(
 						function() {
+							s++;
 							var roomDiv = $(".roomAddForm");
 							roomDiv.append($("<hr>"));
 							roomDiv
@@ -158,11 +160,11 @@ img {
 							roomDiv
 									.append($(" <label> 대형견 가격</label>  <input type='text' name='phrm_l_price'><br>"));
 							roomDiv
-									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input type='text' name='phrm_p_max'><br>"));
+									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input class='form-control-sm' type='number' min='0' max='5' name='phrm_p_max' id='hsr_numof_pet' value='0'><br>"));
 							roomDiv
-									.append($("<label>가능한 펫 사이즈</label> &nbsp; <input type='text' name='phrm_pet_size'>"));
+									.append($("<label>가능한 펫 사이즈</label> &nbsp; 	<div class='form-check'> <label class='form-check-label'> <input type='checkbox' class='form-check-input' value='소형견' name='phrm_pet_size"+s+"'>소형견</label></div><div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='중형견' name='phrm_pet_size"+s+"'>중형견</label></div><div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='대형견' name='phrm_pet_size"+s+"'>대형견</label></div>"));
 
-							// 			<br>qwewqeweqweqwe
+							// 			<br>qwewqeweqweqweㅂㅈㄷㅇㅁㄴㅇasd
 							// 			<label>방이름</label>     &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input type="text" name="phrm_name"><br>
 							// 			<label>소형견 가격</label>   &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp; <input type="text" name="phrm_price">  &nbsp; &nbsp;
 							// 			<label>중형견 가격</label> <input type="text" name="phrm_m_price"> &nbsp; &nbsp;
@@ -178,18 +180,20 @@ img {
 						function() {
 							console.log("addItem의 index:" + index);
 							console.log("file개수세기:" + $(".fileClass").length);
-														if ($(".fileClass").length > 0) {
-															console.log("img개수세기:"+$(".selProductFile").length);
-															var file = document.getElementById( 'file' + ($(".fileClass").length));
-															// 								var file = $("#file"+(index-1));
-															console.log("file의length:"+file.files.length);
-															if (file.files.length == 0) {
-																console.log("length 실행!");
-																console.log($("#file" + (parseInt(index))));
-																// 									$("#file" + (parseInt(index))).remove();
-																$(file).remove();
-															}
-														}
+							if ($(".fileClass").length > 0) {
+								console.log("img개수세기:"
+										+ $(".selProductFile").length);
+								var file = document.getElementById('file'
+										+ ($(".fileClass").length));
+								// 								var file = $("#file"+(index-1));
+								console.log("file의length:" + file.files.length);
+								if (file.files.length == 0) {
+									console.log("length 실행!");
+									console.log($("#file" + (parseInt(index))));
+									// 									$("#file" + (parseInt(index))).remove();
+									$(file).remove();
+								}
+							}
 							//파일 선택란을 보여준다.
 							//             $("tr#item1").show();
 							// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
@@ -262,25 +266,25 @@ img {
 
 						// 						var newButton = "<input type='button' id='deleteButton"+(index-1)+"'  onclick='deleteImageAction("
 						// 								+ index + ")' value='삭제'>&nbsp;";
-// 						var newButton = "<button class='dButton' id='deleteButton" 
-// 								+ (index - 1)
-// 								+ "' style='position:relative;top:84'  onclick='deleteImageAction("
-// 								+ index
-// 								+ ")' >&times;</button>&nbsp;";
-								
-						var newButton = "<a  href= 'javascript:void(0)'   class='btn btn-danger btn-icon-split' id='deleteButton" 
+						// 						var newButton = "<button class='dButton' id='deleteButton" 
+						// 								+ (index - 1)
+						// 								+ "' style='position:relative;top:84'  onclick='deleteImageAction("
+						// 								+ index
+						// 								+ ")' >&times;</button>&nbsp;";
+
+						var newButton = "<a  href= 'javascript:void(0)'   class='btn btn-danger btn-icon-split' id='deleteButton"
 								+ (index - 1)
 								+ "' style='position:relative;top:84px;'  onclick='deleteImageAction("
 								+ index
 								+ ")' > <span class='icon text-white-50'><i class='fas fa-trash'></i></span></a>&nbsp;&nbsp;";
-								
-// 				                  <a  href= "${contextPath}/admin/petHotelDelete?ph_num=${ph.ph_num }"   class="btn btn-danger btn-icon-split">
-// 				                    <span class="icon text-white-50">
-// 				                      <i class="fas fa-trash"></i>
-// 				                    </span>
-// 				                    <span class="text">삭제</span>
-// 				                  </a>   
-								
+
+						// 				                  <a  href= "${contextPath}/admin/petHotelDelete?ph_num=${ph.ph_num }"   class="btn btn-danger btn-icon-split">
+						// 				                    <span class="icon text-white-50">
+						// 				                      <i class="fas fa-trash"></i>
+						// 				                    </span>
+						// 				                    <span class="text">삭제</span>
+						// 				                  </a>   
+
 						$(".imgs_wrap").append(newButton);
 					}
 					reader.readAsDataURL(f);
@@ -550,11 +554,9 @@ img {
 
 													<tr>
 														<th>사진</th>
-														<td><br>
-														<input type="button" id="addItemBtn" class="my_button"
-															value="사진추가">
-															<div id="example"></div>
-															<br></td>
+														<td><br> <input type="button" id="addItemBtn"
+															class="my_button" value="사진추가">
+															<div id="example"></div> <br></td>
 												</table>
 												<br>
 												<div>
@@ -564,7 +566,7 @@ img {
 												<hr>
 												<br>
 												<div class="roomAddForm">
-													<div style="font-size: 20px" >
+													<div style="font-size: 20px">
 														방 추가하기 &nbsp; &nbsp;<input type="button" value="+"
 															class="roomAddButton">
 													</div>
@@ -572,12 +574,30 @@ img {
 													&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input
 														type="text" name="phrm_name"><br> <label>소형견
 														가격</label> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <input
-														type="text" name="phrm_price">  <label> 중형견
-														가격</label> <input type="text" name="phrm_m_price">  <label> 대형견 가격</label> <input type="text"
-														name="phrm_l_price"><br> <label>최대 가능
-														펫 수</label> &nbsp; &nbsp; &nbsp;<input type="text"
-														name="phrm_p_max"><br> <label>가능한 펫
-														사이즈</label> &nbsp; <input type="text" name="phrm_pet_size">
+														type="text" name="phrm_price"> <label> 중형견
+														가격</label> <input type="text" name="phrm_m_price"> <label>
+														대형견 가격</label> <input type="text" name="phrm_l_price"><br>
+													<label>최대 가능 펫 수</label> &nbsp; &nbsp; &nbsp;<input
+														class="form-control-sm" type="number" min="0" max="5"
+														name="phrm_p_max" id="hsr_numof_pet" value="0"><br>
+													<label>가능한 펫 사이즈</label> &nbsp;
+													<!-- ㄴㅁㅇㅁ -->
+													<div class="form-check">
+														<label class="form-check-label"> 
+														<input type="checkbox" class="form-check-input" value="소형견" name="phrm_pet_size0">소형견
+														</label>
+													</div>
+													<div class="form-check">
+														<label class="form-check-label"> <input
+															type="checkbox" class="form-check-input" value="중형견" name="phrm_pet_size0">중형견
+															
+														</label>
+													</div>
+													<div class="form-check">
+														<label class="form-check-label"> <input
+															type="checkbox" class="form-check-input" value="대형견" name="phrm_pet_size0">대형견
+														</label>
+													</div>
 												</div>
 												<br>
 												<hr>
