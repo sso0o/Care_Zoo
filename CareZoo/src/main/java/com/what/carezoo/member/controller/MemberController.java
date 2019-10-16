@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.print.DocFlavor.STRING;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -321,6 +322,34 @@ public class MemberController {
 		
 		return "my&customer/myReservation_cus";
 	}
+	
+	//결제
+	@RequestMapping("/getPayInfo")
+	@ResponseBody
+	public Map<String, Object> payInfo(int num, String type) {
+		Map<String, Object> rst = new HashMap<String, Object>();
+		if(type.equals("hsr_num")) {
+			rst.put("rst", memberService.getPayInfoHSR(num));
+			rst.put("name", "홈시터 예약");
+		} else {
+			rst.put("rst", memberService.getPayInfoVSR(num));
+			rst.put("name", "방문시터 예약");
+		}
+		return rst;
+	}
+	
+	@RequestMapping("/updateStatus")
+	@ResponseBody
+	public boolean updateStatus(int num, String type) {
+		if(type.equals("hsr_num")) {
+			return memberService.updateStatusHSR(num);
+		} else if(type.equals("vsr_num")) {
+			return memberService.updateStatusVSR(num);
+		}else {
+			return false;
+		}
+	}
+
 	
 	@RequestMapping("/qna")
 	public String qnaForm() {

@@ -44,6 +44,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+<!-- 아임포트-->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" ></script>
+
 
 <script>
 	var user_numtype = "<%=session.getAttribute("user_numtype")%>"
@@ -70,6 +73,7 @@
 		if("${msg}" != ""){
 			alert("${msg}");
 		}
+		alert("aa")
 	})//문서가 로딩되면 실행할 함수
 	
 
@@ -231,7 +235,10 @@
 						$(".cancel").hide();
 						
 					} else{
-						if(data.HSR_STATUS == 2){
+						if(data.HSR_STATUS < 2){
+							$(".payment").hide();
+							$(".cancel").show();
+						} 	else if(data.HSR_STATUS > 2){
 							$(".payment").hide();
 						}
 						$(".review").hide();
@@ -268,7 +275,10 @@
 						$(".cancel").hide();
 						
 					} else{
-						if(data.VSR_STATUS == 2){
+						if(data.VSR_STATUS < 2){
+							$(".payment").hide();
+							$(".cancel").show();
+						} else if(data.VSR_STATUS >3 ){
 							$(".payment").hide();
 						}
 						$(".review").hide();
@@ -328,7 +338,58 @@
 	function payMent() {
 		console.log("결제버튼 누름->"+$(".groupid").val()+"="+$(".number").val());
 		if (confirm("선택한 예약을 결제하시겠습니까?") == true) {
-			//location.href = '${contextPath}/logout'
+			$.ajax({
+				url:"${contextPath}/member/getPayInfo",
+				data:{
+					num: $(".number").val(),
+					type: $(".groupid").val()
+				},
+				dataType: "JSON",
+				success: function(data) {
+					IMP.init('imp94354183');
+					IMP.request_pay({
+					    pg : 'inicis', // version 1.1.0부터 지원.
+					    pay_method : 'card',
+					    merchant_uid : 'merchant_' + new Date().getTime(),
+					    name : data.name,
+//		 			    amount : $('.totalValue').text().replace(/,/gi, "")*1,
+					    amount : data.rst.TOTAL,
+					    buyer_email : data.rst.C_EMAIL,
+					    buyer_name : data.rst.C_NAME,
+					    buyer_tel : data.rst.C_CONTACT,
+					    buyer_addr : data.rst.C_ADDRESS,
+					    buyer_postcode : data.rst.C_D_ADDRESS
+					}, function(rsp) {
+					    if ( rsp.success ) {
+					       $.ajax({
+					    	   url:"${contextPath}/member/updateStatus",
+					    	   data:{
+					    		   num: $(".number").val(),
+									type: $(".groupid").val()
+								},
+								dataType: "JSON",
+								success: function(data) {
+									if(data){
+										alert('결제가 완료되었습니다.');				
+										location.href = '${contextPath}/member/myReservation'
+									} 
+								},error: function() {
+									alert("error");
+								}
+					       })
+					       
+						} else {
+							var msg = '결제에 실패하였습니다.';
+							msg += '에러내용 : ' + rsp.error_msg;
+						}
+						alert(msg);
+					});
+				},
+				error: function() {
+					alert("error");
+				}
+			})
+			
 		} else {
 			return false;
 		}	
@@ -619,7 +680,7 @@ td{
 				<tr>
 					<td colspan="4" style="text-align: center;">
 						<a href="#" onclick="payMent()" class="btn my-btn payment" id="payment">결제</a>
-						<a href="#" onclick="cancel()" class="btn my-btn payment" id="cancel">취소</a>
+						<a href="#" onclick="cancel()" class="btn my-btn cancel" id="cancel">취소</a>
 						<a href="#" onclick="review()" class="btn my-btn review" id="review" style="position:relative;right:190px">후기</a>
 					</td>
 				</tr>

@@ -161,6 +161,32 @@
 		delete from pethotelReservation where phr_num = #{phr_num}
 	</delete>
 	
+	
+	<!-- 결제정보 가져오기 -->
+	<select id="getPayInfoHSR" parameterType="int" resultType="map">
+		select hsr.hsr_num num, hsr.c_num, hsr.hsr_totalprice total, c.c_name, c.c_contact, c.c_address, c.c_d_address, c.c_email
+		from homesitterreservation hsr,
+		customer c
+		where hsr_num = #{hsr_num}
+		and hsr.c_num = c.c_num
+	</select>
+	
+	<select id="getPayInfoVSR" parameterType="int" resultType="map">
+		select vsr.vsr_num num, vsr.c_num, vsr.vsr_totalprice total, c.c_name, c.c_contact, c.c_address, c.c_d_address, c.c_email
+		from visitsitterreservation vsr,
+		customer c
+		where vsr_num = #{vsr_num}
+		and vsr.c_num = c.c_num
+	</select>
+	
+	<!-- updateStatus -->
+	<update id="updateStatusVSR" parameterType="int">
+		update visitsitterReservation set vsr_status = 3 where vsr_num = #{vsr_num}
+	</update>
+	<update id="updateStatusHSR" parameterType="int">
+		update homesitterReservation set hsr_status = 3 where hsr_num = #{hsr_num}
+	</update>
+	
 	<select id="findC_id" parameterType="string" resultType="int">
 		select count(*) from customer where c_id = #{c_id}
 	</select>
