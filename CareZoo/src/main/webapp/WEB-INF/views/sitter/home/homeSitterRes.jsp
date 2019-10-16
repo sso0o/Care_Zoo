@@ -414,7 +414,18 @@ ul {
 			</div>
 			<hr>
 			<div>
-				<input type="hidden" name="hsl_num" value="${params.hsl_num }"> <input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> <input type="hidden" name="hs_num" value="${params.hs_num}"> <input name="hsr_chkin" type="hidden" value="${params.hsr_chkin}"> <input name="hsr_dropoff_time" type="hidden" value="${params.hsr_dropoff_time}"> <input name="hsr_chkout" type="hidden" value="${params.hsr_chkout}"> <input name="hsr_pickup_time" type="hidden" value="${params.hsr_pickup_time}"> <input name=hsr_duringdays type="hidden" value="${params.hsr_duringdays}"> <input name="hsr_numof_pet" type="hidden" value="${params.hsr_numof_pet}"> <input name="hsr_days" type="hidden" value="${params.hsr_days}"> <input name="hsr_priceperday" type="hidden" value="${params.hsr_priceperday}"> <input name="hsr_priceperdays" type="hidden" value="${params.hsr_priceperdays }"> <input
+				<input type="hidden" name="hsl_num" value="${params.hsl_num }"> 
+				<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> 
+				<input type="hidden" name="hs_num" value="${params.hs_num}"> 
+				<input name="hsr_chkin" type="hidden" value="${params.hsr_chkin}"> 
+				<input name="hsr_dropoff_time" type="hidden" value="${params.hsr_dropoff_time}"> 
+				<input name="hsr_chkout" type="hidden" value="${params.hsr_chkout}"> 
+				<input name="hsr_pickup_time" type="hidden" value="${params.hsr_pickup_time}"> 
+				<input name=hsr_duringdays type="hidden" value="${params.hsr_duringdays}"> 
+				<input name="hsr_numof_pet" type="hidden" value="${params.hsr_numof_pet+1}"> 
+				<input name="hsr_days" type="hidden" value="${params.hsr_days}"> 
+				<input name="hsr_priceperday" type="hidden" value="${params.hsr_priceperday}"> 
+				<input name="hsr_priceperdays" type="hidden" value="${params.hsr_priceperdays }"> <input
 					name="hsr_priceperpetsize" type="hidden" value="${params.hsr_priceperpetsize }"
 				> <input name="hsr_totalprice" type="hidden" value="${params.hsr_totalprice}">
 			</div>

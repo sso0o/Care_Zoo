@@ -213,12 +213,7 @@ public class SitterMainController {
 		System.out.println("hs : "+hs);
 		boolean rst = hsService.modifyHomeSitter(hs,file);
 		if(rst) {
-			//게시글 주소도 바뀜
-			HomeSitterList hsl = new HomeSitterList();
-			hsl.setHsl_address(hs.getHs_address());
-			hsl.setHsl_d_address(hs.getHs_d_address());
-			hsl.setHs_num(hs.getHs_num());
-			hslService.updateHslAddress(hsl);
+			m.addAttribute("hs", hs);
 			m.addAttribute("msg", "회원정보를 수정하였습니다");
 			return "sitter/homeInfo";
 		} else {
