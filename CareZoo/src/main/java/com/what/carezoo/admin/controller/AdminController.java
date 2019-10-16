@@ -252,52 +252,60 @@ public class AdminController {
 		return "admin/addPetHotelForm";
 	}
 
-	// 펫호텔 추가
-	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
-	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest){
-		List<MultipartFile> files = mtfRequest.getFiles("file");
-		boolean rst = phService.addPetHotel(ph,files);
-		String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
-		System.out.println(phrm_nam);
-		String[] phrm_name = mtfRequest.getParameterValues("phrm_name");
-		String[] phrm_price = mtfRequest.getParameterValues("phrm_price");
-		String[] phrm_m_price = mtfRequest.getParameterValues("phrm_m_price");
-		String[] phrm_l_price = mtfRequest.getParameterValues("phrm_l_price");
-		String[] phrm_p_max = mtfRequest.getParameterValues("phrm_p_max");
-		String[] phrm_pet_size = mtfRequest.getParameterValues("phrm_pet_size");
-		PetHotel petHotel = phService.getPetHotelbyName(ph.getPh_name());
-		for(int i= 1;i<phrm_name.length;i++) {
-			PetHotelRoom phrm = null;
-			phrm.setPh_num(petHotel.getPh_num());
-			phrm.setPhrm_name(phrm_name[i]);
-			phrm.setPhrm_price(Integer.parseInt(phrm_price[i]));
-			phrm.setPhrm_m_price(Integer.parseInt(phrm_m_price[i]));
-			phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
-			phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
-			phrm.setPhrm_pet_size(phrm_pet_size[i]);
-			phService.addPetHotelRoom(phrm);
-		}
-		
-//        String src = mtfRequest.getParameter("src");
-//        System.out.println("src value : " + src);
-//        System.out.println(fileList.get(0));
-//        for (MultipartFile mf : fileList) {
-//            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-//            long fileSize = mf.getSize(); // 파일 사이즈
-//
-//            System.out.println("originFileName : " + originFileName);
-//            System.out.println("fileSize : " + fileSize);
-//        }
+	   // 펫호텔 추가
+	   @RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
+	   public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest){
+	      List<MultipartFile> files = mtfRequest.getFiles("file");
+	      boolean rst = phService.addPetHotel(ph,files);
+	      String[] phrm_pet_size = null;
+	      String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
+	      System.out.println(phrm_nam);
+	      String[] phrm_name = mtfRequest.getParameterValues("phrm_name");
+	      String[] phrm_price = mtfRequest.getParameterValues("phrm_price");
+	      String[] phrm_m_price = mtfRequest.getParameterValues("phrm_m_price");
+	      String[] phrm_l_price = mtfRequest.getParameterValues("phrm_l_price");
+	      String[] phrm_p_max = mtfRequest.getParameterValues("phrm_p_max");
+	      PetHotel petHotel = phService.getPetHotelbyName(ph.getPh_name());
+	      System.out.println("ph:"+ph);
+	      for(int i= 0;i<phrm_name.length;i++) {
+	         if(mtfRequest.getParameterValues("phrm_pet_size"+i) != null) {
+	            phrm_pet_size = mtfRequest.getParameterValues("phrm_pet_size"+i);
+	            System.out.println("phrm_pet_size:"+Arrays.toString(phrm_pet_size));
+	         }
+	         PetHotelRoom phrm = new PetHotelRoom();
+	         System.out.println("ph.getPh_num:"+ph.getPh_num());
+	         int ph_num = ph.getPh_num();
+	         System.out.println("ph_num"+ph_num);
+	         phrm.setPh_num(ph_num);
+	         phrm.setPhrm_name(phrm_name[i]);
+	         phrm.setPhrm_price(Integer.parseInt(phrm_price[i]));
+	         phrm.setPhrm_m_price(Integer.parseInt(phrm_m_price[i]));
+	         phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
+	         phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
+	         phrm.setPhrm_pet_size(Arrays.toString(phrm_pet_size));
+	         phService.addPetHotelRoom(phrm);
+	      }
+	      
+//	        String src = mtfRequest.getParameter("src");
+//	        System.out.println("src value : " + src);
+//	        System.out.println(fileList.get(0));
+//	        for (MultipartFile mf : fileList) {
+//	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+//	            long fileSize = mf.getSize(); // 파일 사이즈
+	//
+//	            System.out.println("originFileName : " + originFileName);
+//	            System.out.println("fileSize : " + fileSize);
+//	        }
 
-//		boolean add_phrm = phService.addPetHotelRoom(phrm);
+//	      boolean add_phrm = phService.addPetHotelRoom(phrm);
 
-		if (rst) {
-			return "redirect:/admin/main";
-		} else {
-			return "redirect:/admin/addPetHotelForm";
-		}
+	      if (rst) {
+	         return "redirect:/admin/main";
+	      } else {
+	         return "redirect:/admin/addPetHotelForm";
+	      }
 
-	}
+	   }
 	
 	
 	
