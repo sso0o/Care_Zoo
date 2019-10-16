@@ -107,6 +107,9 @@ public class PetHotelService {
 	public PetHotel getPetHotelbyNum(int ph_num) {
 		return petHotelDao.selectOne(ph_num);
 	}
+	public PetHotel getPetHotelbyName(String ph_name) {
+		return petHotelDao.selectOnebyPh_name(ph_name);
+	}
 	
 	public List<PetHotelRoom> getAllPetHotelRoom(int ph_num){
 		return petHotelDao.selectPhRoomByPh_num(ph_num);

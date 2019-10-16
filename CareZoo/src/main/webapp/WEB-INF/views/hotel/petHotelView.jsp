@@ -932,7 +932,7 @@ height:45px;
 <title>petHotelView</title>
 
 </head>
-<body class="container">
+<body >
   <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>

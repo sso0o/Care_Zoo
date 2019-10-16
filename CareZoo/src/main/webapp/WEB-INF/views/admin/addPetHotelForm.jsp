@@ -141,7 +141,7 @@ img {
 
 		})
 
-		//방추가하기 버튼 클릭시
+		//방추가하기 버튼 클릭시asdsa
 		$(".roomAddButton")
 				.click(
 						function() {
@@ -151,10 +151,12 @@ img {
 									.append($("<label>방이름</label>     &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input type='text' name='phrm_name'><br>"));
 							roomDiv
 									.append($("<label>소형견 가격</label>   &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp; <input type='text' name='phrm_price'>  &nbsp; &nbsp;"));
+
 							roomDiv
-									.append($("<label>중형견 가격</label> <input type='text' name='phrm_m_price'> &nbsp; &nbsp;"));
+									.append($(" <label> 중형견 가격</label> <input type='text' name='phrm_m_price'> &nbsp; &nbsp;"));
+
 							roomDiv
-									.append($(" &nbsp; &nbsp; <label>대형견 가격</label>  <input type='text' name='phrm_l_price'><br>"));
+									.append($(" <label> 대형견 가격</label>  <input type='text' name='phrm_l_price'><br>"));
 							roomDiv
 									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input type='text' name='phrm_p_max'><br>"));
 							roomDiv
@@ -176,18 +178,18 @@ img {
 						function() {
 							console.log("addItem의 index:" + index);
 							console.log("file개수세기:" + $(".fileClass").length);
-							// 							if ($(".fileClass").length > 0) {
-							// 								console.log("img개수세기:"+$(".selProductFile").length);
-							// 								var file = document.getElementById( 'file' + ($(".fileClass").length));
-							// 								// 								var file = $("#file"+(index-1));
-							// 								console.log("file의length:"+file.files.length);
-							// 								if (file.files.length == 0) {
-							// 									console.log("length 실행!");
-							// 									console.log($("#file" + (parseInt(index))));
-							// 									// 									$("#file" + (parseInt(index))).remove();
-							// 									$(file).remove();
-							// 								}
-							// 							}
+														if ($(".fileClass").length > 0) {
+															console.log("img개수세기:"+$(".selProductFile").length);
+															var file = document.getElementById( 'file' + ($(".fileClass").length));
+															// 								var file = $("#file"+(index-1));
+															console.log("file의length:"+file.files.length);
+															if (file.files.length == 0) {
+																console.log("length 실행!");
+																console.log($("#file" + (parseInt(index))));
+																// 									$("#file" + (parseInt(index))).remove();
+																$(file).remove();
+															}
+														}
 							//파일 선택란을 보여준다.
 							//             $("tr#item1").show();
 							// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
@@ -249,7 +251,7 @@ img {
 					var reader = new FileReader();
 					reader.onload = function(e) {
 
-						var html = "&nbsp;&nbsp;<img src=\""
+						var html = "<img src=\""
 								+ e.target.result
 								+ "\" data-file='"
 								+ f.name
@@ -260,11 +262,25 @@ img {
 
 						// 						var newButton = "<input type='button' id='deleteButton"+(index-1)+"'  onclick='deleteImageAction("
 						// 								+ index + ")' value='삭제'>&nbsp;";
-						var newButton = "<button class='dButton' id='deleteButton"
+// 						var newButton = "<button class='dButton' id='deleteButton" 
+// 								+ (index - 1)
+// 								+ "' style='position:relative;top:84'  onclick='deleteImageAction("
+// 								+ index
+// 								+ ")' >&times;</button>&nbsp;";
+								
+						var newButton = "<a  href= 'javascript:void(0)'   class='btn btn-danger btn-icon-split' id='deleteButton" 
 								+ (index - 1)
-								+ "'  onclick='deleteImageAction("
+								+ "' style='position:relative;top:84px;'  onclick='deleteImageAction("
 								+ index
-								+ ")' >&times;</button>&nbsp;";
+								+ ")' > <span class='icon text-white-50'><i class='fas fa-trash'></i></span></a>&nbsp;&nbsp;";
+								
+// 				                  <a  href= "${contextPath}/admin/petHotelDelete?ph_num=${ph.ph_num }"   class="btn btn-danger btn-icon-split">
+// 				                    <span class="icon text-white-50">
+// 				                      <i class="fas fa-trash"></i>
+// 				                    </span>
+// 				                    <span class="text">삭제</span>
+// 				                  </a>   
+								
 						$(".imgs_wrap").append(newButton);
 					}
 					reader.readAsDataURL(f);
@@ -536,7 +552,7 @@ img {
 														<th>사진</th>
 														<td><br>
 														<input type="button" id="addItemBtn" class="my_button"
-															value="파일추가">
+															value="사진추가">
 															<div id="example"></div>
 															<br></td>
 												</table>
@@ -556,9 +572,8 @@ img {
 													&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input
 														type="text" name="phrm_name"><br> <label>소형견
 														가격</label> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <input
-														type="text" name="phrm_price"> &nbsp; &nbsp; <label>중형견
-														가격</label> <input type="text" name="phrm_m_price"> &nbsp;
-													&nbsp; <label>대형견 가격</label> <input type="text"
+														type="text" name="phrm_price">  <label> 중형견
+														가격</label> <input type="text" name="phrm_m_price">  <label> 대형견 가격</label> <input type="text"
 														name="phrm_l_price"><br> <label>최대 가능
 														펫 수</label> &nbsp; &nbsp; &nbsp;<input type="text"
 														name="phrm_p_max"><br> <label>가능한 펫

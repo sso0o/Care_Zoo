@@ -3,12 +3,14 @@ package com.what.carezoo.admin.controller;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.taglibs.standard.lang.jstl.IntegerDivideOperator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -245,8 +247,30 @@ public class AdminController {
 
 	// 펫호텔 추가
 	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
-	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest, PetHotelRoom phrm){
-        List<MultipartFile> files = mtfRequest.getFiles("file");
+	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest){
+		List<MultipartFile> files = mtfRequest.getFiles("file");
+		boolean rst = phService.addPetHotel(ph,files);
+		String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
+		System.out.println(phrm_nam);
+		String[] phrm_name = mtfRequest.getParameterValues("phrm_name");
+		String[] phrm_price = mtfRequest.getParameterValues("phrm_price");
+		String[] phrm_m_price = mtfRequest.getParameterValues("phrm_m_price");
+		String[] phrm_l_price = mtfRequest.getParameterValues("phrm_l_price");
+		String[] phrm_p_max = mtfRequest.getParameterValues("phrm_p_max");
+		String[] phrm_pet_size = mtfRequest.getParameterValues("phrm_pet_size");
+		PetHotel petHotel = phService.getPetHotelbyName(ph.getPh_name());
+		for(int i= 1;i<phrm_name.length;i++) {
+			PetHotelRoom phrm = null;
+			phrm.setPh_num(petHotel.getPh_num());
+			phrm.setPhrm_name(phrm_name[i]);
+			phrm.setPhrm_price(Integer.parseInt(phrm_price[i]));
+			phrm.setPhrm_m_price(Integer.parseInt(phrm_m_price[i]));
+			phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
+			phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
+			phrm.setPhrm_pet_size(phrm_pet_size[i]);
+			phService.addPetHotelRoom(phrm);
+		}
+		
 //        String src = mtfRequest.getParameter("src");
 //        System.out.println("src value : " + src);
 //        System.out.println(fileList.get(0));
@@ -257,9 +281,8 @@ public class AdminController {
 //            System.out.println("originFileName : " + originFileName);
 //            System.out.println("fileSize : " + fileSize);
 //        }
-		boolean rst = phService.addPetHotel(ph,files);
 
-		boolean add_phrm = phService.addPetHotelRoom(phrm);
+//		boolean add_phrm = phService.addPetHotelRoom(phrm);
 
 		if (rst) {
 			return "redirect:/admin/main";
@@ -268,9 +291,6 @@ public class AdminController {
 		}
 
 	}
-	
-	
-	
 	
 	
 	
@@ -296,13 +316,6 @@ public class AdminController {
 		phService.removePetHotel(ph_num);
 		return "admin/petHotelList";
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	
 

@@ -339,16 +339,18 @@ ul {
 			    if ( rsp.success ) {
 			        var msg = '결제가 완료되었습니다.';
 				    var buyer_test = "123";
-			        msg += '고유ID : ' + rsp.imp_uid;
-			        msg += '상점 거래ID : ' + rsp.merchant_uid;
-			        msg += '결제 금액 : ' + rsp.paid_amount;
-			        msg += '카드 승인번호 : ' + rsp.apply_num;
+				    
+// 			        msg += '고유ID : ' + rsp.imp_uid;
+// 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+// 			        msg += '결제 금액 : ' + rsp.paid_amount;
+// 			        msg += '카드 승인번호 : ' + rsp.apply_num;
 // 			        location.href='http://localhost:8081/carezoo/petHotel/paySuccess';
 var resForm = $("#resForm");
 
 resForm.append($("<input type='hidden'>").attr("name","phr_price").val($('.totalValue').text().replace(/,/gi, "")*1));
 resForm.append($("<input type='hidden'>").attr("name","phr_imp_uid").val(rsp.imp_uid)); //아임포트 거래 고유번호
 resForm.append($("<input type='hidden'>").attr("name","phr_merchant_uid").val(rsp.merchant_uid)); //가맹점에서 생성/관리하는 고유번호
+msg +="결제완료 되었습니다.";
 $("#resForm").submit();
 //  var params =$("#resForm").serialize();s
 //  console.log("params:"+params);

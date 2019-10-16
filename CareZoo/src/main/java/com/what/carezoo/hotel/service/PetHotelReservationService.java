@@ -117,7 +117,7 @@ public class PetHotelReservationService {
 
 		MimeMessage mail = mailSender.createMimeMessage();
 		String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
-				+ "<h3>" + pethotel.getPh_name()+ "의 관리자님</h3>" +(petHotelDao.selectPhRoomByPhrm_num(phr.getPhrm_num())).getPhrm_name()+ "에 예약이 확정되었습니다."
+				+ "<h3>" + pethotel.getPh_name()+ "의 관리자님</h3>" +(petHotelDao.selectPhRoomByPhrm_num(phr.getPhrm_num())).getPhrm_name()+ "의 예약이 확정되었습니다."
 				+"<p><label>고객이름:&nbsp;"+cus.getC_name()
 				+"<p><label>고객번호::&nbsp;"+cus.getC_contact()
 				+"<p><label>체크인날짜:&nbsp;"+phr.getPhr_chkin()+"</label>&nbsp;&nbsp;"+"<p><label>체크아웃날짜:&nbsp;"+phr.getPhr_chkout()+"</label>"

@@ -15,6 +15,8 @@ public interface PetHotelDao {
 	public int update(PetHotel ph);
 	public int delete(int ph_num);
 	public PetHotel selectOne(int ph_num);
+	public PetHotel selectOnebyPh_name(@Param("ph_name")String ph_name);
+	
 	public List<PetHotel> selectAll();
 	public List<PetHotel> search(@Param("list")List<String> ph_address, @Param("ph")PetHotel ph);
 	public List<PetHotelRoom> selectPhRoomByPh_num(int ph_num);
