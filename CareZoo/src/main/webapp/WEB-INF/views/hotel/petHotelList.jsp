@@ -145,10 +145,14 @@ top:21px;left:200px;
 height:45px;
 
 }
-
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    width: 138px;
+}
 
 </style>
-<!-- ㄴㅁㅇ -->
+<!-- ㄴㅁㅇasds -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -774,236 +778,365 @@ height:45px;
 	<div class="container">
 
 		<form >
-			<div>
-				<a href="${contextPath}/petHotel/petHotelList" id="menu_0" class="btn btn-my" id="menu_0"
-					style="text-align: center;">전체</a> <a href="#" class="btn btn-my"
-					style="text-align: center;" id="menu_1">서울</a> <a href="#"
-					class="btn btn-my" style="text-align: center;" id="menu_2">경기</a> <a
-					href="#" class="btn btn-my" style="text-align: center;" id="menu_3">인천</a>
-				<div>
-					<div id="subtbl_0" style="display: none">
-						<table>
-							<tr>
-								<td><input type="checkbox" name="ph_address" value="서울">
-									<input type="checkbox" name="ph_address" value="경기"> <input
-									type="checkbox" name="ph_address" value="인천"></td>
-							</tr>
-						</table>
-					</div>
-					<div id="subtbl_1" style="display: none; border: 1px solid">
-						<table>
-							<tr class="">
-								<td id="check_container"><input type="checkbox"
-									name="ph_address" id="state1" value="강남구"> <label
-									for="state1">강남구</label> <input type="checkbox"
-									name="ph_address" id="state2" value="강동구"> <label
-									for="state2">강동구</label> <input type="checkbox"
-									name="ph_address" id="state3" value="강북구"> <label
-									for="state3">강북구</label> <input type="checkbox"
-									name="ph_address" id="state4" value="강서구"> <label
-									for="state4">강서구</label> <input type="checkbox"
-									name="ph_address" id="state5" value="관악구"> <label
-									for="state5">관악구</label> <input type="checkbox"
-									name="ph_address" id="state6" value="광진구"> <label
-									for="state6">광진구</label> <input type="checkbox"
-									name="ph_address" id="state7" value="구로구"> <label
-									for="state7">구로구</label> <input type="checkbox"
-									name="ph_address" id="state8" value="금천구"> <label
-									for="state8">금천구</label> <br> <input type="checkbox"
-									name="ph_address" id="state9" value="노원구"> <label
-									for="state9">노원구</label> <input type="checkbox"
-									name="ph_address" id="state10" value="도봉구"> <label
-									for="state10">도봉구</label> <input type="checkbox"
-									name="ph_address" id="state11" value="동대문구"> <label
-									for="state11">동대문구</label> <input type="checkbox"
-									name="ph_address" id="state12" value="동작구"> <label
-									for="state12">동작구</label> <input type="checkbox"
-									name="ph_address" id="state13" value="마포구"> <label
-									for="state13">마포구</label> <input type="checkbox"
-									name="ph_address" id="state14" value="서대문구"> <label
-									for="state14">서대문구</label> <input type="checkbox"
-									name="ph_address" id="state15" value="서초구"> <label
-									for="state15">서초구</label> <input type="checkbox"
-									name="ph_address" id="state16" value="성동구"> <label
-									for="state16">성동구</label> <br> <input type="checkbox"
-									name="ph_address" id="state17" value="성북구"> <label
-									for="state17">성북구</label> <input type="checkbox"
-									name="ph_address" id="state18" value="송파구"> <label
-									for="state18">송파구</label> <input type="checkbox"
-									name="ph_address" id="state19" value="양천구"> <label
-									for="state19">양천구</label> <input type="checkbox"
-									name="ph_address" id="state20" value="영등포구"> <label
-									for="state20">영등포구</label> <input type="checkbox"
-									name="ph_address" id="state21" value="용산구"> <label
-									for="state21">용산구</label> <input type="checkbox"
-									name="ph_address" id="state22" value="은평구"> <label
-									for="state22">은평구</label> <input type="checkbox"
-									name="ph_address" id="state23" value="종로구"> <label
-									for="state23">종로구</label> <input type="checkbox"
-									name="ph_address" id="state24" value="중구"> <label
-									for="state24">중구</label>  <input type="checkbox"
-									name="ph_address" id="state25" value="중랑구"> <label
-									for="state24">중랑구</label></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="button"  class="search" value="찾기">
-									<button type="reset">초기화</button>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div id="subtbl_2" style="display: none; border: 1px solid" >
-						<table>
-							<tr>
-								<td id="check_container"><input type="checkbox"
-									name="ph_address" id="state26" value="고양시"><label
-									for="state26">고양시</label> <input
-									type="checkbox" name="ph_address" id="state27" value="과천시">
-									<label
-									for="state27">과천시</label>
-									<input type="checkbox" name="ph_address" id="state28"
-									value="광명시"><label
-									for="state28">광명시</label> <input type="checkbox"
-									name="ph_address" id="state29" value="광주시"><label
-									for="state29">광주시</label> <input
-									type="checkbox" name="ph_address" id="state30" value="구리시"><label
-									for="state30">구리시</label>
-									<input type="checkbox" name="ph_address" id="state31"
-									value="군포시"><label
-									for="state31">군포시</label> <input type="checkbox"
-									name="ph_address" id="state32" value="김포시">
-									<label
-									for="state32">김포시</label> <input
-									type="checkbox" name="ph_address" id="state33" value="남양주시">
-									<label
-									for="state33">남양주시</label>
-									<input type="checkbox" name="ph_address" id="state34"
-									value="동두천시"><label
-									for="state33">동두천시</label> <input type="checkbox"
-									name="ph_address" id="state35" value="부천시"><label
-									for="state35">부천시</label> <br><input
-									type="checkbox" name="ph_address" id="state36" value="성남시">
-									<label
-									for="state36">성남시</label>
-									<input type="checkbox" name="ph_address" id="state37"
-									value="수원시"><label
-									for="state37">수원시</label> <input type="checkbox"
-									name="ph_address" id="state38" value="시흥시"><label
-									for="state37">시흥시</label> <input
-									type="checkbox" name="ph_address" id="state39" value="안산시"><label
-									for="state39">안산시</label>
-									<input type="checkbox" name="ph_address" id="state40"
-									value="안성시"><label
-									for="state40">안성시</label> <input type="checkbox"
-									name="ph_address" id="state41" value="안양시"><label
-									for="state41">안양시</label> <input
-									type="checkbox" name="ph_address" id="state42" value="양주시">
-									<label
-									for="state42">양주시</label>
-									<input type="checkbox" name="ph_address" id="state43"
-									value="여주시"><label
-									for="state43">여주시</label> <input type="checkbox"
-									name="ph_address" id="state44" value="오산시">
-									<label
-									for="state44">오산시</label> <input
-									type="checkbox" name="ph_address" id="state45" value="용인시">
-									<label
-									for="state45">용인시</label><br>
-									<input type="checkbox" name="ph_address" id="state46"
-									value="의왕시">
-									<label
-									for="state46">의왕시</label> <input type="checkbox"
-									name="ph_address" id="state47" value="의정부시">
-									<label
-									for="state47">의정부시</label> <input
-									type="checkbox" name="ph_address" id="state48" value="이천시">
-									<label
-									for="state48">이천시</label>
-									<input type="checkbox" name="ph_address" id="state49"
-									value="파주시">
-									<label
-									for="state49">파주시</label> <input type="checkbox"
-									name="ph_address" id="state50" value="평택시">
-									<label
-									for="state50">평택시</label> <input
-									type="checkbox" name="ph_address" id="state51" value="포천시">
-									<label
-									for="state51">포천시</label>
-									<input type="checkbox" name="ph_address" id="state52"
-									value="하남시"><label
-									for="state52">하남시</label> <input type="checkbox"
-									name="ph_address" id="state53" value="화성시"><label
-									for="state53">화성시</label> <input
-									type="checkbox" name="ph_address" id="state54" value="가평군"><label
-									for="state54">가평군</label>
-									<input type="checkbox" name="ph_address" id="state55"
-									value="양평군"><label
-									for="state55">양평군</label> <input type="checkbox"
-									name="ph_address" id="state56" value="연천군"><label
-									for="state56">연천군</label></td>
-							</tr>
-							<tr>
-								<td>
-									<input type="button"  class="search" value="찾기">
-									<button type="reset">초기화</button>
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div id="subtbl_3" style="display: none; border: 1px solid">
-<!-- 					<div id="subtbl_3"  class="custom-control custom-checkbox"> -->
-						<table>
-							<tr>
-								<td id="check_container">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+<!-- 			<div> -->
+<%-- 				<a href="${contextPath}/petHotel/petHotelList" id="menu_0" class="btn btn-my" id="menu_0" --%>
+<!-- 					style="text-align: center;">전체</a> <a href="#" class="btn btn-my" -->
+<!-- 					style="text-align: center;" id="menu_1">서울</a> <a href="#" -->
+<!-- 					class="btn btn-my" style="text-align: center;" id="menu_2">경기</a> <a -->
+<!-- 					href="#" class="btn btn-my" style="text-align: center;" id="menu_3">인천</a> -->
+<!-- 				<div> -->
+<!-- 					<div id="subtbl_0" style="display: none"> -->
+<!-- 						<table> -->
+<!-- 							<tr> -->
+<!-- 								<td><input type="checkbox" name="ph_address" value="서울"> -->
+<!-- 									<input type="checkbox" name="ph_address" value="경기"> <input -->
+<!-- 									type="checkbox" name="ph_address" value="인천"></td> -->
+<!-- 							</tr> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 					<div id="subtbl_1" style="display: none; border: 1px solid"> -->
+<!-- 						<table> -->
+<!-- 							<tr class=""> -->
+<!-- 								<td id="check_container"><input type="checkbox" -->
+<!-- 									name="ph_address" id="state1" value="강남구"> <label -->
+<!-- 									for="state1">강남구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state2" value="강동구"> <label -->
+<!-- 									for="state2">강동구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state3" value="강북구"> <label -->
+<!-- 									for="state3">강북구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state4" value="강서구"> <label -->
+<!-- 									for="state4">강서구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state5" value="관악구"> <label -->
+<!-- 									for="state5">관악구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state6" value="광진구"> <label -->
+<!-- 									for="state6">광진구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state7" value="구로구"> <label -->
+<!-- 									for="state7">구로구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state8" value="금천구"> <label -->
+<!-- 									for="state8">금천구</label> <br> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state9" value="노원구"> <label -->
+<!-- 									for="state9">노원구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state10" value="도봉구"> <label -->
+<!-- 									for="state10">도봉구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state11" value="동대문구"> <label -->
+<!-- 									for="state11">동대문구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state12" value="동작구"> <label -->
+<!-- 									for="state12">동작구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state13" value="마포구"> <label -->
+<!-- 									for="state13">마포구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state14" value="서대문구"> <label -->
+<!-- 									for="state14">서대문구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state15" value="서초구"> <label -->
+<!-- 									for="state15">서초구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state16" value="성동구"> <label -->
+<!-- 									for="state16">성동구</label> <br> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state17" value="성북구"> <label -->
+<!-- 									for="state17">성북구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state18" value="송파구"> <label -->
+<!-- 									for="state18">송파구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state19" value="양천구"> <label -->
+<!-- 									for="state19">양천구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state20" value="영등포구"> <label -->
+<!-- 									for="state20">영등포구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state21" value="용산구"> <label -->
+<!-- 									for="state21">용산구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state22" value="은평구"> <label -->
+<!-- 									for="state22">은평구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state23" value="종로구"> <label -->
+<!-- 									for="state23">종로구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state24" value="중구"> <label -->
+<!-- 									for="state24">중구</label>  <input type="checkbox" -->
+<!-- 									name="ph_address" id="state25" value="중랑구"> <label -->
+<!-- 									for="state24">중랑구</label></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td> -->
+<!-- 									<input type="button"  class="search" value="찾기"> -->
+<!-- 									<button type="reset">초기화</button> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 					<div id="subtbl_2" style="display: none; border: 1px solid" > -->
+<!-- 						<table> -->
+<!-- 							<tr> -->
+<!-- 								<td id="check_container"><input type="checkbox" -->
+<!-- 									name="ph_address" id="state26" value="고양시"><label -->
+<!-- 									for="state26">고양시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state27" value="과천시"> -->
+<!-- 									<label -->
+<!-- 									for="state27">과천시</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state28" -->
+<!-- 									value="광명시"><label -->
+<!-- 									for="state28">광명시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state29" value="광주시"><label -->
+<!-- 									for="state29">광주시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state30" value="구리시"><label -->
+<!-- 									for="state30">구리시</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state31" -->
+<!-- 									value="군포시"><label -->
+<!-- 									for="state31">군포시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state32" value="김포시"> -->
+<!-- 									<label -->
+<!-- 									for="state32">김포시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state33" value="남양주시"> -->
+<!-- 									<label -->
+<!-- 									for="state33">남양주시</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state34" -->
+<!-- 									value="동두천시"><label -->
+<!-- 									for="state33">동두천시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state35" value="부천시"><label -->
+<!-- 									for="state35">부천시</label> <br><input -->
+<!-- 									type="checkbox" name="ph_address" id="state36" value="성남시"> -->
+<!-- 									<label -->
+<!-- 									for="state36">성남시</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state37" -->
+<!-- 									value="수원시"><label -->
+<!-- 									for="state37">수원시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state38" value="시흥시"><label -->
+<!-- 									for="state37">시흥시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state39" value="안산시"><label -->
+<!-- 									for="state39">안산시</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state40" -->
+<!-- 									value="안성시"><label -->
+<!-- 									for="state40">안성시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state41" value="안양시"><label -->
+<!-- 									for="state41">안양시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state42" value="양주시"> -->
+<!-- 									<label -->
+<!-- 									for="state42">양주시</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state43" -->
+<!-- 									value="여주시"><label -->
+<!-- 									for="state43">여주시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state44" value="오산시"> -->
+<!-- 									<label -->
+<!-- 									for="state44">오산시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state45" value="용인시"> -->
+<!-- 									<label -->
+<!-- 									for="state45">용인시</label><br> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state46" -->
+<!-- 									value="의왕시"> -->
+<!-- 									<label -->
+<!-- 									for="state46">의왕시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state47" value="의정부시"> -->
+<!-- 									<label -->
+<!-- 									for="state47">의정부시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state48" value="이천시"> -->
+<!-- 									<label -->
+<!-- 									for="state48">이천시</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state49" -->
+<!-- 									value="파주시"> -->
+<!-- 									<label -->
+<!-- 									for="state49">파주시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state50" value="평택시"> -->
+<!-- 									<label -->
+<!-- 									for="state50">평택시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state51" value="포천시"> -->
+<!-- 									<label -->
+<!-- 									for="state51">포천시</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state52" -->
+<!-- 									value="하남시"><label -->
+<!-- 									for="state52">하남시</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state53" value="화성시"><label -->
+<!-- 									for="state53">화성시</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state54" value="가평군"><label -->
+<!-- 									for="state54">가평군</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state55" -->
+<!-- 									value="양평군"><label -->
+<!-- 									for="state55">양평군</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state56" value="연천군"><label -->
+<!-- 									for="state56">연천군</label></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td> -->
+<!-- 									<input type="button"  class="search" value="찾기"> -->
+<!-- 									<button type="reset">초기화</button> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 					<div id="subtbl_3" style="display: none; border: 1px solid"> -->
+<!-- <!-- 					<div id="subtbl_3"  class="custom-control custom-checkbox"> -->
+<!-- 						<table> -->
+<!-- 							<tr> -->
+<!-- 								<td id="check_container"> -->
 								
 
-								<input type="checkbox"
-									name="ph_address" id="state57" value="계양구"><label
-									for="state57">계양구</label>
-									 <input
-									type="checkbox" name="ph_address" id="state58" value="남동구">
-									<label
-									for="state58">남동구</label>
-									<input type="checkbox" name="ph_address" id="state59"
-									value="동구"><label
-									for="state59">동구</label> <input type="checkbox" name="ph_address"
-									id="state60" value="미추홀구"><label
-									for="state60">미추홀구</label> <input type="checkbox"
-									name="ph_address" id="state61" value="부평구">
-									<label
-									for="state61">부평구</label> <input
-									type="checkbox" name="ph_address" id="state62" value="서구">
-									<label
-									for="state62">서구</label>
-									<input type="checkbox" name="ph_address" id="state63"
-									value="연수구"><label
-									for="state63">연수구</label> <input type="checkbox"
-									name="ph_address" id="state64" value="중구"><label
-									for="state64">중구</label> <input
-									type="checkbox" name="ph_address" id="state65" value="강화군">
-									<label
-									for="state65">강화군</label>
-									<input type="checkbox" name="ph_address" id="state66"
-									value="옹진군"><label
-									for="state66">옹진군</label></td>
-							</tr>
-							<tr>
-								<td>
-								<br>
-								<br>
-								<br>
-									<input type="button"  class="search" value="찾기">
-									<button type="reset">초기화</button>
-								</td>
-							</tr>
-						</table>
+<!-- 								<input type="checkbox" -->
+<!-- 									name="ph_address" id="state57" value="계양구"><label -->
+<!-- 									for="state57">계양구</label> -->
+<!-- 									 <input -->
+<!-- 									type="checkbox" name="ph_address" id="state58" value="남동구"> -->
+<!-- 									<label -->
+<!-- 									for="state58">남동구</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state59" -->
+<!-- 									value="동구"><label -->
+<!-- 									for="state59">동구</label> <input type="checkbox" name="ph_address" -->
+<!-- 									id="state60" value="미추홀구"><label -->
+<!-- 									for="state60">미추홀구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state61" value="부평구"> -->
+<!-- 									<label -->
+<!-- 									for="state61">부평구</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state62" value="서구"> -->
+<!-- 									<label -->
+<!-- 									for="state62">서구</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state63" -->
+<!-- 									value="연수구"><label -->
+<!-- 									for="state63">연수구</label> <input type="checkbox" -->
+<!-- 									name="ph_address" id="state64" value="중구"><label -->
+<!-- 									for="state64">중구</label> <input -->
+<!-- 									type="checkbox" name="ph_address" id="state65" value="강화군"> -->
+<!-- 									<label -->
+<!-- 									for="state65">강화군</label> -->
+<!-- 									<input type="checkbox" name="ph_address" id="state66" -->
+<!-- 									value="옹진군"><label -->
+<!-- 									for="state66">옹진군</label></td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<td> -->
+<!-- 								<br> -->
+<!-- 								<br> -->
+<!-- 								<br> -->
+<!-- 									<input type="button"  class="search" value="찾기"> -->
+<!-- 									<button type="reset">초기화</button> ㅁㄴㅇㄴㅁ-->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			<ul class="nav nav-pills nav-fill" role="tablist">
+				<li id="menu_0" class="nav-item"><a class="nav-link" href="${contextPath}/petHotel/petHotelList" style="color: #17a2b8">전체</a></li>
+				<li id="menu_1" class="nav-item"><a class="nav-link" href="#" style="color: #17a2b8">서울</a></li>
+				<li id="menu_2" class="nav-item"><a class="nav-link" href="#" style="color: #17a2b8">경기</a></li>
+				<li id="menu_3" class="nav-item"><a class="nav-link" href="#" style="color: #17a2b8">인천</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="subtbl_0" style="display: none">
+					<input type="checkbox" name="ph_address" value="서울"> 
+					<input type="checkbox" name="ph_address" value="경기"> 
+					<input type="checkbox" name="ph_address" value="인천">
+				</div>
+				<div id="subtbl_1" style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:40px;width:1040px;height: auto;    border: 1px solid rgba(23, 162, 184, 0.5);">
+					<div id="check_container" style="font-size:18px">
+						<input type="checkbox" name="ph_address" id="state1" value="강남구"><label>강남구</label>
+						<input type="checkbox" name="ph_address" id="state2" value="강동구"><label>강동구</label>
+						<input type="checkbox" name="ph_address" id="state3" value="강북구"><label>강북구</label>
+						<input type="checkbox" name="ph_address" id="state4" value="강서구"><label>강서구</label>
+						<input type="checkbox" name="ph_address" id="state5" value="관악구"><label>관악구</label>
+						<input type="checkbox" name="ph_address" id="state6" value="광진구"><label>광진구</label>
+						<input type="checkbox" name="ph_address" id="state7" value="구로구" ><label style="width: 60px;">구로구</label>
+					<br>	                                                                           
+						<input type="checkbox" name="ph_address" id="state8" value="금천구"><label>금천구</label>
+						<input type="checkbox" name="ph_address" id="state9" value="노원구"><label>노원구</label>
+						<input type="checkbox" name="ph_address" id="state10" value="도봉구"><label>도봉구</label> 
+						<input type="checkbox" name="ph_address" id="state11" value="동대문구"><label>동대문구</label> 
+						<input type="checkbox" name="ph_address" id="state12" value="동작구"><label>동작구</label> 
+						<input type="checkbox" name="ph_address" id="state13" value="마포구"><label>마포구</label> 
+						<input type="checkbox" name="ph_address" id="state14" value="서대문구" ><label style="    width: 61px; font-size: 16.5px">서대문구</label> 
+					<br>	
+						<input type="checkbox" name="ph_address" id="state15" value="서초구"><label>서초구</label>
+						<input type="checkbox" name="ph_address" id="state16" value="성동구"><label>성동구</label>
+						<input type="checkbox" name="ph_address" id="state17" value="성북구"><label>성북구</label>
+						<input type="checkbox" name="ph_address" id="state18" value="송파구"><label>송파구</label>
+						<input type="checkbox" name="ph_address" id="state19" value="양천구"><label>양천구</label>
+						<input type="checkbox" name="ph_address" id="state20" value="영등포구"><label>영등포구</label> 
+						<input type="checkbox" name="ph_address" id="state21" value="용산구"><label style="width: 60px;">용산구</label> 
+					<br>	
+						<input type="checkbox" name="ph_address" id="state22" value="은평구"><label>은평구</label> 
+						<input type="checkbox" name="ph_address" id="state23" value="종로구"><label>종로구</label> 
+						<input type="checkbox" name="ph_address" id="state24" value="중구"><label>중구</label> 
+						<input type="checkbox" name="ph_address" id="state25" value="중랑구"><label>중랑구</label>
 					</div>
+
+					<div style="padding: 7px;">
+						<input type="button" class="search btn btn-outline-info " style="height: 31px;line-height: 17px;width: 70px;border: 1px solid rgba(23,162,184,0.5);" value="찾기" >
+						<button type="reset" class="btn btn-outline-info" style="height: 31px;line-height: 17px;width: auto;border: 1px solid rgba(23,162,184,0.5);" >초기화</button>
+					</div>
+
+				</div>
+				<div id="subtbl_2"  style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:25px;width:1040px;height: auto"  class="container tab-pane active">
+					<div id="check_container"  style="font-size:18px">
+						<input type="checkbox" name="ph_address" id="state26" value="고양시"><label>고양시</label>
+						<input type="checkbox" name="ph_address" id="state27" value="과천시"><label>과천시</label>
+						<input type="checkbox" name="ph_address" id="state28" value="광명시"><label>광명시</label>
+						<input type="checkbox" name="ph_address" id="state29" value="광주시"><label>광주시</label>
+						<input type="checkbox" name="ph_address" id="state30" value="구리시"><label>구리시</label>
+						<input type="checkbox" name="ph_address" id="state31" value="군포시"><label>군포시</label>
+						<input type="checkbox" name="ph_address" id="state32" value="김포시"><label style="width: 60px;">김포시</label>
+					<br>	
+						<input type="checkbox" name="ph_address" id="state33" value="남양주시"><label>남양주시</label>
+						<input type="checkbox" name="ph_address" id="state34" value="동두천시"><label>동두천시</label>
+						<input type="checkbox" name="ph_address" id="state35" value="부천시"><label>부천시 </label>
+						<input type="checkbox" name="ph_address" id="state36" value="성남시"><label>성남시 </label>
+						<input type="checkbox" name="ph_address" id="state37" value="수원시"><label>수원시 </label>
+						 <input type="checkbox" name="ph_address"id="state38" value="시흥시"><label>시흥시 </label>
+						 <input type="checkbox" name="ph_address" id="state39" value="안산시"><label style="width: 60px;">안산시</label> 
+					<br>		 
+						 <input type="checkbox" name="ph_address" id="state40" value="안성시"><label>안성시</label>
+						 <input type="checkbox" name="ph_address" id="state41" value="안양시"><label>안양시</label>
+						 <input type="checkbox" name="ph_address" id="state42" value="양주시"><label>양주시</label>
+						 <input type="checkbox" name="ph_address" id="state43" value="여주시"><label>여주시</label>
+						 <input type="checkbox" name="ph_address" id="state44" value="오산시"><label>오산시</label>
+						 <input type="checkbox" name="ph_address" id="state45" value="용인시"><label>용인시</label>
+						 <input type="checkbox" name="ph_address" id="state46" value="의왕시"><label style="width: 60px;">의왕시</label>
+					<br>		 
+						 <input type="checkbox" name="ph_address" id="state47" value="의정부시"><label>의정부시</label> 
+						 <input type="checkbox" name="ph_address" id="state48" value="이천시"><label>이천시</label> 
+						 <input type="checkbox" name="ph_address" id="state49" value="파주시"><label>파주시</label> 
+						 <input type="checkbox" name="ph_address" id="state50" value="평택시"><label>평택시</label> 
+						 <input type="checkbox" name="ph_address" id="state51" value="포천시"><label>포천시</label> 
+						 <input type="checkbox" name="ph_address" id="state52" value="하남시"><label>하남시</label> 
+						 <input type="checkbox" name="ph_address" id="state53" value="화성시"><label style="width: 60px;">화성시</label> 
+					<br>		                                                                        
+						 <input type="checkbox" name="ph_address" id="state54" value="가평군"><label>가평군</label> 
+						 <input type="checkbox" name="ph_address" id="state55" value="양평군"><label>양평군</label> 
+						 <input type="checkbox" name="ph_address" id="state56" value="연천군"><label>연천군</label>
+
+					</div>
+
+					<div style="padding: 7px;">
+						<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px;border: 1px solid rgba(23,162,184,0.5);" value="찾기">
+						<button type="reset" class="btn btn-outline-info" style="height: 31px;line-height: 17px;width: auto;border: 1px solid rgba(23,162,184,0.5);">초기화</button>
+					</div>
+
+				</div>
+				<div id="subtbl_3"   style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:40px;width:1040px;height: auto">
+					<div id="check_container"  style="font-size:18px">
+						<input type="checkbox" name="ph_address" id="state57" value="계양구"><label>계양구</label> 
+						<input type="checkbox" name="ph_address" id="state58" value="남동구"><label>남동구</label> 
+						<input type="checkbox" name="ph_address" id="state59" value="동구"><label>동구</label>
+						<input type="checkbox" name="ph_address" id="state60" value="미추홀구"><label>미추홀구</label> 
+						<input type="checkbox" name="ph_address" id="state61" value="부평구"><label>부평구</label> 
+						<input type="checkbox" name="ph_address" id="state62" value="서구"><label>서구</label> 
+						<input type="checkbox" name="ph_address" id="state63" value="연수구"><label style="width: 60px;">연수구</label> 
+					<br>	
+						<input type="checkbox" name="ph_address" id="state64" value="중구"><label>중구</label> 
+						<input type="checkbox" name="ph_address" id="state65" value="강화군"><label>강화군</label> 
+						<input type="checkbox" name="ph_address" id="state66" value="옹진군"><label>옹진군</label>
+
+					</div>
+
+					<div style="padding: 7px;">
+						<input type="button" class="search btn btn-outline-info " style="height: 31px;line-height: 17px;width: 70px;border: 1px solid rgba(23,162,184,0.5);" value="찾기">
+						<button type="reset" class="btn btn-outline-info" style="height: 31px;line-height: 17px;width: auto;border: 1px solid rgba(23,162,184,0.5);">초기화</button>
+					</div>
+
 				</div>
 			</div>
-
-			<div>
-<!-- 				<table> -->
+		
+<!-- 				<table>ㅁㄴㅇㄴㅇㅁㄴㅇㄴㅁㄴㅇㄴㅁㅁ -->
 <!-- 					<tr> -->
 <!-- 						<td><select name="listOption" -->
 <!-- 							style="width: 100px; height: 25px;"> -->
@@ -1012,42 +1145,85 @@ height:45px;
 <!-- 						</select></td> -->
 <!-- 					</tr> -->
 <!-- 				</table> -->
-<br>
-<br>
 
-				<div class="main-wrap no-profile">
-					<table>
-						<tr class="col-dates">
-							<th>예약일</th>
-							<td><input type="text" class="pull-left" placeholder="시작 날짜"
+
+<!-- 				<div class="main-wrap no-profile"> -->
+<!-- 					<table> -->
+<!-- 						<tr class="col-dates"> -->
+<!-- 							<th>예약일</th> -->
+<!-- 							<td><input type="text" class="pull-left" placeholder="시작 날짜" -->
+<!-- 								readonly="readonly" name="phr_chkin" /> <span>&gt;</span> <input -->
+<!-- 								type="text" class="pull-right" placeholder="마침 날짜" -->
+<!-- 								readonly="readonly" name="phr_chkout" /></td> -->
+<!-- 						</tr> -->
+
+<!-- 						<tr class="col-size"> -->
+<!-- 							<th>반려견 크기</th> -->
+<!-- 							<td><select name="ph_pet_size" data-width="130px"> -->
+<!-- 									<option value="" selected disabled hidden>==선택하세요==</option> -->
+<!-- 									<option title="소형견" value="소형견">소형견 (0~4.9kg)</option> -->
+<!-- 									<option title="중형견" value="중형견">중형견 (5~14.9kg)</option> -->
+<!-- 									<option title="대형견" value="대형견">대형견 (15kg 이상)</option> -->
+<!-- 							</select></td> -->
+<!-- 						</tr> -->
+<!-- 						<tr class="col-btn"> -->
+<!-- 							<td> -->
+<!-- 								<input type="button"  class="search" value="찾기"> -->
+<!-- 								<button type="reset">초기화</button> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
+<!-- 					</table> -->
+<!-- 				</div> -->
+<!-- 			</div>ㅁㄴㅇ -->
+			<hr>
+				<div class="nav" style="position: relative;left: 48px;">
+				<table >
+					<tr>
+						<th>예약일을 알려주세요!</th>
+<!-- 						<th>반려견 나이ㅁㄴㅇㄴㅁ</th> -->
+						<th>반려견 크기</th>
+					</tr>
+					<tr>
+
+						
+														<td><input type="text" class="pull-left" placeholder="시작 날짜"
 								readonly="readonly" name="phr_chkin" /> <span>&gt;</span> <input
 								type="text" class="pull-right" placeholder="마침 날짜"
 								readonly="readonly" name="phr_chkout" /></td>
-						</tr>
-
-						<tr class="col-size">
-							<th>반려견 크기</th>
-							<td><select name="ph_pet_size" data-width="130px">
+					
+<!-- 						<td> -->
+<!-- 							<select name="hsl_pet_age" data-width="130px"> -->
+<!-- 								<option value="" selected disabled hidden>==선택하세요==</option> -->
+<!-- 								<option title="puppy" value="강아지">강아지 (1살 이하)</option> -->
+<!-- 								<option title="dog" value="성견">성견 (2~6살)</option> -->
+<!-- 								<option title="agedDog" value="노령견">노령견 (7살 이상)</option> -->
+<!-- 							</select> -->
+<!-- 						</td> -->
+						<td>
+							<select name="ph_pet_size" data-width="130px">
 									<option value="" selected disabled hidden>==선택하세요==</option>
 									<option title="소형견" value="소형견">소형견 (0~4.9kg)</option>
 									<option title="중형견" value="중형견">중형견 (5~14.9kg)</option>
 									<option title="대형견" value="대형견">대형견 (15kg 이상)</option>
-							</select></td>
-						</tr>
-						<tr class="col-btn">
-							<td>
-								<input type="button"  class="search" value="찾기">
-								<button type="reset">초기화</button>
-							</td>
-						</tr>
-					</table>
-				</div>
+							</select>
+						</td>
+						<td colspan="2"  style="padding: 7px;position: relative;left: 144px;">
+							<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px;border: 1px solid rgba(23,162,184,0.5);"  value="찾기">
+							<button type="reset" class="reset btn btn-outline-info" style="height: 31px;line-height: 17px;width: auto;border: 1px solid rgba(23,162,184,0.5);">초기화</button>
+						</td>
+					</tr>
+				</table>
 			</div>
+			
+			
+			
+			
 		</form>
-
+		<br>
+		<hr>
 		<div class="petHotelList"  style="width:1100px">
 
-			<%-- 			<c:forEach var="phList" items="${phList}"> --%>
+			<%-- 	ㅂㅈㄷㅈㅂㄷㅂㅈ	ㅂㅈㄷ	<c:forEach var="phList" items="${phList}"> --%>
 			<%-- 				<div class="petHotel" onclick="location.href='${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}'"style="border: 1px solid; margin: 50px; height: 350px;"> --%>
 			<!-- 					<div style="width: auto; display: inline-block display:inline; float: left;"> -->
 			<!-- 						<div class="item"> -->
