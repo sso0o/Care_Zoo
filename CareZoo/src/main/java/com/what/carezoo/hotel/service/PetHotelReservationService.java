@@ -113,8 +113,6 @@ public class PetHotelReservationService {
 
 	// 회원가입 발송 이메일(인증키 발송)
 	public boolean mailSendWithMemberKey(PetHotel pethotel,PetHotelReservation phr, HttpServletRequest request, Customer cus) {
-		
-
 		MimeMessage mail = mailSender.createMimeMessage();
 		String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
 				+ "<h3>" + pethotel.getPh_name()+ "의 관리자님</h3>" +(petHotelDao.selectPhRoomByPhrm_num(phr.getPhrm_num())).getPhrm_name()+ "의 예약이 확정되었습니다."

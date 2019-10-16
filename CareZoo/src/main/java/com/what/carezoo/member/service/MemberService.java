@@ -201,6 +201,29 @@ public class MemberService {
 		return false;
 	}
 	
+	//결제정보 가져오기
+	public Map<String, Object> getPayInfoHSR(int num) {
+		return memberDao.getPayInfoHSR(num);
+	}
+	public Map<String, Object> getPayInfoVSR(int num) {
+		return memberDao.getPayInfoVSR(num);
+	}
+	
+	//updateStatus
+	public boolean updateStatusHSR(int num) {
+		if(memberDao.updateStatusHSR(num)>0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean updateStatusVSR(int num) {
+		if(memberDao.updateStatusVSR(num)>0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 	public int findC_id(String c_id) {
 		return memberDao.findC_id(c_id);
 	}
