@@ -85,13 +85,13 @@
       <li class="nav-item" >
         <a class="nav-link collapsed" href="${contextPath}/admin/petHotelList">
           <i class="fas fa-fw fa-cog"></i>
-          <span>호텔관리</span>
+          <span>호텔 관리</span>
         </a>
       </li>
             <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="${contextPath}/admin/resPetHotelList">
           <i class="fas fa-fw fa-table"></i>
-          <span>호텔예약리스트</span></a>
+          <span>호텔예약 리스트</span></a>
       </li>
 
       <!-- Divider -->
@@ -106,7 +106,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="${contextPath}/admin/petHotelList">
           <i class="fas fa-fw fa-cog"></i>
-          <span>시터정보관리</span>
+          <span>시터정보 관리</span>
         </a>
       </li>
 

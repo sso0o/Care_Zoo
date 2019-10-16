@@ -362,10 +362,10 @@ img {
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item active"><a class="nav-link collapsed"
 				href="${contextPath}/admin/petHotelList"> <i
-					class="fas fa-fw fa-cog"></i> <span>호텔관리</span>
+					class="fas fa-fw fa-cog"></i> <span>호텔 관리</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fas fa-fw fa-table"></i> <span>호텔예약리스트</span>
+			<li class="nav-item"><a class="nav-link" href="${contextPath}/admin/resPetHotelList">
+					<i class="fas fa-fw fa-table"></i> <span>호텔예약 리스트</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -377,7 +377,7 @@ img {
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed"
 				href="${contextPath}/admin/petHotelList"> <i
-					class="fas fa-fw fa-cog"></i> <span>시터정보관리</span>
+					class="fas fa-fw fa-cog"></i> <span>시터정보 관리</span>
 			</a></li>
 
 			<!-- Nav Item - Charts -->
