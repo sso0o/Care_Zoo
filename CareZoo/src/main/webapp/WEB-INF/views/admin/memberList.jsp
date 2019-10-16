@@ -276,7 +276,7 @@
 					<td>
 					  <div class="my-2"></div>
                   <a 
-                  href= "${contextPath}/admin/petHotelDelete?ph_num=${ph.ph_num }"  
+                  href= "${contextPath}/admin/memberDelete?c_num=${c.c_num }"  
                   class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                       <i class="fas fa-trash"></i>
@@ -289,11 +289,11 @@
                     
                   </tbody>
                 </table>
-              </div>
-           <a href="${contextPath}/admin/addMemberForm" class="btn btn-info btn-icon-split">
-                    <span class="text">고객추가</span>
-                  </a>
-            </div>
+<!--               </div> -->
+<%--            <a href="${contextPath}/admin/addMemberForm" class="btn btn-info btn-icon-split"> --%>
+<!--                     <span class="text">고객추가</span> -->
+<!--                   </a> -->
+<!--             </div> -->
           </div>
 
         </div>
