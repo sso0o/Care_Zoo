@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.what.carezoo.dao.PetHotelDao;
 import com.what.carezoo.dao.PetHotelReservationDao;
+import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
 
@@ -111,12 +112,14 @@ public class PetHotelReservationService {
 	}	
 
 	// 회원가입 발송 이메일(인증키 발송)
-	public boolean mailSendWithMemberKey(PetHotel pethotel,PetHotelReservation phr, HttpServletRequest request) {
+	public boolean mailSendWithMemberKey(PetHotel pethotel,PetHotelReservation phr, HttpServletRequest request, Customer cus) {
 		
 
 		MimeMessage mail = mailSender.createMimeMessage();
 		String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
 				+ "<h3>" + pethotel.getPh_name()+ "의 관리자님</h3>" +(petHotelDao.selectPhRoomByPhrm_num(phr.getPhrm_num())).getPhrm_name()+ "에 예약이 확정되었습니다."
+				+"<p><label>고객이름:&nbsp;"+cus.getC_name()
+				+"<p><label>고객번호::&nbsp;"+cus.getC_contact()
 				+"<p><label>체크인날짜:&nbsp;"+phr.getPhr_chkin()+"</label>&nbsp;&nbsp;"+"<p><label>체크아웃날짜:&nbsp;"+phr.getPhr_chkout()+"</label>"
 				+"<p><label>반려견: "+phr.getPhr_numof_pet()+"마리</label>"+"<p><label>결제금액: "+phr.getPhr_price()+"원"
 				+ "<p><a href='http://localhost:8081" + request.getContextPath() + "/petHotel/petHotelView?ph_num="+pethotel.getPh_num()+">예약현황 보러가기</a></p>"

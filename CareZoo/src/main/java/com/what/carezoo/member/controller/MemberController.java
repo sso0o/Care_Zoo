@@ -308,9 +308,13 @@ public class MemberController {
 
 	// 펫호텔예약 취소
 	@RequestMapping("/cancelPHR")
-	public String cancelPHR(int num, Model m) {
+	public String cancelPHR(int num, Model m,HttpServletRequest request) {
 		if (memberService.cancelPHR(num)) {
 			m.addAttribute("msg", "예약이 취소되었습니다.");
+			PetHotelReservation phr = phrService.getPetHotelResByNum(num);
+			PetHotel ph = phService.getPetHotelbyNum(phr.getPh_num());
+			Customer cus = memberService.getMemberByC_num(phr.getC_num());
+			mailsender.mailSendCancelPHR(ph,phr,cus,request);
 		} else {
 			m.addAttribute("msg", "취소 실패");
 		}

@@ -15,7 +15,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.what.carezoo.dao.MemberDao;
+import com.what.carezoo.dao.PetHotelDao;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.PetHotel;
+import com.what.carezoo.model.PetHotelReservation;
 import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.VisitSitterService;
 
@@ -31,6 +34,8 @@ public class MemberMailSendService {
 	private VisitSitterService vsService;
 	@Autowired
 	private HomeSitterService hsService;
+	@Autowired
+	private PetHotelDao petHotelDao;
 	
 	// 이메일 난수 만드는 메서드
 		private String init() {
@@ -130,4 +135,27 @@ public class MemberMailSendService {
 			return false;
 		}
 
+		public boolean mailSendCancelPHR(PetHotel pethotel, PetHotelReservation phr, Customer cus, HttpServletRequest request) {
+			// TODO Auto-generated method stub
+			MimeMessage mail = mailSender.createMimeMessage();
+			String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
+					+ "<h3>" + pethotel.getPh_name()+ "의 관리자님</h3>" +(petHotelDao.selectPhRoomByPhrm_num(phr.getPhrm_num())).getPhrm_name()+ "에 예약이 <label style='color:red'>취소</label>되었습니다."
+					+"<p><label>고객이름:&nbsp;"+cus.getC_name()
+					+"<p><label>고객번호::&nbsp;"+cus.getC_contact()
+					+"<p><label>체크인날짜:&nbsp;"+phr.getPhr_chkin()+"</label>&nbsp;&nbsp;"+"<p><label>체크아웃날짜:&nbsp;"+phr.getPhr_chkout()+"</label>"
+					+"<p><label>반려견: "+phr.getPhr_numof_pet()+"마리</label>"+"<p><label>결제금액: "+phr.getPhr_price()+"원"
+					+ "<p><a href='http://localhost:8081" + request.getContextPath() + "/petHotel/petHotelView?ph_num="+pethotel.getPh_num()+">예약현황 보러가기</a></p>"
+					+"<p>감사합니다 (_ _)";
+			try {
+				mail.setSubject("예약취소메일입니다.", "utf-8");
+				mail.setText(htmlStr, "utf-8", "html");
+				mail.addRecipient(RecipientType.TO, new InternetAddress(pethotel.getPh_email()));
+				mailSender.send(mail);
+				return true;
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			return false;
+			
+		}
 }

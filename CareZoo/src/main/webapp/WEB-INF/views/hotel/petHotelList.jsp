@@ -718,7 +718,7 @@ height:45px;
 </script>
 <!-- 애견호텔 목록 -->
 </head>
-<body class="container">
+<body>
  <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
@@ -771,9 +771,9 @@ height:45px;
 	<br>
 	<br>
 	<br>
-	<div>
+	<div class="container">
 
-		<form>
+		<form >
 			<div>
 				<a href="${contextPath}/petHotel/petHotelList" id="menu_0" class="btn btn-my" id="menu_0"
 					style="text-align: center;">전체</a> <a href="#" class="btn btn-my"
@@ -1045,7 +1045,7 @@ height:45px;
 			</div>
 		</form>
 
-		<div class="petHotelList">
+		<div class="petHotelList"  style="width:1100px">
 
 			<%-- 			<c:forEach var="phList" items="${phList}"> --%>
 			<%-- 				<div class="petHotel" onclick="location.href='${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}'"style="border: 1px solid; margin: 50px; height: 350px;"> --%>

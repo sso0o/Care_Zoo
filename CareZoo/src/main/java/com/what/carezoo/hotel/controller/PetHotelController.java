@@ -182,14 +182,15 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //ph_num, phrm_num, phr_status=3, p_num, phr_price,phr,totaldays
 		int c_num = (Integer) session.getAttribute("user_num");
 		phr.setC_num(c_num);
+		
 		int intPhr_numof_pet = Integer.parseInt(phr_numof_pet);
 		phr.setP_num(intPhr_numof_pet);
 		phr.setPhr_status("3");
 		phrService.addPetHotelRes(phr);
-
+		Customer cus=mService.getMemberByC_num(c_num);
 		PetHotel petHotel = phService.getPetHotelbyNum(phr.getPh_num());
 		// 인증메일 보내기 메서드
-		phrService.mailSendWithMemberKey(petHotel, phr, request);
+		phrService.mailSendWithMemberKey(petHotel, phr, request,cus);
 
 		return "hotel/payComplete";
 	}
