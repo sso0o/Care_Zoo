@@ -182,7 +182,7 @@ $(function() {
 	    return [true];
 	}
 	calculatePrice();
-	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
+// 	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
 	
 	console.log(unavailableDates);
 	var pickupTime = $('#hsr_dropoff_time').timepicker({		
@@ -360,88 +360,76 @@ $(function() {
 	
 })
  	var calendar=null;
-	document.addEventListener('DOMContentLoaded', function() {
-		var d = new Date();
-		<%=session.getAttribute("c_num")%>
-		var calendarEl = document.getElementById('calendar');
-		var calHeight = 450;
-		calendar = new FullCalendar.Calendar(calendarEl, {
-			plugins : [ 'dayGrid', 'interaction' ],
-			//		 			timeZone : "Asian/Seoul",
-			locale : 'ko',
-			height : calHeight,
-			// 				    contentHeight:calHeight,
-			allDayDefault : false,
-			editable : false,
-			displayEventTime : false,
-			defaultView : 'dayGridMonth',
-			defaultDate : d,
-			editable : true,
-			selectable : false,
-			eventLimit : false, // allow "more" link when too many events
-			header : {
-				left : 'prev,next',
-				center : 'title',
-				right : 'dayGridMonth,dayGridWeek'
-			},
-			eventRender : function(info) {
-				var tooltip = new Tooltip(info.el, {
-					title : info.event.extendedProps.description,
-					placement : 'top',
-					trigger : 'hover',
-					container : 'body'
-				});
-			},
-		});
-		function roomCalendar() {
-			var room_num = $('.rCalSelect option:selected').val();
-			$.ajax({
-				url : "${contextPath}/petHotel/petHotelReservation",
-				data : {
-					phrm_num : room_num
-				},
-				dataType : "JSON",
-				success : function(data) {
-
-					var events = calendar.getEvents();
-					var len = events.length;
-					for (var i = 0; i < len; i++) {
-						events[i].remove();
-					}
-					for (var i = 0; i < data.length; i++) {
-						e = {
-							groupId : 'phr_num',
-							id : data[i].phr_num,
-							start : data[i].phr_chkin,
-							end : data[i].phr_chkout + 'T11:00',
-							title :  '예약'+(i+1),
-							description : data[i].phr_chkin.substring(2, 12)
-									+ ' ~ '
-									+ data[i].phr_chkout.substring(2, 12),
-							color : Math.random().toString(16).replace(/.*(\w{3})/, '#$1'),
-							textColor : "#FFFFFF",
-						}
-
-						calendar.addEvent(e);
-						calendar.render();
-					}
-
-				},
-				error : function() {
-					alert("데이터를 불러오는데 실패했습니다.")
-				}
-			})
-		}
-		calendar.render();
-		$('.rCalSelect').on("change", function() {
-			roomCalendar();
-		});
-		roomCalendar();
+document.addEventListener('DOMContentLoaded', function() {
+	var d = new Date();
+	var num = <%=session.getAttribute("user_num")%>
+	var calendarEl = document.getElementById('calendar');
+	var calHeight = 450;
+	calendar = new FullCalendar.Calendar(calendarEl, {
+		plugins : [ 'dayGrid', 'interaction' ],
+		//		 			timeZone : "Asian/Seoul",
+		locale : 'ko',
+		height : calHeight,
+		// 				    contentHeight:calHeight,
+		allDayDefault : false,
+		editable : false,
+		displayEventTime : false,
+		defaultView : 'dayGridMonth',
+		defaultDate : d,
+		editable : true,
+		selectable : false,
+		eventLimit : false, // allow "more" link when too many events
+		header : {
+			left : 'prev,next',
+			center : 'title',
+			right : 'dayGridMonth,dayGridWeek'
+		},
+		eventRender : function(info) {
+			var tooltip = new Tooltip(info.el, {
+				title : info.event.extendedProps.description,
+				placement : 'top',
+				trigger : 'hover',
+				container : 'body'
+			});
+		},
 	});
+
+	// 캘린더에 내 예약 추가(홈시터)
+	$.ajax({
+		url : "${contextPath}/sitter/myReservationHS",
+		data : {
+			hs_num : num
+		},
+		dataType : "JSON",
+		success : function(data) {
+			console.log(data)
+			for(var i = 0; i<data.hsrList.length; i++){
+				var e = {
+					groupId : 'c_num',
+					id : data.hsrList[i].C_NUM,
+					start : data.hsrList[i].HSR_CHKIN+ "T"+data.hsrList[i].HSR_PICKUP_TIME,
+					end : data.hsrList[i].HSR_CHKOUT+ "T"+data.hsrList[i].HSR_DROPOFF_TIME,
+					title : data.hsrList[i].C_NAME+' 보호자',
+					description : data.hsrList[i].HSR_STATUS,
+					color : 'rgba(0, 0, 120, 0.6)',
+					textColor: "white"
+				}
+				calendar.addEvent(e)
+				calendar.render();
+			}
+
+		},
+		error : function() {
+			alert("데이터를 불러오는데 실패했습니다.")
+		}
+	})
+	
+	calendar.render();
+});
 </script>
 </head>
 <body>
-<div class="container">
+
 	<!-- 네비게이션 -->
 	<div class="container">
         <header>
@@ -484,16 +472,20 @@ $(function() {
      </div>
  </nav>
 <!-- 칸 띄우기 위함 -->
-<br><br><br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<!-- 		여기다 내용을 작성하시면 됩니다 -->
-	<div class="container">
-		<div style="width: 750px; display: inline-block; float: left;">
+	<div class="container row">
+		<div style="width: 720px; display: inline-block; float: left;padding: 10px;">
 			<div>
 				<strong>${hsList.HSL_TITLE}</strong>
+				<hr>
 			</div>
 			<div class="demo">
 				<div class="item">
-					<div class="clearfix" style="width: 700px; height: 402px">
+					<div class="clearfix" style="width: 690px;height:402px;">
 						<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
 							<c:forEach items="${hsimg}" var="img">
 								<li data-thumb="${contextPath}/home/image?fileName=${img}">
@@ -504,13 +496,14 @@ $(function() {
 					</div>
 				</div>
 			</div>
-
-				
-			<div style="width: 750px; display: inline-block; float: left;">
+			<br>
+			<hr>
+			<br>				
+			<div style="width: 720px; display: inline-block; float: left;">
 					<div style="width: 70px; display: inline-block; float: left;">
 						<img src="${contextPath}/resources/img/reserveDog.JPG" >
 					</div>
-				<div style="width: 304.5px; display: inline-block; float: left;">
+				<div style="width: 290px; display: inline-block; float: left;">
 					<fieldset>
 						<legend>
 							<small><i>돌봄 가능한 강아지 크기&나이</i></small>
@@ -524,7 +517,7 @@ $(function() {
 					<div style="width: 70px; display: inline-block; float: left;">
 						<img src="${contextPath}/resources/img/reserveClock.JPG" style="height: 105px;left: -14px; position: relative;">
 					</div>
-				<div style="width: 304.5px; display: inline-block; float: left;">
+				<div style="width: 290px; display: inline-block; float: left;">
 					<fieldset>
 						<legend>
 							<small><i>체크인, 체크아웃 시간</i></small>
@@ -537,11 +530,11 @@ $(function() {
 				</div>
 			</div>
 			
-			<div style="width: 750px; display: inline-block; float: left;">
+			<div style="width: 720px; display: inline-block; float: left;">
 			<br><br>
 			</div>
 			
-			<div style="width: 750px; display: inline-block; float: left;">		
+			<div style="width: 720px; display: inline-block; float: left;">		
 				<fieldset>
 					<legend>
 						<strong><i>돌보미환경</i></strong>
@@ -565,7 +558,7 @@ $(function() {
 						<span>${hsList.HSL_COMMENT }</span></li>
 					</ul>
 				</fieldset>
-<!-- 				<div style="width: 750px; display: inline-block; float: left;"> -->
+<!-- 				<div style="width: 720px; display: inline-block; float: left;"> -->
 			<br><br>
 <!-- 			</div> -->
 				<div>
@@ -606,70 +599,81 @@ $(function() {
 				</div>
 			</div>
 		</div>	
-		
-		<div style="width: 280px; display: inline-block; float: left;">
-			<div>
-				<fieldset>
-					<form action="reserve" method="post">
-						<h5 style="text-align: center">예약을 확인해 주세요.</h5>
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th><input type="text" id="checkin" name="hsr_chkin" class="cal" placeholder="시작일" style="width: 143px;"></th>
-									<th><input type="text" id="checkout" name="hsr_chkout" class="cal" placeholder="마침일" style="width: 143px;"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th colspan="2"><small>(반려견 추가 당<span id="addPet">15000</span>원)
-									</small></th>
-								</tr>
-								<tr>
-									<td>시작 시간 :</td>
-									<td>
-										<input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time">
-									</td>
-								</tr>
-								<tr>
-									<td>종료 시간 :</td>
-									<td>
-										<input type="text" id="hsr_pickup_time" name="hsr_pickup_time">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<span id="pricePerDay">20000</span>원
-									</td>
-									<td>
-										<select id="petSize-select" name="hsl_size" data-width="130px">
-											<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option>
-											<option id="bigSize" value="대형견">15kg 이상</option>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="1"><small>반려견 추가</small> <input class="form-control-sm" type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0" ></td>
-									<td style="line-height: 50px;"><span id="totalAddPetPrice" >0</span>원 </td>
-								</tr>
-								<tr>
-									<td>총 가격 :</td>
-									<td>
-										<span id="hsr_totalprice">20,000</span>원
-									</td>
-								</tr>
-							</tbody>
-						</table>
-										<input type="submit" value="예약하기" class="btn btn-outline-info"> <input type="reset" value="초기화" class="btn btn-outline-info">
-						<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> <input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }"> <input type="hidden" name="hs_num" value="${hsList.HS_NUM}"> <input type="hidden" name="hsr_totalprice" id="totalpriceInput"> <input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize"> <input type="hidden" name="hsr_priceperday" id="hsr_priceperday"> <input type="hidden" name="hsr_pricePerDays" class="pricePerDays"> <input type="hidden" id="days" name="hsr_duringdays" value="0"> <input type="hidden" name="hsr_days" id="Days">
-					</form>
-				</fieldset>
-			</div>
+		<style>
+		form{
+			font-weight: 400;
+			line-height: 1.5;
+			color: #212529;
+			text-align: left;
+			font-family: 'Noto Sans KR', sans-serif;
+			box-sizing: border-box;
+			padding: 10px;
+			font-size: 16px;
+			width: 100%;
+			border: 1px solid darkgray;
+			border-radius: 4px;
+		}
+		</style>
+		<div style="width: 350px; display: inline-block; float: left;padding:10px;">
+			<br><br>
+			<form action="reserve" method="post">
+				<h5 style="text-align: center">예약을 확인해 주세요.</h5>
+				<table>
+					<thead>
+						<tr>
+							<th><input type="text" id="checkin" name="hsr_chkin" class="cal" placeholder="시작일" style="width: 143px;"></th>
+							<th><input type="text" id="checkout" name="hsr_chkout" class="cal" placeholder="마침일" style="width: 143px;"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th colspan="2"><small>(반려견 추가 당<span id="addPet">15000</span>원)
+							</small></th>
+						</tr>
+						<tr>
+							<td>시작 시간 :</td>
+							<td>
+								<input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time">
+							</td>
+						</tr>
+						<tr>
+							<td>종료 시간 :</td>
+							<td>
+								<input type="text" id="hsr_pickup_time" name="hsr_pickup_time">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span id="pricePerDay">20000</span>원
+							</td>
+							<td>
+								<select id="petSize-select" name="hsl_size" data-width="130px">
+									<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option>
+									<option id="bigSize" value="대형견">15kg 이상</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="1"><small>반려견 추가</small> <input class="form-control-sm" type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0" ></td>
+							<td style="line-height: 50px;"><span id="totalAddPetPrice" >0</span>원 </td>
+						</tr>
+						<tr>
+							<td>총 가격 :</td>
+							<td>
+								<span id="hsr_totalprice">20,000</span>원
+							</td>
+						</tr>
+					</tbody>
+				</table>
+								<input type="submit" value="예약하기" class="btn btn-outline-info"> <input type="reset" value="초기화" class="btn btn-outline-info">
+				<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> <input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }"> <input type="hidden" name="hs_num" value="${hsList.HS_NUM}"> <input type="hidden" name="hsr_totalprice" id="totalpriceInput"> <input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize"> <input type="hidden" name="hsr_priceperday" id="hsr_priceperday"> <input type="hidden" name="hsr_pricePerDays" class="pricePerDays"> <input type="hidden" id="days" name="hsr_duringdays" value="0"> <input type="hidden" name="hsr_days" id="Days">
+			</form>
+			<br><br>			
 			<div>
 				<div>캘린더 미리보기</div>
 				<div id="calendar"></div>
 			</div>
 		</div>
 	</div>
-</div>
 </body>
 </html>
