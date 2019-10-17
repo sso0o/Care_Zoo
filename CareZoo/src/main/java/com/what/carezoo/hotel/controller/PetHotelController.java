@@ -5,9 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -182,15 +184,15 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //ph_num, phrm_num, phr_status=3, p_num, phr_price,phr,totaldays
 		int c_num = (Integer) session.getAttribute("user_num");
 		phr.setC_num(c_num);
-		
+
 		int intPhr_numof_pet = Integer.parseInt(phr_numof_pet);
 		phr.setP_num(intPhr_numof_pet);
 		phr.setPhr_status("3");
 		phrService.addPetHotelRes(phr);
-		Customer cus=mService.getMemberByC_num(c_num);
+		Customer cus = mService.getMemberByC_num(c_num);
 		PetHotel petHotel = phService.getPetHotelbyNum(phr.getPh_num());
 		// 인증메일 보내기 메서드
-		phrService.mailSendWithMemberKey(petHotel, phr, request,cus);
+		phrService.mailSendWithMemberKey(petHotel, phr, request, cus);
 
 		return "hotel/payComplete";
 	}
@@ -284,8 +286,22 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			String str = filesName.get(i);
 			System.out.println(str);
 		}
+
 		List<PetHotelRoom> petHotelRoomList = phService.getAllPetHotelRoom(ph_num);
 
+		for (int j = 0; j < petHotelRoomList.size(); j++) {
+			if (((petHotelRoomList.get(j)).getPhrm_option()) != null) {
+				String date[] = ((petHotelRoomList.get(j)).getPhrm_option()).split(",");
+				List<String> optionList = new ArrayList<String>();
+				System.out.println("Arrays.to :" + Arrays.toString(date));
+				for (int l = 0; l < date.length; l++) {
+					System.out.println("date[]:" + date[l]);
+					optionList.add(date[l]);
+					System.out.println(optionList.get(l));
+				}
+				petHotelRoomList.get(j).setPhrm_options(optionList);
+			}
+		}
 		model.addAttribute("petHotel", petHotel);
 		model.addAttribute("petHotelRoomList", petHotelRoomList);
 		model.addAttribute("filesName", filesName);
@@ -337,14 +353,15 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		Date today = new Date();
 		List<PetHotelReservation> phrList = phrService.getPetHotelResByPhrm_num(phrm_num);
 		System.out.println(phrList);
-		System.out.println("size: "+phrList.size());
+		System.out.println("size: " + phrList.size());
 		int phrSize = phrList.size();
-		for (int i = phrSize-1; i+1 > 0; i--) { //checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
+		for (int i = phrSize - 1; i + 1 > 0; i--) { // checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
 			String from = (phrList.get(i)).getPhr_chkout();
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd"); //String to Date format
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd"); // String to Date format
 			try {
-				phrCheckOut = transFormat.parse(from); //String to Date
-				if (0 < (compare = today.compareTo(phrCheckOut))) { //compare은 -1,0,1만 나올 수 있음   ex ==) today>phrCheckOut ==> compare =1
+				phrCheckOut = transFormat.parse(from); // String to Date
+				if (0 < (compare = today.compareTo(phrCheckOut))) { // compare은 -1,0,1만 나올 수 있음 ex ==) today>phrCheckOut
+																	// ==> compare =1
 					phrList.remove(i);
 				}
 			} catch (ParseException e) {

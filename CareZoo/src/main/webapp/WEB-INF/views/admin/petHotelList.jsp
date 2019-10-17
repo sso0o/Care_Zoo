@@ -28,7 +28,15 @@
 
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
 
-
+<script type="text/javascript">
+function logoutCheck() {
+   if (confirm("정말 로그아웃?") == true) {
+      location.href = '${contextPath}/logout'
+   } else {
+      return false;
+   }
+}
+</script>
 </head>
 
 <body id="page-top">
@@ -207,7 +215,7 @@
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal" onclick="logoutCheck()">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>

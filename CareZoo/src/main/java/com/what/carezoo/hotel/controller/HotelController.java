@@ -20,7 +20,7 @@ public class HotelController {
 	public String showHotelMain() {
 		return "hotel/hotelMain";
 	}
-
+	
 	private static final String FILE_PATH = "c:/temp/";
 	// controller/ImageController.java
 
