@@ -20,7 +20,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.annotations.Select;
+import org.apache.tomcat.util.net.ApplicationBufferHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -167,8 +169,8 @@ public class HomeSitterController {
 	}
 	//이미지 가져오기
 	@ResponseBody
-	@RequestMapping(value = "/getImg", method=RequestMethod.GET)
-	public Map<String, Object> getHsImg(int hsl_num) {
+	@RequestMapping(value = "/getImg", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<String> getHsImg(int hsl_num) {
 		System.out.println("hsl_num"+hsl_num);
 		System.out.println("writeIMG 가져오는거");
 		System.out.println(hsl_num);
@@ -180,7 +182,10 @@ public class HomeSitterController {
 			rst.put("filename", filename);
 		System.out.println("filename : "+filename);
 		System.out.println("rst"+rst);
-		return rst;
+		if(filename.size() == 0) {
+			filename.add("empty cup");
+		}
+		return filename;
 	}
 	@ResponseBody
 	@RequestMapping("/searchLoading")
@@ -199,22 +204,22 @@ public class HomeSitterController {
 			System.out.println("hsl11:"+hsl);
 			List<Map<String,Object>>  hsList = hslService.getbySearchingHsl(hs_address,hsl);
 			System.out.println("값11"+hsList);
-//			for (int i = 0; i < hsList.size(); i++) {
-//				Map<String,Object> map = hsList.get(i);
-//				try {
-//					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
-//					System.out.println("hsl_num = "+hsl_num);
-//					List<String> hsl_filesName = hslService.getFileList(hsl_num);
-//					map.put("hsl_filesName", hsl_filesName);
-////					if(hsl_filesName != null) {
-////						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
-////						System.out.println(hsl_filesName);
-////					}
-//					
-//				} catch(NumberFormatException e) {
-//					System.out.println("뭔오류다냐");
-//				}
-//			}
+			for (int i = 0; i < hsList.size(); i++) {
+				Map<String,Object> map = hsList.get(i);
+				try {
+					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
+					System.out.println("hsl_num = "+hsl_num);
+					List<String> hsl_filesName = hslService.getFileList(hsl_num);
+					map.put("hsl_filesName", hsl_filesName);
+//					if(hsl_filesName != null) {
+//						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
+//						System.out.println(hsl_filesName);
+//					}
+					
+				} catch(NumberFormatException e) {
+					System.out.println("뭔오류다냐");
+				}
+			}
 			return hsList;			
 		}
 		else {

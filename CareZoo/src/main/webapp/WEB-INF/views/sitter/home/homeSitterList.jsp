@@ -97,13 +97,18 @@ ul {
 	width: 800px;
 }
 
-.homesitterList {
+.homeSitter {
 	cursor: pointer;
 }
 
-.homesitterList {
+.homeSitter:hover {
 	outline: 1px solid aqua;
 }
+.nav-link:hover{     
+border : 1px solid mediumaquamarine;
+/* background-color: skyblue; slategrey;teal;mediumaquamarine; */
+color: #fff;
+} 
 label {
     display: inline-block;
     margin-bottom: .5rem;
@@ -288,63 +293,6 @@ li:hover {
 				}
 
 				ajaxSucessLoading(hsList);
-				for(var b in hsList){
-					$.ajax({
-						url : "${contextPath}/home/getImg",
-						data : {
-							hsl_num : hsList[b].HSL_NUM
-						},
-						dataType : "JSON",
-						success : function(data) {
-							console.log(data)
-							for ( var a in data) {
-								console.log(data.filename);
-								if (data[a].filename != null) {
-									$("#image").attr(
-											"src",
-											"${contextPath}/home/image?fileName="
-													+ data[a].filename);
-									console.log()
-									$('#imgli').attr(
-											"data-thumb",
-											"${contextPath}/home/image?fileName="
-													+ data[a].filename);
-								} else {
-									$("#image").attr("src",
-											"${contextPath}/resources/img/user.jpg")
-									$('#imgli').attr("data-thumb",
-											"${contextPath}/resources/img/user.jpg");
-								}
-							}
-								 			imagegalleryDiv.lightSlider({
-								 				isthumb : false,
-								 				gallery : true,
-								 				item : 1,
-								 				thumbItem : 9,
-								 				slideMargin : 0,
-								 				speed : 1000,
-								 				pause : 4000,
-								 				auto : true,
-								 				loop : true,
-								 				addClass : clearfixDiv,
-								 				onSliderLoad : function() {
-								 					imagegalleryDiv.removeClass('cS-hidden');
-								 				}
-								 			});
-
-// 												if(data.filename != null){
-// 													$("#img").attr("src","${contextPath}/sitter/image?fileName="+data.filename)
-// 												} else {
-// 													$("#img").attr("src","${contextPath}/resources/img/user.jpg")
-// 												}
-
-						},
-						error : function() {
-							alert("그림안그려짐")
-						}
-					});
-					
-				}
 				
 			},
 			error : function(request, status, error) {
@@ -356,6 +304,7 @@ li:hover {
 	//
 	var breaker = 0;
 	function ajaxSucessLoading(hsList) {
+		console.log(hsList);
 		console.log("성겅!");
 		for (i; breaker < 8; i++) {
 			console.log(i);
@@ -369,15 +318,36 @@ li:hover {
 				itemDiv.append(clearfixDiv);
 				var imagegalleryDiv = $('<ul style="width:350px;">');
 				clearfixDiv.append(imagegalleryDiv);
-				var imgli = $("<li id='imgli' data-thumb=''>");
-				imagegalleryDiv.append(imgli);
-				$("<img id='image' style='width: 350px; height: 348px;'/>").appendTo(imgli);
+				
+				$.each(hsList[i].imgList,function(i, data){
+					var imgli = $("<li class='imgli' data-thumb='${contextPath}/home/image?fileName='"+ data +">");
+					imagegalleryDiv.append(imgli);
+					$("<img class='image' style='width: 350px; height: 348px;' src='${contextPath}/home/image?fileName='"+ data +" />")
+					.appendTo(imgli);										
+				})
+				imagegalleryDiv.lightSlider({
+				 				isthumb : false,
+				 				gallery : true,
+				 				item : 1,
+				 				thumbItem : 9,
+				 				slideMargin : 0,
+				 				speed : 1000,
+				 				pause : 4000,
+				 				auto : true,
+				 				loop : true,
+				 				addClass : clearfixDiv,
+				 				onSliderLoad : function() {
+				 					imagegalleryDiv.removeClass('cS-hidden');
+				 				}
+				 			});
+								
 				var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
 				$('<span>').text(hsList[i].HS_NAME).appendTo(aArDiv);
 				$('<div>' + hsList[i].HS_ADDRESS + hsList[i].HS_D_ADDRESS+ '</div>').appendTo(aArDiv);
 
 				var reviewDiv = $('<div><span><strong>' + hsList[i].HSL_TITLE+ '</strong></span>').appendTo(aArDiv);
-				$('<br><span>').text('후기: ' + hsList[i].HSC_CMT_COUNT + '개 '+ hsList[i].HS_AVGSTAR).appendTo(reviewDiv);
+				$('<br><span>').text('후기: ' + (hsList[i].HSC_CMT_COUNT == null ? 0 : hsList[i].HSC_CMT_COUNT ) + '개 '
+						+ hsList[i].HS_AVGSTAR).appendTo(reviewDiv);
 				reviewDiv.appendTo(aArDiv);
 				aArDiv.appendTo(petHotelDiv);
 				$('.homeSitterlist').append(petHotelDiv);
@@ -515,7 +485,7 @@ li:hover {
 					</div>
 
 				</div>
-				<div id="subtbl_2" " style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:5px;width:1040px;"  class="container tab-pane active">
+				<div id="subtbl_2" style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:5px;width:1040px;"  class="container tab-pane active">
 					<div id="check_container"  style="font-size:18px">
 						<input type="checkbox" name="hs_address" id="state26" value="고양시"><label>고양시</label>
 						<input type="checkbox" name="hs_address" id="state27" value="과천시"><label>과천시</label>

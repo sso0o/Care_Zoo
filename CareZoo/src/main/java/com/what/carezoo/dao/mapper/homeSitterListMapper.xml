@@ -222,8 +222,10 @@
 	</select>
 	
 	
-	<select id="selectHsls" resultType="map">
-		select *
+	<select id="selectHsls" resultMap="hslsMap">
+		select 
+			hs.hs_num,hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar
+
         from homesitter hs,
               homesitterlist hsl,
              (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
@@ -231,6 +233,25 @@
         and   hs.hs_num = hsc.hs_num(+)
         order by hs.hs_num
 	</select>
+	
+	<resultMap type="map" id="hslsMap">
+		<result column="hs_num" property="HS_NUM"/>
+		<result column="hs_name" property="HS_NAME"/>
+		<result column="hs_address" property="HS_ADDRESS"/>
+		<result column="hs_d_address" property="HS_D_ADDRESS"/>
+		<result column="hsl_num" property="HSL_NUM"/>
+		<result column="hsl_title" property="HSL_TITLE"/>
+		<result column="hsl_size" property="HSL_SIZE"/>
+		<result column="hsl_service_type" property="HSL_SERVICE_TYPE"/>
+		<result column="hsc_cmt_count" property="HSC_CMT_COUNT"/>
+		<result column="hs_avgstar" property="HS_AVGSTAR"/>
+		<collection property="imgList" column="HSL_NUM" javaType="java.util.ArrayList" ofType="string"  select="selectFileList"></collection>	
+	</resultMap>
+	<resultMap type="map" id="hslsImage">
+		<result column="hsl_num" property="HSL_NUM"/>
+		<result column="hsl_img_filename" property="HSL_IMG_FILENAME"/>
+		<result column="hsl_img_num" property="HSL_IMG_NUM"/>
+	</resultMap>
 	
 	<select id="selectallHsl" resultType="hashmap">
 		select *
