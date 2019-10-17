@@ -96,7 +96,15 @@ ul {
 .petHotel:hover {
 	outline: 1px solid aqua;
 }
-
+.nav-link:hover{      
+background-color:mediumaquamarine;   
+/* background-color: skyblue; slategrey;teal;mediumaquamarine; */
+color: #fff;
+} 
+       
+    .nav-link {  
+    color: #17a2b8
+    }
 .btn-my {
 	color: #40bf9f;
 	background-color: #fff;
@@ -1041,15 +1049,15 @@ function logoutCheck() {
 			<!-- 					</div> -->
 			<!-- 				</div> -->
 			<!-- 			</div> -->
-			<ul class="nav nav-pills nav-fill" role="tablist">
+			<ul class="nav nav-pills nav-fill" role="tablist" style=" position: relative; left: 21px;  ">   
 				<li id="menu_0" class="nav-item"><a class="nav-link"
-					href="${contextPath}/petHotel/petHotelList" style="color: #17a2b8">전체</a></li>
+					href="${contextPath}/petHotel/petHotelList" style="">전체</a></li>
 				<li id="menu_1" class="nav-item"><a class="nav-link" href="#"
-					style="color: #17a2b8">서울</a></li>
+					style=" " >서울</a></li>  
 				<li id="menu_2" class="nav-item"><a class="nav-link" href="#"
-					style="color: #17a2b8">경기</a></li>
+					style=" ">경기</a></li>
 				<li id="menu_3" class="nav-item"><a class="nav-link" href="#"
-					style="color: #17a2b8">인천</a></li>
+					style=" ">인천</a></li>   
 			</ul>
 			<div class="tab-content">
 				<div id="subtbl_0" style="display: none">
