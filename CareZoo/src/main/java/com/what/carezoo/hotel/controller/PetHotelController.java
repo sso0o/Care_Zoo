@@ -315,6 +315,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	@RequestMapping("/petHotelRoomDetail")
 	public PetHotelRoom showPetHotelRoomDetail(@RequestParam("phrm_num") int phrm_num) {
 		PetHotelRoom petHotelRoom = phService.petHotelRoomDetail(phrm_num);
+		petHotelRoom.setRemaining_room((petHotelRoom.getPhrm_p_max())-(petHotelRoom.getRcount()));
 		return petHotelRoom;
 	}
 
@@ -328,8 +329,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		for (int i = 0; i < dateChoice.size(); i++) {
 			System.out.println("p_max:" + (dateChoice.get(i)).getPhrm_p_max());
 			System.out.println("Rcount:" + (dateChoice.get(i)).getRcount());
-			(dateChoice.get(i))
-					.setRemaining_room((dateChoice.get(i).getPhrm_p_max()) - (dateChoice.get(i).getRcount()));
+			(dateChoice.get(i)).setRemaining_room((dateChoice.get(i).getPhrm_p_max()) - (dateChoice.get(i).getRcount()));
 			if (0 >= (dateChoice.get(i)).getRemaining_room()) {
 				dateChoice.get(i).setRemaining_room(0);
 			}

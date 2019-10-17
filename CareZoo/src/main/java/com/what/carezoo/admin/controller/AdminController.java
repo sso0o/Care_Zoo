@@ -288,6 +288,8 @@ public class AdminController {
 		boolean rst = phService.addPetHotel(ph, files);
 		String phrm_pet_size_memo = "";
 		String[] phrm_pet_size = null;
+		String[] phrm_option = null;
+		String phrm_pet_option_memo = "";
 
 		String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
 		System.out.println(phrm_nam);
@@ -311,6 +313,19 @@ public class AdminController {
 					}
 				}
 			}
+			String result_option = "";
+			if (mtfRequest.getParameterValues("phrm_option" + i) != null) {
+				System.out.println("오십니까~?");
+				phrm_option = mtfRequest.getParameterValues("phrm_option" + i);
+				System.out.println("phrm_option:" + Arrays.toString(phrm_option));
+				System.out.println("phrm_option" + phrm_option);
+				for (int j = 0; j < phrm_option.length; j++) {
+					result_option += phrm_pet_option_memo.concat(phrm_option[j]);
+					if (j < (phrm_option.length) - 1) {
+						result_option += phrm_pet_option_memo.concat(",");
+					}
+				}
+			}
 			PetHotelRoom phrm = new PetHotelRoom();
 			System.out.println("ph.getPh_num:" + ph.getPh_num());
 			int ph_num = ph.getPh_num();
@@ -322,6 +337,7 @@ public class AdminController {
 			phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
 			phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
 			phrm.setPhrm_pet_size(result_size);
+			phrm.setPhrm_option(result_option);
 			phService.addPetHotelRoom(phrm);
 		}
 

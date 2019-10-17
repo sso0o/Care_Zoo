@@ -30,14 +30,15 @@
 				보드에 있는 num에 집어넣는다 -->
 		</selectKey>
 		insert
-		into pethotelroom (ph_num, phrm_num, phrm_name, phrm_price, phrm_m_price, phrm_l_price, phrm_p_max, phrm_pet_size)
+		into pethotelroom (ph_num, phrm_num, phrm_name, phrm_price, phrm_m_price, phrm_l_price, phrm_p_max, phrm_pet_size,phrm_option)
 		values (#{ph_num}, #{phrm_num}, 
 		#{phrm_name},
 		#{phrm_price},
 		#{phrm_m_price},
 		#{phrm_l_price},
 		#{phrm_p_max},
-		#{phrm_pet_size} )
+		#{phrm_pet_size},
+		#{phrm_option} )
 	</insert>
 
 	<update id="update" parameterType="PetHotel">

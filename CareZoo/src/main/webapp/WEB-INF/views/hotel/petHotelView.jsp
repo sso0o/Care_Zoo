@@ -1087,12 +1087,12 @@ input[type="number"] {
 						<li>
 							<c:forEach items="${phrml.phrm_options}" var="option">
 								<input type="button" id="test_btn1" value="#${option}"
-									style="width: auto; height: auto; background: lightcyan; font-size: 18px;">
-									&nbsp;&nbsp;&nbsp;
+									style="width: auto; height: auto; background: lightcyan; font-size: 18px;margin:5px">
+									
 							</c:forEach>
 </li>
 
-							<%-- 						<li ><input type="button" id="test_btn1" value="${phrml.phrm_option}" style="width:auto;height:auto;   background: lightcyan;"></li> --%>
+							<%-- 				ㅁㄴㅇㄴㅁ	asasas	<li ><inpㅁㄴㅇㄴㅁㅇㅇㄴㅁㅇut type="button" id="test_btn1" value="${phrml.phrm_option}" style="width:auto;height:auto;   background: lightcyan;"></li> --%>
 						</ul>
 					</fieldset>
 					<br>
@@ -1116,9 +1116,14 @@ input[type="number"] {
 					<%-- 						<label>가능한 펫 마리수: ${phrml.phrm_p_max} </label> --%>
 					<!-- 						</div> -->
 					<!-- 						<br> -->
-					<%-- 				</c:forEach> --%>
-					<p>주소 : ${petHotel.ph_address} ${petHotel.ph_d_address }
-					<p>연락처 : ${petHotel.ph_contact }
+					<%-- 				</c:foasdsadrEach>asdsad --%>
+					<p><label style="font-size:23px;">주소</label> </p> 
+					<label style="font-size:19px;">${petHotel.ph_address} ${petHotel.ph_d_address }</label>
+					<br>
+					<hr>
+					<br>
+					<p><label style="font-size:23px;">연락처</label><p>
+					<label style="font-size:19px;">${petHotel.ph_contact }</label>
 				</div>
 				<div id="map_canvas" class="col-7"></div>
 			</div>
