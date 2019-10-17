@@ -758,7 +758,7 @@ function logoutCheck() {
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication
 							property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style=" width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -772,7 +772,7 @@ function logoutCheck() {
 						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
 							<!-- 
                      <ul>
-                        <li><a href='#'>HTML Basic</a></li>
+                        <li><a href='#'>HTML Baasdsdasic</a></li>
                         <li class='last'><a href='#'>HTML Advanced</a></li>
                      </ul>
                       --></li>
@@ -1100,7 +1100,7 @@ function logoutCheck() {
 
 				</div>
 				<div id="subtbl_2"
-					style="display: none; border: 1px solid #17a2b8; padding: 14px; position: relative; left: 25px; width: 1040px; height: auto"
+					style="display: none; border: 1px solid #17a2b8; padding: 14px; position: relative; left: 25px; width: 1040px; height: auto;border: 1px solid rgba(23, 162, 184, 0.5);"
 					class="container tab-pane active">
 					<div id="check_container" style="font-size: 18px">
 						<input type="checkbox" name="ph_address" id="state26" value="고양시"><label>고양시</label>
@@ -1151,7 +1151,7 @@ function logoutCheck() {
 
 				</div>
 				<div id="subtbl_3"
-					style="display: none; border: 1px solid #17a2b8; padding: 14px; position: relative; left: 40px; width: 1040px; height: auto">
+					style="display: none; border: 1px solid #17a2b8; padding: 14px; position: relative; left: 40px; width: 1040px; height: auto;border: 1px solid rgba(23, 162, 184, 0.5);">
 					<div id="check_container" style="font-size: 18px">
 						<input type="checkbox" name="ph_address" id="state57" value="계양구"><label>계양구</label>
 						<input type="checkbox" name="ph_address" id="state58" value="남동구"><label>남동구</label>
@@ -1221,12 +1221,12 @@ function logoutCheck() {
 			<div class="nav" style="position: relative; left: 48px;">
 				<table>
 					<tr>
-						<th>예약일을 알려주세요!</th>
+						<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예약일을 알려주세요!</th>
 						<!-- 						<th>반려견 나이ㅁㄴㅇㄴㅁ</th> -->
-						<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반려견 크기</th>
+						<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;반려견 크기</th>
 					</tr>
 					<tr class="col-dates">
-						<td><input type="text" class="pull-left" placeholder="시작 날짜"
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="pull-left" placeholder="시작 날짜"
 							readonly="readonly" name="phr_chkin"
 							style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;" />
 							<span>&gt;</span> <input type="text" class="pull-right"
@@ -1234,23 +1234,25 @@ function logoutCheck() {
 							style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;"/></td>
 								
 
-						<!-- 						<td>qwe qweqwe-->
+						<!-- 						<td>qwe qasdasdasddasdsdsdasdsadasdsadasddsasdsdasdasdwasasddasasdasddsdsdsaaasdsdasdsasdasdsdaddasdeqwe-->
 						<!-- 							<select name="hsl_pet_age" data-width="130px"> -->
 						<!-- 								<option value="" selected disabled hidden>==선택하세요==</option> -->
-						<!-- 								<option title="puppy" value="강아지">강아지 (1살 이하)</option> -->
+						<!-- 								<option title="puppy" valasdasdasdasdsadue="강아지">강아지 (1살 이하)</option> -->
 						<!-- 								<option title="dog" value="성견">성견 (2~6살)</option> -->
 						<!-- 								<option title="agedDog" value="노령견">노령견 (7살 이상)</option> -->
 						<!-- 							</select> -->
 						<!-- 						</td>qwewqaasasdsasdsaadsdsadsadsae-->
 						
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="ph_pet_size" data-width="130px">
-								<option value="" selected disabled hidden>==선택하세요==</option>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="ph_pet_size" data-width="130px">
+								<option value="" selected hidden>선택하세요</option>
 								<option title="소형견" value="소형견">소형견 (0~4.9kg)</option>
 								<option title="중형견" value="중형견">중형견 (5~14.9kg)</option>
 								<option title="대형견" value="대형견">대형견 (15kg 이상)</option>
 						</select></td>
-						<td colspan="2"
-							style="padding: 7px; position: relative; left: 144px;"><input
+						
+						<td 
+							style="padding: 7px; position: relative; ">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
 							type="button" class="search btn btn-outline-info"
 							style="height: 31px; line-height: 17px; width: 70px; border: 1px solid rgba(23, 162, 184, 0.5);"
 							value="찾기">
@@ -1269,7 +1271,7 @@ function logoutCheck() {
 		<hr>
 		<div class="petHotelList" style="width: 1100px">
 
-			<%-- 	ㅂㅈㄷㅈㅂㄷㅂㅈ	ㅂㅈㄷ	<c:forEach var="phList" items="${phList}"> --%>
+			<%-- 	ㅂㅈㄷㅈㅂㄷㅂㅈ	ㅂㅈㄷ	<casdsadasd:forEacasdsdasdasasdassddsaddsadh var="phList" items="${phList}"> --%>
 			<%-- 				<div class="petHotel" onclick="location.href='${contextPath}/petHotel/petHotelView?ph_num=${phList.ph_num}'"style="border: 1px solid; margin: 50px; height: 350px;"> --%>
 			<!-- 					<div style="width: auto; display: inline-block display:inline; float: left;"> -->
 			<!-- 						<div class="item"> -->
