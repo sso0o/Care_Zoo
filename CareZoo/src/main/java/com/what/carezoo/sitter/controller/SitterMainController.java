@@ -348,9 +348,11 @@ public class SitterMainController {
 	
 	//방문시터 예약수락
 	@RequestMapping("/acceptVsr")
-	public String acceptVsr(HttpSession session, Model m, int vsr_num) {
+	public String acceptVsr(HttpSession session, Model m, int vsr_num, HttpServletRequest request) {
+		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(vsr_num);
+		VisitSitter vs = vsService.getVisitSitterByNum(vsr.getVs_num());
+		Customer c = memberService.getMemberByC_num(vsr.getC_num());
 		int vs_num = (Integer)session.getAttribute("user_num");
-		System.out.println("vs_num : "+vs_num);
 		int c_num = vsrService.getVisitSitterResByVsrnum(vsr_num).getC_num();
 		int vsr_count =  vsrService.getVisitSitterResByVsrnum(vsr_num).getVsr_count();
 //		일반인지 정기인지 체크
@@ -371,7 +373,8 @@ public class SitterMainController {
 										((BigDecimal)list.get(0).get("VSR_NUM")).intValue(),
 										((BigDecimal)list.get(1).get("VSR_NUM")).intValue(),
 										((BigDecimal)list.get(2).get("VSR_NUM")).intValue(),
-										((BigDecimal)list.get(3).get("VSR_NUM")).intValue() )){
+										((BigDecimal)list.get(3).get("VSR_NUM")).intValue() )
+					&& mailsender.mailSendaccepVisit(vsr, vs, c, request)){
 				m.addAttribute("msg", "수락이 완료되었습니다!");
 				return "sitter/myReservation_visit";
 			} else {
@@ -393,7 +396,7 @@ public class SitterMainController {
 			System.out.println("예약 확인");
 			if(vsrService.checkDate7(vs_num, resDate).size()==0) {
 				System.out.println("내가 예약 가지고있나 확인");
-				if(vsrService.acceptVsr7(vs_num,vsr_num)){
+				if(vsrService.acceptVsr7(vs_num,vsr_num) && mailsender.mailSendaccepVisit(vsr, vs, c, request)){
 					m.addAttribute("msg", "수락이 완료되었습니다!");
 					return "sitter/myReservation_visit";
 				}
@@ -415,8 +418,11 @@ public class SitterMainController {
 	
 	//예약 수락
 	@RequestMapping("/acceptHsr")
-	public String acceptHsr(int hsr_num, Model m) {
-		if(hsrService.acceptHsr(hsr_num)) {
+	public String acceptHsr(int hsr_num, Model m, HttpServletRequest request) {
+		HomeSitterReservation hsr = hsrService.getHomeSitterResByHsrnum(hsr_num);
+		HomeSitter hs = hsService.getHomeSitterByNum(hsr.getHs_num());
+		Customer c = memberService.getMemberByC_num(hsr.getC_num());
+		if(hsrService.acceptHsr(hsr_num) && mailsender.mailSendacceptHome(hsr, hs, c, request)) {
 			m.addAttribute("msg", "수락이 완료되었습니다!");
 
 		} else {
