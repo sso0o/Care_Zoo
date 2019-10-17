@@ -246,6 +246,8 @@ function logoutCheck() {
                       <th>고객 고유 번호</th>
                       <th>고객 이름</th>
                       <th>고객 아이디(이메일)</th>
+                      <th>고객 주소</th>
+                      <th>고객 번호</th>
                       <th style="width:80px" id="soso">삭제</th>
                     </tr>
                   </thead>
@@ -273,7 +275,9 @@ function logoutCheck() {
 					<td>${c.c_num }</td>
 					<td>${c.c_name }</td>
 					<td><a href="memberView?c_email=${c.c_email }">${c.c_email }</a></td>
-<!-- 					<td><div class="my-2"> -->
+					<td>${c.c_address } ${c.c_d_address }</td>
+					<td>${c.c_contact }</td>
+<!-- 					<td><div class="my-2">     -->
  <%-- 					<input type="hidden" class="ph_num" name="ph_num" value="${phL.ph_num }"> --%> 
 <!-- 					</div> -->
 <!--                   <a href="#" class="btn btn-secondary btn-icon-split"> -->

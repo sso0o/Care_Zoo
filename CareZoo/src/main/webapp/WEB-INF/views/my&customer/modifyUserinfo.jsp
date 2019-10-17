@@ -274,8 +274,11 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 
 
 </script>
-
+   
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 .content{
 	width: 900px;
 	margin: 0 auto;
