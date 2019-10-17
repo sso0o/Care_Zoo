@@ -82,12 +82,12 @@ function logoutCheck() {
 </style>
 
 <title>qna</title>
-<!-- QnA asdasdsaasdsadaasdasdaasdasdsddsa-->
+<!-- QnA asdasdsaasdsadaasdaasdasdasdsdaasdasasdsddsddsa-->
 </head>
 <body class="container">
     <div class="container">
         <header >
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position:relative;left:24px"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position:relative;left:22px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">

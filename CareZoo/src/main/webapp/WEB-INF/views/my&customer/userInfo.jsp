@@ -141,7 +141,7 @@ body{
 
 </style>
 <title>mypage</title>
-<!-- 마이페이지 시작 -->
+<!-- 마이페이지시작 -->
 </head>
 <body>
 <input type="checkbox" id="menuicon">
@@ -163,7 +163,7 @@ body{
 
     <div class="container">
         <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position:relative;left:24px"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position:relative;left:27px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">

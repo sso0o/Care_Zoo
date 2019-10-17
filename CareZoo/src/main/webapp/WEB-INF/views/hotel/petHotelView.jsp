@@ -960,7 +960,6 @@ input[type="number"] {
 </style>
 
 
-
 <title>petHotelView</title>
 
 </head>
@@ -968,7 +967,7 @@ input[type="number"] {
 	<div class="container">
 		<header>
 			<a href="${contextPath}"><img
-				src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+				src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 15px"></a>
 			<br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -992,7 +991,7 @@ input[type="number"] {
 						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
 							<!-- 
                      <ul>
-                        <li><a href='#'>HTML Basic</a></li>
+                        <li><a hreasdasdsfasdasdsad='#'>HTML Basic</asddsaa></li>
                         <li class='last'><a href='#'>HTML Advanced</a></li>
                      </ul>
                       --></li>

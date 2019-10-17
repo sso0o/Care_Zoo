@@ -742,14 +742,14 @@ function logoutCheck() {
 		location.href = '/index.do'
 	});
 </script>
-<!-- 애견호텔 목록asdasasdsadasdsaasd -->
+<!-- 애견호텔 목록 -->
 </head>
 <body>
 	<div class="container">
 		<header>
 			<a href="${contextPath}"><img
 				src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"
-				style="position: relative; left: 16px"></a> <br>
+				style="position: relative; left: 15px"></a> <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
