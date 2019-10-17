@@ -286,8 +286,11 @@ public class MemberController {
 	
 	//홈시터예약 취소
 	@RequestMapping("/cancelHSR")
-	public String cancelHSR(int num, Model m) {
-		if(memberService.cancelHSR(num)) {
+	public String cancelHSR(int num, Model m,HttpServletRequest request) {
+		HomeSitterReservation hsr = hsrService.getHomeSitterResByHsrnum(num);
+		HomeSitter hs = hsService.getHomeSitterByNum(hsr.getHs_num());
+		Customer c = memberService.getMemberByC_num(hsr.getC_num());
+		if(memberService.cancelHSR(num) && mailsender.mailSendCancelHSR(hsr, hs, c, request)) {
 			m.addAttribute("msg", "예약이 취소되었습니다.");
 		} else {
 			m.addAttribute("msg", "취소 실패");
@@ -298,12 +301,31 @@ public class MemberController {
 
 	// 방문시터예약 취소
 	@RequestMapping("/cancelVSR")
-	public String cancelVSR(int num, Model m) {
-		if (memberService.cancelVSR(num)) {
-			m.addAttribute("msg", "예약이 취소되었습니다.");
-		} else {
-			m.addAttribute("msg", "취소 실패");
+	public String cancelVSR(int num, Model m, HttpServletRequest request) {
+		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(num);
+		Customer c = memberService.getMemberByC_num(vsr.getC_num());
+		VisitSitter vs = null;
+		if(vsr.getVs_num() >0) {
+			vs = vsService.getVisitSitterByNum(vsr.getVs_num());
+			
 		}
+		
+		if(Integer.parseInt(vsr.getVsr_day()) == 7) {
+			if (memberService.cancelVSR7(num) && mailsender.mailSendCancelVSR(vsr, vs, c, request)) {
+				m.addAttribute("msg", "예약이 취소되었습니다.");
+				
+			} else {
+				m.addAttribute("msg", "취소 실패");
+			}
+		} else {
+			if (memberService.cancelVSR(vsr.getC_num(), vsr.getVsr_count()) && mailsender.mailSendCancelVSR(vsr, vs, c, request)) {
+				m.addAttribute("msg", "예약이 취소되었습니다.");
+				
+			} else {
+				m.addAttribute("msg", "취소 실패");
+			}
+		}
+		
 		return "my&customer/myReservation_cus";
 	}
 

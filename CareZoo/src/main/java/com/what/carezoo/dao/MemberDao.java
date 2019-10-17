@@ -43,7 +43,8 @@ public interface MemberDao {
 	
 	//예약취소
 	public int cancelHSR(int hsr_num);
-	public int cancelVSR(int vsr_num);
+	public int cancelVSR7(int vsr_num);
+	public int cancelVSR(@Param("c_num")int c_num, @Param("vsr_count")int vsr_count);
 	public int cancelPHR(int phr_num);
 	
 	//결제정보 가져오기
