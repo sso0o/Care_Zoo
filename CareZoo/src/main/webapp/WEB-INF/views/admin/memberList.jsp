@@ -273,8 +273,8 @@ function logoutCheck() {
 			<c:forEach items="${cList }" var="c">
 				<tr>
 					<td>${c.c_num }</td>
-					<td>${c.c_name }</td>
-					<td><a href="memberView?c_email=${c.c_email }">${c.c_email }</a></td>
+					<td>${c.c_name }</td> 
+					<td>${c.c_email }</td>
 					<td>${c.c_address } ${c.c_d_address }</td>
 					<td>${c.c_contact }</td>
 <!-- 					<td><div class="my-2">     -->
