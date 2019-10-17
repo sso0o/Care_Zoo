@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
@@ -14,64 +16,93 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="${contextPath}/resources/css/lightslider.css" />
+<link rel="stylesheet"
+	href="${contextPath}/resources/css/lightslider.css" />
 <!-- 슬라이드 -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <!-- 데이트피커 -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/datepicker.css' />
+<link rel='stylesheet' type='text/css'
+	href='${contextPath}/resources/css/datepicker.css' />
 <!-- 데이트피커 -->
-<link rel='stylesheet' type='text/css' href='${contextPath}/resources/css/homeSitter.css' />
+<link rel='stylesheet' type='text/css'
+	href='${contextPath}/resources/css/homeSitter.css' />
 <!-- 데이트피커 -->
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/resources/css/index.css">
 <!-- 메뉴바 -->
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
+	rel="stylesheet">
 <!-- 폰트 -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 <!-- ?ㅁ?  -->
-<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
+<link rel='stylesheet'
+	href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
 <!-- 캘린더 -->
-<link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
+<link rel='stylesheet'
+	href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
 <!-- 캘린더 -->
 
-<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script type="text/javascript" src='${contextPath}/resources/js/moment.js'></script>
+<script type="text/javascript"
+	src='${contextPath}/resources/js/jquery.min.js'></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src='${contextPath}/resources/js/moment.js'></script>
 <!-- 데이트피커 -->
 
 
-<script type="text/javascript" src='${contextPath}/resources/js/jquery.min.js'></script>
-<script type="text/javascript" src="${contextPath}/resources/js/lightslider.js"></script>
+<script type="text/javascript"
+	src='${contextPath}/resources/js/jquery.min.js'></script>
+<script type="text/javascript"
+	src="${contextPath}/resources/js/lightslider.js"></script>
 <!-- 슬라이더 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <!-- 데이트피커 -->
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/lang/ko.js'></script>
+<script type="text/javascript"
+	src='${contextPath}/resources/fullcalendarScheduler/lang/ko.js'></script>
 <!-- 캘린더 -->
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 데이트피커 -->
-<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
+<script type="text/javascript"
+	src="https://maps.google.com/maps/api/js?sensor=ture_or_false"></script>
 <!-- 구글맵 -->
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script>
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false&key=AIzaSyAgHEcAR6wGi2lnF3cqqiPJuwv_MVvutIA&callback=initMap"></script>
 <!-- 구글맵 -->
-<script src="${contextPath}/resources/js/datepicker-ko.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/js/datepicker-ko.js"
+	type="text/javascript"></script>
 <!-- 데이트피커 -->
 <script src='https://unpkg.com/popper.js/dist/umd/popper.min.js'></script>
 <!-- 캘린더 -->
 <script src='https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js'></script>
 <!-- 캘린더 -->
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
+<script type="text/javascript"
+	src='${contextPath}/resources/fullcalendarScheduler/core/main.js'></script>
 <!-- 캘린더 -->
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
+<script type="text/javascript"
+	src='${contextPath}/resources/fullcalendarScheduler/interaction/main.js'></script>
 <!-- 캘린더 -->
-<script type="text/javascript" src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
+<script type="text/javascript"
+	src='${contextPath}/resources/fullcalendarScheduler/daygrid/main.js'></script>
 <!-- 캘린더 -->
 
-<script type="text/javascript" src="${contextPath}/resources/js/index.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/resources/js/index.js"></script>
 <!-- 메뉴바 -->
 
 
@@ -298,6 +329,9 @@
 		 			 						$('<br>').appendTo(resForm);
 		 			 						//소형견 대형견 ,로 나눠서 3개로 만든다음에 select으로 만들어야함,,
 		 			 						$('<hr>').appendTo(resForm);
+		 			 						
+		 			 						pet_max = (data.remaining_room*1); 
+		 			 						
 		 			 						var nightCount=$('<div class="night" style="display:inline-block">');
 		 			 						$('<div name="" class="nightCount" style="text-align:left; float:left">').text(days).appendTo(nightCount);
 		 			 						$('<input type="hidden" name="days" value="'+days+'">').appendTo(nightCount);
@@ -380,7 +414,6 @@
 		 	 						$("<option value='"+data[i].phrm_num+"'>"+data[i].phrm_name+"/남은 자리("+(data[i].remaining_room*1)+")</option>").appendTo(roomSelectBox);
 		 	 						console.log("remainingRoom:"+data[i].remaining_room*1);
 		 	 						console.log("remainingRoom:"+data[i].remaining_room);
-		 	 						pet_max = (data[i].remaining_room*1); 
 		 	 						
 		 	 						sForm.append(roomSelectBox);
 		 	 						$(".sRoom").append(sForm);
@@ -781,7 +814,6 @@ ul {
 	background-color: #7858a7;
 }
 
-
 a.fc-more {
 	font-size: 1px;
 }
@@ -906,11 +938,11 @@ input[type="number"] {
 	filter: alpha(opacity = 0); /* IE 8 */
 }
 
-.res{
+.res {
 	position: fixed;
 }
 
-.pull-left, .pull-right{
+.pull-left, .pull-right {
 	width: 95px;
 	color: #666;
 	text-align: center;
@@ -918,67 +950,69 @@ input[type="number"] {
 	font-size: 12px;
 }
 
-.menu>ul{
-height:45px;
+.menu>ul {
+	height: 45px;
 }
 
-.p-3{
+.p-3 {
 	border-radius: .3em;
 }
 </style>
 
 
-
 <title>petHotelView</title>
 
 </head>
-<body >
-  <div class="container">
-        <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
-            <br>
+<body>
+	<div class="container">
+		<header>
+			<a href="${contextPath}"><img
+				src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 15px"></a>
+			<br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
 					<a class="btn_Login" href="${contextPath}/member/loginForm">로그인</a>
 					<a class="btn_Join" href="${contextPath}/member/joinForm">회원가입</a>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
+					<label id="principal" style="display: none;"><sec:authentication
+							property="principal" /></label>
 					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
-        </header>
-    </div>
-    <nav>
-        <div class='menu'>
-            <ul style="">
-                <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
-                    <ul>
-                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
-                            <!-- 
+		</header>
+	</div>
+	<nav>
+		<div class='menu'>
+			<ul style="">
+				<li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
+					<ul>
+						<li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
+							<!-- 
                      <ul>
-                        <li><a href='#'>HTML Basic</a></li>
+                        <li><a hreasdasdsfasdasdsad='#'>HTML Basic</asddsaa></li>
                         <li class='last'><a href='#'>HTML Advanced</a></li>
                      </ul>
-                      -->
-                        </li>
-                        <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
-                    </ul>
-                </li>
-                <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
-                    <ul>
-                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+                      --></li>
+						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
+					</ul></li>
+				<li class='active sub'><a
+					href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
+					<ul>
+						<li class='last'><a
+							href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
 
-                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
 
-                    </ul>
-                </li>
-                <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
-                <li class='last'><a href='${contextPath}/member/qna'  style="font-size: 17px">Q&A</a></li>
-            </ul>
-        </div>
-    </nav>
+					</ul></li>
+				<li class='last'><a href='${contextPath}/member/myPage'
+					style="font-size: 17px">MYPAGE</a></li>
+				<li class='last'><a href='${contextPath}/member/qna'
+					style="font-size: 17px">Q&A</a></li>
+			</ul>
+		</div>
+	</nav>
 	<br>
 	<br>
 	<br>
@@ -991,7 +1025,9 @@ height:45px;
 				<div class="clearfix" style="max-width: 620px;">
 					<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
 						<c:forEach items="${filesName}" var="fn">
-							<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img src="${contextPath}/petHotel/image?fileName=${fn}" style="width: 620px; height: 580px;" /></li>
+							<li data-thumb="${contextPath}/petHotel/image?fileName=${fn}"><img
+								src="${contextPath}/petHotel/image?fileName=${fn}"
+								style="width: 620px; height: 580px;" /></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -999,19 +1035,94 @@ height:45px;
 			<br>
 			<hr>
 			<br>
+			<c:forEach items="${petHotelRoomList}" var="phrml">
+				<div style="text-align: center">
+					<h4>${phrml.phrm_name}</h4>
+				</div>
+				<br>
+				<div style="width: 700px; display: inline-block; float: left;">
+					<div style="width: 70px; display: inline-block; float: left;">
+						<img src="${contextPath}/resources/img/reserveDog.JPG">
+					</div>
+					<div style="width: 270px; display: inline-block; float: left;">
+						<fieldset>
+							<legend>
+								<small><i>돌봄 가능한 강아지 크기&수</i></small>
+							</legend>
+							<ul>
+								<li>${phrml.phrm_pet_size}만 가능합니다.</li>
+								<li>${phrml.phrm_p_max}마리 까지 케어가능합니다.</li>
+							</ul>
+						</fieldset>
+					</div>
+					<div style="width: 70px; display: inline-block; float: left;">
+						<img src="${contextPath}/resources/img/reserveClock.JPG"
+							style="height: 105px; left: -14px; position: relative;">
+					</div>
+					<div style="width: 270px; display: inline-block; float: left;">
+						<fieldset>
+							<legend>
+								<small><i>체크인, 체크아웃 시간</i></small>
+							</legend>
+							<ul>
+								<li>체 크 인 : 13:00 이후</li>
+								<li>체 크 아 웃 : 11:00 이전</li>
+							</ul>
+						</fieldset>
+					</div>
+				</div>
+
+				<div style="width: 700px; display: inline-block; float: left;">
+					<br>
+					<br>
+				</div>
+
+				<div style="width: 700px; display: inline-block; float: left;">
+					<fieldset>
+						<legend>
+							<strong><i style="font-size:22px">호텔 환경</i></strong>
+						</legend>
+						<ul>
+						<li>
+							<c:forEach items="${phrml.phrm_options}" var="option">
+								<input type="button" id="test_btn1" value="#${option}"
+									style="width: auto; height: auto; background: lightcyan; font-size: 18px;margin:5px">
+									
+							</c:forEach>
+</li>
+
+							<%-- 				ㅁㄴㅇㄴㅁ	asasas	<li ><inpㅁㄴㅇㄴㅁㅇㅇㄴㅁㅇut type="button" id="test_btn1" value="${phrml.phrm_option}" style="width:auto;height:auto;   background: lightcyan;"></li> --%>
+						</ul>
+					</fieldset>
+					<br>
+					<hr>
+					<br>
+				</div>
+				<!-- asdasdasdasds asd-->
+
+
+			</c:forEach>
+
+			<br>
+
 			<div class="row">
 				<div class="col-5">
-				
-				<c:forEach items="${petHotelRoomList}" var="phrml">
-						<div style="border:1px solid;padding:10px;border-radius:13px">
-						<label>방 이름: ${phrml.phrm_name}</label>
-						<label>가능한 펫 사이즈: ${phrml.phrm_pet_size} </label>
-						<label>가능한 펫 마리수: ${phrml.phrm_p_max} </label>
-						</div>
-						<br>
-				</c:forEach>
-					<p>주소 : ${petHotel.ph_address}  ${petHotel.ph_d_address }
-					<p>연락처 : ${petHotel.ph_contact }
+
+					<%-- 				<c:forEach items="${petHotelRoomList}" var="phrml"> --%>
+					<!-- 						<div style="border:1px solid;padding:10px;border-radius:13px"> -->
+					<%-- 						<label>방 이름: ${phrml.phrm_name}</label> --%>
+					<%-- 						<label>가능한 펫 사이즈: ${phrml.phrm_pet_size} </label> --%>
+					<%-- 						<label>가능한 펫 마리수: ${phrml.phrm_p_max} </label> --%>
+					<!-- 						</div> -->
+					<!-- 						<br> -->
+					<%-- 				</c:foasdsadrEach>asdsad --%>
+					<p><label style="font-size:23px;">주소</label> </p> 
+					<label style="font-size:19px;">${petHotel.ph_address} ${petHotel.ph_d_address }</label>
+					<br>
+					<hr>
+					<br>
+					<p><label style="font-size:23px;">연락처</label><p>
+					<label style="font-size:19px;">${petHotel.ph_contact }</label>
 				</div>
 				<div id="map_canvas" class="col-7"></div>
 			</div>
@@ -1021,27 +1132,32 @@ height:45px;
 					<div class="media border p-3" style="margin: 3px auto;">
 						<c:choose>
 							<c:when test="${phc.C_FILENAME eq null}">
-								<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+								<img src="${contextPath}/resources/img/user.jpg"
+									class="mr-3 mt-3 rounded-circle"
+									style="width: 60px; height: 60px">
 							</c:when>
 							<c:otherwise>
-								<img src="${contextPath }/comment/image?fileName=${phc.C_FILENAME}" class="mr-3 mt-3 rounded-circle" style="width:60px; height: 60px">
+								<img
+									src="${contextPath }/comment/image?fileName=${phc.C_FILENAME}"
+									class="mr-3 mt-3 rounded-circle"
+									style="width: 60px; height: 60px">
 							</c:otherwise>
 						</c:choose>
 						<div class="media-body">
 							<table style="width: 100%">
 								<tr>
 									<td style="text-align: left; width: 50%">${phc.C_NAME}</td>
-									<td style="text-align: right;">	
-										<c:forEach var="i" begin="1" end="${phc.PHC_STAR-(phc.PHC_STAR%1)}">
-											<img src="${contextPath}/resources/img/paw.png" style="width: 20px; height: 20px;">
-										</c:forEach>
-									</td>
+									<td style="text-align: right;"><c:forEach var="i"
+											begin="1" end="${phc.PHC_STAR-(phc.PHC_STAR%1)}">
+											<img src="${contextPath}/resources/img/paw.png"
+												style="width: 20px; height: 20px;">
+										</c:forEach></td>
 								</tr>
 								<tr>
-									<td colspan="2"><p style="margin-left: 10px; ">${phc.PHC_COMMENT}</p></td>
+									<td colspan="2"><p style="margin-left: 10px;">${phc.PHC_COMMENT}</p></td>
 								</tr>
 							</table>
-							
+
 						</div>
 					</div>
 				</c:forEach>
@@ -1049,27 +1165,31 @@ height:45px;
 		</div>
 
 		<div class="col-sm-4">
-				<br>
-		<br>
+			<br> <br>
 			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
-				<div style="padding: 10px; font-size: 16px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
+				<div
+					style="padding: 10px; font-size: 16px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
 					<div class="col-dates" style="text-align: center;">
-					
-					
-						<label>원하는 날짜를 선택해주세요.</label> <br>
-						<input type="hidden" class="ph_num" name="ph_num" value="${petHotel.ph_num }">
-						<br>
-						<input type="text" class="pull-left" placeholder="체크인 날짜" readonly="readonly" name="phr_chkin"  style="font-size:16px;width:110px;height:50px"/>
-						&nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp;
-						<input type="text" class="pull-right" placeholder="체크아웃 날짜" readonly="readonly" name="phr_chkout"  style="font-size:15px;width:110px;height:50px"/>
-						<br style="padding: 20px"> <br>
+
+
+						<label>원하는 날짜를 선택해주세요.</label> <br> <input type="hidden"
+							class="ph_num" name="ph_num" value="${petHotel.ph_num }">
+						<br> <input type="text" class="pull-left"
+							placeholder="체크인 날짜" readonly="readonly" name="phr_chkin"
+							style="font-size: 16px; width: 110px; height: 50px" />
+						&nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp; <input type="text"
+							class="pull-right" placeholder="체크아웃 날짜" readonly="readonly"
+							name="phr_chkout"
+							style="font-size: 15px; width: 110px; height: 50px" /> <br
+							style="padding: 20px"> <br>
 					</div>
 					<div class="sRoom"></div>
 					<div class="reservationForm" style=""></div>
 				</div>
 			</form>
 			<br>
-			<div class="calendarDiv" style="display: inline-block; padding: 10px; font-size: 15px; border: 1px solid darkgray; border-radius: 4px; text-align: center;">
+			<div class="calendarDiv"
+				style="display: inline-block; padding: 10px; font-size: 15px; border: 1px solid darkgray; border-radius: 4px; text-align: center;">
 				<br> <span style="font-size: 21px;">&nbsp;캘린더 미리보기&nbsp;</span>
 
 				<div class="roomCalendarDiv" style="display: inline-block">
@@ -1085,7 +1205,7 @@ height:45px;
 			</div>
 		</div>
 	</div>
-		
+
 	<div class="container"></div>
 </body>
 </html>

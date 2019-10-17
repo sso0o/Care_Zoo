@@ -56,11 +56,7 @@
 	
 	
 	
-	function modalOpen(obj) {
-		
-		$("#petList").addClass('noshow');
-		$("#vsrInfo").removeClass('noshow');
-	
+	function modalOpen(obj) {		
 		var num = $(obj).attr('title');
 	
 		$("#vsr_num").val(num);
@@ -97,6 +93,7 @@
 		})
 
 		$("#modal-showVsr").show();
+		$("#vsrInfo").removeClass('noshow')
 		
 		$("#next").on("click", function() {
 			$("#petList").removeClass('noshow');
@@ -110,6 +107,7 @@
 		
 		$(".close").on("click", function() {
 			$("#modal-showVsr").hide();
+			$("#vsrInfo").addClass('noshow')
 			$("#address").val("");
 			$("#chkin").val("");
 			$("#hour").val("");
@@ -167,6 +165,17 @@ body{
 	.noshow{
 		display: none;
 	}
+	
+.vsrInfo{
+	background-color: #fff;
+	width: 500px;
+	height: 470px;
+	position: absolute;
+	margin-top: -235px;
+	margin-left: -250px;
+	top: 50%;
+	left: 50%;
+}
 	
 	.item{
 		border: 1px solid rgba(0,0,0,.2);
@@ -354,39 +363,49 @@ body{
 
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
 <div class="container-fluid modal-modify" id="modal-showVsr">
-	<div class="row mmmmm" id="vsrInfo">
-		<p class="col-12 cl" style="text-align: right;">
-			<input type="hidden" name="vsr_num" id="vsr_num">
-			<button type="button" class="close">&times;</button>
-		</p>
-
-		<label class="col-2" style="text-align: center;">날짜 :</label>
-		<input type="text" class="col-4 item" style="text-align: center;" id="chkin">
-		<label class="col-2" style="text-align: center;">시간 :</label>
-		<input type="text" class="col-4 item" style="text-align: center;" id="hour">
-		
-		<label class="col-3" style="text-align: center;" >주소 :</label>
-		<input type="text" class="col-9 item" style="text-align: center;" id="address">
-		
-		<label class="col-3" style="text-align: center;" >특이사항 :</label>
-		<input type="text" class="col-9 item" style="text-align: center;" id="attention">
-		
-		<div class="col" style="text-align: left;"><button class="btn">&#9665;</button></div>
-		<div class="col" style="text-align: center;"><a href="#" onclick="booking()" class="btn acc-btn" id="accept">수락</a></div>
-		<div class="col" style="text-align: right;"><button id="next" class="btn">&#9654;</button></div>
-
-	</div>
-	<div class="row nnnnn noshow" id="petList">
-		<p class="col-12 cl"  style="text-align: right;"><button type="button" class="close">&times;</button></p>
-		
-		<div class="col-12 row" id="pd">
-			
+		<div class="vsrInfo noshow" id="vsrInfo">
+			<table class="table table-hover">
+				<tr>
+					<td>
+						<input type="hidden" class="groupid" name="groupid">
+					</td>
+					<td>
+						<input type="hidden" class="number" name="number">
+					</td>
+					<td colspan="2" style="text-align: right;">
+						<button type="button" class="close" style="margin: 0">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td id="name"></td>
+					<th>연락처</th>
+					<td id="contact"></td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td colspan="3" id="address"></td>
+				</tr>
+				<tr>
+					<th>시작시간</th>
+					<td id="chkin"></td>
+					<th>종료시간</th>
+					<td id="chkout"></td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<textarea rows="5" cols="50" id="message"></textarea>
+				</tr>
+				<tr>
+					<th>총가격</th>
+					<td id="total"></td>
+					<td colspan="2" style="text-align: center;">
+						<a href="#" onclick="booking()" class="btn acc-btn" id="accept">수락</a>
+					</td>
+				</tr>
+			</table>
 		</div>
-		
-		<p class="col" style="text-align: left;"><button class="btn" id="previous">&#9664;</button></p>
-		<p class="col" style="text-align: right;"><button class="btn">&#9655;</button></p>
 	</div>
-</div>
 <div class="bottom-left alert" id="plusfriend-chat-button"></div>
 </body>
 </html>

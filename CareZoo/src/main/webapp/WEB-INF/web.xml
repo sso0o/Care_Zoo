@@ -5,9 +5,9 @@
    version="3.1">
    <!-- The front controller of this Spring Web application, responsible for 
       handling all application requests -->
-   <welcome-file-list>
-      <welcome-file>/WEB-INF/views/main.jsp</welcome-file>
-   </welcome-file-list>
+<!--    <welcome-file-list> -->
+<!--       <welcome-file>/WEB-INF/views/main.jsp</welcome-file> -->
+<!--    </welcome-file-list> -->
 
    <servlet>
       <servlet-name>springDispatcherServlet</servlet-name>

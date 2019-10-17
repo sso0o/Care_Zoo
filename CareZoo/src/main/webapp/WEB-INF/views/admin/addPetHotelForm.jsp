@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Buttons</title>
+<title>펫 호텔 추가</title>
 
 <!-- Custom fonts for this template-->
 <link
@@ -47,8 +47,27 @@ img {
 <script src="https://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-	$(function() {
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
 
+	$(function() {
+	
+			$("#email").change(function() {
+				var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+				var c_email = $("#email").val();
+				if(regExp.test(c_email)){
+				}else{
+					$("#idchk_val").removeClass('green');
+		        	$("#idchk_val").addClass('red');
+		        	$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
+				}
+			});
+			
 	});
 	function submitFunction() {
 		$(".addPetHotelForm").submit();
@@ -57,7 +76,7 @@ img {
 		new daum.Postcode(
 				{
 					oncomplete : function(data) {
-						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작asqwewqeqeqwewqdasdasdsaasdasdsadasdsa성하는 부분.
 
 						// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
 						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
@@ -116,30 +135,6 @@ img {
 	$(function() {
 		var count = 0;
 
-		$('#addRoom')
-				.click(
-						function() {
-
-							var tab = $("#mytable");
-							var tr = $("<tr>");
-
-							var r_name = $("<td><input type=\"text\" placeholder=\"방이름\" name=\"r_name"+count+"\">")
-							var r_adult = $("<td><input type=\"number\" placeholder=\"가능어른수\" name=\"r_adult"+count+"\">")
-							var r_child = $("<td><input type=\"number\" placeholder=\"가능어른수\" name=\"r_child"+count+"\">")
-							var r_p_count = $("<td><input type=\"number\" placeholder=\"동반가능펫수\" name=\"r_p_count"+count+"\">")
-							var r_price = $("<td><input type=\"number\" placeholder=\"가격\" name=\"r_price"+count+"\">")
-
-							// 			$('#mytable').append('<tr><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td><td>ㅁ</td></tr>');
-							count++;
-							tr.append(r_name);
-							tr.append(r_adult);
-							tr.append(r_child);
-							tr.append(r_p_count);
-							tr.append(r_price);
-							tr.append(r_img);
-							tr.appendTo(tab);
-						});
-
 		$('#delRoom').click(function() {
 			if (count > 0) {
 				$('#mytable:last > tr:last').remove();
@@ -156,7 +151,7 @@ img {
 							var roomDiv = $(".roomAddForm");
 							roomDiv.append($("<hr>"));
 							roomDiv
-									.append($("<label>방이름</label>     &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input type='text' name='phrm_name'><br>"));
+									.append($("<label>방이름</label>     &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input type='text' name='phrm_name' style='position: relative; left: 3px;''><br>"));
 							roomDiv
 									.append($("<label>소형견 가격</label>   &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp; <input type='text' name='phrm_price'>  &nbsp; &nbsp;"));
 
@@ -166,12 +161,14 @@ img {
 							roomDiv
 									.append($(" <label> 대형견 가격</label>  <input type='text' name='phrm_l_price'><br>"));
 							roomDiv
-									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input class='form-control-sm' type='number' min='1' max='5' name='phrm_p_max' id='hsr_numof_pet' value='0'><br>"));
+									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input class='form-control-sm' type='number' min='1' max='5' name='phrm_p_max' id='pet_max' value='1'><br>"));
 							roomDiv
-									.append($("<label>가능한 펫 사이즈</label> &nbsp; 	<div class='form-check'> <label class='form-check-label'> <input type='checkbox' class='form-check-input' value='소형견' name='phrm_pet_size"+s+"'>소형견</label></div><div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='중형견' name='phrm_pet_size"+s+"'>중형견</label></div><div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='대형견' name='phrm_pet_size"+s+"'>대형견</label></div>"));
+									.append($("<label>가능한 펫 사이즈</label> &nbsp; 	<div style='display:inline-flex'><div class='form-check'> <label class='form-check-label'> <input type='checkbox' class='form-check-input' value='소형견' name='phrm_pet_size"+s+"'>소형견</label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='중형견' name='phrm_pet_size"+s+"'>중형견</label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='대형견' name='phrm_pet_size"+s+"'>대형견</label></div></div><br>"));
 
-							// 			<br>qwewqeweqweqweㅂㅈㄷㅇㅁㄴㅇasd
-							// 			<label>방이름</label>     &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input type="text" name="phrm_name"><br>
+							roomDiv
+									.append($(" <label>호텔 환경</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <div style='display:inline-flex ;position: relative; left: 3px;'> <div class='form-check'> <label class='form-check-label'> <input type='checkbox' class='form-check-input' value='노령견케어' name='phrm_option"+s+"'>노령견케어</label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='환자견케어'name='phrm_option"+s+"''>환자견케어</label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='투약가능'name='phrm_option"+s+"'>투약가능</label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='자격증보유' name='phrm_option"+s+"'>자격증보유</label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='응급처치' name='phrm_option"+s+"'>응급처치 </label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='수제간식' name='phrm_option"+s+"'>수제간식</label></div></div><br>"));
+							// 			<br>qwewqeweqweqweㅂㅈㄷㅇㅁㄴㅇasdasdsdsadsadas
+							// 			<label>방이름</label>     &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbqweqweqwesp; &nbsp; &nbsp;<input type="text" name="phrm_name"><br>
 							// 			<label>소형견 가격</label>   &nbsp; &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp; <input type="text" name="phrm_price">  &nbsp; &nbsp;
 							// 			<label>중형견 가격</label> <input type="text" name="phrm_m_price"> &nbsp; &nbsp;
 							// 			<label>대형견 가격</label>  <input type="text" name="phrm_l_price"><br>
@@ -334,16 +331,16 @@ img {
 				<div class="sidebar-brand-text mx-3">관리자 페이지</div>
 			</a>
 
-<br>
+			<br>
 			<!-- Divider -->
-<!-- 			<hr class="sidebar-divider my-0"> asd-asdasdaasdsaasdsadsaasdsdadsdsad->
+			<!-- 			<hr class="sidebar-divider my-0"> asd-asdasdaasdsaasdsadsaasdsdadsdsad->
 
-<!-- 			<!-- Nav Item - Dashboard --> 
-<!-- 			<li class="nav-item active"><a class="nav-link" -->
-<%-- 				href="${contextPath}/admin/main"> <i --%>
-<!-- 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li> -->
-<!-- 			<!-- Divider --> 
-<!-- 			<hr class="sidebar-divider"> -->
+<!-- 			<!-- Nav Item - Dashboard -->
+			<!-- 			<li class="nav-item active"><a class="nav-link" -->
+			<%-- 				href="${contextPath}/admin/main"> <i --%>
+			<!-- 					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li> -->
+			<!-- 			<!-- Divider -->
+			<!-- 			<hr class="sidebar-divider"> -->
 
 			<!-- Heading -->
 			<div class="sidebar-heading">Member</div>
@@ -364,8 +361,9 @@ img {
 				href="${contextPath}/admin/petHotelList"> <i
 					class="fas fa-fw fa-cog"></i> <span>호텔 관리</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="${contextPath}/admin/resPetHotelList">
-					<i class="fas fa-fw fa-table"></i> <span>호텔예약 리스트</span>
+			<li class="nav-item"><a class="nav-link"
+				href="${contextPath}/admin/resPetHotelList"> <i
+					class="fas fa-fw fa-table"></i> <span>호텔예약 리스트</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -486,8 +484,8 @@ img {
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal"> <i
-									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-									Logout
+									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+									onclick="logoutCheck()"></i> Logout
 								</a>
 							</div></li>
 
@@ -549,7 +547,9 @@ img {
 													</tr>
 													<tr>
 														<th>email</th>
-														<td><input type="text" name="ph_email"><br></td>
+														<td> <input
+															type="email" class="" id="email" name="ph_email"> <span
+															id="idchk_val"></span><br></td>
 													</tr>
 													<tr>
 														<td><br></td>
@@ -566,7 +566,7 @@ img {
 														<td><br> <a href="javascript:void(0)"
 															id="addItemBtn" class="btn btn-success btn-icon-split">
 																<span class="text">사진추가</span>
-														</a> <!-- 														<input type="button" id="addItemBtn"ㅁㄴㅇㅁㄴ -->
+														</a> <!-- 														<input type="buasdasdtton" id="addItasdsaemBtn"ㅁㄴㅇㅁㄴ -->
 															<!-- 															class="my_button" value="사진추가"> -->
 
 
@@ -586,48 +586,107 @@ img {
 															<span class="text">+</span>
 														</a>
 
-
+														<!-- asdsad -->
 													</div>
 													<br> <label>방이름</label> &nbsp;&nbsp; &nbsp; &nbsp;
 													&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp;<input
-														type="text" name="phrm_name"><br> <label>소형견
+														type="text" name="phrm_name"
+														style="position: relative; left: 3px;"><br> <label>소형견
 														가격</label> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; <input
 														type="text" name="phrm_price"> <label> 중형견
 														가격</label> <input type="text" name="phrm_m_price"> <label>
 														대형견 가격</label> <input type="text" name="phrm_l_price"><br>
 													<label>최대 가능 펫 수</label> &nbsp; &nbsp; &nbsp;<input
 														class="form-control-sm" type="number" min="1" max="5"
-														name="phrm_p_max" id="hsr_numof_pet" value="0"><br>
+														name="phrm_p_max" id="pet_max" value="1"><br>
 													<label>가능한 펫 사이즈</label> &nbsp;
-													<!-- ㄴㅁㅇㅁ -->
-													<div class="form-check">
-														<label class="form-check-label"> <input
-															type="checkbox" class="form-check-input" value="소형견"
-															name="phrm_pet_size0">소형견
-														</label>
-													</div>
-													<div class="form-check">
-														<label class="form-check-label"> <input
-															type="checkbox" class="form-check-input" value="중형견"
-															name="phrm_pet_size0">중형견
+													<!-- ㄴㅁㅇㅁasdasd -->
+													<div style="display: inline-flex">
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="소형견"
+																name="phrm_pet_size0">소형견
+															</label>
+														</div>
+														&nbsp;&nbsp;
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="중형견"
+																name="phrm_pet_size0">중형견
 
-														</label>
+															</label>
+														</div>
+														&nbsp;&nbsp;
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="대형견"
+																name="phrm_pet_size0">대형견
+															</label>
+														</div>
 													</div>
-													<div class="form-check">
-														<label class="form-check-label"> <input
-															type="checkbox" class="form-check-input" value="대형견"
-															name="phrm_pet_size0">대형견
-														</label>
+													<br> <label>호텔 환경</label>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<!-- ㄴㅁㅇasdsㅁasdasaasdssdassadasdsaddsd -->
+													<div
+														style="display: inline-flex; position: relative; left: 3px;">
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="노령견케어"
+																name="phrm_option0">노령견케어
+															</label>
+														</div>
+														&nbsp;&nbsp;
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="환자견케어"
+																name="phrm_option0">환자견케어
+															</label>
+														</div>
+														&nbsp;&nbsp;
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="투약가능"
+																name="phrm_option0">투약가능
+
+															</label>
+														</div>
+														&nbsp;&nbsp;
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="자격증보유"
+																name="phrm_option0">자격증보유
+															</label>
+														</div>
+														&nbsp;&nbsp;
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="응급처치"
+																name="phrm_option0">응급처치
+															</label>
+														</div>
+														&nbsp;&nbsp;
+														<div class="form-check">
+															<label class="form-check-label"> <input
+																type="checkbox" class="form-check-input" value="수제간식"
+																name="phrm_option0">수제간식
+															</label>
+														</div>
+
 													</div>
+
+
+
 												</div>
 												<br>
 												<hr>
-												<br> 
-												<div style="text-align:center"><a href="javascript:void(0)"
-													class="btn btn-info btn-icon-split"
-													onclick="submitFunction()"> <span class="text">추가</span>
+												<br>
+												<div style="text-align: center">
+													<a href="javascript:void(0)"
+														class="btn btn-info btn-icon-split"
+														onclick="submitFunction()"> <span class="text">추가</span>
 													</a>
-								</div>
+												</div>
 
 											</form>
 										</fieldset>
@@ -675,28 +734,7 @@ img {
 		class="fas fa-angle-up"></i>
 	</a>
 
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
+
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="${contextPath}/resources/vendor/jquery/jquery.min.js"></script>

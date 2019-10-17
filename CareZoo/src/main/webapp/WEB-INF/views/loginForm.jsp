@@ -188,7 +188,7 @@ table{
   font-weight: bold;
   padding: 1em;
 }
-/* -------카카오 상담버튼------- */
+/* -------카카오 상담버튼----- */
 </style>
 <title>serviceCenter</title>
 <!-- 고객센터 -->
@@ -196,7 +196,7 @@ table{
 <body class="container">
     <div class="container">
         <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 22px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
