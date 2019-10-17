@@ -217,7 +217,30 @@ public class MemberMailSendService {
 			
 			return false;
 		}
+		
+		public boolean mailSendCancelHSRtoC(HomeSitterReservation hsr, HomeSitter hs, Customer c, HttpServletRequest request) {
+			MimeMessage mail = mailSender.createMimeMessage();
+			String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
+			+ "<h3>" +c.getC_name()+ "님!</h3>" 
+			+"<p><label>시터이름:&nbsp;"+hs.getHs_name()
+			+"<p><label>체크인날짜:&nbsp;"+hsr.getHsr_chkin()
+			+"<p><label>체크아웃날짜:&nbsp;"+hsr.getHsr_chkout()
+			+"</label>&nbsp;&nbsp;"
+			+"<p><label>결제금액: "+hsr.getHsr_totalprice()+"원"
+			+ " 예약이 <label style='color:red'>취소</label>되었습니다."
+			+"<p>감사합니다 (_ _)";
+			try {
+				mail.setSubject("예약취소메일입니다.", "utf-8");
+				mail.setText(htmlStr, "utf-8", "html");
+				mail.addRecipient(RecipientType.TO, new InternetAddress(c.getC_email()));
+				mailSender.send(mail);
+				return true;
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
 			
+			return false;
+		}
 			
 }
 

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.what.carezoo.customer.service.CustomerService;
+import com.what.carezoo.member.service.MemberMailSendService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
 import com.what.carezoo.model.HomeSitter;
@@ -48,6 +50,12 @@ import com.what.carezoo.sitter.service.VisitSitterService;
 public class SitterMainController {
 	
 	private static final String FILE_PATH = "c:/temp/";
+	
+	@Autowired
+	private MemberMailSendService mailsender;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@Autowired
 	private VisitSitterService vsService;
@@ -419,8 +427,11 @@ public class SitterMainController {
 	
 	//거절
 	@RequestMapping("/cancelHsr")
-	public String cancelHsr(int hsr_num, Model m) {
-		if(hsrService.cancelHsr(hsr_num)) {
+	public String cancelHsr(int hsr_num, Model m, HttpServletRequest request) {
+		HomeSitterReservation hsr = hsrService.getHomeSitterResByHsrnum(hsr_num);
+		HomeSitter hs = hsService.getHomeSitterByNum(hsr.getHs_num());
+		Customer c = memberService.getMemberByC_num(hsr.getC_num());
+		if(hsrService.cancelHsr(hsr_num) && mailsender.mailSendCancelHSRtoC(hsr, hs, c, request)) {
 			m.addAttribute("msg", "거절이 완료되었습니다!");
 		} else {
 			m.addAttribute("msg", "예약을 거절할 수 없습니다.");
