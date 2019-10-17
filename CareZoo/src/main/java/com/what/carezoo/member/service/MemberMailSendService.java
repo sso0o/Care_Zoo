@@ -1,6 +1,7 @@
 package com.what.carezoo.member.service;
 
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.Message.RecipientType;
@@ -11,14 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.what.carezoo.dao.MemberDao;
 import com.what.carezoo.dao.PetHotelDao;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.HomeSitter;
+import com.what.carezoo.model.HomeSitterReservation;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
+import com.what.carezoo.model.VisitSitter;
+import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.VisitSitterService;
 
@@ -158,4 +165,82 @@ public class MemberMailSendService {
 			return false;
 			
 		}
+		
+		public boolean mailSendCancelVSR(VisitSitterReservation vsr, @RequestParam(required = false)VisitSitter vs, Customer c, HttpServletRequest request) {
+			if(vs == null) {
+				return true;
+			} else {
+				MimeMessage mail = mailSender.createMimeMessage();
+				String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
+						+ "<h3>" + vs.getVs_name()+ "님!</h3>" 
+						+"<p><label>고객이름:&nbsp;"+c.getC_name()
+						+"<p><label>체크인날짜:&nbsp;"+vsr.getVsr_chkin()
+						+"</label>&nbsp;&nbsp;"
+						+"<p><label>결제금액: "+vsr.getVsr_totalPrice()+"원"
+						+ " 예약이 <label style='color:red'>취소</label>되었습니다."
+						+"<p>감사합니다 (_ _)";
+				try {
+					mail.setSubject("예약취소메일입니다.", "utf-8");
+					mail.setText(htmlStr, "utf-8", "html");
+					mail.addRecipient(RecipientType.TO, new InternetAddress(vs.getVs_email()));
+					mailSender.send(mail);
+					return true;
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+				return false;
+			}
+			
+			
+		}
+		
+		public boolean mailSendCancelHSR(HomeSitterReservation hsr, HomeSitter hs, Customer c, HttpServletRequest request) {
+			MimeMessage mail = mailSender.createMimeMessage();
+			String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
+			+ "<h3>" +hs.getHs_name()+ "님!</h3>" 
+			+"<p><label>고객이름:&nbsp;"+c.getC_name()
+			+"<p><label>체크인날짜:&nbsp;"+hsr.getHsr_chkin()
+			+"<p><label>체크아웃날짜:&nbsp;"+hsr.getHsr_chkout()
+			+"</label>&nbsp;&nbsp;"
+			+"<p><label>결제금액: "+hsr.getHsr_totalprice()+"원"
+			+ " 예약이 <label style='color:red'>취소</label>되었습니다."
+			+"<p>감사합니다 (_ _)";
+			try {
+				mail.setSubject("예약취소메일입니다.", "utf-8");
+				mail.setText(htmlStr, "utf-8", "html");
+				mail.addRecipient(RecipientType.TO, new InternetAddress(hs.getHs_email()));
+				mailSender.send(mail);
+				return true;
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			
+			return false;
+		}
+		
+		public boolean mailSendCancelHSRtoC(HomeSitterReservation hsr, HomeSitter hs, Customer c, HttpServletRequest request) {
+			MimeMessage mail = mailSender.createMimeMessage();
+			String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
+			+ "<h3>" +c.getC_name()+ "님!</h3>" 
+			+"<p><label>시터이름:&nbsp;"+hs.getHs_name()
+			+"<p><label>체크인날짜:&nbsp;"+hsr.getHsr_chkin()
+			+"<p><label>체크아웃날짜:&nbsp;"+hsr.getHsr_chkout()
+			+"</label>&nbsp;&nbsp;"
+			+"<p><label>결제금액: "+hsr.getHsr_totalprice()+"원"
+			+ " 예약이 <label style='color:red'>취소</label>되었습니다."
+			+"<p>감사합니다 (_ _)";
+			try {
+				mail.setSubject("예약취소메일입니다.", "utf-8");
+				mail.setText(htmlStr, "utf-8", "html");
+				mail.addRecipient(RecipientType.TO, new InternetAddress(c.getC_email()));
+				mailSender.send(mail);
+				return true;
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			
+			return false;
+		}
+			
 }
+
