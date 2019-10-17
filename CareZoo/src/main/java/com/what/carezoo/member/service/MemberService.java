@@ -187,8 +187,14 @@ public class MemberService {
 		
 	}
 	
-	public boolean cancelVSR(int num) {
-		if(memberDao.cancelVSR(num) > 0) {
+	public boolean cancelVSR7(int num) {
+		if(memberDao.cancelVSR7(num) > 0) {
+			return true;
+		}
+		return false;
+	}
+	public boolean cancelVSR(int c_num, int vsr_count) {
+		if(memberDao.cancelVSR(c_num, vsr_count) > 0) {
 			return true;
 		}
 		return false;

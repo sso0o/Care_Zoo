@@ -154,8 +154,11 @@
 	<delete id="cancelHSR" parameterType="int">
 		delete from homesitterReservation where hsr_num = #{hsr_num}
 	</delete>
-	<delete id="cancelVSR" parameterType="int">
+	<delete id="cancelVSR7" parameterType="int">
 		delete from visitsitterReservation where vsr_num = #{vsr_num}
+	</delete>
+	<delete id="cancelVSR" parameterType="int">
+		delete from visitsitterReservation where c_num = #{c_num} and vsr_count = #{vsr_count}
 	</delete>
 	<delete id="cancelPHR" parameterType="int">
 		delete from pethotelReservation where phr_num = #{phr_num}
