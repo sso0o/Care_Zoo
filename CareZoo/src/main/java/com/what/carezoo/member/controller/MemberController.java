@@ -334,7 +334,7 @@ public class MemberController {
 	public String cancelPHR(int num, Model m,HttpServletRequest request) {
 		PetHotelReservation phr = phrService.getPetHotelResByNum(num);
 		if (memberService.cancelPHR(num)) {
-			m.addAttribute("msg", "예약이 취소되었습니다.");
+			m.addAttribute("msg", "예약이 취소되었습니다. 환불은 7일내에 처리됩니다.");
 			PetHotel ph = phService.getPetHotelbyNum(phr.getPh_num());
 			System.out.println(ph);
 			Customer cus = memberService.getMemberByC_num(phr.getC_num());
