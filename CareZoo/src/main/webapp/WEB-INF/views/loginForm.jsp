@@ -92,7 +92,7 @@
 			         	 alert("카카오 로그인 성공");
 
 			         	
-						 location.href = "${contextPath}/kakao/login?userid="+encodeURI(email)+"&user=kakao&kakaoId="+encodeURI(id);
+						 location.href = "${contextPath}/kakao/login?userid="+encodeURI(email)+"&user=kakao&kakaoId="+encodeURI(id)+"&name="+encodeURI(name);
 						 
 					}
 
