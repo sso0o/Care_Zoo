@@ -368,60 +368,80 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 		<label style="font-size: 25px">예약페이지</label>
 		<hr>
 	</div>
+	
 	<form action="${contextPath }/home/confirm" method="post">
-			<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;">
-				<div>
-					<h2>결제 확인</h2>
+		<div style="text-align: left;">
+			<label style="font-size: 25px">예약페이지</label>
+			<hr>
+		</div>
+		<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;">
+			<div style="text-align: center">
+				<div class="petAddForm">
+					<div class="PriceAndSize" style="">
+						<div style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
+							<div style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 55px">
+								<div style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<hr style="width: 800px">
-				<div>
-					<label style="font-weight: bold;">체크인 : </label><label class="hsr_chkin">${params.hsr_chkin}</label> <label style="font-weight: bold">체크아웃 : </label><label class="hsr_chkout">${params.hsr_chkout}</label> <label class="totalDays" style="">(총 ${params.hsr_days})</label><br> <span style="font-size: 17px;">맡기는 시간 : </span><span style="font-size: 17px;">${params.hsr_dropoff_time}</span> <span style="font-size: 17px;">데려가는 시간 : </span><span style="font-size: 17px;">${params.hsr_pickup_time}</span> <span><label class="totalDays" style="float: right">반려견 ${params.hsr_numof_pet+1} 마리</label></span>
-				</div>
-				<hr style="width: 800px">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Description</th>
-							<th>Amount</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<fmt:formatNumber value="${params.hsr_priceperday}" type="currency"></fmt:formatNumber>원 X ${params.hsr_days}
-							</td>
-							<td>
-								<fmt:formatNumber value="${params.hsr_pricePerDays}" type="currency"></fmt:formatNumber>원
-							</td>
-						</tr>
-						<tr>
-							<td>반려견 추가</td>
-							<td>
-								<c:choose>
-									<c:when test="${params.hsr_numof_pet eq 0}">
-										<div>
-											<span class="nightCountPrice">없음</span>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div>
-											<span class="nightCountPrice"><fmt:formatNumber value="${params.hsr_pricePerPetSize }" type="currency"></fmt:formatNumber>원 X ${params.hsr_numof_pet}마리 X ${params.hsr_days}</span>
-										</div>
-									</c:otherwise>
-								</c:choose>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<strong>Total</strong>
-							</td>
-							<td>
-								<fmt:formatNumber value="${params.hsr_totalprice}" type="currency"></fmt:formatNumber>원
-							</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
+		</div>
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;">							
+			<div>
+				<h2>결제 확인</h2>
+			</div>
+			<hr style="width: 800px">
+			<div>
+				<label style="font-weight: bold;">체크인 : </label><label class="hsr_chkin">${params.hsr_chkin}</label> <label style="font-weight: bold">체크아웃 : </label><label class="hsr_chkout">${params.hsr_chkout}</label> <label class="totalDays" style="">(총 ${params.hsr_days})</label><br> <span style="font-size: 17px;">맡기는 시간 : </span><span style="font-size: 17px;">${params.hsr_dropoff_time}</span> <span style="font-size: 17px;">데려가는 시간 : </span><span style="font-size: 17px;">${params.hsr_pickup_time}</span> <span><label class="totalDays" style="float: right">반려견 ${params.hsr_numof_pet+1} 마리</label></span>
+			</div>
+			<hr style="width: 800px">
+			<table>
+				<thead>
+					<tr>
+						<th>Description</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<fmt:formatNumber value="${params.hsr_priceperday}" type="currency"></fmt:formatNumber>원 X ${params.hsr_days}
+						</td>
+						<td>
+							<fmt:formatNumber value="${params.hsr_pricePerDays}" type="currency"></fmt:formatNumber>원
+						</td>
+					</tr>
+					<tr>
+						<td>반려견 추가</td>
+						<td>
+							<c:choose>
+								<c:when test="${params.hsr_numof_pet eq 0}">
+									<div>
+										<span class="nightCountPrice">없음</span>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div>
+										<span class="nightCountPrice"><fmt:formatNumber value="${params.hsr_pricePerPetSize }" type="currency"></fmt:formatNumber>원 X ${params.hsr_numof_pet}마리 X ${params.hsr_days}</span>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<strong>Total</strong>
+						</td>
+						<td>
+							<fmt:formatNumber value="${params.hsr_totalprice}" type="currency"></fmt:formatNumber>원
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 			<div style="margin-top: 50px; margin-right: 50px; margin-left: 50px;">
 				<br> <br>
 				<div>

@@ -269,7 +269,7 @@ $(function() {
 				}		
 			}
 			showDays();
-			alert("성공")
+			console.log("성공")
 			return [true];
 		}
 		
@@ -679,14 +679,14 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 						<tr><td colspan="2"><br></td></tr>
 						<tr>
 							<td>
-								<input type="submit" value="예약하기" class="btn btn-outline-info"> 
+								<input type="submit" value="예약하기" class="btn btn-outline-info">
 							</td>
 							<td><input type="reset" value="초기화" class="btn btn-outline-info"></td>
 						</tr>
 					</tbody>
 				</table>
-			</form>
 				<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> <input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }"> <input type="hidden" name="hs_num" value="${hsList.HS_NUM}"> <input type="hidden" name="hsr_totalprice" id="totalpriceInput"> <input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize"> <input type="hidden" name="hsr_priceperday" id="hsr_priceperday"> <input type="hidden" name="hsr_pricePerDays" class="pricePerDays"> <input type="hidden" id="days" name="hsr_duringdays" value="0"> <input type="hidden" name="hsr_days" id="Days">
+			</form>
 			<br>			
 			<div id="calSpan">
 			<br>
