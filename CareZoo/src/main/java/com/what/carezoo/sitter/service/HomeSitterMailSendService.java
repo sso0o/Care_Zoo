@@ -82,4 +82,23 @@ public class HomeSitterMailSendService {
 			System.out.println("resultCnt실행?"+resultCnt);
 			return resultCnt;
 		}
+		
+		// 회원탈퇴 발송 이메일
+		public boolean mailSendWithMember(String hs_email,String hs_name, HttpServletRequest request) {
+			
+			MimeMessage mail = mailSender.createMimeMessage();
+			String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br><br>" 
+					+ "<h3>" + hs_name + "님</h3>" + "<br>부적절한 홈페이지 활동으로 인하여 본 홈페이지에서 <span style='color:red; font-size:15;'>강제탈퇴</span> 되었음을 알려드립니다." 
+					+ "<br>(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
+			try {
+				mail.setSubject("[본인인증] MS :p 맡겨쥬의 탈퇴 메일입니다", "utf-8");
+				mail.setText(htmlStr, "utf-8", "html");
+				mail.addRecipient(RecipientType.TO, new InternetAddress(hs_email));
+				mailSender.send(mail);
+				return true;
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			return false;
+		}
 }
