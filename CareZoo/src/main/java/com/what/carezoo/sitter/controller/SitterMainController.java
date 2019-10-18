@@ -506,10 +506,10 @@ public class SitterMainController {
 				if(vsrService.countVs_num(num)>0) {
 					vsrService.deleteByVs_num(num);
 				}
-				url =  "sitter/goodBye";
+				url =  "goodBye";
 			} else {
 				m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
-				url = "sitter/goodByeCheckUser";
+				url = "goodByeCheckUser";
 			}
 		} else if(type.equals("hs_num")) {
 			System.out.println(num);
@@ -521,10 +521,10 @@ public class SitterMainController {
 					hsService.deleteHomeSitter(num);
 					System.out.println("게시글이랑 가정시터 삭제");
 				}
-				url = "sitter/goodBye";
+				url = "goodBye";
 			} else {
 				m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
-				url = "sitter/goodByeCheckUser";
+				url = "goodByeCheckUser";
 			}
 		}
 		System.out.println(url);

@@ -30,7 +30,7 @@ body{
     margin-bottom: 30px;
     color: white;
     position: absolute;
-    left: 1015px;
+    left: 920px;
 
 }
 </style>
