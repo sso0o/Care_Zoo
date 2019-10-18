@@ -71,7 +71,7 @@ public class HomeSitterService {
 	}
 	
 	public List<HomeSitter> getAllHomeSitter(){
-		return null;
+		return hsDao.selectAllHomeSitter();
 	}	
 	//아이디 체크
 	public int userIdCheck(String hs_email) {

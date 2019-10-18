@@ -135,9 +135,16 @@ function logoutCheck() {
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="${contextPath}/admin/main">
+        <a class="nav-link collapsed" href="${contextPath}/admin/hsList">
           <i class="fas fa-fw fa-cog"></i>
-          <span>시터정보관리</span>
+          <span>가정 시터정보 관리</span>
+        </a>
+      </li>
+      
+            <li class="nav-item">
+        <a class="nav-link collapsed" href="${contextPath}/admin/vsList">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>방문 시터정보 관리</span>
         </a>
       </li>
 
