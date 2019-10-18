@@ -57,15 +57,15 @@ img {
 
 	$(function() {
 
-		console.log($("#phone1").val().length);
-		if ($("#phone1").val().length < 2 || $("#phone1").val().length > 4) {
-			alert("핸드폰번호를 정확하게 입력해주세요.");
-			return false;
-		}
-		if ($("#phone2").val().length < 2 || $("#phone2").val().length > 4) {
-			alert("핸드폰번호를 정확하게 입력해주세요.");
-			return false;
-		}
+// 		console.log($("#phone1").val().length);
+// 		if ($("#phone1").val().length < 2 || $("#phone1").val().length > 4) {
+// 			alert("핸드폰번호를 정확하게 입력해주세요.");
+// 			return false;
+// 		}
+// 		if ($("#phone2").val().length < 2 || $("#phone2").val().length > 4) {
+// 			alert("핸드폰번호를 정확하게 입력해주세요.");
+// 			return false;
+// 		}
 
 		$("#email")
 				.change(
@@ -76,7 +76,6 @@ img {
 							} else {
 								$("#idchk_val").removeClass('green');
 								$("#idchk_val").addClass('red');
-								$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
 							}
 						});
 
@@ -154,7 +153,7 @@ img {
 			}
 
 		})
-
+  
 		//방추가하기 버튼 클릭시asdsa
 		$("#roomAddButton")
 				.click(
@@ -173,7 +172,7 @@ img {
 							roomDiv
 									.append($(" <label> 대형견 가격</label>  <input type='text' name='phrm_l_price'><br>"));
 							roomDiv
-									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input class='form-control-sm' type='number' min='1' max='5' name='phrm_p_max' id='pet_max' value='1'><br>"));
+									.append($("<label>최대 가능 펫 수</label>  &nbsp; &nbsp; &nbsp;<input class='form-control-sm' type='number' min='1' max='15' name='phrm_p_max' id='pet_max' value='1'><br>"));
 							roomDiv
 									.append($("<label>가능한 펫 사이즈</label> &nbsp; 	<div style='display:inline-flex'><div class='form-check'> <label class='form-check-label'> <input type='checkbox' class='form-check-input' value='소형견' name='phrm_pet_size"+s+"'>소형견</label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='중형견' name='phrm_pet_size"+s+"'>중형견</label></div>&nbsp;&nbsp;<div class='form-check'><label class='form-check-label'> <input type='checkbox' class='form-check-input' value='대형견' name='phrm_pet_size"+s+"'>대형견</label></div></div><br>"));
 
@@ -577,12 +576,10 @@ img {
 																<option value="02">02</option>
 																<option value="031">031</option>
 																<option value="032">032</option>
-														</select> - <input type="text" name="phone1" id="phone1"
-															style="width: 60px"> - <input type="text"
-															name="phone2" id="phone2" style="width: 60px">
-														
-														 <input type="text" name="ph_contact">    
-
+														</select> - <input type="text" name="phone1" id="phone1" maxlength="4"
+															style="width: 55px;height:26px" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"> - 
+															<input type="text" maxlength="4"name="phone2" id="phone2" style="width: 55px;height:26px" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+  
 															<br></td>
 													</tr>
 
