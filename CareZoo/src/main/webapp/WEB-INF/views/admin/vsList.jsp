@@ -27,14 +27,13 @@
   <link href="${contextPath}/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="crossorigin="anonymous"></script>
-
 <script type="text/javascript">
 function logoutCheck() {
-   if (confirm("정말 로그아웃?") == true) {
-      location.href = '${contextPath}/logout'
-   } else {
-      return false;
-   }
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
+	}
 }
 </script>
 </head>
@@ -74,12 +73,12 @@ function logoutCheck() {
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link collapsed" href="${contextPath}/admin/memberList">
           <i class="fas fa-fw fa-cog"></i>
           <span>멤버 관리</span>
         </a>
-<!--         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"> -->
+<!--   qweewq      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar"> -->
 <!--           <div class="bg-white py-2 collapse-inner rounded"> -->
 <!--             <h6 class="collapse-header">호텔목록</h6> -->
 <!--             <a class="collapse-item" href="buttons.html"></a> -->
@@ -92,7 +91,7 @@ function logoutCheck() {
         Hotel
       </div>
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item active" >
+      <li class="nav-item" >
         <a class="nav-link collapsed" href="${contextPath}/admin/petHotelList">
           <i class="fas fa-fw fa-cog"></i>
           <span>호텔 관리</span>
@@ -101,7 +100,7 @@ function logoutCheck() {
             <li class="nav-item">
         <a class="nav-link" href="${contextPath}/admin/resPetHotelList">
           <i class="fas fa-fw fa-table"></i>
-          <span>호텔 예약 리스트</span></a>
+          <span>호텔예약 리스트</span></a>
       </li>
 
       <!-- Divider -->
@@ -239,7 +238,7 @@ function logoutCheck() {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">호텔목록</h1>
+          <h1 class="h3 mb-2 text-gray-800">방문시터 관리</h1>
 <br>
 <br>
           <!-- DataTales Example -->
@@ -251,11 +250,12 @@ function logoutCheck() {
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>이름</th>
-                      <th>주소</th>
-                      <th>연락처</th>
-                      <th>이메일</th>
-                      <th style="width:32px" id="soso">삭제</th>
+                      <th>시터 고유 번호</th>
+                      <th>시터 이름</th>
+                      <th>시터 아이디(이메일)</th>
+                      <th>시터 주소</th>
+                      <th>시터 번호</th>
+                      <th style="width:80px" id="soso">강제 탈퇴</th>
                     </tr>
                   </thead>
 <!--                   <tfoot> -->
@@ -277,13 +277,14 @@ function logoutCheck() {
 <!--                       <td>2011/04/25</td> -->
 <!--                       <td>$320,800</td> -->
 <!--                     </tr> -->
-               <c:forEach items="${phL }" var="ph" >
-				<tr>        
-					<td><a href="${contextPath}/petHotel/petHotelView?ph_num=${ph.ph_num}">${ph.ph_name}</a></td>
-					<td>${ph.ph_address} ${ph.ph_d_address}</td>
-					<td>${ph.ph_contact}</td>
-					<td>${ph.ph_email}</td>
-<!-- 					<td><div class="my-2"> -->
+			<c:forEach items="${vsList }" var="vs">
+				<tr>
+					<td>${vs.vs_num }</td>
+					<td>${vs.vs_name }</td> 
+					<td>${vs.vs_email }</td>
+					<td>${vs.vs_address } ${vs.vs_d_address }</td>
+					<td>${vs.vs_contact }</td>
+<!-- 					<td><div class="my-2">     -->
  <%-- 					<input type="hidden" class="ph_num" name="ph_num" value="${phL.ph_num }"> --%> 
 <!-- 					</div> -->
 <!--                   <a href="#" class="btn btn-secondary btn-icon-split"> -->
@@ -295,11 +296,12 @@ function logoutCheck() {
 					<td>
 					  <div class="my-2"></div>
                   <a 
-                  href= "${contextPath}/admin/petHotelDelete?ph_num=${ph.ph_num }"  
+                  href= "${contextPath}/admin/vsDelete?vs_num=${vs.vs_num }"  
                   class="btn btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                       <i class="fas fa-trash"></i>
                     </span>
+                    <span class="text">탈퇴</span>
                   </a>                  
                   </td>
 				</tr>
@@ -307,11 +309,7 @@ function logoutCheck() {
                     
                   </tbody>
                 </table>
-              </div>
-           <a href="${contextPath}/admin/addPetHotelForm" class="btn btn-info btn-icon-split">
-                    <span class="text">호텔추가</span>
-                  </a>
-            </div>
+
           </div>
 
         </div>
@@ -340,6 +338,7 @@ function logoutCheck() {
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+
 
 
   <!-- Bootstrap core JavaScript-->

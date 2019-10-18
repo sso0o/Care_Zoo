@@ -113,9 +113,16 @@ function logoutCheck() {
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="${contextPath}/admin/petHotelList">
+        <a class="nav-link collapsed" href="${contextPath}/admin/hsList">
           <i class="fas fa-fw fa-cog"></i>
-          <span>시터정보 관리</span>
+          <span>가정 시터정보 관리</span>
+        </a>
+      </li>
+      
+            <li class="nav-item">
+        <a class="nav-link collapsed" href="${contextPath}/admin/vsList">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>방문 시터정보 관리</span>
         </a>
       </li>
 
@@ -248,7 +255,7 @@ function logoutCheck() {
                       <th>고객 아이디(이메일)</th>
                       <th>고객 주소</th>
                       <th>고객 번호</th>
-                      <th style="width:80px" id="soso">삭제</th>
+                      <th style="width:80px" id="soso">강제 탈퇴</th>
                     </tr>
                   </thead>
 <!--                   <tfoot> -->
@@ -294,7 +301,7 @@ function logoutCheck() {
                     <span class="icon text-white-50">
                       <i class="fas fa-trash"></i>
                     </span>
-                    <span class="text">삭제</span>
+                    <span class="text">탈퇴</span>
                   </a>                  
                   </td>
 				</tr>
