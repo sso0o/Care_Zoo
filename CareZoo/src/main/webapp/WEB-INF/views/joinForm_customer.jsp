@@ -404,8 +404,8 @@ legend{
 							<option value="016">016</option>
 							<option value="017">017</option>
 						</select> - <input type="text" name="phone1" id="phone1"
-							style="width: 70px"> - <input type="text" name="phone2"
-							id="phone2" style="width: 70px">
+							style="width: 65px; height: 26px;"> - <input type="text" name="phone2"
+							id="phone2" style="width: 65px; height: 26px;">
 					</div>
 
 				</div>
