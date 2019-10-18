@@ -132,6 +132,15 @@
 	order by b desc
 </select>
 
+<select id="getModalVSRInfo" parameterType="int" resultType="map">
+	select vsr.vsr_num, vsr.c_num, vsr.vsr_chkin, vsr.vsr_hour, vsr.vsr_attention,  vsr.vsr_totalprice, vsr.vsr_contents, 
+        c.c_name, c.c_address, c.c_d_address, (vsr.vsr_hour+3+vsr.vsr_hadd) vsr_endtime, c.c_contact
+from visitsitterReservation vsr,
+customer c
+where vsr_num = #{vsr_num}
+and vsr.c_num = c.c_num
+</select>
+
 
 	<select id="selectByVsrnumbers" parameterType="int" resultType="VisitSitterReservation">
 		select * from VisitSitterReservation
@@ -273,4 +282,9 @@
 		and vsr.vsr_num = count.vsr_num(+)
 		and vsr.c_num = c.c_num
    </select>
+   
+   <delete id="cancelVsr" parameterType="int">
+		delete from visitsitterreservation
+		where vsr_num = #{vsr_num}
+   </delete>
 </mapper>

@@ -137,6 +137,11 @@ public class VisitSitterReservationService {
 		return vsrDao.getVsrByStatus0_6();
 	}
 	
+	//예약리스트 모달정보 가져오기
+	public Map<String, Object> getModalVSRInfo(int vsr_num) {
+		return vsrDao.getModalVSRInfo(vsr_num);
+	}
+	
 	//정기 묶음 가져오기
 	public List<Map<String, Object>> getVsrGroup(int c_num, int vsr_count) {
 		System.out.println("in service"+c_num+" "+vsr_count);
@@ -235,6 +240,14 @@ public class VisitSitterReservationService {
 	
 	public Map<String, Object> getModalC(int vsr_num) {
 		return vsrDao.getModalC(vsr_num);
+	}
+	
+	//예약 수락 시터가 고객한테 메일도 보내야함
+	public boolean cancelVsr(int vsr_num) {
+		if(vsrDao.cancelVsr(vsr_num)>0) {
+			return true;
+		}
+		return false;
 	}
 
 }

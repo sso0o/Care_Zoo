@@ -34,6 +34,8 @@ public interface VisitSitterReservationDao {
 	public List<VisitSitterReservation>getVsrByStatus7();
 	public List<VisitSitterReservation>getVsrByStatus0_6();
 	
+	public Map<String, Object> getModalVSRInfo(int vsr_num);
+	
 	public List<Map<String, Object>> getVsrGroup(@Param("c_num")int c_num, @Param("vsr_count") int vsr_count);
 	
 	public List<VisitSitterReservation> checkDate7(Map<String, Object> param);
@@ -55,6 +57,9 @@ public interface VisitSitterReservationDao {
 	public List<Map<String, Object>> getVSRInfo(int c_cum);
 	
 	public Map<String, Object> getModalC(int vsr_num);
+	
+	//취소
+	public int cancelVsr(int vsr_num);
 	
 
 }
