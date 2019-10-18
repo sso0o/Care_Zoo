@@ -503,6 +503,9 @@ public class SitterMainController {
 				m.addAttribute("vs", vs);
 				m.addAttribute("msg", "정말로 탈퇴하시겠습니까?");
 				vsService.deleteVisitSitter(vs.getVs_num());
+				if(vsrService.countVs_num(num)>0) {
+					vsrService.deleteByVs_num(num);
+				}
 				url =  "sitter/goodBye";
 			} else {
 				m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
