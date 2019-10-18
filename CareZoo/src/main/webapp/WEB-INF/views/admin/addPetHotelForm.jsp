@@ -597,10 +597,10 @@ img {
 														가격</label> <input type="text" name="phrm_m_price"> <label>
 														대형견 가격</label> <input type="text" name="phrm_l_price"><br>
 													<label>최대 가능 펫 수</label> &nbsp; &nbsp; &nbsp;<input
-														class="form-control-sm" type="number" min="1" max="5"
+														class="form-control-sm" type="number" min="1" max="15" 
 														name="phrm_p_max" id="pet_max" value="1"><br>
 													<label>가능한 펫 사이즈</label> &nbsp;
-													<!-- ㄴㅁㅇㅁasdasd -->
+													<!-- ㄴㅁㅇㅁasdasd -->  
 													<div style="display: inline-flex">
 														<div class="form-check">
 															<label class="form-check-label"> <input

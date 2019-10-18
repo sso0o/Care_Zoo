@@ -271,8 +271,8 @@ function logoutCheck() {
 <!--                       <td>$320,800</td> -->
 <!--                     </tr> -->
                <c:forEach items="${phL }" var="ph" >
-				<tr>
-					<td><a href="">${ph.ph_name}</a></td>
+				<tr>        
+					<td><a href="${contextPath}/petHotel/petHotelView?ph_num=${ph.ph_num}">${ph.ph_name}</a></td>
 					<td>${ph.ph_address} ${ph.ph_d_address}</td>
 					<td>${ph.ph_contact}</td>
 					<td>${ph.ph_email}</td>

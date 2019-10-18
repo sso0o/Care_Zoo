@@ -517,13 +517,13 @@ function logoutCheck() {
 													.removeClass('cS-hidden');
 										}
 									});
-
+   
 									var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
 									$('<span style="font-size:25px;">').text(
 											phList[i].ph_name).appendTo(aArDiv);
 									$(
 											'<hr><br><div style="font-size:20px">'
-													+ phList[i].ph_address
+													+ phList[i].ph_address   
 													+ phList[i].ph_d_address
 													+ '</div>')
 											.appendTo(aArDiv);
