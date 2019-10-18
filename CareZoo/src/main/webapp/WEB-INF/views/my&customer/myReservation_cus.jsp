@@ -612,14 +612,7 @@ td{
 <!-- 					</div> -->
 <!-- 			</fieldset> -->
 		</div>
-		<div>
-			
-		</div>
-
 	</div>
-
-
-	
 
 	<!-- ///////////////////////////////////////////////////////////////모달 -->
 	<div class="container-fluid modal-modify" id="modal-showMain">

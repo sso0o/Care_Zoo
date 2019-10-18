@@ -69,18 +69,22 @@
 		console.log("name : "+user_name)
 		console.log("num : "+user_num)
 		
+		if("${msg}" != ""){
+			alert("${msg}");
+		}
+		
 // 		$("#legend").text(value)
 								//----카카오 1:1상담
-						//<![CDATA[
-						// 사용할 앱의 JavaScript 키를 설정해 주세요.
-						Kakao.init('d5215a661c44ab13805d6f04adeddadb');
-						// 플러스친구 1:1채팅 버튼을 생성합니다.
-						Kakao.PlusFriend.createChatButton({
-						  container: '#plusfriend-chat-button',
-						  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
-						});
-						//]]>
-						//----카카오 1:1상담	
+		//<![CDATA[
+		// 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('d5215a661c44ab13805d6f04adeddadb');
+		// 플러스친구 1:1채팅 버튼을 생성합니다.
+		Kakao.PlusFriend.createChatButton({
+		  container: '#plusfriend-chat-button',
+		  plusFriendId: '_QuCiT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+		});
+		//]]>
+		//----카카오 1:1상담	
 	})
 
 	document.addEventListener('DOMContentLoaded', function() {
@@ -132,8 +136,6 @@
 				
 				modalOpen(info.event.id);
 			}
-			
-			
 
 		});
 		
@@ -229,6 +231,15 @@
 			$("#modal-showMain").hide();
 			
 		});
+	}
+	
+	function cancel() {
+		var num = $("#number").val();
+		if(confirm("선택한 예약을 취소하시겠습니까?") == true){
+			location.href = '${contextPath}/sitter/cancelVsr?vsr_num='+num;
+		} else{
+			return false;
+		}
 	}
 
 </script>
@@ -452,6 +463,11 @@ textarea {
 			<tr>
 				<td colspan="4">
 				<textarea rows="5" cols="50" id="message">없음</textarea>
+			</tr>
+			<tr style="text-align: center;">
+				<td colspan="4" style="text-align: center;">
+					<a href="#" onclick="cancel()" class="btn my-btn cancel" id="cancel">취소</a>
+				</td>
 			</tr>
 
 		</table>

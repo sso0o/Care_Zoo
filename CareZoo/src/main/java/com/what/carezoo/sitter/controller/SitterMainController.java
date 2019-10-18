@@ -283,35 +283,9 @@ public class SitterMainController {
 	@RequestMapping("/getVSRInfo")
 	@ResponseBody
 	public Map<String, Object> getVSRInfo(int vsr_num) {
-		Map<String, Object> rst = new HashMap<String, Object>();
-		System.out.println("vsr_num : "+vsr_num);
-		List<Pet_Detail> pd = pdService.selectByVsr_Num(vsr_num);
-		System.out.println("======================================================");
-		System.out.println(pd);
-		List<Map<String, Object>> petTotal = new ArrayList<Map<String,Object>>();
-		for(Pet_Detail p:pd) {
-			Map<String, Object> petList = new HashMap<String, Object>();
-			Pet pet = pService.selectPet(p.getP_num());
-			String img = pService.getImage(pet.getP_num());
-			
-			petList.put("pet", pet);
-			petList.put("img", img);
-			
-			petTotal.add(petList);
-		}
-		
-		rst.put("petList", petTotal);
-		
-		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(vsr_num);
-		int hour = Integer.parseInt(vsr.getVsr_hour());
-		int endhour = Integer.parseInt(vsr.getVsr_hour())+Integer.parseInt(vsr.getVsr_hAdd())+3;
-		String time = hour+" ~ "+endhour;
-		rst.put("hour", time);
-		rst.put("chkin", vsr.getVsr_chkin());
-		rst.put("address", mService.getMemberByC_num(vsr.getC_num()).getC_address());	
+		Map<String, Object> rst = vsrService.getModalVSRInfo(vsr_num);
+		String str = (String) rst.get("VSR_ATTENTION");
 		String attenttion = "";
-		String str = vsr.getVsr_attention();
-		
 		if(str.contains("1")) {
 			attenttion += "/ 노산책 놀이대체 ";
 		}
@@ -448,6 +422,20 @@ public class SitterMainController {
 			m.addAttribute("msg", "예약을 거절할 수 없습니다.");
 		}
 		return "sitter/reservationListHs";
+	}
+	
+	@RequestMapping("/cancelVsr")
+	public String cancelVsr(int vsr_num, Model m, HttpServletRequest request) {
+		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(vsr_num);
+		VisitSitter vs = vsService.getVisitSitterByNum(vsr.getVs_num());
+		Customer c = memberService.getMemberByC_num(vsr.getC_num());
+		if(vsrService.cancelVsr(vsr_num) && mailsender.mailSendCancelVSRtoC(vsr, vs, c, request)) {
+			m.addAttribute("msg", "거절이 완료되었습니다!");
+		} else {
+			m.addAttribute("msg", "예약을 거절할 수 없습니다.");
+		}
+		
+		return "sitter/myReservation_visit";
 	}
 		
 		

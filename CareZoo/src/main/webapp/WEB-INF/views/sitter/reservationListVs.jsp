@@ -67,11 +67,14 @@
 			dataType:"JSON",
 			success: function(data) {
 				console.log(data)
-				$("#address").text(data.address);
-				$("#chkin").text(data.chkin);
-				$("#hour").text(data.hour);
+				$("#name").text(data.C_NAME);
+				$("#contact").text(data.C_CONTACT);
+				$("#address").text(data.C_ADDRESS+" "+data.C_D_ADDRESS);
+				$("#chkin").text(data.VSR_CHKIN);
+				$("#hour").text(data.VSR_HOUR+" ~ "+data.VSR_ENDTIME);
 				$("#attention").text(data.attention);									
-				
+				$("#contents").text(data.VSR_CONTENTS);	
+				$("#total").text(data.VSR_TOTALPRICE);
 				
 				var pd = $("#pd");
 				pd.empty();
@@ -103,10 +106,6 @@
 		$(".close").on("click", function() {
 			$("#modal-showVsr").hide();
 			$("#vsrInfo").addClass('noshow')
-			$("#address").text("");
-			$("#chkin").text("");
-			$("#hour").text("");
-			$("#attention").text("");
 
 		});
 		
@@ -154,14 +153,14 @@
 body{
    font-family: 'Noto Sans KR', sans-serif;
 }
-	.content{
-		width: 900px;
-		margin: 20px auto;
-	}
+.content{
+	width: 900px;
+	margin: 20px auto;
+}
 	
-	.noshow{
-		display: none;
-	}
+.noshow{
+	display: none;
+}
 	
 .vsrInfo{
 	background-color: #fff;
@@ -173,26 +172,49 @@ body{
 	top: 50%;
 	left: 50%;
 }
+
+.table td, .table th{
+	vertical-align: middle;
+}
+
+
+textarea {
+	width: 100%;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: .3em;
+	resize: none;
+}
 	
-	.item{
-		border: 1px solid rgba(0,0,0,.2);
-		border-radius: .2em;
-		height: 30px;
-	}
+.item{
+	border: 1px solid rgba(0,0,0,.2);
+	border-radius: .2em;
+	height: 30px;
+}
+
+.cl{
+	line-height: 1.5em;
+}
+
+.tt{
+	font-size: 11px;
+}
 	
-	.cl{
-		line-height: 1.5em;
-	}
+.col, .col-1, .col-2, .col-3, .col-4, .col-5,
+.col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+	text-align: center;
 	
-	.tt{
-		font-size: 11px;
-	}
-	
-	.col, .col-1, .col-2, .col-3, .col-4, .col-5,
-	.col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
-		text-align: center;
-		
-	}
+}
+.acc-btn{
+	border: 1px solid #40bf9f;
+	color: #40bf9f;
+}
+.acc-btn:hover, .acc-btn:focus{
+	border: 1px solid #40bf9f;
+	color: white;
+	background-color: #40bf9f;
+	cursor: pointer;
+}
+
 	/* -------카카오 상담버튼------- */
 .bottom-left {
   position: fixed;
@@ -395,9 +417,9 @@ body{
 				</tr>
 				<tr>
 					<td colspan="4">
-						<textarea rows="5" cols="50" id="message"></textarea>
+						<textarea rows="5" cols="50" id="contents"></textarea>
 				</tr>
-				<tr>
+				<tr style="vertical-align: middle;">
 					<th>총가격</th>
 					<td id="total"></td>
 					<td colspan="2" style="text-align: center;">
