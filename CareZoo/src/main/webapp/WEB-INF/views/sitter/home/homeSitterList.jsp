@@ -104,9 +104,14 @@ ul {
 .homeSitter:hover {
 	outline: 1px solid aqua;
 }
+.nav-link {  
+color: #17a2b8;
+border: 1px solid white;
+}
 .nav-link:hover{     
-border : 1px solid mediumaquamarine;
+border : 1px solid #17a2b8;
 /* background-color: skyblue; slategrey;teal;mediumaquamarine; */
+background-color: #17a2b8;
 color: #fff;
 } 
 label {
@@ -439,10 +444,10 @@ li:hover {
 		<form id="searchForm">
 			<!-- 지역 검색 -->
 			<ul class="nav nav-pills nav-fill" role="tablist" style=" position: relative; left: 21px;">
-				<li id="menu_0" class="nav-item"><a class="nav-link" href="${contextPath}/home/main" style="color: #17a2b8">전체</a></li>
-				<li id="menu_1" class="nav-item"><a class="nav-link" href="#" style="color: #17a2b8">서울</a></li>
-				<li id="menu_2" class="nav-item"><a class="nav-link" href="#" style="color: #17a2b8">경기</a></li>
-				<li id="menu_3" class="nav-item"><a class="nav-link" href="#" style="color: #17a2b8">인천</a></li>
+				<li id="menu_0" class="nav-item"><a class="nav-link" href="${contextPath}/home/main" >전체</a></li>
+				<li id="menu_1" class="nav-item"><a class="nav-link" href="#" >서울</a></li>
+				<li id="menu_2" class="nav-item"><a class="nav-link" href="#">경기</a></li>
+				<li id="menu_3" class="nav-item"><a class="nav-link" href="#" >인천</a></li>
 			</ul>
 			<div class="tab-content">
 				<div id="subtbl_0" style="display: none">
@@ -450,7 +455,7 @@ li:hover {
 					<input type="checkbox" name="hs_address" value="경기"> 
 					<input type="checkbox" name="hs_address" value="인천">
 				</div>
-				<div id="subtbl_1" style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:40px;width:1040px;">
+				<div id="subtbl_1" style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative; left: 21px; width: 1110px;">
 					<div id="check_container" style="font-size:18px">
 						<input type="checkbox" name="hs_address" id="state1" value="강남구"><label>강남구</label>
 						<input type="checkbox" name="hs_address" id="state2" value="강동구"><label>강동구</label>
@@ -483,12 +488,12 @@ li:hover {
 					</div>
 
 					<div style="padding: 7px;">
-						<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px;" value="찾기" >
-						<button type="reset" class="btn btn-outline-info" style="height: 31px;line-height: 17px;" >초기화</button>
+						<input type="button" class="search btn btn-outline-info" style="height: 31px; line-height: 17px; width: 70px; border: 1px solid rgba(23, 162, 184, 0.5);" value="찾기" >
+						<button type="reset" class="btn btn-outline-info" style="height: 31px; line-height: 17px; width: auto; border: 1px solid rgba(23, 162, 184, 0.5);" >초기화</button>
 					</div>
 
 				</div>
-				<div id="subtbl_2" style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:5px;width:1040px;"  class="container tab-pane active">
+				<div id="subtbl_2" style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative; left: 21px; width: 1110px;"  class="container tab-pane active">
 					<div id="check_container"  style="font-size:18px">
 						<input type="checkbox" name="hs_address" id="state26" value="고양시"><label>고양시</label>
 						<input type="checkbox" name="hs_address" id="state27" value="과천시"><label>과천시</label>
@@ -529,12 +534,12 @@ li:hover {
 					</div>
 
 					<div style="padding: 7px;">
-						<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px;" value="찾기">
-						<button type="reset" class="btn btn-outline-info" style="height: 31px;line-height: 17px;">초기화</button>
+						<input type="button" class="search btn btn-outline-info" style="height: 31px; line-height: 17px; width: 70px; border: 1px solid rgba(23, 162, 184, 0.5);" value="찾기" >
+						<button type="reset" class="btn btn-outline-info" style="height: 31px; line-height: 17px; width: auto; border: 1px solid rgba(23, 162, 184, 0.5);" >초기화</button>
 					</div>
 
 				</div>
-				<div id="subtbl_3"   style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative;left:40px;width:1040px;">
+				<div id="subtbl_3"   style="display: none; border: 1px  solid #17a2b8 ;padding: 14px; position:relative; left: 21px; width: 1110px;">
 					<div id="check_container"  style="font-size:18px">
 						<input type="checkbox" name="hs_address" id="state57" value="계양구"><label>계양구</label> 
 						<input type="checkbox" name="hs_address" id="state58" value="남동구"><label>남동구</label> 
@@ -551,8 +556,8 @@ li:hover {
 					</div>
 
 					<div style="padding: 7px;">
-						<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px; width: auto; border: 1px solid rgba(23, 162, 184, 0.5);" value="찾기">
-						<button type="reset" class="btn btn-outline-info" style="height: 31px;line-height: 17px; width: auto; border: 1px solid rgba(23, 162, 184, 0.5);">초기화</button>
+						<input type="button" class="search btn btn-outline-info" style="height: 31px; line-height: 17px; width: 70px; border: 1px solid rgba(23, 162, 184, 0.5);" value="찾기" >
+						<button type="reset" class="btn btn-outline-info" style="height: 31px; line-height: 17px; width: auto; border: 1px solid rgba(23, 162, 184, 0.5);" >초기화</button>
 					</div>
 
 				</div>
@@ -574,8 +579,11 @@ li:hover {
 								<option title="데이케어" value="데이케어">데이케어</option>
 							</select>
 						</td>
+						
 						<td>
-							<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin"/><span class="glyphicon glyphicon-calendar form-control-feedback"></span> <span>&gt;</span> <input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout" class="glyphicon glyphicon-calendar" />
+							<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;"/> 
+							<span>&gt;</span> 
+							<input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;" />
 						</td>
 <!-- 						<td> -->
 <!-- 							<select name="hsl_pet_age" data-width="130px"> -->
@@ -593,9 +601,9 @@ li:hover {
 								<option title="l" value="대형견">대형견 (15kg 이상)</option>
 							</select>
 						</td>
-						<td colspan="2"  style="padding: 7px;position: relative;left: 40px;">
-							<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px;"  value="찾기">
-							<button type="reset" class="reset btn btn-outline-info" style="height: 31px;line-height: 17px;">초기화</button>
+						<td  style="padding: 7px;position: relative;left: 40px;">
+							<input type="button" class="search btn btn-outline-info" style="height: 31px; line-height: 17px; width: 70px; border: 1px solid rgba(23, 162, 184, 0.5);" value="찾기" >
+							<button type="reset" class="btn btn-outline-info" style="height: 31px; line-height: 17px; width: auto; border: 1px solid rgba(23, 162, 184, 0.5);" >초기화</button>
 						</td>
 					</tr>
 				</table>

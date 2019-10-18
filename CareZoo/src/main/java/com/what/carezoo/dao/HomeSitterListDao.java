@@ -13,7 +13,11 @@ public interface HomeSitterListDao {
    public int insertHsl(HomeSitterList hsl);
    public int insertHomeSitterList(HomeSitterList hsl);
    public int updateHsl(HomeSitterList hsl);
-   public int deleteHsl(int hsl_num);
+   //시터 삭제시 게시글도 삭제
+   public int deleteHs(int hs_num);
+   public int countHsl(int hs_num);
+   
+   
    public Map<String, Object> selectOnebyHsl_num(int hsl_num);
    public Map<String, Object> selectHsl(int hsl_num);   
    public List<Map<String, Object>> selectallHsl();

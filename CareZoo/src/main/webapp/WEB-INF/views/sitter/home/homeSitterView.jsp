@@ -387,7 +387,7 @@ $(function() {
 		keyPress : true
 	});
 	$('#image-gallery').lightSlider({
-		isthumb : false,
+		isthumb : true,
 		gallery : true,
 		item : 1,
 		thumbItem : 8,
@@ -455,7 +455,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 <body>
   <div class="container">
         <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -499,8 +499,13 @@ var user_name = "<%=session.getAttribute("user_name")%>"
             </ul>
         </div>
     </nav>
-    <br><br><br>
-	<!-- 		여기다 내용을 작성하시면 됩니다 -->
+    <div class='container'></div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	
 	<div class="container row">
 		<div style="width: 720px; display: inline-block; float: left;padding: 10px;">
 			<div>
@@ -637,11 +642,6 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 					</thead>
 					<tbody>
 						<tr>
-							<th colspan="2"><small>(반려견 추가 당<span id="addPet">15000</span>원)
-							</small></th>
-						</tr>
-
-						<tr>
 							<td>맡기는 시간 :</td>
 							<td>
 								<input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time" style="width: 143px;">
@@ -655,10 +655,10 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 						</tr>
 						<tr><td colspan="2"><hr></td></tr>
 						<tr>
-							<td>
-								<span id="pricePerDay">20000</span>원
+							<td style="color: #FCBC4E;font-size: 180%; left: 50px;position: relative;">
+								<strong><span id="pricePerDay">20000</span>원</strong>
 							</td>
-							<td>
+							<td style="position:relative;left: 11px;">
 								<select id="petSize-select" name="hsl_size" data-width="130px">
 									<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option>
 									<option id="bigSize" value="대형견">15kg 이상</option>
@@ -666,22 +666,25 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 							</td>
 						</tr>
 						<tr>
+							<td colspan="2" style="text-align: center;"><small>(반려견 추가 당<span id="addPet"  style="color: #FCBC4E;">15000</span>원)</small></td>
+						</tr>
+						<tr>
 							<td colspan="1"><small>반려견 추가</small> <input class="form-control-sm" type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0" ></td>
-							<td style="line-height: 50px;"><span id="totalAddPetPrice" >0</span>원 </td>
+							<td style="line-height: 50px;text-align: center;"><span id="totalAddPetPrice" >0</span>원 </td>
 						</tr>
 						<tr><td colspan="2"><hr></td></tr>
 						<tr>
 							<td>총 가격 :</td>
-							<td>
+							<td style="text-align: center;">							
 								<span id="hsr_totalprice">20,000</span>원
 							</td>
 						</tr>
 						<tr><td colspan="2"><br></td></tr>
 						<tr>
-							<td>
+							<td style="position: relative;  left: 63px;">
 								<input type="submit" value="예약하기" class="btn btn-outline-info">
 							</td>
-							<td><input type="reset" value="초기화" class="btn btn-outline-info"></td>
+							<td><input type="reset" value="초기화" class="btn btn-outline-info"  style="width: 84px;"></td>
 						</tr>
 					</tbody>
 				</table>

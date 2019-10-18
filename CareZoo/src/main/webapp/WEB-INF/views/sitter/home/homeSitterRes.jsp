@@ -318,7 +318,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 <body>
   <div class="container">
         <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -362,102 +362,101 @@ var user_name = "<%=session.getAttribute("user_name")%>"
             </ul>
         </div>
     </nav>
-    <br><br><br>
-<div class="container">
-	<div style="text-align: left;">
-		<label style="font-size: 25px">예약페이지</label>
-		<hr>
-	</div>
+    <div class='container'></div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	
+<div class="container">
+
 	<form action="${contextPath }/home/confirm" method="post">
 		<div style="text-align: left;">
 			<label style="font-size: 25px">예약페이지</label>
 			<hr>
 		</div>
-		<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;">
-			<div style="text-align: center">
-				<div class="petAddForm">
-					<div class="PriceAndSize" style="">
-						<div style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
-							<div style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 55px">
-								<div style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
+		<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 1px solid darkgray; padding: 50px; border-radius: 4px;">
+			<div>
+				<h2>결제 확인</h2>
+			</div>
+				<div style="text-align: center">
+					<div class="petAddForm">
+						<div class="PriceAndSize" style="">
+							<div style="width: 800px; margin-left: -32px; border-radius: 4px; padding: 30px; height: auto; font-size: 18px; border-color: #40bf9f">
+								<div style="font-size: 20px; display: inline-block; border-bottom: 1px solid; height: 86px">
+									<div style="text-align: left; float: left; padding-top: 10px; padding-right: 5px; padding-left: 10px;">
+										
+										<label style="font-weight: bold;">체크인: </label>&nbsp;<label class="hsr_chkin">${params.hsr_chkin}</label>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label style="font-weight: bold">체크아웃: </label>&nbsp;<label class="hsr_chkout">${params.hsr_chkout}&nbsp;&nbsp;</label>
+										&nbsp;&nbsp; <label class="totalDays" style="">(총 ${params.hsr_days})</label>&nbsp;&nbsp;
+										<br> <span style="font-size: 17px;">맡기는 시간 : </span><span style="font-size: 17px;">${params.hsr_dropoff_time}</span> & 
+											<span style="font-size: 17px;">데려가는 시간 : </span><span style="font-size: 17px;">${params.hsr_pickup_time}</span><br>
+									</div>
+									&nbsp; <label style="font-size: 30px; padding-bottom: 20px; position: relative; top: -10px;">&</label> &nbsp;
+									<div style="text-align: left; display: inline-block; padding-top: 10px; padding-right: 5px; padding-left: 10px; border-color: #40bf9f">
+										<label class="totalDays" style="float: right">반려견 ${params.hsr_numof_pet+1} 마리</label>
+									</div>
+								</div>
+								
+								
+								
+								
+								<br>
+								<div></div>
+								<br>
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left"><fmt:formatNumber value="${params.hsr_priceperday}" type="currency"></fmt:formatNumber>원 X ${params.hsr_days}</div>
+									<div class="countPrice" style="float: right">
+										<span class="nightCountPrice"><fmt:formatNumber value="${params.hsr_pricePerDays}" type="currency"></fmt:formatNumber>원</span>
+									</div>
+								</div>
+								<hr style="width: 680px">
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left">반려견 추가</div>
+									<div class="countPrice" style="float: right">
+										<c:choose>
+											<c:when test="${params.hsr_numof_pet eq 0}">
+												<div>
+													<span class="nightCountPrice">없음</span>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div>
+													<span class="nightCountPrice"><fmt:formatNumber value="${params.hsr_pricePerPetSize }" type="currency"></fmt:formatNumber>원 X ${params.hsr_numof_pet}마리 X ${params.hsr_days}</span>
+												</div>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+								<hr style="width: 680px">
+								<div class="night" style="display: inline-block; width: 600px">
+									<div class="nightCount" style="text-align: left; float: left">Total</div>
+									<div class="countPrice" style="float: right">
+										<fmt:formatNumber value="${params.hsr_totalprice}" type="currency"></fmt:formatNumber>원
+										<!-- 										<input type="hidden" -->
+										<%-- 											value="${totalValue}" class="" name="phr_price"> --%>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px; border: 2px solid darkgray; padding: 50px; border-radius: 4px;">							
-			<div>
-				<h2>결제 확인</h2>
-			</div>
-			<hr style="width: 800px">
-			<div>
-				<label style="font-weight: bold;">체크인 : </label><label class="hsr_chkin">${params.hsr_chkin}</label> <label style="font-weight: bold">체크아웃 : </label><label class="hsr_chkout">${params.hsr_chkout}</label> <label class="totalDays" style="">(총 ${params.hsr_days})</label><br> <span style="font-size: 17px;">맡기는 시간 : </span><span style="font-size: 17px;">${params.hsr_dropoff_time}</span> <span style="font-size: 17px;">데려가는 시간 : </span><span style="font-size: 17px;">${params.hsr_pickup_time}</span> <span><label class="totalDays" style="float: right">반려견 ${params.hsr_numof_pet+1} 마리</label></span>
-			</div>
-			<hr style="width: 800px">
-			<table>
-				<thead>
-					<tr>
-						<th>Description</th>
-						<th>Amount</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							<fmt:formatNumber value="${params.hsr_priceperday}" type="currency"></fmt:formatNumber>원 X ${params.hsr_days}
-						</td>
-						<td>
-							<fmt:formatNumber value="${params.hsr_pricePerDays}" type="currency"></fmt:formatNumber>원
-						</td>
-					</tr>
-					<tr>
-						<td>반려견 추가</td>
-						<td>
-							<c:choose>
-								<c:when test="${params.hsr_numof_pet eq 0}">
-									<div>
-										<span class="nightCountPrice">없음</span>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div>
-										<span class="nightCountPrice"><fmt:formatNumber value="${params.hsr_pricePerPetSize }" type="currency"></fmt:formatNumber>원 X ${params.hsr_numof_pet}마리 X ${params.hsr_days}</span>
-									</div>
-								</c:otherwise>
-							</c:choose>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<strong>Total</strong>
-						</td>
-						<td>
-							<fmt:formatNumber value="${params.hsr_totalprice}" type="currency"></fmt:formatNumber>원
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-			<div style="margin-top: 50px; margin-right: 50px; margin-left: 50px;">
-				<br> <br>
-				<div>
+			<div style="margin-top: 50px; margin-right: 100px; margin-left: 100px;">
+				<div style="margin: 40px 0 0; padding: 25px; background-color: #f5f5f5; border-top: solid 1px #dfdfdf; line-height: 1.6;">
 					<h4>예약요청 전 꼭 확인해주세요!</h4>
 					<ul>
-						<li>* 예약을 위해 강아지에 대한 내용을 돌보미에게 상세히 적어주세요.</li>
-						<li>* 예약완료를 위해 돌보미의 결제요청 후 2시간 이내로 입금해주셔야합니다. (늦어질 경우 도그메이트 고객센터로 연락주세요.)</li>
-						<li>* 사전만남은 예약 완료 후 진행하실 수 있으며, 환불은 예약 3일전까지 100% 가능합니다.</li>
-						<li>* 개인 연락처를 공유하지마세요. 예약이 완료되면 돌보미의 연락처를 확인하실 수 있습니다.</li>
-						<li>* 메시지 내용은 안전거래 등의 목적으로 회사가 열람, 수집할 수 있습니다.<br> <br></li>
+						<li>* 예약을 위해 강아지에 대한 내용을 상세히 적어주세요.</li>
+						<li>* 환불은 체크인 3일전까지 가능합니다.</li>
+						<li>* 요금이 맞는지 확인해 주세요.</li>
 					</ul>
+					<br>
 				</div>
-				<textarea name="hsr_message" placeholder="특별히 요청하고 싶은 사항이 있으면 적어주세요." maxlength="4000" id="txtMESSAGE" style="margin: 0px; width: 700px; height: 126px;"></textarea>
-				<br>
+				<textarea name="hsr_message" placeholder="강아지에 대한 내용을 돌보미에게 상세히 적어주세요." maxlength="4000" id="txtMESSAGE" style="margin: 0px; width: 700px; height: 126px;"></textarea>
+				<br> <br>
 				<div>
-					<div style="margin-bottom: 15px">맡겨Zoo를 이용하시는 이유에 대해 알려주세요!</div>
+					<div style="margin-bottom: 15px">맡겨주를 이용하시는 이유에 대해 알려주세요!</div>
 					<div style="margin-bottom: 15px">
 						<select name="hsr_purpose">
 							<option value="여행">여행</option>
@@ -470,14 +469,13 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 					</div>
 				</div>
 				<ul>
-					<li>요청 시 잘못된 정보를 전달할 경우 이로인해 발생되는 문제에 대한 책임은 의뢰인 본인에게 있습니다.</li>
-					<li>'예약 요청'을 클릭하면 서비스 총액을 지불하는 것과 서비스 약관, 환불정책에 동의하는 것입니다.</li>
-					<li>돌보미가 예약 요청을 수락해야 결제를 진행 할 수 있으며, 24시간 이내에 돌보미가 요청에 대한 응답을 할 것 입니다.</li>
+					<li>※요청 시 잘못된 정보를 전달할 경우 이로인해 발생되는 문제에 대한 책임은 의뢰인 본인에게 있습니다.</li>
+					<li>※'예약 요청'을 클릭하면 서비스 총액을 지불하는 것과 서비스 약관, 환불정책에 동의하는 것입니다.</li>
 				</ul>
-				<br>
+				<br> <br>
 			</div>
 			<div>
-				<button id="btnSubmit" class="btn btn-my">예약요청</button>
+				<button id="btnsubmit" class="btn btn-my" style="text-align: center; font-size: 23px; padding-left: 40px; padding-right: 40px">예약요청</button>
 			</div>
 			<hr>
 			<div>
@@ -492,9 +490,9 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 				<input name="hsr_numof_pet" type="hidden" value="${params.hsr_numof_pet+1}"> 
 				<input name="hsr_days" type="hidden" value="${params.hsr_days}"> 
 				<input name="hsr_priceperday" type="hidden" value="${params.hsr_priceperday}"> 
-				<input name="hsr_priceperdays" type="hidden" value="${params.hsr_priceperdays }"> <input
-					name="hsr_priceperpetsize" type="hidden" value="${params.hsr_priceperpetsize }"
-				> <input name="hsr_totalprice" type="hidden" value="${params.hsr_totalprice}">
+				<input name="hsr_priceperdays" type="hidden" value="${params.hsr_priceperdays }"> 
+				<input name="hsr_priceperpetsize" type="hidden" value="${params.hsr_priceperpetsize }"> 
+				<input name="hsr_totalprice" type="hidden" value="${params.hsr_totalprice}">
 			</div>
 		</form>
 	</div>
