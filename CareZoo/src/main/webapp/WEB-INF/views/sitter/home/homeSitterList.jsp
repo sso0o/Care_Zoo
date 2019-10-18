@@ -320,9 +320,9 @@ li:hover {
 				clearfixDiv.append(imagegalleryDiv);
 				
 				$.each(hsList[i].imgList,function(i, data){
-					var imgli = $("<li class='imgli' data-thumb='${contextPath}/home/image?fileName='"+ data +">");
+					var imgli = $("<li class='imgli' data-thumb='${contextPath}/home/image?fileName="+ data + "'/>");
 					imagegalleryDiv.append(imgli);
-					$("<img class='image' style='width: 350px; height: 348px;' src='${contextPath}/home/image?fileName='"+ data +" />")
+					$("<img class='image' style='width: 350px; height: 348px;' src='${contextPath}/home/image?fileName="+ data + "'/>")
 					.appendTo(imgli);										
 				})
 				imagegalleryDiv.lightSlider({
