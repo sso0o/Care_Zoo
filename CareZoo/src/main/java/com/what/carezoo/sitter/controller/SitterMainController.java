@@ -519,7 +519,6 @@ public class SitterMainController {
 				m.addAttribute("msg", "정말로 탈퇴하시겠습니까?");
 				if(hslService.removeHsl(num)) {
 					hsService.deleteHomeSitter(num);
-					System.out.println("게시글이랑 가정시터 삭제");
 				}
 				url = "goodBye";
 			} else {
