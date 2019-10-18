@@ -173,7 +173,7 @@ table{
     font-size: 11px;
     position: absolute;
     left: 189px;
-    top: 332px;
+    top: 405px;
     margin: 8px;
 }
 /* -------카카오 상담버튼------- */
@@ -286,21 +286,7 @@ table{
 							<input type="password" id="pw" class="text-field" name="pw" placeholder="비밀번호를 입력해주세요">
 						</td>
 					</tr>
-						<tr>
-							<td colspan="3">
-								<!-- 						<a id="kakao-login-btn"></a> --> <a
-								href="javascript:loginWithKakao()"> <img
-									src="${contextPath}/resources/img/kakaoButton.png"
-									id="kakaoBtn">
 
-							</a>
-								
-							</td>
-						</tr>	
-						<tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
-						<tr>
-							<td colspan="3"><p id="p">(카카오 로그인시, <span style="color:red;">고객</span>만 이용이 가능합니다!)</p></td>
-						</tr>
 
 						<tr>
 
@@ -310,7 +296,19 @@ table{
 								class="btn btn-login"> <input type="button"
 								onclick="location.href='${contextPath}/member/joinForm'"
 								value="회원가입" class="btn btn-join"> </td>
-					</tr>	
+					</tr>
+					<tr>
+							<td colspan="3">
+								<!-- 						<a id="kakao-login-btn"></a> --> <a
+								href="javascript:loginWithKakao()"> <img
+									src="${contextPath}/resources/img/kakaoButton.png"
+									id="kakaoBtn">
+
+							</a>
+							<p id="p">(카카오 로그인시, <span style="color:red;">고객</span>만 이용이 가능합니다!)</p>	
+							</td>
+						</tr>	
+
 					<tr>
 						<td colspan="3">
 							<div class="links"><a href="#" onclick="openWin()">비밀번호를 잊어버리셨나요?</a></div>

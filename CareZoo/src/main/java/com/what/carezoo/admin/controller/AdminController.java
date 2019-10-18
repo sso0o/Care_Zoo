@@ -109,10 +109,6 @@ public class AdminController {
 		return "admin/memberView";
 	}
 
-//	@RequestMapping("/addMemberForm")
-//	public String addMemberForm() {
-//		return "admin/joinForm_customer";
-//	}
 
 	@RequestMapping("/memberDelete")
 	public String memberDelete(@RequestParam("c_num") int c_num, Model model) {
@@ -121,39 +117,10 @@ public class AdminController {
 		model.addAttribute("cList", c);
 		return "admin/memberList";
 	}
-//	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
-//	public String addMember(Customer c) {
-//		boolean rst = mService.joinMember(c);
-//		if(rst) {
-//			System.out.println("true");
-//		} else {
-//			System.out.println("false");
-//		}
-//		return "redirect:/admin/memberList";
-//	}
-//	
+
 
 	///////////////////////////////////////////////////////////////////////////////// 펫
 
-	@RequestMapping("/addPetForm")
-	public String addPetForm(int c_num, Model m) {
-		m.addAttribute("c_num", c_num);
-		return "admin/addPetForm";
-	}
-
-//	@RequestMapping(value = "/addPet", method = RequestMethod.POST)
-//	public String addPet(Pet p) {
-//		Customer c = mService.getMemberByC_num(p.getC_num());
-//		String email = c.getC_email();
-//		boolean rst = pService.insertPet(p);
-//		if(rst) {
-//			System.out.println("true");
-//		} else {
-//			System.out.println("false");
-//		}
-//		return "redirect:/admin/memberView?c_email="+email;
-//	}
-//	
 	@ResponseBody
 	@RequestMapping("/petchk")
 	public Map<String, Object> petchk(int c_num) {

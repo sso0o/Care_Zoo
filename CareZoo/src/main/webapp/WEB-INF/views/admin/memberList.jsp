@@ -302,11 +302,7 @@ function logoutCheck() {
                     
                   </tbody>
                 </table>
-<!--               </div> -->
-<%--            <a href="${contextPath}/admin/addMemberForm" class="btn btn-info btn-icon-split"> --%>
-<!--                     <span class="text">고객추가</span> -->
-<!--                   </a> -->
-<!--             </div> -->
+
           </div>
 
         </div>

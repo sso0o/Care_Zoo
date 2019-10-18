@@ -352,7 +352,11 @@ legend {
     </nav>
     <br><br><br>
 <!-- 	<div class="container"> -->
-			<form action="petjoin" method="post"  onsubmit="return checkValue()" enctype="multipart/form-data">
+	<div class="btnGroup">
+		<input type="button" class="btn btn-go" value="기존 반려견으로 할래요!"
+			onclick="location.href='${contextPath}/visit/petList1?c_num=${c_num}'">
+	</div>
+	<form action="petjoin" method="post"  onsubmit="return checkValue()" enctype="multipart/form-data">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<input type="hidden" name="c_num" value="${c_num}">
 			<div class="main">
@@ -408,7 +412,7 @@ legend {
 				</div>
 				<div class="btnGroup">
 					<input type="submit" class="btn btn-submit" value="등록완료">
-					<input type="button" class="btn btn-go" value="기존 반려견으로 할래요!" onclick="location.href='${contextPath}/visit/petList1?c_num=${c_num}'">
+
 				</div>
 			</div>
 		</form>
