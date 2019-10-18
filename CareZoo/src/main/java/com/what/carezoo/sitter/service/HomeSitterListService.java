@@ -137,4 +137,12 @@ public class HomeSitterListService {
 		String fileName = hslDao.selectFileName(hsl_num);
 		return fileName;
 	}
+	//시터 삭제시 게시글도 삭제 
+	public boolean removeHsl(int hs_num) {
+		if (hslDao.countHsl(hs_num)>0) {
+			hslDao.deleteHs(hs_num);
+			return true;
+		}
+		return false;
+	}
 }
