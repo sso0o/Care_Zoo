@@ -35,12 +35,20 @@ import com.what.carezoo.hotel.service.PetHotelService;
 import com.what.carezoo.member.service.MemberMailSendService;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.Customer;
+import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.Pet;
 import com.what.carezoo.model.PetHotel;
 import com.what.carezoo.model.PetHotelReservation;
 import com.what.carezoo.model.PetHotelRoom;
+import com.what.carezoo.model.VisitSitter;
+import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.pet.service.PetService;
+import com.what.carezoo.pet.service.Pet_DetailService;
+import com.what.carezoo.sitter.service.HomeSitterReservationService;
+import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.SitterService;
+import com.what.carezoo.sitter.service.VisitSitterReservationService;
+import com.what.carezoo.sitter.service.VisitSitterService;
 
 @Controller
 @RequestMapping("/admin")
@@ -64,7 +72,24 @@ public class AdminController {
 
 	@Autowired
 	private PetHotelReservationService phrService;
+	
+	@Autowired
+	private VisitSitterService vsService;
+	
+	@Autowired
+	private HomeSitterService hsService;
+	
+	@Autowired
+	private VisitSitterReservationService vsrService;
+	
+	@Autowired
+	private Pet_DetailService pdService;
+	
+	@Autowired
+	private HomeSitterReservationService hsrService;
 
+	
+	
 	@RequestMapping("/main")
 	public String showAdminMain() {
 		return "admin/adminMain";
@@ -113,6 +138,30 @@ public class AdminController {
 	@RequestMapping("/memberDelete")
 	public String memberDelete(@RequestParam("c_num") int c_num, Model model) {
 		mService.deleteCustomer(c_num);
+		//강아지삭제
+		if(pService.countPetByC_num(c_num)>0) {
+			pService.deletePetByC_num(c_num);
+		}
+		
+		//펫디테일 삭제
+		if(pdService.countPetByC_num(c_num)>0) {
+			pdService.deleteByC_num(c_num);
+		}
+		
+		//방문예약 삭제
+		if(vsrService.countC_num(c_num)>0) {
+			vsrService.deleteByC_num(c_num);
+		}
+		
+		//가정예약 삭제
+		if(hsrService.countC_num(c_num)>0) {
+			hsrService.deleteByC_num(c_num);
+		}
+		
+		//펫호텔 예약 삭제
+		if(phrService.countC_num(c_num)>0) {
+			phrService.deleteByC_num(c_num);
+		}
 		List<Customer> c = mService.selectAll();
 		model.addAttribute("cList", c);
 		return "admin/memberList";
@@ -396,5 +445,48 @@ public class AdminController {
 			return "redirect:/admin/viewPetHotel?ph_num=" + ph_num;
 		}
 	}
+////////////////////////////////////////////////////////////////////////////////sitter
+	//가정시터
+	@RequestMapping(value="/hsList",method= RequestMethod.GET)
+	public String hsListForm(Model model) {
+		List<HomeSitter> hsList = hsService.getAllHomeSitter();
 
+		model.addAttribute("hsList", hsList);
+		return "admin/hsList";
+	}
+	//강제탈퇴
+	@RequestMapping("/hsDelete")
+	public String hsDelete(@RequestParam("hs_num")int hs_num,Model model) {
+		hsService.deleteHomeSitter(hs_num);
+		//홈시터 탈퇴시 해당 게시글도 지우기
+		
+		List<HomeSitter> hsList = hsService.getAllHomeSitter();
+		model.addAttribute("hsList", hsList);
+		return "admin/hsList";
+	}
+	
+	//방문시터
+	@RequestMapping(value="/vsList", method=RequestMethod.GET)
+	public String vsListForm(Model model) {
+		List<VisitSitter> vsList = vsService.getAllVisitSitter();
+
+		model.addAttribute("vsList", vsList);
+		return "admin/vsList";
+	}
+	
+	//강제탈퇴
+	@RequestMapping("/vsDelete")
+	public String vsDelete(@RequestParam("vs_num")int vs_num,Model model) {
+		//강퇴 당하는 이유 메일 보내주기
+		
+		vsService.deleteVisitSitter(vs_num);
+		//예약 내역 삭제
+		if(vsrService.countVs_num(vs_num)>0) {
+			vsrService.deleteByVs_num(vs_num);
+		}
+		List<VisitSitter> vsList = vsService.getAllVisitSitter();
+		model.addAttribute("vsList", vsList);
+		return "admin/vsList";
+		
+	}
 }
