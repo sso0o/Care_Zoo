@@ -309,7 +309,7 @@ li:hover {
 		for (i; breaker < 8; i++) {
 			console.log(i);
 			if (breaker < 7) {
-				var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num='+ hsList[i].HSL_NUM+ '\'\"style="border: 1px solid; margin: 50px; height: 350px;">');
+				var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num='+ hsList[i].HSL_NUM+ '\'\"style="border: 1px solid rgba(0,0,0,0.3); margin: 50px; height: 352px;border-radius:5px">');
 				var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
 				petHotelDiv.append(petHotelDiv2);
 				var itemDiv = $('<div class="item" style="heigth:350;width:350px">');
@@ -343,9 +343,10 @@ li:hover {
 								
 				var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
 				$('<span>').text(hsList[i].HS_NAME).appendTo(aArDiv);
+				$('<br><hr>').appendTo(aArDiv);
 				$('<div>' + hsList[i].HS_ADDRESS + hsList[i].HS_D_ADDRESS+ '</div>').appendTo(aArDiv);
-
 				var reviewDiv = $('<div><span><strong>' + hsList[i].HSL_TITLE+ '</strong></span>').appendTo(aArDiv);
+				$('<br><hr>').appendTo(aArDiv);
 				$('<br><span>').text('후기: ' + (hsList[i].HSC_CMT_COUNT == null ? 0 : hsList[i].HSC_CMT_COUNT ) + '개 '
 						+ hsList[i].HS_AVGSTAR).appendTo(reviewDiv);
 				reviewDiv.appendTo(aArDiv);
@@ -380,9 +381,6 @@ li:hover {
 </script>
 </head>
 <body>
-<c:forEach items="${hsList }" var="i">
-	${i.HS_NUM }
-</c:forEach>
   <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
@@ -429,13 +427,18 @@ li:hover {
             </ul>
         </div>
     </nav>
-    <br><br><br>
+    <div class='container'></div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	
 	<div class='container'>
 		<%-- 	<form action="${contextPath }/home/search" method="get" id="searchForm"> --%>
 		<form id="searchForm">
 			<!-- 지역 검색 -->
-			<ul class="nav nav-pills nav-fill" role="tablist">
+			<ul class="nav nav-pills nav-fill" role="tablist" style=" position: relative; left: 21px;">
 				<li id="menu_0" class="nav-item"><a class="nav-link" href="${contextPath}/home/main" style="color: #17a2b8">전체</a></li>
 				<li id="menu_1" class="nav-item"><a class="nav-link" href="#" style="color: #17a2b8">서울</a></li>
 				<li id="menu_2" class="nav-item"><a class="nav-link" href="#" style="color: #17a2b8">경기</a></li>
@@ -548,19 +551,19 @@ li:hover {
 					</div>
 
 					<div style="padding: 7px;">
-						<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px;" value="찾기">
-						<button type="reset" class="btn btn-outline-info" style="height: 31px;line-height: 17px;">초기화</button>
+						<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px; width: auto; border: 1px solid rgba(23, 162, 184, 0.5);" value="찾기">
+						<button type="reset" class="btn btn-outline-info" style="height: 31px;line-height: 17px; width: auto; border: 1px solid rgba(23, 162, 184, 0.5);">초기화</button>
 					</div>
 
 				</div>
 			</div>
 			<hr>
 			<!-- 홈시터 검색필터 설정부분 asd-->
-			<div class="nav" style="position: relative;left: 48px;">
+			<div class="nav" style="position: relative;left: 88px;">
 				<table >
 					<tr>
 						<th>서비스</th>
-						<th>예약일을 알려주세요!</th>
+						<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;예약일을 알려주세요!</th>
 <!-- 						<th>반려견 나이</th> -->
 						<th>반려견 크기</th>
 					</tr>
@@ -590,7 +593,7 @@ li:hover {
 								<option title="l" value="대형견">대형견 (15kg 이상)</option>
 							</select>
 						</td>
-						<td colspan="2"  style="padding: 7px;position: relative;left: 144px;">
+						<td colspan="2"  style="padding: 7px;position: relative;left: 40px;">
 							<input type="button" class="search btn btn-outline-info" style="height: 31px;line-height: 17px;width: 70px;"  value="찾기">
 							<button type="reset" class="reset btn btn-outline-info" style="height: 31px;line-height: 17px;">초기화</button>
 						</td>

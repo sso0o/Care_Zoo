@@ -200,6 +200,7 @@ form{
     border-radius: 4px;
     text-align: center;
 }
+
 </style>
 <script type="text/javascript">
 
@@ -399,75 +400,24 @@ $(function() {
 	});
 	
 })
-//  	var calendar=null;
-// document.addEventListener('DOMContentLoaded', function() {
-// 	var d = new Date();
-<%-- 	var num = <%=session.getAttribute("user_num")%> --%>
-// 	var calendarEl = document.getElementById('calendar');
-// 	var calHeight = 450;
-// 	calendar = new FullCalendar.Calendar(calendarEl, {
-// 		plugins : [ 'dayGrid', 'interaction' ],
-// 		//		 			timeZone : "Asian/Seoul",
-// 		locale : 'ko',
-// 		height : calHeight,
-// 		// 				    contentHeight:calHeight,
-// 		allDayDefault : false,
-// 		editable : false,
-// 		displayEventTime : false,
-// 		defaultView : 'dayGridMonth',
-// 		defaultDate : d,
-// 		editable : true,
-// 		selectable : false,
-// 		eventLimit : false, // allow "more" link when too many events
-// 		header : {
-// 			left : 'prev,next',
-// 			center : 'title',
-// 			right : 'dayGridMonth,dayGridWeek'
-// 		},
-// 		eventRender : function(info) {
-// 			var tooltip = new Tooltip(info.el, {
-// 				title : info.event.extendedProps.description,
-// 				placement : 'top',
-// 				trigger : 'hover',
-// 				container : 'body'
-// 			});
-// 		},
-// 	});
-
-// 	// 캘린더에 내 예약 추가(홈시터)
-// 	$.ajax({
-// 		url : "${contextPath}/sitter/myReservationHS",
-// 		data : {
-// 			hs_num : num
-// 		},
-// 		dataType : "JSON",
-// 		success : function(data) {
-// 			console.log(data)
-// 			for(var i = 0; i<data.hsrList.length; i++){
-// 				var e = {
-// 					groupId : 'c_num',
-// 					id : data.hsrList[i].C_NUM,
-// 					start : data.hsrList[i].HSR_CHKIN+ "T"+data.hsrList[i].HSR_PICKUP_TIME,
-// 					end : data.hsrList[i].HSR_CHKOUT+ "T"+data.hsrList[i].HSR_DROPOFF_TIME,
-// 					title : '예약'+(i+1),
-// 					description : data.hsrList[i].HSR_STATUS,
-// 					color : 'rgba(0, 0, 120, 0.6)',
-// 					textColor : "#FFFFFF"
-// 				}
-// 				calendar.addEvent(e)
-// 				calendar.render();
-// 			}
-
-// 		},
-// 		error : function() {
-// 			alert("데이터를 불러오는데 실패했습니다.")
-// 		}
-// 	})
-	
-// 	calendar.render();
-// });
-
-
+	function checkValue() {
+		if($("#checkin").val() ==""){
+			alert("시작일을 입력해주세요");
+			return false;
+		}
+		if($("#checkout").val() ==""){
+			alert("마침일을 입력해주세요");
+			return false;
+		}
+		if($("#hsr_dropoff_time").val() ==""){
+			alert("맡기는 시간을 입력해주세요");
+			return false;
+		}
+		if($("#hsr_pickup_time").val() ==""){
+			alert("데려가는 시간을 입력해주세요");
+			return false;
+		}
+	}
 // 로그아웃확인 <--모든페이지에 필수
 function logoutCheck() {
 	if (confirm("정말 로그아웃?") == true) {
@@ -675,12 +625,13 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 		</div>	
 		<div style="width: 350px; display: inline-block; float: left;padding:10px;">
 			<br><br>
-			<form action="reserve" method="post">
+			<form action="reserve" method="post" onsubmit="return checkValue()" >
 				<h5 style="text-align: center">예약을 확인해 주세요.</h5>
+				<hr>
 				<table>
 					<thead>
 						<tr>
-							<th><input type="text" id="checkin" name="hsr_chkin" class="cal" placeholder="시작일" style="width: 143px;"></th>
+							<th><input type="text" id="checkin" name="hsr_chkin" class="cal" placeholder="시작일" style="width: 143px;"> ~</th>
 							<th><input type="text" id="checkout" name="hsr_chkout" class="cal" placeholder="마침일" style="width: 143px;"></th>
 						</tr>
 					</thead>
@@ -689,18 +640,20 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 							<th colspan="2"><small>(반려견 추가 당<span id="addPet">15000</span>원)
 							</small></th>
 						</tr>
+
 						<tr>
-							<td>시작 시간 :</td>
+							<td>맡기는 시간 :</td>
 							<td>
-								<input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time">
+								<input type="text" id="hsr_dropoff_time" name="hsr_dropoff_time" style="width: 143px;">
 							</td>
 						</tr>
 						<tr>
-							<td>종료 시간 :</td>
+							<td>데려가는 시간 :</td>
 							<td>
-								<input type="text" id="hsr_pickup_time" name="hsr_pickup_time">
+								<input type="text" id="hsr_pickup_time" name="hsr_pickup_time" style="width: 143px;">
 							</td>
 						</tr>
+						<tr><td colspan="2"><hr></td></tr>
 						<tr>
 							<td>
 								<span id="pricePerDay">20000</span>원
@@ -716,22 +669,29 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 							<td colspan="1"><small>반려견 추가</small> <input class="form-control-sm" type="number" min="0" max="5" name="hsr_numof_pet" id="hsr_numof_pet" value="0" ></td>
 							<td style="line-height: 50px;"><span id="totalAddPetPrice" >0</span>원 </td>
 						</tr>
+						<tr><td colspan="2"><hr></td></tr>
 						<tr>
 							<td>총 가격 :</td>
 							<td>
 								<span id="hsr_totalprice">20,000</span>원
 							</td>
 						</tr>
+						<tr><td colspan="2"><br></td></tr>
+						<tr>
+							<td>
+								<input type="submit" value="예약하기" class="btn btn-outline-info"> 
+							</td>
+							<td><input type="reset" value="초기화" class="btn btn-outline-info"></td>
+						</tr>
 					</tbody>
 				</table>
-								<input type="submit" value="예약하기" class="btn btn-outline-info"> <input type="reset" value="초기화" class="btn btn-outline-info">
-				<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> <input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }"> <input type="hidden" name="hs_num" value="${hsList.HS_NUM}"> <input type="hidden" name="hsr_totalprice" id="totalpriceInput"> <input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize"> <input type="hidden" name="hsr_priceperday" id="hsr_priceperday"> <input type="hidden" name="hsr_pricePerDays" class="pricePerDays"> <input type="hidden" id="days" name="hsr_duringdays" value="0"> <input type="hidden" name="hsr_days" id="Days">
 			</form>
+				<input type="hidden" name="c_num" value="<%=session.getAttribute("user_num")%>"> <input type="hidden" name="hsl_num" value="${hsList.HSL_NUM }"> <input type="hidden" name="hs_num" value="${hsList.HS_NUM}"> <input type="hidden" name="hsr_totalprice" id="totalpriceInput"> <input type="hidden" name="hsr_pricePerPetSize" id="pricePerPetSize"> <input type="hidden" name="hsr_priceperday" id="hsr_priceperday"> <input type="hidden" name="hsr_pricePerDays" class="pricePerDays"> <input type="hidden" id="days" name="hsr_duringdays" value="0"> <input type="hidden" name="hsr_days" id="Days">
 			<br>			
 			<div id="calSpan">
+			<br>
 				<div>캘린더 미리보기</div>
 				<div><small>예약 가능한 날짜를 보여줍니다!</small></div>
-				<br>
 				<hr>
 				
 				<div id="calendar"></div>
