@@ -147,7 +147,11 @@ public class AdminController {
 
 
 	@RequestMapping("/memberDelete")
-	public String memberDelete(@RequestParam("c_num") int c_num, Model model) {
+	public String memberDelete(@RequestParam("c_num") int c_num, Model model,HttpServletRequest request) {
+		//강제탈퇴 이메일보내기
+		mailsender.mailSendWithMember(mService.getMemberByC_num(c_num).getC_email(), mService.getMemberByC_num(c_num).getC_name(), request);
+		
+		//고객삭제
 		mService.deleteCustomer(c_num);
 		//강아지삭제
 		if(pService.countPetByC_num(c_num)>0) {
@@ -474,8 +478,10 @@ public class AdminController {
 	}
 	//강제탈퇴
 	@RequestMapping("/hsDelete")
-	public String hsDelete(@RequestParam("hs_num")int hs_num,Model model) {
-		
+	public String hsDelete(@RequestParam("hs_num")int hs_num,Model model,HttpServletRequest request) {
+		//강퇴 이메일 보내주기
+		hsmailsender.mailSendWithMember(hsService.getHomeSitterByNum(hs_num).getHs_email(), hsService.getHomeSitterByNum(hs_num).getHs_name(), request);
+		//홈시터 삭제
 		hsService.deleteHomeSitter(hs_num);
 		//홈시터 탈퇴시 해당 게시글도 지우기
 		hslService.removeHsl(hs_num);
@@ -498,7 +504,7 @@ public class AdminController {
 	public String vsDelete(@RequestParam("vs_num")int vs_num,Model model,HttpServletRequest request) {
 		//강퇴 당하는 이유 메일 보내주기
 		vsmailsender.mailSendWithMember(vsService.getVisitSitterByNum(vs_num).getVs_email(),vsService.getVisitSitterByNum(vs_num).getVs_name() , request);
-		
+		//방문시터 삭제
 		vsService.deleteVisitSitter(vs_num);
 		//예약 내역 삭제
 		if(vsrService.countVs_num(vs_num)>0) {
