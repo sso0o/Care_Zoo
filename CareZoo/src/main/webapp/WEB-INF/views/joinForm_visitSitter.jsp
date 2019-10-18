@@ -158,11 +158,15 @@ function checkValue() {
 		alert("상세주소를 입력해주세요");
 		return false;
 	}
-	
-	if($("#contact").val() ==""){
-		alert("연락처를 입력해주세요");
-		return false;
-	}
+	   console.log($("#phone1").val().length);
+	   if($("#phone1").val().length<2||$("#phone1").val().length>4){
+	      alert("핸드폰번호를 정확하게 입력해주세요.");
+	      return false;
+	   }
+	   if($("#phone2").val().length<2||$("#phone2").val().length>4){
+	      alert("핸드폰번호를 정확하게 입력해주세요.");
+	      return false;
+	   }   
 }
 
 var index = 1;
@@ -503,10 +507,14 @@ legend{
 				<div class="form-group">
 					<label for="c_contact">휴대전화</label>
 					<div class="mobile-area">
-					<input type="tel" class="form-control phone" id="contact" placeholder="숫자만 입력해 주세요" name="vs_contact">
-					<input type="button" class="form-control auth" value="인증번호 받기">
-					<input type="text" class="form-control phone" id="contact_chk" placeholder="인증번호를 입력해 주세요" style="margin-top: 5px;">
-					<input type="button" class="form-control auth" value="인증번호 확인">
+						<select name="phone">
+							<option value="010" selected="selected">010</option>
+							<option value="011">011</option>
+							<option value="016">016</option>
+							<option value="017">017</option>
+						</select> - <input type="text" name="phone1" id="phone1"
+							style="width: 65px; height: 26px;"> - <input type="text" name="phone2"
+							id="phone2" style="width: 65px; height: 26px;">
 					</div>
 				</div>
 				

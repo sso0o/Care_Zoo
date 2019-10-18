@@ -136,6 +136,14 @@ public class MemberController {
 	//이메일 인증 보내기 메서드
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(Customer customer, Model m,HttpServletRequest request) {
+		String phone = request.getParameter("phone");
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		System.out.println(phone);
+		System.out.println(phone1);
+		System.out.println(phone2);
+		String contact = phone+phone1+phone2;
+		customer.setC_contact(contact);
 		//회원가입 메서드
 		boolean result = memberService.joinMember(customer);
 		if(result) {					
@@ -635,7 +643,15 @@ public class MemberController {
 	
 	//회원가입(kakao)
 	@RequestMapping(value="/join2", method=RequestMethod.POST)
-	public String join2(Customer customer, Model m) {
+	public String join2(Customer customer, Model m,HttpServletRequest request) {
+		String phone = request.getParameter("phone");
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		System.out.println(phone);
+		System.out.println(phone1);
+		System.out.println(phone2);
+		String contact = phone+phone1+phone2;
+		customer.setC_contact(contact);
 		//회원가입 메서드
 		boolean result = memberService.joinMember2(customer);
 		if(result) {					
