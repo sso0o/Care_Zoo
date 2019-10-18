@@ -450,7 +450,7 @@
 					}
 				});
 				$('.pull-right').click(function() {
-					alert($('.col-dates .pull-left').val());	
+// 					alert($('.col-dates .pull-left').val());	
 				if ($('.col-dates .pull-left').val() == "" || $('.col-dates .pull-left').val()=="체크인 날짜") {
 						alert("체크인 날짜 먼저 선택해주세요.");
 						datepickerEnd.prop('disabled');

@@ -308,86 +308,93 @@ public class AdminController {
 		return "admin/addPetHotelForm";
 	}
 
-	// 펫호텔 추가
-	@RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
-	public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest) {
-		List<MultipartFile> files = mtfRequest.getFiles("file");
-		boolean rst = phService.addPetHotel(ph, files);
-		String phrm_pet_size_memo = "";
-		String[] phrm_pet_size = null;
-		String[] phrm_option = null;
-		String phrm_pet_option_memo = "";
+	   // 펫호텔 추가
+	   @RequestMapping(value = "/addPetHotel", method = RequestMethod.POST)
+	   public String name(PetHotel ph, Model m, MultipartHttpServletRequest mtfRequest) {
+	      String phone = mtfRequest.getParameter("phone");
+	      String phone1 = mtfRequest.getParameter("phone1");
+	      String phone2 = mtfRequest.getParameter("phone2");
+	      String ph_contact = phone + "-" + phone1 + "-" + phone2;
+	      ph.setPh_contact(ph_contact);
+	      List<MultipartFile> files = mtfRequest.getFiles("file");
+	      boolean rst = phService.addPetHotel(ph, files);
+	      String phrm_pet_size_memo = "";
+	      String[] phrm_pet_size = null;
+	      String[] phrm_option = null;
+	      String phrm_pet_option_memo = "";
+//	      System.out.println("phone "+phone);
+//	      System.out.println("phone1 "+phone1); 
+//	      System.out.println("phone2 "+phone2);
+//	      System.out.println("ph_contact" + ph_contact);
+	      String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
+//	      System.out.println(phrm_nam);
+	      String[] phrm_name = mtfRequest.getParameterValues("phrm_name");
+	      String[] phrm_price = mtfRequest.getParameterValues("phrm_price");
+	      String[] phrm_m_price = mtfRequest.getParameterValues("phrm_m_price");
+	      String[] phrm_l_price = mtfRequest.getParameterValues("phrm_l_price");
+	      String[] phrm_p_max = mtfRequest.getParameterValues("phrm_p_max");
+	      PetHotel petHotel = phService.getPetHotelbyName(ph.getPh_name());
+//	      System.out.println("ph:" + ph);
+	      for (int i = 0; i < phrm_name.length; i++) {
+	         String result_size = "";
+	         if (mtfRequest.getParameterValues("phrm_pet_size" + i) != null) {
+	            phrm_pet_size = mtfRequest.getParameterValues("phrm_pet_size" + i);
+//	            System.out.println("phrm_pet_size:" + Arrays.toString(phrm_pet_size));
+//	            System.out.println("phrm_pet_size" + phrm_pet_size);
+	            for (int j = 0; j < phrm_pet_size.length; j++) {
+	               result_size += phrm_pet_size_memo.concat(phrm_pet_size[j]);
+	               if (j < (phrm_pet_size.length) - 1) {
+	                  result_size += phrm_pet_size_memo.concat(",");
+	               }
+	            }
+	         }
+	         String result_option = "";
+	         if (mtfRequest.getParameterValues("phrm_option" + i) != null) {
+	            phrm_option = mtfRequest.getParameterValues("phrm_option" + i);
+//	            System.out.println("phrm_option:" + Arrays.toString(phrm_option));
+//	            System.out.println("phrm_option" + phrm_option);
+	            for (int j = 0; j < phrm_option.length; j++) {
+	               result_option += phrm_pet_option_memo.concat(phrm_option[j]);
+	               if (j < (phrm_option.length) - 1) {
+	                  result_option += phrm_pet_option_memo.concat(",");
+	               }
+	            }
+	         }
+	         PetHotelRoom phrm = new PetHotelRoom();
+//	         System.out.println("ph.getPh_num:" + ph.getPh_num());
+	         int ph_num = ph.getPh_num();
+//	         System.out.println("ph_num" + ph_num);
+	         phrm.setPh_num(ph_num);
+	         phrm.setPhrm_name(phrm_name[i]);
+	         phrm.setPhrm_price(Integer.parseInt(phrm_price[i]));
+	         phrm.setPhrm_m_price(Integer.parseInt(phrm_m_price[i]));
+	         phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
+	         phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
+	         phrm.setPhrm_pet_size(result_size);
+	         phrm.setPhrm_option(result_option);
+	         phService.addPetHotelRoom(phrm);
+	      }
 
-		String[] phrm_nam = mtfRequest.getParameterValues("phrm_nam");
-		System.out.println(phrm_nam);
-		String[] phrm_name = mtfRequest.getParameterValues("phrm_name");
-		String[] phrm_price = mtfRequest.getParameterValues("phrm_price");
-		String[] phrm_m_price = mtfRequest.getParameterValues("phrm_m_price");
-		String[] phrm_l_price = mtfRequest.getParameterValues("phrm_l_price");
-		String[] phrm_p_max = mtfRequest.getParameterValues("phrm_p_max");
-		PetHotel petHotel = phService.getPetHotelbyName(ph.getPh_name());
-		System.out.println("ph:" + ph);
-		for (int i = 0; i < phrm_name.length; i++) {
-			String result_size = "";
-			if (mtfRequest.getParameterValues("phrm_pet_size" + i) != null) {
-				phrm_pet_size = mtfRequest.getParameterValues("phrm_pet_size" + i);
-				System.out.println("phrm_pet_size:" + Arrays.toString(phrm_pet_size));
-				System.out.println("phrm_pet_size" + phrm_pet_size);
-				for (int j = 0; j < phrm_pet_size.length; j++) {
-					result_size += phrm_pet_size_memo.concat(phrm_pet_size[j]);
-					if (j < (phrm_pet_size.length) - 1) {
-						result_size += phrm_pet_size_memo.concat(",");
-					}
-				}
-			}
-			String result_option = "";
-			if (mtfRequest.getParameterValues("phrm_option" + i) != null) {
-				System.out.println("오십니까~?");
-				phrm_option = mtfRequest.getParameterValues("phrm_option" + i);
-				System.out.println("phrm_option:" + Arrays.toString(phrm_option));
-				System.out.println("phrm_option" + phrm_option);
-				for (int j = 0; j < phrm_option.length; j++) {
-					result_option += phrm_pet_option_memo.concat(phrm_option[j]);
-					if (j < (phrm_option.length) - 1) {
-						result_option += phrm_pet_option_memo.concat(",");
-					}
-				}
-			}
-			PetHotelRoom phrm = new PetHotelRoom();
-			System.out.println("ph.getPh_num:" + ph.getPh_num());
-			int ph_num = ph.getPh_num();
-			System.out.println("ph_num" + ph_num);
-			phrm.setPh_num(ph_num);
-			phrm.setPhrm_name(phrm_name[i]);
-			phrm.setPhrm_price(Integer.parseInt(phrm_price[i]));
-			phrm.setPhrm_m_price(Integer.parseInt(phrm_m_price[i]));
-			phrm.setPhrm_l_price(Integer.parseInt(phrm_l_price[i]));
-			phrm.setPhrm_p_max(Integer.parseInt(phrm_p_max[i]));
-			phrm.setPhrm_pet_size(result_size);
-			phrm.setPhrm_option(result_option);
-			phService.addPetHotelRoom(phrm);
-		}
+//	           String src = mtfRequest.getParameter("src");
+//	           System.out.println("src value : " + src);
+//	           System.out.println(fileList.get(0));
+//	           for (MultipartFile mf : fileList) {
+//	               String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+//	               long fileSize = mf.getSize(); // 파일 사이즈
+	      //
+//	               System.out.println("originFileName : " + originFileName);
+//	               System.out.println("fileSize : " + fileSize);
+//	           }
 
-//	        String src = mtfRequest.getParameter("src");
-//	        System.out.println("src value : " + src);
-//	        System.out.println(fileList.get(0));
-//	        for (MultipartFile mf : fileList) {
-//	            String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-//	            long fileSize = mf.getSize(); // 파일 사이즈
-		//
-//	            System.out.println("originFileName : " + originFileName);
-//	            System.out.println("fileSize : " + fileSize);
-//	        }
+//	         boolean add_phrm = phService.addPetHotelRoom(phrm);
 
-//	      boolean add_phrm = phService.addPetHotelRoom(phrm);
+	      if (rst) {
+	         return "redirect:/admin/petHotelList";
+	      } else {
+	         return "redirect:/admin/addPetHotelForm";
+	      }
 
-		if (rst) {
-			return "redirect:/admin/main";
-		} else {
-			return "redirect:/admin/addPetHotelForm";
-		}
-
-	}
+	   }
 
 	// 펫호텔 수정하기 위해 리스트 보기
 	@RequestMapping("/petHotelList")

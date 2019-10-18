@@ -451,7 +451,7 @@ function logoutCheck() {
 
 						$(".search").on("click", function() {
 
-							alert("search 실행!!");
+// 							alert("search 실행!!");
 							searchSwitch = 1;
 							loadingPage();
 							$('.petHotelList').empty();

@@ -68,7 +68,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	public Map<String, Object> getPetHotel(int ph_num) {
 		Map<String, Object> rst = new HashMap<String, Object>();
 		rst.put("ph", phService.getPetHotelbyNum(ph_num));
-		System.out.println(rst);
+//		System.out.println(rst);
 		return rst;
 
 	}
@@ -124,8 +124,8 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	public List<PetHotel> searchPetHotel(@RequestParam(value = "searchSwitch", required = false) int switchNumber,
 			@RequestParam(value = "ph_address", required = false) ArrayList<String> ph_address, PetHotel ph,
 			Model model) {
-		System.out.println("여기까지?");
-		System.out.println("swichNumber=====>" + switchNumber);
+//		System.out.println("여기까지?");
+//		System.out.println("swichNumber=====>" + switchNumber);
 		if (switchNumber == 1) {
 //
 			if (ph == null) {
@@ -140,7 +140,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 				(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
 			}
 
-			System.out.println("==============================값" + phList);
+//			System.out.println("==============================값" + phList);
 //		   model.addAttribute("phList", phList);
 			return phList;
 		} else {
@@ -148,7 +148,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			for (int i = 0; i < phList.size(); i++) {
 				(phList.get(i)).setPh_filesName(phService.getFileList((phList.get(i)).getPh_num()));
 			}
-			System.out.println("==============================값" + phList);
+//			System.out.println("==============================값" + phList);
 //			model.addAttribute("phList", phList);
 			return phList;
 		}
@@ -178,8 +178,8 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	@RequestMapping("/paySuccess")
 	public String payCompleteForm(HttpSession session, PetHotelReservation phr, String phr_numof_pet,
 			HttpServletRequest request) {
-		System.out.println("phr: " + phr);
-		System.out.println("phr_numof_pet:" + phr_numof_pet);
+//		System.out.println("phr: " + phr);
+//		System.out.println("phr_numof_pet:" + phr_numof_pet);
 //		params
 //ph_num, phrm_num, phr_status=3, p_num, phr_price,phr,totaldays
 		int c_num = (Integer) session.getAttribute("user_num");
@@ -209,10 +209,10 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 //		System.out.println("phr:"+phr);
 //		System.out.println(session.getAttribute("user_num"));
 		PetHotelRoom phrm = phService.petHotelRoomDetail(phrm_num);
-		System.out.println("oneNightPrice" + oneNightValue);
-		System.out.println("nightCountPrice" + nightCountValue);
-		System.out.println("petAddValue" + petAddValue);
-		System.out.println("totalValue" + totalValue);
+//		System.out.println("oneNightPrice" + oneNightValue);
+//		System.out.println("nightCountPrice" + nightCountValue);
+//		System.out.println("petAddValue" + petAddValue);
+//		System.out.println("totalValue" + totalValue);
 		List<Pet> pL = pService.selectByC_Num((Integer) session.getAttribute("user_num"));
 //		System.out.println(pL);
 		PetHotel ph = phService.getPetHotelbyNum(phrm.getPh_num());
@@ -220,7 +220,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		for (int i = 0; i < pL.size(); i++) {
 			int age = year - Integer.parseInt(((pL.get(i)).getP_birth()).substring(0, 4));
 			(pL.get(i)).setAge(age + 1);
-			System.out.println(age);
+//			System.out.println(age);
 		}
 		m.addAttribute("ph", ph);
 		m.addAttribute("phrm", phrm);
@@ -284,7 +284,7 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		List<String> filesName = phService.getFileList(ph_num);
 		for (int i = 0; i < filesName.size(); i++) {
 			String str = filesName.get(i);
-			System.out.println(str);
+//			System.out.println(str);
 		}
 
 		List<PetHotelRoom> petHotelRoomList = phService.getAllPetHotelRoom(ph_num);
@@ -293,11 +293,11 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 			if (((petHotelRoomList.get(j)).getPhrm_option()) != null) {
 				String date[] = ((petHotelRoomList.get(j)).getPhrm_option()).split(",");
 				List<String> optionList = new ArrayList<String>();
-				System.out.println("Arrays.to :" + Arrays.toString(date));
+//				System.out.println("Arrays.to :" + Arrays.toString(date));
 				for (int l = 0; l < date.length; l++) {
-					System.out.println("date[]:" + date[l]);
+//					System.out.println("date[]:" + date[l]);
 					optionList.add(date[l]);
-					System.out.println(optionList.get(l));
+//					System.out.println(optionList.get(l));
 				}
 				petHotelRoomList.get(j).setPhrm_options(optionList);
 			}
@@ -323,19 +323,19 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 	@RequestMapping("/petHotelRoomDateChoice")
 	public List<PetHotelRoom> showPetHotelRoom(String phr_chkin, String phr_chkout,
 			@RequestParam("ph_num") int ph_num) {
-		System.out.println(phr_chkin + phr_chkout + ph_num);
+//		System.out.println(phr_chkin + phr_chkout + ph_num);
 
 		List<PetHotelRoom> dateChoice = phService.getHotelRoomByDate(phr_chkin, phr_chkout, ph_num);
 		for (int i = 0; i < dateChoice.size(); i++) {
-			System.out.println("p_max:" + (dateChoice.get(i)).getPhrm_p_max());
-			System.out.println("Rcount:" + (dateChoice.get(i)).getRcount());
+//			System.out.println("p_max:" + (dateChoice.get(i)).getPhrm_p_max());
+//			System.out.println("Rcount:" + (dateChoice.get(i)).getRcount());
 			(dateChoice.get(i)).setRemaining_room((dateChoice.get(i).getPhrm_p_max()) - (dateChoice.get(i).getRcount()));
 			if (0 >= (dateChoice.get(i)).getRemaining_room()) {
 				dateChoice.get(i).setRemaining_room(0);
 			}
-			System.out.println("remainingRoom:" + dateChoice.get(i).getRemaining_room());
+//			System.out.println("remainingRoom:" + dateChoice.get(i).getRemaining_room());
 		}
-		System.out.println(dateChoice);
+//		System.out.println(dateChoice);
 		return dateChoice;
 	}
 
@@ -352,8 +352,8 @@ public class PetHotelController {// 보호자 비동반 애견호텔 컨트롤�
 		Date phrCheckOut;
 		Date today = new Date();
 		List<PetHotelReservation> phrList = phrService.getPetHotelResByPhrm_num(phrm_num);
-		System.out.println(phrList);
-		System.out.println("size: " + phrList.size());
+//		System.out.println(phrList);
+//		System.out.println("size: " + phrList.size());
 		int phrSize = phrList.size();
 		for (int i = phrSize - 1; i + 1 > 0; i--) { // checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
 			String from = (phrList.get(i)).getPhr_chkout();

@@ -56,18 +56,30 @@ img {
 	}
 
 	$(function() {
-	
-			$("#email").change(function() {
-				var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-				var c_email = $("#email").val();
-				if(regExp.test(c_email)){
-				}else{
-					$("#idchk_val").removeClass('green');
-		        	$("#idchk_val").addClass('red');
-		        	$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
-				}
-			});
-			
+
+		console.log($("#phone1").val().length);
+		if ($("#phone1").val().length < 2 || $("#phone1").val().length > 4) {
+			alert("핸드폰번호를 정확하게 입력해주세요.");
+			return false;
+		}
+		if ($("#phone2").val().length < 2 || $("#phone2").val().length > 4) {
+			alert("핸드폰번호를 정확하게 입력해주세요.");
+			return false;
+		}
+
+		$("#email")
+				.change(
+						function() {
+							var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+							var c_email = $("#email").val();
+							if (regExp.test(c_email)) {
+							} else {
+								$("#idchk_val").removeClass('green');
+								$("#idchk_val").addClass('red');
+								$("#idchk_val").text("이메일 형식에 맞지 않습니다.")
+							}
+						});
+
 	});
 	function submitFunction() {
 		$(".addPetHotelForm").submit();
@@ -373,19 +385,10 @@ img {
 			<div class="sidebar-heading">Sitter</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="${contextPath}/admin/hsList">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>가정 시터정보 관리</span>
-        </a>
-      </li>
-      
-            <li class="nav-item">
-        <a class="nav-link collapsed" href="${contextPath}/admin/vsList">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>방문 시터정보 관리</span>
-        </a>
-      </li>
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="${contextPath}/admin/petHotelList"> <i
+					class="fas fa-fw fa-cog"></i> <span>시터정보 관리</span>
+			</a></li>
 
 			<!-- Nav Item - Charts -->
 			<!--       <li class="nav-item"> -->
@@ -556,9 +559,8 @@ img {
 													</tr>
 													<tr>
 														<th>email</th>
-														<td> <input
-															type="email" class="" id="email" name="ph_email"> <span
-															id="idchk_val"></span><br></td>
+														<td><input type="email" class="" id="email"
+															name="ph_email"> <span id="idchk_val"></span><br></td>
 													</tr>
 													<tr>
 														<td><br></td>
@@ -567,7 +569,21 @@ img {
 													<tr>
 
 														<th>연락처</th>
-														<td><input type="text" name="ph_contact"><br></td>
+														<td>휴대폰: <select name="phone">
+																<option value="010" selected="selected">010</option>
+																<option value="011">011</option>
+																<option value="016">016</option>
+																<option value="017">017</option>
+																<option value="02">02</option>
+																<option value="031">031</option>
+																<option value="032">032</option>
+														</select> - <input type="text" name="phone1" id="phone1"
+															style="width: 60px"> - <input type="text"
+															name="phone2" id="phone2" style="width: 60px">
+														
+														 <input type="text" name="ph_contact">    
+
+															<br></td>
 													</tr>
 
 													<tr>
@@ -606,10 +622,10 @@ img {
 														가격</label> <input type="text" name="phrm_m_price"> <label>
 														대형견 가격</label> <input type="text" name="phrm_l_price"><br>
 													<label>최대 가능 펫 수</label> &nbsp; &nbsp; &nbsp;<input
-														class="form-control-sm" type="number" min="1" max="15" 
+														class="form-control-sm" type="number" min="1" max="15"
 														name="phrm_p_max" id="pet_max" value="1"><br>
 													<label>가능한 펫 사이즈</label> &nbsp;
-													<!-- ㄴㅁㅇㅁasdasd -->  
+													<!-- ㄴㅁㅇㅁasdasd -->
 													<div style="display: inline-flex">
 														<div class="form-check">
 															<label class="form-check-label"> <input
