@@ -44,11 +44,14 @@ import com.what.carezoo.model.VisitSitter;
 import com.what.carezoo.model.VisitSitterReservation;
 import com.what.carezoo.pet.service.PetService;
 import com.what.carezoo.pet.service.Pet_DetailService;
+import com.what.carezoo.sitter.service.HomeSitterListService;
+import com.what.carezoo.sitter.service.HomeSitterMailSendService;
 import com.what.carezoo.sitter.service.HomeSitterReservationService;
 import com.what.carezoo.sitter.service.HomeSitterService;
 import com.what.carezoo.sitter.service.SitterService;
 import com.what.carezoo.sitter.service.VisitSitterReservationService;
 import com.what.carezoo.sitter.service.VisitSitterService;
+import com.what.carezoo.sitter.service.visitSitterMailSenderService;
 
 @Controller
 @RequestMapping("/admin")
@@ -88,6 +91,14 @@ public class AdminController {
 	@Autowired
 	private HomeSitterReservationService hsrService;
 
+	@Autowired
+	private HomeSitterListService hslService;
+	
+	@Autowired
+	private visitSitterMailSenderService vsmailsender;
+	
+	@Autowired
+	private HomeSitterMailSendService hsmailsender;
 	
 	
 	@RequestMapping("/main")
@@ -457,9 +468,10 @@ public class AdminController {
 	//강제탈퇴
 	@RequestMapping("/hsDelete")
 	public String hsDelete(@RequestParam("hs_num")int hs_num,Model model) {
+		
 		hsService.deleteHomeSitter(hs_num);
 		//홈시터 탈퇴시 해당 게시글도 지우기
-		
+		hslService.removeHsl(hs_num);
 		List<HomeSitter> hsList = hsService.getAllHomeSitter();
 		model.addAttribute("hsList", hsList);
 		return "admin/hsList";
@@ -476,8 +488,9 @@ public class AdminController {
 	
 	//강제탈퇴
 	@RequestMapping("/vsDelete")
-	public String vsDelete(@RequestParam("vs_num")int vs_num,Model model) {
+	public String vsDelete(@RequestParam("vs_num")int vs_num,Model model,HttpServletRequest request) {
 		//강퇴 당하는 이유 메일 보내주기
+		vsmailsender.mailSendWithMember(vsService.getVisitSitterByNum(vs_num).getVs_email(),vsService.getVisitSitterByNum(vs_num).getVs_name() , request);
 		
 		vsService.deleteVisitSitter(vs_num);
 		//예약 내역 삭제
