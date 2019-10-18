@@ -221,10 +221,10 @@
 	
 	<!-- 홈시터 삭제시 게시글도 삭제   -->		
 	<delete id="deleteHs" parameterType="int">
-		delete * from homessitterlist where hs_num = #{hs_num};
+		delete * from homesitterlist where hs_num = #{hs_num}
 	</delete>
 	<!-- 홈시터 게시글 삭제시 있는지 없는지 확인 -->
-	<select id="countHsl" parameterType="int">
-		select count(*) from homesitterlist where hs_num = #{hs_num};
+	<select id="countHsl" parameterType="int" resultType="int">
+		select count(*) from homesitterlist where hs_num = #{hs_num}
 	</select>
 </mapper>

@@ -509,11 +509,15 @@ public class SitterMainController {
 				url = "sitter/goodByeCheckUser";
 			}
 		} else if(type.equals("hs_num")) {
+			System.out.println(num);
 			HomeSitter hs = hsService.getHomeSitterByNum(num);
 			if(hs.getHs_pass().equals(pw)) {
 				m.addAttribute("hs", hs);
 				m.addAttribute("msg", "정말로 탈퇴하시겠습니까?");
-				hsService.deleteHomeSitter(num);
+				if(hslService.removeHsl(num)) {
+					hsService.deleteHomeSitter(num);
+					System.out.println("게시글이랑 가정시터 삭제");
+				}
 				url = "sitter/goodBye";
 			} else {
 				m.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
