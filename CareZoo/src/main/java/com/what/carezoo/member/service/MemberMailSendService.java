@@ -269,6 +269,7 @@ public class MemberMailSendService {
 		
 		public boolean mailSendaccepVisit(VisitSitterReservation vsr, VisitSitter vs, Customer c, HttpServletRequest request) {
 			MimeMessage mail = mailSender.createMimeMessage();
+			System.out.println(vs);
 			String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br>" 
 			+ "<h3>" +c.getC_name()+ "님!</h3>" 
 			+"<p><label>시터이름:&nbsp;"+vs.getVs_name()
