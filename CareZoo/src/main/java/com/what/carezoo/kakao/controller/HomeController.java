@@ -30,7 +30,8 @@ public class HomeController {
 	 private MemberService mService;
     
     @RequestMapping(value="/login")
-    public String login(@RequestParam("userid") String userid,@RequestParam("user") String user, @RequestParam("kakaoId") String kakaoId,Model model) {
+    public String login(@RequestParam("userid") String userid,@RequestParam("user") String user,
+    		@RequestParam("kakaoId") String kakaoId, @RequestParam("name")String name, Model model) {
         System.out.println("email: "+userid+" user: "+user+" id: "+kakaoId);
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		String type = request.getParameter("user");
@@ -61,6 +62,7 @@ public class HomeController {
         }
         model.addAttribute("id", kakaoId);
         model.addAttribute("email", userid);
+        model.addAttribute("name", name);
 //		return authToken;
 
         return "joinForm_customer2";
