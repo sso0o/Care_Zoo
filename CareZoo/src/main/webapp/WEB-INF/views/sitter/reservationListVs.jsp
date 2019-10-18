@@ -58,9 +58,7 @@
 	
 	function modalOpen(obj) {		
 		var num = $(obj).attr('title');
-	
-		$("#vsr_num").val(num);
-		
+		$(".number").val(num);
 		$.ajax({
 			url:"${contextPath}/sitter/getVSRInfo",
 			data:{
@@ -69,14 +67,11 @@
 			dataType:"JSON",
 			success: function(data) {
 				console.log(data)
-				$("#address").val(data.address);
-				$("#chkin").val(data.chkin);
-				$("#hour").val(data.hour);
-				if(data.attention != ""){
-					$("#attention").val(data.attention);									
-				} else{
-					$("#attention").val("없음");	
-				}
+				$("#address").text(data.address);
+				$("#chkin").text(data.chkin);
+				$("#hour").text(data.hour);
+				$("#attention").text(data.attention);									
+				
 				
 				var pd = $("#pd");
 				pd.empty();
@@ -108,17 +103,19 @@
 		$(".close").on("click", function() {
 			$("#modal-showVsr").hide();
 			$("#vsrInfo").addClass('noshow')
-			$("#address").val("");
-			$("#chkin").val("");
-			$("#hour").val("");
-			$("#attention").val("");
+			$("#address").text("");
+			$("#chkin").text("");
+			$("#hour").text("");
+			$("#attention").text("");
 
 		});
 		
 	}//modalOpen()
 	
 	function booking() {
-		var num = $("#vsr_num").val()
+
+		var num = $(".number").val();
+		alert(num)
 		if(confirm("신청된 예약을 수락하시겠습니까?") ==  true){
 			location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num;
 			
@@ -208,7 +205,7 @@ body{
   font-weight: bold;
   padding: 1em;
 }
-/* -------카카오 상담버튼------- */
+/* ------- 카카오 상담버튼 ------- */
 
 </style>
 
@@ -387,10 +384,14 @@ body{
 					<td colspan="3" id="address"></td>
 				</tr>
 				<tr>
-					<th>시작시간</th>
+					<th>케어일</th>
 					<td id="chkin"></td>
-					<th>종료시간</th>
-					<td id="chkout"></td>
+					<th>케어시간</th>
+					<td id="hour"></td>
+				</tr>
+				<tr>
+					<th>선택사항</th>
+					<td id="attention" colspan="3"></td>
 				</tr>
 				<tr>
 					<td colspan="4">

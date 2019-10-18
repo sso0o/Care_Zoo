@@ -344,13 +344,12 @@ public class SitterMainController {
 		return vsrService.getModalC(num);
 	}
 	
-	
-	
+
 	//방문시터 예약수락
 	@RequestMapping("/acceptVsr")
 	public String acceptVsr(HttpSession session, Model m, int vsr_num, HttpServletRequest request) {
 		VisitSitterReservation vsr = vsrService.getVisitSitterResByVsrnum(vsr_num);
-		VisitSitter vs = vsService.getVisitSitterByNum(vsr.getVs_num());
+		VisitSitter vs = new VisitSitter();
 		Customer c = memberService.getMemberByC_num(vsr.getC_num());
 		int vs_num = (Integer)session.getAttribute("user_num");
 		int c_num = vsrService.getVisitSitterResByVsrnum(vsr_num).getC_num();
@@ -373,9 +372,13 @@ public class SitterMainController {
 										((BigDecimal)list.get(0).get("VSR_NUM")).intValue(),
 										((BigDecimal)list.get(1).get("VSR_NUM")).intValue(),
 										((BigDecimal)list.get(2).get("VSR_NUM")).intValue(),
-										((BigDecimal)list.get(3).get("VSR_NUM")).intValue() )
-					&& mailsender.mailSendaccepVisit(vsr, vs, c, request)){
-				m.addAttribute("msg", "수락이 완료되었습니다!");
+										((BigDecimal)list.get(3).get("VSR_NUM")).intValue() )){
+				vsr = vsrService.getVisitSitterResByVsrnum(vsr_num);
+				vs = vsService.getVisitSitterByNum(vsr.getVs_num());
+				if(mailsender.mailSendaccepVisit(vsr, vs, c, request)) {
+					m.addAttribute("msg", "수락이 완료되었습니다!");
+					
+				}
 				return "sitter/myReservation_visit";
 			} else {
 				//일반
@@ -396,8 +399,12 @@ public class SitterMainController {
 			System.out.println("예약 확인");
 			if(vsrService.checkDate7(vs_num, resDate).size()==0) {
 				System.out.println("내가 예약 가지고있나 확인");
-				if(vsrService.acceptVsr7(vs_num,vsr_num) && mailsender.mailSendaccepVisit(vsr, vs, c, request)){
-					m.addAttribute("msg", "수락이 완료되었습니다!");
+				if(vsrService.acceptVsr7(vs_num,vsr_num)){
+					vsr = vsrService.getVisitSitterResByVsrnum(vsr_num);
+					vs = vsService.getVisitSitterByNum(vsr.getVs_num());
+					if(mailsender.mailSendaccepVisit(vsr, vs, c, request)) {
+						m.addAttribute("msg", "수락이 완료되었습니다!");						
+					}
 					return "sitter/myReservation_visit";
 				}
 			} else {
@@ -409,8 +416,6 @@ public class SitterMainController {
 				m.addAttribute("rst2", rst2);
 				m.addAttribute("msg", "예약을 수락할 수 없습니다.(중복예약)");
 			}
-				
-			
 			
 		}
 		return "sitter/reservationListVs";	

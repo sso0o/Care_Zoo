@@ -120,11 +120,10 @@
 		where hsr_num = #{hsr_num}
 	</update>
 	
-	<update id="cancelHsr" parameterType="int">
-		update HomeSitterReservation
-		set hsr_status = 1
+	<delete id="cancelHsr" parameterType="int">
+		delete HomeSitterReservation
 		where hsr_num = #{hsr_num}
-	</update>
+	</delete>
 
 	<select id="countC_num" parameterType="int" resultType="int">
       select count(*)
