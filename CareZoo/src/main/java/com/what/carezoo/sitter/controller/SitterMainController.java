@@ -197,10 +197,15 @@ public class SitterMainController {
 	
 	//회원정보 수정vs
 	@RequestMapping(value = "/modifyVs", method = RequestMethod.POST)
-	public String modifyVs(VisitSitter vs, Model m, MultipartHttpServletRequest mtfRequest) {
+	public String modifyVs(VisitSitter vs, Model m, MultipartHttpServletRequest mtfRequest, HttpServletRequest request) {
 		MultipartFile file = mtfRequest.getFile("file");
 		System.out.println("file : " + file);
 		System.out.println("vs : "+vs);
+		String phone = request.getParameter("phone");
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		String contact = phone+phone1+phone2;
+		vs.setVs_contact(contact);
 		boolean rst = vsService.modifyUser(vs, file);
 		if(rst) {
 			m.addAttribute("vs", vs);
@@ -215,10 +220,15 @@ public class SitterMainController {
 	
 	//회원정보 수정hs
 	@RequestMapping(value = "/modifyHs", method = RequestMethod.POST)
-	public String modifyVs(HomeSitter hs, Model m, MultipartHttpServletRequest mtfRequest) {
+	public String modifyVs(HomeSitter hs, Model m, MultipartHttpServletRequest mtfRequest, HttpServletRequest request) {
 		MultipartFile file = mtfRequest.getFile("file");
 		System.out.println("file : " + file);
 		System.out.println("hs : "+hs);
+		String phone = request.getParameter("phone");
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		String contact = phone+phone1+phone2;
+		hs.setHs_contact(contact);
 		boolean rst = hsService.modifyHomeSitter(hs,file);
 		if(rst) {
 			m.addAttribute("hs", hs);

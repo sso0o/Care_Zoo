@@ -15,7 +15,7 @@ public interface HomeSitterReservationDao {
 	public HomeSitterReservation selectByHsrnum(int hsr_num);
 	public List<HomeSitterReservation> selectByCnum(int c_num);
 	public List<Map<String, Object>> selectByHSnum(int hs_num);
-//	public HomeSitterReservation selectByResInfo(HomeSitterReservation hsr);
+	public List<Map<String, Object>> selectByHSNum(int hs_num);
 	public List<HomeSitterReservation> selectAll();
 	public int countC_num(int c_num);
 	

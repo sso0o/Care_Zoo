@@ -79,8 +79,8 @@ public class HomeSitterService {
 		return hsDao.homeSitterIdCheck(hs_email);
 	}
 
-	public boolean joinHomeSitter(Map<String, Object> params) {
-		int rst = hsDao.insertHomeSitter(params);
+	public boolean joinHomeSitter(HomeSitter hs) {
+		int rst = hsDao.insertHomeSitter(hs);
 		if(rst>0) {
 			return true;
 		}

@@ -36,6 +36,7 @@
 		select trim(hsd.hsd_disabledate), hsl.hsl_num
         from homesitterlist hsl, homesitterdisabledate hsd
         where hsd.hsl_num = #{hsl_num}
+        and hsl.hsl_num = hsd.hsl_num(+)
 	</select>
 	
 	<update id="updateAddressHsl" parameterType="homeSitterList">
@@ -67,7 +68,7 @@
 		and hs_num = #{hs_num}
 	</update>
 	
-	<select id="selectOnebyHsl_num" parameterType="int" resultType="hashmap">
+	<select id="selectOnebyHsl_num" parameterType="int" resultType="map">
 		select * from homesitterlist where hsl_num = #{HSL_NUM}
 	</select>	
 

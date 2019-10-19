@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.what.carezoo.member.service.MemberService;
 import com.what.carezoo.model.HomeSitter;
 import com.what.carezoo.model.HomeSitterComment;
@@ -69,22 +71,22 @@ public class HomeSitterController {
 	
 	//이메일 인증 보내기 메서드
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinHomeSitter(@RequestParam Map<String, Object> params,Model model, HttpServletRequest request) {
-
-		 System.out.println("파람"+params);
-	
+	public String joinHomeSitter(HomeSitter hs,Model model, HttpServletRequest request) {
+		String phone = request.getParameter("phone");
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		String contact = phone+phone1+phone2;
+		hs.setHs_contact(contact);
 		 //회원가입 메서드 
-		boolean hsRst = hsService.joinHomeSitter(params);
+		boolean hsRst = hsService.joinHomeSitter(hs);
 		if(hsRst) {
 			System.out.println("회원가입 성공!!");
-			mailsender.mailSendWithMemberKey((String)params.get("hs_email"),(String)params.get("hs_email_key"), request);
+			mailsender.mailSendWithMemberKey(hs.getHs_email(),hs.getHs_email_key(), request);
 			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요:)");	
 			model.addAttribute("url", "main");
-		} else {
-			model.addAttribute("msg", "무슨문제일까요 다시 시도해 주세요.)");
-			model.addAttribute("url", "member/joinHome");
-		}
-		return "result";
+		 return "main";
+		} 
+	return "joinForm";
 	}
 	// e-mail 인증 컨트롤러
 	@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
@@ -204,22 +206,22 @@ public class HomeSitterController {
 			System.out.println("hsl11:"+hsl);
 			List<Map<String,Object>>  hsList = hslService.getbySearchingHsl(hs_address,hsl);
 			System.out.println("값11"+hsList);
-			for (int i = 0; i < hsList.size(); i++) {
-				Map<String,Object> map = hsList.get(i);
-				try {
-					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
-					System.out.println("hsl_num = "+hsl_num);
-					List<String> hsl_filesName = hslService.getFileList(hsl_num);
-					map.put("hsl_filesName", hsl_filesName);
-//					if(hsl_filesName != null) {
-//						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
-//						System.out.println(hsl_filesName);
-//					}
-					
-				} catch(NumberFormatException e) {
-					System.out.println("뭔오류다냐");
-				}
-			}
+//			for (int i = 0; i < hsList.size(); i++) {
+//				Map<String,Object> map = hsList.get(i);
+//				try {
+//					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
+//					System.out.println("hsl_num = "+hsl_num);
+//					List<String> hsl_filesName = hslService.getFileList(hsl_num);
+//					map.put("hsl_filesName", hsl_filesName);
+////					if(hsl_filesName != null) {
+////						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
+////						System.out.println(hsl_filesName);
+////					}
+//					
+//				} catch(NumberFormatException e) {
+//					System.out.println("뭔오류다냐");
+//				}
+//			}
 			return hsList;			
 		}
 		else {
@@ -391,7 +393,6 @@ public class HomeSitterController {
 		List<String> files = hslService.getFileList(hsl_num);
 		int hs_num = Integer.parseInt(String.valueOf(hsList.get("HS_NUM")+""));
 		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
-		
 		System.out.println(hsList);
 		System.out.println("dateStrings"+dateStrings);
 		System.out.println("hsimg"+files);
@@ -404,55 +405,56 @@ public class HomeSitterController {
 		return "sitter/home/homeSitterView";
 	}
 
-//	@RequestMapping("/getComment")
-//	@ResponseBody
-//	public List<HomeSitterComment> getAllCommentByNum(int hs_num){
-//		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
-//		System.out.println("cc"+comment);		
-//		return comment;
-//	}
-//	@ResponseBody
-//	@RequestMapping(value = "/getHsImg", method=RequestMethod.GET)3
-
-//	public Map<String, Object> getHsImg(int hs_num) {
-//		System.out.println("hs넘어오나");
+	@ResponseBody
+	@RequestMapping(value = "/homesitterReservation")
+	public List<Map<String, Object>> makePetHotelRes(@RequestParam("hs_num") int hs_num) {
 //		System.out.println(hs_num);
-//		Map<String, Object> rst = new HashMap<String, Object>();
-//		String filename = hsService.getImage(hs_num);
-//		rst.put("filename", filename);
-//		System.out.println("rst : "+rst);
-//		return rst;
-//	}
-
-//	@ResponseBody
-//	@RequestMapping(value = "/homesitterReservation")
-//	public List<PetHotelReservation> makePetHotelRes(@RequestParam("phrm_num") int phrm_num) {
-//		int compare = 0;
-//		Date phrCheckOut;
-//		Date today = new Date();
-//		List<PetHotelReservation> phrList = phrService.getPetHotelResByPhrm_num(phrm_num);
-//		System.out.println(phrList);
-//		System.out.println("size: "+phrList.size());
-//		int phrSize = phrList.size();
-//		for (int i = phrSize-1; i+1 > 0; i--) { //checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
-//			String from = (phrList.get(i)).getPhr_chkout();
-//			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd"); //String to Date format
+		int compare = 0;
+		Date phrCheckOut;
+		Date today = new Date();
+		List<Map<String, Object>> hsrList = hsResService.getHomeSitterResByHSNum(hs_num);
+//		System.out.println(hsrList);
+//		System.out.println("size: " + hsrList.size());
+		int hsrSize = hsrList.size();
+//		for (int i = hsrSize - 1; i + 1 > 0; i--) { // checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
+//			String from = (String) hsrList.get(i).get("HSR_CHKOUT");
+//			System.out.println(from);
+//			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd"); // String to Date format
 //			try {
-//				phrCheckOut = transFormat.parse(from); //String to Date
-//				if (0 < (compare = today.compareTo(phrCheckOut))) { //compare은 -1,0,1만 나올 수 있음   ex ==) today>phrCheckOut ==> compare =1
-//					phrList.remove(i);
+//				phrCheckOut = transFormat.parse(from); // String to Date
+//				if (0 < (compare = today.compareTo(phrCheckOut))) { // compare은 -1,0,1만 나올 수 있음 ex ==) today>phrCheckOut
+//																	// ==> compare =1
+//					hsrList.remove(i);
 //				}
 //			} catch (ParseException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
 //		}
-//		return phrList;
-//
-//	}
+		System.out.println(hsrList);
+		return hsrList;
+
+	}
 	
-	
-	
+	@ResponseBody
+	@RequestMapping("/disabledates")
+	public Map<String, Object> getDisdates (int hsl_num){
+		Map<String, Object> disDate = new HashMap<String, Object>();
+		List<String> disDates  = hslService.getDisableDates(hsl_num);
+//		ObjectMapper om = new ObjectMapper();
+//		String jsonStr = null;
+//		try {
+//			jsonStr = om.writeValueAsString(disDates);
+//			System.out.println("object to json : " + jsonStr);
+//			return jsonStr;
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		disDate.put("disDates",disDates);
+		return disDate;
+	}
 	
 	
 	

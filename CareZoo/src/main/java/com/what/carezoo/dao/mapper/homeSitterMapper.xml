@@ -10,7 +10,7 @@
 		update homesitter set hs_email_key = 'Y' where hs_email = #{hs_email} and hs_email_key = #{hs_email_key}
 	</update>
 	
-	<insert id="insertHomeSitter" parameterType="map">
+	<insert id="insertHomeSitter" parameterType="homesitter">
 
 		<selectKey order="BEFORE" keyProperty="hs_num" resultType="int">
 			select homesitter_seq.nextval from dual

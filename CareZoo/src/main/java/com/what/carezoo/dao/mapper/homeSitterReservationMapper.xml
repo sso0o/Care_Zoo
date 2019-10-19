@@ -73,9 +73,15 @@
 		(select *
 		from homesitterreservation
 		where hs_num = #{hs_num}
-		and hsr_status >= 2) hsr
+		and hsr_status <![CDATA[ >= 2) hsr
 	where c.c_num = hsr.c_num
 	]]>
+	</select>
+	
+	<select id="selectByHSNum" parameterType="int" resultType="map">
+		select *
+		from homesitterreservation
+		where hs_num = #{hs_num}
 	</select>
 
 	<select id="selectAll" resultType="homeSitterReservation">
