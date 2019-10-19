@@ -211,11 +211,11 @@ unavailableDates.push(d);
 $(function() {
 	$("input[type='number']").inputSpinner();
 	//날짜 확인
-	 unavailableDates = new Array();	
-	<c:forEach items='${disDates}' var = 'item' >
-		var d = "${item}";
-		unavailableDates.push(d);
-	</c:forEach>
+// 	 unavailableDates = new Array();	
+// 	<c:forEach items='${disDates}' var = 'item' >
+// 		var d = "${item}";
+// 		unavailableDates.push(d);
+// 	</c:forEach>
 // 	console.log(unavailableDates)		
 	function disableAllTheseDays(date) {
 	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
@@ -227,7 +227,7 @@ $(function() {
 	    return [true];
 	}
 	calculatePrice();
-	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
+// 	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
 	
 // 	console.log(unavailableDates);
 	var pickupTime = $('#hsr_dropoff_time').timepicker({		

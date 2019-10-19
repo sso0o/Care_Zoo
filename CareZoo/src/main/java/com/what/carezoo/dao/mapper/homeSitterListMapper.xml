@@ -119,12 +119,24 @@
 			<if test="hsl.hsl_service_type != null">
 				AND hsli.hsl_service_type like ('%${hsl.hsl_service_type}%')
 			</if>
+<!-- 			<if test="hsl.hsl_chkin != ''"> -->
+<!-- 				AND  <![CDATA[hsr.hsr_chkin >= #{hsl.hsl_chkin}]]> -->
+<!-- 			</if> -->
+<!-- 			<if test="hsl.hsl_chkout != ''"> -->
+<!-- 				AND <![CDATA[hsr.hsr_chkout <= #{hsl.hsl_chkout}]]> -->
+<!-- 			</if> -->
+			
 			<if test="hsl.hsl_chkin != ''">
-				AND  <![CDATA[hsr.hsr_chkin >= #{hsl.hsl_chkin}]]>
+				<if test="hsl.hsl_chkout != ''">
+				and hsr.hsr_chkin not in 
+				<![CDATA[(SELECT hsr_chkin FROM HOMESITTERRESERVATION  where hsr_chkin >= #{hsl.hsl_chkin}  AND hsr_chkin <= #{hsl.hsl_chkout})]]>
+				and hsr.hsr_chkout not in         
+				<![CDATA[(SELECT hsr_chkout FROM HOMESITTERRESERVATION where hsr_chkout >= #{hsl.hsl_chkin} AND hsr_chkout <= #{hsl.hsl_chkout})]]>
+<!-- 				AND  <![CDATA[hsr.hsr_chkin >= #{hsl.hsl_chkin}  AND hsr.hsr_chkin< #{hsl.hsl_chkout}]]> -->
+<!-- 				AND <![CDATA[hsr.hsr_chkout >= #{hsl.hsl_chkin}  AND hsr.hsr_chkout< #{hsl.hsl_chkout}]]> -->
+				</if>
 			</if>
-			<if test="hsl.hsl_chkout != ''">
-				AND <![CDATA[hsr.hsr_chkout <= #{hsl.hsl_chkout}]]>
-			</if>
+			
 			<if test="hsl.hs_address != null"> 
 				and hs.hs_address in (select hs_address from homesitter where
 				<foreach collection="list" item="item" separator="or">
@@ -133,7 +145,7 @@
 				)
 			</if>
 		</trim>
-		order by hs.hs_num	
+		order by hsl.hsl_writedate
 	</select>
 	
 <!-- 홈시터 게시글 목록 가져오기 -->	

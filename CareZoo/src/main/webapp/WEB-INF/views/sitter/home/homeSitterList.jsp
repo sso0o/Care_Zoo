@@ -109,9 +109,9 @@ color: #17a2b8;
 border: 1px solid white;
 }
 .nav-link:hover{     
-border : 1px solid #17a2b8;
+border : 1px solid mediumaquamarine;
 /* background-color: skyblue; slategrey;teal;mediumaquamarine; */
-background-color: #17a2b8;
+background-color: mediumaquamarine;
 color: #fff;
 } 
 label {
