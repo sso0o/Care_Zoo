@@ -575,6 +575,7 @@ li:hover {
 					<tr>
 						<td>
 							<select name="hsl_service_type">
+								<option value="" selected disabled hidden>==선택하세요==</option>
 								<option title="24시간 돌봄" value="24시간돌봄">24시간 돌봄</option>
 								<option title="데이케어" value="데이케어">데이케어</option>
 							</select>
