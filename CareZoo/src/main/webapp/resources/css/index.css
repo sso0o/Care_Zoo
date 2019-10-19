@@ -291,3 +291,8 @@ main {
 .liFixed {
 	border-bottom: 1px solid gray;
 }
+.calFixed {
+	position: fixed;
+	top: 30px;
+	width:326px;
+}

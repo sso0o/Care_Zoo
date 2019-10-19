@@ -43,6 +43,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
 	rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gamja+Flower&display=swap" rel="stylesheet">
 <!-- 폰트 -->
 <link rel="stylesheet"
 	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
@@ -202,7 +204,25 @@
 		}
 
 	$(document).on('ready',function() {
-				
+
+// 	    var jbOffset = $('.calendarDiv').offset();
+// 	    $(window).scroll(function () {
+// 	    	console.log("jbOffset.top"+jbOffset.top);  
+// 	        if ($(document).scrollTop() > 700) {  
+// 	            /*내려갔을때*/
+// 	            $('.calendarDiv').addClass('calFixed');   
+// // 	            $('.menu>ul').addClass('liFixed');
+// 	            /* $('.menu>ul>li:hover>a').css("color","aqua");*/
+  
+
+// 	        }
+// 	        else {
+// 	            /*올라갔을때*/
+// 	            $('.calendarDiv').removeClass('calFixed');      
+// // 	            $('.menu>ul').removeClass('liFixed');
+// 	        }
+// 	    });
+	    
 				 var select = $("select#color");
 
 				    select.change(function(){
@@ -1017,9 +1037,9 @@ input[type="number"] {
 	<br>
 	<br>
 	<br>
-	<div class="container row">
+	<div class="container row" >                   
 		<div class="col-sm-8">
-			<p>${petHotel.ph_name}</p>
+			<h3 style="font-family: Gamja Flower">${petHotel.ph_name}</h3>     
 			<hr>
 			<div class="item">
 				<div class="clearfix" style="max-width: 620px;">
@@ -1036,8 +1056,8 @@ input[type="number"] {
 			<hr>
 			<br>
 			<c:forEach items="${petHotelRoomList}" var="phrml">
-				<div style="text-align: center">
-					<h4>${phrml.phrm_name}</h4>
+				<div style="text-align: center">  
+					<h2 style="font-family: Gamja Flower">${phrml.phrm_name}</h2>      
 				</div>
 				<br>
 				<div style="width: 700px; display: inline-block; float: left;">
@@ -1047,11 +1067,11 @@ input[type="number"] {
 					<div style="width: 270px; display: inline-block; float: left;">
 						<fieldset>
 							<legend>
-								<small><i>돌봄 가능한 강아지 크기&수</i></small>
+								<small style="font-weight: bold">돌봄 가능한 강아지 크기&수</small>
 							</legend>
 							<ul>
-								<li>${phrml.phrm_pet_size}만 가능합니다.</li>
-								<li>${phrml.phrm_p_max}마리 까지 케어가능합니다.</li>
+								<li >${phrml.phrm_pet_size}만 가능합니다.</li>
+								<li >${phrml.phrm_p_max}마리 까지 케어가능합니다.</li>
 							</ul>
 						</fieldset>
 					</div>
@@ -1062,11 +1082,11 @@ input[type="number"] {
 					<div style="width: 270px; display: inline-block; float: left;">
 						<fieldset>
 							<legend>
-								<small><i>체크인, 체크아웃 시간</i></small>
+								<small style="font-weight: bold">체크인, 체크아웃 시간</small>     
 							</legend>
 							<ul>
-								<li>체 크 인 : 13:00 이후</li>
-								<li>체 크 아 웃 : 11:00 이전</li>
+								<li >체 크 인 : 13:00 이후</li>
+								<li>체 크 아 웃 : 11:00 이전</li>   
 							</ul>
 						</fieldset>
 					</div>
@@ -1080,13 +1100,13 @@ input[type="number"] {
 				<div style="width: 700px; display: inline-block; float: left;">
 					<fieldset>
 						<legend>
-							<strong><i style="font-size:22px">호텔 환경</i></strong>
+							<strong><i style="font-size:22px">환경</i></strong>
 						</legend>
 						<ul>
-						<li>
-							<c:forEach items="${phrml.phrm_options}" var="option">
+						<li> 
+							<c:forEach items="${phrml.phrm_options}" var="option">  
 								<input type="button" id="test_btn1" value="#${option}"
-									style="width: auto; height: auto; background: lightcyan; font-size: 18px;margin:5px">
+									style="font-family: Gamja Flower;width: auto; height: auto; background: lightcyan; font-size: 22px;margin:5px">
 									
 							</c:forEach>
 </li>
@@ -1116,14 +1136,14 @@ input[type="number"] {
 					<!-- 						</div> -->
 					<!-- 						<br> -->
 					<%-- 				</c:foasdsadrEach>asdsad --%>
-					<p><label style="font-size:23px;">주소</label> </p> 
-					<label style="font-size:19px;">${petHotel.ph_address} ${petHotel.ph_d_address }</label>
+					<p><label style="font-size:30px; font-family: Gamja Flower;">주소</label> </p>  
+					<label style="font-size:25px;font-family: Gamja Flower;">${petHotel.ph_address} ${petHotel.ph_d_address }</label> 
 					<br>
 					<hr>
 					<br>
-					<p><label style="font-size:23px;">연락처</label><p>
-					<label style="font-size:19px;">${petHotel.ph_contact }</label>
-				</div>
+					<p><label style="font-size:30px;font-family: Gamja Flower;">연락처</label><p>
+					<label style="font-size:25px;font-family: Gamja Flower;">${petHotel.ph_contact }</label>
+				</div>   
 				<div id="map_canvas" class="col-7"></div>
 			</div>
 			<hr>
@@ -1189,13 +1209,13 @@ input[type="number"] {
 			</form>
 			<br>
 			<div class="calendarDiv"
-				style="display: inline-block; padding: 10px; font-size: 15px; border: 1px solid darkgray; border-radius: 4px; text-align: center;">
-				<br> <span style="font-size: 21px;">&nbsp;캘린더 미리보기&nbsp;</span>
+				style="display: inline-block; padding: 10px; font-size: 17px; border: 1px solid darkgray; border-radius: 4px; text-align: center;font-family: Gamja Flower;">
+				<br> <span style="font-size: 21px;">&nbsp;캘린더 미리보기&nbsp;</span>   
 
 				<div class="roomCalendarDiv" style="display: inline-block">
-					<select name="roomCalendarSelect" class="rCalSelect">
+					<select name="roomCalendarSelect" class="rCalSelect" style="font-size: 17px;">
 						<c:forEach items="${petHotelRoomList}" var="phrl">
-							<option value="${phrl.phrm_num}">${phrl.phrm_name}</option>
+							<option value="${phrl.phrm_num}">${phrl.phrm_name}</option>  
 						</c:forEach>
 					</select>
 				</div>

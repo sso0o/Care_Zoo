@@ -616,7 +616,6 @@ function logoutCheck() {
 														.appendTo(
 																$('.petHotelList'));
 											}
-
 											ajaxSucessLoading(phList);
 										},
 										error : function(request, status, error) {
@@ -736,13 +735,13 @@ function logoutCheck() {
 						// 		 						$(".reservationForm").append(resForm);
 						// 										$('#test').prev().css("color", "aqua");
 
-						$(window).scroll(
-								function() { //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+						$(window).scroll(function() { //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+									  
+								console.log("스크롤뭐시기"+$(document).height() +"ㅁㄴ"+ $(window).height());  
 									if ($(window).scrollTop() >= $(document)
-											.height()
-											- $(window).height()) {
-										loadingPage();
-									}
+											.height() - 650) {     
+										loadingPage();    
+									}  
 								});
 					});
 
