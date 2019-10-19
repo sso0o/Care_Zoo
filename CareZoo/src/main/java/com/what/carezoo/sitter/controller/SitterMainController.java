@@ -198,6 +198,14 @@ public class SitterMainController {
 	//회원정보 수정vs
 	@RequestMapping(value = "/modifyVs", method = RequestMethod.POST)
 	public String modifyVs(VisitSitter vs, Model m, MultipartHttpServletRequest mtfRequest) {
+		String phone = mtfRequest.getParameter("phone");
+		String phone1 = mtfRequest.getParameter("phone1");
+		String phone2 = mtfRequest.getParameter("phone2");
+		System.out.println(phone);
+		System.out.println(phone1);
+		System.out.println(phone2);
+		String contact = phone+phone1+phone2;
+		vs.setVs_contact(contact);
 		MultipartFile file = mtfRequest.getFile("file");
 		System.out.println("file : " + file);
 		System.out.println("vs : "+vs);

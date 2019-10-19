@@ -417,6 +417,14 @@ public class MemberController {
 	//회원정보 수정
 	@RequestMapping(value = "/modify", method=RequestMethod.POST)
 	public String modifyUser(Customer c, Model m, MultipartHttpServletRequest mtfRequest) {
+		String phone = mtfRequest.getParameter("phone");
+		String phone1 = mtfRequest.getParameter("phone1");
+		String phone2 = mtfRequest.getParameter("phone2");
+		System.out.println(phone);
+		System.out.println(phone1);
+		System.out.println(phone2);
+		String contact = phone+phone1+phone2;
+		c.setC_contact(contact);
 		MultipartFile file = mtfRequest.getFile("file");
 		System.out.println("file : " + file);
 		System.out.println("c : "+c);
