@@ -203,14 +203,18 @@ form{
 
 </style>
 <script type="text/javascript">
-
+var unavailableDates = new Array();	
+<c:forEach items='${disDates}' var = 'item' >
+var d = "${item}";
+unavailableDates.push(d);
+</c:forEach>	
 $(function() {
 	$("input[type='number']").inputSpinner();
 	//날짜 확인
-	var unavailableDates = new Array();	
+	 unavailableDates = new Array();	
 	<c:forEach items='${disDates}' var = 'item' >
-	var d = "${item}";
-	unavailableDates.push(d);
+		var d = "${item}";
+		unavailableDates.push(d);
 	</c:forEach>
 	console.log(unavailableDates)		
 	function disableAllTheseDays(date) {
@@ -306,7 +310,130 @@ $(function() {
 		console.log("펫추가")
 		calculatePrice();
 	});
+	
 });
+
+	//FULL CALENDAR
+	var calendar=null;
+	document.addEventListener('DOMContentLoaded', function() {
+		var d = new Date();
+		<%=session.getAttribute("c_num")%>
+		var calendarEl = document.getElementById('hsrcalendar');
+		var calHeight = 450;
+		calendar = new FullCalendar.Calendar(calendarEl, {
+			plugins : [ 'dayGrid', 'interaction' ],
+			//		 			timeZone : "Asian/Seoul",
+			locale : 'ko',
+			height : calHeight,
+			// 				    contentHeight:calHeight,
+			allDayDefault : false,
+			editable : false,
+			displayEventTime : false,
+			defaultView : 'dayGridMonth',
+			defaultDate : d,
+			editable : true,
+			selectable : false,
+			eventLimit : false, // allow "more" link when too many events
+			header : {
+				left : 'prev,next',
+				center : 'title',
+				right : 'dayGridMonth,dayGridWeek'
+			},
+			eventRender : function(info) {
+				var tooltip = new Tooltip(info.el, {
+					title : info.event.extendedProps.description,
+					placement : 'top',
+					trigger : 'hover',
+					container : 'body'
+				});
+			},
+		});
+		function hsCalendar() {
+			$.ajax({
+				url : "${contextPath}/home/homesitterReservation",
+				data : {
+					hs_num : ${hsList.HS_NUM}
+				},
+				dataType : "JSON",
+				success : function(data) {
+					var events = calendar.getEvents();
+					var len = events.length;
+					for (var i = 0; i < len; i++) {
+						events[i].remove();
+					}
+					for (var i = 0; i < data.length; i++) {
+						e = {
+							groupId : 'hs_num',
+							id : data[i].HS_NUM,
+							start : data[i].HSR_CHKIN,
+							end : data[i].HSR_CHKOUT + 'T11:00',
+							title :  '예약'+(i+1),
+							description : data[i].HSR_CHKIN.substring(2, 12)
+									+ ' ~ '
+									+ data[i].HSR_CHKOUT.substring(2, 12),
+							color : Math.random().toString(16).replace(/.*(\w{3})/, '#$1'),
+							textColor : "#FFFFFF",
+						}
+
+						calendar.addEvent(e);
+						calendar.render();
+					}
+
+				},
+				error : function() {
+					alert("데이터를 불러오는데 실패했습니다.")
+				}
+			})
+		}
+		function disabledates(){
+			$.ajax({
+				url : "${contextPath}/home/disabledates",
+				data : {
+					hsl_num : ${hsList.HSL_NUM}
+				},
+				dataType : "JSON",
+				success : function(data) {
+					var events = calendar.getEvents();
+					var len = events.length;
+					for (var i = 0; i < len; i++) {
+						events[i].remove();
+					}
+					for (var i = 0; i < data.length; i++) {
+// 						for (var j = 0; j<data.disDates.)
+						console.log(data.disDates[i]);
+						e = {
+//			 					groupId : 'hs_num',
+//			 					id : data[i].HS_NUM,
+								start : data.disDates[i],
+//			 					end : data[i].HSR_CHKOUT + 'T11:00',
+								title :  'X',
+//			 					description : data[i].HSR_CHKIN.substring(2, 12)
+//			 							+ ' ~ '
+//			 							+ data[i].HSR_CHKOUT.substring(2, 12),
+								color : "#cccccc",
+								textColor : "#FFFFFF",
+							}
+						console.log('e'+e);
+						calendar.addEvent(e);
+						calendar.render();
+					}
+
+				},
+				error : function() {
+					alert("데이터를 불러오는데 실패했습니다.")
+				}
+			});
+		};
+		calendar.render();
+// 		$('.rCalSelect').on("change", function() {
+// 			hsCalendar();
+// 		});
+		hsCalendar();
+		disabledates();
+	});
+
+
+
 var days = 0;
 var pricePerDay = 20000;
 var pricePerPetSize = 15000;
@@ -698,6 +825,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 				<hr>
 				
 				<div id="calendar"></div>
+				<div id="hsrcalendar"></div>
 			</div>
 		</div>
 	</div>

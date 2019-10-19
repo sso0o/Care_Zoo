@@ -9,7 +9,7 @@ import com.what.carezoo.model.HomeSitter;
 
 public interface HomeSitterDao {
 	
-	public int insertHomeSitter(Map<String, Object> params);
+	public int insertHomeSitter(HomeSitter hs);
 	public int updateHomeSitter(HomeSitter hs);
 	public int deleteHomeSitter(int hs_num);
 	public HomeSitter selectOneByNum(int hs_num);

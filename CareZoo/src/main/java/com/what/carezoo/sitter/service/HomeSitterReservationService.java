@@ -40,7 +40,9 @@ public class HomeSitterReservationService {
 	public List<Map<String, Object>> getHomeSitterResByHSnum(int hs_num){
 		return hsrDao.selectByHSnum(hs_num);
 	}
-	
+	public List<Map<String, Object>> getHomeSitterResByHSNum(int hs_num){
+		return hsrDao.selectByHSNum(hs_num);
+	}
 	public List<HomeSitterReservation> getAllHomeSitterRes() {
 		return hsrDao.selectAll();
 	}
