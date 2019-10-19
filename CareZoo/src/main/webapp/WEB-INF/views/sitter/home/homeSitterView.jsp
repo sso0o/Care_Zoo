@@ -216,7 +216,7 @@ $(function() {
 		var d = "${item}";
 		unavailableDates.push(d);
 	</c:forEach>
-	console.log(unavailableDates)		
+// 	console.log(unavailableDates)		
 	function disableAllTheseDays(date) {
 	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
 	    for (i = 0; i < unavailableDates.length; i++) {
@@ -229,7 +229,7 @@ $(function() {
 	calculatePrice();
 	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
 	
-	console.log(unavailableDates);
+// 	console.log(unavailableDates);
 	var pickupTime = $('#hsr_dropoff_time').timepicker({		
 		format: 'LT',
 		minTime:'${hsList.HSL_CHKIN_STR_TIME}' ,
@@ -280,9 +280,9 @@ $(function() {
 	});
 		
 	$('#petSize-select').off("change").on("change",function() {
-		console.log("펫사이즈")
+// 		console.log("펫사이즈")
 		empdays = document.getElementById('days').value;
-		console.log("petSize-select")
+// 		console.log("petSize-select")
 		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
 			pricePerPetSize = 15000;
 			if(days==0){
@@ -352,15 +352,14 @@ $(function() {
 			$.ajax({
 				url : "${contextPath}/home/homesitterReservation",
 				data : {
-					hs_num : ${hsList.HS_NUM}
-				},
+					hs_num : ${hsList.HS_NUM}},
 				dataType : "JSON",
 				success : function(data) {
-					var events = calendar.getEvents();
-					var len = events.length;
-					for (var i = 0; i < len; i++) {
-						events[i].remove();
-					}
+// 					var events = calendar.getEvents();  
+// 					var len = events.length;
+// 					for (var i = 0; i < len; i++) {  
+// 						events[i].remove();
+// 					}
 					for (var i = 0; i < data.length; i++) {
 						e = {
 							groupId : 'hs_num',
@@ -389,22 +388,22 @@ $(function() {
 			$.ajax({
 				url : "${contextPath}/home/disabledates",
 				data : {
-					hsl_num : ${hsList.HSL_NUM}
-				},
+					hsl_num : ${hsList.HSL_NUM}},
 				dataType : "JSON",
 				success : function(data) {
-					var events = calendar.getEvents();
-					var len = events.length;
-					for (var i = 0; i < len; i++) {
-						events[i].remove();
-					}
+// 					var events = calendar.getEvents();  
+// 					var len = events.length;
+// 					for (var i = 0; i < len; i++) {  
+// 						events[i].remove();  
+// 					}
+
 					for (var i = 0; i < data.length; i++) {
-// 						for (var j = 0; j<data.disDates.)
-						console.log(data.disDates[i]);
+
 						e = {
 //			 					groupId : 'hs_num',
 //			 					id : data[i].HS_NUM,
-								start : data.disDates[i],
+								start : data[i],
+								end :data[i],      
 //			 					end : data[i].HSR_CHKOUT + 'T11:00',
 								title :  'X',
 //			 					description : data[i].HSR_CHKIN.substring(2, 12)
@@ -445,11 +444,11 @@ function showDays() {
     var start = $('#checkin').val();
    	var startL = start.split('-');
    	var startday = new Date(startL[0], Number(startL[1])-1, startL[2]);
-    console.log(startday);
+//     console.log(startday);
     var end = $('#checkout').val();
     var endL = end.split('-');
     var endday = new Date(endL[0], Number(endL[1])-1, endL[2])
-    console.log(endday);
+//     console.log(endday);
     if (!start||!end) return days;
     days = ((endday.getTime() - startday.getTime())/1000/60/60/24);
     if (days == 0){
@@ -478,17 +477,17 @@ function showDays() {
     	}
     }
    	calculatePrice();
-    console.log("pricePerDay ="+pricePerDay);
-    console.log("showDays days : "+days);
+//     console.log("pricePerDay ="+pricePerDay);
+//     console.log("showDays days : "+days);
     return true;
 }
 function calculatePrice() {
-	console.log(document.getElementById('hsr_numof_pet').value)
+// 	console.log(document.getElementById('hsr_numof_pet').value)
 	totalAddPetPrice = document.getElementById('hsr_numof_pet').value*pricePerPetSize*empdays;
 	totalPrice = (pricePerDay*empdays+totalAddPetPrice); 
 	pricePerDays = (pricePerDay*empdays);
-	console.log("pricePerDays :"+pricePerDays);
-	console.log("totalPrice ; "+totalPrice);
+// 	console.log("pricePerDays :"+pricePerDays);
+// 	console.log("totalPrice ; "+totalPrice);
 	$('#addPet').empty().append(pricePerPetSize);
 	$('#pricePerDay').empty().append(pricePerDay);
 	$('.pricePerDays').empty().append(pricePerDays);

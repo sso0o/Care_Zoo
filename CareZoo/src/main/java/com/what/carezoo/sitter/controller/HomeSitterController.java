@@ -438,8 +438,8 @@ public class HomeSitterController {
 	
 	@ResponseBody
 	@RequestMapping("/disabledates")
-	public Map<String, Object> getDisdates (int hsl_num){
-		Map<String, Object> disDate = new HashMap<String, Object>();
+	public List<String> getDisdates (int hsl_num){
+//		Map<String, Object> disDate = new HashMap<String, Object>();
 		List<String> disDates  = hslService.getDisableDates(hsl_num);
 //		ObjectMapper om = new ObjectMapper();
 //		String jsonStr = null;
@@ -451,9 +451,8 @@ public class HomeSitterController {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
-		disDate.put("disDates",disDates);
-		return disDate;
+		System.out.println("disDates"+disDates); 
+		return disDates;
 	}
 	
 	
