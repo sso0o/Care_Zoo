@@ -254,9 +254,6 @@ $(function() {
 				datepickerEnd.datepicker('setDate', selected);
 			} 
 			showDays();
-		},
-		onClose: function() {
-		    
 		}
 	});
 	var datepickerEnd = $('#checkout').datepicker({
