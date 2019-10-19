@@ -48,7 +48,6 @@ body{
 
 		console.log("${pL}");
 		if("${pL.size()}" == 0){
-			alert("데이터 없음")
 			$("#card").addClass("show-none");
 			$("#none-card").removeClass("show-none");
 			$("#card-name").text("");

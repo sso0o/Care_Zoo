@@ -65,9 +65,9 @@
 	
 	$(function() {
 // 		console.log(d)
-		console.log("numtype : "+user_numtype)
-		console.log("name : "+user_name)
-		console.log("num : "+user_num)
+// 		console.log("numtype : "+user_numtype)
+// 		console.log("name : "+user_name)
+// 		console.log("num : "+user_num)
 		
 		if("${msg}" != ""){
 			alert("${msg}");
@@ -148,8 +148,8 @@
 			},
 			dataType : "JSON",
 			success : function(data) {
-				console.log(data.rst1)
-				console.log(data.rst2)
+// 				console.log(data.rst1)
+// 				console.log(data.rst2)
 				
 				for(var i= 0; i<data.rst1.length; i++){
 					var e = {
@@ -196,7 +196,7 @@
 			},
 			dataTpe : "JSON",
 			success : function(data) {
-				console.log(data)
+// 				console.log(data)
 				$("#c_name").text(data.C_NAME)
 				$("#c_contact").text(data.C_CONTACT)
 				$("#c_address").text(data.C_ADDRESS+" "+data.C_D_ADDRESS)
