@@ -181,7 +181,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 		});
 	
 		$("#email").val("${vs.vs_email}");
-		$("#name").val("${vs.vs_name}");
+		$("#name").val("${vs.vs_name}"); 		
 		$("#contact").val("${vs.vs_contact}");
 		$("#address").val("${vs.vs_address}");
 		$("#d_address").val("${vs.vs_d_address}");
@@ -477,7 +477,7 @@ legend{
 				<div class="form-group">
 					<label for="c_contact">휴대전화</label>
 					<div class="mobile-area">
-						<select name="phone">
+						<select name="phone" id="phone">
 							<option value="010" selected="selected">010</option>
 							<option value="011">011</option>
 							<option value="016">016</option>

@@ -423,6 +423,7 @@ public class MemberController {
 		System.out.println(phone);
 		System.out.println(phone1);
 		System.out.println(phone2);
+		
 		String contact = phone+phone1+phone2;
 		c.setC_contact(contact);
 		MultipartFile file = mtfRequest.getFile("file");
