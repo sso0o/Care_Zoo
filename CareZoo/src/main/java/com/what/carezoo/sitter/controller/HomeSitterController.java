@@ -308,6 +308,8 @@ public class HomeSitterController {
 	public String writeHsl(HomeSitterList hsl,String hsd_disabledate,Model model,MultipartHttpServletRequest mtfRequest) {
 		System.out.println("hsd_disabledate"+hsd_disabledate);
 		System.out.println("hsl : "+hsl);
+		String msg = "";
+		String url = "";
 		//이미지 파일 받기
 		List<MultipartFile> files = mtfRequest.getFiles("file");
 		System.out.println("files = "+files);
@@ -322,10 +324,15 @@ public class HomeSitterController {
 			hs.setHs_num(hsl.getHs_num());
 			hsService.updateHsAddress(hs);
 			model.addAttribute("hsl_num", hsl.getHsl_num());
-			return "redirect:/member/myPage";
+			msg = "정상적으로 등록되었습니다.";
+			url = "home/view?hsl_num="+hsl.getHsl_num();
 		}else {
-			return "redirect:/home/write";
+			msg = "문제가 발생했습니다. 다시 작성해 주세요.";
+			url = "home";
 		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "result";
 	}
 //	// 가정시터 게시글 등록 로직수행
 //	@RequestMapping(value = "/write", method = RequestMethod.POST)
