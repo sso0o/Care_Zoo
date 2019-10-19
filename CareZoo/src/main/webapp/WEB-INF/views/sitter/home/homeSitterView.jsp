@@ -566,7 +566,13 @@ $(function() { //문서가 로딩되면 실행할 함수
 	//]]>
 	//----카카오 1:1상담	
 })
-
+function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
 // $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
 
 // })
@@ -590,7 +596,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style="width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -709,7 +715,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 					</legend>
 					<ul>
 						<li>제목 : <span>${hsList.HSL_TITLE }</span></li>
-						<li>내용 : <div style="white-space:pre;"><c:out value="${hsList.HSL_COMMENT }" /></div></li>
+						<li>내용 : <div style="white-space:pre;"><textarea rows="" cols="" readonly="readonly" ><c:out value="${hsList.HSL_COMMENT }" /></textarea></div></li>
 <%-- 						<span>${hsList.HSL_COMMENT }</span></li> --%>
 					</ul>
 				</fieldset>

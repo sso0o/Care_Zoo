@@ -451,7 +451,13 @@ function deleteImageAction(fileIndex) {
 	index--;
 	console.log("index="+index);
 }
-
+function logoutCheck() {
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
+	}
+}
  
 </script>
 
@@ -541,7 +547,7 @@ legend{
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style="width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -596,7 +602,7 @@ legend{
 						<input type="text" class="form-control" id="title" name="hsl_title">
 					</div>
 					<div class="form-group">
-						<label for="hsl_comment">글내용</label>
+						<label for="hsl_comment">글내용<small>(최대 2000자까지 가능합니다.)</small></label>
 						<textarea class="form-control" id="content " name="hsl_comment" style="resize: none;" rows="8" >
 Q. 왜 도그메이트 펫시터를 하게 되었나요? 
 
@@ -622,7 +628,7 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 					<div class="form-group">
 						<label for="hsd_disabledate">불가능한 날짜를 선택하여 주세요.(매 90일마다 갱신) </label><br>
 						<div id="calendar"></div>
-						<input type="text" class="form-control" id="hsd_disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
+						<input type="hidden" class="form-control" id="hsd_disabledate" name="hsd_disabledate"  placeholder="불가능한 날을 모두 선택해 주세요." autocomplete=off >
 					</div>
 
 					<div class="form-group">
