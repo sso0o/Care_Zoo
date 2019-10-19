@@ -88,7 +88,6 @@
 	})
 
 	document.addEventListener('DOMContentLoaded', function() {
-		
 		var num = <%=session.getAttribute("user_num")%>
 		var calendarEl = document.getElementById('calendar');
 		
