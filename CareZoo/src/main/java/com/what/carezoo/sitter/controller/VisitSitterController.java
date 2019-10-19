@@ -707,6 +707,14 @@ public class VisitSitterController {
 	//회원가입
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(VisitSitter vs, Model m, MultipartHttpServletRequest mtfReq, HttpServletRequest request) {
+		String phone = request.getParameter("phone");
+		String phone1 = request.getParameter("phone1");
+		String phone2 = request.getParameter("phone2");
+		System.out.println(phone);
+		System.out.println(phone1);
+		System.out.println(phone2);
+		String contact = phone+phone1+phone2;
+		vs.setVs_contact(contact);
 		// 이미지 uuid가져오기
 		MultipartFile file = mtfReq.getFile("file");
 		System.out.println("일반,petjoin,file: " + file);
