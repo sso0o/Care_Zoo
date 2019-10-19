@@ -393,11 +393,12 @@ public class HomeSitterController {
 		List<String> files = hslService.getFileList(hsl_num);
 		int hs_num = Integer.parseInt(String.valueOf(hsList.get("HS_NUM")+""));
 		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
+		List<Map<String, Object>> hsrList = hsResService.getHomeSitterResByHSNum(hs_num);
 		System.out.println(hsList);
 		System.out.println("dateStrings"+dateStrings);
 		System.out.println("hsimg"+files);
 		System.out.println(comment);
-		
+		model.addAttribute("hsrList", hsrList);
 		model.addAttribute("hsimg", files);
 		model.addAttribute("disDates", dateStrings);
 		model.addAttribute("hsList", hsList);
@@ -408,13 +409,10 @@ public class HomeSitterController {
 	@ResponseBody
 	@RequestMapping(value = "/homesitterReservation")
 	public List<Map<String, Object>> makePetHotelRes(@RequestParam("hs_num") int hs_num) {
-//		System.out.println(hs_num);
 		int compare = 0;
 		Date phrCheckOut;
 		Date today = new Date();
 		List<Map<String, Object>> hsrList = hsResService.getHomeSitterResByHSNum(hs_num);
-//		System.out.println(hsrList);
-//		System.out.println("size: " + hsrList.size());
 		int hsrSize = hsrList.size();
 //		for (int i = hsrSize - 1; i + 1 > 0; i--) { // checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
 //			String from = (String) hsrList.get(i).get("HSR_CHKOUT");
@@ -433,24 +431,12 @@ public class HomeSitterController {
 //		}
 		System.out.println(hsrList);
 		return hsrList;
-
 	}
 	
 	@ResponseBody
 	@RequestMapping("/disabledates")
 	public List<String> getDisdates (int hsl_num){
-//		Map<String, Object> disDate = new HashMap<String, Object>();
 		List<String> disDates  = hslService.getDisableDates(hsl_num);
-//		ObjectMapper om = new ObjectMapper();
-//		String jsonStr = null;
-//		try {
-//			jsonStr = om.writeValueAsString(disDates);
-//			System.out.println("object to json : " + jsonStr);
-//			return jsonStr;
-//		} catch (JsonProcessingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		System.out.println("disDates"+disDates); 
 		return disDates;
 	}
