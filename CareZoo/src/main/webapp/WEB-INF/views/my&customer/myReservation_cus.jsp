@@ -288,7 +288,7 @@
 						} else if(data.VSR_STATUS ==2){
 							$(".payment").show();
 							$(".cancel").show();
-						} else if(data.VSR_STATUS >3 ){
+						} else if(data.VSR_STATUS >2 ){
 							$(".payment").hide();
 						}
 						$(".review").hide();
