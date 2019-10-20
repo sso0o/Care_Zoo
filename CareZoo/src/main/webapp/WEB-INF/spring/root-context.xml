@@ -96,10 +96,10 @@
 		<property name="mapperInterface" value="com.what.carezoo.dao.HomeSitterListDao"></property>
 	</bean>
 
-	<bean id="visitSitterCommentDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
-		<property name="mapperInterface" value="com.what.carezoo.dao.VisitSitterCommentDao"></property>
-	</bean>
+<!-- 	<bean id="coCommentDao" class="org.mybatis.spring.mapper.MapperFactoryBean"> -->
+<!-- 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->
+<!-- 		<property name="mapperInterface" value="com.what.carezoo.dao.VisitSitterCommentDao"></property> -->
+<!-- 	</bean> -->
 
 	<bean id="visitSitterDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
