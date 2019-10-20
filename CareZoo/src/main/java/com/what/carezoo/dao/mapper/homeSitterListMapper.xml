@@ -85,88 +85,44 @@
 
 <!-- 홈시터 게시글 검색 리스트 가져오기 -->
 	<select id="selectAllHsl" resultMap="hslsMap">
-		select distinct(hs.hs_num), hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
+		select hs.hs_num, hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
         from (select *  from homesitter 
              <trim prefix="where" prefixOverrides="AND|OR">
-				 hs_num not in (select hs_num from homesitterreservation 
-	          <if test="hsl.hsr_chkin != ''">
-				<if test="hsl.hsr_chkout != ''">
-	          		AND hsr_chkin not in (SELECT hsr_chkin FROM homesitterreservation   where hsr_chkin <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsr_chkin <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
-	 				AND hsr_chkout not in (SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+             	<if test="hsl.hs_address != null"> 
+				<foreach collection="list" item="item" separator="or">
+				and	hs_address like ('%${item}%')
+				</foreach>
 				</if>
-			</if>							
+				 and hs_num not in (select hs_num from homesitterreservation 
+		          		where hsr_status = 3
+		          <if test="hsl.hsr_chkin != ''">
+					<if test="hsl.hsr_chkout != ''">
+		          		AND hsr_chkin not in (SELECT hsr_chkin FROM homesitterreservation   where hsr_chkin <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsr_chkin <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+		 				AND hsr_chkout not in (SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+					</if>
+				  </if>							
 			</trim>
-			  )) hs,
-			  
-            (select hs_num, hsl_num,  hsl_service_type, hsl_size, hsl_pet_age, hsl_writedate,hsl_status,hsl_title from homesitterlist
-              <trim prefix="where" prefixOverrides="AND|OR">  
+			  )) hs,			  
+            (select hs_num, hsl_num,  hsl_service_type, hsl_size, hsl_pet_age, hsl_writedate,hsl_status,hsl_title from homesitterlist 
+              <trim prefix="where" prefixOverrides="AND|OR">
+              	 hsl_status = 1   
               	<if test="hsl.hsr_chkin != ''">
-					 hsl_num not in (select d.hsl_num   from homesitterdisabledate d  where d.hsd_disabledate like ('%${hsl.hsr_chkin}%'))            	
+					 AND hsl_num not in (select d.hsl_num   from homesitterdisabledate d  where d.hsd_disabledate like ('%${hsl.hsr_chkin}%'))            	
               	</if>
 				 <if test="hsl.hsr_chkout != ''">
 					 and hsl_num not in (select a.hsl_num   from homesitterdisabledate a where a.hsd_disabledate like  ('%${hsl.hsr_chkout}%'))
 				 </if>
              </trim>
             ) hsl,
-
-<!--             (select hsl_num,hsd_disabledate from homesitterdisabledate  -->
-<!--             <trim prefix="where" prefixOverrides="AND|OR"> -->
-<!-- 	            <if test="hsl.hsr_chkin != ''"> -->
-<!-- 					<if test="hsl.hsr_chkout != ''"> -->
-<!-- 			            hsd_disabledate not like #{hsl.hsr_chkin}   -->
-<!-- 			            and hsd_disabledate not like  #{hsl.hsr_chkout}  -->
-<!-- 	            	</if> -->
-<!-- 				</if> -->
-<!-- 			</trim> -->
-<!--            ) hsd, -->
-<!--             (select hsl.hsl_num, hsp.hspr_add_pet_price, hsp.hsl_size, hsp.hspr_price, hsp.hsl_service_type from homesitterlist hsl, homesitterprice hsp -->
-<!--             <trim prefix="where" prefixOverrides="AND|OR">           		 -->
-<!--             		hsp.hsl_size = hsl.hsl_size(+) -->
-<!-- 	            <if test="hsl.hsl_service_type != null"> -->
-<!-- 					AND hsp.hsl_size like ('%${hsl.hsl_size}%') -->
-<!-- 				</if> -->
-<!-- 				<if test="hsl.hsl_service_type != null"> -->
-<!-- 	            	AND hsl.hsl_size like ('%${hsl.hsl_size}%')  -->
-<!-- 	            </if>	 -->
-<!-- 	            <if test="hsl.hsl_service_type != null"> -->
-<!-- 					AND hsp.hsl_service_type like ('%${hsl.hsl_service_type}%') -->
-<!-- 				</if> -->
-<!-- 				<if test="hsl.hsl_service_type != null"> -->
-<!-- 					AND hsl.hsl_service_type like ('%${hsl.hsl_service_type}%') -->
-<!-- 				</if> -->
-<!--             </trim> -->
-<!--             ) hsp, -->
             (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
-<!--             ,(select hsr_chkin, hsr_chkout, hs_num from homesitterreservation) hsr -->
 		<trim prefix="where" prefixOverrides="AND|OR">
-			  AND hsl.hsl_status = 1
-<!-- 			  AND hs.hs_num = hsr.hs_num(+) -->
-<!-- 			  AND hsli.hsl_num = hsp.hsl_num(+) -->
 	          AND hs.hs_num = hsl.hs_num(+)
 	          AND hs.hs_num = hsc.hs_num(+)
-<!-- 	          AND hs.hs_num = hsr.hs_num(+) -->
-<!-- 			 AND hsl.hsl_num = hsd.hsl_num(+) -->
 			<if test="hsl.hsl_size != null" >
 				AND hsl.hsl_size like ('%${hsl.hsl_size}%')
 			</if>
 			<if test="hsl.hsl_service_type != null">
 				AND hsl.hsl_service_type like ('%${hsl.hsl_service_type}%')
-			</if>
-<!-- 			<if test="hsl.hsr_chkin != ''"> -->
-<!-- 				<if test="hsl.hsr_chkout != ''"> -->
-<!-- 				AND hsr.hsr_chkin not in  -->
-<!-- 				(SELECT hsr_chkin FROM homesitterreservation  where hsr_chkin <![CDATA[>=]]> #{hsl.hsr_chkin}  AND hsr_chkin <![CDATA[<=]]> #{hsl.hsr_chkout}) -->
-<!-- 				AND hsr.hsr_chkout not in          -->
-<!-- 				(SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> #{hsl.hsr_chkin} AND hsr_chkout <![CDATA[<=]]> #{hsl.hsr_chkout}) -->
-<!-- 				</if> -->
-<!-- 			</if> -->
-			
-			<if test="hsl.hs_address != null"> 
-				AND hs.hs_address in (select hs_address from homesitter where
-				<foreach collection="list" item="item" separator="or">
-					hs_address like ('%${item}%')
-				</foreach>
-				)
 			</if>
 		</trim>
 		order by hsl.hsl_writedate desc

@@ -277,6 +277,22 @@ ul {
   padding: 1em;
 }
 /* -------카카오 상담버튼------- */
+
+textarea{
+	resize: none;
+
+}
+.btn-my:hover{
+	color: #40bf9f;
+	background-color:#fff;
+	border-color: #40bf9f;
+}
+
+.btn-my {
+	color: #fff;
+	background-color:#40bf9f;
+	border-color: #40bf9f;
+}
 </style>
 <script type="text/javascript">
 // 로그아웃확인 <--모든페이지에 필수
@@ -453,7 +469,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 					</ul>
 					<br>
 				</div>
-				<textarea name="hsr_message" placeholder="강아지에 대한 내용을 돌보미에게 상세히 적어주세요." maxlength="4000" id="txtMESSAGE" style="margin: 0px; width: 700px; height: 126px;"></textarea>
+				<textarea  class="form-control" name="hsr_message" placeholder="강아지에 대한 내용을 돌보미에게 상세히 적어주세요." maxlength="4000" id="txtMESSAGE" style="margin: 0px; width: 894px;; height: 126px;"></textarea>
 				<br> <br>
 				<div>
 					<div style="margin-bottom: 15px">맡겨주를 이용하시는 이유에 대해 알려주세요!</div>
@@ -474,7 +490,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 				</ul>
 				<br> <br>
 			</div>
-			<div>
+			<div style="text-align: center">
 				<button id="btnsubmit" class="btn btn-my" style="text-align: center; font-size: 23px; padding-left: 40px; padding-right: 40px">예약요청</button>
 			</div>
 			<hr>
