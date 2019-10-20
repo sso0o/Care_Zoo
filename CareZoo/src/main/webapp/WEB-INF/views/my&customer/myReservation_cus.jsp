@@ -11,7 +11,9 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/index.css">
-<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link
+   href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap"
+   rel="stylesheet">
 
 <link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/core/main.css' />
 <link rel='stylesheet' href='${contextPath}/resources/fullcalendarScheduler/daygrid/main.css' />
@@ -457,6 +459,9 @@
 /*     font-family: Arial, Helvetica Neue, Helvetica, sans-serif; */
 /*     font-size: 14px; */
 /*   } */
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 #calendar {
 	max-width: 900px;
 	margin: 30px auto;
@@ -529,7 +534,7 @@ td{
 <title>mypage</title>
 <!-- 마이페이지 시작 -->
 </head>
-<body>
+<body class="container">
 <input type="checkbox" id="menuicon">
 			<label for="menuicon">
 				<span></span>
@@ -550,7 +555,8 @@ td{
 
 	    <div class="container">
         <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style= "position: relative;
+    left: 20px;"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">

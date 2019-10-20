@@ -197,7 +197,7 @@ body{
 </style>
 <title>추가/변경 Form</title>
 </head>
-<body clalss="container">
+<body class="container">
     <div class="container">
         <header>
 			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
