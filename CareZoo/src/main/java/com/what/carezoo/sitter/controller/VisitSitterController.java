@@ -664,7 +664,6 @@ public class VisitSitterController {
 			vsrService.insertVisitSitterReservation(vsr);
 			number.add(vsr.getVsr_num());		
 			// pet_detail저장
-			//기존 펫디테일 저장한거 삭제해주기..
 			for (int j = 0; j < p_num.size(); j++) {
 					pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
 			}
