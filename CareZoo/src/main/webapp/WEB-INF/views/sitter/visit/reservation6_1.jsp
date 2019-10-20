@@ -231,7 +231,7 @@ body{
 				</tr>
 				<tr>
 					<td id="checkContainer2">
-					<input type="checkbox" name="vsr_hour"id="one" value="9" 
+					<input type="checkbox" name="vsr_hour"id="one" value="09" 
 					onclick="oneCheckbox(this)">9시~12시
 					<input type="checkbox" name="vsr_hour" id="two" value="12"
 					onclick="oneCheckbox(this)">12시~15시 

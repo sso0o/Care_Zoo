@@ -80,7 +80,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 		console.log(hAdd);
 
 		var hours = [ '9시~12시', '12시~15시', '15시~18시', '18시~21시' ];
-		var hourss = [ '9', '12', '15', '18' ];
+		var hourss = [ '09', '12', '15', '18' ];
 		var str = "";
 
 		var hAdds = [ '없음', '+1시간', '+2시간', '+3시간', '+4시간' ];
