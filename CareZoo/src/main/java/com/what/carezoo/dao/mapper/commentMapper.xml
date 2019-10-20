@@ -123,7 +123,7 @@
 	select *
 	from visitsittercomment
 	where vs_num = #{vs_num}
-	order by vsc_write_date
+	order by vsc_write_date desc
 </select>
 
 </mapper>

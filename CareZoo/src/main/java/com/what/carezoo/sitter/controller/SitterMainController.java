@@ -555,8 +555,7 @@ public class SitterMainController {
 	@RequestMapping("/myCommentVsr")
 	public String myCommentVsr(HttpSession session, Model m) {
 		int vs_num = (int) session.getAttribute("user_num");
-		cService.getmyCommentVsr(vs_num);
-		
+		m.addAttribute("vscList", cService.getmyCommentVsr(vs_num));
 		return "sitter/myCommentVsr";
 	}
 	
