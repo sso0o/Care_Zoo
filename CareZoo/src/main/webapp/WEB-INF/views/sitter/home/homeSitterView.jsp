@@ -200,7 +200,10 @@ form{
     border-radius: 4px;
     text-align: center;
 }
+textarea{
+	resize: none;
 
+}
 </style>
 <script type="text/javascript">
 var unavailableDates = new Array();	
@@ -216,7 +219,10 @@ $(function() {
 // 		var d = "${item}";
 // 		unavailableDates.push(d);
 // 	</c:forEach>
-// 	console.log(unavailableDates)		
+// 	console.log(unavailableDates)	
+	function reserveDates(){
+// 		var 
+	}
 	function disableAllTheseDays(date) {
 	    var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
 	    for (i = 0; i < unavailableDates.length; i++) {
@@ -226,6 +232,7 @@ $(function() {
 	    }
 	    return [true];
 	}
+	
 	calculatePrice();
 // 	$('#calendar').datepicker({beforeShowDay: disableAllTheseDays});
 	
@@ -257,7 +264,7 @@ $(function() {
 		}
 	});
 	var datepickerEnd = $('#checkout').datepicker({
-		beforeShowDay: disableAllTheseDays ,
+		beforeShowDay:disableAllTheseDays,
 		dateFormat: 'yy-mm-dd', 
 		minDate: 'today',
 		//예약 불가능일때 선택 막기
@@ -566,7 +573,13 @@ $(function() { //문서가 로딩되면 실행할 함수
 	//]]>
 	//----카카오 1:1상담	
 })
-
+function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
 // $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
 
 // })
@@ -590,7 +603,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style="width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -708,8 +721,8 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 						<strong><i>돌보미 소개</i></strong>
 					</legend>
 					<ul>
-						<li>제목 : <span>${hsList.HSL_TITLE }</span></li>
-						<li>내용 : <div style="white-space:pre;"><c:out value="${hsList.HSL_COMMENT }" /></div></li>
+						<li><span><strong>${hsList.HSL_TITLE }</strong></span></li>
+						<li><div style="white-space:pre;"><textarea  rows="15" cols="87" readonly="readonly" ><c:out value="${hsList.HSL_COMMENT }" /></textarea></div></li>
 <%-- 						<span>${hsList.HSL_COMMENT }</span></li> --%>
 					</ul>
 				</fieldset>

@@ -7,7 +7,7 @@
 		</selectKey>
 		INSERT 		
 		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time,hsl_status)
-		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time}, 0)
+		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time}, 1)
 	</insert>
 	
 	<insert id="insertHomeSitterList" parameterType="homeSitterList">
@@ -16,9 +16,9 @@
 		</selectKey>
 		INSERT 		
 		INTO homesitterlist (hsl_num,hs_num,hsl_title,hsl_comment,hsl_size,hsl_care_place,hsl_yard,hsl_baby, hsl_family,hsl_service_type,hsl_pet_age,hsl_writedate,hsl_chkin_str_time,hsl_chkin_end_time,hsl_chkout_str_time,hsl_chkout_end_time,hsl_status)
-		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time},0)
-
+		VALUES(#{hsl_num}, #{hs_num}, #{hsl_title}, #{hsl_comment}, #{hsl_size}, #{hsl_care_place}, #{hsl_yard}, #{hsl_baby}, #{hsl_family}, #{hsl_service_type}, #{hsl_pet_age}, sysdate, #{hsl_chkin_str_time}, #{hsl_chkin_end_time}, #{hsl_chkout_str_time}, #{hsl_chkout_end_time},1)
 	</insert>
+	
 	<update id="updateDisDates" parameterType="map">
 		update homesitterlist
 		set hsl_disdates = #{hsl_disdates}
@@ -85,82 +85,104 @@
 
 <!-- 홈시터 게시글 검색 리스트 가져오기 -->
 	<select id="selectAllHsl" resultMap="hslsMap">
-		select *
-        from homesitter hs,
-            (select hs_num, hsl_num,  hsl_service_type, hsl_size, hsl_pet_age from homesitterlist) hsli,
-            (select hsl.hsl_num, hsp.hspr_add_pet_price, hsp.hsl_size, hsp.hspr_price, hsp.hsl_service_type from homesitterlist hsl, homesitterprice hsp
-            <trim prefix="where" prefixOverrides="AND|OR">           		
-            		hsp.hsl_size = hsl.hsl_size(+)
-	            <if test="hsl.hsl_service_type != null">
-					AND hsp.hsl_size like ('%${hsl.hsl_size}%')
-				</if>
-				<if test="hsl.hsl_service_type != null">
-	            	AND hsl.hsl_size like ('%${hsl.hsl_size}%') 
-	            </if>	
-	            <if test="hsl.hsl_service_type != null">
-					AND hsp.hsl_service_type like ('%${hsl.hsl_service_type}%')
-				</if>
-				<if test="hsl.hsl_service_type != null">
-					AND hsl.hsl_service_type like ('%${hsl.hsl_service_type}%')
-				</if>
-            </trim>
-            ) hsp,
-            (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc,
-            (select hsr_chkin, hsr_chkout, hs_num from homesitterreservation) hsr
+		select distinct(hs.hs_num), hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
+        from (select *  from homesitter 
+             <trim prefix="where" prefixOverrides="AND|OR">
+               hs_num not in (select hsl_num from homesitterdisabledate  
+		              				<if test="hsl.hsr_chkin != ''">
+									<if test="hsl.hsr_chkout != ''">
+              					    where hsd_disabledate not like ('%${hsl.hsr_chkin}%')   and hsd_disabledate not like  ('%${hsl.hsr_chkout}%') 
+		              				</if>
+									</if>
+									)
+									</trim>  
+									
+              or hs_num in (select hs_num from homesitterreservation 
+              <trim prefix="where" prefixOverrides="AND|OR">
+              				<if test="hsl.hsr_chkin != ''">
+							<if test="hsl.hsr_chkout != ''">
+              				and hsr_chkin not in (SELECT hsr_chkin FROM homesitterreservation   where hsr_chkin <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsr_chkin <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+			  				AND hsr_chkout not in (SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+			 				</if>
+							</if>							
+							</trim>
+			  )) hs,
+			  
+            (select hs_num, hsl_num,  hsl_service_type, hsl_size, hsl_pet_age, hsl_writedate,hsl_status,hsl_title from homesitterlist) hsl,
+
+<!--             (select hsl_num,hsd_disabledate from homesitterdisabledate  -->
+<!--             <trim prefix="where" prefixOverrides="AND|OR"> -->
+<!-- 	            <if test="hsl.hsr_chkin != ''"> -->
+<!-- 					<if test="hsl.hsr_chkout != ''"> -->
+<!-- 			            hsd_disabledate not like #{hsl.hsr_chkin}   -->
+<!-- 			            and hsd_disabledate not like  #{hsl.hsr_chkout}  -->
+<!-- 	            	</if> -->
+<!-- 				</if> -->
+<!-- 			</trim> -->
+<!--            ) hsd, -->
+<!--             (select hsl.hsl_num, hsp.hspr_add_pet_price, hsp.hsl_size, hsp.hspr_price, hsp.hsl_service_type from homesitterlist hsl, homesitterprice hsp -->
+<!--             <trim prefix="where" prefixOverrides="AND|OR">           		 -->
+<!--             		hsp.hsl_size = hsl.hsl_size(+) -->
+<!-- 	            <if test="hsl.hsl_service_type != null"> -->
+<!-- 					AND hsp.hsl_size like ('%${hsl.hsl_size}%') -->
+<!-- 				</if> -->
+<!-- 				<if test="hsl.hsl_service_type != null"> -->
+<!-- 	            	AND hsl.hsl_size like ('%${hsl.hsl_size}%')  -->
+<!-- 	            </if>	 -->
+<!-- 	            <if test="hsl.hsl_service_type != null"> -->
+<!-- 					AND hsp.hsl_service_type like ('%${hsl.hsl_service_type}%') -->
+<!-- 				</if> -->
+<!-- 				<if test="hsl.hsl_service_type != null"> -->
+<!-- 					AND hsl.hsl_service_type like ('%${hsl.hsl_service_type}%') -->
+<!-- 				</if> -->
+<!--             </trim> -->
+<!--             ) hsp, -->
+            (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
+<!--             ,(select hsr_chkin, hsr_chkout, hs_num from homesitterreservation) hsr -->
 		<trim prefix="where" prefixOverrides="AND|OR">
-			 AND hs.hs_num = hsr.hs_num(+)
-			  AND hsli.hsl_num = hsp.hsl_num(+)
-	          AND hs.hs_num = hsli.hs_num(+)
+			  AND hsl.hsl_status = 1
+<!-- 			  AND hs.hs_num = hsr.hs_num(+) -->
+<!-- 			  AND hsli.hsl_num = hsp.hsl_num(+) -->
+	          AND hs.hs_num = hsl.hs_num(+)
 	          AND hs.hs_num = hsc.hs_num(+)
-	          AND hs.hs_num = hsr.hs_num(+)
+<!-- 	          AND hs.hs_num = hsr.hs_num(+) -->
+<!-- 			 AND hsl.hsl_num = hsd.hsl_num(+) -->
 			<if test="hsl.hsl_size != null" >
-				AND hsli.hsl_size like ('%${hsl.hsl_size}%')
+				AND hsl.hsl_size like ('%${hsl.hsl_size}%')
 			</if>
 			<if test="hsl.hsl_service_type != null">
-				AND hsli.hsl_service_type like ('%${hsl.hsl_service_type}%')
+				AND hsl.hsl_service_type like ('%${hsl.hsl_service_type}%')
 			</if>
-<!-- 			<if test="hsl.hsl_chkin != ''"> -->
-<!-- 				AND  <![CDATA[hsr.hsr_chkin >= #{hsl.hsl_chkin}]]> -->
+<!-- 			<if test="hsl.hsr_chkin != ''"> -->
+<!-- 				<if test="hsl.hsr_chkout != ''"> -->
+<!-- 				AND hsr.hsr_chkin not in  -->
+<!-- 				(SELECT hsr_chkin FROM homesitterreservation  where hsr_chkin <![CDATA[>=]]> #{hsl.hsr_chkin}  AND hsr_chkin <![CDATA[<=]]> #{hsl.hsr_chkout}) -->
+<!-- 				AND hsr.hsr_chkout not in          -->
+<!-- 				(SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> #{hsl.hsr_chkin} AND hsr_chkout <![CDATA[<=]]> #{hsl.hsr_chkout}) -->
+<!-- 				</if> -->
 <!-- 			</if> -->
-<!-- 			<if test="hsl.hsl_chkout != ''"> -->
-<!-- 				AND <![CDATA[hsr.hsr_chkout <= #{hsl.hsl_chkout}]]> -->
-<!-- 			</if> -->
-			
-			<if test="hsl.hsl_chkin != ''">
-				<if test="hsl.hsl_chkout != ''">
-				and hsr.hsr_chkin not in 
-				<![CDATA[(SELECT hsr_chkin FROM HOMESITTERRESERVATION  where hsr_chkin >= #{hsl.hsl_chkin}  AND hsr_chkin <= #{hsl.hsl_chkout})]]>
-				and hsr.hsr_chkout not in         
-				<![CDATA[(SELECT hsr_chkout FROM HOMESITTERRESERVATION where hsr_chkout >= #{hsl.hsl_chkin} AND hsr_chkout <= #{hsl.hsl_chkout})]]>
-<!-- 				AND  <![CDATA[hsr.hsr_chkin >= #{hsl.hsl_chkin}  AND hsr.hsr_chkin< #{hsl.hsl_chkout}]]> -->
-<!-- 				AND <![CDATA[hsr.hsr_chkout >= #{hsl.hsl_chkin}  AND hsr.hsr_chkout< #{hsl.hsl_chkout}]]> -->
-				</if>
-			</if>
 			
 			<if test="hsl.hs_address != null"> 
-				and hs.hs_address in (select hs_address from homesitter where
+				AND hs.hs_address in (select hs_address from homesitter where
 				<foreach collection="list" item="item" separator="or">
 					hs_address like ('%${item}%')
 				</foreach>
 				)
 			</if>
 		</trim>
-		order by hsl.hsl_writedate
+		order by hsl.hsl_writedate desc
 	</select>
 	
 <!-- 홈시터 게시글 목록 가져오기 -->	
 	<select id="selectHsls" resultMap="hslsMap">
-		select 
-			hs.hs_num,hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsr_chkin,hsr_chkout
-
-        from homesitter hs,
+	   select hs.hs_num,hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
+        from  homesitter hs,
               homesitterlist hsl,
-             (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc,
-             (select hsr_chkin, hsr_chkout, hs_num from homesitterreservation) hsr
+              (select hs_num, count(hs_num) as hsc_cmt_count, round(avg(hsc_star),1) as hs_avgStar from homesittercomment group by hs_num) hsc
         where hs.hs_num = hsl.hs_num(+)
         and   hs.hs_num = hsc.hs_num(+)
-        and   hs.hs_num = hsr.hs_num(+)
-        order by hs.hs_num
+        AND   hsl.hsl_status = 1
+        order by hsl.hsl_writedate desc
 	</select>
 	
 	<resultMap type="map" id="hslsMap">
@@ -174,8 +196,9 @@
 		<result column="hsl_service_type" property="HSL_SERVICE_TYPE"/>
 		<result column="hsc_cmt_count" property="HSC_CMT_COUNT"/>
 		<result column="hs_avgstar" property="HS_AVGSTAR"/>
-		<result column="hsr_chkin" property="HSR_CHKIN"/>
-		<result column="hsr_chkout" property="HSR_CHKOUT"/>
+<!-- 		<result column="hsr_chkin" property="HSR_CHKIN"/> -->
+<!-- 		<result column="hsr_chkout" property="HSR_CHKOUT"/> -->
+		<result column="hsl_writedate" property="HSL_WRITEDATE"/>
 		<collection property="imgList" column="HSL_NUM" javaType="java.util.ArrayList" ofType="string"  select="selectFileList"></collection>	
 	</resultMap>
 	<resultMap type="map" id="hslsImage">

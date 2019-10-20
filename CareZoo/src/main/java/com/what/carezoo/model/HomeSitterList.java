@@ -8,8 +8,8 @@ public class HomeSitterList {
 	 private String hsl_title;
 	 private String hsl_comment;
 	 private String hsl_size;
-	 private String hsl_chkin;
-	 private String hsl_chkout;
+	 private String hsr_chkin;
+	 private String hsr_chkout;
 	 private String hsl_care_place;
 	 private String hsl_subway;
 	 private String hsl_yard;
@@ -68,17 +68,17 @@ public class HomeSitterList {
 	public void setHsl_size(String hsl_size) {
 		this.hsl_size = hsl_size;
 	}
-	public String getHsl_chkin() {
-		return hsl_chkin;
+	public String getHsr_chkin() {
+		return hsr_chkin;
 	}
-	public void setHsl_chkin(String hsl_chkin) {
-		this.hsl_chkin = hsl_chkin;
+	public void setHsr_chkin(String hsr_chkin) {
+		this.hsr_chkin = hsr_chkin;
 	}
-	public String getHsl_chkout() {
-		return hsl_chkout;
+	public String getHsr_chkout() {
+		return hsr_chkout;
 	}
-	public void setHsl_chkout(String hsl_chkout) {
-		this.hsl_chkout = hsl_chkout;
+	public void setHsr_chkout(String hsr_chkout) {
+		this.hsr_chkout = hsr_chkout;
 	}
 	public String getHsl_care_place() {
 		return hsl_care_place;
@@ -251,8 +251,8 @@ public class HomeSitterList {
 	@Override
 	public String toString() {
 		return "HomeSitterList [hsl_num=" + hsl_num + ", hs_num=" + hs_num + ", hsl_title=" + hsl_title
-				+ ", hsl_comment=" + hsl_comment + ", hsl_size=" + hsl_size + ", hsl_chkin=" + hsl_chkin
-				+ ", hsl_chkout=" + hsl_chkout + ", hsl_care_place=" + hsl_care_place + ", hsl_subway=" + hsl_subway
+				+ ", hsl_comment=" + hsl_comment + ", hsl_size=" + hsl_size + ", hsr_chkin=" + hsr_chkin
+				+ ", hsr_chkout=" + hsr_chkout + ", hsl_care_place=" + hsl_care_place + ", hsl_subway=" + hsl_subway
 				+ ", hsl_yard=" + hsl_yard + ", hsl_baby=" + hsl_baby + ", hsl_family=" + hsl_family + ", hsl_fileName="
 				+ hsl_fileName + ", hsl_filesName=" + hsl_filesName + ", hsl_address=" + hsl_address
 				+ ", hsl_d_address=" + hsl_d_address + ", hsl_service_type=" + hsl_service_type + ", hsl_pet_age="
@@ -264,5 +264,5 @@ public class HomeSitterList {
 				+ ", hs_d_address=" + hs_d_address + ", hs_email=" + hs_email + ", hsc_cmt_count=" + hsc_cmt_count
 				+ ", hs_avgStar=" + hs_avgStar + ", c_num=" + c_num + "]";
 	}
-	 
+	
 }
