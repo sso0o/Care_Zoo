@@ -707,12 +707,16 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 					<legend>
 						<strong><i>돌보미환경</i></strong>
 					</legend>
-					<ul>
-						<li>돌봄 공간 : <span>${hsList.HSL_CARE_PLACE }</span></li>
-						<li>마당유무 : <span>${hsList.HSL_YARD }</span></li>
-						<li>14세 미만 아동 : <span>${hsList.HSL_BABY }</span></li>
-						<li>가족 동거 여부 : <span>${hsList.HSL_FAMILY }</span></li>
-					</ul>
+					<table class="table">
+						<tr class="table-light">
+							<td>돌봄 공간 : ${hsList.HSL_CARE_PLACE}</td>
+							<td>마당유무 : ${hsList.HSL_YARD }</td>
+						</tr>
+						<tr class="table-light">
+							<td>14세 미만 아동 : ${hsList.HSL_BABY }</td>
+							<td>가족 동거 여부 : ${hsList.HSL_FAMILY }</td>
+						</tr>
+					</table>
 				</fieldset>
 				<br>
 				<br>
