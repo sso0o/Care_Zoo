@@ -296,8 +296,8 @@
 		 							dataType : "JSON",
 		 							success : function(data) {
 			 							var sForm=$('<div class="selectForm" style="text-align:center">');
-			 	 						$('<label>').text("방:  ").appendTo(sForm);
-			 	 						var roomSelectBox = $('<select class="rSelect" name="phrm_num">');
+			 	 						$('<label style="font-size:20px">').text("방:  ").appendTo(sForm);  
+			 	 						var roomSelectBox = $('<select class="rSelect" name="phrm_num" style="font-size:20px">');
 
 		 								roomSelectBox.on("change",function(){
 		 									currentVal = 0;
@@ -329,10 +329,10 @@
 //		 			 						<label style="text-align: left">(1박 가격)</label><span>(kg선택)</span>
 											$('<br>').appendTo(resForm);
 		 									var selectbox = $('<select class="sizeSelect" style="text-align:center" onchange="sizePriceSetter('+data.phrm_price+','+data.phrm_m_price+','+data.phrm_l_price+')">');
-		 			 						$('<label class="oneNightPrice" style="text-align:center;font-size:20px">').text(numberWithCommas(data.phrm_price)).appendTo(PriceAndSize);
+		 			 						$('<label class="oneNightPrice" style="text-align:center;font-size:28px">').text(numberWithCommas(data.phrm_price)).appendTo(PriceAndSize);
 		 			 						$('<input type="hidden" class="oneNightValue" name="oneNightValue" value="'+numberWithCommas(data.phrm_price)+'">').appendTo(PriceAndSize);
-		 			 						PriceAndSize.append('&nbsp;');
-		 			 						PriceAndSize.append('&nbsp;');
+		 			 						PriceAndSize.append('&nbsp;'); 
+		 			 						PriceAndSize.append('&nbsp;'); 
 		 			 						PriceAndSize.append('&nbsp;');
 		 			 						PriceAndSize.append('&nbsp;');
 		 									for(var i=0;i<size.length; i++){
@@ -370,9 +370,9 @@
 		 			 						
 		 			 						var pmButtonDiv=$('<div class="input-group">');
 		 			 						var minusButton = $('<input type="button" value="-" class="button-minus" data-field="quantity" >').appendTo(pmButtonDiv);
-		 			 						$('<input type="number" step="1" max="" value="0" name="quantity" class="quantity-field" readonly>').appendTo(pmButtonDiv);
+		 			 						$('<input type="number" step="1" max="" value="0" name="quantity" style="font-size: 20px;" class="quantity-field" readonly>').appendTo(pmButtonDiv);
 		 			 						var plusButton = $('<input type="button" value="+" class="button-plus" data-field="quantity">').appendTo(pmButtonDiv);
-// 		 			 						<div class="input-group">
+// 		 			 						<div class="input-group">   
 // 		 			 					  <input type="button" value="-" class="button-minus" data-field="quantity">
 // 		 			 					  <input type="number" step="1" max="" value="1" name="quantity" class="quantity-field">
 // 		 			 					  <input type="button" value="+" class="button-plus" data-field="quantity">
@@ -933,7 +933,7 @@ input[type="number"] {
 
 .sizeSelect {
 	position: relative;
-	width: 130px;
+	width: 150px;  
 	height: 40px;
 	background: url(select_arrow.png) 180px center no-repeat; /* 화살표 이미지 */
 	border: 1px solid #b9d5e8;
@@ -1166,15 +1166,15 @@ input[type="number"] {
 						<div class="media-body">
 							<table style="width: 100%">
 								<tr>
-									<td style="text-align: left; width: 50%">${phc.C_NAME}</td>
+									<td style="text-align: left; width: 50%">&nbsp; ${phc.C_NAME}</td>  
 									<td style="text-align: right;"><c:forEach var="i"
-											begin="1" end="${phc.PHC_STAR-(phc.PHC_STAR%1)}">
+											begin="1" end="${phc.PHC_STAR-(phc.PHC_STAR%1)}"> 
 											<img src="${contextPath}/resources/img/paw.png"
 												style="width: 20px; height: 20px;">
 										</c:forEach></td>
 								</tr>
 								<tr>
-									<td colspan="2"><p style="margin-left: 10px;">${phc.PHC_COMMENT}</p></td>
+									<td colspan="2"><br><p style="margin-left: 10px;">${phc.PHC_COMMENT}</p></td>
 								</tr>
 							</table>
 
@@ -1184,23 +1184,21 @@ input[type="number"] {
 			</div>
 		</div>
 
-		<div class="col-sm-4">
+		<div class="col-sm-4"  style="font-family: Gamja Flower">  
 			<br> <br>
 			<form action="${contextPath }/petHotel/petHotelResForm" method="post">
 				<div
-					style="padding: 10px; font-size: 16px; width: 100%; border: 1px solid darkgray; border-radius: 4px;">
+					style="padding: 10px;  width: 100%; border: 1px solid darkgray; border-radius: 4px;font-size:20px">  
 					<div class="col-dates" style="text-align: center;">
-
-
-						<label>원하는 날짜를 선택해주세요.</label> <br> <input type="hidden"
-							class="ph_num" name="ph_num" value="${petHotel.ph_num }">
+						<label style="font-size: 21px;" >원하는 날짜를 선택해주세요.</label> <br> <input type="hidden"   
+							class="ph_num" name="ph_num" value="${petHotel.ph_num }"> 
 						<br> <input type="text" class="pull-left"
 							placeholder="체크인 날짜" readonly="readonly" name="phr_chkin"
-							style="font-size: 16px; width: 110px; height: 50px" />
+							style="font-size: 18px; width: 110px; height: 50px" />
 						&nbsp;&nbsp;<span>&gt;</span>&nbsp;&nbsp; <input type="text"
 							class="pull-right" placeholder="체크아웃 날짜" readonly="readonly"
-							name="phr_chkout"
-							style="font-size: 15px; width: 110px; height: 50px" /> <br
+							name="phr_chkout"   
+							style="font-size: 18px; width: 110px; height: 50px" /> <br
 							style="padding: 20px"> <br>
 					</div>
 					<div class="sRoom"></div>
