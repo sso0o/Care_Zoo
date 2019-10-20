@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.what.carezoo.comment.service.CommentService;
 import com.what.carezoo.customer.service.CustomerService;
 import com.what.carezoo.member.service.MemberMailSendService;
 import com.what.carezoo.member.service.MemberService;
@@ -80,6 +81,10 @@ public class SitterMainController {
 	
 	@Autowired
 	private HomeSitterListService hslService;
+	
+	@Autowired
+	private CommentService cService;
+	
 	
 	@RequestMapping(value="main",method=RequestMethod.GET)
 	public String MainPage() {
@@ -545,6 +550,14 @@ public class SitterMainController {
 		System.out.println(url);
 		m.addAttribute("url", url);
 		return "result";
+	}
+	
+	@RequestMapping("/myCommentVsr")
+	public String myCommentVsr(HttpSession session, Model m) {
+		int vs_num = (int) session.getAttribute("user_num");
+		cService.getmyCommentVsr(vs_num);
+		
+		return "sitter/myCommentVsr";
 	}
 	
 }

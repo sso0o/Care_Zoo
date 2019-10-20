@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.what.carezoo.model.VisitSitter;
 
-
-
 public interface VisitSitterDao {
 	
 	public int insertVisitSitter(VisitSitter vs);

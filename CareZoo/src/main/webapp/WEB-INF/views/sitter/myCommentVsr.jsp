@@ -54,74 +54,7 @@
 		
 	})
 	
-	
-	
-	function modalOpen(obj) {		
-		var num = $(obj).attr('title');
-		$(".number").val(num);
-		$.ajax({
-			url:"${contextPath}/sitter/getVSRInfo",
-			data:{
-				vsr_num:num
-			},
-			dataType:"JSON",
-			success: function(data) {
-				console.log(data)
-				$("#name").text(data.C_NAME);
-				$("#contact").text(data.C_CONTACT);
-				$("#address").text(data.C_ADDRESS+" "+data.C_D_ADDRESS);
-				$("#chkin").text(data.VSR_CHKIN);
-				$("#hour").text(data.VSR_HOUR+" ~ "+data.VSR_ENDTIME);
-				$("#attention").text(data.attention);									
-				$("#contents").text(data.VSR_CONTENTS);	
-				$("#total").text(data.VSR_TOTALPRICE);
-				
-				var pd = $("#pd");
-				pd.empty();
-				for (var p in data.petList) {
-					console.log(p)
-					var ptag = "<p class='col item'>"+data.petList[p].pet.p_name+"</p>"
-					pd.append(ptag);
-				}
-				
-			},
-			error: function() {
-				alert("error")
-			}
-		})
 
-		$("#modal-showVsr").show();
-		$("#vsrInfo").removeClass('noshow')
-		
-		$("#next").on("click", function() {
-			$("#petList").removeClass('noshow');
-			$("#vsrInfo").addClass('noshow');
-		})
-		
-		$("#previous").on("click", function() {
-			$("#petList").addClass('noshow');
-			$("#vsrInfo").removeClass('noshow');
-		})
-		
-		$(".close").on("click", function() {
-			$("#modal-showVsr").hide();
-			$("#vsrInfo").addClass('noshow')
-
-		});
-		
-	}//modalOpen()
-	
-	function booking() {
-
-		var num = $(".number").val();
-		if(confirm("신청된 예약을 수락하시겠습니까?") ==  true){
-			location.href = '${contextPath}/sitter/acceptVsr?vsr_num='+num;
-			
-		} else{
-			return false;
-		}
-	}
-	
 
 	$(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
 	

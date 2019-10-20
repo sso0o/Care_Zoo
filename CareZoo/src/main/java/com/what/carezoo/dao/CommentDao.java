@@ -1,5 +1,6 @@
 package com.what.carezoo.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.what.carezoo.model.HomeSitterComment;
@@ -35,4 +36,6 @@ public interface CommentDao {
 	public Double getStarHS(int hs_num);
 	public Double getStarVS(int vs_num);
 	public Double getStarPH(int ph_num);
+	
+	public List<ViSitSitterComment> getmyCommentVsr(int vs_num);
 }

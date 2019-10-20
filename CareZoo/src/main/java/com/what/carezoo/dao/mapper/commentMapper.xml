@@ -118,5 +118,12 @@
 		from pethotelcomment
 		where ph_num = #{ph_num}
 	</select>
+	
+	<select id="getmyCommentVsr" parameterType="int" resultType="ViSitSitterComment">
+	select *
+	from visitsittercomment
+	where vs_num = #{vs_num}
+	order by vsc_write_date
+</select>
 
 </mapper>
