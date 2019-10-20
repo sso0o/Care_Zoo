@@ -117,7 +117,6 @@
 			eventClick : function(info) {
 				var infocheck = info.event.groupId+'='+info.event.id
 				var chkoutTime = info.event.end;
-
 				eee = info.event.end;
 				$(".groupid").val(info.event.groupId)
 				$(".number").val(info.event.id)
@@ -140,8 +139,8 @@
 					var e = {
 						groupId : 'vsr_num',
 						id : data.vsrList[i].VSR_NUM,
-						start : data.vsrList[i].VSR_CHKIN,
-						end : data.vsrList[i].VSR_CHKOUT,
+						start : data.vsrList[i].VSR_CHKIN+"T"+data.vsrList[i].VSR_HOUR+":00",
+						end : data.vsrList[i].VSR_CHKIN+"T"+data.vsrList[i].VSR_END+":00",
 						title : '방문시터예약',
 						color : 'rgba(0, 0, 120, 0.6)',
 						textColor: "white"
@@ -235,12 +234,16 @@
 					if(d>endday){
 						$(".payment").hide();
 						$(".cancel").hide();
-						
+						$(".review").show();
 					} else{
 						if(data.HSR_STATUS < 2){
 							$(".payment").hide();
 							$(".cancel").show();
-						} 	else if(data.HSR_STATUS > 2){
+						} else if(data.HSR_STATUS == 2) {
+							$(".payment").show();
+							$(".cancel").show();
+						}
+						else if(data.HSR_STATUS > 2){
 							$(".payment").hide();
 						}
 						$(".review").hide();
@@ -271,14 +274,19 @@
 				},
 				dataTpe:"JSON",
 				success: function(data) {
-					console.log(data)	
-					if(d>data.VSR_CHKIN){
+					console.log(data)
+					console.log("d : "+d)
+					console.log("ed : "+endday)
+					if(d>endday){
 						$(".payment").hide();
 						$(".cancel").hide();
-						
+						$(".review").show();
 					} else{
 						if(data.VSR_STATUS < 2){
 							$(".payment").hide();
+							$(".cancel").show();
+						} else if(data.VSR_STATUS ==2){
+							$(".payment").show();
 							$(".cancel").show();
 						} else if(data.VSR_STATUS >3 ){
 							$(".payment").hide();

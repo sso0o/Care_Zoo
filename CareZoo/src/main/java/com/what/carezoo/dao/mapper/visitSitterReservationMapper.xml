@@ -263,7 +263,7 @@ and vsr.c_num = c.c_num
 	<select id="getVSRInfo" parameterType="int" resultType="map">
 	select vs.vs_name,  vsr.*
 	from visitsitter vs,
-		(select *
+		(select C_NUM, VSR_ATTENTION,VSR_CHKIN,VSR_CONTENTS,VSR_COUNT,VSR_DAY,VSR_HADD,VSR_HOUR,VSR_NUM,VSR_STATUS,VSR_TOTALPRICE,VS_NUM,(vsr_hour+vsr_hadd+3) vsr_end
 		from visitsitterreservation
 		where c_num = #{c_num}) vsr
 	where vsr.vs_num = vs.vs_num(+)

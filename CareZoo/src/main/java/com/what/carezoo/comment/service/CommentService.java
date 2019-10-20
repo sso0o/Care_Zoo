@@ -156,5 +156,9 @@ public class CommentService {
 		// 3. 만든 파일 이름 반환
 		return fullName;
 	}
+	
+	public List<ViSitSitterComment> getmyCommentVsr(int vs_num) {
+		return cDao.getmyCommentVsr(vs_num);
+	}
 
 }
