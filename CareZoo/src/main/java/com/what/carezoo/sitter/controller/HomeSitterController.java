@@ -176,9 +176,9 @@ public class HomeSitterController {
 	@RequestMapping("/searchLoading")
 	public List<Map<String,Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,
 			@RequestParam(value="hs_address" ,required = false) ArrayList<String> hs_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
-//		System.out.println("여기까지?");
-//		System.out.println("swichNumber=====>" + switchNumber);
-//		System.out.println(params);
+		System.out.println("여기까지?");
+		System.out.println("swichNumber=====>" + switchNumber);
+		System.out.println(params);
 		if(switchNumber ==1) {
 			if(hsl==null) {			
 				hsl = new HomeSitterList();
@@ -187,16 +187,16 @@ public class HomeSitterController {
 				hs_address = new ArrayList<String>(); 			
 			}	
 			
-//			System.out.println("모델11:"+hs_address);
-//			System.out.println("hsl11:"+hsl);
+			System.out.println("모델11:"+hs_address);
+			System.out.println("hsl11:"+hsl);
 			List<Map<String,Object>>  hsList = hslService.getbySearchingHsl(hs_address,hsl);
-//			System.out.println("값11"+hsList);
+			System.out.println("값11"+hsList);
 			return hsList;			
 		}
 		else {
 			List<Map<String,Object>> hsList = hslService.getHsls();
-//			System.out.println("값22222"+hsList);
-//			System.out.println("hsList"+hsList);				
+			System.out.println("값22222"+hsList);
+			System.out.println("hsList"+hsList);				
 			return hsList;
 		}
 	}

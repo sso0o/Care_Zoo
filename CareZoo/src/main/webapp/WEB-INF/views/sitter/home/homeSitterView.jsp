@@ -204,6 +204,7 @@ textarea{
 	resize: none;
 
 }
+
 </style>
 <script type="text/javascript">
 var unavailableDates = new Array();	
@@ -219,7 +220,7 @@ $(function() {
 // 		var d = "${item}";
 // 		unavailableDates.push(d);
 // 	</c:forEach>
-// 	console.log(unavailableDates)	
+	console.log(unavailableDates)	
 	function reserveDates(){
 // 		var 
 	}
@@ -290,6 +291,7 @@ $(function() {
 // 		console.log("펫사이즈")
 		empdays = document.getElementById('days').value;
 // 		console.log("petSize-select")
+
 		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
 			pricePerPetSize = 15000;
 			if(days==0){

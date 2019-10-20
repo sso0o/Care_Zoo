@@ -88,27 +88,26 @@
 		select distinct(hs.hs_num), hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
         from (select *  from homesitter 
              <trim prefix="where" prefixOverrides="AND|OR">
-               hs_num not in (select hsl_num from homesitterdisabledate  
-		              				<if test="hsl.hsr_chkin != ''">
-									<if test="hsl.hsr_chkout != ''">
-              					    where hsd_disabledate not like ('%${hsl.hsr_chkin}%')   and hsd_disabledate not like  ('%${hsl.hsr_chkout}%') 
-		              				</if>
-									</if>
-									)
-									</trim>  
-									
-              or hs_num in (select hs_num from homesitterreservation 
-              <trim prefix="where" prefixOverrides="AND|OR">
-              				<if test="hsl.hsr_chkin != ''">
-							<if test="hsl.hsr_chkout != ''">
-              				and hsr_chkin not in (SELECT hsr_chkin FROM homesitterreservation   where hsr_chkin <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsr_chkin <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
-			  				AND hsr_chkout not in (SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
-			 				</if>
-							</if>							
-							</trim>
+				 hs_num not in (select hs_num from homesitterreservation 
+	          <if test="hsl.hsr_chkin != ''">
+				<if test="hsl.hsr_chkout != ''">
+	          		AND hsr_chkin not in (SELECT hsr_chkin FROM homesitterreservation   where hsr_chkin <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsr_chkin <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+	 				AND hsr_chkout not in (SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+				</if>
+			</if>							
+			</trim>
 			  )) hs,
 			  
-            (select hs_num, hsl_num,  hsl_service_type, hsl_size, hsl_pet_age, hsl_writedate,hsl_status,hsl_title from homesitterlist) hsl,
+            (select hs_num, hsl_num,  hsl_service_type, hsl_size, hsl_pet_age, hsl_writedate,hsl_status,hsl_title from homesitterlist
+              <trim prefix="where" prefixOverrides="AND|OR">  
+              	<if test="hsl.hsr_chkin != ''">
+					 hsl_num not in (select d.hsl_num   from homesitterdisabledate d  where d.hsd_disabledate like ('%${hsl.hsr_chkin}%'))            	
+              	</if>
+				 <if test="hsl.hsr_chkout != ''">
+					 and hsl_num not in (select a.hsl_num   from homesitterdisabledate a where a.hsd_disabledate like  ('%${hsl.hsr_chkout}%'))
+				 </if>
+             </trim>
+            ) hsl,
 
 <!--             (select hsl_num,hsd_disabledate from homesitterdisabledate  -->
 <!--             <trim prefix="where" prefixOverrides="AND|OR"> -->
