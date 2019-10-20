@@ -71,13 +71,16 @@ public class HomeSitterController {
 	
 	//이메일 인증 보내기 메서드
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinHomeSitter(HomeSitter hs,Model model, HttpServletRequest request) {
+	public String joinHomeSitter(HomeSitter hs,Model model, HttpServletRequest request, MultipartHttpServletRequest mtfReq) {
 		String phone = request.getParameter("phone");
 		String phone1 = request.getParameter("phone1");
 		String phone2 = request.getParameter("phone2");
 		String contact = phone+phone1+phone2;
 		hs.setHs_contact(contact);
 		 //회원가입 메서드 
+		MultipartFile file = mtfReq.getFile("file");
+		System.out.println("일반,petjoin,file: " + file);
+		boolean rst = hsService.insertHomeSitterFile(hs, file);
 		boolean hsRst = hsService.joinHomeSitter(hs);
 		if(hsRst) {
 			System.out.println("회원가입 성공!!");

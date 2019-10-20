@@ -44,51 +44,51 @@
 <script src="${contextPath}/resources/js/jquery-ui.multidatespicker.js" type="text/javascript" ></script><!-- multidatePicker -->
 <script type="text/javascript" src="${contextPath}/resources/js/jquery-ui-timepicker-addon.js"></script>   <!-- dateTimePicker -->
 <style type="text/css">
-.menu>ul {
-	height: 45px;
-}
+/* .menu>ul { */
+/* 	height: 45px; */
+/* } */
 
 
-body {
-  padding: 20px;
-}
-.image-area {
-  position: relative;
-  width: 50%;
-  background: #333;
-}
-.image-area img{
-  max-width: 100%;
-  height: auto;
-}
-.remove-image {
-display: none;
-position: absolute;
-top: -10px;
-right: -10px;
-border-radius: 10em;
-padding: 2px 6px 3px;
-text-decoration: none;
-font: 700 21px/20px sans-serif;
-background: #555;
-border: 3px solid #fff;
-color: #FFF;
-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
-  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-  -webkit-transition: background 0.5s;
-  transition: background 0.5s;
-}
-.remove-image:hover {
- background: #E54E4E;
-  padding: 3px 7px 5px;
-  top: -11px;
-right: -11px;
-}
-.remove-image:active {
- background: #E54E4E;
-  top: -10px;
-right: -11px;
-}
+/* body { */
+/*   padding: 20px; */
+/* } */
+/* .image-area { */
+/*   position: relative; */
+/*   width: 50%; */
+/*   background: #333; */
+/* } */
+/* .image-area img{ */
+/*   max-width: 100%; */
+/*   height: auto; */
+/* } */
+/* .remove-image { */
+/* display: none; */
+/* position: absolute; */
+/* top: -10px; */
+/* right: -10px; */
+/* border-radius: 10em; */
+/* padding: 2px 6px 3px; */
+/* text-decoration: none; */
+/* font: 700 21px/20px sans-serif; */
+/* background: #555; */
+/* border: 3px solid #fff; */
+/* color: #FFF; */
+/* box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3); */
+/*   text-shadow: 0 1px 2px rgba(0,0,0,0.5); */
+/*   -webkit-transition: background 0.5s; */
+/*   transition: background 0.5s; */
+/* } */
+/* .remove-image:hover { */
+/*  background: #E54E4E; */
+/*   padding: 3px 7px 5px; */
+/*   top: -11px; */
+/* right: -11px; */
+/* } */
+/* .remove-image:active { */
+/*  background: #E54E4E; */
+/*   top: -10px; */
+/* right: -11px; */
+/* } */
 </style>
 <script>
 //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
@@ -428,11 +428,11 @@ function handleImgFileSelect(e) {
 		sel_file = f;
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='preImg"+(index-1)+"' class='selProductFile' title='Click to remove' style='width:429px; height:250px'></a>";
+			var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='preImg"+(index-1)+"' class='selProductFile' title='Click to remove' style='width:150px; height:150px'></a>";
 			$(".image-area").append(html);
 
 			var newButton = "<input type='button' class=\"remove-image\" id='deleteButton"+(index-1)+"'  onclick='deleteImageAction("
-					+ index + ")' value='삭제' style=\"display: inline;\">";
+					+ index + ")' value='삭제' style=\"display:table;\">";
 			$(".image-area").append(newButton);
 		}
 		reader.readAsDataURL(f);
@@ -754,8 +754,8 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						</div>
 					</div>
 					<div class="form-group imgs">
-					 	<label for="image-area">돌봄공간의 사진을 올려주세요</label>
-						<input type="button" id="addImgBtn" class="btn btn-addImg" value="사진 올리기" style=" border: 1px solid #b3d7ff;background-color: ">
+					 	<label for="image-area">돌봄공간의 사진을 올려주세요<small>(10장까지 가능합니다.)</small></label>
+						<input type="button" id="addImgBtn" class="btn btn-addImg" value="사진 올리기" style=" border: 1px solid #40bf9f;">
 						<div>
 							<div class="image-area" id="image-area" ></div>
 						</div>
