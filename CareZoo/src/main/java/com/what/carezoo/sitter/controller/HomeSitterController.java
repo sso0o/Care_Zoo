@@ -191,9 +191,11 @@ public class HomeSitterController {
 	}
 	@ResponseBody
 	@RequestMapping("/searchLoading")
-	public List<Map<String,Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hs_address" ,required = false) ArrayList<String> hs_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+	public List<Map<String,Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,
+			@RequestParam(value="hs_address" ,required = false) ArrayList<String> hs_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
 		System.out.println("여기까지?");
 		System.out.println("swichNumber=====>" + switchNumber);
+		System.out.println(params);
 		if(switchNumber ==1) {
 			if(hsl==null) {			
 				hsl = new HomeSitterList();
@@ -404,7 +406,7 @@ public class HomeSitterController {
 		System.out.println(hsList);
 		System.out.println("dateStrings"+dateStrings);
 		System.out.println("hsimg"+files);
-		System.out.println(comment);
+		System.out.println(hsrList);
 		model.addAttribute("hsrList", hsrList);
 		model.addAttribute("hsimg", files);
 		model.addAttribute("disDates", dateStrings);

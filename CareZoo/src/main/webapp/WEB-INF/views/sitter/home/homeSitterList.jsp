@@ -240,7 +240,7 @@ li:hover {
 			isMenu2 = false;
 		});
 		//datepicker동작
-		var datepickerStart = $('#hsl_chkin')
+		var datepickerStart = $('#hsr_chkin')
 				.datepicker(
 						{
 							dateFormat : 'yy-mm-dd',
@@ -259,7 +259,7 @@ li:hover {
 								}
 							}
 						});
-		var datepickerEnd = $('#hsl_chkout').datepicker({
+		var datepickerEnd = $('#hsr_chkout').datepicker({
 			dateFormat : 'yy-mm-dd',
 			minDate : moment('yy-mm-dd').toDate()
 		});
@@ -281,13 +281,13 @@ li:hover {
 	});
 	var searchSwitch = 0;
 	function loadingPage() {
-		var detailParam = $("form").serialize();
-		// 	var stateParam = $('input[name=hs_address]:checked').serialize(); //
+		var detailParam = $("#searchForm").serialize();
+// 			var stateParam = $('input[name=hs_address]:checked').serialize(); //
 		var homeSitterListDiv = $('.homeSitterlist');
 
 		$.ajax({
 			url : "${contextPath}/home/searchLoading",
-			// 		data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
+// 					data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
 			data : detailParam + '&searchSwitch=' + searchSwitch,
 			dataType : "JSON",
 			success : function(hsList) {
@@ -408,14 +408,7 @@ li:hover {
             <ul style="">
                 <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
                     <ul>
-                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
-                            <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      -->
-                        </li>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
@@ -582,9 +575,9 @@ li:hover {
 						</td>
 						
 						<td>
-							<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;"/> 
+							<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsr_chkin" id="hsr_chkin" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;"/> 
 							<span>&gt;</span> 
-							<input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;" />
+							<input type="text" placeholder="마침 날짜" readonly="readonly" name="hsr_chkout" id="hsr_chkout" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;" />
 						</td>
 <!-- 						<td> -->
 <!-- 							<select name="hsl_pet_age" data-width="130px"> -->

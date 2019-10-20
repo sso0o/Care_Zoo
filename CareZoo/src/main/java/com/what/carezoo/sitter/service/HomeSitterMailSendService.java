@@ -62,9 +62,11 @@ public class HomeSitterMailSendService {
 			String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br><br>" 
 					+ "<h3>" + hs_name + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
 					+ "<a href='http://localhost:8081" + request.getContextPath() + "/home/key_alter?hs_email="+ hs_email +"&hs_email_key="+key+"'>인증하기</a></p>"
+					+ "\n"
 					+ "************************************************************************************"
-					+ ""
+					+ "\n"
 					+ "홈시터 가입 후 추가 내용을 입력하셔야 게시글이 등록됩니다. 이메일 인증 후 마이페이지를 확인해주세요~!"
+					+ "\n"
 					+ "<a href='http://localhost:8081" + request.getContextPath() + "/member/myPage"+ "'>마이페이지 바로가기</a></p>"
 					+ "************************************************************************************";
 			try {

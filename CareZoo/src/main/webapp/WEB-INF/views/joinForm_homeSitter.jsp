@@ -294,9 +294,9 @@ legend{
 <title>Insert title here</title>
 </head>
 <body class="container">
-	    <div class="container">
-        <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 20px"></a>
+  <div class="container">  
+        <header>  
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -305,7 +305,7 @@ legend{
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style="width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -316,23 +316,13 @@ legend{
             <ul style="">
                 <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
                     <ul>
-                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
-                            <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      -->
-                        </li>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
                 <li class='active sub'><a href='${contextPath}/petHotel/petHotelList'>HOTEL</a>
                     <ul>
                         <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
-
-                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-
                     </ul>
                 </li>
                 <li class='last'><a href='${contextPath}/member/myPage'  style="font-size: 17px">MYPAGE</a></li>
@@ -340,7 +330,7 @@ legend{
             </ul>
         </div>
     </nav>
-    
+    <div class='container'></div>
 	<br>
 	<br>
 	<br>
