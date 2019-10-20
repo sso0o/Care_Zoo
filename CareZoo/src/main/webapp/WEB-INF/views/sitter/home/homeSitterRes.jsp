@@ -327,7 +327,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style="width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>

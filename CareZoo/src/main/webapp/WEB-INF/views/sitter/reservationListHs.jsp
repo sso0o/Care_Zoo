@@ -353,6 +353,7 @@ textarea {
 				<div>
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
+						<li><a href="${contextPath}/home/write">내 예약글 관리</a></li>
 						<li><a href="${contextPath}/sitter/getHsrStatus0">예약현황 보기</a></li>
 						<li><a href="${contextPath}/member/goodByeCheckUser">회원탈퇴</a></li>
 					</ul>

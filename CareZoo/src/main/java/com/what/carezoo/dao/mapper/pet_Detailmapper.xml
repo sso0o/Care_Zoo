@@ -21,7 +21,10 @@
 			</foreach>
 		</if>
 	</trim>
-	</delete>
+</delete>
+<delete id="deleteByC_num" parameterType="int">
+	delete from pet_detail where c_num = #{c_num}
+</delete>
 
 
 <select id="selectByVsr_Num" resultType="pet_detail" parameterType="int">

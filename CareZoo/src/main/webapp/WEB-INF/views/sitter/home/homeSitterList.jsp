@@ -109,9 +109,9 @@ color: #17a2b8;
 border: 1px solid white;
 }
 .nav-link:hover{     
-border : 1px solid #17a2b8;
+border : 1px solid mediumaquamarine;
 /* background-color: skyblue; slategrey;teal;mediumaquamarine; */
-background-color: #17a2b8;
+background-color: mediumaquamarine;
 color: #fff;
 } 
 label {
@@ -240,7 +240,7 @@ li:hover {
 			isMenu2 = false;
 		});
 		//datepicker동작
-		var datepickerStart = $('#hsl_chkin')
+		var datepickerStart = $('#hsr_chkin')
 				.datepicker(
 						{
 							dateFormat : 'yy-mm-dd',
@@ -259,7 +259,7 @@ li:hover {
 								}
 							}
 						});
-		var datepickerEnd = $('#hsl_chkout').datepicker({
+		var datepickerEnd = $('#hsr_chkout').datepicker({
 			dateFormat : 'yy-mm-dd',
 			minDate : moment('yy-mm-dd').toDate()
 		});
@@ -281,13 +281,13 @@ li:hover {
 	});
 	var searchSwitch = 0;
 	function loadingPage() {
-		var detailParam = $("form").serialize();
-		// 	var stateParam = $('input[name=hs_address]:checked').serialize(); //
+		var detailParam = $("#searchForm").serialize();
+// 			var stateParam = $('input[name=hs_address]:checked').serialize(); //
 		var homeSitterListDiv = $('.homeSitterlist');
 
 		$.ajax({
 			url : "${contextPath}/home/searchLoading",
-			// 		data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
+// 					data : stateParam + '&' + detailParam + '&searchSwitch='+searchSwitch ,
 			data : detailParam + '&searchSwitch=' + searchSwitch,
 			dataType : "JSON",
 			success : function(hsList) {
@@ -348,12 +348,12 @@ li:hover {
 								
 				var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
 				$('<span>').text(hsList[i].HS_NAME).appendTo(aArDiv);
+				
+				$('<span style="position: relative;left: 196px;">' + hsList[i].HS_ADDRESS + hsList[i].HS_D_ADDRESS+ '</span>').appendTo(aArDiv);
 				$('<br><hr>').appendTo(aArDiv);
-				$('<div>' + hsList[i].HS_ADDRESS + hsList[i].HS_D_ADDRESS+ '</div>').appendTo(aArDiv);
-				var reviewDiv = $('<div><span><strong>' + hsList[i].HSL_TITLE+ '</strong></span>').appendTo(aArDiv);
-				$('<br><hr>').appendTo(aArDiv);
-				$('<br><span>').text('후기: ' + (hsList[i].HSC_CMT_COUNT == null ? 0 : hsList[i].HSC_CMT_COUNT ) + '개 '
-						+ hsList[i].HS_AVGSTAR).appendTo(reviewDiv);
+				var reviewDiv = $('<div><span><strong>' + hsList[i].HSL_TITLE+ '</strong></span><br><br><br><br><br><hr>').appendTo(aArDiv);
+				$('<span>').text('후기: ' + (hsList[i].HSC_CMT_COUNT == null ? 0 : hsList[i].HSC_CMT_COUNT ) + '개 ').appendTo(reviewDiv)
+				$('<span style="position: relative;left: 196px;">').text('평점: ' + hsList[i].HS_AVGSTAR).appendTo(reviewDiv);
 				reviewDiv.appendTo(aArDiv);
 				aArDiv.appendTo(petHotelDiv);
 				$('.homeSitterlist').append(petHotelDiv);
@@ -397,7 +397,7 @@ li:hover {
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style="width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -408,14 +408,7 @@ li:hover {
             <ul style="">
                 <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
                     <ul>
-                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
-                            <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      -->
-                        </li>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
@@ -582,9 +575,9 @@ li:hover {
 						</td>
 						
 						<td>
-							<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsl_chkin" id="hsl_chkin" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;"/> 
+							<input type="text" placeholder="시작 날짜" readonly="readonly" name="hsr_chkin" id="hsr_chkin" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;"/> 
 							<span>&gt;</span> 
-							<input type="text" placeholder="마침 날짜" readonly="readonly" name="hsl_chkout" id="hsl_chkout" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;" />
+							<input type="text" placeholder="마침 날짜" readonly="readonly" name="hsr_chkout" id="hsr_chkout" style="border-radius: 5px; height: auto; font-size: 18px; text-align: center; width: 180px; opacity: 0.9;" />
 						</td>
 <!-- 						<td> -->
 <!-- 							<select name="hsl_pet_age" data-width="130px"> -->

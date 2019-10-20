@@ -177,16 +177,16 @@ body{
 				<div>
 					<ul>
 						<li><a href="${contextPath}/member/myPage">내 정보</a></li>
-						<li><a href="${contextPath}/home/write"><strong>게시글 관리</strong></a></li>
+						<li><a href="${contextPath}/home/write">게시글 관리</a></li>
 						<li><a href="${contextPath}/sitter/getHsrStatus0">예약현황 보기</a></li>
 						<li><a href="${contextPath}/sitter/goodByeCheckUser">회원탈퇴</a></li>
 					</ul>
 				</div>
 			</div>
-	<body class="container">
-  <div class="container">
-        <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+			
+  <div class="container">  
+        <header>  
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -195,7 +195,7 @@ body{
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style="width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -206,14 +206,7 @@ body{
             <ul style="">
                 <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
                     <ul>
-                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
-                            <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      -->
-                        </li>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
@@ -230,7 +223,12 @@ body{
             </ul>
         </div>
     </nav>
-    <br><br><br>
+    <div class='container'></div>
+	<br>
+	<br>
+	<br>
+
+	
 	<div class="container">
 		<div class="content">
 			<h2>내 정보</h2>

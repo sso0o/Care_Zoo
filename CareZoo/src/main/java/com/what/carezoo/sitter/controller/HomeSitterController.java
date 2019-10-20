@@ -119,21 +119,6 @@ public class HomeSitterController {
 	// 가정시터목록보여주는 메인 띄우기
 	@RequestMapping("/main")
 	public String enterHomeSitterMain(Model model) {
-//		Map<String, Object> param = new HashMap<String, Object>();
-//		List<Map<String, Object>> hsList = hslService.getHsl();
-//		param.put("hsList", hsList);
-//		param.put(key, hslService.getFileList(hsl_num));
-////		System.out.println(hsList.toString());
-//		for(int i=0;i<hsList.size();i++) {
-//			System.out.println(hsList.get(i).get("HSL_NUM"));
-//			hslService.get
-////			int num = 
-////			System.out.println(hslService.getFileList(num));
-////			int hsl_num = hsList.get(i).getHsl_num();
-////			System.out.println("hsl_num"+hsl_num+"file" + fn);
-////			System.out.println("GET"+i+"="+hsList.get(i));
-//		}
-//		model.addAttribute("hsList",hsList);
 		return "sitter/home/homeSitterList";
 	}
 	@RequestMapping("/loginForm")
@@ -173,17 +158,14 @@ public class HomeSitterController {
 	@ResponseBody
 	@RequestMapping(value = "/getImg", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<String> getHsImg(int hsl_num) {
-		System.out.println("hsl_num"+hsl_num);
-		System.out.println("writeIMG 가져오는거");
-		System.out.println(hsl_num);
+//		System.out.println("hsl_num"+hsl_num);
+//		System.out.println("writeIMG 가져오는거");
+//		System.out.println(hsl_num);
 		Map<String, Object> rst = new HashMap<String, Object>();
 		List<String> filename = hslService.getFileList(hsl_num);
-//		for(int i = 0; i<filename.size();i++) {
-//			System.out.println(i+":"+filename.get(i));
-//		}
-			rst.put("filename", filename);
-		System.out.println("filename : "+filename);
-		System.out.println("rst"+rst);
+		rst.put("filename", filename);
+//		System.out.println("filename : "+filename);
+//		System.out.println("rst"+rst);
 		if(filename.size() == 0) {
 			filename.add("empty cup");
 		}
@@ -191,9 +173,11 @@ public class HomeSitterController {
 	}
 	@ResponseBody
 	@RequestMapping("/searchLoading")
-	public List<Map<String,Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,@RequestParam(value="hs_address" ,required = false) ArrayList<String> hs_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
-		System.out.println("여기까지?");
-		System.out.println("swichNumber=====>" + switchNumber);
+	public List<Map<String,Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,
+			@RequestParam(value="hs_address" ,required = false) ArrayList<String> hs_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
+//		System.out.println("여기까지?");
+//		System.out.println("swichNumber=====>" + switchNumber);
+//		System.out.println(params);
 		if(switchNumber ==1) {
 			if(hsl==null) {			
 				hsl = new HomeSitterList();
@@ -202,48 +186,16 @@ public class HomeSitterController {
 				hs_address = new ArrayList<String>(); 			
 			}	
 			
-			System.out.println("모델11:"+hs_address);
-			System.out.println("hsl11:"+hsl);
+//			System.out.println("모델11:"+hs_address);
+//			System.out.println("hsl11:"+hsl);
 			List<Map<String,Object>>  hsList = hslService.getbySearchingHsl(hs_address,hsl);
-			System.out.println("값11"+hsList);
-//			for (int i = 0; i < hsList.size(); i++) {
-//				Map<String,Object> map = hsList.get(i);
-//				try {
-//					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
-//					System.out.println("hsl_num = "+hsl_num);
-//					List<String> hsl_filesName = hslService.getFileList(hsl_num);
-//					map.put("hsl_filesName", hsl_filesName);
-////					if(hsl_filesName != null) {
-////						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
-////						System.out.println(hsl_filesName);
-////					}
-//					
-//				} catch(NumberFormatException e) {
-//					System.out.println("뭔오류다냐");
-//				}
-//			}
+//			System.out.println("값11"+hsList);
 			return hsList;			
 		}
 		else {
 			List<Map<String,Object>> hsList = hslService.getHsls();
-			System.out.println("값22222"+hsList);
-//			for (int i = 0; i < hsList.size(); i++) {
-//				Map<String,Object> map = hsList.get(i);
-//				try {
-//					int hsl_num = Integer.parseInt(String.valueOf(map.get("HSL_NUM")));
-//					System.out.println("hsl_num = "+hsl_num);
-//					List<String> hsl_filesName = hslService.getFileList(hsl_num);
-//					map.put("hsl_filesName", hsl_filesName);
-////					if(hsl_filesName != null) {
-////						hsList.get(i).put("HSL_FILESNAME", hsl_filesName);
-////						System.out.println(hsl_filesName);
-////					}
-//					
-//				} catch(NumberFormatException e) {
-//					System.out.println("뭔오류다냐");
-//				}
-//			}
-			System.out.println("hsList"+hsList);				
+//			System.out.println("값22222"+hsList);
+//			System.out.println("hsList"+hsList);				
 			return hsList;
 		}
 	}
@@ -252,34 +204,18 @@ public class HomeSitterController {
 	
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////시터 예약 
 	//홈시터 예약페이지
-////	@Secured("CUSTOMER")
-////	@PreAuthorsize("isAuthenticated()")
-//	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
-//	public String reserveHomeSitter(Model model, HomeSitterReservation hsr, int hsl_num) {
-//		System.out.println(hsr);
-//		System.out.println(hslService.getallHsl(hsl_num));
-////		model.addAttribute("hsr", hsr);
-////		model.addAttribute("hsList", hslService.getallHsl(hsl_num));
-//		return "sitter/home/homeSitterConfirm";
-//	}
-	
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() && hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value = "/reserve", method = RequestMethod.POST)
 	public String reserveHomeSitter(HttpSession session,HttpServletRequest request, Model model, int hsl_num, @RequestParam Map<String,Object> params) {
-		System.out.println("예약 : " + hsl_num);
-		System.out.println(params);
+//		System.out.println("예약 : " + hsl_num);
+//		System.out.println(params);
 		session.setAttribute("params", params);
-//		model.addAttribute("params", params);
-//		System.out.println(hslService.getallHsl(hsl_num));
-//		model.addAttribute("hsr", hsr);
-//		model.addAttribute("hsList", hslService.getallHsl(hsl_num));
-//		return "sitter/home/homeSitterReservation";
 		return "sitter/home/homeSitterRes";
 	}
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() && hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value = "/confirm" , method = RequestMethod.POST)
 	public String confirmHomeSitter(Model model, HomeSitterReservation hsr) {
-		System.out.println("확인 hsr : " + hsr);
+//		System.out.println("확인 hsr : " + hsr);
 		String url;
 		String msg;
 		if(!hsResService.writeHomeSitterRes(hsr)) {
@@ -306,8 +242,10 @@ public class HomeSitterController {
 	// 가정시터 게시글 등록 로직수행
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String writeHsl(HomeSitterList hsl,String hsd_disabledate,Model model,MultipartHttpServletRequest mtfRequest) {
-		System.out.println("hsd_disabledate"+hsd_disabledate);
-		System.out.println("hsl : "+hsl);
+//		System.out.println("hsd_disabledate"+hsd_disabledate);
+//		System.out.println("hsl : "+hsl);
+		String msg = "";
+		String url = "";
 		//이미지 파일 받기
 		List<MultipartFile> files = mtfRequest.getFiles("file");
 		System.out.println("files = "+files);
@@ -322,70 +260,20 @@ public class HomeSitterController {
 			hs.setHs_num(hsl.getHs_num());
 			hsService.updateHsAddress(hs);
 			model.addAttribute("hsl_num", hsl.getHsl_num());
-			return "redirect:/member/myPage";
+			msg = "정상적으로 등록되었습니다.";
+			url = "home/view?hsl_num="+hsl.getHsl_num();
 		}else {
-			return "redirect:/home/write";
+			msg = "문제가 발생했습니다. 다시 작성해 주세요.";
+			url = "home";
 		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		return "result";
 	}
-//	// 가정시터 게시글 등록 로직수행
-//	@RequestMapping(value = "/write", method = RequestMethod.POST)
-//	public String writeHsl(HomeSitterList hsl, Model model) {
-//		System.out.println("hsl : "+hsl);
-//		boolean rst = hslService.writeHomeSitterList(hsl);
-//		if(rst) {
-//			return "sitter/home/joinForm_homeSitterDisableDates";
-//		}else {
-//			return "redirect:/home/write";
-//		}
-//	}
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-//	@RequestMapping(value = "/getDisDate", method = RequestMethod.POST)
-//	public String joHomeSitter(String hsd_disabledate,int hs_num,int hsl_num ,Model model ) {
-//		Map<String,Object> params = new HashMap<String, Object>();
-//		List<String> hsd_disabledate_list = Arrays.asList(hsd_disabledate.split(","));
-//		params.put("hsd_disabledate", hsd_disabledate_list);
-//		params.put("hs_num", hs_num);
-//		params.put("hsl_num", hsl_num);
-//		System.out.println(hsd_disabledate_list);
-//		if(!hslService.writeDisableDates(params)) {
-//			System.out.println("disable됨!!");
-//		};
-//		return "redirect:result";
-//	}
-//	@RequestMapping(value = "/get")
-//	public String joHomeSitter() {
-//		return "sitter/home/joinForm_homeSitterDisableDates";
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	////////////////////////////////////////////////////////////////////////////////////홈시터 게시글 상세보기 페이지
 	//홈시터 게시글 상세보기
-//	@Secured("CUSTOMER")
+
 	@RequestMapping("/view")
 	public String enterHomeSitterView(Model model, int hsl_num) {
 		Map<String, Object> hsList = hslService.getHomeSitterByHsl_Num(hsl_num);
@@ -393,11 +281,12 @@ public class HomeSitterController {
 		List<String> files = hslService.getFileList(hsl_num);
 		int hs_num = Integer.parseInt(String.valueOf(hsList.get("HS_NUM")+""));
 		List<HomeSitterComment> comment = hscService.getHomesitterComment(hs_num);
+		List<Map<String, Object>> hsrList = hsResService.getHomeSitterResByHSNum(hs_num);
 		System.out.println(hsList);
 		System.out.println("dateStrings"+dateStrings);
 		System.out.println("hsimg"+files);
-		System.out.println(comment);
-		
+		System.out.println(hsrList);
+		model.addAttribute("hsrList", hsrList);
 		model.addAttribute("hsimg", files);
 		model.addAttribute("disDates", dateStrings);
 		model.addAttribute("hsList", hsList);
@@ -408,49 +297,19 @@ public class HomeSitterController {
 	@ResponseBody
 	@RequestMapping(value = "/homesitterReservation")
 	public List<Map<String, Object>> makePetHotelRes(@RequestParam("hs_num") int hs_num) {
-//		System.out.println(hs_num);
 		int compare = 0;
 		Date phrCheckOut;
 		Date today = new Date();
 		List<Map<String, Object>> hsrList = hsResService.getHomeSitterResByHSNum(hs_num);
-//		System.out.println(hsrList);
-//		System.out.println("size: " + hsrList.size());
 		int hsrSize = hsrList.size();
-//		for (int i = hsrSize - 1; i + 1 > 0; i--) { // checkout날짜 today와 비교해서 지난 날짜는 리스트에서 삭제.
-//			String from = (String) hsrList.get(i).get("HSR_CHKOUT");
-//			System.out.println(from);
-//			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd"); // String to Date format
-//			try {
-//				phrCheckOut = transFormat.parse(from); // String to Date
-//				if (0 < (compare = today.compareTo(phrCheckOut))) { // compare은 -1,0,1만 나올 수 있음 ex ==) today>phrCheckOut
-//																	// ==> compare =1
-//					hsrList.remove(i);
-//				}
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-		System.out.println(hsrList);
+//		System.out.println(hsrList);
 		return hsrList;
-
 	}
 	
 	@ResponseBody
 	@RequestMapping("/disabledates")
 	public List<String> getDisdates (int hsl_num){
-//		Map<String, Object> disDate = new HashMap<String, Object>();
 		List<String> disDates  = hslService.getDisableDates(hsl_num);
-//		ObjectMapper om = new ObjectMapper();
-//		String jsonStr = null;
-//		try {
-//			jsonStr = om.writeValueAsString(disDates);
-//			System.out.println("object to json : " + jsonStr);
-//			return jsonStr;
-//		} catch (JsonProcessingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		System.out.println("disDates"+disDates); 
 		return disDates;
 	}

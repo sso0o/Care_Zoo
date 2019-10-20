@@ -533,6 +533,9 @@ public class VisitSitterController {
 			vsrService.insertVisitSitterReservation(vsr);
 			System.out.println(vsr.getVsr_num());
 			vsr_num.add(vsr.getVsr_num());
+			for (int j = 0; j < p_num.size(); j++) {
+				pdService.insertPet_Detail(vsr.getVsr_num(), p_num.get(j), c_num);
+			}
 		}
 		// count 업로드!!
 		vsrService.updateVsrCount(c_num);
@@ -590,6 +593,7 @@ public class VisitSitterController {
 	public String hAdd2(String vsr_day, String vsr_hour, String vsr_hAdd, int vsr_num,
 			@RequestParam ArrayList<Integer> p_num, int c_num, Model model, int vsr_count) {
 		// update 하고, complete11(redirect)
+		System.out.println(p_num);
 		System.out.println(vsr_hour);
 		System.out.println(vsr_hAdd);
 		System.out.println(vsr_day);
@@ -623,11 +627,15 @@ public class VisitSitterController {
 			@RequestParam() ArrayList<Integer> vsr_num, String vsr_chkin, int vsr_count, String vsr_day,
 			String vsr_hour, String vsr_hAdd) {
 		// chkin 날자 update 해줘야함...
+		System.out.println("c_num: "+c_num);
 		System.out.println("getDate,vsr_num: " + vsr_num);
 		System.out.println("vsr_chkin: " + vsr_chkin);
 		System.out.println("vsr_day: " + vsr_day);
 		System.out.println("vsr_count: " + vsr_count);
 		System.out.println("p_num: " + p_num);
+		
+		//pet_detail 기존에 있던거 삭제하기
+		pdService.deleteByListVsr_num(vsr_num);
 		
 		//날자 선택 안했을 때!!
 		if(vsr_chkin == null) {

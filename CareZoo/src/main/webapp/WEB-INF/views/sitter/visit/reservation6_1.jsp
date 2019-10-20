@@ -94,7 +94,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 			var check = $("#vsr_chkin").val();
 			var check2 = $("#checkContainer2").children().is(":checked");
 			var check3 = $("#checkContainer3").children().is(":checked");
-			alert(check)
+			//alert(check)
 			if (!(check && check2 && check3)) {
 				alert("체크해주세요");
 				return false;

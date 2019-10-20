@@ -53,7 +53,7 @@ $(function() { //문서가 로딩되면 실행할 함수
 var user_numtype = "<%=session.getAttribute("user_numtype")%>"
 var user_num = "<%=session.getAttribute("user_num")%>"
 var user_name = "<%=session.getAttribute("user_name")%>"
-	"
+
 	//hour의 값 중복되지 않게 check해주기
 	function oneCheckbox(a) {
 		var vsr_hour = document.getElementsByName("vsr_hour");

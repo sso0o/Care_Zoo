@@ -168,13 +168,14 @@ public class SitterMainController {
 	
 	// 수정 전회원 확인(비밀번호 확인)
 	@RequestMapping(value = "/userCheck", method = RequestMethod.POST)
-	public String userCheck(HttpSession session, int num, String pw, Model m, @RequestParam(defaultValue = "0") int p_num) {
+	public String userCheck(HttpSession session, int num, String pw, Model m, @RequestParam(defaultValue = "0") int p_num, HttpServletRequest request) {
 		String type = (String)session.getAttribute("user_numtype");
 		String url = "";
 		
 		if (type.equals("vs_num")) {
 			VisitSitter vs = vsService.getVisitSitterByNum(num);
 			if(vs.getVs_pass().equals(pw)) {
+				
 				m.addAttribute("vs", vs);
 				url =  "sitter/modifyVisitInfo";
 			} else {
@@ -197,8 +198,6 @@ public class SitterMainController {
 	
 	//회원정보 수정vs
 	@RequestMapping(value = "/modifyVs", method = RequestMethod.POST)
-
-
 	public String modifyVs(VisitSitter vs, Model m, MultipartHttpServletRequest mtfRequest) {
 		String phone = mtfRequest.getParameter("phone");
 		String phone1 = mtfRequest.getParameter("phone1");
