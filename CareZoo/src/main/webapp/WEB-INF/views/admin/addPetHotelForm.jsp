@@ -577,7 +577,7 @@ img {
 													<tr>
 
 														<th>연락처</th>
-														<td>휴대폰: <select name="phone">
+														<td> <select name="phone">
 																<option value="010" selected="selected">010</option>
 																<option value="011">011</option>
 																<option value="016">016</option>

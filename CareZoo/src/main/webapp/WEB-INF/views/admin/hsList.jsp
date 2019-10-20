@@ -73,7 +73,7 @@ function logoutCheck() {
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link collapsed" href="${contextPath}/admin/memberList">
           <i class="fas fa-fw fa-cog"></i>
           <span>멤버 관리</span>
@@ -112,7 +112,7 @@ function logoutCheck() {
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link collapsed" href="${contextPath}/admin/hsList">
           <i class="fas fa-fw fa-cog"></i>
           <span>가정 시터정보 관리</span>
