@@ -522,22 +522,32 @@ textarea {
 	cursor: pointer;
 }
 
-.hsrInfo, .vsrInfo, .phrInfo {
-	background-color: #fff;
-	width: 500px;
-	height: 470px;
-	position: absolute;
-	margin-top: -235px;
-	margin-left: -250px;
-	top: 50%;
-	left: 50%;
+.hsrInfo, .vsrInfo {
+   background-color: #fff;
+   width: 500px;
+   height: 470px;
+   position: absolute;
+   margin-top: -235px;
+   margin-left: -250px;
+   top: 50%;
+   left: 50%;
+}
+.phrInfo{
+   background-color: #fff;
+   width: 500px;  
+   height: auto;           
+   position: absolute;
+   margin-top: -260px;    
+   margin-left: -250px; 
+   top: 50%;
+   left: 50%;
 }
 
 
 td{
 	vertical-align: middle;
 }
-
+ 
 </style>
 <title>mypage</title>
 <!-- 마이페이지 시작 -->
