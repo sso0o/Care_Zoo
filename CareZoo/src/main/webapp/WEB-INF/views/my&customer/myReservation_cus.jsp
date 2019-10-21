@@ -250,6 +250,7 @@
 					}
 					$("#hs_name").text(data.HS_NAME);
 					$("#hs_contact").text(data.HS_CONTACT);
+					$("#hs_address").text(data.HS_ADDRESS+" "+data.HS_D_ADDRESS)
 					$("#hs_chkin").text(data.HSR_CHKIN + " "+data.HSR_PICKUP_TIME);
 					$("#hs_chkout").text(data.HSR_CHKOUT+" "+data.HSR_DROPOFF_TIME);
 					$("#hs_total").text(data.HSR_TOTALPRICE+"원");

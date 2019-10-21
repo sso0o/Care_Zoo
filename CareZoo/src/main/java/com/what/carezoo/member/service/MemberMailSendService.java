@@ -84,7 +84,7 @@ public class MemberMailSendService {
 			MimeMessage mail = mailSender.createMimeMessage();
 			String htmlStr = "<h2>안녕하세요 MS :p 맡겨쥬 입니다!</h2><br><br>" 
 					+ "<h3>" + c_name + "님</h3>" + "<p>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " 
-					+ "<a href='http://localhost:8081" + request.getContextPath() + "/member/key_alter?c_email="+ c_email +"&c_email_key="+key+"'>인증하기</a></p>"
+					+ "<a href='http://localhost:8082" + request.getContextPath() + "/member/key_alter?c_email="+ c_email +"&c_email_key="+key+"'>인증하기</a></p>"
 					+ "(혹시 잘못 전달된 메일이라면 이 이메일을 무시하셔도 됩니다)";
 			try {
 				mail.setSubject("[본인인증] MS :p 맡겨쥬의 인증메일입니다", "utf-8");
@@ -151,7 +151,7 @@ public class MemberMailSendService {
 					+"<p><label>고객번호::&nbsp;"+cus.getC_contact()
 					+"<p><label>체크인날짜:&nbsp;"+phr.getPhr_chkin()+"</label>&nbsp;&nbsp;"+"<p><label>체크아웃날짜:&nbsp;"+phr.getPhr_chkout()+"</label>"
 					+"<p><label>반려견: "+phr.getPhr_numof_pet()+"마리</label>"+"<p><label>결제금액: "+phr.getPhr_price()+"원"
-					+ "<p><a href='http://localhost:8081" + request.getContextPath() + "/petHotel/petHotelView?ph_num="+pethotel.getPh_num()+">예약현황 보러가기</a></p>"
+					+ "<p><a href='http://localhost:8082" + request.getContextPath() + "/petHotel/petHotelView?ph_num="+pethotel.getPh_num()+">예약현황 보러가기</a></p>"
 					+"<p>감사합니다 (_ _)";
 			try {
 				mail.setSubject("예약취소메일입니다.", "utf-8");
