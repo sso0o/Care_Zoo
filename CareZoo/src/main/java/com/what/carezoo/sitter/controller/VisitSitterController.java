@@ -489,7 +489,7 @@ public class VisitSitterController {
 		}
 		rst.add(map);
 		System.out.println(rst);
-//		vsrService.updatePrice(rst);
+		vsrService.updatePrice(rst);
 //		for(int i=0;i<list.size();i++) {
 //			System.out.println(list.get(i).getVsr_num());
 //			System.out.println(hAdds.get(i));
