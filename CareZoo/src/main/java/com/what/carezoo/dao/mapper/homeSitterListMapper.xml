@@ -85,7 +85,7 @@
 
 <!-- 홈시터 게시글 검색 리스트 가져오기 -->
 	<select id="selectAllHsl" resultMap="hslsMap">
-		select hs.hs_num,hs_name,hs_address,hs_d_address,hsli.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
+		select hs.hs_num,hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
         from (select *  from homesitter 
              <trim prefix="where" prefixOverrides="AND|OR">
              	<if test="hsl.hs_address != null"> 

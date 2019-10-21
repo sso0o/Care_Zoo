@@ -762,7 +762,7 @@ Q. ※ 아래 유형의 아이들은 돌봄이 어려울 수 있습니다.
 						<div id="example"></div>
 					</div>
 					<div class="btnGroup">
-						<input type="submit" class="btn btn-submit" value="가입">
+						<input type="submit" class="btn btn-submit" value="등록">
 						<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">
 					</div>
 <!-- 				</div> -->
