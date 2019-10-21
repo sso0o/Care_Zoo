@@ -85,7 +85,7 @@
 
 <!-- 홈시터 게시글 검색 리스트 가져오기 -->
 	<select id="selectAllHsl" resultMap="hslsMap">
-		select *
+		select hs.hs_num,hs_name,hs_address,hs_d_address,hsli.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
         from (select *  from homesitter 
              <trim prefix="where" prefixOverrides="AND|OR">
              	<if test="hsl.hs_address != null"> 
@@ -99,7 +99,7 @@
 		          <if test="hsl.hsr_chkin != ''">
 					<if test="hsl.hsr_chkout != ''">
 		          		AND hsr_chkin not in (SELECT hsr_chkin FROM homesitterreservation   where hsr_chkin <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsr_chkin <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
-		 				AND hsr_chkout not in (SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+		 				or hsr_chkout not in (SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
 					</if>
 				  </if>							
 			</trim>
@@ -108,10 +108,9 @@
               <trim prefix="where" prefixOverrides="AND|OR">
               	 hsl_status = 1   
               	<if test="hsl.hsr_chkin != ''">
-					 AND hsl_num not in (select d.hsl_num   from homesitterdisabledate d  where d.hsd_disabledate like ('%${hsl.hsr_chkin}%'))            	
-              	</if>
 				 <if test="hsl.hsr_chkout != ''">
-					 and hsl_num not in (select a.hsl_num   from homesitterdisabledate a where a.hsd_disabledate like  ('%${hsl.hsr_chkout}%'))
+					 AND hsl_num not in (select hsl_num from homesitterdisabledate  where hsd_disabledate <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsd_disabledate <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))    	
+              	</if>
 				 </if>
              </trim>
             ) hsl,
