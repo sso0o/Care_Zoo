@@ -180,7 +180,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 		$("#address").val("${customer.c_address}");
 		$("#d_address").val("${customer.c_d_address}");
 		$("#birth").val("${customer.c_birth}");
-		if("${customer.c_birth}" == "1"){
+		if("${customer.c_sex}" == "1"){
 			$("#sex").val("여자");
 			$("#c_sex").val("1");
 		} else {
