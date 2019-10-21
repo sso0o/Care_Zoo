@@ -25,6 +25,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -656,18 +660,27 @@ public class MemberController {
 		String phone = request.getParameter("phone");
 		String phone1 = request.getParameter("phone1");
 		String phone2 = request.getParameter("phone2");
-		System.out.println(phone);
-		System.out.println(phone1);
-		System.out.println(phone2);
+
 		String contact = phone+phone1+phone2;
 		customer.setC_contact(contact);
+		
+		Authentication authToken=null;
+		List<SimpleGrantedAuthority> auths = new ArrayList<SimpleGrantedAuthority>();
 		//회원가입 메서드
 		boolean result = memberService.joinMember2(customer);
-		if(result) {					
-			m.addAttribute("c_name", customer.getC_name());
+		if(result) {	
+			auths.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+			HttpSession session = request.getSession();
+			session.setAttribute("user_numtype", "c_num");
+			session.setAttribute("user_num", customer.getC_num());
+			session.setAttribute("user_name", customer.getC_name());
+			authToken = new UsernamePasswordAuthenticationToken(customer.getC_email(), customer.getC_pass(), auths);
+			SecurityContextHolder.getContext().setAuthentication(authToken);
+			
+			m.addAttribute("user_name", customer.getC_name());
 
-			return "mainLogin";
+			return "main";
 		} 
-		return "joinForm";
+		return "joinForm_customer2";
 	}
 }
