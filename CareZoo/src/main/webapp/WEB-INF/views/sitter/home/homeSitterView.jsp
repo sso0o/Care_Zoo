@@ -204,6 +204,7 @@ textarea{
 	resize: none;
 
 }
+
 </style>
 <script type="text/javascript">
 var unavailableDates = new Array();	
@@ -219,7 +220,7 @@ $(function() {
 // 		var d = "${item}";
 // 		unavailableDates.push(d);
 // 	</c:forEach>
-// 	console.log(unavailableDates)	
+	console.log(unavailableDates)	
 	function reserveDates(){
 // 		var 
 	}
@@ -285,7 +286,7 @@ $(function() {
 		}
 		
 	});
-		
+
 	$('#petSize-select').off("change").on("change",function() {
 // 		console.log("펫사이즈")
 		empdays = document.getElementById('days').value;
@@ -551,14 +552,6 @@ $(function() {
 			return false;
 		}
 	}
-// 로그아웃확인 <--모든페이지에 필수
-function logoutCheck() {
-	if (confirm("정말 로그아웃?") == true) {
-		location.href = '${contextPath}/logout'
-	} else {
-		return false;
-	}
-}
 
 $(function() { //문서가 로딩되면 실행할 함수
 	//----카카오 1:1상담
@@ -574,12 +567,14 @@ $(function() { //문서가 로딩되면 실행할 함수
 	//----카카오 1:1상담	
 })
 function logoutCheck() {
-		if (confirm("정말 로그아웃?") == true) {
-			location.href = '${contextPath}/logout'
-		} else {
-			return false;
-		}
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
 	}
+}
+	
+
 // $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
 
 // })
@@ -592,6 +587,8 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 </script>
 </head>
 <body>
+<input type="text" id="hslPetSize" value="${hsList.HSL_SIZE }" >
+
   <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
@@ -702,17 +699,21 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 			<br><br>
 			</div>
 			
-			<div style="width: 720px; display: inline-block; float: left;">		
+			<div style="width: 700px; display: inline-block; float: left;">		
 				<fieldset>
 					<legend>
 						<strong><i>돌보미환경</i></strong>
 					</legend>
-					<ul>
-						<li>돌봄 공간 : <span>${hsList.HSL_CARE_PLACE }</span></li>
-						<li>마당유무 : <span>${hsList.HSL_YARD }</span></li>
-						<li>14세 미만 아동 : <span>${hsList.HSL_BABY }</span></li>
-						<li>가족 동거 여부 : <span>${hsList.HSL_FAMILY }</span></li>
-					</ul>
+					<table class="table">
+						<tr>
+							<td>돌봄 공간 : ${hsList.HSL_CARE_PLACE }</td>
+							<td>마당유무 : ${hsList.HSL_YARD }</td>
+						</tr>
+						<tr>
+							<td>14세 미만 아동 : ${hsList.HSL_BABY }</td>
+							<td>가족 동거 여부 : ${hsList.HSL_FAMILY }</td>
+						</tr>
+					</table>
 				</fieldset>
 				<br>
 				<br>
@@ -722,7 +723,7 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 					</legend>
 					<ul>
 						<li><span><strong>${hsList.HSL_TITLE }</strong></span></li>
-						<li><div style="white-space:pre;"><textarea  rows="15" cols="87" readonly="readonly" ><c:out value="${hsList.HSL_COMMENT }" /></textarea></div></li>
+						<li><div style="white-space:pre;"><textarea  rows="15" cols="86" readonly="readonly" ><c:out value="${hsList.HSL_COMMENT }" /></textarea></div></li>
 <%-- 						<span>${hsList.HSL_COMMENT }</span></li> --%>
 					</ul>
 				</fieldset>

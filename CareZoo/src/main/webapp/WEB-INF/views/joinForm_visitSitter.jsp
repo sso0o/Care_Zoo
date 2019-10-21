@@ -460,7 +460,7 @@ legend{
 	<br>
 	<br>
 	<div class="content">
-		<h2>회원가입</h2>
+		<h2>방문시터 회원가입</h2>
 		<hr>
 		<form action="${contextPath }/visit/join" method="post" name="userInfo" onsubmit="return checkValue()" enctype="multipart/form-data">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
