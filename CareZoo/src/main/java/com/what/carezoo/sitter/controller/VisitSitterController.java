@@ -479,15 +479,16 @@ public class VisitSitterController {
 		List<VisitSitterReservation> selectList = vsrService.selectAddPrice(vsr_count, c_num);
 		System.out.println(selectList);
 		List<Map<String, Object>> rst = new ArrayList<Map<String,Object>>();
-		Map<String, Object> map = new HashMap<String, Object>();
+		
 
 		for (int i = 0; i < hAdds.size(); i++) {
 //			System.out.println((selectList.get(i).getVsr_num()));
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("num",selectList.get(i).getVsr_num());
 			map.put("hadds", hAdds.get(i));
 			map.put("basic", basicTotal);
+			rst.add(map);
 		}
-		rst.add(map);
 		System.out.println(rst);
 		vsrService.updatePrice(rst);
 //		for(int i=0;i<list.size();i++) {
