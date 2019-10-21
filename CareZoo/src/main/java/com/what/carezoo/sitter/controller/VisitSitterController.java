@@ -2,6 +2,7 @@ package com.what.carezoo.sitter.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -470,14 +471,37 @@ public class VisitSitterController {
 
 	// 예약 확인 및 결제정보 폼
 	@RequestMapping(value = "reservation10", method = RequestMethod.POST)
-	public String reservation10Form(@RequestParam() ArrayList<Integer> p_num, Model model, int c_num, int vsr_count)
+	public String reservation10Form(@RequestParam() ArrayList<Integer> p_num, Model model, int c_num, int vsr_count, @RequestParam()ArrayList<String> hAdds,String basicTotal)
 			throws JsonProcessingException {
+		
+		System.out.println("reservation10, hAdds: "+ hAdds);
+		System.out.println(basicTotal);
+		List<VisitSitterReservation> selectList = vsrService.selectAddPrice(vsr_count, c_num);
+		System.out.println(selectList);
+		List<Map<String, Object>> rst = new ArrayList<Map<String,Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
 
+		for (int i = 0; i < hAdds.size(); i++) {
+//			System.out.println((selectList.get(i).getVsr_num()));
+			map.put("num",selectList.get(i).getVsr_num());
+			map.put("hadds", hAdds.get(i));
+			map.put("basic", basicTotal);
+		}
+		rst.add(map);
+		System.out.println(rst);
+//		vsrService.updatePrice(rst);
+//		for(int i=0;i<list.size();i++) {
+//			System.out.println(list.get(i).getVsr_num());
+//			System.out.println(hAdds.get(i));
+//			System.out.println(vsrService.updatePrice(basicTotal, hAdds.get(i), list.get(i).getVsr_num()));
+//			
+//		}
 		model.addAttribute("p_num", p_num);
 		model.addAttribute("c_num", c_num);
 		model.addAttribute("address", memberService.getMemberByC_num(c_num));
 		model.addAttribute("nameList", petService.selectOnlyNameByP_Num(p_num));
 		model.addAttribute("vsr_hAddList", vsrService.selectByVsrCount(vsr_count));
+		
 
 		// map에 담아보기..(p_num)
 		Map<String, Object> d = new HashMap<String, Object>();

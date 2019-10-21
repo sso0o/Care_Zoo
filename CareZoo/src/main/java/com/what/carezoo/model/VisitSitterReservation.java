@@ -16,8 +16,12 @@ public class VisitSitterReservation {
 	private String vsr_contents;
 	private String vsr_day;
 	private int vsr_count;
+
 	private String vsr_imp_uid;
 	private String vsr_merchant_uid;
+
+	private String vsr_basicTotal;
+	private String vsr_addTotal;
 	public int getVsr_num() {
 		return vsr_num;
 	}
@@ -102,14 +106,28 @@ public class VisitSitterReservation {
 	public void setVsr_merchant_uid(String vsr_merchant_uid) {
 		this.vsr_merchant_uid = vsr_merchant_uid;
 	}
+	public String getVsr_basicTotal() {
+		return vsr_basicTotal;
+	}
+	public void setVsr_basicTotal(String vsr_basicTotal) {
+		this.vsr_basicTotal = vsr_basicTotal;
+	}
+	public String getVsr_addTotal() {
+		return vsr_addTotal;
+	}
+	public void setVsr_addTotal(String vsr_addTotal) {
+		this.vsr_addTotal = vsr_addTotal;
+	}
 	@Override
 	public String toString() {
 		return "VisitSitterReservation [vsr_num=" + vsr_num + ", c_num=" + c_num + ", vs_num=" + vs_num + ", vsr_chkin="
 				+ vsr_chkin + ", vsr_hour=" + vsr_hour + ", vsr_hAdd=" + vsr_hAdd + ", vsr_status=" + vsr_status
 				+ ", vsr_totalPrice=" + vsr_totalPrice + ", vsr_attention=" + vsr_attention + ", vsr_contents="
 				+ vsr_contents + ", vsr_day=" + vsr_day + ", vsr_count=" + vsr_count + ", vsr_imp_uid=" + vsr_imp_uid
-				+ ", vsr_merchant_uid=" + vsr_merchant_uid + "]";
+				+ ", vsr_merchant_uid=" + vsr_merchant_uid + ", vsr_basicTotal=" + vsr_basicTotal + ", vsr_addTotal="
+				+ vsr_addTotal + "]";
 	}
+	
 	
 	
 	

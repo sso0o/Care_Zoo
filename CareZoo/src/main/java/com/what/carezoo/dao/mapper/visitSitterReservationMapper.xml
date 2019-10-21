@@ -28,6 +28,19 @@
 		where vsr_day = #{vsr_day} and vsr_count =#{vsr_count}
 	</update>
 
+	<update id="updatePrice" >
+	BEGIN
+	<foreach collection="list" item="a" index="index" separator=";">
+		update VisitSitterReservation set vsr_addtotal = #{a.hadds}, VSR_BASICTOTAL = #{a.basic}
+		where vsr_num = #{a.num}
+	</foreach>;
+	END;
+<!-- 		update VisitSitterReservation -->
+<!-- 		set vsr_basicTotal = #{vsr_basicTotal}, -->
+<!-- 			vsr_addTotal = #{vsr_addTotal} -->
+<!-- 			where vsr_num = #{vsr_num} -->
+	</update>
+
 	<update id="updateTotalPrice" parameterType="string">
 	update VisitSitterReservation
 	set vsr_totalPrice = #{vsr_totalPrice}
@@ -68,6 +81,8 @@
 		update VisitSitterReservation
 		set vsr_count = vsr_count +1 where c_num = #{c_num}
 	</update>
+	
+
 	
 	<delete id="delete" parameterType="int">
 		delete from
@@ -176,6 +191,10 @@ and vsr.c_num = c.c_num
 
 	<select id="selectByVsrCount" parameterType="int" resultType="VisitSitterReservation">
 		select * from VisitSitterReservation where vsr_count = #{vsr_count}
+	</select>
+
+	<select id="selectAddPrice" parameterType="int" resultType="VisitSitterReservation">
+		select * from VisitSitterReservation where vsr_count = #{vsr_count} and c_num = #{c_num}
 	</select>
 
 	<select id="selectAll" resultType="VisitSitterReservation">
