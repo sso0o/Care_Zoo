@@ -240,7 +240,9 @@ public class HomeSitterController {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////게시글 등록
 	// 가정시터 게시글 등록 뷰 보여주기
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String writeHsl(Model model) {
+	public String writeHsl(Model model, HttpSession session) {
+		int hs_num = (int) session.getAttribute("user_num");
+		model.addAttribute("hs", hsService.getHomeSitterByNum(hs_num));
 		return "sitter/home/joinForm_homeSitterDetail";
 	}
 	// 가정시터 게시글 등록 로직수행
@@ -265,10 +267,10 @@ public class HomeSitterController {
 			hsService.updateHsAddress(hs);
 			model.addAttribute("hsl_num", hsl.getHsl_num());
 			msg = "정상적으로 등록되었습니다.";
-			url = "view?hsl_num="+hsl.getHsl_num();
+			url = "main";
 		}else {
 			msg = "문제가 발생했습니다. 다시 작성해 주세요.";
-			url = "home";
+			url = "write";
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
