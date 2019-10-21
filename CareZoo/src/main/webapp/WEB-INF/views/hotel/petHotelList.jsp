@@ -612,7 +612,7 @@ function logoutCheck() {
 											if (phListLenghth.length == 0) {
 												$('<span>')
 														.text(
-																"검색결과가 없슴둥..힝구 (이미지)")
+																"검색결과가 없슴둥..힝구 ")
 														.appendTo(
 																$('.petHotelList'));
 											}
@@ -739,8 +739,8 @@ function logoutCheck() {
 									  
 								console.log("스크롤뭐시기"+$(document).height() +"ㅁㄴ"+ $(window).height());  
 									if ($(window).scrollTop() >= $(document)
-											.height() - 650) {     
-										loadingPage();    
+											.height() - $(window).height()) {                   
+										loadingPage();  
 									}  
 								});
 					});

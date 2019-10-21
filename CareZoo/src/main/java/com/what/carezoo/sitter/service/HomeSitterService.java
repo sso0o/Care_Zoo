@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.what.carezoo.dao.HomeSitterDao;
 import com.what.carezoo.model.HomeSitter;
+import com.what.carezoo.model.VisitSitter;
 
 @Service
 public class HomeSitterService {
@@ -85,6 +86,25 @@ public class HomeSitterService {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean insertHomeSitterFile(HomeSitter hs, MultipartFile file) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		if(hsDao.insertHomeSitter(hs) > 0) {
+			if(file == null) {
+				return true;
+			} else {
+				String fullName = writeFile(file);
+				System.out.println("fullname : "+fullName);
+				param.put("hs_filename", fullName);
+				param.put("hs_num", hs.getHs_num());
+				if(hsDao.updateFile(param) > 0) {
+					return true;
+				}
+			}
+		} return false;
+		
+		
 	}
 	private String writeFile(MultipartFile file) {
 		String fullName = null;

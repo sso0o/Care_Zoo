@@ -71,19 +71,22 @@ public class HomeSitterController {
 	
 	//이메일 인증 보내기 메서드
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public String joinHomeSitter(HomeSitter hs,Model model, HttpServletRequest request) {
+	public String joinHomeSitter(HomeSitter hs,Model model, HttpServletRequest request, MultipartHttpServletRequest mtfReq) {
 		String phone = request.getParameter("phone");
 		String phone1 = request.getParameter("phone1");
 		String phone2 = request.getParameter("phone2");
 		String contact = phone+phone1+phone2;
 		hs.setHs_contact(contact);
 		 //회원가입 메서드 
+		MultipartFile file = mtfReq.getFile("file");
+		System.out.println("일반,petjoin,file: " + file);
+		boolean rst = hsService.insertHomeSitterFile(hs, file);
 		boolean hsRst = hsService.joinHomeSitter(hs);
 		if(hsRst) {
 			System.out.println("회원가입 성공!!");
 			mailsender.mailSendWithMemberKey(hs.getHs_email(),hs.getHs_email_key(), request);
 			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요:)");	
-			model.addAttribute("url", "main");
+			
 		 return "main";
 		} 
 	return "joinForm";
@@ -91,6 +94,7 @@ public class HomeSitterController {
 	// e-mail 인증 컨트롤러
 	@RequestMapping(value = "/key_alter", method = RequestMethod.GET)
 	public String key_alterConfirm(Model model, String hs_email, String hs_email_key) {
+		System.out.println("이거 됌?"+hs_email+":"+hs_email_key);
 		if(mailsender.alter_userKey_service(hs_email, hs_email_key)>0) {
 			model.addAttribute("msg", "홈시터 회원가입이 완료되었습니다. 로그인 후 게시글 등록을 위해 회원정보를 업데이트 해주세요");
 			model.addAttribute("url", "loginForm");			
@@ -175,9 +179,9 @@ public class HomeSitterController {
 	@RequestMapping("/searchLoading")
 	public List<Map<String,Object>> homeSitterSearch(@RequestParam(value = "searchSwitch",  required = false) int switchNumber,
 			@RequestParam(value="hs_address" ,required = false) ArrayList<String> hs_address,@RequestParam Map<String, Object> params, HomeSitterList hsl) {
-//		System.out.println("여기까지?");
-//		System.out.println("swichNumber=====>" + switchNumber);
-//		System.out.println(params);
+		System.out.println("여기까지?");
+		System.out.println("swichNumber=====>" + switchNumber);
+		System.out.println(params);
 		if(switchNumber ==1) {
 			if(hsl==null) {			
 				hsl = new HomeSitterList();
@@ -186,16 +190,16 @@ public class HomeSitterController {
 				hs_address = new ArrayList<String>(); 			
 			}	
 			
-//			System.out.println("모델11:"+hs_address);
-//			System.out.println("hsl11:"+hsl);
+			System.out.println("모델11:"+hs_address);
+			System.out.println("hsl11:"+hsl);
 			List<Map<String,Object>>  hsList = hslService.getbySearchingHsl(hs_address,hsl);
-//			System.out.println("값11"+hsList);
+			System.out.println("값11"+hsList);
 			return hsList;			
 		}
 		else {
 			List<Map<String,Object>> hsList = hslService.getHsls();
-//			System.out.println("값22222"+hsList);
-//			System.out.println("hsList"+hsList);				
+			System.out.println("값22222"+hsList);
+			System.out.println("hsList"+hsList);				
 			return hsList;
 		}
 	}
@@ -261,7 +265,7 @@ public class HomeSitterController {
 			hsService.updateHsAddress(hs);
 			model.addAttribute("hsl_num", hsl.getHsl_num());
 			msg = "정상적으로 등록되었습니다.";
-			url = "home/view?hsl_num="+hsl.getHsl_num();
+			url = "view?hsl_num="+hsl.getHsl_num();
 		}else {
 			msg = "문제가 발생했습니다. 다시 작성해 주세요.";
 			url = "home";
