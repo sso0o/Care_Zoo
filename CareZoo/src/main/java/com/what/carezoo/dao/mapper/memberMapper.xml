@@ -138,7 +138,7 @@
 	</select>
 	
 	<select id="getModalVS" parameterType="int" resultType="map">
-		select vs.vs_name, vs.vs_contact, vs.vs_img, vsr.*, NVL(st.star,0) star
+		select vs.vs_name, vs.vs_contact, vs.vs_img, vsr.*, NVL(st.star,0) star, (vsr.VSR_ADDTOTAL + vsr.vsr_basictotal) vsr_addprice
 		from visitsitter vs,
 			(select *
 			from visitsitterreservation

@@ -304,7 +304,12 @@
 					$("#vs_contact").text(data.VS_CONTACT);
 					$("#vs_chkin").text(data.VSR_CHKIN+" "+data.VSR_HOUR+":00");
 					$("#vs_chkout").text(data.VSR_CHKIN+" "+(data.VSR_HOUR*1+3+data.VSR_HADD*1)+":00");
-					$("#vs_total").text(data.VSR_TOTALPRICE+"원");
+					if(data.VSR_DAY == 7){
+						$("#vs_total").text(data.VSR_ADDPRICE+"원");
+					} else{
+						$("#vs_total").text(data.VSR_TOTALPRICE+"원");
+					}
+					
 					var str = "";
 					if(data.VSR_ATTENTION.includes("1")){
 						str += "/ 놀이위주 ";
