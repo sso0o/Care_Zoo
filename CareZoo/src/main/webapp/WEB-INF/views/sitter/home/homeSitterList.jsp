@@ -342,7 +342,7 @@ li:hover {
 				var aArDiv = $('<div style="padding:50px;padding-left: 370px;height:350pxd">');
 				$('<span>').text(hsList[i].HS_NAME).appendTo(aArDiv);
 				
-				$('<span style="position: relative;left: 196px;">' + hsList[i].HS_ADDRESS + hsList[i].HS_D_ADDRESS+ '</span>').appendTo(aArDiv);
+				$('<span style="position: relative;left: 196px;">' + hsList[i].HS_ADDRESS + '</span>').appendTo(aArDiv);
 				$('<br><hr>').appendTo(aArDiv);
 				var reviewDiv = $('<div><span><strong>' + hsList[i].HSL_TITLE+ '</strong></span><br><br><br><br><br><hr>').appendTo(aArDiv);
 				$('<span>').text('후기: ' + (hsList[i].HSC_CMT_COUNT == null ? 0 : hsList[i].HSC_CMT_COUNT ) + '개 ').appendTo(reviewDiv)
