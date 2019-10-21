@@ -183,11 +183,17 @@
 	</select>
 	
 	<!-- updateStatus -->
-	<update id="updateStatusVSR" parameterType="int">
-		update visitsitterReservation set vsr_status = 3 where vsr_num = #{vsr_num}
+	<update id="updateStatusVSR" parameterType="map">
+		update visitsitterReservation 
+		set vsr_status = 3 ,
+		vsr_merchant_uid = #{uid}
+		where vsr_num = #{num}
 	</update>
-	<update id="updateStatusHSR" parameterType="int">
-		update homesitterReservation set hsr_status = 3 where hsr_num = #{hsr_num}
+	<update id="updateStatusHSR" parameterType="map">
+		update homesitterReservation 
+		set hsr_status = 3 ,
+		hsr_merchant_uid = #{uid}
+		where hsr_num = #{num}
 	</update>
 	
 	<select id="findC_id" parameterType="string" resultType="int">

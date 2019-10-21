@@ -240,39 +240,32 @@ li:hover {
 			isMenu2 = false;
 		});
 		//datepicker동작
-		var datepickerStart = $('#hsr_chkin')
-				.datepicker(
-						{
-							dateFormat : 'yy-mm-dd',
-							minDate : moment('yy-mm-dd').toDate(),
-							onSelect : function(selected) {
-								datepickerEnd.datepicker('option', 'minDate',
-										selected);
-
-								if (datepickerEnd.prop('disabled')) {
-									datepickerEnd.datepicker('setDate',
-											selected);
-								} else if (!datepickerEnd.val()) {
-									setTimeout($.proxy(
-											datepickerEnd.datepicker,
-											datepickerEnd, 'show'), 50);
-								}
-							}
-						});
+		var datepickerStart = $('#hsr_chkin').datepicker({
+			dateFormat: 'yy-mm-dd', 
+			minDate: 'today',
+			onSelect: function (selected) {
+				datepickerEnd.datepicker('option', 'minDate', selected);
+				if (datepickerEnd.prop('disabled')) {
+					datepickerEnd.datepicker('setDate', selected);
+				} 
+				showDays();
+			}
+		});
 		var datepickerEnd = $('#hsr_chkout').datepicker({
 			dateFormat : 'yy-mm-dd',
-			minDate : moment('yy-mm-dd').toDate()
+			minDate : 'today'
 		});
+		
 		loadingPage();
 		$(".search").on("click", function() {
-			alert("search 실행!!");
+// 			alert("search 실행!!");
 			searchSwitch = 1;
 			loadingPage();
 			$('.homeSitterlist').empty();
 			i = 0;
 		});
 		$(".reset").on("click", function() {
-			alert("reset 실행");
+// 			alert("reset 실행");
 			searchSwitch = 0;
 			loadingPage();
 			$('.homeSitterlist').empty();
@@ -310,7 +303,7 @@ li:hover {
 	var breaker = 0;
 	function ajaxSucessLoading(hsList) {
 		console.log(hsList);
-		console.log("성겅!");
+// 		console.log("성겅!");
 		for (i; breaker < 8; i++) {
 			console.log(i);
 			if (breaker < 7) {
@@ -382,7 +375,13 @@ li:hover {
 
 	//이미지 띄우기
 	// ajax로 이미지 띄우기 왜냐면 map으로 받으니깐!!!
-	
+	function logoutCheck() {
+		if (confirm("정말 로그아웃?") == true) {
+			location.href = '${contextPath}/logout'
+		} else {
+			return false;
+		}
+	}
 </script>
 </head>
 <body>

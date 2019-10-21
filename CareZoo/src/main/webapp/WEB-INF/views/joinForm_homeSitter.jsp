@@ -204,7 +204,63 @@ $(function() {
         	$("#pwchk_val").text("비밀번호가 다릅니다!")
 		}		
 	});//pw체크함수
-	
+	//옵션추가 버튼 클릭시
+	$("#addImgBtn").click(function() {
+//			
+		//파일 선택란을 보여준다.
+		//$("tr#item1").show();
+		// tr태그의 마지막 번째를 구해 id="item"의 형태로 만들어 lastItemNo에 대입
+		//새로 추가 할 경우 두번째 tr 값을 복사하여 newitem변수에 대입
+		//var newitem = $("#file"+lastItemNo).clone();
+		var newfile = "<input type='file' id='file' name='file' class='fileClass' style='display: none' accept='.jpg,.jpeg,.png,.gif,.bmp' />";
+		$("#example").append(newfile);
+		//아이템 추가시 id="item" 값에 넘버를 추가해 준다.               
+		//newitem.attr("id", "file" + (parseInt(lastItemNo) + 1));
+
+		$("#file").trigger('click');
+
+		//file형식의 그것의 취소버튼을 눌렀을 때.
+
+		//onclick=\"deleteImageAction("+index+")\"
+		$("#file").on("change",handleImgFileSelect);
+//			console.log("add가끝난뒤 index:"+index);
+	});
+
+	// 이미지 정보들을 담을 배열
+	var sel_files = [];
+
+	function fileUploadAction() {
+		console.log("fileUploadAction");
+		$("#file").trigger('click');
+	}
+
+	var sel_file;
+
+	function handleImgFileSelect(e) {
+//			console.log("handleImg");
+//			console.log("handleImg때의 index:"+index);
+		// 이미지 정보들을 초기화
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+
+		filesArr.forEach(function(f) {
+			if (!f.type.match("image.*")) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+			sel_file = f;
+			var reader = new FileReader();
+			
+			reader.onload = function(e) {
+				
+				var html = "<img src=\"" + e.target.result + "\" data-file='"+f.name+"' id='img' class='img' style='width:250px, height:250px'></a>";
+				$(".imgs_wrap").children().remove();
+				$(".imgs_wrap").append(html);
+			}		
+			reader.readAsDataURL(f);		
+		});
+		index++;		
+	}
 
 });
 
@@ -216,6 +272,45 @@ $(function() {
 body{
    font-family: 'Noto Sans KR', sans-serif;
 }
+/*이미지*/
+
+.img_wrap {
+	width: 300px;
+	margin-top: 50px;
+}
+
+.img_wrap img {
+	max-width: 100%;
+} 
+.btn-addImg {
+	border-color: #40bf9f;
+	color: #40bf9f;
+	font-weight: bold;
+	border: 1.5px solid;
+	float: right;
+	margin: 95px 70px;
+}
+
+.btn-addImg:hover {
+	border-color: #40bf9f;
+	background-color: #40bf9f;
+	color: #fff;
+}
+
+.imgs_wrap {
+	float: left;
+}
+
+.img {
+	width: 250px;
+	height: 250px;
+}
+
+.imgs {
+	display: inline-block;
+}
+
+/**/
 .content{
 	width: 900px;
 	margin: 0 auto;
@@ -335,9 +430,9 @@ legend{
 	<br>
 	<br>
 	<div class="content">
-		<h2>회원가입</h2>
+		<h2>가정시터 회원가입</h2>
 		<hr>
-		<form action="${contextPath }/home/join" method="post" name="homesitterInfo" onsubmit="return checkValue()">
+		<form action="${contextPath }/home/join" method="post" name="homesitterInfo" onsubmit="return checkValue()" enctype="multipart/form-data">
 			<%-- 			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"> --%>
 			<div class="main">
 				<div class="form-group">
@@ -388,7 +483,16 @@ legend{
 							<option value="017">017</option>
 						</select> - <input type="text" name="phone1" id="phone1" style="width: 65px; height: 26px;"> - <input type="text" name="phone2" id="phone2" style="width: 65px; height: 26px;">
 					</div>
+				</div>				
+								
+				<div class="form-group imgs">
+					<div class="imgs_wrap" id="imgs_wrap" >
+						<img id="img" class="img" >
+					</div>
+					<input type="button" class="btn btn-addImg" id="addImgBtn" value="사진 등록">
+					<div id="example"></div>
 				</div>
+	
 				<div class="btnGroup">
 					<input type="submit" class="btn btn-submit" value="가입">
 					<input type="button" class="btn btn-cancle" value="취소" onclick="cancleCheck()">

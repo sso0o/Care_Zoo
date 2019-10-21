@@ -140,6 +140,9 @@ $(function() {
 </script>
 
 <style type="text/css">
+body{
+   font-family: 'Noto Sans KR', sans-serif;
+}
 .content{
 	width: 900px;
 	margin: 0 auto;
@@ -236,7 +239,7 @@ legend{
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body class="container">
 	<div class="container">
 		<header>
 			<a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
@@ -269,19 +272,15 @@ legend{
 						<li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
 					</ul></li>
 				<li class='active sub'><a href='${contextPath}/hotel/main'>HOTEL</a>
-					<ul>
-						<li class='last'><a href='${contextPath}/dongbanHotel/hotelList'>애견동반호텔</a></li>
-						<li class='last'><a href='${contextPath}/petHotel/petHotelList'>애견호텔(보호자비동반)</a></li>
-					</ul></li>
-				<li class='active sub'><a href='${contextPath}/comment/hscList'>REVIEW</a>
-					<ul>
-						<!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
-						<li class='last'><a href='${contextPath}/comment/hscList'>가정시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/vscList'>방문시터</a></li>
-						<li class='last'><a href='${contextPath}/comment/phcList'>펫호텔</a></li>
-					</ul></li>
-				<li class='last'><a href='#' style="font-size: 17px">MY PAGE</a></li>
-				<li class='last'><a href='#' style="font-size: 17px">Q&A</a></li>
+                    <ul>
+                        <li class='last'><a href='${contextPath}/petHotel/petHotelList'>펫호텔</a></li>
+
+                        <!--                   <li class='sub'><a href='#'>시터</a></li> 하위메뉴 생기게 하는방법-->
+
+                    </ul>
+
+				<li class='last'><a href='${contextPath}/member/myPage' style="font-size: 17px">MY PAGE</a></li>
+				<li class='last'><a href='${contextPath}/member/qna' style="font-size: 17px">Q&A</a></li>
 			</ul>
 		</div>
 	</nav>

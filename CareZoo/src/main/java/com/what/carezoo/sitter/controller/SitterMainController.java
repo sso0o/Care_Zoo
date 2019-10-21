@@ -424,7 +424,7 @@ public class SitterMainController {
 		Customer c = memberService.getMemberByC_num(hsr.getC_num());
 		if(hsrService.acceptHsr(hsr_num) && mailsender.mailSendacceptHome(hsr, hs, c, request)) {
 			m.addAttribute("msg", "수락이 완료되었습니다!");
-
+			System.out.println("=====================================================예약완료");
 		} else {
 			m.addAttribute("msg", "예약을 수락할 수 없습니다.");
 		}

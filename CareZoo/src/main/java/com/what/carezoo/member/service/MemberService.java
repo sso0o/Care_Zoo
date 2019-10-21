@@ -216,14 +216,20 @@ public class MemberService {
 	}
 	
 	//updateStatus
-	public boolean updateStatusHSR(int num) {
-		if(memberDao.updateStatusHSR(num)>0) {
+	public boolean updateStatusHSR(int num, String uid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("num",num);
+		param.put("uid",uid);
+		if(memberDao.updateStatusHSR(param)>0) {
 			return true;
 		}
 		return false;
 	}
-	public boolean updateStatusVSR(int num) {
-		if(memberDao.updateStatusVSR(num)>0) {
+	public boolean updateStatusVSR(int num, String uid) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("num",num);
+		param.put("uid",uid);
+		if(memberDao.updateStatusVSR(param)>0) {
 			return true;
 		}
 		return false;

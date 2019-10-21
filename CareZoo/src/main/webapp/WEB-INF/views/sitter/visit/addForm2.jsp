@@ -31,7 +31,7 @@ function logoutCheck() {
 		return false;
 	}
 }
-
+ 
 $(function() { //문서가 로딩되면 실행할 함수
 	
 })

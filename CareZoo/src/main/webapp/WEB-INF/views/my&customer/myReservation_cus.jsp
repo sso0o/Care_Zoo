@@ -250,6 +250,7 @@
 					}
 					$("#hs_name").text(data.HS_NAME);
 					$("#hs_contact").text(data.HS_CONTACT);
+					$("#hs_address").text(data.HS_ADDRESS+" "+data.HS_D_ADDRESS)
 					$("#hs_chkin").text(data.HSR_CHKIN + " "+data.HSR_PICKUP_TIME);
 					$("#hs_chkout").text(data.HSR_CHKOUT+" "+data.HSR_DROPOFF_TIME);
 					$("#hs_total").text(data.HSR_TOTALPRICE+"원");
@@ -357,10 +358,11 @@
 				dataType: "JSON",
 				success: function(data) {
 					IMP.init('imp94354183');
+					var merchant_uid = 'merchant_' + new Date().getTime();
 					IMP.request_pay({
 					    pg : 'inicis', // version 1.1.0부터 지원.
 					    pay_method : 'card',
-					    merchant_uid : 'merchant_' + new Date().getTime(),
+					    merchant_uid : merchant_uid,
 					    name : data.name,
 //		 			    amount : $('.totalValue').text().replace(/,/gi, "")*1,
 					    amount : data.rst.TOTAL,
@@ -371,11 +373,13 @@
 					    buyer_postcode : data.rst.C_D_ADDRESS
 					}, function(rsp) {
 					    if ( rsp.success ) {
+					    	console.log(rsp)
 					       $.ajax({
 					    	   url:"${contextPath}/member/updateStatus",
 					    	   data:{
 					    		   num: $(".number").val(),
-									type: $(".groupid").val()
+									type: $(".groupid").val(),
+									uid : merchant_uid
 								},
 								dataType: "JSON",
 								success: function(data) {
@@ -391,8 +395,8 @@
 						} else {
 							var msg = '결제에 실패하였습니다.';
 							msg += '에러내용 : ' + rsp.error_msg;
+							alert(msg);
 						}
-						alert(msg);
 					});
 				},
 				error: function() {

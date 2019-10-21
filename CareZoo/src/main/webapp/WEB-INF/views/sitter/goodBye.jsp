@@ -37,6 +37,7 @@ body{
 <title>회원탈퇴</title>
 </head>
 <body>
+
 <br><br><br><br><br>
 <h2 style="text-align:center;">회원탈퇴가 완료되었습니다</h2>
 <input type="button" value="확인" onclick="location.href='${contextPath}/logout'" class="btn btn-ok">

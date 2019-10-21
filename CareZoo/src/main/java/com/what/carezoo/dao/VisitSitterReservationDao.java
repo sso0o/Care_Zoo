@@ -13,6 +13,7 @@ public interface VisitSitterReservationDao {
 	public int insert(VisitSitterReservation vsr);
 	public int update(VisitSitterReservation vsr);
 	public int update2(VisitSitterReservation vsr);
+	public int updatePrice(List<Map<String, Object>> rst);
 	public int updateTotalPrice(@Param("vsr_totalPrice")String vsr_totalPrice,@Param("list")ArrayList<Integer> vsr_num);
 	public int updateContents(@Param("vsr_attention")String vsr_attention,@Param("vsr_contents")String vsr_contents,@Param("list")ArrayList<Integer> vsr_num);
 	public int updateVsr_Chkin(@Param("vsr_chkin")String vsr_chkin,@Param("list")ArrayList<Integer> vsr_num);
@@ -31,6 +32,7 @@ public interface VisitSitterReservationDao {
 	public List<VisitSitterReservation> selectByVSnum(int vs_num);
 //	public VisitSitterReservation selectByResInfo(VisitSitterReservation vsr);
 	public List<VisitSitterReservation> selectByVsrCount(int vsr_count);
+	public List<VisitSitterReservation> selectAddPrice(@Param("vsr_count")int vsr_count,@Param("c_num")int c_num);
 	public List<VisitSitterReservation> selectAll();
 	
 	public List<VisitSitterReservation>getVsrByStatus7();
