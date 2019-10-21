@@ -16,44 +16,8 @@ public class VisitSitterReservation {
 	private String vsr_contents;
 	private String vsr_day;
 	private int vsr_count;
-	
-	
-	public int getVsr_count() {
-		return vsr_count;
-	}
-	public void setVsr_count(int vsr_count) {
-		this.vsr_count = vsr_count;
-	}
-	public String getVsr_day() {
-		return vsr_day;
-	}
-	public void setVsr_day(String vsr_day) {
-		this.vsr_day = vsr_day;
-	}
-	public String getVsr_contents() {
-		return vsr_contents;
-	}
-	public void setVsr_contents(String vsr_contents) {
-		this.vsr_contents = vsr_contents;
-	}
-	public String getVsr_attention() {
-		return vsr_attention;
-	}
-	public void setVsr_attention(String vsr_attention) {
-		this.vsr_attention = vsr_attention;
-	}
-	public String getVsr_totalPrice() {
-		return vsr_totalPrice;
-	}
-	public void setVsr_totalPrice(String vsr_totalPrice) {
-		this.vsr_totalPrice = vsr_totalPrice;
-	}
-	public String getVsr_hAdd() {
-		return vsr_hAdd;
-	}
-	public void setVsr_hAdd(String vsr_hAdd) {
-		this.vsr_hAdd = vsr_hAdd;
-	}
+	private String vsr_imp_uid;
+	private String vsr_merchant_uid;
 	public int getVsr_num() {
 		return vsr_num;
 	}
@@ -84,18 +48,70 @@ public class VisitSitterReservation {
 	public void setVsr_hour(String vsr_hour) {
 		this.vsr_hour = vsr_hour;
 	}
+	public String getVsr_hAdd() {
+		return vsr_hAdd;
+	}
+	public void setVsr_hAdd(String vsr_hAdd) {
+		this.vsr_hAdd = vsr_hAdd;
+	}
 	public String getVsr_status() {
 		return vsr_status;
 	}
 	public void setVsr_status(String vsr_status) {
 		this.vsr_status = vsr_status;
 	}
+	public String getVsr_totalPrice() {
+		return vsr_totalPrice;
+	}
+	public void setVsr_totalPrice(String vsr_totalPrice) {
+		this.vsr_totalPrice = vsr_totalPrice;
+	}
+	public String getVsr_attention() {
+		return vsr_attention;
+	}
+	public void setVsr_attention(String vsr_attention) {
+		this.vsr_attention = vsr_attention;
+	}
+	public String getVsr_contents() {
+		return vsr_contents;
+	}
+	public void setVsr_contents(String vsr_contents) {
+		this.vsr_contents = vsr_contents;
+	}
+	public String getVsr_day() {
+		return vsr_day;
+	}
+	public void setVsr_day(String vsr_day) {
+		this.vsr_day = vsr_day;
+	}
+	public int getVsr_count() {
+		return vsr_count;
+	}
+	public void setVsr_count(int vsr_count) {
+		this.vsr_count = vsr_count;
+	}
+	public String getVsr_imp_uid() {
+		return vsr_imp_uid;
+	}
+	public void setVsr_imp_uid(String vsr_imp_uid) {
+		this.vsr_imp_uid = vsr_imp_uid;
+	}
+	public String getVsr_merchant_uid() {
+		return vsr_merchant_uid;
+	}
+	public void setVsr_merchant_uid(String vsr_merchant_uid) {
+		this.vsr_merchant_uid = vsr_merchant_uid;
+	}
 	@Override
 	public String toString() {
 		return "VisitSitterReservation [vsr_num=" + vsr_num + ", c_num=" + c_num + ", vs_num=" + vs_num + ", vsr_chkin="
 				+ vsr_chkin + ", vsr_hour=" + vsr_hour + ", vsr_hAdd=" + vsr_hAdd + ", vsr_status=" + vsr_status
 				+ ", vsr_totalPrice=" + vsr_totalPrice + ", vsr_attention=" + vsr_attention + ", vsr_contents="
-				+ vsr_contents + ", vsr_day=" + vsr_day + ", vsr_count=" + vsr_count + "]";
+				+ vsr_contents + ", vsr_day=" + vsr_day + ", vsr_count=" + vsr_count + ", vsr_imp_uid=" + vsr_imp_uid
+				+ ", vsr_merchant_uid=" + vsr_merchant_uid + "]";
 	}
+	
+	
+	
 	
 }

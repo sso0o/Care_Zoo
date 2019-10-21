@@ -21,6 +21,8 @@ public class HomeSitterReservation {
 	private String hsr_priceperpetsize;
 	private String hsr_priceperdays;
 	private String hsr_days;
+	private String hsr_imp_uid;
+	private String hsr_merchant_uid;
 	public int getHsr_num() {
 		return hsr_num;
 	}
@@ -135,6 +137,18 @@ public class HomeSitterReservation {
 	public void setHsr_days(String hsr_days) {
 		this.hsr_days = hsr_days;
 	}
+	public String getHsr_imp_uid() {
+		return hsr_imp_uid;
+	}
+	public void setHsr_imp_uid(String hsr_imp_uid) {
+		this.hsr_imp_uid = hsr_imp_uid;
+	}
+	public String getHsr_merchant_uid() {
+		return hsr_merchant_uid;
+	}
+	public void setHsr_merchant_uid(String hsr_merchant_uid) {
+		this.hsr_merchant_uid = hsr_merchant_uid;
+	}
 	@Override
 	public String toString() {
 		return "HomeSitterReservation [hsr_num=" + hsr_num + ", c_num=" + c_num + ", hs_num=" + hs_num + ", hsr_chkin="
@@ -143,7 +157,9 @@ public class HomeSitterReservation {
 				+ hsr_duringdays + ", hsr_purpose=" + hsr_purpose + ", hsr_message=" + hsr_message + ", hsr_write_date="
 				+ hsr_write_date + ", hsr_pickup_time=" + hsr_pickup_time + ", hsr_dropoff_time=" + hsr_dropoff_time
 				+ ", hsr_priceperday=" + hsr_priceperday + ", hsr_priceperpetsize=" + hsr_priceperpetsize
-				+ ", hsr_priceperdays=" + hsr_priceperdays + ", hsr_days=" + hsr_days + "]";
+				+ ", hsr_priceperdays=" + hsr_priceperdays + ", hsr_days=" + hsr_days + ", hsr_imp_uid=" + hsr_imp_uid
+				+ ", hsr_merchant_uid=" + hsr_merchant_uid + "]";
 	}
+	
 	
 }

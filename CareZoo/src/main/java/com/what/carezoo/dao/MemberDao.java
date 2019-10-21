@@ -52,8 +52,8 @@ public interface MemberDao {
 	public Map<String, Object> getPayInfoVSR(int vsr_num);
 	
 	//updateStatus
-	public int updateStatusHSR(int hsr_num);
-	public int updateStatusVSR(int vsr_num);
+	public int updateStatusHSR(Map<String, Object> param);
+	public int updateStatusVSR(Map<String, Object> param);
 	
 	//kakao
 	public int insertCustomer2(Customer customer);

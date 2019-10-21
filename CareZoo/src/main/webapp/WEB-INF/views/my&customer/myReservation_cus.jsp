@@ -358,10 +358,11 @@
 				dataType: "JSON",
 				success: function(data) {
 					IMP.init('imp94354183');
+					var merchant_uid = 'merchant_' + new Date().getTime();
 					IMP.request_pay({
 					    pg : 'inicis', // version 1.1.0부터 지원.
 					    pay_method : 'card',
-					    merchant_uid : 'merchant_' + new Date().getTime(),
+					    merchant_uid : merchant_uid,
 					    name : data.name,
 //		 			    amount : $('.totalValue').text().replace(/,/gi, "")*1,
 					    amount : data.rst.TOTAL,
@@ -372,11 +373,13 @@
 					    buyer_postcode : data.rst.C_D_ADDRESS
 					}, function(rsp) {
 					    if ( rsp.success ) {
+					    	console.log(rsp)
 					       $.ajax({
 					    	   url:"${contextPath}/member/updateStatus",
 					    	   data:{
 					    		   num: $(".number").val(),
-									type: $(".groupid").val()
+									type: $(".groupid").val(),
+									uid : merchant_uid
 								},
 								dataType: "JSON",
 								success: function(data) {
