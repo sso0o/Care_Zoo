@@ -33,7 +33,7 @@
 	<foreach collection="list" item="a" index="index" separator=";">
 		update VisitSitterReservation set vsr_addtotal = #{a.hadds}, VSR_BASICTOTAL = #{a.basic}
 		where vsr_num = #{a.num}
-	</foreach>
+	</foreach>;
 	END;
 <!-- 		update VisitSitterReservation -->
 <!-- 		set vsr_basicTotal = #{vsr_basicTotal}, -->
