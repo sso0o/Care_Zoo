@@ -184,7 +184,7 @@ body{
 				</div>
 			</div>
 			
-  <div class="container">  
+   <div class="container">  
         <header>  
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
             <br>

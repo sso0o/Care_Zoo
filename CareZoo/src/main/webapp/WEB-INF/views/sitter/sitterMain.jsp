@@ -86,9 +86,9 @@ body {
 <!-- 방문펫시터, 가정집펫시터 고르는부분  -->
 </head>
 <body class="container">
-  <div class="container">
-        <header>
-            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo"></a>
+   <div class="container">  
+        <header>  
+            <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
             <br>
 			<div class="header_Btn" id="sessioncheck">
 				<sec:authorize access="isAnonymous()">
@@ -97,7 +97,7 @@ body {
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<label id="principal" style="display: none;"><sec:authentication property="principal" /></label>
-					<label><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
+					<label style="width: 150px;"><%=session.getAttribute("user_name")%>님 반갑습니다!</label>
 					<a class="btn_Logout" onclick="logoutCheck()" href="#">로그아웃</a>
 				</sec:authorize>
 			</div>
@@ -108,14 +108,7 @@ body {
             <ul style="">
                 <li class='active sub'><a href='${contextPath}/sitter/main'>SITTER</a>
                     <ul>
-                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a>
-                            <!-- 
-                     <ul>
-                        <li><a href='#'>HTML Basic</a></li>
-                        <li class='last'><a href='#'>HTML Advanced</a></li>
-                     </ul>
-                      -->
-                        </li>
+                        <li class='last'><a href='${contextPath}/home/main'>가정펫시터</a></li>
                         <li class='last'><a href='${contextPath}/visit/main'>방문펫시터</a></li>
                     </ul>
                 </li>
@@ -132,7 +125,10 @@ body {
             </ul>
         </div>
     </nav>
-    <br><br><br>
+    <div class='container'></div>
+	<br>
+	<br>
+	<br>
     <div class="container" id="choice">
     <br><br><br><br><br><br>
 				<button type="button" class="btn btn-outline-dark" onclick="location.href='${contextPath}/home/main'">가정시터</button>				
