@@ -81,10 +81,10 @@ public class HomeSitterController {
 		MultipartFile file = mtfReq.getFile("file");
 		System.out.println("일반,petjoin,file: " + file);
 		boolean rst = hsService.insertHomeSitterFile(hs, file);
-		boolean hsRst = hsService.joinHomeSitter(hs);
-		if(hsRst) {
+//		boolean hsRst = hsService.joinHomeSitter(hs);
+		if(rst) {
 			System.out.println("회원가입 성공!!");
-			mailsender.mailSendWithMemberKey(hs.getHs_email(),hs.getHs_email_key(), request);
+			mailsender.mailSendWithMemberKey(hs.getHs_email(),hs.getHs_name(), request);
 			model.addAttribute("msg", "인증 메일이 전송 되었습니다. 확인 후 로그인 해주세요:)");	
 			
 		 return "main";

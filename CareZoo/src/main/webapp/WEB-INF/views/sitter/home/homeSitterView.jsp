@@ -286,12 +286,11 @@ $(function() {
 		}
 		
 	});
-		
+
 	$('#petSize-select').off("change").on("change",function() {
 // 		console.log("펫사이즈")
 		empdays = document.getElementById('days').value;
 // 		console.log("petSize-select")
-
 		if($('#petSize-select option:selected').val()=="소형견, 중형견"){
 			pricePerPetSize = 15000;
 			if(days==0){
@@ -553,14 +552,6 @@ $(function() {
 			return false;
 		}
 	}
-// 로그아웃확인 <--모든페이지에 필수
-function logoutCheck() {
-	if (confirm("정말 로그아웃?") == true) {
-		location.href = '${contextPath}/logout'
-	} else {
-		return false;
-	}
-}
 
 $(function() { //문서가 로딩되면 실행할 함수
 	//----카카오 1:1상담
@@ -576,12 +567,14 @@ $(function() { //문서가 로딩되면 실행할 함수
 	//----카카오 1:1상담	
 })
 function logoutCheck() {
-		if (confirm("정말 로그아웃?") == true) {
-			location.href = '${contextPath}/logout'
-		} else {
-			return false;
-		}
+	if (confirm("정말 로그아웃?") == true) {
+		location.href = '${contextPath}/logout'
+	} else {
+		return false;
 	}
+}
+	
+
 // $(document).ready(function() { //문서가 로딩되면 실행할 함수 $(function(){ })  이랑 같음 둘중에 하나만!
 
 // })
@@ -594,6 +587,8 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 </script>
 </head>
 <body>
+<input type="text" id="hslPetSize" value="${hsList.HSL_SIZE }" >
+
   <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
