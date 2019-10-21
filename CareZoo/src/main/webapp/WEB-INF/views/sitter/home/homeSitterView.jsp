@@ -587,8 +587,6 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 </script>
 </head>
 <body>
-<input type="text" id="hslPetSize" value="${hsList.HSL_SIZE }" >
-
   <div class="container">
         <header>
             <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.jpg" class="anchor_logo" style="position: relative; left: 35px"></a>
@@ -800,6 +798,19 @@ var user_name = "<%=session.getAttribute("user_name")%>"
 							</td>
 							<td style="position:relative;left: 11px;">
 								<select id="petSize-select" name="hsl_size" data-width="130px">
+									<c:choose>
+										<c:when test="${hsList.HSL_SIZE eq null}">
+											<img src="${contextPath}/resources/img/user.jpg" class="mr-3 mt-3 rounded-circle" style="width: 60px; height: 60px">
+										</c:when>
+										<c:otherwise>
+											<img src="${contextPath }/home/image?fileName=${cmmt.C_FILENAME }" class="mr-3 mt-3 rounded-circle" style="width: 60px; height: 60px">
+										</c:otherwise>
+									</c:choose>
+										
+								
+								
+								
+								
 									<option id="nomalSize" value="소형견, 중형견" selected="selected">15kg 미만</option>
 									<option id="bigSize" value="대형견">15kg 이상</option>
 								</select>

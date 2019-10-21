@@ -302,10 +302,10 @@ li:hover {
 	//
 	var breaker = 0;
 	function ajaxSucessLoading(hsList) {
-// 		console.log(hsList);
+		console.log(hsList);
 // 		console.log("성겅!");
 		for (i; breaker < 8; i++) {
-// 			console.log(i);
+			console.log(i);
 			if (breaker < 7) {
 				var petHotelDiv = $('<div class="homeSitter" onclick="location.href=\'${contextPath}/home/view?hsl_num='+ hsList[i].HSL_NUM+ '\'\"style="border: 1px solid rgba(0,0,0,0.3); margin: 50px; height: 352px;border-radius:5px">');
 				var petHotelDiv2 = $('<div style="width: auto; display: inline-block display:inline; float: left; "> ');
