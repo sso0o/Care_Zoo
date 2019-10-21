@@ -16,8 +16,22 @@ public class VisitSitterReservation {
 	private String vsr_contents;
 	private String vsr_day;
 	private int vsr_count;
+	private String vsr_basicTotal;
+	private String vsr_addTotal;
 	
 	
+	public String getVsr_basicTotal() {
+		return vsr_basicTotal;
+	}
+	public void setVsr_basicTotal(String vsr_basicTotal) {
+		this.vsr_basicTotal = vsr_basicTotal;
+	}
+	public String getVsr_addTotal() {
+		return vsr_addTotal;
+	}
+	public void setVsr_addTotal(String vsr_addTotal) {
+		this.vsr_addTotal = vsr_addTotal;
+	}
 	public int getVsr_count() {
 		return vsr_count;
 	}
@@ -95,7 +109,8 @@ public class VisitSitterReservation {
 		return "VisitSitterReservation [vsr_num=" + vsr_num + ", c_num=" + c_num + ", vs_num=" + vs_num + ", vsr_chkin="
 				+ vsr_chkin + ", vsr_hour=" + vsr_hour + ", vsr_hAdd=" + vsr_hAdd + ", vsr_status=" + vsr_status
 				+ ", vsr_totalPrice=" + vsr_totalPrice + ", vsr_attention=" + vsr_attention + ", vsr_contents="
-				+ vsr_contents + ", vsr_day=" + vsr_day + ", vsr_count=" + vsr_count + "]";
+				+ vsr_contents + ", vsr_day=" + vsr_day + ", vsr_count=" + vsr_count + ", vsr_basicTotal="
+				+ vsr_basicTotal + ", vsr_addTotal=" + vsr_addTotal + "]";
 	}
 	
 }

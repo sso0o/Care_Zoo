@@ -52,6 +52,13 @@ public class VisitSitterReservationService {
 		return false;
 	}
 	
+	public boolean updatePrice(List<Map<String, Object>> rst) {
+		if(vsrDao.updatePrice(rst) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean updateTotalPrice(String vsr_totalPrice,ArrayList<Integer> vsr_num) {
 		if(vsrDao.updateTotalPrice(vsr_totalPrice,vsr_num)>0) {
 			return true;
@@ -78,6 +85,10 @@ public class VisitSitterReservationService {
 			return true;
 		}
 		return false;
+	}
+	
+	public List<VisitSitterReservation> selectAddPrice(int vsr_count, int c_num) {
+		return vsrDao.selectAddPrice(vsr_count, c_num);
 	}
 	
 	

@@ -105,7 +105,10 @@ var tmpTotalLength = $("input[name=hAdds]").length;
 			console.log(data);
 				var max = $("input[name=p_num]").length-1;
 				 var total = 28000+(5000*max)+"원";	
+				 var basic = 28000+(5000*max);
+				 var basicTotal = $("<input type='hidden' id='basicTotal' class='basicTotal' name ='basicTotal'>").val(basic);
 				 $("#total").append(total);
+				 $("#total").append(basicTotal);
 				 	for(var i =0;i<$("input[name=p_num]").length;i++){
 			 		if(i>0){
 			 			var str = $("<tr><th>한마리 추가</th> <td>5000원</td></tr>");
