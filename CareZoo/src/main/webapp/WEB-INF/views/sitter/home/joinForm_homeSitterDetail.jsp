@@ -252,6 +252,10 @@ function checkValue() {
 var index = 1;
 //아이디 체크여부 확인 (아이디 중복일 경우 = 0 , 중복이 아닐경우 = 1 )
 $(function() {
+	$("#address").val("${hs.hs_address}");
+	$("#d_address").val("${hs.hs_d_address}");
+	
+	
 	$("#email").change(function() {
 		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		var hs_email = $("#email").val();

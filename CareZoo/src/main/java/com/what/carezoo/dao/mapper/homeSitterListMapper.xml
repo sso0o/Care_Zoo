@@ -85,6 +85,7 @@
 
 <!-- 홈시터 게시글 검색 리스트 가져오기 -->
 	<select id="selectAllHsl" resultMap="hslsMap">
+	
 		select hs.hs_num,hs_name,hs_address,hs_d_address,hsl.hsl_num,hsl_title,hsl_size,hsl_service_type,hsc_cmt_count,hs_avgstar,hsl_writedate
         from (select *  from homesitter 
              <trim prefix="where" prefixOverrides="AND|OR">
@@ -94,16 +95,17 @@
 					hs_address like ('%${item}%')
 				</foreach>
 				</if>
-				 and hs_num not in (select hs_num from homesitterreservation 
-		          		where hsr_status = 3
+<!-- 				 and hs_num not in (select hs_num from homesitterreservation  -->
+<!-- 		          		where hsr_status = '3' -->
 		          <if test="hsl.hsr_chkin != ''">
 					<if test="hsl.hsr_chkout != ''">
-		          		AND hsr_chkin not in (SELECT hsr_chkin FROM homesitterreservation   where hsr_chkin <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsr_chkin <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
-		 				or hsr_chkout not in (SELECT hsr_chkout FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+		          		AND hs_num not in (SELECT hs_num FROM homesitterreservation   where hsr_chkin <![CDATA[>=]]> ('%${hsl.hsr_chkin}%')  AND hsr_chkin <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
+		 				and hs_num not in (SELECT hs_num FROM homesitterreservation where hsr_chkout <![CDATA[>=]]> ('%${hsl.hsr_chkin}%') AND hsr_chkout <![CDATA[<=]]> ('%${hsl.hsr_chkout}%'))
 					</if>
-				  </if>							
+				  </if>		
+				  and hs_num in (select hs_num from homesitterlist where hsl_status= 1)					
 			</trim>
-			  )) hs,			  
+			  ) hs,			  
             (select hs_num, hsl_num,  hsl_service_type, hsl_size, hsl_pet_age, hsl_writedate,hsl_status,hsl_title from homesitterlist 
               <trim prefix="where" prefixOverrides="AND|OR">
               	 hsl_status = 1   

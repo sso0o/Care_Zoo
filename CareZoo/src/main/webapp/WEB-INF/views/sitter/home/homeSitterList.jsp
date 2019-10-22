@@ -346,7 +346,7 @@ li:hover {
 				$('<br><hr>').appendTo(aArDiv);
 				var reviewDiv = $('<div><span><strong>' + hsList[i].HSL_TITLE+ '</strong></span><br><br><br><br><br><hr>').appendTo(aArDiv);
 				$('<span>').text('후기: ' + (hsList[i].HSC_CMT_COUNT == null ? 0 : hsList[i].HSC_CMT_COUNT ) + '개 ').appendTo(reviewDiv)
-				$('<span style="position: relative;left: 196px;">').text('평점: ' + hsList[i].HS_AVGSTAR).appendTo(reviewDiv);
+				$('<span style="position: relative;left: 196px;">').text('평점: ' + (hsList[i].HS_AVGSTAR == null ? 0 : hsList[i].HS_AVGSTAR)).appendTo(reviewDiv);
 				reviewDiv.appendTo(aArDiv);
 				aArDiv.appendTo(petHotelDiv);
 				$('.homeSitterlist').append(petHotelDiv);
