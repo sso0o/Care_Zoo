@@ -73,12 +73,12 @@ public class HomeSitterMailSendService {
 					= "<div style='margin:30px auto;width:600px;border:10px solid #f7f7f7'>"
 				    + "<div style='border:1px solid #dedede'>"
 			        + "<h1 style='padding:30px 30px 0;background:#f7f7f7;color:#555;font-size:1.4em'>회원가입을 축하합니다.</h1>"
-			        + "<span style='display:block;padding:10px 30px 30px;background:#f7f7f7;text-align:right'><a href='http://localhost:8081"+request.getContextPath()+"'>맡겨Zoo</a></span>"
+			        + "<span style='display:block;padding:10px 30px 30px;background:#f7f7f7;text-align:right'><a href='http://localhost:8082"+request.getContextPath()+"'>맡겨Zoo</a></span>"
 			        + "<p style='margin:20px 0 0;padding:30px 30px 50px;min-height:200px;height:auto !important;height:200px;border-bottom:1px solid #eee'>"
 			        + "<b>"+ hs_name +"</b> 님의 회원가입을 진심으로 축하합니다.<br>"
 			        + "회원님의 성원에 보답하고자 더욱 더 열심히 하겠습니다.<br>"
 			        + "아래의 <strong>메일인증</strong>을 클릭하시면 회원가입이 완료됩니다.<br>            감사합니다. <br>"
-			        + "<a href='http://localhost:8081" + request.getContextPath() + "/home/key_alter?hs_email="+ hs_email +"&hs_email_key="+key+"'>인증하기</a>"
+			        + "<a href='http://localhost:8082" + request.getContextPath() + "/home/key_alter?hs_email="+ hs_email +"&hs_email_key="+key+"'>인증하기</a>"
 			        + "</p></div></div>";
 			try {
 				mail.setSubject("[본인인증] MS :p 맡겨쥬의 인증메일입니다", "utf-8");
