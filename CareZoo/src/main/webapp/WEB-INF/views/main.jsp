@@ -111,6 +111,17 @@ footer {
 	margin: 2px;
 }
 
+.sitterReview p, .hotelReview p{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    height: 70px;
+
+}
+
 legend{
 	border: 5px solid #ddd;
     border-radius: 5px;
@@ -151,6 +162,10 @@ main{
 .menu>ul{
 height:45px;
 
+}
+
+.p-3{
+	height: 130px;
 }
 
 </style>
